@@ -1,0 +1,653 @@
+/*
+ * piggydb-shared.css
+ *
+ * Styles for the components shared within multiple pages.
+ */
+
+
+
+/*
+ * Common Components
+ */
+
+/* Click Framework Components */
+
+table.form {
+  margin-bottom: 15px;
+}
+
+.errors .error {
+	white-space: normal;
+}
+
+#menuTable img.link {
+	margin-top: -1px;
+	margin-bottom: -1px;
+}
+
+
+/* jQuery UI */
+
+.ui-draggable {
+	cursor: move;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	font-size: 12px;
+}
+
+.ui-dialog .dialog-confirm {
+	font-size: 12px;
+}
+
+.ui-dialog .dialog-confirm .detail {
+	padding-top: 10px;
+}
+
+.ui-dialog .dialog-confirm .detail img {
+	margin: 0 5px;
+}
+
+.ui-dialog .ui-dialog-buttonset {
+  font-size: 12px;
+}
+
+
+/* Tool Button */
+
+a.tool-button img {
+  padding: 0px;
+  border: 1px solid transparent;
+}
+
+a.tool-button:hover img {
+  border-top: 1px solid #f0f0f0; 
+  border-left: 1px solid #f0f0f0; 
+  border-bottom: 1px solid #707070; 
+  border-right: 1px solid #707070; 
+}
+
+a.tool-button-toggled img {
+  border-top: solid 1px #777;
+  border-left: solid 1px #777;
+  border-bottom:solid 1px  #eaeaea;
+  border-right: solid 1px #eaeaea;
+  background: #bbb;
+}
+
+
+/* Paging */
+
+table.page-link {
+  margin: 0px;
+  padding: 0px;
+  border-collapse:collapse;
+}
+
+table.page-link td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+table.page-link .page-number {
+  font-weight: bold;
+  font-size: 8pt;
+}
+
+
+/* Simple List */
+
+.simple-list {
+  white-space: nowrap;
+}
+
+.simple-list ul {
+  list-style-type: none;
+  margin: 0px;
+  margin-left: 5px;
+  padding: 0px;
+  padding-left: 0px;
+}
+
+.simple-list li {
+  margin: 0px;
+  margin-bottom: 3px;
+  padding: 0;
+  padding-left: 10px;
+  line-height: 1.5em;
+}
+
+
+/* Info List (extends Simple List) */
+
+.info-list {
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+.info-list ul {
+  padding-left: 10px;
+}
+
+.info-list li {
+  padding-left: 0px;
+  margin-top: 2px;
+  margin-left: 0px;
+}
+
+
+/* Select Switch */
+
+.select-switch button {
+  margin: 0px;
+  padding: 0px .5em;
+  
+  border-top: solid 1px #eaeaea;
+  border-left: solid 1px #eaeaea;
+  border-bottom: solid 1px #777;
+  border-right: solid 1px #777;
+
+  background: #ddd;
+  cursor: pointer;
+}
+
+.select-switch button.selected {
+  border-top: solid 1px #777;
+  border-left: solid 1px #777;
+  border-bottom:solid 1px  #eaeaea;
+  border-right: solid 1px #eaeaea;
+  
+  background: #bbb;
+  cursor: default;
+}
+
+
+/* Pulldown */
+
+button.pulldown {
+  margin: 0px;
+  padding: 0px;
+
+  border-top: solid 1px #eaeaea;
+  border-left: solid 1px #eaeaea;
+  border-bottom: solid 1px #777;
+  border-right: solid 1px #777;
+  background: #ddd;
+}
+
+button.pulldown span.label {
+  margin: 0px;
+  padding: 5px;
+  background-image: url(images/bullet-arrow-down.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+button.pulled span.label {
+  background-image: url(images/bullet-arrow-up.png);
+}
+
+.pulldown-box {
+  display: none;
+  position: absolute;
+  z-index: 90;
+  
+  margin: 0px;
+  
+  max-height: 300px;
+
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  border-top: solid 1px silver;
+  border-left: solid 1px silver;
+  border-bottom: solid 1px gray;
+  border-right: solid 1px gray;
+  background: #fff;
+}
+
+
+/* Facebox Image Viewer */
+
+#facebox-image-viewer {
+  z-index: 85;
+}
+
+#facebox-image-viewer .header {
+  padding-bottom:  5px;
+}
+
+
+/* Facebox Selected Fragments */
+
+#facebox-selected-fragments {
+  z-index: 80;
+}
+
+#facebox-selected-fragments .header {
+  padding-bottom:  5px;
+}
+
+#facebox-selected-fragments .header td.title {
+  padding-bottom: 2px;
+}
+
+#facebox-selected-fragments .header span.title {
+  font-size: 9pt;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc; 
+}
+
+#facebox-selected-fragments div.content {
+  margin: 0px;
+  padding: 0px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  width: 215px;
+  height: auto;
+  max-height: 400px;
+  border: 1px solid #ccc;
+}
+
+#facebox-selected-fragments .content td {
+  font-size: 8pt;
+}
+
+#facebox-selected-fragments ul,
+#facebox-selected-fragments li {
+   margin-left: 0px;
+   padding-left: 2px;
+   line-height: 1em;
+}
+
+
+
+/*
+ * Tag
+ */
+
+div.tag-title {
+  background:#fff;
+  color: black;
+  font-size: 12pt;
+  font-weight: bolder;
+}
+
+div.tag-title p {
+  position: relative;
+}
+
+span.tagIcon {
+  background: url(images/tag.png) 0 50% no-repeat;
+  padding-left: 10px;
+  padding-right: 2px;
+}
+
+span.tagIcon-selected {
+  background: url(images/tag-selected.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon {
+  background: url(images/mini-tag.png?1) 0 50% no-repeat;
+  padding-left: 7px;
+  padding-right: 2px;
+}
+
+span.tagIcon-trash {
+  background: url(images/tag-trash.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-trash {
+  background: url(images/mini-tag-trash.png?1) 0 50% no-repeat;
+}
+
+span.tagIcon-home {
+  background: url(images/tag-home.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-home {
+  background: url(images/mini-tag-home.png) 0 50% no-repeat;
+}
+
+span.tagIcon-bookmark {
+  background: url(images/tag-bookmark.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-bookmark {
+  background: url(images/mini-tag-bookmark.png) 0 50% no-repeat;
+}
+
+span.tagIcon-public {
+  background: url(images/tag-public.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-public {
+  background: url(images/mini-tag-public.png) 0 50% no-repeat;
+}
+
+span.tagIcon-user {
+  background: url(images/tag-user.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-user {
+  background: url(images/mini-tag-user.png) 0 50% no-repeat;
+}
+
+a.tag:hover, 
+a.filter:hover {
+  color: #fff;
+  background-color: #656f71;
+  border: none;
+}
+
+
+
+/*
+ * Tag palette
+ */
+
+.tag-palette {
+  width: 250px;
+}
+
+.tag-palette table {
+  border-collapse: collapse;
+  width: 240px;
+}
+
+.tag-palette table td {
+  padding-bottom: 3px;
+}
+
+.tag-palette td.control {
+  width: 16px;
+}
+
+.tag-palette td.tag {
+  text-align: left;
+}
+
+.tag-palette td.tag div.tag-container {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tag-palette-draggable .miniTagIcon {
+	padding-right: 5px;
+}
+
+.tag-palette-draggable a.tag {
+  color: #000;
+  text-decoration: none;
+}
+
+.ui-draggable a.tag {
+  cursor: move;
+}
+
+.ui-draggable-dragging span.tag {
+  border: solid 1px #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  
+  padding: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  color: #000;
+  background-color: #fff;
+}
+
+.ui-draggable-dragging span.tag a:hover {
+  background-color: #fff;
+}
+
+.tag-palette td.control a:hover {
+  background-color: #656f71;
+  border: none;
+}
+
+#subFragmentFormPanel-table .tag-palette td {
+  background-color: #fff;
+}
+
+.auto_complete {
+  z-index: 100;
+}
+
+.sidebar .tag-palette {
+  width: 190px;
+}
+
+.sidebar .tag-palette table {
+  width: 180px;
+}
+
+.sidebar .tag-palette td.tag div {
+  width: 128px;
+}
+
+.empty-tag-palette {
+  font-size: 10pt;
+  color: gray;
+}
+
+ 
+
+/*
+ * Contents of Sidebar
+ */
+
+.sidebar #superTagForm_tag,
+.sidebar #tagForm_tag {
+  width: 150px;
+}
+
+.sidebar #parentForm_title {
+	width: 170px;
+}
+
+.sidebar-fragment-list ul {
+	margin-top: 3px; 
+	margin-left: 0px;
+}
+
+.sidebar-fragment-list li {
+  font-size: 9pt;
+  line-height: 1em;
+  padding-bottom: 2px;
+}
+
+.sidebar-fragment-list .delete-button {
+  padding-right: 5px;
+}
+
+.recently-viewed td {
+  font-size: 9pt;
+}
+
+.recently-viewed li {
+  line-height: 1em;
+  padding-bottom: 2px;
+}
+
+.related-tags td {
+  font-size: 9pt;
+}
+
+.related-tags li {
+  line-height: 1em;
+  padding-bottom: 2px;
+}
+
+#sidebar-tag-palette .tag-palette-container {
+	 position: relative;
+}
+
+#sidebar-tag-palette .tag-palette-resizable-div {
+	position: static;
+	
+	padding-left: 3px;
+	padding-top: 3px;
+	
+  max-height: 300px;
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#sidebar-tag-palette .tag-palette-resizable-div .ui-resizable-s {
+	height: 10px;
+}
+
+#sidebar-tag-palette .tag-palette {
+	width: 240px;
+}
+
+#sidebar-tag-palette .tag-palette a.close {
+  display: none;
+}
+
+#sidebar-tag-palette .tag-palette td.tag div.tag-container {
+  width: 190px;
+}
+
+.tag-palette-footer {
+  width: 100%;
+}
+
+.tag-palette-resize-handle {
+  overflow: hidden;
+  width: 22px; 
+  height: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(images/resize-handle-bottom.png);
+}
+
+
+
+/*
+ * Contents of Global Tools
+ */
+
+#global-tools a.pulled img {
+  border-top: solid 1px #777;
+  border-left: solid 1px #777;
+  border-bottom:solid 1px  #eaeaea;
+  border-right: solid 1px #eaeaea;
+  background: #bbb;
+}
+
+#global-tools .tag-palette {
+  right: 15px;
+}
+
+#global-tools .tag-palette table td {
+  line-height: normal;
+}
+
+#searchForm_keywords {
+  margin: 0px;
+  padding: 1px;
+  border-top: solid 1px #777;
+  border-left: solid 1px #777;
+  border-bottom:solid 1px  #eaeaea;
+  border-right: solid 1px #eaeaea;
+  width: 100px;
+  height: 13px;
+  font-size: 10px;
+  vertical-align: top;
+}
+
+#global-tools .login-user a {
+	color: #555;
+	text-decoration: none;
+}
+
+#global-tools .login-user a:hover {
+  text-decoration: underline;
+}
+
+#global-tools .login-user .user-name {
+  vertical-align: top;
+}
+
+
+
+/*
+ * Recently changed entities
+ */
+
+.recent-changes {
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.recent-changes li {
+  margin-left: 10px;
+}
+
+span.update-time {
+  margin-right: 5px;
+  color: gray;
+  font-size: 8pt;
+}
+
+.recent-changes ul {
+  margin-bottom: 15px;
+}
+
+.recent-changes table.page-link td {
+  padding-left: 10px;
+}
+
+span.updater {
+  color: silver;
+  font-size: 8pt;
+}
+
+span.updater a.user-name {
+	color: silver;
+  text-decoration: none;
+}
+
+span.updater a.user-name:hover {
+	color: #333;
+  text-decoration: underline;
+}
+
+
+/*
+ * Others
+ */
+ 
+.fragment-group-control {
+  margin: 0px; 
+  padding: 0px; 
+  padding-left: 3px; 
+  padding-bottom: 3px;
+}
+
+div.user-fragment table.fragment {
+  border: 2px solid #cce;
+}
+
+.entity-timestamp {
+  font-size: 8pt;
+  color: gray;
+}
+
+.entity-timestamp a.user-name {
+  color: #333;
+  text-decoration: none;
+}
+
+.entity-timestamp a.user-name:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+

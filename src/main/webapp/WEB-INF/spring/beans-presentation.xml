@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+  xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util 
+      http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <bean id="warSetting" class="marubinotto.piggydb.presentation.WarSetting">
+    <property name="piggydbVersion" value="@VERSION@"/>
+    <property name="clientAddressAuthEnabled" value="${piggydb.enableClientAddressAuth}"/>
+    <property name="userAgentAuthEnabled" value="${piggydb.enableUserAgentAuth}"/>
+    <property name="entityChangeableOnlyForCreator" value="${piggydb.entity.changeableOnlyForCreator}"/>
+    <property name="defaultFragmentsViewScale" value="${piggydb.fragmentsView.defaultScale}"/>
+  </bean>
+  
+  <bean id="marubinotto.piggydb.presentation.page.RestorePage" 
+      class="marubinotto.piggydb.presentation.page.RestorePage" scope="prototype">
+    <property name="sequenceAdjusterList"><ref bean="sequenceAdjusterList"/></property>
+	</bean>
+
+  <bean id="wikiParser" class="marubinotto.piggydb.presentation.wiki.DefaultWikiParser">
+    <property name="documentBuilder"><ref bean="htmlBuilder"/></property>
+    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
+    <property name="tagRepository"><ref bean="tagRepository"/></property>
+  </bean>
+  
+  <bean id="htmlBuilder" class="marubinotto.piggydb.presentation.wiki.HtmlBuilder"/>
+
+  <bean id="fragmentFormPanel" scope="prototype"
+      class="marubinotto.piggydb.presentation.page.control.FragmentFormPanel">
+    <property name="transaction"><ref bean="transaction"/></property>
+    <property name="tagRepository"><ref bean="tagRepository"/></property>
+    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
+    <property name="allowsOnlyOwnerToUploadFile" value="false"/>
+  </bean>
+  
+</beans>
+

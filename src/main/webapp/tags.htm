@@ -1,0 +1,242 @@
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td valign="top">
+    
+##
+## New Tag Form 
+##
+#if (!$user.isViewer())
+$utils.raw($tagForm.startTag())
+#formErrors($tagForm)
+<div class="tag-title">
+<div class="curve-double-head"><div>&nbsp;</div></div>
+<div class="curve-double-body">
+<div>
+<p>
+  <img border="0" alt="New Tag: " src="$context/images/new-tag.png" style="vertical-align:middle;"/>
+  $utils.raw($tagForm.fields.tagName)<span style="margin-left: 1px;"
+    >$utils.raw($tagForm.fields.createTag)</span>
+</p>
+</div>
+</div>
+<div class="curve-double-bottom"><div>&nbsp;</div></div>
+</div>
+$utils.raw($tagForm.endTag())
+#end
+
+
+##
+## Recent Changes
+##
+#if ($recentChanges && $recentChanges.totalSize > 0)
+<div class="content-box recent-tags" title="$messages.get("TagsPage-recent-changes")">
+#foreach ($tag in $recentChanges)
+  <span class="tag">
+    #if ($tag.isUpdated())
+      <img border="0" 
+        alt="$messages.get("TagsPage-updated"): " 
+        title="$messages.get("TagsPage-updated")"
+        src="$context/images/edit-tag.png" style="vertical-align:middle;"/>
+    #else
+      <img border="0" 
+        alt="$messages.get("TagsPage-new"): " 
+        title="$messages.get("TagsPage-new")"
+        src="$context/images/new-tag.png" style="vertical-align:middle;"/>
+    #end
+    <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a> 
+    <span class="update-datetime" title="$tag.updateDatetime.format("yyyy-MM-dd HH:mm")"
+      >($tag.updateDatetime.getRelativeDescription($messageSource))</span>
+  </span> 
+  &nbsp; &nbsp; ## workaround for a newline problem on IE, Chrome, Safari
+#end
+</div>
+#end
+
+
+##
+## Tag View
+##
+#if ($tagCount > 0)
+<table class="section" cellpadding="5" cellspacing="0" width="100%" border="0">
+<tr>
+  <th class="section-title">
+    <div class="select-switch">
+      <button type="button" class="selected" onclick="switchView(this, 'tree')"
+          >$messages.get("TagsPage-tree")</button><button 
+        type="button" onclick="switchView(this, 'cloud')"
+          >$messages.get("TagsPage-cloud")</button><button 
+        type="button" onclick="switchView(this, 'flat')"
+          >$messages.get("TagsPage-flat")</button>
+    </div>
+  </th>
+</tr>
+<tr>
+  <td>
+  
+<script type="text/javascript">
+//<![CDATA[
+  var tagSelection;
+  var currentView = "tree";
+  var tagViews;
+  
+  var tagData = {
+    rootTags: function(callback) {
+      getJSON("get-tags", null, callback);
+    },
+    
+    children: function(id, callback) {
+      getJSON("get-tags", {"parent" : id}, callback);
+    },
+    
+    tagsByPopularity: function(callback) {
+      getJSON("get-popular-tags", null, callback);
+    },
+    
+    allTags: function(pageIndex, callback) {
+      getJSON("get-all-tags", {"pi" : pageIndex}, callback);
+    }
+  };
+  
+  function switchView(button, name) {
+    button = jQuery(button);
+    if (button.hasClass("selected")) return;
+    button.siblings("button.selected").removeClass("selected");
+    button.addClass("selected");
+    
+    tagViews[name].render();
+    currentView = name;
+  }
+
+  jQuery(document).ready(function() {
+  #if ($user.isViewer())
+    TagUtils.selectable = false;
+  #end
+
+    tagSelection = new TagSelection(jQuery("#facebox-tags"), "$messages.get("TagsPage-confirm-delete-all")");
+    
+    tagTree = new TagTree(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
+      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
+    });
+    tagCloud = new TagCloud(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
+      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
+    });
+    tagFlat = new TagFlat(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
+      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
+    }, {
+      previous: "$messages.get("previous")", 
+      next: "$messages.get("next")"
+    });
+    tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};
+    
+    tagSelection.setHandlerOnTagDeletion(function(tagId) {
+      tagViews[currentView].setSelection(tagId, false);
+    });
+    tagSelection.slotOnClassificationModeSet = function(selectedId2name) {
+      tagViews[currentView].disableCheckboxes(selectedId2name);
+    };
+    tagSelection.slotOnBackToSelection = function(selectedId2name) {
+      tagViews[currentView].restoreSelections(selectedId2name);
+    };
+    tagSelection.slotOnTagSelection = function(tagId) {
+      tagViews[currentView].setSelection(tagId, true);
+    };
+    
+    tagViews[currentView].render();
+    
+    jQuery("#classifying-tag-name").autocomplete(constants["autocomplete-url"], {
+      minChars: 1,
+      selectFirst: true,
+      multiple: false,
+      scrollHeight: 120
+    });
+  });
+//]]>
+</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+  <form action="">
+  <div id="tag-view" style="width: 100%;"></div>
+  </form>
+</td></tr>
+</table>
+
+  </td>
+</tr>
+</table>
+#end
+## End Tag View
+
+</td>
+</tr>
+</table>
+## End Content
+
+#faceboxHeader("facebox-tags")
+<div class="content">
+
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+<td id="selected-tags-pane" valign="top">
+  <table cellpadding="5" cellspacing="0" border="0">
+  <tr>
+    <th class="section-title">$messages.get("TagsPage-selected-tags")</th>
+  </tr>
+  <tr>
+    <td>
+      <div class="selected-tags simple-list">
+        <ul class="tags" style="margin-left: 0px;"></ul>
+      </div>
+    </td>
+  </tr>
+  </table>
+</td>
+
+<td id="classified-by-pane" valign="top" style="display:none;">
+  <table cellpadding="5" cellspacing="0" border="0" style="margin-left: 10px;">
+  <tr>
+    <th class="section-title">$messages.get("TagsPage-classified-by")</th>
+  </tr>
+  <tr>
+    <td>
+      <form name="classifying" action="" style="margin-top: 10px; margin-left: 10px;">
+        $messages.get("tag"):&nbsp;
+        <input id="classifying-tag-name" type="text" maxlength="50" style="width: 120px;" />
+        <input id="add-classifying-tag" type="button" value="$messages.get("add")" />
+      </form>
+      <div class="classified-by simple-list">
+        <ul class="tags" style="margin-left: 0px;"></ul>
+      </div>
+    </td>
+  </tr>
+  </table>
+</td>
+
+<td valign="middle">
+<form action="">
+  <div id="buttons-for-selected-tags">
+    <input id="create-filter" type="button" value="$messages.get("TagsPage-create-filter")"/>
+    <br/><br/>
+    <input id="set-classification-mode" type="button" value="$messages.get("TagsPage-classify-all")"/>
+    <br/><br/>
+    <input id="delete-all" type="button" value="$messages.get("TagsPage-delete-all")"/>
+  </div>
+  <div id="buttons-for-classification" style="display:none;">
+    <input id="classify-all" type="button" value=" OK "/>
+    <br/><br/>
+    <input id="back-to-selection" type="button" value="$messages.get("TagsPage-back-to-selection")"/>
+  </div>
+</form>
+</td>
+
+</tr>
+</table>
+</div>
+#faceboxFooter()
+
+<form name="filter-form" method="post" action="$context/filter.htm">
+</form>
+
+<form name="tags-form" method="post" action="">
+</form>
+

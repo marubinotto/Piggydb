@@ -1,0 +1,49 @@
+/*
+ * Sub-fragments
+ */
+
+table.fragment td.subfragments {
+  background: #eee;
+}
+
+#subFragmentFormPanel {
+	margin-top: 5px;
+}
+
+table.fragment td.subfragments table.errors td,
+table.fragment td.subfragments table.page-link td,
+#subFragmentFormPanel-table td,
+#children-control td {
+  background-color: #eee;
+  border: none;
+}
+
+#subFragmentFormPanel-table td.tags {
+  background-color: #fff;
+  font-size: 10pt;
+}
+
+.relation-form input {
+   vertical-align: middle;
+}
+
+#relationForm_targetId {
+  width: 120px;
+}
+
+#children-control {
+	width: 100%;
+	margin-bottom: 3px;
+}
+
+#reorder-switch button {
+	height: 20px;
+	padding-left: 2px; 
+	padding-right: 4px;
+}
+
+#children-content-toggle {
+	height: 20px;
+	margin-left: 5px;
+}
+

@@ -1,0 +1,621 @@
+/*
+ * Shared
+ */
+
+.selected-fragment .fragment-caption {
+  background-color: #FFFF66;
+}
+
+.fragment-headline {
+  color: gray;
+}
+
+
+
+/*
+ * Fragment Tools
+ */
+
+.fragment-tools {
+  display: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.fragment-tools .ui-draggable {
+	cursor: move;
+}
+
+.fragment-tools span.add-relation .relation-from {
+	display: none;
+}
+
+.ui-draggable-dragging span.add-relation {
+  border: solid 1px #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  color: #000;
+  background-color: #fff;
+}
+
+.ui-draggable-dragging span.add-relation .relation-from {
+	display: inline;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.ui-draggable-dragging span.add-relation .relation-from .fragment-title {
+	font-size: 11px;
+}
+
+.ui-draggable-dragging span.add-relation img {
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-bottom: 2px;
+}
+
+
+
+/* 
+ * Fragment Tags 
+ */
+
+.fragment-header span.tags {
+  border: 1px solid #ccc; 
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+    
+  margin: 0px;
+  padding: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  background: #eee;
+  font-weight: normal;
+  font-size: 8pt;
+  
+  line-height: 170%;
+}
+
+.fragment-node .fragment-header span.tags {
+  margin-left: 15px;
+}
+
+.fragment-header span.tags span.tag {
+  white-space: nowrap;
+}
+
+.fragment-header span.tags a.tag {
+  text-decoration: none;
+  color: #555;
+}
+
+.fragment-header span.tags a.tag:hover {
+  color: #fff;
+}
+
+.fragment-header span.tags span.new-tag {
+  color: #000;
+}
+
+.fragment-header span.tags a.show-hidden-tags {
+  text-decoration: none;
+  color: #555;
+}
+
+.fragment-header span.tags a.show-hidden-tags:hover {
+  color: #fff;
+  background-color: #656f71;
+  border: none;
+}
+
+
+
+/*
+ * Fragment Table
+ */
+
+table.fragment {
+  margin-bottom: 15px;
+  border-collapse: collapse;
+}
+
+.fragment-drophover,
+.liquid-block-drophover table.fragment,
+.selected-fragments-drophover div.content {
+  border: 2px solid #FF9900 !important;
+}
+
+table.fragment, 
+table.fragment th, 
+table.fragment td {
+  border: 1px solid #ccc;
+}
+
+table.fragment td {
+  background-color: #ffffff;
+}
+
+table.fragment .header-cell {
+	padding: 0px;
+	
+  text-align: left;
+  vertical-align: middle;
+  background-color: #ddd;
+  font-size: 10pt;
+}
+
+table.fragment .header-cell .fragment-header {
+  position: relative;
+  padding: 5px;
+}
+
+table.fragment .fragment-tools {
+	z-index: 100;
+	
+  position: absolute; 
+  right: 0px;
+  top: 0px;
+  
+  margin-top: -25px;
+  padding: 3px 5px 3px 5px;
+  
+  border: 1px solid #aaa; 
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #fff;
+  
+  white-space: nowrap;
+}
+
+table.fragment .fragment-tools .pointer-down {
+  border-top: solid 4px #aaa;
+  border-right: solid 5px transparent;
+  border-left: solid 5px transparent;
+  border-bottom: 0;  
+  
+  width: 0;
+  line-height: 0;
+
+  position: absolute;
+  right: 5px;
+  bottom: -5px;
+}
+
+table.fragment .fragment-tools .pointer-down-inner {
+  border-top: solid 4px white;
+  border-right: solid 5px transparent;
+  border-left: solid 5px transparent;
+  border-bottom: 0;
+  
+  width: 0;
+  line-height: 0;
+
+  position: absolute;
+  right: 5px;
+  bottom: -4px;
+}
+
+table.fragment .fragment-tools .fragment-checkbox {
+  vertical-align: top;
+}
+
+table.fragment td.superfragment-links,
+table.fragment td.subfragment-links  {
+  font-size: 8pt;
+  background: #fff;
+}
+
+.file-size {
+  font-size: 8pt;
+  color: gray;
+}
+
+
+
+/*
+ * Fragment Table Body
+ */
+ 
+td.fragment-body {
+  padding: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+td.fragment-body .fragment-content a.tag {
+  color: gray;
+  text-decoration: none;
+  border-bottom: 1px dotted #ddd;
+}
+
+td.fragment-body .fragment-content a.tag:hover {
+  color: #fff;
+  background-color: #656f71;
+  border: none;
+}
+
+td.fragment-body .fragment-content div.paragraph,
+td.fragment-body .fragment-content pre {
+  margin: 0px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+td.fragment-body .fragment-content pre.pre-fragment {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+td.fragment-body .fragment-content ul {
+  margin: 0 0 0 1.5em;
+  padding: 0;
+}
+
+td.fragment-body .fragment-content ol {
+  margin: 0 0 0 2em;
+  padding: 0;
+}
+
+td.fragment-body .fragment-content ul.level1,
+td.fragment-body .fragment-content ol.level1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+td.fragment-body .fragment-content table {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 1em;
+}
+
+td.fragment-body .fragment-content td {
+  border: 1px solid gray;
+  padding: 5px;
+  /* text-align: center; */
+}
+
+td.fragment-body .fragment-content img {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: none;
+  max-width: 500px;
+}
+
+td.fragment-body .fragment-content blockquote {
+  margin-top: 1em;
+  margin-left: 1em;
+  padding: 5px;
+  border: 1px solid silver;
+}
+
+td.fragment-body .fragment-content pre {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+td.fragment-body .fragment-content pre a {
+	text-decoration: none;
+}
+
+td.fragment-body .fragment-content pre a:hover {
+  text-decoration: underline;
+}
+
+td.fragment-body .fragment-content div.file {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+td.fragment-body .fragment-content span.error-line {
+	color: silver;
+}
+
+td.fragment-body div.update-info {
+	padding: 3px;
+	padding-right: 0px;
+	
+  text-align: right;
+  font-size: 8pt;
+}
+
+
+
+/*
+ * Fragments View
+ */
+ 
+.fragments-view {
+	margin-bottom: 10px;
+}
+ 
+.fragments-view .view-control {
+  margin: 0px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  padding: 0px;
+}
+
+.fragments-view .view-control td {
+  margin: 0px;
+  padding: 0px;
+}
+
+.fragments-view .view-slider {
+  margin: 0px; 
+  font-size: 60%;
+  width: 200px;
+}
+
+.fragments-view button.show-more {
+	margin: 0px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.fragments-view form.sort-fragments .select-switch button {
+	padding: 2px 5px 2px 5px;
+}
+
+
+
+/*
+ * Fragment form
+ */
+ 
+.fragment-form-panel {
+	margin-bottom: 15px;
+}
+
+div.fragment-form-panel,
+div.fragment-form-panel table.form,
+div.fragment-form-panel table.fields {
+  width: 100%;
+}
+
+div.fragment-form-panel table.form {
+	margin-bottom: 0px;
+}
+
+.fragment-form-toggle {
+  margin-bottom: 10px;
+}
+
+.fragment-form-toggle .toggle-icon,
+.fragment-form-toggle .toggle-link {
+	vertical-align: middle;
+}
+
+.fragment-form-toggle .toggle-link {
+	text-decoration: none; 
+	font-size: 10pt;
+}
+
+.fragment-form-panel form {
+	margin: 0px;
+}
+
+div.content-type-switch {
+  margin-bottom: 5px;
+}
+
+.content-type-switch input {
+  vertical-align: middle;
+}
+
+.content-type-switch label {
+  font-size: 8pt;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+input.fragment-title {
+  width: 98%;
+}
+
+input.fragment-tags {
+  width: 85%;
+}
+
+.form div.fragment-content {
+  position: relative; 
+  margin: 0px; 
+  padding: 0px; 
+}
+
+textarea.fragment-content {
+  padding: 2px;
+  width: 100%;
+  height: 100px;
+}
+
+td.minor-edit {
+	padding: 0px;
+	padding-right: 10px;
+	font-size: 9pt;
+	vertical-align: middle;
+}
+
+td.minor-edit input {
+	margin: 0px;
+	margin-left: 2px;
+	margin-right: 3px;
+	padding: 0px;
+}
+
+td.minor-edit input, 
+td.minor-edit label {
+	vertical-align: middle;
+}
+
+.buttons .spacer {
+	padding: 0px;
+	padding-right: 8px;
+}
+
+
+
+/*
+ * Liquid blocks
+ */
+
+ul.liquid-blocks {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+ul.liquid-blocks li.liquid-block {
+  float: left;
+  /* width: 200px; Set default width */
+  padding: 0px;
+  margin: 0px;
+  display: inline;
+}
+
+ul.liquid-blocks div.liquid-block {
+  margin: 0px;
+  margin-left: 3px;
+  margin-right: 3px; 
+  margin-bottom: 6px;
+  padding: 0px;
+  
+  overflow: hidden;
+}
+
+ul.liquid-blocks div.liquid-block table.fragment {
+	height: 28px;
+}
+
+ul.liquid-blocks div.liquid-block table.fragment th {
+	vertical-align: middle;
+}
+
+div.liquid-block table.fragment .header-cell .fragment-header {
+	font-size: 12px;
+	line-height: 100%;
+	
+	/* not to be the base of the toolbar because it is hidden by div.liquid-block  */
+	position: static;  
+}
+
+div.liquid-block .fragment-caption {
+	white-space: nowrap;
+}
+
+div.liquid-block span.title {
+  font-weight: normal;
+}
+
+div.liquid-block table.fragment .fragment-tools {
+  top: 3px;
+}
+
+div.liquid-block table.fragment {
+	margin: 0px;
+}
+
+.fragment-cell .img-link img {
+	margin-top: -3px;
+	margin-bottom: -3px;
+}
+
+/* compact */
+
+ul.liquid-blocks div.liquid-block table.fragment-cell-compact {
+  height: 24px;
+}
+
+table.fragment-cell-compact .header-cell .fragment-header {
+	padding: 3px;
+	padding-left: 0px;
+}
+
+.fragment-cell a.title-link {
+	color: black;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.fragment-cell a.title-link:hover {
+  text-decoration: underline;
+}
+
+
+
+/*
+ * Fragment Tree View
+ */
+
+ul.fragment-tree {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+ul.fragment-tree li {
+  padding: 0px;
+  margin: 0px;
+}
+
+ul.fragment-tree .subtree li {
+  margin-left: 25px;
+}
+
+ul.subtree .fragment-content ul,
+ul.subtree .fragment-content ol {
+  margin: 0;
+  padding: 0;
+}
+
+.fragment-content ul.level1 {
+  list-style-type: disc;
+}
+
+
+
+/*
+ * Fragment Node
+ */
+
+table.fragment-node {
+  margin-bottom: 5px;
+}
+
+table.fragment-node th {
+  padding: 5px;
+}
+
+table.fragment-node .header-cell .fragment-header {
+  padding-left: 0px;
+  font-size: 12px;
+}
+
+table.fragment-node span.title {
+  font-weight: normal;
+}
+
+table.fragment-node td.superfragment-links {
+  padding: 5px;
+}
+
+.fragment-root-node .sortable-icon {
+  margin: -2px;
+  margin-right: 3px;
+}
+
+/* at fragments view */
+
+.fragments-view li.fragment-root-node {
+  padding-bottom: 5px;  /* margin-bottom couldn't work on Chrome */
+}
+
+

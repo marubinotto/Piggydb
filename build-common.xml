@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="common" basedir=".">
+
+  <macrodef name="build-classes">
+    <attribute name="src"/>
+    <attribute name="encoding"/>
+  	<attribute name="version"/>
+    <attribute name="resources"/>
+    <attribute name="classpath"/>
+    <attribute name="classes"/>
+    <sequential>
+      <mkdir dir="@{classes}"/>
+      <javac
+          srcdir="@{src}"
+          destdir="@{classes}"
+          encoding="@{encoding}"
+          deprecation="true"
+          debug="true"
+          optimize="false"
+          source="@{version}">
+        <classpath refid="@{classpath}"/>
+      </javac>
+      <copy todir="@{classes}" >
+        <fileset dir="@{resources}"/>
+      </copy>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="build-war">
+    <attribute name="warfile"/>
+    <attribute name="wardir"/>
+    <sequential>
+      <war
+          warfile="@{warfile}"
+          webxml="@{wardir}/WEB-INF/web.xml">
+        <fileset dir="@{wardir}">
+          <exclude name="**/web.xml"/>
+        </fileset>
+      </war>
+    </sequential>
+  </macrodef>
+
+</project>

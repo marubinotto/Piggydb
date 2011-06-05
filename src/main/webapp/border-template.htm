@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="$lang" lang="$lang">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+  <title>$htmlTitle</title>
+#if ($atomUrl)
+  <link rel="alternate" type="application/atom+xml" title="$htmlTitle - Atom" href="$atomUrl"/>
+#end
+  $utils.raw($cssImports)
+  $utils.raw($appCssImports)
+  $utils.raw($appAdditionalCssImports)
+  <link rel="shortcut icon" href="$context/images/favicon.ico" type="image/vnd.microsoft.icon"/>
+  $utils.raw($appJsImports)
+  <script type="text/javascript">
+  //<![CDATA[
+#contextualizedJs()
+  //]]>
+  </script>
+##TRACKING_CODE
+</head>
+<body>
+  
+## Title Banner
+<div id="title-banner">
+  <table border="0">
+    <tr>
+      <td class="icon" align="center" valign="middle">
+        #set ($stopWatch = $session.stopWatch)
+        <a href="$context/about.htm" title="Version $version #if ($stopWatch)($stopWatch.stop() seconds)#end">
+        <img src="$context/images/piggydb-icon.png" border="0" alt="Icon"/></a>
+      </td>
+      <td class="title" align="left" valign="middle">
+        <a href="$context/about.htm">$title</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+## Menu
+<div id="page-menu">
+#mainMenu($rootMenu)
+</div>
+
+## Page Content
+<div id="page-content">
+#adTop()
+#if ($message)
+<div id="page-message">
+  <div class="message">
+    $utils.raw($message)
+    <a class="close-message" href="#" onclick="jQuery(this).closest('#page-message').hide('fast'); return false;">
+    <img src="$context/images/large-delete.gif" alt="X" border="0"/></a>
+  </div>
+</div>
+#end
+#parse($path)
+</div>
+
+## Selected Fragments
+#faceboxHeader("facebox-selected-fragments")
+<div class="header">
+  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td align="left">
+      <a href="#" onclick="selectedFragments.clear(); return false;">
+      <img src="$context/images/large-delete.gif" 
+        title="$messages.get("clear-all-selections")" class="close_image" alt="X"/></a>
+    </td>
+    <td class="title" align="center">
+      <span class="title">$messages.get("selected-fragments")</span>
+    </td>
+    <td align="right">
+      <a href="$context/fragment-batch.htm">
+      <img src="$context/images/fragment-batch.gif" 
+        title="$messages.get("to-fragment-batch")" alt="&rarr;"/></a>
+    </td>
+  </tr>
+  </table>
+</div>
+<div class="content simple-list">
+#if ($selectedFragments && $selectedFragments.size() > 0)
+  <ul>
+  #foreach ($selectedId in $selectedFragments.keySet())
+    <li id="selected-fragment-$selectedId">
+      #selectedFragmentEntry($selectedId, $selectedFragments.get($selectedId))
+    </li>
+  #end
+  </ul>
+#end
+</div>
+#faceboxFooter()
+
+#if ($fragmentOperations)
+$utils.raw($createRelationForm.startTag())
+$utils.raw($createRelationForm.endTag())
+$utils.raw($createRelationsToSelectedForm.startTag())
+$utils.raw($createRelationsToSelectedForm.endTag())
+$utils.raw($removeTagForm.startTag())
+$utils.raw($removeTagForm.endTag())
+$utils.raw($addTagForm.startTag())
+$utils.raw($addTagForm.endTag())
+$utils.raw($addTagsToSelectedForm.startTag())
+$utils.raw($addTagsToSelectedForm.endTag())
+$utils.raw($removeBookmarkForm.startTag())
+$utils.raw($removeBookmarkForm.endTag())
+#end
+
+#globalTemplates()
+
+$utils.raw($jsImports)
+$utils.raw($appAdditionalJsImports)
+
+##BOTTOM_OF_BODY
+</body>
+</html>

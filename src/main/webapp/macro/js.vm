@@ -1,0 +1,222 @@
+#macro( contextualizedJs )
+
+var LOAD_ICON = '<img src="$context/images/load.gif" border="0"  alt="loading" style="margin:5px"/>';
+var EMPTY_TAG_PALETTE = '<div class="empty-tag-palette" style="padding: 5px;">$messages.get("no-tags")<\/div>';
+var FRAGMENT_URL_PREFIX = '$context/fragment.htm?id=';
+var TAG_URL_PREFIX = '$context/tag.htm?id=';
+
+
+##
+## Widgets
+##
+var selectedFragments;
+var wikiHelp = new Facebox("facebox-wiki-help");
+var imageViewer = new Facebox("facebox-image-viewer");
+
+
+##
+## Utilities
+##
+function ajaxCommand(command, parameters) {
+  jQuery.get("$context/command/" + command + ".htm", parameters);
+}
+
+function getJSON(command, parameters, callback) {
+  jQuery.getJSON("$context/command/" + command + ".htm", parameters, callback);
+}
+
+function putSessionValue(name, value) {
+  jQuery.post(
+    "$context/command/put-session-value.htm", 
+    {name: name, value: value});
+}
+
+##
+## Constants
+##
+var messages = {
+#foreach ($messageKey in $messages.keySet())
+#if ($messageKey.startsWith("editor-"))
+  "$messageKey": '$messages.get($messageKey)', 
+#end
+#end
+  "confirm-delete-relation": '$messages.get("confirm-delete-relation")',
+  "confirm-remove-tag": '$messages.get("confirm-remove-tag")',
+  "confirm-remove-bookmark": '$messages.get("confirm-remove-bookmark")',
+  "help": '$messages.get("help")'
+};
+var constants = {
+  "autocomplete-url": '$context/command/complete-tag-name.htm',
+  "wiki-help-href": '$wikiHelpHref'
+};
+    
+
+##
+## Initialization
+##
+jQuery(function() {
+#if ($session.containsKey("scrollTopElement"))
+  setScrollTopTo('$session.scrollTopElement');
+#end
+
+  selectedFragments = new SelectedFragments(
+    "facebox-selected-fragments", 
+    FRAGMENT_URL_PREFIX, 
+    '$messages.get("confirm-clear-all-selections")',
+    function (id) { ajaxCommand("fragment-selection", {command: "add", id: id}) },
+    function (id) { ajaxCommand("fragment-selection", {command: "remove", id: id}) },
+    function () { ajaxCommand("fragment-selection", {command: "clear"}) });
+
+  jQuery("#searchForm_keywords").autocomplete(constants["autocomplete-url"], {
+    minChars: 1,
+    selectFirst: true,
+    multiple: false,
+    scrollHeight: 300
+  });
+
+  prettyPrint();
+  jQuery.updnWatermark.attachAll();
+#if ($highlightedFragment)
+  highlightFragment($highlightedFragment, null);
+#end
+});
+
+
+##
+## Contextualized Functions
+##
+function showConfirmDialog(title, message, actionLabel, actionHandler) {
+  var dialogContent = jQuery(jQuery("#tpl-dialog-confirm").html());
+  dialogContent.attr("title", title);
+  dialogContent.append(message);
+  
+  var buttons = {};
+  buttons[actionLabel] = actionHandler;
+  buttons['$messages.get("cancel")'] = function() {
+    jQuery(this).dialog("close");
+  };
+  
+  dialogContent.dialog({
+    resizable: false,
+    modal: true,
+    width: 400,
+    minHeight: 100,
+    buttons: buttons
+  });
+}
+
+function makeFragmentsDroppable(selector, hoverClass) {
+#if (!$user.isViewer())
+  jQuery(selector).droppable({
+    accept: function(draggable) {
+      if (!draggable.hasClass("droppable-to-fragment")) return false;
+      
+      // check if the relation can be created
+      if (draggable.hasClass("relation-draggable")) {
+        var from = draggable.find(".fragment-id").text();
+        var to = jQuery(this).find(".fragment-id:first").text();
+        if (from == to) return false;
+      }
+      
+      return true;
+    },
+    hoverClass: hoverClass != null ? hoverClass : 'fragment-drophover',
+    greedy: true, 
+    tolerance: 'intersect',
+    drop: function(event, ui) {
+      var targetId = jQuery(this).find(".fragment-id:first").text();
+      
+      // add a tag
+      if (ui.draggable.hasClass("tag-palette-draggable")) {
+        var tagId = ui.draggable.find(".tag .id").text();
+        if (isNotBlank(tagId)) {
+          var tags = jQuery("span.tags-placeholder-" + targetId);
+          tags.empty().putLoadingIcon("margin: -2px; margin-left: 5px;");
+          jQuery.get("html/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
+            function(html) {
+              tags.empty().append(jQuery(html).children("span.tags"));
+              highlightFragment(targetId, null);
+            });
+        }
+      }
+      
+      // create a relationship
+      if (ui.draggable.hasClass("relation-draggable")) {
+        var fromId = ui.draggable.find(".fragment-id").text();
+        var fromTitle = ui.draggable.find(".fragment-title").text();
+        var toTitle = jQuery(this).find(".fragment-tools .fragment-headline:first").text();
+        var message = "$messages.get("confirm-create-relation")" +
+          '<div class="detail">' + 
+          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
+          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+          "<strong>#" + targetId + "<\/strong> " + escapeHtml(toTitle) + "<\/div>";
+        showConfirmDialog("$messages.get("create-relation")", message, "$messages.get("create")", function () {
+          var fm = document.forms['createRelationForm'];
+          fm.fromId.value = fromId;
+          fm.toId.value = targetId;
+          fm.submit();
+        });
+      }
+    }
+  });
+#end
+}
+
+function makeRelationsDraggable(selectorPrefix) {
+#if (!$user.isViewer())
+  jQuery(selectorPrefix + ".fragment-tools .relation-draggable").draggable({ 
+    revert: true,
+    helper: 'clone',
+    appendTo: 'body',
+    opacity: 0.70,
+    zIndex: 120,
+    cursorAt: { bottom: 2, right: 0 }
+  });  
+#end
+}
+
+function makeSelectedFragmentsDroppable() {
+#if (!$user.isViewer())
+  jQuery("#facebox-selected-fragments").droppable({
+    accept: ".droppable-to-fragment",
+    hoverClass: "selected-fragments-drophover",
+    tolerance: 'intersect',
+    drop: function(event, ui) {
+      // add a tag
+      if (ui.draggable.hasClass("tag-palette-draggable")) {
+        var tagId = ui.draggable.find(".tag .id").text();
+        var tagName = ui.draggable.find(".tag .name").text();
+        var message = "$messages.get("confirm-add-tags-to-selected")" +
+          '<div class="detail">' + 
+          '<span class="' + miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
+          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+          "$messages.get("selected-fragments")<\/div>";
+        showConfirmDialog("$messages.get("add-tag")", message, "$messages.get("add")", function () {
+          var fm = document.forms['addTagsToSelectedForm'];
+          fm.tagId.value = tagId;
+          fm.submit();
+        });
+      }
+      
+      // add a relation
+      if (ui.draggable.hasClass("relation-draggable")) {
+        var fromId = ui.draggable.find(".fragment-id").text();
+        var fromTitle = ui.draggable.find(".fragment-title").text();
+        var message = "$messages.get("confirm-create-relations-to-selected")" +
+          '<div class="detail">' + 
+          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
+          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+          "$messages.get("selected-fragments")<\/div>";
+        showConfirmDialog("$messages.get("create-relation")", message, "$messages.get("create")", function () {
+          var fm = document.forms['createRelationsToSelectedForm'];
+          fm.fromId.value = fromId;
+          fm.submit();
+        });
+      }
+    }
+  });
+#end
+}
+  
+#end
+

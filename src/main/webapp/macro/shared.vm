@@ -1,0 +1,177 @@
+#macro( formField $field )
+  
+$utils.raw($field)
+#if ($field.isDisabled())
+  <input type="hidden" name="$field.name" value="$field.value"/>
+#end
+
+#end
+
+
+
+#macro( formFieldRow $field )
+
+<tr class="fields">
+  <td class="fields" align="left">
+    <label for="$utils.raw($field.id)">
+      $utils.raw($field.label)</label>#if ($field.required)<span class="required">*</span>#end
+  </td>
+  <td align="left">$utils.raw($field)</td>
+</tr>
+
+#end
+
+
+
+#macro( formErrors $form )
+
+#if (!$form.valid)
+<table class="errors" id="$utils.raw($form.name)-errors">
+
+#if ($form.error)
+<tr class="errors">
+  <td class="errors" align="left">
+    <span class="error">$utils.raw($form.error)</span>
+  </td>
+</tr>
+#end
+
+#foreach ($field in $form.errorFields)
+<tr class="errors">
+  <td class="errors" align="left">
+    <a class="error" href="javascript:$utils.raw($field.focusJavaScript)"
+      >$utils.raw($field.error)</a>
+  </td>
+</tr>
+#end
+
+</table>
+#end
+
+#end
+
+
+
+#macro( formErrorsRow $form )
+  
+#if (!$form.valid)
+<tr><td align="left">
+#formErrors($form)
+</td></tr>
+#end
+  
+#end
+
+
+
+#macro( pagingNavigator $page $pageIndexName )
+
+#if ($page.pageCount > 1)
+  <table class="page-link" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="previous" width="30%" align="left" valign="middle">
+    #if (!$page.isLastPage())
+      #set ($pageIndex = $page.pageIndex + 1)
+      <a href="$thisPageUrl.getPageUrl($pageIndexName, $pageIndex)">&lt; $messages.get("previous")</a>
+    #end
+    </td>
+    <td class="page-number" align="center" valign="middle">
+      #set ($pageNumber = $page.pageIndex + 1)
+      $pageNumber / $page.pageCount
+    </td>
+    <td class="next" width="30%" align="right" valign="middle">
+    #if (!$page.isFirstPage())
+      #set ($pageIndex = $page.pageIndex - 1)
+      <a href="$thisPageUrl.getPageUrl($pageIndexName, $pageIndex)">$messages.get("next") &gt;</a>
+    #end
+    </td>
+  </tr>
+  </table>
+#end
+
+#end
+
+
+
+#macro( entityTimestamp $entity $separator )
+
+<span class="entity-timestamp">
+#if ($entity.isUpdated())
+  $messages.get("updated")(<a class="user-name" 
+      href="$resources.userPath($entity.updater)">$entity.updater</a>): 
+    <span title="$entity.updateDatetime.format("yyyy-MM-dd HH:mm")"
+      >$entity.updateDatetime.getRelativeDescription($messageSource)</span>
+    $utils.raw($separator)
+#end
+  $messages.get("created")(<a class="user-name" 
+      href="$resources.userPath($entity.creator)">$entity.creator</a>): 
+    <span title="$entity.creationDatetime.format("yyyy-MM-dd HH:mm")"
+      >$entity.creationDatetime.getRelativeDescription($messageSource)</span>
+</span>
+
+#end
+
+
+
+
+#macro( faceboxHeader $id )
+
+<div id="$id" class="facebox">
+  <div class="popup">
+    <table>
+      <tbody>
+        <tr>
+          <td class="tl"/><td class="b"/><td class="tr"/>
+        </tr>
+        <tr>
+          <td class="b"/>
+          <td class="body">
+
+#end
+
+
+
+#macro( faceboxFooter )
+
+          </td>
+          <td class="b"/>
+        </tr>
+        <tr>
+          <td class="bl"/><td class="b"/><td class="br"/>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+#end
+
+
+
+#macro( entityUpdater $entity )
+  
+<span class="updater">
+#if ($entity.isUpdated())
+  (<a class="user-name" href="$resources.userPath($entity.updater)">$entity.updater</a>)
+#else
+  (<a class="user-name" href="$resources.userPath($entity.creator)">$entity.creator</a>)
+#end
+</span>
+
+#end
+
+
+
+#macro( verticalShowHideToggle $id $state )
+  
+<a id="$id" class="tool-button" href="#">
+<img border="0" alt="" style="margin: -2px;"
+#if ($state == "hidden")
+  src="$context/style/images/bullet-arrow-down.png"/></a>
+#else ## The default icon
+  src="$context/style/images/bullet-arrow-up.png"/></a>
+#end
+
+#end
+
+

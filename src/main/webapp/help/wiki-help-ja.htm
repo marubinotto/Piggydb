@@ -1,0 +1,180 @@
+<div id="wiki-help">
+<h1>テキスト整形のルール</h1> 
+
+<h2>段落</h2>
+<ul class="level1">
+  <li>空行が段落の区切りとなります。テキストの改行は表示に反映されません。</li>
+  <li>段落内に改行を挿入したい場合は、行末に ~ を書きます。</li>
+</ul>
+
+
+<h2>文字装飾</h2>
+<pre>
+-'''太字'''
+-''イタリック''
+-__打ち消し線__
+</pre>
+
+表示: 
+<ul class="level1">
+  <li><b>太字</b></li>
+  <li><i>イタリック</i></li>
+  <li><del>打ち消し線</del></li>
+</ul>
+
+
+<h2>箇条書き</h2>
+<pre>
+-項目 1
+--項目 1.1
+-項目 2
+
++項目 1
+++項目 1.1
++項目 2
+</pre>
+
+
+表示:
+<ul class="level1">
+  <li>
+      項目 1
+    <ul>
+      <li>項目 1.1</li>
+    </ul>
+  </li>
+  <li>項目 2</li>
+</ul>
+
+<ol class="level1">
+  <li>
+      項目 1
+    <ol>
+      <li>項目 1.1</li>
+    </ol>
+  </li>
+  <li>項目 2</li>
+</ol>
+
+
+<h2>用語解説</h2>
+<pre>
+:用語1:用語の説明をここに書きます
+:用語2:用語の説明をここに書きます
+</pre>
+
+表示:
+<dl>
+<dt>用語1</dt>
+<dd>用語の説明をここに書きます</dd>
+<dt>用語2</dt>
+<dd>用語の説明をここに書きます</dd>
+</dl>
+
+
+<h2>整形済みテキスト</h2>
+<p>行頭がスペースで始まっていると、その段落は整形済みとして扱われます。</p>
+
+<pre>
+ public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+表示:
+<pre> public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+
+<h2>引用文</h2>
+<p>&gt; を行頭に書くと、引用文が書けます。&gt; &gt;&gt; &gt;&gt;&gt; の3レベルがあります。</p>
+
+<pre>
+>これは引用文です。
+>>入れ子の引用も可能です。
+</pre>
+
+表示:
+<blockquote>
+これは引用文です。
+<blockquote>
+入れ子の引用も可能です。
+</blockquote>
+</blockquote>
+
+
+<h2>テーブル</h2>
+<p>項目を || で区切ると、テーブルが作れます。</p>
+
+<pre>
+||Cell 1||Cell 2||Cell 3||
+||Cell 4||Cell 5||Cell 6||
+</pre>
+
+表示:
+<table>
+<tr><td>Cell 1</td><td>Cell 2</td><td>Cell 3</td></tr>
+<tr><td>Cell 4</td><td>Cell 5</td><td>Cell 6</td></tr>
+</table>
+
+
+<h2>水平線</h2>
+<p>マイナス4個(----)を行頭に書くと、水平線になります。</p>
+
+<pre>
+----
+</pre>
+
+表示:
+<hr/>
+
+<h2>リンク</h2>
+<ul class="level1">
+  <li>タグ名とURLは、自動的にリンクになります。</li>
+  <li>URLの対象が画像である場合は(gif|png|jpeg|jpg)、imgタグが挿入されます。</li>
+  <li>YouTubeビデオへのURLは、その場所に埋め込みプレーヤーが挿入されます。</li>
+</ul>
+
+知識フラグメントへのリンク:
+<pre>
+-#1
+-fragment:1
+-fragment:1:title
+-fragment:1:detail
+</pre>
+
+表示:
+<ul class="level1">
+<li><a href="#">#1</a></li>
+<li><a href="#">fragment:1</a></li>
+<li><a href="#">Fragment Title</a></li>
+<li><a href="#">#1</a> Fragment Title</li>
+</ul>
+
+ラベル付きリンク:
+<pre>
+-[http://www.google.com/ Google]
+-[fragment:1 フラグメント #1 へのリンク]
+</pre>
+
+表示:
+<ul class="level1">
+  <li><a href="http://www.google.com/">Google</a></li>
+  <li><a href="#">フラグメント #1 へのリンク</a></li>
+</ul>
+
+
+<h2>他のフラグメントの内容を埋め込む</h2>
+<p>
+以下のように記述することで他のフラグメントの内容をその場所に埋め込むことができます。
+</p>
+
+<pre>
+fragment:1:embed
+</pre>
+
+<br /><br />
+
+</div>

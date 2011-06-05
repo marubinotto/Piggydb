@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="piggydb" default="all-in-one" basedir=".">
+  <property file="build.properties"/>
+  <import file="build-common.xml"/>
+  <import file="build-war-utils.xml"/>
+
+  <path id="libs-app">
+    <fileset dir="${lib.web.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${lib.provided.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="libs-test">
+    <fileset dir="${lib.test.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="libs-it">
+    <fileset dir="${lib.it.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${lib.it.dir}/htmlunit">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="classpath-build-app">
+    <path refid="libs-app"/>
+    <path refid="libs-test"/>
+  </path>
+
+  <path id="classpath-build-test">
+    <path refid="libs-app"/>
+    <path refid="libs-test"/>
+    <pathelement location="${build.classes.dir}"/>
+  </path>
+
+  <path id="classpath-build-it">
+    <path refid="libs-test"/>
+    <path refid="libs-it"/>
+    <pathelement location="${build.utils-for-it.dir}"/>
+  </path>
+
+  
+  <!--
+    Clean
+  -->
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+
+  <!--
+    Build classes
+  -->
+  <target name="build-classes">
+    <mkdir dir="${build.dir}"/>
+    <build-classes
+      src="${src.java.dir}"
+      encoding="${src.encoding}"
+      version="${src.version}"
+      resources="${src.resources.dir}"
+      classpath="classpath-build-app"
+      classes="${build.classes.dir}"/>
+  </target>
+
+  
+  <!--
+    Unit tests
+  -->
+  <target name="test" depends="build-classes">
+    <build-classes
+      src="${src.test.dir}"
+      encoding="${src.encoding}"
+      version="${src.version}"
+      resources="${src.test-resources.dir}"
+      classpath="classpath-build-test"
+      classes="${build.test-classes.dir}"/>
+
+    <mkdir dir="${build.test-results.dir}"/>
+    <junit printsummary="yes" haltonfailure="yes">
+      <formatter type="xml"/>
+      <classpath>
+        <path refid="classpath-build-test"/>
+        <pathelement location="${build.test-classes.dir}"/>
+      </classpath>
+      <batchtest fork="yes" todir="${build.test-results.dir}">
+        <fileset dir="${build.test-classes.dir}">
+          <include name="**/*Test.class"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  
+  <!--
+    Build war dir
+  -->
+  <target name="build-war-dir" depends="build-classes">
+    <mkdir dir="${build.war.dir}"/>
+    <copy todir="${build.war.dir}">
+      <fileset dir="${src.web.dir}"/>
+    </copy>
+    <mkdir dir="${build.war.dir}/WEB-INF/classes"/>
+    <copy todir="${build.war.dir}/WEB-INF/classes">
+      <fileset dir="${build.classes.dir}"/>
+    </copy>
+    
+    <!-- Make the war dir into production -->
+    <replace dir="${build.war.dir}" value="${project.version}">
+      <include name="WEB-INF/spring/beans-presentation.xml"/>
+      <replacetoken>@VERSION@</replacetoken>
+    </replace>
+    <replace file="${build.war.dir}/WEB-INF/click.xml">
+      <replacetoken><![CDATA[<mode value="development"/>]]></replacetoken>
+      <replacevalue><![CDATA[<mode value="production"/>]]></replacevalue>
+    </replace>
+    <replace file="${build.war.dir}/WEB-INF/web.xml" value="">
+      <replacetoken><![CDATA[<listener><listener-class>org.h2.server.web.DbStarter</listener-class></listener>]]></replacetoken>
+    </replace>
+    <copy
+      file="${build.war.dir}/WEB-INF/config/application-production.properties"
+      tofile="${build.war.dir}/WEB-INF/config/application.properties"
+      overwrite="true"/>
+  </target>
+
+  
+  <!--
+    Production WAR
+  -->
+  <target name="war" depends="build-war-dir">
+    <!-- Make a production war -->
+    <build-war 
+      warfile="${dist.dir}/${build.war.file.name}" 
+      wardir="${build.war.dir}"/>
+    
+    <!-- Make a production (anonymous version) war -->
+    <antcall target="_enable-anonymous"/>
+    <build-war 
+      warfile="${dist.dir}/${build.war-anonymous.file.name}" 
+      wardir="${build.war.dir}"/>
+  </target>
+
+  
+  <!--
+    Prepare demo WAR
+  -->
+  <target name="prepare-demo" depends="build-war-dir">
+    <!-- analytics code -->
+    <replace file="${build.war.dir}/border-template.htm">
+      <replacetoken>##TRACKING_CODE</replacetoken>
+      <replacevalue><![CDATA[
+      	<script type="text/javascript">
+      	  var _gaq = _gaq || [];
+      	  _gaq.push(['_setAccount', 'UA-5415340-11']);
+      	  _gaq.push(['_trackPageview']);
+
+      	  (function() {
+      	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      	  })();
+      	</script>
+      ]]></replacevalue>
+    </replace>
+  </target>
+
+  
+  <!--
+    WAR for http://piggydb.jp/
+  -->
+  <target name="war-jp" depends="prepare-demo">
+  	<replace file="${build.war.dir}/border-template.htm">
+      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
+      <replacevalue><![CDATA[
+      	<script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
+      	<script type='text/javascript' charset='utf-8'><!--
+      	tfb.account = 'piggydb_ja';
+      	tfb.label = 'follow-me';
+      	tfb.color = '#00aeef';
+      	tfb.side = 'r';
+      	tfb.top = 250;
+      	tfb.showbadge();
+      	--></script>
+      ]]></replacevalue>
+    </replace>
+  	
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    <antcall target="_enable-strict-edit-auth"/>
+    <antcall target="_enable-guest"/>
+
+    <build-war 
+      warfile="${build.dir}/jp-${build.war.file.name}" 
+      wardir="${build.war.dir}"/> 
+  </target>
+
+  
+  <!--
+    WAR for http://piggydb.jp/sandbox
+  -->
+  <target name="war-sandbox" depends="prepare-demo">
+    <antcall target="_enable-guest"/>
+    
+    <build-war 
+      warfile="${build.dir}/sandbox-${build.war.file.name}" 
+      wardir="${build.war.dir}"/> 
+  </target>
+
+  
+  <!--
+    WAR for Piggydb Documents
+  -->
+  <target name="war-en" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_add-ad-top"/>
+    <antcall target="_add-ad-sidebar-bottom"/>
+    
+    <build-war 
+      warfile="${build.dir}/en-${build.war.file.name}" 
+      wardir="${build.war.dir}"/>
+  </target>
+  
+	  
+  <!--
+    WAR for Table Tennis Videos
+  -->
+  <target name="war-tt" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    <antcall target="_add-ad-top"/>
+    <antcall target="_add-ad-sidebar-bottom"/>
+    
+    <build-war 
+      warfile="${build.dir}/tt-${build.war.file.name}" 
+      wardir="${build.war.dir}"/>
+  </target>
+
+  
+  <!--
+    WAR for eigobuta
+  -->
+  <target name="war-eigobuta" depends="prepare-demo">
+    <replace file="${build.war.dir}/border-template.htm">
+      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
+      <replacevalue><![CDATA[
+        <script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
+        <script type='text/javascript' charset='utf-8'><!--
+        tfb.account = 'eigobuta';
+        tfb.label = 'follow-me';
+        tfb.color = '#00aeef';
+        tfb.side = 'r';
+        tfb.top = 35;
+        tfb.showbadge();
+        --></script>
+      ]]></replacevalue>
+    </replace>
+
+  	<antcall target="_enable-anonymous"/>
+  	<antcall target="_set-default-scale-to-detail"/>
+    <antcall target="_add-ad-top"/>
+    <antcall target="_add-ad-sidebar-bottom"/>
+    
+    <build-war 
+      warfile="${build.dir}/eigobuta-${build.war.file.name}" 
+      wardir="${build.war.dir}"/>
+  </target>
+  
+  
+  <!--
+    All-in-one package
+  -->
+  <target name="all-in-one" depends="war">
+    <mkdir dir="${build.all-in-one.content.dir}"/>
+    <copy todir="${build.all-in-one.content.dir}">
+      <fileset dir="${src.all-in-one.dir}"/>
+      <fileset dir=".">
+        <include name="LICENSE.txt"/>
+        <include name="NOTICE.txt"/>
+      </fileset>
+    </copy>
+    <replace dir="${build.all-in-one.content.dir}" value="${build.war.file.name}">
+      <include name="run.bat"/>
+      <include name="run.sh"/>
+      <replacetoken>@WAR_FILE_NAME@</replacetoken>
+    </replace>
+    <copy
+      file="${dist.dir}/${build.war.file.name}"
+      tofile="${build.all-in-one.content.dir}/${build.war.file.name}"
+      overwrite="true"/>
+    <zip 
+      zipfile="${dist.dir}/${build.all-in-one.name}.zip" 
+      basedir="${build.all-in-one.dir}"/>
+  </target>
+  
+  
+
+  <!--
+    Piggydb Standalone Package
+  -->
+  
+  <path id="libs-standalone">
+    <fileset dir="${standalone.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="libs-launch4j">
+    <fileset dir="${standalone.lib.launch4j.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+
+  <!--
+    Build standalone classes
+  -->
+  <target name="standalone-classes">
+    <mkdir dir="${standalone.build.dir}"/>
+    <build-classes
+      src="${standalone.src.java.dir}"
+      encoding="${src.encoding}"
+      version="${standalone.src.version}"
+      resources="${standalone.src.resources.dir}"
+      classpath="libs-standalone"
+      classes="${standalone.build.classes.dir}"/>
+      
+    <replace dir="${standalone.build.classes.dir}" value="${project.version}">
+      <include name="**/VERSION"/>
+      <replacetoken>@VERSION@</replacetoken>
+    </replace>
+  </target>
+
+
+  <!--
+    Build standalone jar
+  -->
+  <target name="standalone-jar" depends="standalone-classes">
+    <pathconvert property="jar-classpath" dirsep="/" pathsep=" ">
+      <path refid="libs-standalone"/>
+      <chainedmapper>
+        <flattenmapper/>
+        <globmapper from="*" to="lib/*"/>
+      </chainedmapper>
+    </pathconvert>
+    <jar jarfile="${standalone.build.jar}">
+      <fileset dir="${standalone.build.classes.dir}"/>
+      <manifest>
+        <attribute name="Main-Class" value="marubinotto.piggydb.standalone.PiggydbServer"/>
+        <attribute name="Class-Path" value="${jar-classpath}"/>
+        <attribute name="SplashScreen-Image" value="splash.png"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  
+  <!--
+    Build package base
+  -->
+  <target name="standalone-package-base" depends="standalone-jar, build-war-dir">
+    <mkdir dir="${standalone.build.package.dir}"/>
+    <copy file="${standalone.build.jar}" todir="${standalone.build.package.dir}" overwrite="true"/>
+    <copy todir="${standalone.build.package.dir}">
+      <fileset dir="${standalone.dir}">
+        <exclude name="**/.*"/>
+        <exclude name="**/.*/**"/>
+        <exclude name="src/**"/>
+      </fileset>
+    </copy>
+    <copy todir="${standalone.build.package.webapp.dir}">
+      <fileset dir="${build.war.dir}"/>
+    </copy>
+    <copy file="${standalone.build.package.webapp.dir}/WEB-INF/config/application.properties" 
+      todir="${standalone.build.package.dir}" overwrite="true"/>
+    <copy todir="${standalone.build.package.dir}">
+      <fileset dir="${basedir}">
+        <include name="*.txt"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+  <!--
+    Build package
+  -->
+  <target name="standalone-package" depends="standalone-package-base">
+    <taskdef name="launch4j"
+      classname="net.sf.launch4j.ant.Launch4jTask"
+      classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar"/>
+    <launch4j>
+      <config 
+          headerType="gui"
+          jarPath="${standalone.build.jar}"
+          outfile="${standalone.build.package.dir}/${standalone.build.package.exe}"
+          dontWrapJar="false"
+          icon="${standalone.src.launch4j.dir}/piggydb.ico"
+          downloadUrl="http://java.com/download">
+        <jre minVersion="1.6.0"/>
+      </config>
+    </launch4j>
+
+    <zip 
+      zipfile="${dist.dir}/${standalone.build.package.name}.zip" 
+      basedir="${standalone.build.dir}"
+      includes="${standalone.build.package.dir.name}/**"/>
+  </target>
+  
+</project>

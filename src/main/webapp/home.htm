@@ -1,0 +1,54 @@
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td class="fragments" valign="top">
+
+$utils.raw($fragmentFormPanel)
+
+## user fragment
+#if ($userFragment)
+<div class="fragment-group-control">
+  <img class="home-icon" src="$context/style/images/tag-user.png" border="0"
+    title="$messages.get("user-home")" alt="$messages.get("user-home")"/>
+</div>
+<div class="user-fragment">
+#fragment($userFragment $null)
+</div>
+#end
+
+## home fragments
+#if ($homeFragments.totalSize > 0)
+<div class="fragment-group-control">
+  #set ($toggleState = $utils.getWithDefault($session, "state.home-toggle", "shown"))
+  <script type="text/javascript">
+  //<![CDATA[
+    jQuery(function() {
+      new ShowHideToggle("home-toggle", jQuery(".home-fragments"), putSessionValue);
+    });
+  //]]>
+  </script>
+  <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
+    title="$messages.get("home")" alt="$messages.get("home")"/>
+  #verticalShowHideToggle("home-toggle" $toggleState)
+</div>
+<div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>
+#fragments($homeFragments $null "hpi")
+</div>
+#end
+
+#fragmentsView("fragmentsByDate" "$context/html/fragments-by-date.htm#if($date)?date=$date#end" "true")
+</td>
+  
+<td class="sidebar" align="left" valign="top">
+#adSidebarTop()
+
+#sidebarEntryHeader("sidebar-calendar" $messages.get("HomePage-calendar") "$context/images/date.png" $null)   
+$utils.raw($calendarIndex)
+#sidebarEntryFooter()
+
+#commonSidebarEntries()
+
+#adSidebarBottom()
+</td>
+</tr>
+</table>
+

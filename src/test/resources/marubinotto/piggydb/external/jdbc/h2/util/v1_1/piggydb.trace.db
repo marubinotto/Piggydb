@@ -1,0 +1,4 @@
+12-24 08:10:39 jdbc[3]: SQLException
+org.h2.jdbc.JdbcSQLException: テーブル GLOBAL_SETTING が見つかりません
+Table GLOBAL_SETTING not found; SQL statement:
+select setting_value from global_setting where setting_name = ? [42102-119]

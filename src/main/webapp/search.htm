@@ -1,0 +1,40 @@
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td class="fragments" valign="top">
+<div class="section-title" style="margin-bottom: 5px;">
+  $messages.get("SearchPage-search-results")  : 
+  #if ($keywordList)
+    #foreach ($word in $keywordList)
+      &quot;$word&quot;
+    #end
+  #end
+</div>
+
+<form id="largeSearch" name="largeSearch" action="$context/search.htm" method="get">
+<input id="largeSearch_keywords" type="text" name="keywords" value="$keywords"/><input 
+  type="submit" value="$messages.get("search")"/>
+</form>
+
+#if ($tags.totalSize > 0)
+<div class="content-box tags-by-keywords">
+#foreach ($tag in $tags)
+  <span class="tag">
+    #tagIcon($tag.name)
+    <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
+  </span>
+#end
+</div>
+#end
+
+#fragmentsView("fragmentsByKeywords" "$context/html/fragments-by-keywords.htm?keywords=$!utils.urlEncode($keywords)" "true")
+</td>
+
+<td class="sidebar" align="left" valign="top">
+#adSidebarTop()
+
+#commonSidebarEntries()
+
+#adSidebarBottom()
+</td>
+</tr>
+</table>

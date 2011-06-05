@@ -1,0 +1,180 @@
+<div id="wiki-help">
+<h1>Wiki Markup Help</h1> 
+
+<h2>Paragraphs</h2>
+<ul class="level1">
+  <li>A new text paragraph is created whenever two blocks of text are separated by one or more empty lines.</li>
+  <li>Writing "~" at the end of a line inserts a line break.</li>
+</ul>
+
+
+<h2>Font Styles</h2>
+<pre>
+-'''bold'''
+-''italic''
+-__strike-through__
+</pre>
+
+Display: 
+<ul class="level1">
+  <li><b>bold</b></li>
+  <li><i>italic</i></li>
+  <li><del>strike-through</del></li>
+</ul>
+
+
+<h2>Lists</h2>
+<pre>
+-Item 1
+--Item 1.1
+-Item2
+
++Item 1
+++Item 1.1
++Item 2
+</pre>
+
+
+Display:
+<ul class="level1">
+  <li>
+    Item 1
+    <ul>
+      <li>Item 1.1</li>
+    </ul>
+  </li>
+  <li>Item2</li>
+</ul>
+
+<ol class="level1">
+  <li>
+    Item 1
+    <ol>
+      <li>Item 1.1</li>
+    </ol>
+  </li>
+  <li>Item 2</li>
+</ol>
+
+
+<h2>Definition Lists</h2>
+<pre>
+:piggybank:traditional name of a coin accumulation and storage container. 
+:database:a structured collection of records or data.
+</pre>
+
+Display:
+<dl>
+<dt>piggybank</dt>
+<dd>traditional name of a coin accumulation and storage container. </dd>
+<dt>database</dt>
+<dd>a structured collection of records or data.</dd>
+</dl>
+
+<h2>Preformatted Text</h2>
+<p>In order to mark a paragraph as preformatted text, indent that paragraph with one or more spaces.</p>
+
+<pre>
+ public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+Display:
+<pre> public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+<h2>Blockquotes</h2>
+<p>In order to mark a paragraph as blockquote, start the line of that paragraph with '&gt;'</p>
+
+<pre>
+>This text is a quote from someone else.
+>>You can create a nested quote.
+</pre>
+
+Display:
+<blockquote>
+This text is a quote from someone else.
+<blockquote>
+You can create a nested quote.
+</blockquote>
+</blockquote>
+
+
+<h2>Tables</h2>
+<p>Simple tables can be created like this: </p>
+
+<pre>
+||Cell 1||Cell 2||Cell 3||
+||Cell 4||Cell 5||Cell 6||
+</pre>
+
+Display:
+<table>
+<tr><td>Cell 1</td><td>Cell 2</td><td>Cell 3</td></tr>
+<tr><td>Cell 4</td><td>Cell 5</td><td>Cell 6</td></tr>
+</table>
+
+
+<h2>Horizontal Line</h2>
+<p>Four dashes will be replaced by a horizontal line.</p>
+
+<pre>
+----
+</pre>
+
+Display:
+<hr/>
+
+
+<h2>Links</h2>
+<ul class="level1">
+  <li>Hyperlinks are automatically created for tag names and URLs</li>
+  <li>An image tag is embedded if a URL ends with image extension(gif|png|jpeg|jpg).</li>
+  <li>An video player is embedded if a URL is a Youtube video.</li>
+</ul>
+
+Fragment Link:
+<pre>
+-#1
+-fragment:1
+-fragment:1:title
+-fragment:1:detail
+</pre>
+
+Display:
+<ul class="level1">
+<li><a href="#">#1</a></li>
+<li><a href="#">fragment:1</a></li>
+<li><a href="#">Fragment Title</a></li>
+<li><a href="#">#1</a> Fragment Title</li>
+</ul>
+
+Labeled Link:
+<pre>
+-[http://www.google.com/ Google]
+-[fragment:1 Link to the fragment #1]
+</pre>
+
+Display:
+<ul class="level1">
+  <li><a href="http://www.google.com/">Google</a></li>
+  <li><a href="#">Link to the fragment #1</a></li>
+</ul>
+
+
+<h2>Embed the content of another fragment</h2>
+<p>
+You can embed the content of another fragment.
+</p>
+
+<pre>
+fragment:1:embed
+</pre>
+
+<br /><br />
+
+</div>
+

@@ -1,0 +1,460 @@
+##
+## Full Detail View 
+##
+
+#macro( fragment $fragment $contextTags )
+  
+<table class="fragment" cellpadding="5" cellspacing="0" width="100%" border="0">
+  #fragmentParentsRow($fragment.parentRelations)
+  #fragmentHeaderRow($fragment $contextTags)
+  #fragmentBodyRow($fragment)
+  #fragmentChildrenRow($fragment.childRelations)
+</table>
+  
+#end
+
+
+
+#macro( fragmentHeaderRow $fragment $contextTags )
+
+<tr>
+  <th class="header-cell" title="$fragment.title" valign="middle">
+    <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
+      <span class="fragment-caption">
+        $utils.raw($html.linkToFragment($fragment.id))
+        <span class="title">$fragment.title &nbsp;</span>
+      </span>
+      #fragmentTags($fragment $contextTags)
+      #fragmentToolBar($fragment)
+    </div>
+  </th>
+</tr>
+
+#end
+
+
+
+#macro( fragmentToolBar $fragment )
+
+#set ($fragmentHeadline = false)
+#set ($fragmentHeadline = $fragment.makeHeadline(15))
+<span class="fragment-tools">
+  <span class="fragment-id" style="display: none;">$fragment.id</span>
+  #if ($fragmentHeadline)
+    <span class="fragment-headline" style="display: none;">$fragmentHeadline</span>
+  #end
+
+#if (!$user.isViewer())
+  <span class="relation-draggable droppable-to-fragment">
+    <span class="add-relation" title="$messages.get("add-relation-by-dnd")">
+      <span class="relation-from">
+        #$fragment.id
+        #if ($fragmentHeadline) <span class="fragment-title">$fragmentHeadline</span> #end
+      </span>
+      <img src="$context/images/add-relation.png" border="0" alt=""/>
+      <span class="fragment-id" style="display: none;">$fragment.id</span>
+    </span>
+  </span>
+#end
+ 
+  <a class="tool-button" href="$context/document-view.htm?id=$fragment.id" target="_blank"
+    title="$messages.get("open-as-document")">
+  <img src="$context/images/document.png" border="0" alt="$messages.get("document")"/></a>
+
+#if ($fragment.canChange($user))
+  <a class="tool-button" href="$resources.fragmentPath($fragment.id)&amp;edit=true" 
+    title="$messages.get("edit-fragment")">
+  <img src="$context/images/edit.png" border="0" alt="$messages.get("edit")"/></a>
+#end
+
+#set ($bkmkTagName = $tagConstants.NAME_BOOKMARK)
+#if ($fragment.canAddTag($bkmkTagName, $user) && !$fragment.classification.isSubordinateOf($bkmkTagName))
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-bookmark")"
+    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_BOOKMARK'); return false;">
+  <img src="$context/style/images/tag-bookmark.png" border="0" alt="$messages.get("bookmark")"/></a>
+#end
+
+#set ($hmTagName = $tagConstants.NAME_HOME)
+#if ($fragment.canAddTag($hmTagName, $user) && !$fragment.classification.isSubordinateOf($hmTagName))
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-home")"
+    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_HOME'); return false;">
+  <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
+#end
+  
+#if ($fragment.canDelete($user) && !$fragment.isTrash())
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-trash")"
+    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_TRASH'); return false;">
+  <img src="$context/style/images/tag-trash.png" border="0" alt="$messages.get("trash")"/></a>
+#end
+
+#if (!$user.isViewer())
+  <input type="checkbox" class="fragment-checkbox"
+    name="fragmentCheckbox" value="$fragment.id"
+    onclick="onFragmentChecked(this, $fragment.id, '$format.javascript($fragment.title)')"
+    #if (($selectedFragments && $selectedFragments.containsKey($fragment.id)) || $fragmentBatchPage) checked="checked" #end
+    />
+#end
+
+  <span class="pointer-down"><img src="$context/images/empty.png" border="0" width="0" height="0" alt=""/></span>
+  <span class="pointer-down-inner"><img src="$context/images/empty.png" border="0" width="0" height="0" alt=""/></span>
+</span>
+
+#end 
+
+
+
+#macro( fragmentBodyRow $fragment )
+
+<tr class="fragment-body">
+<td class="fragment-body">
+    
+#if ($fragment.isFile())
+  <div class="fragment-content">
+  #fragmentFileContent($fragment)
+  </div>
+#else
+  #if ($fragment.content && $fragment.content.trim() != "")
+    <div class="fragment-content">
+    #fragmentTextContent($fragment)
+    </div>
+  #end
+#end
+
+<div class="update-info">
+<span class="entity-timestamp">
+  <span title="$fragment.updateDatetime.format("yyyy-MM-dd HH:mm")"
+    >$fragment.updateDatetime.getRelativeDescription($messageSource)</span>
+  (#if ($fragment.updater && $fragment.updater != $fragment.creator)<a 
+    class="user-name" href="$resources.userPath($fragment.updater)">$fragment.updater</a> / #end<a 
+    class="user-name" href="$resources.userPath($fragment.creator)">$fragment.creator</a>)
+</span>
+</div>
+
+</td>
+</tr>
+  
+#end
+
+
+
+#macro( fragmentTags $fragment $contextTags )
+
+<span class="tags-placeholder-${fragment.id}">
+#if ($fragment.classification.size() > 0)
+#set ($fragmentTags = $fragmentTagsPrototype.newInstance($fragment.classification, $contextTags))
+<span class="tags">
+#foreach ($tag in $fragmentTags.toShow)
+  #fragmentTag($tag $fragment)
+#end
+
+#if ($fragmentTags.toHide.size() > 0)
+<a class="show-hidden-tags" href="#" onclick="onShowHiddenTags(this); return false;">...</a>
+<span class="hidden-tags" style="display: none;">
+  #foreach ($tag in $fragmentTags.toHide)
+    #fragmentTag($tag $fragment)
+  #end
+</span>
+#end
+</span>
+#end
+&nbsp;
+</span>
+
+#end
+
+
+
+#macro( fragmentTag $tag $fragment )
+
+<span class="tag">
+  #miniTagIcon($tag.name)
+  <a class="tag" href="$resources.tagPath($tag.id)">$tag.name</a>
+  #if ($fragment.id && $fragment.canRemoveTag($tag, $user))
+    <a href="#" onclick="fragmentOps.removeTag('$fragment.id', '$tag.name'); return false;">
+    <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+  #end
+</span>
+<span>&nbsp;</span> ## fix for the white-space bug on IE and Chrome
+
+#end
+
+
+
+#macro( fragmentTextContent $fragment )
+
+#if ($preformatted.evaluate($fragment))
+  $utils.raw($html.preformattedContent($fragment, $wikiParser, $user))
+#else
+  $utils.raw($wikiParser.parse($fragment.content, $fragment.id, $user, $resources))
+#end
+
+#end
+
+
+
+#macro( fragmentFileContent $fragment )
+
+<div class="file">
+#if ($fragment.isImageFile())
+  $utils.raw($html.fragmentImage($fragment.id))
+  <br />
+#else
+  $utils.raw($html.fileIcon($fragment.fileType))
+#end
+  $utils.raw($html.linkToFragmentFileWithSize($fragment))
+</div>
+
+#end
+
+
+
+#macro( fragmentContentForDoc $fragment )
+
+#if ($fragment.isFile())
+#fragmentFileContent($fragment)
+#else
+#if ($fragment.content && $fragment.content.trim() != "")
+#fragmentTextContent($fragment)
+#end
+#end
+
+#end
+
+
+
+#macro( deleteRelationButton $relation $relationSelector $containerSelector )
+  
+#if ($relation.canDelete($user))
+<a href="#" title="$messages.get("delete-relation")" 
+  onclick="fragmentOps.deleteRelation(
+      '$relation.id', 
+      jQuery(this).closest('$relationSelector'),
+      #if ($containerSelector)
+        jQuery(this).closest('$containerSelector')); 
+      #else
+        null); 
+      #end
+    return false;">
+<img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+#end
+
+#end
+
+
+
+#macro( fragmentParentsRow $parentRelations )
+
+#if ($parentRelations.size() > 0)
+<tr valign="middle">
+  <td class="superfragment-links">
+  #foreach ($relation in $parentRelations)
+    <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
+        style="margin-right: 1em;">
+      <span class="fragment-caption">
+        $utils.raw($html.linkToFragment($relation.from.id))
+        $utils.raw($html.fragmentHeadline($relation.from))
+      </span>
+      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
+      #deleteRelationButton($relation "span.fragment-header" "tr")
+    </span>
+  #end
+  </td>
+</tr>
+#end
+
+#end
+
+
+
+#macro( fragmentParentsRowAtBottom $fragment $contextRelationId )
+
+#if ((!$contextRelationId && !$fragment.parentRelations.isEmpty()) || $fragment.parentRelations.size() > 1)
+<tr valign="middle">
+  <td class="superfragment-links">
+  #foreach ($relation in $fragment.parentRelations)
+    #if (!$contextRelationId || $relation.id != $contextRelationId)
+      <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
+          style="margin-right: 1em;">
+        <span class="fragment-caption">
+          $utils.raw($html.linkToFragment($relation.from.id))
+          $utils.raw($html.fragmentHeadline($relation.from))
+        </span>
+        <img src="$context/images/arrow-left-to-top.gif" border="0" alt="-"/>
+        #deleteRelationButton($relation "span.fragment-header" "tr")
+      </span>
+    #end
+  #end
+  </td>
+</tr>
+#end
+
+#end
+
+
+
+#macro( fragmentChildrenRow $childRelations )
+
+#if ($childRelations.size() > 0)
+<tr valign="middle">
+  <td class="subfragment-links">
+  #foreach ($relation in $childRelations)
+    <span class="$html.fragmentHeaderClass(${relation.to.id}, $selectedFragments)" 
+        style="margin-right: 1em;">
+      <img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+      <span class="fragment-caption">
+        $utils.raw($html.linkToFragment($relation.to.id))
+        $utils.raw($html.fragmentHeadline($relation.to))
+      </span>
+      #if ($relation.to.hasChildren()) 
+        <img src="$context/images/arrow-with-children.gif" border="0" alt="&rarr; ..."/>
+      #end
+      #deleteRelationButton($relation "span.fragment-header" "tr")
+    </span>
+  #end
+  </td>
+</tr>
+#end
+
+#end
+
+
+
+##
+## Compact View for List, Table, Tree
+##
+
+#macro ( imageLink $fragment ) 
+
+#if ($fragment.isImageFile())
+  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)"
+    title="$messages.get("view-image")" style="vertical-align: middle;">
+  <img src="$context/images/image.png" border="0" alt="$messages.get("image")"/></a>
+#end
+
+#end
+
+
+
+#macro ( fragmentCell $fragment $compactColumn ) 
+  
+<table class="fragment fragment-cell #if ($compactColumn) fragment-cell-compact #end" 
+  cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+  <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
+    <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
+    #if ($compactColumn)
+      <span class="fragment-caption">
+        #imageLink($fragment)
+        <a class="title-link" href="$resources.fragmentPath($fragment.id)">
+        <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
+      </span>
+    #else
+      #fragmentCaption($fragment)
+    #end
+      #fragmentToolBar($fragment)
+    </div>
+  </th>
+</tr>
+</table>
+  
+#end
+
+
+
+#macro ( fragmentCaption $fragment )
+  
+<span class="fragment-caption">
+  $utils.raw($html.linkToFragment($fragment.id))
+  #imageLink($fragment)
+  <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
+</span>
+
+#end
+
+
+
+#macro ( fragmentRootNode $fragment $contextRelation $contextTags ) 
+  
+<table class="fragment fragment-node fragment-root-node" 
+  cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+  <th class="header-cell root-header-cell" title="$fragment.title" 
+      valign="middle" style="padding-left: 5px;">
+    <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
+      #fragmentNodeCaption($fragment $contextRelation)
+      #fragmentTags($fragment $contextTags)
+      #fragmentToolBar($fragment)
+    </div>
+  </th>
+</tr>
+</table>
+  
+#end
+
+
+
+#macro ( fragmentNode $fragment $contextRelation $contextTags )
+  
+<table class="fragment fragment-node" 
+  cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+  <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
+    <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
+      #fragmentNodeCaption($fragment $contextRelation)
+      #fragmentTags($fragment $contextTags)
+      #fragmentToolBar($fragment)
+    </div>
+  </th>
+</tr>
+</table>
+  
+#end
+
+
+
+#macro ( fragmentNodeCaption $fragment $contextRelation ) 
+
+#if ($contextRelation)
+<span style="margin-left: 0px; margin-right: 3px;">
+  <img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+  #deleteRelationButton($contextRelation "li.fragment-node" $null)
+</span>
+#end
+#if ($fragment.hasChildren())
+  <a class="fragment-node-toggle" href="#" 
+    onclick="FragmentTree.onNodeToggleClick(this, $fragment.id); return false;">
+  <img src="$context/images/node-plus.png" alt="+" border="0" 
+    style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
+#end
+#fragmentCaption($fragment)
+<span class="fragment-content-toggle">
+  <a class="tool-button" href="#" style="vertical-align: middle;"
+  #if ($contextRelation)
+    onclick="FragmentTree.onContentToggleClick(this, $fragment.id, $contextRelation.id); return false;">
+  #else
+    onclick="FragmentTree.onContentToggleClick(this, $fragment.id, null); return false;">
+  #end
+  <img src="$context/style/images/bullet-arrow-down.png" border="0" alt=""
+    style="margin: -2px;"/></a>
+</span>
+
+#end
+
+
+
+#macro ( selectedFragmentEntry $fragmentId $fragmentTitle ) 
+
+<table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
+  <a class="fragment-link" href="$resources.fragmentPath($fragmentId)">#$fragmentId</a>
+  <span class="title">$fragmentTitle &nbsp;</span>
+  <a class="remove" href="#" onclick="selectedFragments.remove('$fragmentId'); return false;">
+    <img class="delete-button" src="$context/images/delete.gif" 
+      border="0" alt="x" style="padding-right: 5px;"/></a>
+</td></tr></table>
+
+#end
+
+

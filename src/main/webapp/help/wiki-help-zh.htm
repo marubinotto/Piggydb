@@ -1,0 +1,180 @@
+<div id="wiki-help">
+<h1>文本格式规则</h1> 
+
+<h2>段落</h2>
+<ul class="level1">
+  <li>用空行来分开段落。换行符不会反映在显示的文本上。</li>
+  <li>要在段落内改行时，在行末加符号 ~ 。</li>
+</ul>
+
+
+<h2>文字的修饰</h2>
+<pre>
+-'''粗体'''
+-''斜体''
+-__删除线__
+</pre>
+
+显示: 
+<ul class="level1">
+  <li><b>粗体</b></li>
+  <li><i>斜体</i></li>
+  <li><del>删除线</del></li>
+</ul>
+
+
+<h2>分项写</h2>
+<pre>
+-项目 1
+--项目 1.1
+-项目 2
+
++项目 1
+++项目 1.1
++项目 2
+</pre>
+
+
+显示:
+<ul class="level1">
+  <li>
+      项目 1
+    <ul>
+      <li>项目 1.1</li>
+    </ul>
+  </li>
+  <li>项目 2</li>
+</ul>
+
+<ol class="level1">
+  <li>
+      项目 1
+    <ol>
+      <li>项目 1.1</li>
+    </ol>
+  </li>
+  <li>项目 2</li>
+</ol>
+
+
+<h2>词汇表</h2>
+<pre>
+:词汇1:在这里写词汇的说明
+:词汇2:在这里写词汇的说明
+</pre>
+
+显示:
+<dl>
+<dt>词汇1</dt>
+<dd>在这里写词汇的说明</dd>
+<dt>词汇2</dt>
+<dd>在这里写词汇的说明</dd>
+</dl>
+
+
+<h2>预格式化文本</h2>
+<p>行头用空格开始时、接下来的段落被视为预格式化文本。</p>
+
+<pre>
+ public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+显示:
+<pre> public static void main(String[] args) {
+   System.out.println("Hello world!");
+ }
+</pre>
+
+
+<h2>引用文</h2>
+<p>在行头写符号 &gt; ，表示这是引用文。&gt; &gt;&gt; &gt;&gt;&gt; 有三个层次。</p>
+
+<pre>
+>这是引用文。
+>>可以几重引用。
+</pre>
+
+显示:
+<blockquote>
+这是引用文。
+<blockquote>
+可以几重引用。
+</blockquote>
+</blockquote>
+
+
+<h2>表格</h2>
+<p>在项目之间用符号 || 来分隔，可以做表格。</p>
+
+<pre>
+||Cell 1||Cell 2||Cell 3||
+||Cell 4||Cell 5||Cell 6||
+</pre>
+
+显示:
+<table>
+<tr><td>Cell 1</td><td>Cell 2</td><td>Cell 3</td></tr>
+<tr><td>Cell 4</td><td>Cell 5</td><td>Cell 6</td></tr>
+</table>
+
+
+<h2>水平线</h2>
+<p>在行头写减号4個(----)，是水平线。</p>
+
+<pre>
+----
+</pre>
+
+显示:
+<hr/>
+
+<h2>链接</h2>
+<ul class="level1">
+  <li>自动地编制标签名和URL的链接。</li>
+  <li>URL的対象是图像的话(gif|png|jpeg|jpg)，会自动插入img的标签。</li>
+  <li>如果是YouTube视频URL, 会自动插入YouTube视频阅览器代码。</li>
+</ul>
+
+知识帖子的链接:
+<pre>
+-#1
+-fragment:1
+-fragment:1:title
+-fragment:1:detail
+</pre>
+
+显示:
+<ul class="level1">
+<li><a href="#">#1</a></li>
+<li><a href="#">fragment:1</a></li>
+<li><a href="#">Fragment Title</a></li>
+<li><a href="#">#1</a> Fragment Title</li>
+</ul>
+
+注释的链接
+<pre>
+-[http://www.baidu.com/ 百度]
+-[fragment:1 帖子 #1 的链接]
+</pre>
+
+显示:
+<ul class="level1">
+  <li><a href="http://www.baidu.com/">百度</a></li>
+  <li><a href="#">帖子 #1 的链接</a></li>
+</ul>
+
+
+<h2>嵌入其他帖子的内容</h2>
+<p>
+您可以按照以下的写法，在帖子里嵌入到其他帖子的内容。
+</p>
+
+<pre>
+fragment:1:embed
+</pre>
+
+<br /><br />
+
+</div>

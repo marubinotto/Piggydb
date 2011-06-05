@@ -1,0 +1,13 @@
+.piggydb-site-link a {
+  color: blue;
+  font-size: 10pt;
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+#bulletin {
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-bottom: 20px; 
+}

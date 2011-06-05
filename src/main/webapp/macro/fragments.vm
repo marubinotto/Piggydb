@@ -1,0 +1,290 @@
+#macro( fragments $fragments $contextTags $pageIndexName )
+
+#if ($fragments && $fragments.totalSize > 0)
+
+#if (!$fragments.isFirstPage())
+#pagingNavigator($fragments $pageIndexName)
+#end
+
+#foreach ($fragment in $fragments)
+  #fragment($fragment $contextTags)
+#end
+
+#pagingNavigator($fragments $pageIndexName)
+
+#end
+
+#end
+
+
+
+#macro ( fragmentsView $id $fragmentsUrl $sortable )
+  
+<div id="$id" class="fragments-view">
+<script type="text/javascript">
+//<![CDATA[
+  var fragmentsView_$id = {
+    MIN_SCALE: 0,
+    MAX_SCALE: 1000,
+    
+    scale: $fragmentsViewScale,
+    
+    orderBy: $fragmentsViewOrderBy,
+    ascending: $fragmentsViewAscending,
+
+    highlighted: false,
+    
+    init: function () {
+      var outer = this;
+      jQuery("#$id .view-slider").slider({ 
+        max: outer.MAX_SCALE,
+        min: outer.MIN_SCALE,
+        value: outer.scale,
+        change: function(event, ui) {
+          outer.scale = ui.value;
+          outer.loadFirstSet();
+        }
+      });
+      jQuery("#$id .select-orderBy").change(function () {
+        outer.orderBy = jQuery(this).val();
+        outer.loadFirstSet();
+      });
+      jQuery("#$id .select-ascending-or-not button").click(function () {
+        var button = jQuery(this);
+        if (button.hasClass("selected")) return;
+        button.siblings("button.selected").removeClass("selected");
+        button.addClass("selected");
+        
+        outer.ascending = (button.attr("name") == "ascending");
+        outer.loadFirstSet();
+      });
+      
+      this.loadFirstSet();
+    },
+    
+    createParameters: function () {
+      return {
+        "viewId": "$id", 
+        "scale": this.scale, 
+        "orderBy": this.orderBy,
+        "ascending": this.ascending
+      };
+    },
+    
+    loadFirstSet: function () {
+      var contentDivSelector = "#$id .view-content";
+      var contentDiv = jQuery(contentDivSelector);
+      contentDiv.empty();
+      
+      this.pageIndex = 0;
+      
+      var loadIcon = jQuery(contentDiv).putLoadingIcon("margin: 5px;");
+      var outer = this;
+      jQuery.get("$fragmentsUrl", this.createParameters(), function(html) {
+        if (jQuery.trim(html) != "") {
+          contentDiv.append(jQuery(html));
+          jQuery("#$id .view-control").show();
+          prettyPrint();
+          
+        #if ($highlightedFragment)
+          if (!outer.highlighted) {
+            highlightFragment($highlightedFragment, contentDivSelector);
+            outer.highlighted = true;
+          }
+        #end
+        }
+        loadIcon.remove();
+      });
+    },
+    
+    pageIndex: 0,
+    
+    showMore: function (button) {
+      jQuery(button).remove();
+      var fragmentsContainer = jQuery("#$id .fragments-container");
+      
+      var loadIcon = jQuery('<div style="text-align: center; margin-bottom: 5px;">')
+        .appendTo(fragmentsContainer);
+      loadIcon.putLoadingIcon(null);
+      
+      var params = this.createParameters();
+      params.pi = ++this.pageIndex;
+      jQuery.get("$fragmentsUrl", params, function(html) {
+        fragmentsContainer.append(jQuery(html));
+        loadIcon.remove();
+        prettyPrint();
+      });
+    }
+  };
+  
+  jQuery(document).ready(function() {
+    fragmentsView_${id}.init();
+  });
+//]]>
+</script>
+<table class="view-control" width="100%" 
+  cellpadding="0" cellspacing="0" border="0" style="display: none;">
+<tr>
+  <td align="left" width="18" nowrap="nowrap">
+    <img src="$context/images/zoom.png?$version" border="0" alt="" style="margin: -2px;"/>
+  </td>
+  <td align="left">  
+    <div class="view-slider"></div>
+  </td>
+  #if ($sortable)
+  <td align="right" style="padding-right: 10px;">
+    <form class="sort-fragments" action="">
+    <table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td valign="middle">
+        <select class="select-orderBy" name="orderBy">
+        #foreach ($field in $fragmentFields)
+          <option value="$field.value" #if ($fragmentsViewOrderBy == $field.value) selected="selected"  #end
+            >$messages.get("field-${field.name}")</option>
+        #end
+        </select>
+      </td>
+      <td valign="middle">
+        <div class="select-switch select-ascending-or-not">
+          <button type="button" name="ascending"
+            #if ($fragmentsViewAscending) class="selected" #end
+            ><img src="$context/images/arrow-down.png" border="0" alt=""/></button><button 
+          type="button" name="descending"
+            #if (!$fragmentsViewAscending) class="selected" #end
+            ><img src="$context/images/arrow-up.png" border="0" alt=""/></button>
+        </div>
+      </td>
+    </tr>
+    </table>
+    </form>
+  </td>
+  #end
+  #if ($atomUrl)
+  <td align="right" width="25">
+    <a href="$atomUrl" style="margin-left: 3px; margin-right: 5px;">
+    <img src="$context/images/feed.png" border="0" alt="Feed"/></a>
+  </td>
+  #end
+</tr>
+</table>
+<div class="view-content"></div>
+</div>
+
+#end
+
+
+
+#macro ( fragmentsViewContent $view $fragments $contextTags $firstSet $lastSet )
+
+#if ($fragments && $fragments.size() > 0)
+  
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+  #if ($view.viewType == "multicolumn")
+    makeFragmentsDroppable(
+      "#$view.viewId .page-index-${fragments.pageIndex} .liquid-block-frame", 
+      "liquid-block-drophover");
+  #else
+    makeFragmentsDroppable(
+      "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
+      null);
+  #end
+    makeRelationsDraggable("#$view.viewId .page-index-${fragments.pageIndex} ");
+  });
+//]]>
+</script>
+
+##
+## multicolumn
+##
+#if ($view.viewType == "multicolumn")
+
+#if ($firstSet)
+<script type="text/javascript">
+//<![CDATA[
+  var OUTER_WIDTH = 305;
+  var blockWidth = $view.columnWidth;
+  
+  function initLiquidBlocks(selectorPrefix, blockWidth) {
+    // Workaround for a browser bug where the container width 
+    // won't be calculated correctly when first loading
+    liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
+    liquidBlocks(selectorPrefix, blockWidth, null);
+  }
+
+  jQuery(document).ready(function() {
+    jQuery(window).resize(function () {
+      liquidBlocks("#$view.viewId ", blockWidth, null);
+    });
+  
+    initLiquidBlocks("#$view.viewId ", blockWidth);
+  });
+//]]>
+</script>
+<ul class="liquid-blocks fragments-container">
+#end
+#foreach ($fragment in $fragments)
+<li class="liquid-block page-index-${fragments.pageIndex}">
+  <div class="liquid-block-frame" style="position: relative;"> ## the base of the toolbar 
+    <div class="liquid-block">
+      #fragmentCell($fragment $view.compactColumn)
+    </div>
+  </div>
+</li>
+#end
+#if ($firstSet)
+</ul>
+<div style="clear: both;"/>
+#end
+#if (!$firstSet)
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(document).ready(function() {
+    initLiquidBlocks("#$view.viewId ", $view.columnWidth);
+  });
+//]]>
+</script>
+#end
+
+##
+## tree
+##
+#elseif ($view.viewType == "tree")
+  
+#if ($firstSet)<ul class="fragment-tree fragments-container">#end
+#foreach ($fragment in $fragments)
+<li class="fragment-node fragment-root-node page-index-${fragments.pageIndex}"
+  >#fragmentRootNode($fragment $null $contextTags) 
+</li>
+#end
+#if ($firstSet)</ul>#end
+
+##
+## detail
+##
+#elseif ($view.viewType == "detail")
+  
+#if ($firstSet)<div class="fragments-container">#end
+#foreach ($fragment in $fragments)
+<div class="page-index-${fragments.pageIndex}">
+  #fragment($fragment $contextTags)
+</div>
+#end
+#if ($firstSet)</div>#end
+
+#end  ## for each $view.viewType
+
+##
+## "Show More" Button
+##
+#if (!$lastSet)
+<button type="button" class="show-more" onclick="fragmentsView_${view.viewId}.showMore(this);">
+  <img src="$context/images/resultset-next.png" border="0"/>
+</button>
+#end
+
+#end  ## $fragments.size() > 0
+
+#end
+

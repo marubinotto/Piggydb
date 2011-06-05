@@ -1,0 +1,28 @@
+/* watermark positioning container */
+.updnWatermark {
+  position: relative; 
+  
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+/* IE7/6 hasLayout hack */
+.updnWatermark {
+  *zoom: 1;
+}
+
+/* watermark label styling */
+.updnWatermark label {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  
+  margin: 0px;
+  padding: 0px;
+  padding-top: 1px;
+  padding-left: 5px;
+  
+  font-size: 13px;
+  white-space: nowrap;
+  color: #bbb;
+}

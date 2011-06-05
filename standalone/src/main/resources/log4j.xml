@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <appender name="FILE" class="org.apache.log4j.FileAppender">
+    <param name="File" value="piggydb.log"/>
+    <param name="Append" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%-5p [%d{yyyy/MM/dd HH:mm:ss}] (%c{1}) %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="USER_ACTIVITY_LOG_FILE" class="org.apache.log4j.FileAppender">
+    <param name="File" value="piggydb-user-activity.log"/>
+    <param name="Append" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss}] %m%n"/>
+    </layout>
+  </appender>
+  
+  <category name="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+    <priority value="INFO"/>
+  </category>
+
+  <!--
+  <category name="marubinotto.piggydb.model.UserActivityLog">
+    <priority value="INFO"/>
+    <appender-ref ref="USER_ACTIVITY_LOG_FILE"/>
+  </category>
+  -->
+  
+  <root>
+    <priority value="WARN"/>
+    <appender-ref ref="FILE"/>
+  </root>
+
+</log4j:configuration>

@@ -1,0 +1,15 @@
+#if ($fragment && $fragment.hasChildren())
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+    makeFragmentsDroppable(".subfragments-of-${fragment.id} table.fragment", null);
+    makeRelationsDraggable(".subfragments-of-${fragment.id} ");
+  });
+//]]>
+</script>
+<ul class="fragment-tree subtree subfragments-of-${fragment.id}">
+#foreach ($relation in $fragment.childRelations)
+  <li class="fragment-node">#fragmentNode($relation.to $relation $fragment.classification) </li>
+#end
+</ul>
+#end

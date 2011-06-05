@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="piggydb-war-utils" basedir=".">
+  
+  <target name="_enable-anonymous">
+    <replace file="${build.war.dir}/WEB-INF/config/application.properties">
+      <replacetoken><![CDATA[piggydb.enableAnonymous=false]]></replacetoken>
+      <replacevalue><![CDATA[piggydb.enableAnonymous=true]]></replacevalue>
+    </replace>
+  </target>
+  
+  <target name="_enable-strict-edit-auth">
+    <replace file="${build.war.dir}/WEB-INF/config/application.properties">
+      <replacetoken><![CDATA[piggydb.entity.changeableOnlyForCreator=false]]></replacetoken>
+      <replacevalue><![CDATA[piggydb.entity.changeableOnlyForCreator=true]]></replacevalue>
+    </replace>
+  </target>
+	
+  <target name="_set-default-scale-to-detail">
+    <replace file="${build.war.dir}/WEB-INF/config/application.properties">
+      <replacetoken><![CDATA[piggydb.fragmentsView.defaultScale=]]></replacetoken>
+      <replacevalue><![CDATA[piggydb.fragmentsView.defaultScale=900]]></replacevalue>
+    </replace>
+  </target>
+	
+	<target name="_enable-guest">
+    <replace file="${build.war.dir}/WEB-INF/spring/beans-models.xml">
+      <replacetoken><![CDATA[name="enableGuest" value="false"]]></replacetoken>
+      <replacevalue><![CDATA[name="enableGuest" value="true"]]></replacevalue>
+    </replace>
+    <replace file="${build.war.dir}/WEB-INF/spring/beans-presentation.xml">
+      <replacetoken><![CDATA[name="allowsOnlyOwnerToUploadFile" value="false"]]></replacetoken>
+      <replacevalue><![CDATA[name="allowsOnlyOwnerToUploadFile" value="true"]]></replacevalue>
+    </replace>
+	</target>
+  
+  <target name="_add-ad-top">
+    <replace file="${build.war.dir}/macro/ad.vm">
+      <replacetoken>##AD_TOP</replacetoken>
+      <replacevalue><![CDATA[
+      	<div style="margin-bottom: 10px;">
+      	<script type="text/javascript"><!--
+      	google_ad_client = "pub-4370703433687393";
+      	/* 728x90-top */
+      	google_ad_slot = "4346200540";
+      	google_ad_width = 728;
+      	google_ad_height = 90;
+      	//-->
+      	</script>
+      	<script type="text/javascript"
+      	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      	</script>
+      	</div>
+      ]]></replacevalue>
+    </replace>
+  </target>
+  
+  <target name="_add-ad-sidebar-top">
+    <replace file="${build.war.dir}/macro/ad.vm">
+      <replacetoken>##AD_SIDEBAR_TOP</replacetoken>
+      <replacevalue><![CDATA[
+        <div class="sidebar-ad" style="text-align: center; margin-bottom: 10px;">
+        <script type="text/javascript"><!--
+        google_ad_client = "pub-4370703433687393";
+        /* 234x60-sidebar-top */
+        google_ad_slot = "8798119472";
+        google_ad_width = 234;
+        google_ad_height = 60;
+        //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+        </div>
+      ]]></replacevalue>
+    </replace>
+  </target>
+  
+  <target name="_add-ad-sidebar-bottom">
+    <replace file="${build.war.dir}/macro/ad.vm">
+      <replacetoken>##AD_SIDEBAR_BOTTOM</replacetoken>
+      <replacevalue><![CDATA[
+        <div class="sidebar-ad" style="text-align: center; margin-top: 20px;">
+        <script type="text/javascript"><!--
+        google_ad_client = "pub-4370703433687393";
+        /* 200x200-sidebar-bottom-image */
+        google_ad_slot = "0893108701";
+        google_ad_width = 200;
+        google_ad_height = 200;
+        //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+        </div>
+      ]]></replacevalue>
+    </replace>
+  </target>
+  
+  <target name="_add-ad-fragment">
+    <replace file="${build.war.dir}/macro/ad.vm">
+      <replacetoken>##AD_FRAGMENT</replacetoken>
+      <replacevalue><![CDATA[
+        <div style="text-align: center; margin-bottom: 5px;">
+        <script type="text/javascript"><!--
+        google_ad_client = "pub-4370703433687393";
+        /* 468x60-fragment */
+        google_ad_slot = "9041832052";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+        </div>
+      ]]></replacevalue>
+    </replace>
+  </target>
+
+</project>

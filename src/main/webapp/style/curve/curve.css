@@ -1,0 +1,43 @@
+/*
+ * http://d.hatena.ne.jp/tikeda/20060501/1146444788
+ */
+ 
+.curve-double-body p {
+  margin:0;
+  padding: 0px 0px 0px 1em;
+}
+
+.curve-double-head {
+  font-size:1px;
+  height:10px;
+  background: url(curve-double-right-head.gif) top right no-repeat;
+  margin-top:5px;
+}
+
+.curve-double-head div {
+  font-size:1px;
+  height:10px;
+  background: url(curve-double-left-head.gif) top left no-repeat;
+}
+
+.curve-double-body {
+  background: url(curve-double-left-middle.gif) top left repeat-y;
+}
+
+.curve-double-body div {
+  background: url(curve-double-right-middle.gif) top right repeat-y;
+}
+
+.curve-double-bottom {
+  font-size:1px;
+  height:10px;
+  background:url(curve-double-right-bottom.gif) bottom right no-repeat;
+  margin-bottom:5px;
+}
+
+.curve-double-bottom div {
+  font-size: 1px;
+  height: 10px;
+  background: url(curve-double-left-bottom.gif) bottom left no-repeat;
+}
+

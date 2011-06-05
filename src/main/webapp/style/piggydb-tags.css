@@ -1,0 +1,126 @@
+div.tag-title .updnWatermark label {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.updnWatermark {
+	vertical-align: middle;
+}
+
+.recent-tags {
+	margin: 10px;
+	padding-left: 10px;
+	line-height: 1.3em;
+	font-size: 10pt;
+}
+
+.recent-tags .tag {
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+.recent-tags .tag .update-datetime {
+	color: silver;
+  font-size: 8pt;
+}
+
+#facebox-tags .content {
+  height: 200px;
+  overflow: visible;
+}
+
+#facebox-tags div.selected-tags,
+#facebox-tags div.classified-by {
+  margin: 10px;
+  width: 200px;
+  height: 150px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  overflow: auto;
+}
+
+#facebox-tags div.classified-by {
+  height: 115px;
+}
+
+#facebox-tags span.tagSelectedIcon {
+  background: url(images/tag-selected.png) 0 50% no-repeat;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+#facebox-tags ul.tags {
+  padding-bottom: 5px;
+}
+
+#facebox-tags li {
+  line-height: 1.3em;
+}
+
+#facebox-tags .delete-tag {
+  margin-left: 3px;
+}
+
+#tag-view a.tag {
+  text-decoration: none;
+}
+
+#tag-view a.tag-selected {
+  background-color: #FFFF66;
+}
+
+#tag-view div.container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.tag-cloud span.tag {
+  margin-right: 10px;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 100%;
+}
+
+.tag-cloud .tagIcon,
+.tag-flat .tagIcon {
+  vertical-align: middle;
+  
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 13px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
+  font-size: 10px;
+}
+
+.tag-cloud input,
+.tag-flat input {
+  vertical-align: middle;
+}
+
+.tag-flat div.container {
+  margin-bottom: 20px;
+}
+
+.tag-flat span.tag {
+  margin-right: 10px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.tag-flat .page-link a,
+.tag-flat .page-link a:visited {
+  color: blue;
+}
+
+.tag-flat .page-link .previous {
+  padding-left: 10px;
+  font-size: 8pt;
+}
+
+.tag-flat .page-link .next {
+  padding-right: 10px;
+  font-size: 8pt;
+}

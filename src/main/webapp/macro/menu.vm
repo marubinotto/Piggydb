@@ -1,0 +1,101 @@
+#macro( mainMenu $rootMenu )
+
+<table id="menuTable" border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td>
+    <div class="menustyle" id="menu" style="position: relative;">
+      <ul class="menubar" id="dmenu">      
+#foreach ($topMenu in $rootMenu.children)
+  #if ($topMenu.isUserInRoles() || $topMenu.isUserInChildMenuRoles())
+    #if ($topMenu.children.empty)
+      <li class="topitem">$utils.renderMenuItem($topMenu, $messages)</li>
+    #else
+      <li class="topitem">$utils.renderMenuItem($topMenu, $messages)
+        <ul class="submenu"
+        #foreach ($subMenu in $topMenu.children)
+          #if ($subMenu.isUserInRoles())
+            ><li>$utils.renderMenuItem($subMenu, $messages)</li
+          #end
+        #end
+        ></ul>
+      </li>
+    #end
+  #end
+#end
+#if ($user && !$user.isAnonymous())
+  <li class="topitem"><a href="$utils.raw($logoutLink.href)"><img 
+    border="0" class="link" src="$context/images/logout.png" alt=""/>$messages.get("menu-logout")</a></li>
+#end
+        <li style="display: none;">&nbsp;</li> ## dummy for xhtml validity
+      </ul>
+
+#if ($user)
+      <div id="global-tools">
+        <table class="nowrap-frame" border="0">
+        <tr>
+          <td nowrap="nowrap">
+            <form id="search-form" action="$context/search.htm" method="get">
+              <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/><a 
+                class="tool-button" href="#" title="$messages.get("search")"
+                  onclick="jQuery('#search-form').submit();"><img src="$context/images/search.png" 
+                    border="0" alt="$messages.get("search")"/></a><a 
+                class="tool-button" href="#" title="$messages.get("jump-to-tag")"
+                  onclick="FormUtils.addParamToForm(jQuery('#search-form'), 'jtt', 'true'); jQuery('#search-form').submit();"
+                    ><img src="$context/images/jump-to-tag.png" border="0" alt="$messages.get("jump-to-tag")"/></a>
+            </form>
+          </td>
+          <td class="separator"></td>
+          <td nowrap="nowrap">
+            <script type="text/javascript">
+            //<![CDATA[
+              jQuery(function() {
+                var globaTagPalette = new TagPalette(
+                  jQuery("#global-tag-palette"), 
+                  function(source, tagId, tagName, palette) {
+                    if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
+                      document.location.href = TAG_URL_PREFIX + tagId;
+                  },
+                  jQuery("#global-tag-pulldown"));
+                globaTagPalette.decideMaxHeight = function () {
+                  return jQuery(window).height() - 50;
+                };
+              #if (!$user.isViewer())
+                globaTagPalette.onPaletteUpdate = function () {
+                  jQuery("#global-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);
+                };
+              #end
+              });
+            //]]>
+            </script>
+            <a class="tool-button" id="global-tag-pulldown" href="#" title="$messages.get("tag-palette")">
+            <img src="$context/style/images/tag.png" border="0" alt="$messages.get("tag-palette")"/></a>
+            <br/>
+            <div class="pulldown-box tag-palette" id="global-tag-palette"></div>
+          </td>
+        #if (!$user.isViewer())
+          <td class="separator"></td>
+          <td class="login-user" nowrap="nowrap">
+            <a href="$resources.userPath($user.name)">
+            <img src="$context/style/images/tag-user.png" border="0"
+              title="$messages.get("login-user")" alt="$messages.get("login-user")"/>
+            <span class="user-name">$user.name</span></a>
+          </td>
+        #end
+        #if ($user.isAnonymous())
+          <td class="separator"></td>
+          <td nowrap="nowrap">
+            <a class="tool-button" href="$context/login.htm" title="$messages.get("menu-login")">
+            <img src="$context/style/images/tag-user.png" border="0" alt="$messages.get("menu-login")"/></a>
+          </td>
+        #end
+        </tr>
+        </table>
+      </div>
+#end
+    </div>
+  </td>
+</tr>
+</table>
+
+#end
+

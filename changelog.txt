@@ -1,0 +1,365 @@
+= Piggydb Changelog =
+http://piggydb.net/
+
+== Changes in version 4.20 (2011-06-05) == #v4.20
+
+ * Fixed a memory leak bug caused by H2 Database Engine
+   * http://groups.google.com/group/h2-database/browse_thread/thread/e1d39b41fcf15760
+ * Added "Debug Info" section to system-info.htm
+
+== Changes in version 4.19 (2010-12-24) == #v4.19
+
+ * Upgraded the database engine (H2 Database Engine) from 1.1.119 to 1.2.147
+   * The old (v1.1) database files will be converted into the new format automatically
+   * Reimplemented the full-text search feature (marubinotto.h2.fulltext)
+
+== Changes in version 4.18 (2010-11-13) == #v4.18
+
+ * Creating a relationship by drag-and-drop
+ * Updated the selected-fragments box so that users can drop a tag onto it
+
+== Changes in version 4.17 (2010-10-14) == #v4.17
+
+ * Added a Tag Palette to the sidebar
+ * Added a filter list to the sidebar
+   * Deleted the recently-changed-filters.htm page
+ * Added a show/hide toggle to each sidebar entry
+
+== Changes in version 4.16 (2010-10-05) == #v4.16
+
+ * Added a master content toggle button to the fragment page (fragment.htm)
+ * Fixed: during dragging a fragment in "reorder" mode, other fragments react as droppable targets 
+   * which was caused by adding the drag-and-drop tagging feature in V4.15
+
+== Changes in version 4.15 (2010-09-27) == #v4.15
+
+ * Tag Palette: Drag-and-drop Tagging
+
+== Changes in version 4.14 (2010-09-08) == #v4.14
+
+ * Added sorting to the Fragments View
+ * Updated the calendar to allow a user to select a month as well as a day
+ * Changed the position of the wiki help button
+
+== Changes in version 4.13 (2010-08-11) == #v4.13
+
+ * New Fragments View
+   * which allows users to zoom in and out on fragments with a slider interface
+ * Changed the design of the fragment tool bar 
+   * which no longer hides the fragment header
+ * Updated the fragment's tag list to hide context tags by default
+ * A tag whose name starts with "#" is not inherited by a sub-fragment by default
+ * Added an embedded bulletin to about.htm 
+ * Updated H2 Database from 1.1.115 to 1.1.119 (the final version of 1.1.x) 
+
+== Changes in version 4.12 (2010-07-14) == #v4.12
+
+ * Merged the sub-fragment views, "detail" and "tree",  into "tree"
+   * Added Reorder button
+   * Added the other parents to content of a fragment node
+   * Updated the relation deleting feature to use Ajax
+ * Moved the position of the fragment tags to the fragment header
+ * Added a user activity logging 
+ * Updated the standalone package to be able to run in offline environment
+
+== Changes in version 4.11 (2010-05-20) == #v4.11
+
+ * Updated the Standalone Package 
+   * to be multi-platform compatible
+   * to output logs to piggydb.log
+   * to detect errors more robustly
+   * to have README_zh.txt (Chinese)
+ * Updated the fragment-tree view to have toggles to show/hide the fragment contents
+ * Added Home Toggle to show/hide the home fragments
+ * Updated the Atom feed to have a fragment headline as a title 
+ * Fixed: http://sourceforge.net/apps/trac/piggydb/ticket/23
+
+== Changes in version 4.10 (2010-05-06) == #v4.10
+
+ * Added a new package: Standalone Package for Windows
+ * Fixed a problem where normal users cannot change their password if "changeableOnlyForCreator" is true
+
+== Changes in version 4.9 (2010-04-20) == #v4.9
+
+ * Updated the fragment-tree view 
+   * to be reorderable with drag and drop
+     * Removed the sort condition form
+   * to be expandable and collapsible (unlimited depth)
+ * Redesigned tag.htm 
+
+== Changes in version 4.8 (2010-04-11) == #v4.8
+
+ * Added Chinese language support(translation)
+ * Added a setting: "piggydb.entity.changeableOnlyForCreator"
+ * Wiki: added a new format for <br>
+ * Wiki: enabled image-labeled links 
+ * Wiki: only standard URLs are processed as links in <pre>
+ * Wiki: fixed a case of too much line for the wiki parser 
+ * Updated the fragment table: stopped hiding the footer / simplified the updated info
+ * Updated the fragment form to retain the height of the content input when preview
+ * Added a "Close the message" button
+
+== Changes in version 4.7 (2010-03-25) == #v4.7
+
+ * Added Default Fragment Title Display
+ * Updated the fragment batch page to show common tags and parents of a batch
+ * Added a "Delete all (selected tags)" button to tags.htm 
+ * Updated the fragment table: the footer is hidden by default
+ * Wiki: some wiki formats are available in pre-formatted text
+ * HTML & CSS: the content area's position is "static" and stops using inner scroll
+ * HTML & CSS: removed the border of pre-formatted text 
+ * Updated the default value of "piggydb.database.prefix" to "file:~/piggydb" (added "file:")
+ * Fixed a bug: wrong count of fragments on tag.htm 
+
+== Changes in version 4.6 (2010-03-15) == #v4.6
+
+ * Added atom feeds to: home.htm, tag.htm, filter.htm, user.htm
+ * Wiki: enabled fragment:n URL for the labeled link format 
+ * Slimmed down "Recently Changed Tags" 
+ * Fixed a bug where a updater of a user-fragment will be "owner" after changing a user's password
+ * Fixed the bug: http://sourceforge.net/apps/trac/piggydb/ticket/19
+
+== Changes in version 4.5 (2010-02-08) == #v4.5
+
+ * Added a menu [System/System Info] (system-info.htm)
+ * Added a "minor edit" option to the fragment form
+ * Changed the #home, #bookmark tags to be owner-privileged 
+ * Added a display limit (30) to the number of related tags 
+ * Fixed a restore bug 
+   * broken transaction
+   * old fragment-files are left when restoring with an xml file
+ * Fixed a bug in FileRepository
+   * an old file is left when replacing it with a file with a different extension
+ * Fixed a updater bug where the first no-change update sets the updater to "owner"
+
+== Changes in version 4.4 (2010-01-18) == #v4.4
+
+ * Anonymous Access
+ * Jump to Tag
+ * Added a fading highlight effect for a updated fragment
+ * Added fragment image links for the multi-column and the tree view 
+
+== Changes in version 4.3 (2010-01-04) == #v4.3
+
+ * Updated the tag name autocompletion to be available in any of the tag name inputs
+ * Changed the update/create datetime format to be relative
+
+== Changes in version 4.2 (2009-12-17) == #v4.2
+
+ * Fragment Tree View 
+ * Added a feature that allows users to create a new parent fragment of selected fragments
+ * Fixed UI bugs
+   * a multi-column bug (irregular gaps) on Safari, Chrome
+   * a recent-tags newline bug on IE, Safari, Chrome 
+
+== Changes in version 4.1 (2009-12-10) == #v4.1
+
+ * Integrated the "Tag" menu items together into one menu
+ * Added a new fragment view: "multi-column"
+
+== Changes in version 4.0 (2009-11-30) == #v4.0
+
+ * Multi-user
+   * Default User Management (#user tag)
+   * Authorization
+   * Personal Home
+   * User Page
+
+== Changes in version 3.18 (2009-09-06) == #v3.18
+
+ * Added Filter Rename and Delete 
+ * Improved the fragment form (wider input box, help button)
+ * Updated the paging navigation for Tag Flat View 
+
+== Changes in version 3.17 (2009-08-30) == #v3.17
+
+ * Updated the fragment content editor with markItUp! (thanks Michael Mior)
+ * Added minus buttons to Related Tags 
+ * Fixed the bug #9
+ * Fixed a JavaScript bug where selected tags can't be tagged with new tags 
+
+== Changes in version 3.16 (2009-08-21) == #v3.16
+
+ * Tag View (Tree/Cloud/Flat)
+ * Removed the title bar
+
+== Changes in version 3.15 (2009-08-07) == #v3.15
+
+ * Updated Full Text Search to support tags
+ * Added omitted-relations marks (→...) to the normal fragment view and Document View
+
+== Changes in version 3.14 (2009-07-11) == #v3.14
+
+ * Added Public Document (with Public Home)
+ * Added a wide keyword input to search.htm
+ * Added "Recently Viewed" to search.htm
+ * Updated the wiki parser to support "file:" URL 
+
+== Changes in version 3.13 (2009-07-06) == #v3.13
+
+ * Added Full Text Search 
+ * Added "#" prefix to the special tags
+ * Upgraded h2 database version to 1.1.115 
+ * Removed the help menu ("about" page is now linked from the version number) 
+
+== Changes in version 3.12 (2009-06-17) == #v3.12
+
+ * Added Image Viewer
+   * Fixed the problem where the content area is expanded by a large image
+ * Added a button to the fragment page for creating relations to the selected fragments
+ * Fixed the bug where sub-bookmarked fragments can't be removed from the bookmark list
+
+== Changes in version 3.11 (2009-06-09) == #v3.11
+
+ * Added Fragment Batch
+ * Updated Youtube player size (560*340)
+ * Added a close button to the tag pulldown
+
+== Changes in version 3.10 (2009-04-26) == #v3.10
+
+ * Added Document View
+ * Integrated the recently viewed fragments and tags, filters into one "Recently Viewed" list
+ * Added a "back" button to the tag pulldown
+ * Modified the style of <pre> to have a fixed-width and a scrollbar
+
+== Changes in version 3.9 (2009-03-22) == #v3.9
+
+ * Added Quick Tag Access
+ * Added a fragment tool button: tag as home
+
+== Changes in version 3.8 (2009-03-17) == #v3.8
+
+ * Added Tag Input Assistance
+ * Added fragment tool buttons to the list view
+ * Modified the tool buttons to be showed only when mouse pointer hovers over the fragment
+ * Moved the fragment form of HomePage to the top of the page
+ * Added css for print (doesn't work on IE)
+
+== Changes in version 3.7 (2009-03-02) == #v3.7
+
+ * Added Fragment Bookmark with a special tag "bookmark"
+ * Added Related Tags to the sidebar of the tag and filter page
+ * Added fragments view switches to the tag and filter page
+
+== Changes in version 3.6 (2009-02-16) == #v3.6
+
+ * Modified the wiki parser to be able to embed a preformatted fragment
+ * Modified the home page to allow a user to switch its displaying format (detail/list)
+ * Added a special tag "home"
+ * Improved the paging navigation
+ * Modified the date link to show fragments that was UPDATED on the date
+
+== Changes in version 3.5 (2009-02-09) == #v3.5
+
+ * Rewrote the entire HTML/CSS to conform to XHTML standard
+ * Fixed display problems with IE
+
+== Changes in version 3.4 (2009-01-29) == #v3.4
+
+ * Added special tags: "pre", "code", "lang-xxx"
+
+== Changes in version 3.3 (2009-01-27) == #v3.3
+
+ * Recently Changed Fragments
+ * Fixed bug: modified the labeled link regex to not be greedy (thanks bonkabonka)
+ * Changed the logic to get a user's home directory on Windows via USERPROFILE
+   * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4787931
+ * Fixed XSS vulnerability
+ * Fixed the content-type switch bug on IE7 (thanks しばたさん)
+ * Added configurations for clientAddressAuth/userAgentAuth
+
+== Changes in version 3.2 (2009-01-11) == #v3.2
+
+ * Added edit buttons to each of fragments
+ * Added Child Fragments Sorting
+ * Added Outline View
+ * Modified all-in-one package to avoid the winstone cache problem
+ * Fixed a bug that causes an invalid database version update when restoring a database
+
+== Changes in version 3.1 (2009-01-06) == #v3.1
+
+ * Trash Tag
+ * Fixed a bug where a system error occurs when creating a filter at TagTreePage
+ * Fixed a bug of relation-ID duplication after restore
+
+== Changes in version 3.0 (2008-12-26) == #v3.0
+
+ * File Fragment
+   * also updated related features such as export and restore
+ * Wiki: added a new format that enables to embed the content of another fragment
+
+== Changes in version 2.8 (2008-12-12) == #v2.8
+
+ * Changed fragment view to hide a content area if it's empty
+ * Changed sub-fragment view to show its parents 
+ * Added a remove button to each of relations 
+ * Added a remove button to each of the tags on the bottom of a fragment table
+ * Modified to jump to TagTreePage after deleting a tag
+ * Changed the tag input method of the fragment form
+   * Input tags as a comma-separated text
+
+== Changes in version 2.7 (2008-11-23) == #v2.7
+
+ * Improved the usability of the filter page
+ * Added icons (new tag, edit tag, new filter, filter)
+ * Improved the calendar interface
+ * Added a css hack for IE
+ * Fixed bug: fixed-length session problem (when auto-login is enabled)
+ * Modified to enable a user to change the location of the database files
+
+== Changes in version 2.6 (2008-11-16) == #v2.6
+
+ * Tag Tree Explorer: tag manipulation
+   * Attach tags to the selected tags from the tree
+   * Create a filter from the selected tags from the tree
+ * Corrected the Japanese text error
+
+== Changes in version 2.5.1 (2008-11-11) == #v2.5.1
+
+ * Bug fix: modified to show the Japanese version of wiki help properly with an all-in-one package
+
+== Changes in version 2.5 (2008-11-09) == #v2.5
+
+ * Wiki: enabled to embed youtube videos
+ * Wiki: table
+ * Refined wiki help appearance
+
+== Changes in version 2.4 (2008-11-03) == #v2.4
+
+ * Tag tree explorer (Menu [Tag/Tag Tree])
+   * incremental tag tree loading with Ajax
+ * Refined the tag page
+   * added a sidebar
+   * modified the "Classified by" view not to use a tabbed panel
+ * Added a menu [Help/About Piggydb]
+ * Changed the textarea related size
+ * Modified the UI to use cool Silk Icons created by Mark James
+
+== Changes in version 2.3 (2008-10-10) == #v2.3
+
+ * Package with a servlet container and launcher
+ * Modified to show fragment's relations everywhere
+
+== Changes in version 2.2 (2008-09-28) == #v2.2
+
+ * Added a sidebar navigation: recently viewed tags
+ * Modified the login page to redirect to the appropriate page 
+   * redirect to the home.htm when a session exists 
+   * redirect to the given path when relogin after timeout 
+ * Modified to avoid jumping to the top of the page when the fragment form is opened/closed. 
+
+== Changes in version 2.1 (2008-09-21) == #v2.1
+
+ * Recently Changed Filters
+ * Modified the UI to show "Recently Changed Tags" by date
+ * Changed the default selected tab from "Tags" to "Fragments" on the tag page
+ * Fixed keyword link to be processed by Maximum Match
+ * Fixed the textarea behavior: to avoid trimming after submit
+
+== Changes in version 2.0 (2008-09-15) == #v2.0
+
+ * Fragment Relationship
+ * Wiki: modified <li> related implementation
+ * Changed the title icon link to http://piggydb.devjavu.com/
+ * Modified the textarea's resize behavior by preventing Click from trimming the content. 
+   * Still annoying in some cases ...

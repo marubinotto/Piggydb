@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="$lang" lang="$lang">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+#if ($fragment)
+  <title>$fragment.title</title>
+  <link rel="stylesheet" type="text/css" href="$context/style/piggydb-document-view.css?$version"/>
+  <link rel="stylesheet" type="text/css" href="$context/style/prettify.css?$version"/>
+  <link rel="shortcut icon" href="$context/images/favicon.ico" type="image/vnd.microsoft.icon"/>
+  <script type="text/javascript" src="$context/scripts/prettify-8.js"></script>
+</head>
+<body onload="prettyPrint()">
+#if ($fragment.title) <h1>$fragment.title</h1> #end
+
+#fragmentContentForDoc($fragment)
+
+#foreach ($childRel in $fragment.getChildRelations($publicOnly))
+<div class="section">
+#if ($childRel.to.title) 
+  <h2 id="r${childRel.id}">
+    <a class="title-link" href="#r${childRel.id}">$childRel.to.title</a>
+    <a title="Link to this fragment" class="anchor" 
+      href="$context/document-view.htm?id=$childRel.to.id">
+    <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
+  </h2> 
+#end
+#fragmentContentForDoc($childRel.to)
+
+#foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
+<div class="subsection">
+#if ($grandchildRel.to.title) 
+  <h3 id="r${grandchildRel.id}">
+    <a class="title-link" href="#r${grandchildRel.id}">$grandchildRel.to.title</a>
+    #if ($grandchildRel.to.hasChildren($publicOnly)) 
+      <a title="Link to this fragment" class="anchor has-children" 
+        href="$context/document-view.htm?id=$grandchildRel.to.id">
+      <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/></a>
+    #else
+      <a title="Link to this fragment" class="anchor" 
+        href="$context/document-view.htm?id=$grandchildRel.to.id">
+      <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
+    #end
+  </h3> 
+#end
+#fragmentContentForDoc($grandchildRel.to)
+</div>
+#end    ## foreach grandchildren
+
+</div>
+#end    ## foreach children
+
+#else   ## fragment is null
+  <title>&nbsp;</title>
+  <link rel="shortcut icon" href="$context/images/favicon.ico" type="image/vnd.microsoft.icon"/>
+</head>
+<body>
+
+#end
+</body>
+</html>

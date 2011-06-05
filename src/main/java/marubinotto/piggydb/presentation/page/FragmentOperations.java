@@ -1,0 +1,428 @@
+package marubinotto.piggydb.presentation.page;
+
+import static marubinotto.util.CollectionUtils.set;
+
+import java.util.List;
+import java.util.Map;
+
+import marubinotto.piggydb.model.DuplicateException;
+import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.ModelUtils;
+import marubinotto.piggydb.model.NoSuchEntityException;
+import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.FragmentsOptions.SortOption;
+import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.presentation.page.control.FragmentFormPanel;
+import marubinotto.piggydb.presentation.page.control.form.PublicFieldForm;
+import marubinotto.piggydb.presentation.page.html.AbstractFragments;
+import marubinotto.piggydb.presentation.page.model.SelectedFragments;
+import marubinotto.util.Assert;
+import marubinotto.util.procedure.Procedure;
+import net.sf.click.Context;
+import net.sf.click.control.HiddenField;
+
+import org.apache.commons.lang.StringUtils;
+
+public abstract class FragmentOperations extends BorderPage {
+
+	public FragmentOperations() {
+	}
+	
+	
+	//
+	// Model
+	//
+	
+	public static final String MK_HIGHLIGHTED_FRAGMENT = "highlightedFragment";
+	private static final String SK_HIGHLIGHTED_FRAGMENT = "highlightedFragment";
+	
+	public Boolean fragmentOperations = true;
+	public String wikiHelpHref;
+	public List<FragmentField> fragmentFields = FragmentField.getEnumList();
+	
+	public Integer fragmentsViewScale;
+	public Integer fragmentsViewOrderBy;
+	public Boolean fragmentsViewAscending;
+
+	@Override 
+	protected void setModels() throws Exception {
+		super.setModels();
+		
+		importCssFile("style/piggydb-fragment-operations.css", true, null);
+		importCssFile("markitup/skins/simple/style.css", true, "screen");
+		importCssFile("markitup/sets/wiki/style.css", true, "screen");
+		
+		importJsFile("scripts/piggydb-fragment-operations.js", true);
+		importJsFile("markitup/jquery.markitup.pack.js", false);
+		
+		this.wikiHelpHref = getMessage("wiki-help-href", getContext().getRequest().getContextPath());
+		
+		if (showsSelectedFragments()) setSelectedFragments();
+		setHighlightedFragment();
+		
+		this.fragmentsViewScale = (Integer)
+			getContext().getSessionAttribute(AbstractFragments.SK_SCALE);
+		if (this.fragmentsViewScale == null) 
+			this.fragmentsViewScale = getWarSetting().getDefaultFragmentsViewScale();
+		
+		setFragmentsViewSortOption();
+	}
+	
+	protected boolean showsSelectedFragments() {
+        return true;
+    }
+
+	public void highlightFragment(Long id) {
+		getContext().setFlashAttribute(SK_HIGHLIGHTED_FRAGMENT, id);
+	}
+	
+	public static void highlightFragment(Long id, Context context) {
+		context.setFlashAttribute(SK_HIGHLIGHTED_FRAGMENT, id);
+	}
+	
+	private void setHighlightedFragment() {
+		Long id = (Long)getContext().getSessionAttribute(SK_HIGHLIGHTED_FRAGMENT);
+		if (id != null) addModel(MK_HIGHLIGHTED_FRAGMENT, id);
+	}
+	
+	private void setFragmentsViewSortOption() {
+		SortOption defaultSortOption = SortOption.getDefault();
+		
+		this.fragmentsViewOrderBy = (Integer)
+			getContext().getSessionAttribute(AbstractFragments.SK_ORDERBY);
+		if (this.fragmentsViewOrderBy == null)
+			this.fragmentsViewOrderBy = defaultSortOption.orderBy.getValue();
+		
+		this.fragmentsViewAscending = (Boolean)
+			getContext().getSessionAttribute(AbstractFragments.SK_ASCENDING);
+		if (this.fragmentsViewAscending == null)
+			this.fragmentsViewAscending = defaultSortOption.ascending;
+	}
+
+	
+	//
+	// Control
+	//
+
+	protected void saveFragment(final Fragment fragment) throws Exception {
+		Assert.Arg.notNull(fragment, "fragment");
+		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+		
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				getFragmentRepository().update(fragment);
+				return null;
+			}
+		});
+	}
+
+    protected void addParameterToCommonForms(String name, Object value) {
+    	this.createRelationForm.add(new HiddenField(name, value));
+    	this.createRelationsToSelectedForm.add(new HiddenField(name, value));
+    	this.removeTagForm.add(new HiddenField(name, value));
+    	this.addTagForm.add(new HiddenField(name, value));
+    	this.addTagsToSelectedForm.add(new HiddenField(name, value));
+    	this.removeBookmarkForm.add(new HiddenField(name, value));
+    }
+    
+    
+	// FragmentFormPanel
+    
+    protected FragmentFormPanel createFragmentFormPanel() {
+    	return createFragmentFormPanel(null);
+    }
+    
+    protected FragmentFormPanel createFragmentFormPanel(String name) {
+    	FragmentFormPanel panel = (FragmentFormPanel)getBean("fragmentFormPanel");
+    	panel.setName(name == null ? "fragmentFormPanel" : name);
+    	panel.setPage(this);
+    	panel.setUser(getUser());
+    	addControl(panel);
+    	return panel;
+    }
+    
+    
+    // Create a relation
+    
+    public static class CreateRelationForm extends PublicFieldForm {
+		public CreateRelationForm(Object listener, String method) { super(listener, method); }
+		public HiddenField fromId = new HiddenField("fromId", Long.class);
+		public HiddenField toId = new HiddenField("toId", Long.class);
+	}
+	public CreateRelationForm createRelationForm = new CreateRelationForm(this, "onCreateRelation");
+	
+	public final boolean onCreateRelation() throws Exception {
+		final Long fromId = (Long)this.createRelationForm.fromId.getValueObject();
+		final Long toId = (Long)this.createRelationForm.toId.getValueObject();
+		if (fromId == null || toId == null) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		if (fromId.equals(toId)) {
+			setRedirectToThisPage(getMessage("cannot-relate-to-itself"));
+			return false;
+		}
+		try {
+			getTransaction().execute(new Procedure() {
+				public Object execute(Object input) throws Exception {
+					getFragmentRepository().createRelation(fromId, toId, getUser());				
+					return null;
+				}
+			});
+		}
+		catch (NoSuchEntityException e) {
+			setRedirectToThisPage(getMessage("no-such-fragment", e.id));
+			return false;
+		}
+		catch (DuplicateException e) {
+			setRedirectToThisPage(getMessage("duplicate-fragment-relation"));
+			return false;
+		}
+		
+		Map<Long, Fragment> fragments = ModelUtils.toIdMap(
+			getFragmentRepository().getByIds(set(fromId, toId), SortOption.getDefault(), false));
+		Fragment from = fragments.get(fromId);
+		Fragment to = fragments.get(toId);
+		if (from == null || to == null) {
+			// [rare case] either of the fragments has been deleted just after created the relation 
+			setRedirectToThisPage();
+			return false;
+		}
+		setRedirectToThisPage(
+			getMessage(
+				"completed-create-relation",
+				new Object[]{
+					this.html.fragmentInMessage(from), 
+					this.html.fragmentInMessage(to)},
+				false));
+		return false;
+	}
+	
+	
+	// Create relations to the selected fragments
+	
+	public static class CreateRelationsToSelectedForm extends PublicFieldForm {
+		public CreateRelationsToSelectedForm(Object listener, String method) { super(listener, method); }
+		public HiddenField fromId = new HiddenField("fromId", Long.class);
+	}
+	public CreateRelationsToSelectedForm createRelationsToSelectedForm = 
+		new CreateRelationsToSelectedForm(this, "onCreateRelationsToSelected");
+	
+	public final boolean onCreateRelationsToSelected() throws Exception {
+		// from
+		final Long fromId = (Long)this.createRelationsToSelectedForm.fromId.getValueObject();
+		if (fromId == null) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		// to
+		final SelectedFragments selected = getSelectedFragments();
+		if (selected.isEmpty()) {
+			setRedirectToThisPage(getMessage("no-selected-fragments"));
+			return false;
+		}
+		
+		Integer relationCount = (Integer)getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				Integer count = 0;
+				getLogger().info("Create relations from #" + fromId + " {");
+				for (long toId : selected)	 {
+					if (fromId == toId) {
+						getLogger().info("  Cannot relate itself");
+						continue;
+					}
+					try {
+						getFragmentRepository().createRelation(fromId, toId, getUser());
+						count++;
+						getLogger().info("  → #" + toId);
+					}
+					catch (NoSuchEntityException e) {
+						getLogger().info("  No such fragment: #" + e.id);
+						continue;
+					}
+					catch (DuplicateException e) {
+						getLogger().info("  Duplicate relation: #" + toId);
+						continue;
+					}
+				}
+				getLogger().info("}");
+				return count;
+			}
+		});
+
+		setRedirectToThisPage(
+			getMessage(
+				"completed-create-relations-to-selected",
+				new Object[]{relationCount}));
+		return false;
+	}
+
+	
+	// Remove a tag
+	
+	public static class RemoveTagForm extends PublicFieldForm {
+		public RemoveTagForm(Object listener, String method) { super(listener, method); }
+		public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
+		public HiddenField tagName = new HiddenField("tagName", String.class);
+	}
+	public RemoveTagForm removeTagForm = new RemoveTagForm(this, "onRemoveTag");
+
+	public final boolean onRemoveTag() throws Exception {
+		long fragmentId = (Long)this.removeTagForm.fragmentId.getValueObject();
+		String tagName = this.removeTagForm.tagName.getValue();
+		
+		Fragment fragment = getFragmentRepository().get(fragmentId);
+		if (fragment == null || StringUtils.isBlank(tagName)) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		getLogger().info("Removing the tag: " + tagName + " from: #" + fragmentId);
+		fragment.removeTagByUser(tagName, getUser());
+		saveFragment(fragment);
+		
+		highlightFragment(fragment.getId());
+		setRedirectToThisPage(
+			getMessage(
+				"completed-remove-tag",
+				new Object[]{
+					this.html.linkToTag(tagName), 
+					this.html.fragmentInMessage(fragment)
+				},
+				false));
+		return false;
+	}
+	
+	
+	// Add a tag
+	
+	public static class AddTagForm extends PublicFieldForm {
+		public AddTagForm(Object listener, String method) { super(listener, method); }
+		public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
+		public HiddenField tagName = new HiddenField("tagName", String.class);
+	}
+	public AddTagForm addTagForm = new AddTagForm(this, "onAddTag");
+	
+	public final boolean onAddTag() throws Exception {
+		long fragmentId = (Long)this.addTagForm.fragmentId.getValueObject();
+		String tagName = this.addTagForm.tagName.getValue();
+		
+		Fragment fragment = getFragmentRepository().get(fragmentId);
+		if (fragment == null || !ModelUtils.isTagNameValid(tagName)) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		getLogger().info("Add a tag <" + tagName + "> to: #" + fragmentId);
+		fragment.addTagByUser(tagName, getTagRepository(), getUser());
+		saveFragment(fragment);
+		
+		String message = null;
+		if (tagName.equals(Tag.NAME_TRASH)) {
+			message = getMessage(
+				"completed-tag-as-trash",
+				new Object[]{
+					this.html.linkToFragment(fragmentId),
+					this.resources.tagPathByName(Tag.NAME_TRASH)},
+				false);
+		}
+		else {
+			message = getMessage(
+				"completed-add-tag", 
+				new Object[]{
+					this.html.fragmentInMessage(fragment),
+					this.html.linkToTag(tagName)},
+				false);
+		}
+		
+		highlightFragment(fragment.getId());
+		setRedirectToThisPage(message);
+		return false;
+	}
+	
+	
+	// Add tags to the selected fragments
+
+	public static class AddTagsToSelectedForm extends PublicFieldForm {
+		public AddTagsToSelectedForm(Object listener, String method) { super(listener, method); }
+		public HiddenField tagId = new HiddenField("tagId", Long.class);
+	}
+	public AddTagsToSelectedForm addTagsToSelectedForm = 
+		new AddTagsToSelectedForm(this, "onAddTagsToSelected");
+	
+	public final boolean onAddTagsToSelected() throws Exception {
+		// tag
+		Long tagId = (Long)this.addTagsToSelectedForm.tagId.getValueObject();
+		final Tag tag = tagId != null ? getTagRepository().get(tagId) : null;
+		if (tag == null) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		// selected fragments
+		SelectedFragments selected = getSelectedFragments();
+		if (selected.isEmpty()) {
+			setRedirectToThisPage(getMessage("no-selected-fragments"));
+			return false;
+		}
+		final List<Fragment> fragments = selected.getAllFragments(getFragmentRepository(), true);
+		
+		// do tagging
+		try {
+			getTransaction().execute(new Procedure() {
+				public Object execute(Object input) throws Exception {
+					for (Fragment fragment : fragments) {
+						getLogger().info("Adding a tag <" + tag.getName() + "> to: #" + fragment.getId());
+						fragment.addTagByUser(tag, getUser());
+						getFragmentRepository().update(fragment);
+					}
+					return null;
+				}
+			});
+		} 
+		catch (Exception e) {
+			setRedirectToThisPage(Utils.getCodedMessageOrThrow(e, this));
+			return false;
+		}
+		
+		setRedirectToThisPage(
+			getMessage(
+				"completed-add-tags-to-selected", 
+				new Object[]{this.html.linkToTag(tag.getName())},
+				false));
+		return false;
+	}
+	
+	
+	// Remove from bookmarks
+	
+	public static class RemoveBookmarkForm extends PublicFieldForm {
+		public RemoveBookmarkForm(Object listener, String method) { super(listener, method); }
+		public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
+	}
+	public RemoveBookmarkForm removeBookmarkForm = new RemoveBookmarkForm(this, "onRemoveBookmark");
+	
+	public final boolean onRemoveBookmark() throws Exception {
+		long fragmentId = (Long)this.removeBookmarkForm.fragmentId.getValueObject();
+		
+		Fragment fragment = getFragmentRepository().get(fragmentId);
+		if (fragment == null) {
+			setRedirectToThisPage();
+			return false;
+		}
+		
+		getLogger().info("Removing #" + fragmentId + " from the bookmarks ...");
+		fragment.removeTagsByUserClassifiedAs(Tag.NAME_BOOKMARK, getUser());
+		saveFragment(fragment);
+		
+		highlightFragment(fragment.getId());
+		setRedirectToThisPage(
+			getMessage(
+				"completed-remove-bookmark",
+				new Object[]{this.html.fragmentInMessage(fragment)},
+				false));
+		return false;
+	}
+}

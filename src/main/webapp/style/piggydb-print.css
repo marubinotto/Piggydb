@@ -1,0 +1,174 @@
+@page {
+  size: auto;
+}
+
+/*
+ * display: none;
+ */
+#title-banner,
+#page-menu,
+#page-message,
+.sidebar,
+
+.delete-button,
+.select-switch,
+.page-link .previous,
+.page-link .next,
+
+.fragment-tools,
+.relation-form,
+#children-control,
+#fragmentFormPanel,
+#subFragmentFormPanel,
+
+.tag-title input,
+.curve-double-head,
+.curve-double-bottom,
+#superTagForm .fields,
+#subTagForm .fields {
+  display: none;
+}
+
+
+/*
+ * Common structure and component
+ */
+
+body, th, td {
+  background-color: #fff;
+  font-size: 10pt;
+}
+
+table.section {
+  margin-bottom: 10px;
+}
+
+th.section-title {
+  font-size: 11pt;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 2px;
+  text-align: left;
+}
+
+.section-title a {
+  color: #000;
+  text-decoration: none;
+}
+
+th.subsection-title {
+  font-size: 10pt;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 2px;
+  text-align: left;
+}
+
+.content-box h2 {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px; 
+  font-size: 10pt; 
+  color: gray; 
+  border-bottom: 1px solid #ccc;
+}
+
+.content-box h2 a {
+  text-decoration: none;
+  color: gray;
+}
+
+.simple-list ul {
+  list-style-type: none;
+  margin: 0px;
+  margin-left: 5px;
+  padding: 0px;
+  padding-left: 0px;
+}
+
+.simple-list li {
+  margin: 0px;
+  margin-bottom: 3px;
+  padding: 0;
+  padding-left: 10px;
+  line-height: 1.5em;
+}
+
+
+/*
+ * Fragment
+ */
+
+table.fragment {
+  margin-bottom: 15px;
+  border-collapse:collapse;
+}
+
+table.fragment, table.fragment th, table.fragment td {
+  border: 1px solid #ccc;
+}
+
+div.home-fragments table.fragment {
+  border: 2px solid #ccc;
+}
+
+table.fragment th {
+  text-align: left;
+  vertical-align: middle;
+}
+
+table.fragment td.superfragment-links,
+table.fragment td.subfragment-links,
+table.fragment div.tags,
+table.fragment div.update-info,
+.fragment-timestamp,
+.file-size  {
+  font-size: 8pt; 
+}
+
+table.fragment div.update-info {
+  text-align: right;
+}
+
+.home-fragments {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+
+/*
+ * Tag
+ */
+
+div.tag-title {
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  font-size: 12pt;
+  font-weight: bolder;
+}
+
+
+/*
+ * Recently changed entities
+ */
+
+span.update-time {
+  margin-right: 5px;
+  color: gray;
+  font-size: 8pt;
+}
+
+span.creation-time {
+  margin-left: 5px;
+  color: silver;
+  font-size: 8pt;
+}
+
+.recent-changes ul {
+  margin-bottom: 15px;
+}
+
+.recent-changes li {
+  margin-left: 10px;
+}
+

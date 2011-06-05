@@ -1,0 +1,29 @@
+.tag-tools {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+}
+
+.super-and-sub-tags {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+.super-and-sub-tags div.tag-input table.fields {
+  width: 100%;
+}
+
+.super-and-sub-tags div.tag-input table.fields .tag-input-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#tree-superTags, #subtags {
+  padding-right: 10px;
+}
+
+#subtags table.page-link td {
+  padding-left: 10px;
+  padding-right: 10px;
+}

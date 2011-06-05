@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<click-app charset="UTF-8">
+
+  <pages package="marubinotto.piggydb.presentation.page">
+    <page path="public/home.htm" classname="command.PublicHome"/> 
+    <page path="click/error.htm" classname="ErrorPage"/> 
+    
+    <page path="home.atom" classname="atom.HomeAtom"/> 
+    <page path="tag.atom" classname="atom.TagAtom"/>
+    <page path="filter.atom" classname="atom.FilterAtom"/>
+    <page path="user.atom" classname="atom.UserAtom"/>
+  </pages>
+
+  <mode value="development"/>
+  
+  <controls>
+    <control classname="marubinotto.piggydb.presentation.page.control.FragmentFormPanel"/>
+  </controls>
+  
+</click-app>

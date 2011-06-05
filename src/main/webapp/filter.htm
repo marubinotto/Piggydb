@@ -1,0 +1,112 @@
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td class="fragments" valign="top">
+$utils.raw($fragmentFormPanel)
+
+#fragmentsView("fragmentsByFilter" "$context/html/fragments-by-filter.htm#if($filter.id)?id=$filter.id#end" "true")
+</td>
+  
+<td class="sidebar" align="left" valign="top">
+#adSidebarTop()
+
+<table class="sidebar-entry" cellpadding="5" cellspacing="0" width="100%" border="0">
+
+<tr>
+  <th class="section-title" valign="middle">
+    <div class="filter-name">
+    #if ($filter.id)
+      <img border="0" alt="Filter:" src="$context/images/filter.png" style="vertical-align: middle;"/>
+      $filter.name
+      <span class="filter-tools">&nbsp;
+      #if ($filter.canChange($user))
+        ## Rename
+        <a 
+        #if ($renameMode || !$filterNameForm.isValid())
+          class="tool-button-toggled" href="$thisPageUrl" 
+        #else
+          class="tool-button" href="$renameLink.href" 
+        #end
+          title="$messages.get("rename")">
+        <img src="$context/images/rename.png" border="0" alt="$messages.get("rename")"/></a>
+      #end
+      #if ($filter.canDelete($user))
+        ## Delete
+        <a class="tool-button" href="$deleteLink.href" title="$messages.get("delete")"
+          onclick="if (!window.confirm('$messages.get("FilterPage-confirm-delete-filter")')) return false;">
+        <img src="$context/images/delete.png" border="0" alt="$messages.get("delete")"/></a>
+      #end
+      </span>
+    #else
+      <img border="0" alt="New Filter:" src="$context/images/new-filter.png" style="vertical-align:middle;"/>
+      $messages.get("FilterPage-new-filter")
+    #end
+    </div>
+   </th>
+</tr>
+
+#if ($showFilterNameForm)
+<tr>
+  <td align="left"> 
+    $utils.raw($filterNameForm.startTag())
+    <table class="fields" border="0" cellpadding="0" cellspacing="0"
+      style="margin-top:5px;margin-bottom:5px;">
+    #formErrorsRow($filterNameForm)
+    <tr><td>
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="fields">
+          <label for="$utils.raw($filterNameForm.fields.filterName.id)">
+            $messages.get("name"):&nbsp;</label>
+        </td>    
+        <td>$utils.raw($filterNameForm.fields.filterName) </td>
+        <td>$utils.raw($filterNameForm.fields.saveFilter) </td>
+      </tr>
+      </table>
+    </td></tr>
+    </table>
+    $utils.raw($filterNameForm.endTag())
+  </td>
+</tr>
+#else
+<tr>
+  <td align="right">
+  #if ($filter.id)
+    #entityTimestamp($filter "<br/>")
+  #end
+  </td>
+</tr>
+#end
+
+<tr>
+  <th class="subsection-title">$messages.get("FilterPage-includes")</th>
+</tr>
+<tr>
+  <td align="left">
+  #superTagForm($classificationForm $classificationTags $filter.canChange($user))
+  </td>
+</tr>
+  
+<tr>
+  <th class="subsection-title">$messages.get("FilterPage-excludes")</th>
+</tr>
+<tr>
+  <td align="left">
+  #superTagForm($excludeTagForm $excludeTags $filter.canChange($user))
+  </td>
+</tr>
+
+</table>
+
+#if ($filter.canChange($user))
+#sidebarRelatedTags($relatedTags $null)
+#end
+
+#sidebarFilters($filters)
+#sidebarBookmark($bookmarkedFragments)
+#sidebarTagPalette()
+#sidebarRecentlyViewed($recentlyViewed)
+
+#adSidebarBottom()
+</td>
+</tr>
+</table>

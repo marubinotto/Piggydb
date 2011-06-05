@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+        value="%-5p [%d{yyyy/MM/dd HH:mm:ss}] (%c{1}) %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="${piggydb.root}/WEB-INF/logs/application.log"/>
+    <param name="maxFileSize" value="10MB"/>
+    <param name="maxBackupIndex" value="3"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+        value="%-5p [%d{yyyy/MM/dd HH:mm:ss}] (%c{1}) %m%n"/>
+    </layout>
+  </appender>
+
+  <category name="org.springframework">
+    <priority value="warn"/>
+  </category>
+
+  <root>
+    <priority value="warn"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+  </root>
+
+</log4j:configuration>

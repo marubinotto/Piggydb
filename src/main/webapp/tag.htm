@@ -1,0 +1,192 @@
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td valign="top">
+
+##
+## Tag Title
+##
+$utils.raw($tagNameForm.startTag())
+#formErrors($tagNameForm)
+<div class="tag-title">
+<div class="curve-double-head"><div>&nbsp;</div></div>
+<div class="curve-double-body">
+<div>
+<p>
+  #if ($renameMode)
+    <img border="0" alt="Tag: " src="$context/images/edit-tag.png" style="vertical-align:middle;"/>
+    $utils.raw($tagNameForm.fields.tagName)$utils.raw($tagNameForm.fields.commitRename)
+  #else
+    #tagIcon($tag.name)
+    <span class="tag-title">$tag.name</span>
+  #end
+  <span class="tag-tools">
+    &nbsp;
+  #if ($tag.canRename($user))
+    ## Rename
+    <a 
+    #if ($renameMode)
+      class="tool-button-toggled" href="$thisPageUrl" 
+    #else
+      class="tool-button" href="$renameLink.href" 
+    #end
+      title="$messages.get("rename")">
+    <img src="$context/images/rename.png" border="0" alt="$messages.get("rename")"/></a>
+  #end
+  #if ($tag.canDelete($user))
+    ## Delete
+    <a class="tool-button" href="$deleteLink.href" title="$messages.get("delete")"
+      onclick="if (!window.confirm('$messages.get("TagPage-confirm-delete-tag")')) return false;">
+    <img src="$context/images/delete.png" border="0" alt="$messages.get("delete")"/></a>
+  #end
+  </span>
+</p>
+</div>
+</div>
+<div class="curve-double-bottom"><div>&nbsp;</div></div>
+</div>
+$utils.raw($tagNameForm.endTag())
+
+
+##
+## Super Tags / Sub Tags 
+##
+<div class="super-and-sub-tags">
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td width="50%" align="center">
+#if (!$user.isViewer() || $superTags.rootNode.hasChildren())
+  <img border="0" alt="↑" src="$context/images/arrow-from-super.png"/>
+#end
+</td>
+<td width="50%" align="center">
+#if (!$user.isViewer() || $subtags.totalSize > 0)
+  <img border="0" alt="↓" src="$context/images/arrow-to-sub.png"/>
+#end
+</td>
+</tr>
+<tr>
+<td valign="top" style="padding: 10px; padding-top: 2px;">
+## Super Tags
+#superTagForm($superTagForm $superTags $tag.canChangeClassification($user))
+</td>
+<td valign="top" style="padding: 10px; padding-top: 2px;">
+## Sub Tags
+$utils.raw($subTagForm.startTag())
+
+#if ($tag.authorizes($user))
+<div class="tag-input">
+<table class="fields" border="0" cellpadding="0" cellspacing="0"
+  style="margin-top:5px; margin-bottom:5px;">
+#formErrorsRow($subTagForm)
+<tr><td>
+  <table class="tag-input-table" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="tag-input" nowrap="nowrap">
+      <script type="text/javascript">
+      //<![CDATA[
+        jQuery(function() {
+          new TagPalette(
+            jQuery("#subtag-tag-palette"), 
+            function(source, tagId, tagName, palette) {
+              var input = jQuery("#$subTagForm.fields.tag.id");
+              input.val(tagName);
+              palette.close();
+              input.focus();
+            },
+            jQuery("#subtag-tag-pulldown"));
+        });
+      //]]>
+      </script>
+      $utils.raw($subTagForm.fields.tag)<button type="button" class="pulldown" id="subtag-tag-pulldown">
+        <span class="label">&nbsp;</span></button>
+      <br/>
+      <div class="pulldown-box tag-palette" id="subtag-tag-palette"></div>
+    </td>
+    <td style="padding-left: 5px;">$utils.raw($subTagForm.fields.addTag) </td>
+  </tr>
+  </table>
+</td></tr>
+</table>
+</div>
+#end
+
+#if ($subtags.totalSize > 0)
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td>
+<div id="subtags" class="content-box simple-list">
+#if (!$subtags.isFirstPage())
+#pagingNavigator($subtags "sbtpi")
+#end
+
+<ul>
+  #foreach ($subtag in $subtags)
+  <li>
+    #tagIcon($subtag.name)
+    <a class="tag" href="$resources.tagPath(${subtag.id})">$subtag.name</a>
+    #if ($subtag.canRemoveTag($tag, $user))
+      <input class="delete-button" type='image' name="deleteTag" src='$context/images/delete.gif'
+        onclick="onDeleteTagClick('$subtag.name', this.form)"/>
+    #end
+  </li>
+  #end
+</ul>
+
+#pagingNavigator($subtags "sbtpi")
+</div>
+</td></tr>
+</table>
+#end
+
+$utils.raw($subTagForm.endTag())
+</td>
+</tr>
+</table>
+</div>
+
+
+##
+## Fragments
+##
+<div class="fragments">
+#if ($tag.isTrashTag() && $user.isOwner())
+  <button 
+      style="margin-top: 5px; margin-bottom: 10px;"
+      onclick="onDeleteTrashesClick()">
+    <img src="$context/images/delete.png" border="0" alt="x" style="vertical-align: bottom;"/>
+    $messages.get("TagPage-delete-trashes")
+  </button>
+  <script type="text/javascript">
+    function onDeleteTrashesClick() {
+      if (!window.confirm('$messages.get("TagPage-confirm-delete-trashes")')) 
+        return false;
+      document.forms['deleteTrashesForm'].submit();
+    }
+  </script>
+  $utils.raw($deleteTrashesForm.startTag())
+  $utils.raw($deleteTrashesForm.endTag())
+#else
+  #if ($tag.authorizes($user))
+    $utils.raw($fragmentFormPanel)
+  #end
+#end
+
+#fragmentsView("fragmentsByTag" "$context/html/fragments-by-tag.htm?id=$tag.id" "true")
+</div>
+
+</td>
+
+##
+## Sidebar
+##
+<td class="sidebar" align="left" valign="top">
+#adSidebarTop()
+
+#sidebarRelatedTags($relatedTags $tag.id)
+
+#commonSidebarEntries()
+
+#adSidebarBottom()
+</td>
+
+</tr>
+</table>

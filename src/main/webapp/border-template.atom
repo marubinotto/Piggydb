@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<id>$feedId</id>
+<updated>$feedUpdated</updated>
+<title type="text">$feedTitle</title>
+<link rel="self" type="application/atom+xml" href="$feedUrl"/>
+<link rel="alternate" type="text/html" href="$htmlUrl"/>
+<generator version="$version" uri="$messages.get("url-portal-site")">$messages.get("application-title")</generator>
+
+#foreach ($fragment in $fragments)
+#set ($fragmentTitle = $utils.defaultIfNull($utils.escapeXml($fragment.makeHeadline()), "[No Title]"))
+<entry>
+  <id>${databaseId}.fragment-${fragment.id}</id>
+  <published>$fragment.creationDatetime.formatAsISO8601()</published>
+  <updated>$fragment.updateDatetime.formatAsISO8601()</updated>
+  <title type="text">$fragmentTitle</title>
+
+## Content
+#if ($fragment.isFile())
+  <summary>[File] $utils.escapeXml($fragment.fileName)</summary>
+  #if ($fragment.isImageFile())
+    <content type="html">
+      $utils.escapeXml($html.fragmentImage($fragment.id))
+    </content>
+  #end
+#else
+  <content type="html">
+  #if ($preformatted.evaluate($fragment))
+    $html.preformattedContent($fragment)
+  #else
+    $utils.escapeXml($wikiParser.parse($fragment.content, $fragment.id, $user, $resources))
+  #end
+  </content>
+#end
+
+  <link rel="alternate" type="text/html"
+    href="$resources.fragmentPath(${fragment.id})"
+    title="$fragmentTitle"/>
+
+## Tags
+#foreach ($tag in $fragment.classification.getTagIterator())
+  <category term="$utils.escapeXml($tag.name)" scheme="${contextUrl}/tags.htm"/>
+#end
+
+  <author>
+    <name>$utils.escapeXml($fragment.lastUpdaterOrCreator)</name>
+  #if ($fragment.lastUpdaterOrCreator != "owner")
+    <uri>$resources.userPath($fragment.lastUpdaterOrCreator)</uri>
+  #end
+  </author>
+</entry>
+#end
+
+</feed>

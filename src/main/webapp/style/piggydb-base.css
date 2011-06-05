@@ -1,0 +1,316 @@
+/*
+ * piggydb-base.css
+ *
+ * Styles for the base HTML and the common layout of Piggydb.
+ */
+ 
+ 
+
+/*
+ * Basic Elements
+ */
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  color: #000000;
+  
+  font-size: 10pt;
+  font-family: Arial, Helvetica, "Sans Serif";
+}
+
+div {
+  margin: 0px;
+  padding: 0px;
+}
+
+td {
+  font-size: 10pt;
+}
+
+form {
+  margin: 0px;
+  padding: 0px;
+}
+
+textarea {
+	border-width: 1px;
+  font-size: 10pt;
+}
+
+a {
+  outline: none;
+}
+
+input[type=text],
+input[type=password] {
+	border-width: 1px;
+  height: 16px;
+  padding-top: 2px;
+}
+
+input[type=button], 
+input[type=submit], 
+input[type=reset],
+button {
+  background: #ddd;
+  border: 1px outset #ccc;
+  padding: .1em .5em;
+  cursor: pointer;
+  
+  overflow: visible;    /* for IE */
+}
+
+input[type=button]:hover, 
+input[type=submit]:hover, 
+input[type=reset]:hover,
+button:hover {
+  background: #ccb;
+}
+
+input[type=button][disabled], 
+input[type=submit][disabled],
+input[type=reset][disabled],
+button[disabled] {
+  background: #f6f6f6;
+  border-style: solid;
+  color: #999;
+}
+
+
+
+/*
+ * Template Structure
+ */
+ 
+#title-banner {
+  position : fixed!important;
+  position : absolute;
+  top: 0px;
+  left: 0px;
+  
+  width: 120px;
+  height: 32px;
+  
+  z-index: 95;
+  
+  background: #eee;
+}
+
+#title-banner table {
+  width: 120px;
+  height: 28px;
+
+  margin: 0px;
+  padding: 0px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#title-banner table td {
+  margin: 0px;
+  padding: 0px;
+  background-color: gray;
+}
+
+#title-banner table td.icon {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#title-banner table td.title {
+  font-size: 13pt;
+  font-weight: bolder;
+}
+
+#title-banner table td.title a {
+  color: white;
+  text-decoration: none;
+}
+
+#page-menu {
+  position : fixed!important;
+  position : absolute;
+  top: 0px;
+  right: 0px;
+  left: 120px;
+  
+  height: 32px;
+  
+  z-index: 95;
+  
+  background: #eee;
+}
+
+div.menustyle li {
+  font-size: 10pt;
+}
+
+.topitem img {
+  margin-right: 3px;
+}
+
+#page-message {
+  padding-bottom: 3px;
+  background: #eee;
+}
+
+div.message {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  background: #fff;
+  position: relative;
+}
+
+.close-message {
+  position: absolute; 
+  top: 6px;
+  right: 6px; 
+}
+
+div.message .fragment-title {
+	color: gray;
+	font-style: italic;
+	font-size: 9pt;
+}
+
+#page-content {
+	padding: 10px;
+  padding-top: 40px;
+  
+  background: #eee;
+}
+
+
+
+/*
+ * Global Tools Container
+ */
+
+#global-tools {
+  position: absolute; 
+  right: 0px; 
+  margin-right: 0px;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+#global-tools .nowrap-frame {
+  margin: 0px;
+  padding: 0px;
+}
+
+#global-tools .nowrap-frame td.separator {
+  width: 10px;
+}
+
+
+
+/*
+ * Content Structure
+ */
+ 
+/* Section */
+
+table.section {
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 11pt;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 2px;
+  text-align: left;
+}
+
+.section-title a {
+  color: #000;
+  text-decoration: none;
+}
+
+th.subsection-title {
+  font-size: 10pt;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 2px;
+  text-align: left;
+}
+
+
+/* Content Box */
+
+.content-box {
+  padding-top: 10px;
+  padding-bottom: 12px;
+
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.content-box h2 {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px; 
+  font-size: 10pt; 
+  color: gray; 
+  border-bottom: 1px solid #ccc;
+}
+
+.content-box h2 a {
+  text-decoration: none;
+  color: gray;
+}
+
+
+/* Sidebar */
+
+td.sidebar {
+  padding-top: 0px;
+  width: 250px;
+}
+
+table.sidebar-entry {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+table.sidebar-entry .sidebar-title {
+	position: relative;
+}
+
+table.sidebar-entry .sidebar-title .sidebar-tools {
+	position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.sidebar div.treestyle,
+.sidebar div.content-box {
+  width: 240px;
+}
+
+
+/* Other */
+
+td.fragments {
+  padding-right: 10px;
+}
+
+
+

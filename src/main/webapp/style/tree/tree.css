@@ -1,0 +1,94 @@
+.collapsable-tree {
+  font-size: 10pt;
+  white-space: nowrap;
+}
+
+.collapsable-tree ul {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+
+  list-style-type: none;
+
+  background-image: url(vertical-line.png);
+  background-repeat: repeat-y;
+  background-position: 0px;
+}
+
+.collapsable-tree ul.level1 {
+  margin-left: 10px;
+}
+
+.collapsable-tree li {
+  line-height: 18px;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 19px;
+}
+
+.collapsable-tree li.leaf {
+  background-image: url(tjunction.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+
+.collapsable-tree li.expanded {
+  background-image: url(minus.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  padding-left: 0px;
+}
+
+.collapsable-tree li.collapsed {
+  background-image: url(plus.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  padding-left: 0px;
+}
+
+.collapsable-tree li.leafLastNode {
+  background-image: url(corner.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-color: #fff;
+}
+
+.collapsable-tree li.expandedLastNode {
+  background-image: url(minus-corner.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-color: #fff;
+  padding-left: 0px;
+}
+
+.collapsable-tree li.collapsedLastNode {
+  background-image: url(plus-corner.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-color: #fff;
+  padding-left: 0px;
+}
+
+.collapsable-tree .toggle {
+  text-decoration: none;
+  margin: 0px;
+  padding: 0px; 
+}
+
+.collapsable-tree .toggle img {
+  margin: 0px;
+  padding: 0px; 
+  width: 15px;
+  height: 10px;
+}
+
+/* for IE */
+.nowrap-frame,
+.nowrap-frame tr,
+.nowrap-frame td {
+  margin: 0px;
+  padding: 0px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  white-space: nowrap;
+}

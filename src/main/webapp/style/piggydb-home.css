@@ -1,0 +1,53 @@
+table.calendar {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 240px;
+}
+
+table.calendar td {
+  text-align: center;
+  font-size: 9pt;
+}
+
+table.calendar td.calendar-current-month {
+  padding: .4em 0;
+  font-size: 10pt;
+}
+
+table.calendar td.calendar-current-month span.selected-month {
+	padding-left: 3px;
+	padding-right: 3px;
+  border: 1px solid red;
+}
+
+table.calendar td.calendar-sunday {
+  color: #f66;
+}
+
+table.calendar td.calendar-saturday {
+  color: #66f;
+}
+
+table.calendar td.selected-day {
+  border: 1px solid red;
+}
+
+table.calendar td.today {
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+span.link-to-today {
+  font-weight: normal;
+}
+
+.home-fragments {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+div.home-fragments table.fragment {
+  border: 2px solid #ecc;
+}
+

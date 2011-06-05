@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+  xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util 
+      http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+      
+  <bean id="h2JdbcUrl" class="marubinotto.piggydb.external.jdbc.h2.H2JdbcUrl">
+    <property name="databasePrefix" value="${piggydb.database.prefix}"/>
+    <property name="databaseName" value="${piggydb.database.name}"/>
+    <property name="logFile" value="/WEB-INF/logs/database-url.log"/>
+  </bean>
+  
+  <util:property-path id="jdbcUrl" path="h2JdbcUrl.url"/>
+  <util:property-path id="databasePath" path="h2JdbcUrl.databasePath"/>
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.h2.Driver"/>
+    <property name="url" ref="jdbcUrl"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+  
+  <bean id="h2DbUpgrade" class="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+    <property name="h2JdbcUrl"><ref bean="h2JdbcUrl"/></property>
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+    <property name="transaction"><ref bean="transaction"/></property>
+    <property name="databaseSchema"><ref bean="databaseSchema"/></property>
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+  </bean>
+
+  <bean id="transaction" class="marubinotto.util.procedure.Transaction">
+    <property name="transactionManager"><ref bean="transactionManager"/></property>
+  </bean>
+
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+  </bean>
+    
+  <bean id="databaseSchema" class="marubinotto.piggydb.external.jdbc.DatabaseSchema">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+  
+  <bean id="seqTagId" class="org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="incrementerName" value="seq_tag_id"/>
+  </bean>
+  <bean id="seqTagIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tableName" value="tag"/>
+    <property name="columnName" value="tag_id"/>
+    <property name="sequenceName" value="seq_tag_id"/>
+  </bean>
+  
+  <bean id="seqFragmentId" class="org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="incrementerName" value="seq_fragment_id"/>
+  </bean>
+  <bean id="seqFragmentIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tableName" value="fragment"/>
+    <property name="columnName" value="fragment_id"/>
+    <property name="sequenceName" value="seq_fragment_id"/>
+  </bean>
+
+  <bean id="seqRelationId" class="org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="incrementerName" value="seq_fragment_relation_id"/>
+  </bean>
+  <bean id="seqRelationIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tableName" value="fragment_relation"/>
+    <property name="columnName" value="fragment_relation_id"/>
+    <property name="sequenceName" value="seq_fragment_relation_id"/>
+  </bean>
+ 
+  <bean id="seqFilterId" class="org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="incrementerName" value="seq_filter_id"/>
+  </bean>
+  <bean id="seqFilterIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tableName" value="filter"/>
+    <property name="columnName" value="filter_id"/>
+    <property name="sequenceName" value="seq_filter_id"/>
+  </bean>
+  
+  <bean id="sequenceAdjusterList" class="marubinotto.piggydb.external.jdbc.SequenceAdjusterList">
+    <property name="sequenceAdjusters">
+      <list>
+        <ref bean="seqTagIdAdjuster"/>
+        <ref bean="seqFragmentIdAdjuster"/>
+        <ref bean="seqRelationIdAdjuster"/>
+        <ref bean="seqFilterIdAdjuster"/>
+      </list>
+    </property>
+  </bean>
+
+
+  <!-- 
+    For H2 initialization
+   -->
+   
+  <bean id="singleDataSource" class="org.springframework.jdbc.datasource.SingleConnectionDataSource" 
+      destroy-method="destroy">
+    <property name="driverClassName" value="org.h2.Driver"/>
+    <property name="url" ref="jdbcUrl"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+
+  <bean id="jdbcTemplateForInit" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource"><ref bean="singleDataSource"/></property>
+  </bean>
+  
+  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.external.jdbc.DatabaseSchema">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplateForInit"/></property>
+  </bean>
+  
+</beans>
+

@@ -1,0 +1,24 @@
+span.highlight {
+  background-color: #FFCC66;
+}
+
+#largeSearch {
+	margin-bottom: 15px;
+}
+
+#largeSearch_keywords {
+  width: 300px;
+}
+
+.tags-by-keywords {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  line-height: 1.5em;
+}
+
+.tags-by-keywords .tag {
+  margin: 0px;
+  margin-right: 5px;
+  white-space: nowrap;
+}

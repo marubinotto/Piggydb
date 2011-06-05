@@ -1,0 +1,37 @@
+#macro( adTop )
+
+#if ($user.isAnonymous())
+##AD_TOP
+#end
+
+#end
+
+
+
+#macro( adSidebarTop )
+
+#if ($user.isAnonymous())
+##AD_SIDEBAR_TOP
+#end
+
+#end
+
+
+
+#macro( adSidebarBottom )
+
+#if ($user.isAnonymous())
+##AD_SIDEBAR_BOTTOM
+#end
+  
+#end 
+
+
+
+#macro( adFragment )
+  
+#if ($user.isAnonymous())
+##AD_FRAGMENT
+#end
+  
+#end

@@ -1,0 +1,256 @@
+#macro( sidebarEntryHeader $id $title $iconUrl $titleLinkUrl )
+
+#set ($toggleId = "${id}-toggle")
+#set ($toggleState = $utils.getWithDefault($session, "state.$toggleId", "shown"))
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+    new SidebarEntry("$id", "$toggleId", putSessionValue);
+  });
+//]]>
+</script>
+<table class="sidebar-entry" id="$id" cellpadding="5" cellspacing="0" border="0">
+<tr>
+  <th class="section-title">
+    <div class="sidebar-title">
+      #if ($titleLinkUrl) <a href="$titleLinkUrl"> #end
+      #if ($iconUrl) <img border="0" alt="" src="$iconUrl" style="vertical-align:middle;"/> #end
+      $title
+      #if ($titleLinkUrl) </a> #end
+      <span class="sidebar-tools">
+        #verticalShowHideToggle($toggleId $toggleState)
+      </span>
+    </div>
+  </th>
+</tr>
+<tr class="sidebar-content"#if($toggleState == "hidden") style="display: none;"#end>
+  <td> 
+    
+#end
+
+
+
+#macro( sidebarEntryFooter )
+  
+  </td>
+</tr>
+</table> 
+
+#end
+
+
+
+#macro( commonSidebarEntries )
+  
+#sidebarBookmark($bookmarkedFragments)
+#sidebarFilters($filters)
+#sidebarTagPalette()
+#sidebarRecentlyViewed($recentlyViewed)
+
+#end
+
+
+
+#macro( sidebarBookmark $fragments )
+
+#if ($fragments && $fragments.size() > 0)
+#sidebarEntryHeader("sidebar-bookmark" 
+  $messages.get("bookmark") "$context/style/images/tag-bookmark.png" 
+  "$resources.tagPathByName($tagConstants.NAME_BOOKMARK)")
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+  <div class="content-box simple-list sidebar-fragment-list">
+    <ul>
+      #foreach ($fragment in $fragments)
+      <li class="$html.fragmentHeaderClass(${fragment.id}, $selectedFragments)">
+        <span class="fragment-caption">
+          $utils.raw($html.linkToFragment($fragment.id))
+          $utils.raw($html.fragmentHeadline($fragment)) 
+        </span>
+      #if ($fragment.canRemoveTag($bookmarkTag, $user))
+        <a href="#" onclick="fragmentOps.removeBookmark('$fragment.id'); return false;">
+        <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+      #end
+      </li>
+      #end
+    </ul>
+  </div>
+</td></tr>
+</table>
+#sidebarEntryFooter()
+#end
+
+#end
+
+
+
+#macro( sidebarTagPalette )
+
+#sidebarEntryHeader("sidebar-tag-palette" $messages.get("tag-palette") "$context/style/images/tag.png" $null)
+#set ($heightKey = "sidebar-tag-palette-height")
+#set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
+<script type="text/javascript">
+//<![CDATA[
+  var sidebarTagPaletteInitialized = false;
+
+  function initSidebarTagPalette() {
+    var palette = new TagPalette(
+      jQuery("#sidebar-tag-palette .tag-palette"), 
+      function(source, tagId, tagName, palette) {
+        if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
+          document.location.href = TAG_URL_PREFIX + tagId;
+      },
+      null);
+
+    palette.onPaletteInit = function () {
+      var resizableDiv = jQuery("#sidebar-tag-palette .tag-palette-resizable-div");
+      
+      var height = $paletteHeight;
+      if (height == null) height = resizableDiv.height();
+      
+      resizableDiv.css("height", height).css("max-height", "none");
+      resizableDiv.resizable({ 
+        handles: 's', 
+        stop: function(event, ui) {
+          putSessionValue("$heightKey", resizableDiv.height());
+        }
+      })
+    };
+    
+  #if (!$user.isViewer())
+    palette.onPaletteUpdate = function () {
+      jQuery("#sidebar-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);
+    };
+  #end
+
+    sidebarTagPaletteInitialized = true;
+  }
+
+  jQuery(function() {
+    var sidebarTagPalette = SidebarEntry.instances["sidebar-tag-palette"];
+    sidebarTagPalette.toggle.onShow = function () {
+      if (!sidebarTagPaletteInitialized) initSidebarTagPalette();
+    };
+    
+    if (!sidebarTagPalette.isContentHidden()) initSidebarTagPalette();
+  });
+//]]>
+</script>
+<div class="tag-palette-container">   ## the base of position for the resize handle
+  <div class="content-box tag-palette-resizable-div">
+    <div class="tag-palette"></div>
+  </div>
+  <div class="tag-palette-footer"><div class="tag-palette-resize-handle"></div></div>
+</div>
+#sidebarEntryFooter()
+
+#end
+
+
+
+#macro( sidebarFilters $filters )
+
+#if ($filters && $filters.size() > 0)
+#sidebarEntryHeader("sidebar-filters" $messages.get("filter") "$context/images/filter.png" "filter.htm")
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+  <div class="content-box simple-list recently-viewed">
+    <ul style="margin-left: 0px;">
+      #foreach ($filter in $filters)
+      <li>
+        <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
+          <img border="0" src="$context/images/mini-filter.png" style="vertical-align:middle;" alt=""/>
+          <a class="filter" href="$context/filter.htm?id=$filter.id">$filter.name</a>
+        </td></tr></table>
+      </li>
+      #end
+    </ul>
+  </div>
+</td></tr>
+</table>
+#sidebarEntryFooter()
+#end
+
+#end
+
+
+
+#macro( sidebarRecentlyViewed $recentlyViewed )
+
+#if ($recentlyViewed && $recentlyViewed.size() > 0)
+#sidebarEntryHeader("sidebar-recently-viewed" $messages.get("recently-viewed") $null $null)
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+  <div class="content-box simple-list recently-viewed">
+    <ul style="margin-left: 0px;">
+      #foreach ($entry in $recentlyViewed.entrySet())
+      <li>
+        <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
+        #if ($entry.key.type == 1)
+          $utils.raw($html.linkToFragment($entry.key.id))
+          $entry.value
+        #elseif ($entry.key.type == 2)
+          #miniTagIcon($entry.value)
+          <a class="tag" href="$resources.tagPath(${entry.key.id})">$entry.value</a>
+        #elseif ($entry.key.type == 3)  
+          <img border="0" src="$context/images/mini-filter.png" style="vertical-align:middle;" alt=""/>
+          <a class="filter" href="$context/filter.htm?id=${entry.key.id}">$entry.value</a>
+        #end
+        </td></tr></table>
+      </li>
+      #end
+    </ul>
+  </div>
+</td></tr>
+</table>
+#sidebarEntryFooter()
+#end
+
+#end
+
+
+
+#macro( sidebarRelatedTags $tags $baseTagId )
+
+#if ($tags && $tags.size() > 0)
+#sidebarEntryHeader("sidebar-related-tags" $messages.get("related-tags") "$context/images/new-tag.png" $null)
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+  <div class="content-box simple-list related-tags">
+    <ul style="margin-left: 0px;">
+      #foreach ($tag in $tags)
+      <li>
+        <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
+          #miniTagIcon($tag.name)
+          <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
+          × $tag.count
+          
+          ## Plus button
+          #if ($baseTagId)
+            <a href="$context/filter.htm?tagIds=${baseTagId}&amp;tagIds=${tag.id}&amp;new=true">
+          #else
+            <a href="$context/filter.htm?tagIds=${tag.id}#if($filter.id)&amp;id=$filter.id#end">
+          #end
+          <img src="$context/images/add-1.png" border="0" alt="+" 
+            style="padding: 0px; padding-left: 5px; vertical-align: middle;"/></a>
+            
+          ## Minus button
+          #if ($baseTagId)
+            <a href="$context/filter.htm?tagIds=${baseTagId}&amp;exTagIds=${tag.id}&amp;new=true">
+          #else
+            <a href="$context/filter.htm?exTagIds=${tag.id}#if($filter.id)&amp;id=$filter.id#end">
+          #end
+          <img src="$context/images/subtract.png" border="0" alt="-" 
+            style="padding: 0px; padding-left: 3px; padding-right: 5px; vertical-align: middle;"/></a>   
+        </td></tr></table>
+      </li>
+      #end
+    </ul>
+  </div>
+</td></tr>
+</table>
+#sidebarEntryFooter()
+#end
+
+#end
+

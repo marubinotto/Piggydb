@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <display-name>piggydb</display-name>
+  
+  <!-- Log4jConfigListener -->
+  <!-- 
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/WEB-INF/config/log4j.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>piggydb.root</param-value>
+  </context-param>
+  -->
+
+  <!-- ContextLoaderListener -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      /WEB-INF/spring/beans-common.xml
+      /WEB-INF/spring/beans-presentation.xml
+      /WEB-INF/spring/beans-services.xml
+      /WEB-INF/spring/beans-models.xml
+      /WEB-INF/spring/beans-external.xml
+    </param-value>
+  </context-param>
+  
+  <!-- DbStarter -->
+  <context-param>
+    <param-name>db.url</param-name>
+    <param-value>jdbc:h2:mem:piggydb;DB_CLOSE_DELAY=-1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.user</param-name>
+    <param-value>sa</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.password</param-name>
+    <param-value>sa</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.tcpServer</param-name>
+    <param-value>-tcpAllowOthers</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>CustomizedSecurityFilter</filter-name>
+    <filter-class>marubinotto.util.web.CustomizedSecurityFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>CustomizedSecurityFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+   -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener><listener-class>org.h2.server.web.DbStarter</listener-class></listener>
+  
+  <servlet>
+    <servlet-name>click-servlet</servlet-name>
+    <servlet-class>marubinotto.piggydb.presentation.PiggydbServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>click-servlet</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>click-servlet</servlet-name>
+    <url-pattern>*.atom</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+  <welcome-file-list>
+    <welcome-file>home.htm</welcome-file>
+  </welcome-file-list>
+
+</web-app>

@@ -1,0 +1,22 @@
+.filter-name {
+  position: relative;
+}
+
+.filter-tools {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+#filterForm_filterName,
+#classificationForm_tag,
+#excludeTagForm_tag {
+  width: 150px;
+}
+
+#filterForm,
+#classificationForm,
+#excludeTagForm {
+  margin-bottom: 10px;
+}
+

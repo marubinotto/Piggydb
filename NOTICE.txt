@@ -1,0 +1,70 @@
+
+This product includes software developed by 
+The Apache Software Foundation (http://jakarta.apache.org/).
+
+This product includes software developed by 
+the Spring Framework Project (http://www.springframework.org).
+
+This product includes software developed by 
+the Click Framework Project (http://click.sourceforge.net/).
+
+This product includes the H2 Database Engine 
+(http://www.h2database.com/).
+
+This product includes the Winstone Servlet Container,
+developed by Rick Knowles (http://winstone.sourceforge.net/).
+
+This product includes the DbUnit library
+(http://dbunit.sourceforge.net/).
+
+This product includes the OGNL library, 
+developed by Drew Davidson (http://www.ognl.org/).
+
+This product includes the Jaxen library
+(http://jaxen.codehaus.org/).
+
+This product includes the XMLUnit library,
+developed by Tim Bacon and Jeff Martin
+(http://xmlunit.sourceforge.net/).
+
+This product includes software developed by 
+Vladimir R. Bossicard as well as other contributors 
+(http://junit-addons.sourceforge.net/).
+
+This product includes the HtmlUnit 
+(http://htmlunit.sourceforge.net/).
+
+This product includes the Cargo 
+(http://cargo.codehaus.org/).
+
+This product includes the Slik Icons
+created by Mark James (http://www.famfamfam.com/lab/icons/silk/).
+
+This product includes a modified version of the Facebox 
+created by Chris Wanstrath (http://famspam.com/facebox).
+
+This product includes the google-code-prettify 
+developed by mikesamuel (http://code.google.com/p/google-code-prettify/).
+
+This product includes the PURE - JavaScript Template Engine
+(http://beebole.com/pure/).
+
+This product includes the jQuery highlightRegex plugin
+developed by Jacob Rothstein (http://github.com/jbr/jQuery.highlightRegex/).
+
+This product includes the jQuery Watermark Plugin
+developed by tzkuei (http://plugins.jquery.com/project/updnWatermark).
+
+This product includes markItUp! developed by Jay Salvat
+(http://markitup.jaysalvat.com/).
+
+This product includes the jQuery Autocomplete Plugin
+developed by Jörn Zaefferer (http://plugins.jquery.com/project/autocompletex).
+
+This product includes software developed by the Jetty project 
+(http://www.eclipse.org/jetty/).
+
+This product includes Launch4j developed by Grzegorz Kowal
+(http://launch4j.sourceforge.net/).
+
+
