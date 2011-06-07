@@ -39,7 +39,7 @@ public class TemplateUtils {
 		return object == null ? "" : object;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getWithDefault(Map map, String key, String defaultValue) {
 		Object value = map.get(key);
 		return value != null ? value : defaultValue;

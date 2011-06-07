@@ -3,11 +3,12 @@ package marubinotto.util;
 import java.text.MessageFormat;
 import java.util.Map;
 
-@SuppressWarnings("unchecked")
 public class MapMessageSource implements MessageSource {
 	
+	@SuppressWarnings("rawtypes")
 	private Map messages;
 	
+	@SuppressWarnings("rawtypes")
 	public MapMessageSource(Map messages) {
 		Assert.Arg.notNull(messages, "messages");
 		this.messages = messages;

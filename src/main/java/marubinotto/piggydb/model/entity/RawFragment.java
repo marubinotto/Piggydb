@@ -474,7 +474,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		Collections.sort(this.childRelations, childRelationsComparator);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private static final Comparator nullLowComparator = new NullComparator(false);
 	
 	public static final Comparator<FragmentRelation> childRelationsComparator = 

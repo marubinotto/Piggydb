@@ -134,10 +134,9 @@ public class FilterRepositoryRI extends AbstractFilterRepository {
 		return names;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Page<Filter> getRecentChanges(int pageSize, int pageIndex)
 	throws Exception {
-		ArrayList<Filter> orderd = new ArrayList(this.idMap.values());
+		ArrayList<Filter> orderd = new ArrayList<Filter>(this.idMap.values());
 		Collections.sort(orderd, new Entity.RecentChangeComparator());
 		Page<Filter> page = PageUtils.getPage(orderd, pageSize, pageIndex);
 		return page;

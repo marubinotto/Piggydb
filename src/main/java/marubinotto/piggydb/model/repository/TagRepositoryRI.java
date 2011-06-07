@@ -316,7 +316,7 @@ public class TagRepositoryRI extends AbstractTagRepository {
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private static final Comparator nullHighComparator = new NullComparator(true);
 	
 	public synchronized List<Tag> getPopularTags(int maxSize) 

@@ -3,7 +3,6 @@ package marubinotto.piggydb.external.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,10 +10,10 @@ public class SequenceAdjusterList extends SequenceAdjuster {
 	
 	private static Log logger = LogFactory.getLog(SequenceAdjusterList.class);
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private List sequenceAdjusters = new ArrayList();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void setSequenceAdjusters(List sequenceAdjusters) {
 		this.sequenceAdjusters = sequenceAdjusters;
 	}

@@ -11,7 +11,7 @@ import org.junit.Test;
 public class CollectionUtilsTest {
 
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void mapBuilder() throws Exception {
 		Map map = 
 			map("daisuke", map("gender", "male")).

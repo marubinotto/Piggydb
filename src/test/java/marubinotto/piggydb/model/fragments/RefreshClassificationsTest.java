@@ -88,7 +88,7 @@ public class RefreshClassificationsTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void tagRemoved() throws Exception {
 		// Given
 		Fragment fragment = this.object.get(this.fragment1.getId());

@@ -44,7 +44,6 @@ public class FragmentsOptions implements Serializable {
 	}
 	
 	public static class SortOption implements Serializable {
-
 		public FragmentField orderBy = FragmentField.UPDATE_DATETIME;
 		public boolean ascending = false;
 		
@@ -60,12 +59,12 @@ public class FragmentsOptions implements Serializable {
 			Collections.sort(fragments, getComparator());
 		}
 		
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		private static final Comparator nullHighComparator = new NullComparator(true);
 		
 		public Comparator<Fragment> getComparator() {
 			return new Comparator<Fragment>() {
-				@SuppressWarnings("unchecked")
+				@SuppressWarnings({"rawtypes", "unchecked"})
 				public int compare(Fragment o1, Fragment o2) {
 					Comparable field1 = orderBy.getFieldValue(o1);
 					Comparable field2 = orderBy.getFieldValue(o2);

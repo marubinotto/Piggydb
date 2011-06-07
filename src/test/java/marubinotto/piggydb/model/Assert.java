@@ -15,7 +15,7 @@ public class Assert {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static void assertClassificationEquals(Map tags, Classification classification) {
 		assertEquals(
 			"Classification size: " + classification.getClassifiable(), 

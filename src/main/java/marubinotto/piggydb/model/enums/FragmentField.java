@@ -56,14 +56,14 @@ public class FragmentField extends ValuedEnum {
 	private FieldValueGetter fieldValueGetter;
 
 	private FragmentField(String name, int id, boolean isString, FieldValueGetter fieldValueGetter) {
-        super(name, id);
-        this.isString = isString;
-        this.fieldValueGetter = fieldValueGetter;
-    }
+		super(name, id);
+		this.isString = isString;
+		this.fieldValueGetter = fieldValueGetter;
+	}
 	
 	public static FragmentField getEnum(int id) {
-        return (FragmentField)getEnum(FragmentField.class, id);
-    }
+		return (FragmentField)getEnum(FragmentField.class, id);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static List<FragmentField> getEnumList() {
@@ -78,7 +78,7 @@ public class FragmentField extends ValuedEnum {
 		public Object get(Fragment fragment);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Comparable getFieldValue(Fragment fragment) {
 		Assert.Property.requireNotNull(fragment, "fragment");
 		return (Comparable)this.fieldValueGetter.get(fragment);

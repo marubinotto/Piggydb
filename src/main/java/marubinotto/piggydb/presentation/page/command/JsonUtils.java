@@ -12,7 +12,7 @@ public class JsonUtils {
 	
 	public static final String CONTENT_TYPE = "application/json; charset=UTF-8";
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static void printPageInfo(Page page, PrintWriter out)
 	throws Exception {
 		out.print("{");
