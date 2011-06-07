@@ -435,9 +435,9 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		
 		sql.append("select distinct ");
 		appendFieldsForIdAndSort(sql, sortOption);
-        sql.append(" from fragment as f, tagging as t");
-        sql.append(" where f.fragment_id = t.target_id");
-        sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
+    sql.append(" from fragment as f, tagging as t");
+    sql.append(" where f.fragment_id = t.target_id");
+    sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
 		sql.append(" and t.tag_id in (");
 		boolean first = true;
 		for (Long tagId : tagTree) {
