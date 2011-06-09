@@ -173,15 +173,17 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 	// http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/6
 	public void orderByTitleWithCombinedTags() throws Exception {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "tokyo", "male"));
+		this.object.register(newFragmentWithTitleAndTags("Anne", "tokyo", "female"));
 		this.object.register(newFragmentWithTitleAndTags("Akane", "tokyo", "female"));
-		this.object.register(newFragmentWithTitleAndTags("Chieko", "chiba", "female"));
-		
+	
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tokyo"));
 		filter.getExcludes().addTag(storedTag("male"));
 		OPTIONS.setSortOption(FragmentField.TITLE, true);
 		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
-		assertEquals(1, result.size());
+		
+		assertEquals(2, result.size());
 		assertEquals("Akane", result.get(0).getTitle());
+		assertEquals("Anne", result.get(1).getTitle());
 	}
 }
