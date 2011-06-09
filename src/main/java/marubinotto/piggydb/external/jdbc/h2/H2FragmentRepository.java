@@ -334,7 +334,7 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
         
         StringBuilder condition = new StringBuilder();
         condition.append(" from fragment where");
-        condition.append(" (" + field.getName() + "　between　? and ?)");
+        condition.append(" (" + field.getName() + " between ? and ?)");
         appendConditionToExcludeTrash(condition, "fragment.fragment_id");
              
         sql.append(condition);
