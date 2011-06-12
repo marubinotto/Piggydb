@@ -656,21 +656,21 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	
 	public FragmentRelation getRelation(long relationId) throws Exception {
 		try {
-            return (FragmentRelation)this.jdbcTemplate.queryForObject(
-                "select * from fragment_relation where fragment_relation_id = ?", 
-                new Object[]{new Long(relationId)}, 
-                new FragmentRelationRowMapper(this.relationFactory, this));
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+			return (FragmentRelation) this.jdbcTemplate.queryForObject(
+				"select * from fragment_relation where fragment_relation_id = ?",
+				new Object[] { new Long(relationId) }, new FragmentRelationRowMapper(
+						this.relationFactory, this));
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 	
 	@Override
 	protected void doDeleteRelation(long relationId) throws Exception {
 		this.jdbcTemplate.update(
-            "delete from fragment_relation where fragment_relation_id = ?", 
-            new Object[]{ new Long(relationId) });
+	    "delete from fragment_relation where fragment_relation_id = ?", 
+	    new Object[]{ new Long(relationId) });
 	}
 	
 	public Long countRelations() throws Exception {
