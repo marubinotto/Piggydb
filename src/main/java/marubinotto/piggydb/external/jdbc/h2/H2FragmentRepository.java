@@ -1,6 +1,7 @@
 package marubinotto.piggydb.external.jdbc.h2;
 
 import static marubinotto.util.CollectionUtils.list;
+import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,13 +22,13 @@ import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentsOptions;
+import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.NoSuchEntityException;
 import marubinotto.piggydb.model.OwnerAuth;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.UserActivityLog;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
@@ -42,7 +43,6 @@ import marubinotto.util.paging.PageUtils;
 import marubinotto.util.time.Interval;
 import marubinotto.util.time.Month;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -151,14 +151,14 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 
 	private RawFragment queryForOneFragment(String sql, Object[] args) {
-        try {
-            return (RawFragment)this.jdbcTemplate.queryForObject(
-                sql, args, this.fragmentRowMapper);
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
+		try {
+			return (RawFragment) this.jdbcTemplate.queryForObject(
+				sql, args, this.fragmentRowMapper);
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 
 	public boolean update(Fragment fragment, boolean updateTimestamp) 
 	throws BaseDataObsoleteException, Exception {
@@ -196,32 +196,32 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	
 	private boolean containsId(Long id) throws Exception {
 		return this.jdbcTemplate.queryForInt(
-            "select count(*) from fragment where fragment_id = ?", 
-            new Object[]{id}) > 0;
+	    "select count(*) from fragment where fragment_id = ?", 
+	    new Object[]{id}) > 0;
 	}
 	
 	@Override
 	protected void doDelete(Fragment fragment, User user) throws Exception {
 		// Delete related taggings
 		this.jdbcTemplate.update(
-            "delete from tagging where target_id = ? and target_type = ?", 
-            new Object[]{
-            	fragment.getId(),
-            	QueryUtils.TAGGING_TARGET_FRAGMENT
-            });
+	    "delete from tagging where target_id = ? and target_type = ?", 
+	    new Object[]{
+	    	fragment.getId(),
+	    	QueryUtils.TAGGING_TARGET_FRAGMENT
+	    });
 		
 		// Delete relations
 		this.jdbcTemplate.update(
-            "delete from fragment_relation where from_id = ? or to_id = ?", 
-            new Object[]{
-            	fragment.getId(),
-            	fragment.getId()
-            });
+      "delete from fragment_relation where from_id = ? or to_id = ?", 
+      new Object[]{
+      	fragment.getId(),
+      	fragment.getId()
+      });
 		
 		// Delete the fragment 
 		this.jdbcTemplate.update(
-            "delete from fragment where fragment_id = ?", 
-            new Object[]{fragment.getId()});
+      "delete from fragment where fragment_id = ?", 
+      new Object[]{fragment.getId()});
 		
 		// To avoid deleting only a record (transaction should be rolled back when IO error)
 		// To avoid deleting only a file (should delete a file after the db query succeeds)
@@ -268,25 +268,21 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Integer> getDaysOfMonth(FragmentField field, Month month) 
-	throws Exception {
+	public Set<Integer> getDaysOfMonth(FragmentField field, Month month)
+		throws Exception {
 		Assert.Arg.notNull(field, "field");
 		Assert.Arg.notNull(month, "month");
-		
-		StringBuilder sql  = new StringBuilder();
-        sql.append("select distinct extract(DAY from " + field.getName() + ")");
-        sql.append(" from fragment");
-        sql.append(" where extract(YEAR from " + field.getName() + ") = ?");
-        sql.append(" and extract(MONTH from " + field.getName() + ") = ?");
-        appendConditionToExcludeTrash(sql, "fragment.fragment_id");
-		
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("select distinct extract(DAY from " + field.getName() + ")");
+		sql.append(" from fragment");
+		sql.append(" where extract(YEAR from " + field.getName() + ") = ?");
+		sql.append(" and extract(MONTH from " + field.getName() + ") = ?");
+		appendConditionToExcludeTrash(sql, "fragment.fragment_id");
+
 		return new HashSet<Integer>(
-			this.jdbcTemplate.queryForList(
-				sql.toString(), 
-				new Object[]{
-					new Integer(month.getYear())
-					,new Integer(month.getMonth())
-				}, 
+			this.jdbcTemplate.queryForList(sql.toString(), new Object[]{
+				new Integer(month.getYear()), new Integer(month.getMonth())},
 				Integer.class));
 	}
 
@@ -295,8 +291,7 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		Assert.Arg.notNull(options, "options");
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("select ");
-		sql.append(this.fragmentRowMapper.selectAll());
+		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
 		sql.append(" from fragment where 0 = 0");
 		appendConditionToExcludeTrash(sql, "fragment.fragment_id");
 		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
@@ -321,45 +316,44 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	@SuppressWarnings("unchecked")
 	public Page<Fragment> findByTime(
 		Interval interval, 
-		FragmentField field, 
-		FragmentsOptions options)
+		FragmentField field,
+		FragmentsOptions options) 
 	throws Exception {
 		Assert.Arg.notNull(interval, "interval");
 		Assert.Arg.notNull(field, "field");
 		Assert.Arg.notNull(options, "options");
-		
-		StringBuilder sql  = new StringBuilder();
-        sql.append("select ");
-        sql.append(this.fragmentRowMapper.selectAll());
-        
-        StringBuilder condition = new StringBuilder();
-        condition.append(" from fragment where");
-        condition.append(" (" + field.getName() + " between ? and ?)");
-        appendConditionToExcludeTrash(condition, "fragment.fragment_id");
-             
-        sql.append(condition);
-        appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
-        
-        final Object[] params = new Object[] {
-        	interval.getStartInstant().toDate(),
-        	interval.getEndInstant().toDate()
-        };
-        List<RawFragment> results = 
-        	this.jdbcTemplate.query(sql.toString(), params, this.fragmentRowMapper);
-        
-        if (options.eagerFetching) {
-        	refreshClassifications(results);
-        	setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
-        }
-		
+
+		StringBuilder sql = new StringBuilder();
+		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
+
+		StringBuilder condition = new StringBuilder();
+		condition.append(" from fragment where");
+		condition.append(" (" + field.getName() + " between ? and ?)");
+		appendConditionToExcludeTrash(condition, "fragment.fragment_id");
+
+		sql.append(condition);
+		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
+
+		final Object[] params = new Object[] { 
+			interval.getStartInstant().toDate(),
+			interval.getEndInstant().toDate() 
+		};
+		List<RawFragment> results = this.jdbcTemplate.query(sql.toString(), params,
+				this.fragmentRowMapper);
+
+		if (options.eagerFetching) {
+			refreshClassifications(results);
+			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+		}
+
 		final String queryAll = "select count(*)" + condition;
-		return  PageUtils.<Fragment>covariantCast(
-			PageUtils.toPage(results, options.pageSize, options.pageIndex, 
-				new PageUtils.TotalCounter() {
-					public long getTotalSize() throws Exception {
-						return (Long)getJdbcTemplate().queryForObject(queryAll, params, Long.class);
-					}
-				}));
+		return PageUtils.<Fragment> covariantCast(PageUtils.toPage(results,
+			options.pageSize, options.pageIndex, new PageUtils.TotalCounter() {
+				public long getTotalSize() throws Exception {
+					return (Long) getJdbcTemplate().queryForObject(queryAll, params,
+						Long.class);
+				}
+			}));
 	}
 
 	public Page<Fragment> findByFilter(Filter filter, FragmentsOptions options) 
@@ -408,7 +402,7 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		}
 		
 		// Order
-		if (sortOption != null) appendSortOption(sql, sortOption, "f.");
+		appendSortOption(sql, sortOption, "f.");
 
 		logger.debug("selectIdsByFilter: " + sql);
 		return this.jdbcTemplate.query(sql.toString(), new RowMapper() {
@@ -419,13 +413,20 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 	
 	private static void appendFieldsForIdAndSort(StringBuilder sql, SortOption sortOption) {
+		// Fragment ID
 		sql.append("f.fragment_id");
+
+		// Column for Sort
 		if (sortOption != null) {
 			if (sortOption.orderBy.isString()) 
-				sql.append(", UPPER(f." + sortOption.orderBy.getName() + ")");
+				sql.append(", " + normalizedStringColumnForSort(sortOption.orderBy.getName(), "f."));
 			else
 				sql.append(", f." + sortOption.orderBy.getName());
 		}
+	}
+	
+	private static String normalizedStringColumnForSort(String columnName, String prefix) {
+		return "UPPER(" + prefix + columnName + ") as ns_" + columnName;
 	}
 
 	private static void appendSelectIdsByTagTree(
@@ -465,9 +466,10 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	
 	private static final int COLLECT_RELATED_TAGS_AT_ONCE = 1000;
 	
-	private void collectRelatedTags(List<Long> fragmentIds, final RelatedTags relatedTags) {
+	private void collectRelatedTags(List<Long> fragmentIds,
+		final RelatedTags relatedTags) {
 		if (fragmentIds.isEmpty()) return;
-		
+
 		StringBuilder sql = new StringBuilder();
 		sql.append("select tag_id, count(tag_id) from tagging");
 		sql.append(" where target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
@@ -478,16 +480,14 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		}
 		sql.append(")");
 		sql.append(" group by tag_id");
-		
+
 		logger.debug("collectRelatedTags: " + sql.toString());
-		this.jdbcTemplate.query(
-            sql.toString(), 
-            new RowMapper() {
-				public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-					relatedTags.add(rs.getLong(1), rs.getInt(2));
-					return null;
-				}
-            });
+		this.jdbcTemplate.query(sql.toString(), new RowMapper() {
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				relatedTags.add(rs.getLong(1), rs.getInt(2));
+				return null;
+			}
+		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -496,8 +496,7 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		if (StringUtils.isBlank(keywords)) return PageUtils.empty(options.pageSize);
 		
 		StringBuilder sql  = new StringBuilder();
-		sql.append("select ");
-		sql.append(this.fragmentRowMapper.selectAll());
+		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
 		
 		StringBuilder condition = new StringBuilder();
 		condition.append(" from FT_SEARCH_DATA(?, 0, 0) ft, fragment");
@@ -513,7 +512,7 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 			refreshClassifications(results);
 			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
 		}
-		
+
 		final String queryAll = "select count(*)" + condition;
 		return PageUtils.<Fragment>covariantCast(
 			PageUtils.toPage(results, options.pageSize, options.pageIndex, 
@@ -526,49 +525,60 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Page<Fragment> findByUser(final String userName, FragmentsOptions options)
+	public Page<Fragment> findByUser(
+		final String userName,
+		FragmentsOptions options) 
 	throws Exception {
 		Assert.Arg.notNull(userName, "userName");
 		Assert.Arg.notNull(options, "options");
-		
-		StringBuilder sql  = new StringBuilder();
-        sql.append("select ");
-        sql.append(this.fragmentRowMapper.selectAll());
-        
-        StringBuilder condition = new StringBuilder();
-        condition.append(" from fragment");
-        condition.append(" where (creator = ? or updater = ?");
-        if (userName.equals(OwnerAuth.USER_NAME_OWNER)) {
-        	condition.append(" or creator is null");
-        	condition.append(" or (creation_datetime <> update_datetime and updater is null)");
-        }
-        condition.append(")");
-        appendConditionToExcludeTrash(condition, "fragment.fragment_id");
-             
-        sql.append(condition);
-        appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
 
-        List<RawFragment> results = this.jdbcTemplate.query(
-            sql.toString(), 
-            new Object[]{userName, userName},
-            this.fragmentRowMapper);
-        
-        if (options.eagerFetching) {
-        	refreshClassifications(results);
-        	setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
-        }
-		
+		StringBuilder sql = new StringBuilder();
+		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
+
+		StringBuilder condition = new StringBuilder();
+		condition.append(" from fragment");
+		condition.append(" where (creator = ? or updater = ?");
+		if (userName.equals(OwnerAuth.USER_NAME_OWNER)) {
+			condition.append(" or creator is null");
+			condition.append(" or (creation_datetime <> update_datetime and updater is null)");
+		}
+		condition.append(")");
+		appendConditionToExcludeTrash(condition, "fragment.fragment_id");
+
+		sql.append(condition);
+		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
+
+		List<RawFragment> results = this.jdbcTemplate.query(
+			sql.toString(), new Object[]{userName, userName}, this.fragmentRowMapper);
+
+		if (options.eagerFetching) {
+			refreshClassifications(results);
+			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+		}
+
 		final String queryAll = "select count(*)" + condition;
-		return  PageUtils.<Fragment>covariantCast(
-			PageUtils.toPage(results, options.pageSize, options.pageIndex, 
-				new PageUtils.TotalCounter() {
-					public long getTotalSize() throws Exception {
-						return (Long)getJdbcTemplate().queryForObject(
-							queryAll, 
-							new Object[]{userName, userName},
-							Long.class);
-					}
-				}));			
+		return PageUtils.<Fragment> covariantCast(PageUtils.toPage(results,
+			options.pageSize, options.pageIndex, new PageUtils.TotalCounter() {
+				public long getTotalSize() throws Exception {
+					return (Long) getJdbcTemplate().queryForObject(queryAll,
+							new Object[]{userName, userName}, Long.class);
+				}
+			}));
+	}
+	
+	private static void appendSelectAll(
+		StringBuilder sql, 
+		FragmentRowMapper mapper, 
+		SortOption sortOption) {
+		
+		sql.append("select ");
+		sql.append(mapper.selectAll());
+		if (sortOption != null && sortOption.orderBy.isString()) {
+			sql.append(", ");
+			sql.append(normalizedStringColumnForSort(
+				sortOption.orderBy.getName(), 
+				mapper.getColumnPrefix()));
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -578,15 +588,23 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		boolean eagerFetching) 
 	throws Exception {
 		StringBuilder sql  = new StringBuilder();
-		sql.append("select ");
-		sql.append(this.fragmentRowMapper.selectAll());
-		sql.append(" from fragment where fragment_id in (");
+		
+		// select
+		appendSelectAll(sql, this.fragmentRowMapper, sortOption);
+		
+		// from
+		sql.append(" from fragment");
+		
+		// where
+		sql.append(" where fragment_id in (");
 		boolean first = true;
 		for (Long fragmentId : fragmentIds) {
 			if (first) first = false; else sql.append(", ");
 			sql.append(fragmentId);
 		}
 		sql.append(")");
+		
+		// order by
 		appendSortOption(sql, sortOption, this.fragmentRowMapper.getColumnPrefix());
 		
 		List<RawFragment> results = 
@@ -714,14 +732,14 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 	
 	private static void appendSortOption(StringBuilder sql, SortOption sortOption, String columnPrefix) {
-		String columnName = ObjectUtils.defaultIfNull(columnPrefix, "") + sortOption.orderBy.getName();
+		if (sortOption == null) return;
 		
 		sql.append(" order by ");
 
 		if (sortOption.orderBy.isString())
-			sql.append("UPPER(" + columnName + ")");
+			sql.append("ns_" + sortOption.orderBy.getName());
 		else
-			sql.append(columnName);
+			sql.append(defaultIfNull(columnPrefix, "") + sortOption.orderBy.getName());
 		
 		if (sortOption.ascending)
 			sql.append(" nulls last");

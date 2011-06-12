@@ -170,7 +170,7 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	// http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/6
+	// http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/7
 	public void orderByTitleWithCombinedTags() throws Exception {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "tokyo", "male"));
 		this.object.register(newFragmentWithTitleAndTags("Anne", "tokyo", "female"));

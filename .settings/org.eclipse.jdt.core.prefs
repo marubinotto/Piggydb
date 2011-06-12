@@ -1,4 +1,4 @@
-#Tue Jun 07 11:32:55 JST 2011
+#Sun Jun 12 19:44:20 JST 2011
 eclipse.preferences.version=1
 org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.6
@@ -133,8 +133,8 @@ org.eclipse.jdt.core.formatter.comment.line_length=80
 org.eclipse.jdt.core.formatter.comment.new_lines_at_block_boundaries=true
 org.eclipse.jdt.core.formatter.comment.new_lines_at_javadoc_boundaries=true
 org.eclipse.jdt.core.formatter.compact_else_if=true
-org.eclipse.jdt.core.formatter.continuation_indentation=2
-org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer=2
+org.eclipse.jdt.core.formatter.continuation_indentation=1
+org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer=1
 org.eclipse.jdt.core.formatter.disabling_tag=@formatter\:off
 org.eclipse.jdt.core.formatter.enabling_tag=@formatter\:on
 org.eclipse.jdt.core.formatter.format_guardian_clause_on_one_line=false
@@ -205,7 +205,7 @@ org.eclipse.jdt.core.formatter.insert_space_after_ellipsis=insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_angle_bracket_in_parameterized_type_reference=do not insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_angle_bracket_in_type_arguments=do not insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_angle_bracket_in_type_parameters=do not insert
-org.eclipse.jdt.core.formatter.insert_space_after_opening_brace_in_array_initializer=insert
+org.eclipse.jdt.core.formatter.insert_space_after_opening_brace_in_array_initializer=do not insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_bracket_in_array_allocation_expression=do not insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_bracket_in_array_reference=do not insert
 org.eclipse.jdt.core.formatter.insert_space_after_opening_paren_in_annotation=do not insert
@@ -234,7 +234,7 @@ org.eclipse.jdt.core.formatter.insert_space_before_binary_operator=insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_angle_bracket_in_parameterized_type_reference=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_angle_bracket_in_type_arguments=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_angle_bracket_in_type_parameters=do not insert
-org.eclipse.jdt.core.formatter.insert_space_before_closing_brace_in_array_initializer=insert
+org.eclipse.jdt.core.formatter.insert_space_before_closing_brace_in_array_initializer=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_bracket_in_array_allocation_expression=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_bracket_in_array_reference=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_closing_paren_in_annotation=do not insert
@@ -281,7 +281,7 @@ org.eclipse.jdt.core.formatter.insert_space_before_opening_angle_bracket_in_type
 org.eclipse.jdt.core.formatter.insert_space_before_opening_angle_bracket_in_type_parameters=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_annotation_type_declaration=insert
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_anonymous_type_declaration=insert
-org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_array_initializer=insert
+org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_array_initializer=do not insert
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_block=insert
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_constructor_declaration=insert
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_enum_constant=insert
