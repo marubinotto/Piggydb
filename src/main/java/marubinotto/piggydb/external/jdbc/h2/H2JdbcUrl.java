@@ -2,6 +2,8 @@ package marubinotto.piggydb.external.jdbc.h2;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import marubinotto.util.FileSystemUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.Resource;
@@ -101,11 +104,21 @@ public class H2JdbcUrl implements ServletContextAware {
 	private static boolean isInMemoryPrefix(String prefix) {
 		return prefix.startsWith("mem:");
 	}
+	
+	public static String toUrlWithoutEscape(File file) {
+		String url = file.toURI().toString();
+		try {
+			return URLDecoder.decode(url, "UTF-8");
+		}
+		catch (UnsupportedEncodingException e) {
+			throw new UnhandledException(e);
+		}
+	}
 
 	private static String preparePrefix(String original) throws Exception {
 		String prepared = null;
 		if (original.startsWith("~") || original.startsWith("file:~")) {
-			String homeUrl = FileSystemUtils.getUserHome(false).toURI().toString();	// FIXME URL should not be escaped
+			String homeUrl = toUrlWithoutEscape(FileSystemUtils.getUserHome(false));
 			if (homeUrl.endsWith("/")) homeUrl = StringUtils.chop(homeUrl);
 			prepared = homeUrl + original.substring(original.indexOf('~') + 1);
 		}

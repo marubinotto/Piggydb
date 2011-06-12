@@ -3,6 +3,8 @@ package marubinotto.piggydb.external.jdbc.h2;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.springframework.mock.web.MockServletContext;
 
@@ -94,5 +96,12 @@ public class H2JdbcUrlTest {
 		context.setContextPath("/");
 		this.object.setServletContext(context);		
 		assertEquals(H2JdbcUrl.DEFAULT_DATABASE_NAME, this.object.getDatabaseName());
+	}
+	
+	@Test
+	public void toUrlWithoutEscape() throws Exception {
+		String result = H2JdbcUrl.toUrlWithoutEscape(new File("/my docs"));
+		System.out.println("toUrlWithoutEscape: " + result);
+		assertTrue("URL should not be escaped", result.indexOf("my docs") != -1);
 	}
 }
