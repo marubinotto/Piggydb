@@ -16,7 +16,6 @@ import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.UserActivityLog;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.repository.AbstractTagRepository;
 import marubinotto.piggydb.util.PiggydbUtils;
@@ -72,7 +71,6 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 			this.jdbcTemplate, 
 			this);
 		
-		UserActivityLog.getInstance().log(tag.getCreator(), "created", tag);
 		return tag.getId().longValue();
 	}
 
@@ -99,13 +97,13 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 	}
 
 	private RawTag queryForOneTag(String sql, Object[] args) {
-        try {
-            return (RawTag)this.jdbcTemplate.queryForObject(sql, args, tagRowMapper);
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
+		try {
+			return (RawTag) this.jdbcTemplate.queryForObject(sql, args, tagRowMapper);
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 	
 	private void setSuperordinateTags(RawTag tag) throws Exception {
 		QueryUtils.setTagsRecursively(
@@ -114,23 +112,21 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 
 	public boolean containsName(String name) throws Exception {
 		Assert.Arg.notNull(name, "name");
-		
+
 		return this.jdbcTemplate.queryForInt(
-            "select count(*) from tag where tag_name = ?", 
-            new Object[]{name}) > 0;
+			"select count(*) from tag where tag_name = ?", new Object[]{name}) > 0;
 	}
 	
 	public Long getIdByName(String tagName) {
 		Assert.Arg.notNull(tagName, "tagName");
 		try {
-			return (Long)getJdbcTemplate().queryForObject(
-				"select tag_id from tag where tag_name = ?", 
-				new Object[]{tagName}, 
+			return (Long) getJdbcTemplate().queryForObject(
+				"select tag_id from tag where tag_name = ?", new Object[]{tagName},
 				Long.class);
 		}
 		catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -140,7 +136,7 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 		criteria = criteria.toLowerCase();
 		criteria = StringEscapeUtils.escapeSql(criteria);		
 		return (List<String>)this.jdbcTemplate.queryForList(
-            "select tag_name from tag where LOWER(tag_name) like '" + criteria + "%'", String.class);
+			"select tag_name from tag where LOWER(tag_name) like '" + criteria + "%'", String.class);
 	}
 
 	public boolean update(Tag tag) throws BaseDataObsoleteException, Exception {
@@ -164,20 +160,18 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 		QueryUtils.updateTaggings(
 			(RawTag)tag, QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
 		
-		UserActivityLog.getInstance().log(tag.getUpdater(), "updated", tag);
 		return true;
 	}
 	
 	private boolean containsId(Long id) throws Exception {
 		return this.jdbcTemplate.queryForInt(
-            "select count(*) from tag where tag_id = ?", 
-            new Object[]{id}) > 0;
+			"select count(*) from tag where tag_id = ?", new Object[]{id}) > 0;
 	}
 	
 	private void checkIfNameIsValidToUpdate(Tag tag) throws DuplicateException {
 		int duplicate = this.jdbcTemplate.queryForInt(
-            "select count(*) from tag where tag_id <> ? and tag_name = ?", 
-            new Object[]{tag.getId(), tag.getName()});
+			"select count(*) from tag where tag_id <> ? and tag_name = ?",
+			new Object[]{tag.getId(), tag.getName()});
 		if (duplicate > 0) {
 			throw new DuplicateException("Duplicate tag name: " + tag.getName());
 		}
@@ -185,19 +179,13 @@ public class H2TagRepository extends AbstractTagRepository implements JdbcDao {
 
 	@Override
 	protected void doDelete(Tag tag, User user) throws Exception {
-		this.jdbcTemplate.update(
-            "delete from tag where tag_id = ?", 
-            new Object[]{tag.getId()});
+		this.jdbcTemplate.update("delete from tag where tag_id = ?",
+			new Object[]{tag.getId()});
 
-		this.jdbcTemplate.update(
-            "delete from tagging where tag_id = ? or (target_id = ? and target_type = ?)", 
-            new Object[]{
-            	tag.getId(), 
-            	tag.getId(),
-            	QueryUtils.TAGGING_TARGET_TAG
-            });
-		
-		UserActivityLog.getInstance().log(user.getName(), "deleted", tag);
+		this.jdbcTemplate
+			.update(
+				"delete from tagging where tag_id = ? or (target_id = ? and target_type = ?)",
+				new Object[]{tag.getId(), tag.getId(), QueryUtils.TAGGING_TARGET_TAG});
 	}
 	
 	public long size() throws Exception {

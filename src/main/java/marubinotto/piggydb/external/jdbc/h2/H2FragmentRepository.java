@@ -28,7 +28,6 @@ import marubinotto.piggydb.model.OwnerAuth;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.UserActivityLog;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
@@ -120,7 +119,6 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 			this.fileRepository.putFile(fragment);
 		}
 		
-		UserActivityLog.getInstance().log(fragment.getCreator(), "created", fragment);
 		return fragment.getId();
 	}
 	
@@ -190,7 +188,6 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 			this.fileRepository.putFile(fragment);
 		}
 		
-		UserActivityLog.getInstance().log(fragment.getUpdater(), "updated", fragment);
 		return true;
 	}
 	
@@ -228,8 +225,6 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 		if (fragment.isFile()) {
 			this.fileRepository.deleteFile(fragment);
 		}
-		
-		UserActivityLog.getInstance().log(user.getName(), "deleted", fragment);
 	}
 	
 	public void refreshClassifications(List<? extends Fragment> fragments) throws Exception {

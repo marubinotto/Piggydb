@@ -3,7 +3,6 @@ package marubinotto.piggydb.presentation.page;
 import javax.servlet.http.HttpSession;
 
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.UserActivityLog;
 import net.sf.click.control.Checkbox;
 import net.sf.click.control.Form;
 import net.sf.click.control.HiddenField;
@@ -110,7 +109,6 @@ public class LoginPage extends BorderPage {
         	setRedirect(HomePage.class);
         }
         
-        UserActivityLog.getInstance().log(user.getName(), "logged in");
         return false;
     }
     
