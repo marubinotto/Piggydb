@@ -11,6 +11,7 @@ import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Entity;
 import marubinotto.piggydb.model.Filter;
+import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.util.Assert;
@@ -21,7 +22,7 @@ import marubinotto.util.time.DateTime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class FilterRepositoryRI extends AbstractFilterRepository {
+public class FilterRepositoryRI extends FilterRepository.Base {
 
 	private static Log logger = LogFactory.getLog(FilterRepositoryRI.class);
 	

@@ -17,6 +17,7 @@ import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Entity;
 import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawTag;
@@ -31,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class TagRepositoryRI extends AbstractTagRepository {
+public class TagRepositoryRI extends TagRepository.Base {
 
 	private static Log logger = LogFactory.getLog(TagRepositoryRI.class);
 	

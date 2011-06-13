@@ -16,6 +16,7 @@ import marubinotto.piggydb.model.Entity;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.NoSuchEntityException;
@@ -33,7 +34,7 @@ import marubinotto.util.time.DateTime;
 import marubinotto.util.time.Interval;
 import marubinotto.util.time.Month;
 
-public class FragmentRepositoryRI extends AbstractFragmentRepository {
+public class FragmentRepositoryRI extends FragmentRepository.Base {
 
 	private ArrayList<RawFragment> fragments = new ArrayList<RawFragment>();
 	

@@ -21,6 +21,7 @@ import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.NoSuchEntityException;
@@ -32,7 +33,6 @@ import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
-import marubinotto.piggydb.model.repository.AbstractFragmentRepository;
 import marubinotto.piggydb.model.repository.RawEntityFactory;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
@@ -50,7 +50,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
-public class H2FragmentRepository extends AbstractFragmentRepository 
+public class H2FragmentRepository extends FragmentRepository.Base 
 implements JdbcDao, RawEntityFactory<RawFragment> {
 
 	private static Log logger = LogFactory.getLog(H2FragmentRepository.class);

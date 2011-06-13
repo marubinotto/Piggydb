@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
 
 public interface TagRepository extends Repository<Tag> {
@@ -50,4 +52,23 @@ public interface TagRepository extends Repository<Tag> {
 	public Tag getTrashTag() throws Exception;
 	
 	public Long countTaggings() throws Exception;
+	
+	
+	
+	public static abstract class Base
+	extends Repository.Base<Tag, RawTag> implements TagRepository {
+		
+		public RawTag newRawEntity() {
+			return new RawTag();
+		}
+
+		public Tag newInstance(String name, User user) {
+			Assert.Arg.notNull(user, "user");
+			return new RawTag(name, user);
+		}
+
+		public Tag getTrashTag() throws Exception {
+			return getByName(Tag.NAME_TRASH);
+		}		
+	}
 }
