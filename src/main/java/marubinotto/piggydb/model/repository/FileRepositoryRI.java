@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.Assert;
 import marubinotto.util.ZipUtils;
@@ -15,7 +16,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 
-public class FileRepositoryRI extends AbstractFileRepository {
+public class FileRepositoryRI extends FileRepository.Base {
 
 	private Map<String, byte[]> files = new HashMap<String, byte[]>();
 

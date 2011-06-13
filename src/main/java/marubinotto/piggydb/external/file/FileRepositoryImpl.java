@@ -13,7 +13,6 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.repository.AbstractFileRepository;
 import marubinotto.piggydb.model.repository.FileRepositoryRI;
 import marubinotto.util.Assert;
 import marubinotto.util.FileSystemUtils;
@@ -26,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.zip.ZipOutputStream;
 
-public class FileRepositoryImpl extends AbstractFileRepository {
+public class FileRepositoryImpl extends FileRepository.Base {
 	
 	private static Log logger = LogFactory.getLog(FileRepositoryImpl.class);
 	

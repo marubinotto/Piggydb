@@ -26,4 +26,16 @@ public interface FileRepository {
 	public ZipUtils.EntryReader getEntryReader() throws Exception;
 	
 	public void deleteFile(Fragment fragment) throws Exception;
+	
+	
+	public static abstract class Base implements FileRepository {
+		
+		protected static String getFragmentFileKey(Fragment fragment) { 
+			String key = fragment.getId().toString();
+			if (fragment.getFileType() != null) {
+				key = key + "." + fragment.getFileType();
+			}
+			return key;
+		}		
+	}
 }
