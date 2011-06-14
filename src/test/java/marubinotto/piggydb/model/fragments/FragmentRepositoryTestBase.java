@@ -19,7 +19,7 @@ extends RepositoryTestBase<FragmentRepository> {
 	protected FileRepository fileRepository;
 
 	public FragmentRepositoryTestBase(
-			RepositoryFactory<FragmentRepository> factory) {
+		RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 
