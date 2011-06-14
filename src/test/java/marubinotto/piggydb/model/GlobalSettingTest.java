@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import marubinotto.piggydb.fixture.H2JdbcDaoFixtures;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.repository.GlobalSettingRI;
 import marubinotto.util.time.DateTime;
 
@@ -33,7 +33,7 @@ public class GlobalSettingTest extends RepositoryTestBase<GlobalSetting> {
 			// H2 database
 			new RepositoryFactory<GlobalSetting>() {
 				public GlobalSetting create() throws Exception {
-					return new H2JdbcDaoFixtures().createH2GlobalSetting();
+					return new InMemoryDatabase().getGlobalSetting();
 				}
 			}
 		);

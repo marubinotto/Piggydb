@@ -18,7 +18,7 @@ public class AllTables {
 	public FilterTable filter;
 	public FragmentRelationTable fragment_relation;
 	
-	public void setUp(DataSource dataSource) throws Exception {
+	public AllTables(DataSource dataSource) throws Exception {
 		this.global_setting = new GlobalSettingTable(dataSource);
 		this.tag = new TagTable(dataSource);
 		this.tagging = new TaggingTable(dataSource);

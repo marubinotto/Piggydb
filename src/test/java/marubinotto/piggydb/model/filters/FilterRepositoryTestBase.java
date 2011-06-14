@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.filters;
 
 import java.util.List;
 
-import marubinotto.piggydb.fixture.H2JdbcDaoFixtures;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
@@ -27,10 +27,10 @@ extends RepositoryTestBase<FilterRepository> {
 					return new FilterRepositoryRI();
 				}
 			},
-			// H2 database
+			// Database
 			new RepositoryFactory<FilterRepository>() {
 				public FilterRepository create() throws Exception {
-					return new H2JdbcDaoFixtures().createH2FilterRepository();
+					return new InMemoryDatabase().getFilterRepository();
 				}
 			}
 		);

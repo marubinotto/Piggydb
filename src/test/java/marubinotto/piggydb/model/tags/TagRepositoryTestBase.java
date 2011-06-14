@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.tags;
 
 import java.util.List;
 
-import marubinotto.piggydb.fixture.H2JdbcDaoFixtures;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
@@ -27,10 +27,10 @@ extends RepositoryTestBase<TagRepository> {
 					return new TagRepositoryRI();
 				}
 			},
-			// H2 database
+			// Database
 			new RepositoryFactory<TagRepository>() {
 				public TagRepository create() throws Exception {
-					return new H2JdbcDaoFixtures().createH2TagRepository();
+					return new InMemoryDatabase().getTagRepository();
 				}
 			}
 		);

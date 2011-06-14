@@ -40,9 +40,7 @@ public class DatabaseSchemaTest {
 	
 	@Test
 	public void allTables() throws Exception {
-		AllTables allTables = new AllTables();
-		allTables.setUp(this.dataSource);
-		
+		AllTables allTables = new AllTables(this.dataSource);
 		for (DatabaseTableFixture table : allTables.getTables()) {
 			System.out.println(table.getTableName());
 		}
