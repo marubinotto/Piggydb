@@ -8,11 +8,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawTag;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
 
 import org.junit.Test;
 
@@ -74,7 +75,7 @@ public class MiscTest {
 	@Test
 	public void refreshStoredTag() throws Exception {
 		// Given
-		TagRepositoryRI repository = new TagRepositoryRI();
+		TagRepository repository = new InMemoryDatabase().getTagRepository();
 		repository.register(new RawTag("stored"));
 		
 		this.object.addTag(repository.getByName("stored"));

@@ -1,10 +1,9 @@
 package marubinotto.piggydb.model;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawTag;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +13,7 @@ public class RelatedTagsTest {
 	private RelatedTags object = new RelatedTags();
 	
 	private RawFilter filter = new RawFilter();
-	private TagRepositoryRI tagRepository = new TagRepositoryRI();
+	private TagRepository tagRepository = new InMemoryDatabase().getTagRepository();
 
 	@Before
 	public void given() {

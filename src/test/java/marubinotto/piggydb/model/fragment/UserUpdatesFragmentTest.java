@@ -5,10 +5,11 @@ import static junit.framework.Assert.assertNull;
 import static marubinotto.piggydb.model.Assert.assertClassificationEquals;
 import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import org.junit.Test;
 public class UserUpdatesFragmentTest {
 
 	private RawFragment object = new RawFragment(new User("daisuke"));
-	private TagRepositoryRI tagRepository = new TagRepositoryRI();
+	private TagRepository tagRepository = new InMemoryDatabase().getTagRepository();
 	
 	@Before
 	public void given() throws Exception {

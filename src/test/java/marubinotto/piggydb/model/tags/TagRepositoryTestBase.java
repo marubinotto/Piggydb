@@ -6,7 +6,6 @@ import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -21,13 +20,6 @@ extends RepositoryTestBase<TagRepository> {
 	@Parameters
 	public static List<Object[]> factories() {
 		return toParameters(
-			// RI
-			new RepositoryFactory<TagRepository>() {
-				public TagRepository create() throws Exception {
-					return new TagRepositoryRI();
-				}
-			},
-			// Database
 			new RepositoryFactory<TagRepository>() {
 				public TagRepository create() throws Exception {
 					return new InMemoryDatabase().getTagRepository();

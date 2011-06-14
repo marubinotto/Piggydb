@@ -6,19 +6,19 @@ import static marubinotto.piggydb.model.Assert.assertClassificationEquals;
 import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
 import static org.junit.Assert.fail;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.model.AuthorizationException;
+import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.TagRepository;
+import marubinotto.piggydb.model.entity.RawFragment;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import marubinotto.piggydb.model.AuthorizationException;
-import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
-
 public class ClassifiableTest extends AuthorizationTestBase {
 	
 	private RawFragment classifiable = new RawFragment();
-	private TagRepositoryRI tagRepository = new TagRepositoryRI();
+	private TagRepository tagRepository = new InMemoryDatabase().getTagRepository();
 	private Tag privilegedTag;
 	
 	@Before

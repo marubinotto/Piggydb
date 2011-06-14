@@ -10,10 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.InvalidTaggingException;
+import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.model.repository.TagRepositoryRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class UpdateTagsTest {
 	private RawFragment object = new RawFragment();
 	
 	private User plainUser = new User("plain");
-	private TagRepositoryRI tagRepository = new TagRepositoryRI();
+	private TagRepository tagRepository = new InMemoryDatabase().getTagRepository();
 	
 	@Before
 	public void given() throws Exception {
