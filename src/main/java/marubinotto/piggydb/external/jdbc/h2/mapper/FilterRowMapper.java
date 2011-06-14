@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 import marubinotto.piggydb.model.BaseDataObsoleteException;
+import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.model.repository.RawEntityFactory;
 import marubinotto.util.Assert;
 
 import org.springframework.jdbc.core.JdbcTemplate;

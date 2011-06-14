@@ -9,7 +9,7 @@ import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.repository.RawEntityFactory;
+import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
 

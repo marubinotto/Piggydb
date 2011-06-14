@@ -14,8 +14,8 @@ import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawClassifiable;
+import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.entity.RawTag;
-import marubinotto.piggydb.model.repository.RawEntityFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
