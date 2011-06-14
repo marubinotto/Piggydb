@@ -1,5 +1,8 @@
 package marubinotto.piggydb.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import marubinotto.util.time.DateTime;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,6 +12,20 @@ public abstract class GlobalSetting {
 	public abstract void put(String name, String value) throws Exception;
 	
 	public abstract String get(String name) throws Exception;
+	
+	
+	public static class InMemory extends GlobalSetting {
+		
+		private Map<String, String> entries = new HashMap<String, String>();
+		
+		public void put(String name, String value) throws Exception {
+			this.entries.put(name, value);
+		}
+		
+		public String get(String name) throws Exception {
+			return this.entries.get(name);
+		}
+	}
 	
 
 	// Global Setting Key (GSK) definitions

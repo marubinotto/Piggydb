@@ -10,7 +10,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
-import marubinotto.piggydb.model.repository.GlobalSettingRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class AuthenticationTest {
 	private Authentication object = new Authentication();
 
 	private OwnerAuth ownerAuth = new OwnerAuth();
-	private GlobalSettingRI globalSetting = new GlobalSettingRI();
+	private GlobalSetting globalSetting = new GlobalSetting.InMemory();
 	
 	private DefaultAuth defaultAuth = new DefaultAuth();
 	private FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();

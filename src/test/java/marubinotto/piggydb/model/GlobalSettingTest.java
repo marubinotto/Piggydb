@@ -9,7 +9,6 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
-import marubinotto.piggydb.model.repository.GlobalSettingRI;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Test;
@@ -27,10 +26,10 @@ public class GlobalSettingTest extends RepositoryTestBase<GlobalSetting> {
 			// RI
 			new RepositoryFactory<GlobalSetting>() {
 				public GlobalSetting create() throws Exception {
-					return new GlobalSettingRI();
+					return new GlobalSetting.InMemory();
 				}
 			},
-			// H2 database
+			// Database
 			new RepositoryFactory<GlobalSetting>() {
 				public GlobalSetting create() throws Exception {
 					return new InMemoryDatabase().getGlobalSetting();
