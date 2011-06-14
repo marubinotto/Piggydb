@@ -7,13 +7,13 @@ import marubinotto.util.fixture.DatabaseTableFixture;
 public class FragmentRelationTable extends DatabaseTableFixture {
 
 	public FragmentRelationTable(DataSource dataSource) {
-        super(dataSource);
-    }
+		super(dataSource);
+	}
 
-    public static final String NAME = "fragment_relation";
+	public static final String NAME = "fragment_relation";
 
-    @Override
-    public String getTableName() {
-        return NAME;
-    }
+	@Override
+	public String getTableName() {
+		return NAME;
+	}
 }

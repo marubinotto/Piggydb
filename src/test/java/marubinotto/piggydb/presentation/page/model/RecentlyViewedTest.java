@@ -9,12 +9,11 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.repository.FilterRepositoryRI;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 import marubinotto.piggydb.presentation.page.model.RecentlyViewed.Entity;
 
 import org.junit.Test;
@@ -28,9 +27,11 @@ public class RecentlyViewedTest {
 	}
 	
 	private RecentlyViewed object = new RecentlyViewed(3);
-	private FragmentRepository fragmentRepository = new FragmentRepositoryRI();
-	protected TagRepository tagRepository = this.fragmentRepository.getTagRepository();
-	private FilterRepository filterRepository = new FilterRepositoryRI();
+	
+	private InMemoryDatabase database = new InMemoryDatabase();
+	private FragmentRepository fragmentRepository = database.getFragmentRepository();
+	protected TagRepository tagRepository = database.getTagRepository();
+	private FilterRepository filterRepository = database.getFilterRepository();
 	
 	@Test
 	public void oneFragment() throws Exception {

@@ -6,7 +6,6 @@ import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
-import marubinotto.piggydb.model.repository.FilterRepositoryRI;
 
 import org.junit.runners.Parameterized.Parameters;
 
@@ -21,13 +20,6 @@ extends RepositoryTestBase<FilterRepository> {
 	@Parameters
 	public static List<Object[]> factories() {
 		return toParameters(
-			// RI
-			new RepositoryFactory<FilterRepository>() {
-				public FilterRepository create() throws Exception {
-					return new FilterRepositoryRI();
-				}
-			},
-			// Database
 			new RepositoryFactory<FilterRepository>() {
 				public FilterRepository create() throws Exception {
 					return new InMemoryDatabase().getFilterRepository();

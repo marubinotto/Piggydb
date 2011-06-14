@@ -3,8 +3,10 @@ package marubinotto.piggydb.external.jdbc.h2;
 import javax.sql.DataSource;
 
 import marubinotto.piggydb.external.jdbc.DatabaseSchema;
+import marubinotto.piggydb.model.FileRepository;
 import marubinotto.util.RdbUtils;
 
+import org.apache.commons.lang.UnhandledException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer;
 
@@ -12,14 +14,21 @@ public class InMemoryDatabase {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	private FileRepository fileRepository;
 	
-	public InMemoryDatabase() throws Exception {
-		setUp();
+	public InMemoryDatabase() {
+		try {
+			setUp();
+		}
+		catch (Exception e) {
+			throw new UnhandledException(e);
+		}
 	}
 
 	private void setUp() throws Exception {
 		this.dataSource = RdbUtils.getInMemoryDataSource(null);
 		this.jdbcTemplate = new JdbcTemplate(this.dataSource);
+		this.fileRepository = new FileRepository.InMemory();
 
 		DatabaseSchema schema = new DatabaseSchema();
 		schema.setJdbcTemplate(this.jdbcTemplate);
@@ -56,6 +65,7 @@ public class InMemoryDatabase {
 		repository.setRelationIdIncrementer(new H2SequenceMaxValueIncrementer(
 			this.dataSource, "seq_fragment_relation_id"));
 		repository.setTagRepository(getTagRepository());
+		repository.setFileRepository(this.fileRepository);
 		return repository;
 	}
 	

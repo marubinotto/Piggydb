@@ -66,11 +66,12 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	public H2FragmentRepository() {
 	}
 	
-	public RawEntityFactory<FragmentRelation> relationFactory = new RawEntityFactory<FragmentRelation>() {
-		public FragmentRelation newRawEntity() {
-			return new FragmentRelation();
-		}
-	};
+	public RawEntityFactory<FragmentRelation> relationFactory = 
+		new RawEntityFactory<FragmentRelation>() {
+			public FragmentRelation newRawEntity() {
+				return new FragmentRelation();
+			}
+		};
 
 	public void setTagRepository(H2TagRepository tagRepository) {
 		this.tagRepository = tagRepository;
@@ -81,13 +82,13 @@ implements JdbcDao, RawEntityFactory<RawFragment> {
 	}
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-	
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
-	
+
 	public void setFragmentIdIncrementer(
 		DataFieldMaxValueIncrementer fragmentIdIncrementer) {
 		this.fragmentIdIncrementer = fragmentIdIncrementer;
