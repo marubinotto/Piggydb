@@ -13,6 +13,7 @@ import java.util.Set;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Entity;
+import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
@@ -42,7 +43,7 @@ public class FragmentRepositoryRI extends FragmentRepository.Base {
 	
 	public FragmentRepositoryRI() {
 		this.tagRepository = new TagRepositoryRI();
-		setFileRepository(new FileRepositoryRI());
+		setFileRepository(new FileRepository.InMemory());
 	}
 	
 	public synchronized void setTagRepository(TagRepositoryRI tagRepository) {

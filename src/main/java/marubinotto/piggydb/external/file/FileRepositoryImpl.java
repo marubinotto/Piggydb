@@ -13,7 +13,6 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.repository.FileRepositoryRI;
 import marubinotto.util.Assert;
 import marubinotto.util.FileSystemUtils;
 import marubinotto.util.ZipUtils;
@@ -40,7 +39,7 @@ public class FileRepositoryImpl extends FileRepository.Base {
 		this.delegate = null;
 		if (databasePath.startsWith("mem:")) {
 			logger.info("Memory mode");
-			this.delegate = new FileRepositoryRI();
+			this.delegate = new FileRepository.InMemory();
 		}
 		else if (databasePath.startsWith("file:")) {
 			this.baseDirectory = FileUtils.toFile(new URL(databasePath + DIR_SUFFIX));

@@ -7,7 +7,6 @@ import marubinotto.piggydb.fixture.mock.FileItemMock;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.model.repository.FileRepositoryRI;
 import marubinotto.util.FileSystemUtils;
 
 import org.junit.runners.Parameterized.Parameters;
@@ -25,7 +24,7 @@ extends RepositoryTestBase<FileRepository> {
 			// RI
 			new RepositoryFactory<FileRepository>() {
 				public FileRepository create() throws Exception {
-					return new FileRepositoryRI();
+					return new FileRepository.InMemory();
 				}
 			},
 			// Real file system

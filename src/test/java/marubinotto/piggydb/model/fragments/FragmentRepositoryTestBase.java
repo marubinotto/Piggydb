@@ -8,7 +8,6 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.repository.FileRepositoryRI;
 import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 
 import org.junit.Before;
@@ -27,7 +26,7 @@ extends RepositoryTestBase<FragmentRepository> {
 	@Before
 	public void given() throws Exception {
 		super.given();
-		this.fileRepository = new FileRepositoryRI();
+		this.fileRepository = new FileRepository.InMemory();
 		this.object.setFileRepository(this.fileRepository);
 	}
 	

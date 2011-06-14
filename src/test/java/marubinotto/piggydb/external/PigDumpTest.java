@@ -14,9 +14,8 @@ import javax.sql.DataSource;
 import marubinotto.piggydb.fixture.mock.FileItemMock;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.model.repository.FileRepositoryRI;
-import marubinotto.util.RdbUtils;
 import marubinotto.util.FileSystemUtils;
+import marubinotto.util.RdbUtils;
 import marubinotto.util.ZipUtils;
 import marubinotto.util.fixture.FileSystemFixture;
 
@@ -29,7 +28,7 @@ public class PigDumpTest {
 	private PigDump object = new PigDump();
 	
 	private DataSource dataSource = RdbUtils.getInMemoryDataSource(null);
-	private FileRepository fileRepository = new FileRepositoryRI();
+	private FileRepository fileRepository = new FileRepository.InMemory();
 	
 	private File testDir;
 	private File pigDumpFile;
