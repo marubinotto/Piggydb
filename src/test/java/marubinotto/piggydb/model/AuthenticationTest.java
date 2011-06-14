@@ -8,8 +8,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,8 @@ public class AuthenticationTest {
 	private GlobalSetting globalSetting = new GlobalSetting.InMemory();
 	
 	private DefaultAuth defaultAuth = new DefaultAuth();
-	private FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();
+	private FragmentRepository fragmentRepository = 
+		new InMemoryDatabase().getFragmentRepository();
 	
 	@Before
 	public void given() throws Exception {

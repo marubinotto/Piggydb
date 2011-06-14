@@ -4,8 +4,8 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitleAndTags;
 import static org.junit.Assert.assertTrue;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,8 @@ public class DefaultAuthTest {
 
 	private DefaultAuth object = new DefaultAuth();
 	
-	private FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();
+	private FragmentRepository fragmentRepository = 
+		new InMemoryDatabase().getFragmentRepository();
 	private Long fragmentId;
 	
 	private User authorizedUser = new User("marubinotto");

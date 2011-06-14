@@ -1,9 +1,10 @@
 package marubinotto.piggydb.presentation.wiki;
 
 import static org.junit.Assert.assertEquals;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 import marubinotto.piggydb.presentation.page.WebResources;
 
 import org.apache.commons.lang.text.StrBuilder;
@@ -20,7 +21,8 @@ public class DefaultWikiParserTest {
 	
 	protected User user = new User();
 	private WebResources webResources = new WebResources("", "test");
-	private FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();
+	private FragmentRepository fragmentRepository = 
+		new InMemoryDatabase().getFragmentRepository();
 	private HtmlBuilder documentBuilder = new HtmlBuilder();
 	
 	@Before

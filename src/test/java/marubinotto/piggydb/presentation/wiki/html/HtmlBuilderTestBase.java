@@ -3,9 +3,10 @@ package marubinotto.piggydb.presentation.wiki.html;
 import java.io.StringWriter;
 import java.util.Stack;
 
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 import marubinotto.piggydb.presentation.page.WebResources;
 import marubinotto.piggydb.presentation.wiki.HtmlBuilder;
 import marubinotto.piggydb.presentation.wiki.ParseContext;
@@ -20,7 +21,8 @@ public abstract class HtmlBuilderTestBase {
 	protected StringWriter output = new StringWriter();
 	protected WikiParserMock wikiParserMock = new WikiParserMock();
 	protected User user = new User();
-	protected FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();
+	protected FragmentRepository fragmentRepository = 
+		new InMemoryDatabase().getFragmentRepository();
 
 	@Before
 	public void given() throws Exception {

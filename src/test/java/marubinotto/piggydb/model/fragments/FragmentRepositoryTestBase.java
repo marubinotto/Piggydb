@@ -8,7 +8,6 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 
 import org.junit.Before;
 import org.junit.runners.Parameterized.Parameters;
@@ -33,13 +32,6 @@ extends RepositoryTestBase<FragmentRepository> {
 	@Parameters
 	public static List<Object[]> factories() {
 		return toParameters(
-			// RI
-			new RepositoryFactory<FragmentRepository>() {
-				public FragmentRepository create() throws Exception {
-					return new FragmentRepositoryRI();
-				}
-			},
-			// Database
 			new RepositoryFactory<FragmentRepository>() {
 				public FragmentRepository create() throws Exception {
 					return new InMemoryDatabase().getFragmentRepository();

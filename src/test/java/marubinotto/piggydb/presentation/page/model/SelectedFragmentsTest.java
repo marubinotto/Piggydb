@@ -2,8 +2,9 @@ package marubinotto.piggydb.presentation.page.model;
 
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitle;
 import static org.junit.Assert.assertEquals;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;
@@ -13,7 +14,8 @@ public class SelectedFragmentsTest {
 
 	private SelectedFragments object = new SelectedFragments();
 	
-	private FragmentRepositoryRI repository = new FragmentRepositoryRI();	
+	private FragmentRepository repository = 
+		new InMemoryDatabase().getFragmentRepository();	
 	private Long id1;
 	private Long id2;
 	private Long id3;

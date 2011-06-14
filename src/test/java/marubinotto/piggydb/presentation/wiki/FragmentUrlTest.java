@@ -1,15 +1,21 @@
 package marubinotto.piggydb.presentation.wiki;
 
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitle;
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
+import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
-import marubinotto.piggydb.model.repository.FragmentRepositoryRI;
 
 import org.easymock.Capture;
 import org.junit.Before;
@@ -19,7 +25,8 @@ public class FragmentUrlTest {
 
 	private DocumentBuilder builder = createMock(DocumentBuilder.class);
 	
-	private FragmentRepositoryRI fragmentRepository = new FragmentRepositoryRI();
+	private FragmentRepository fragmentRepository = 
+		new InMemoryDatabase().getFragmentRepository();
 	
 	private ParseContext context = new ParseContext(
 		new WikiParserMock(), 
