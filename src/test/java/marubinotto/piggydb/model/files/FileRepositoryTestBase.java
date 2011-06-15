@@ -3,7 +3,7 @@ package marubinotto.piggydb.model.files;
 import java.util.List;
 
 import marubinotto.piggydb.fixture.mock.FileItemMock;
-import marubinotto.piggydb.impl.file.FileRepositoryImpl;
+import marubinotto.piggydb.impl.FileRepositoryImpl;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.entity.RawFragment;

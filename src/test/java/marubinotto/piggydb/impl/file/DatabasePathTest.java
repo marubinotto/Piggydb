@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
-import marubinotto.piggydb.impl.file.FileRepositoryImpl;
+import marubinotto.piggydb.impl.FileRepositoryImpl;
 import marubinotto.util.FileSystemUtils;
 
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.file;
+package marubinotto.piggydb.impl;
 
 import static marubinotto.util.CollectionUtils.set;
 

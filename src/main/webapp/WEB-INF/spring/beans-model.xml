@@ -51,7 +51,7 @@
     <property name="tagRepository"><ref bean="tagRepository"/></property>
   </bean>
   
-  <bean id="fileRepository" class="marubinotto.piggydb.impl.file.FileRepositoryImpl">
+  <bean id="fileRepository" class="marubinotto.piggydb.impl.FileRepositoryImpl">
     <property name="databasePath" ref="databasePath"/>
   </bean>
 
