@@ -1,13 +1,12 @@
 package marubinotto.piggydb.impl.jdbc.h2;
 
-import marubinotto.piggydb.impl.jdbc.JdbcDao;
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.util.Assert;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class H2GlobalSetting extends GlobalSetting implements JdbcDao {
+public class H2GlobalSetting extends GlobalSetting {
 	
 	protected JdbcTemplate jdbcTemplate;
 

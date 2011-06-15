@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.JdbcDao;
 import marubinotto.piggydb.impl.jdbc.h2.mapper.FilterRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
@@ -25,8 +24,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
-public class H2FilterRepository extends FilterRepository.Base implements
-	JdbcDao, RawEntityFactory<RawFilter> {
+public class H2FilterRepository extends FilterRepository.Base 
+implements RawEntityFactory<RawFilter> {
 
 	private static Log logger = LogFactory.getLog(H2FilterRepository.class);
 

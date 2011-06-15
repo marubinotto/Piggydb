@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.JdbcDao;
 import marubinotto.piggydb.impl.jdbc.h2.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.jdbc.h2.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
@@ -51,7 +50,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
 public class H2FragmentRepository extends FragmentRepository.Base 
-implements JdbcDao, RawEntityFactory<RawFragment> {
+implements RawEntityFactory<RawFragment> {
 
 	private static Log logger = LogFactory.getLog(H2FragmentRepository.class);
 	

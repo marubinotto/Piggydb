@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.JdbcDao;
 import marubinotto.piggydb.impl.jdbc.h2.mapper.TagRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
@@ -31,7 +30,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
-public class H2TagRepository extends TagRepository.Base implements JdbcDao {
+public class H2TagRepository extends TagRepository.Base {
 	
 	private static Log logger = LogFactory.getLog(H2TagRepository.class);
 
