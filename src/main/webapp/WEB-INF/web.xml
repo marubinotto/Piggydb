@@ -23,7 +23,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>
       /WEB-INF/spring/beans-common.xml
-      /WEB-INF/spring/beans-presentation.xml
+      /WEB-INF/spring/beans-ui.xml
       /WEB-INF/spring/beans-models.xml
       /WEB-INF/spring/beans-external.xml
     </param-value>

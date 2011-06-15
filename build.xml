@@ -113,7 +113,7 @@
     
     <!-- Make the war dir into production -->
     <replace dir="${build.war.dir}" value="${project.version}">
-      <include name="WEB-INF/spring/beans-presentation.xml"/>
+      <include name="WEB-INF/spring/beans-ui.xml"/>
       <replacetoken>@VERSION@</replacetoken>
     </replace>
     <replace file="${build.war.dir}/WEB-INF/click.xml">
