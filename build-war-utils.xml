@@ -24,7 +24,7 @@
   </target>
 	
 	<target name="_enable-guest">
-    <replace file="${build.war.dir}/WEB-INF/spring/beans-models.xml">
+    <replace file="${build.war.dir}/WEB-INF/spring/beans-model.xml">
       <replacetoken><![CDATA[name="enableGuest" value="false"]]></replacetoken>
       <replacevalue><![CDATA[name="enableGuest" value="true"]]></replacevalue>
     </replace>

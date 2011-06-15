@@ -8,7 +8,63 @@
       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
     http://www.springframework.org/schema/util 
       http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-      
+
+	<!-- 
+		Models
+	-->
+
+  <bean id="globalSetting" class="marubinotto.piggydb.external.jdbc.h2.H2GlobalSetting">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+
+  <bean id="ownerAuth" class="marubinotto.piggydb.model.OwnerAuth">
+    <property name="globalSetting"><ref bean="globalSetting"/></property>
+  </bean>
+
+  <bean id="defaultAuth" class="marubinotto.piggydb.model.DefaultAuth">
+    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
+  </bean>
+
+  <bean id="authentication" class="marubinotto.piggydb.model.Authentication">
+    <property name="ownerAuth"><ref bean="ownerAuth"/></property>
+    <property name="defaultAuth"><ref bean="defaultAuth"/></property>
+    <property name="enableGuest" value="false"/>
+    <property name="enableAnonymous" value="${piggydb.enableAnonymous}"/>
+  </bean>
+  
+  <bean id="tagRepository" class="marubinotto.piggydb.external.jdbc.h2.H2TagRepository">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
+  </bean>
+
+  <bean id="fragmentRepository" class="marubinotto.piggydb.external.jdbc.h2.H2FragmentRepository">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="fragmentIdIncrementer"><ref bean="seqFragmentId"/></property>
+    <property name="relationIdIncrementer"><ref bean="seqRelationId"/></property>
+    <property name="tagRepository"><ref bean="tagRepository"/></property>
+    <property name="fileRepository"><ref bean="fileRepository"/></property>
+  </bean>
+
+  <bean id="filterRepository" class="marubinotto.piggydb.external.jdbc.h2.H2FilterRepository">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="filterIdIncrementer"><ref bean="seqFilterId"/></property>
+    <property name="tagRepository"><ref bean="tagRepository"/></property>
+  </bean>
+  
+  <bean id="fileRepository" class="marubinotto.piggydb.external.file.FileRepositoryImpl">
+    <property name="databasePath" ref="databasePath"/>
+  </bean>
+
+  <bean id="pigDump" class="marubinotto.piggydb.external.PigDump">
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="fileRepository"><ref bean="fileRepository"/></property>
+  </bean>
+
+
+	<!-- 
+		Database Details
+	-->
+	 
   <bean id="h2JdbcUrl" class="marubinotto.piggydb.external.jdbc.h2.H2JdbcUrl">
     <property name="databasePrefix" value="${piggydb.database.prefix}"/>
     <property name="databaseName" value="${piggydb.database.name}"/>
@@ -23,15 +79,6 @@
     <property name="url" ref="jdbcUrl"/>
     <property name="username" value="${jdbc.username}"/>
     <property name="password" value="${jdbc.password}"/>
-  </bean>
-  
-  <bean id="h2DbUpgrade" class="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
-    <property name="h2JdbcUrl"><ref bean="h2JdbcUrl"/></property>
-    <property name="dataSource"><ref bean="dataSource"/></property>
-    <property name="username" value="${jdbc.username}"/>
-    <property name="password" value="${jdbc.password}"/>
-    <property name="transaction"><ref bean="transaction"/></property>
-    <property name="databaseSchema"><ref bean="databaseSchema"/></property>
   </bean>
 
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -93,6 +140,8 @@
     <property name="columnName" value="filter_id"/>
     <property name="sequenceName" value="seq_filter_id"/>
   </bean>
+
+  <!-- Database initialization -->
   
   <bean id="sequenceAdjusterList" class="marubinotto.piggydb.external.jdbc.SequenceAdjusterList">
     <property name="sequenceAdjusters">
@@ -104,11 +153,15 @@
       </list>
     </property>
   </bean>
-
-
-  <!-- 
-    For H2 initialization
-   -->
+  
+  <bean id="h2DbUpgrade" class="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+    <property name="h2JdbcUrl"><ref bean="h2JdbcUrl"/></property>
+    <property name="dataSource"><ref bean="dataSource"/></property>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+    <property name="transaction"><ref bean="transaction"/></property>
+    <property name="databaseSchema"><ref bean="databaseSchema"/></property>
+  </bean>
    
   <bean id="singleDataSource" class="org.springframework.jdbc.datasource.SingleConnectionDataSource" 
       destroy-method="destroy">
@@ -125,6 +178,5 @@
   <bean id="databaseSchemaForInit" class="marubinotto.piggydb.external.jdbc.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplateForInit"/></property>
   </bean>
-  
-</beans>
 
+</beans>
