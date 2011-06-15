@@ -17,23 +17,21 @@ a {
 </head>
 
 <body>
- <h1>A system error occurred</h1>
+<h1>A system error occurred</h1>
  
 #if ($errorReport) 
- <p>The application encountered an unexpected error.<p/>
+ <p>The application encountered an unexpected error.</p>
  
- <p>To return to the application click <a href="$context/home.htm">here</a>.<p/>
+ <p>To return to the application click <a href="$context/home.htm">here</a>.</p>
 
  <p>
  You can contribute to the development of Piggydb by creating a new ticket
  with the following error details 
- (<a href="http://apps.sourceforge.net/trac/piggydb/newticket">Piggydb Issue Tracking System</a>).
- <p/>
+ (<a href="http://piggydb.lighthouseapp.com/projects/61149-piggydb/"
+		target="_blank">Piggydb Issue Tracking System</a>).
+ </p>
  
- <p>
  $utils.raw($errorReport)
- <p/>
 #end
-
 </body>
 </html>
