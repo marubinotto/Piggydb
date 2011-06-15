@@ -1,7 +1,8 @@
-package marubinotto.piggydb.impl.jdbc;
+package marubinotto.piggydb.impl.db;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

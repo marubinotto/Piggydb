@@ -93,7 +93,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
   </bean>
     
-  <bean id="databaseSchema" class="marubinotto.piggydb.impl.DatabaseSchema">
+  <bean id="databaseSchema" class="marubinotto.piggydb.impl.db.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
@@ -101,7 +101,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_tag_id"/>
   </bean>
-  <bean id="seqTagIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqTagIdAdjuster" class="marubinotto.piggydb.impl.db.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="tag"/>
     <property name="columnName" value="tag_id"/>
@@ -112,7 +112,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_fragment_id"/>
   </bean>
-  <bean id="seqFragmentIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqFragmentIdAdjuster" class="marubinotto.piggydb.impl.db.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="fragment"/>
     <property name="columnName" value="fragment_id"/>
@@ -123,7 +123,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_fragment_relation_id"/>
   </bean>
-  <bean id="seqRelationIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqRelationIdAdjuster" class="marubinotto.piggydb.impl.db.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="fragment_relation"/>
     <property name="columnName" value="fragment_relation_id"/>
@@ -134,7 +134,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_filter_id"/>
   </bean>
-  <bean id="seqFilterIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqFilterIdAdjuster" class="marubinotto.piggydb.impl.db.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="filter"/>
     <property name="columnName" value="filter_id"/>
@@ -143,7 +143,7 @@
 
   <!-- Database initialization -->
   
-  <bean id="sequenceAdjusterList" class="marubinotto.piggydb.impl.jdbc.SequenceAdjusterList">
+  <bean id="sequenceAdjusterList" class="marubinotto.piggydb.impl.db.SequenceAdjusterList">
     <property name="sequenceAdjusters">
       <list>
         <ref bean="seqTagIdAdjuster"/>
@@ -154,7 +154,7 @@
     </property>
   </bean>
   
-  <bean id="h2DbUpgrade" class="marubinotto.piggydb.impl.jdbc.h2.util.H2DbUpgrade">
+  <bean id="h2DbUpgrade" class="marubinotto.piggydb.impl.db.H2DbUpgrade">
     <property name="h2JdbcUrl"><ref bean="h2JdbcUrl"/></property>
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="username" value="${jdbc.username}"/>
@@ -175,7 +175,7 @@
     <property name="dataSource"><ref bean="singleDataSource"/></property>
   </bean>
   
-  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.impl.DatabaseSchema">
+  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.impl.db.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplateForInit"/></property>
   </bean>
 

@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-import marubinotto.piggydb.impl.DatabaseSchema;
 import marubinotto.piggydb.impl.ExternalFactory;
 import marubinotto.piggydb.impl.PigDump;
-import marubinotto.piggydb.impl.jdbc.SequenceAdjusterList;
+import marubinotto.piggydb.impl.db.DatabaseSchema;
+import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.procedure.Procedure;

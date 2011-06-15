@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc;
+package marubinotto.piggydb.impl.db;
 
 import marubinotto.util.Assert;
 

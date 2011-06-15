@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2.util;
+package marubinotto.piggydb.impl.db;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,7 +15,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import marubinotto.piggydb.impl.DatabaseSchema;
 import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
 import marubinotto.util.RdbUtils;

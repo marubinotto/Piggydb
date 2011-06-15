@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl;
+package marubinotto.piggydb.impl.db;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

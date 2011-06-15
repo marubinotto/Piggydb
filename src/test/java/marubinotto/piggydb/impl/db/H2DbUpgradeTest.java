@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2.util;
+package marubinotto.piggydb.impl.db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
-import marubinotto.piggydb.impl.DatabaseSchema;
+import marubinotto.piggydb.impl.db.DatabaseSchema;
+import marubinotto.piggydb.impl.db.H2DbUpgrade;
 import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
 import marubinotto.util.FileSystemUtils;
 import marubinotto.util.procedure.Transaction;

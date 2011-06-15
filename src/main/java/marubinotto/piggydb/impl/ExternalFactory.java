@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import javax.sql.DataSource;
 
+import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
 import marubinotto.util.Assert;
 import marubinotto.util.RdbUtils;

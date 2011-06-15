@@ -1,6 +1,5 @@
-package marubinotto.piggydb.impl.jdbc.h2.util;
+package marubinotto.piggydb.impl.db;
 
-import marubinotto.piggydb.impl.jdbc.SequenceAdjuster;
 import marubinotto.util.Assert;
 
 public class H2SequenceAdjuster extends SequenceAdjuster {

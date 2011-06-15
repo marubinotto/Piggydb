@@ -4,8 +4,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import marubinotto.piggydb.impl.DatabaseSchema;
-import marubinotto.piggydb.impl.jdbc.SequenceAdjusterList;
+import marubinotto.piggydb.impl.db.DatabaseSchema;
+import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.ui.util.ModifiedClickContext;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.procedure.Transaction;
