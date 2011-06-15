@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <click-app charset="UTF-8">
 
-  <pages package="marubinotto.piggydb.presentation.page">
+  <pages package="marubinotto.piggydb.ui.page">
     <page path="public/home.htm" classname="command.PublicHome"/> 
     <page path="click/error.htm" classname="ErrorPage"/> 
     
@@ -14,7 +14,7 @@
   <mode value="development"/>
   
   <controls>
-    <control classname="marubinotto.piggydb.presentation.page.control.FragmentFormPanel"/>
+    <control classname="marubinotto.piggydb.ui.page.control.FragmentFormPanel"/>
   </controls>
   
 </click-app>

@@ -69,7 +69,7 @@
   
   <servlet>
     <servlet-name>click-servlet</servlet-name>
-    <servlet-class>marubinotto.piggydb.presentation.PiggydbServlet</servlet-class>
+    <servlet-class>marubinotto.piggydb.ui.PiggydbServlet</servlet-class>
     <load-on-startup>0</load-on-startup>
   </servlet>
 

@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/util 
       http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-  <bean id="warSetting" class="marubinotto.piggydb.presentation.WarSetting">
+  <bean id="warSetting" class="marubinotto.piggydb.ui.WarSetting">
     <property name="piggydbVersion" value="@VERSION@"/>
     <property name="clientAddressAuthEnabled" value="${piggydb.enableClientAddressAuth}"/>
     <property name="userAgentAuthEnabled" value="${piggydb.enableUserAgentAuth}"/>
@@ -17,21 +17,21 @@
     <property name="defaultFragmentsViewScale" value="${piggydb.fragmentsView.defaultScale}"/>
   </bean>
   
-  <bean id="marubinotto.piggydb.presentation.page.RestorePage" 
-      class="marubinotto.piggydb.presentation.page.RestorePage" scope="prototype">
+  <bean id="marubinotto.piggydb.ui.page.RestorePage" 
+      class="marubinotto.piggydb.ui.page.RestorePage" scope="prototype">
     <property name="sequenceAdjusterList"><ref bean="sequenceAdjusterList"/></property>
 	</bean>
 
-  <bean id="wikiParser" class="marubinotto.piggydb.presentation.wiki.DefaultWikiParser">
+  <bean id="wikiParser" class="marubinotto.piggydb.ui.wiki.DefaultWikiParser">
     <property name="documentBuilder"><ref bean="htmlBuilder"/></property>
     <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>
   </bean>
   
-  <bean id="htmlBuilder" class="marubinotto.piggydb.presentation.wiki.HtmlBuilder"/>
+  <bean id="htmlBuilder" class="marubinotto.piggydb.ui.wiki.HtmlBuilder"/>
 
   <bean id="fragmentFormPanel" scope="prototype"
-      class="marubinotto.piggydb.presentation.page.control.FragmentFormPanel">
+      class="marubinotto.piggydb.ui.page.control.FragmentFormPanel">
     <property name="transaction"><ref bean="transaction"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>
     <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>

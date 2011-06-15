@@ -1,7 +1,7 @@
 package marubinotto.piggydb.fixture.mock;
 
-import marubinotto.piggydb.presentation.wiki.ParseContext;
-import marubinotto.piggydb.presentation.wiki.WikiParser;
+import marubinotto.piggydb.ui.wiki.ParseContext;
+import marubinotto.piggydb.ui.wiki.WikiParser;
 
 public class WikiParserMock extends WikiParser {
 	
