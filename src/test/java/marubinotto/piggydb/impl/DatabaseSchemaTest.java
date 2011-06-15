@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc;
+package marubinotto.piggydb.impl;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import javax.sql.DataSource;
 
 import marubinotto.piggydb.fixture.table.AllTables;
-import marubinotto.piggydb.impl.jdbc.DatabaseSchema;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.fixture.DatabaseTableFixture;
 

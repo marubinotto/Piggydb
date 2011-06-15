@@ -2,7 +2,7 @@ package marubinotto.piggydb.impl.jdbc.h2;
 
 import javax.sql.DataSource;
 
-import marubinotto.piggydb.impl.jdbc.DatabaseSchema;
+import marubinotto.piggydb.impl.DatabaseSchema;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.util.RdbUtils;
 

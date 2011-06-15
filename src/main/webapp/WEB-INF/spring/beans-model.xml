@@ -93,7 +93,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
   </bean>
     
-  <bean id="databaseSchema" class="marubinotto.piggydb.impl.jdbc.DatabaseSchema">
+  <bean id="databaseSchema" class="marubinotto.piggydb.impl.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
@@ -175,7 +175,7 @@
     <property name="dataSource"><ref bean="singleDataSource"/></property>
   </bean>
   
-  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.impl.jdbc.DatabaseSchema">
+  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.impl.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplateForInit"/></property>
   </bean>
 
