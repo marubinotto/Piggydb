@@ -1,7 +1,7 @@
 package marubinotto.piggydb.ui.wiki;
 
 import static org.junit.Assert.assertEquals;
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;

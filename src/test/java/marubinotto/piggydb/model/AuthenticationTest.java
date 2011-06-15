@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.enums.Role;
 
 import org.junit.Before;

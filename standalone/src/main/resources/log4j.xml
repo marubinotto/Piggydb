@@ -11,7 +11,7 @@
     </layout>
   </appender>
   
-  <category name="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+  <category name="marubinotto.piggydb.impl.jdbc.h2.util.H2DbUpgrade">
     <priority value="INFO"/>
   </category>
   

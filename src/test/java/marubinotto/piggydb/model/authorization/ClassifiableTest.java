@@ -6,7 +6,7 @@ import static marubinotto.piggydb.model.Assert.assertClassificationEquals;
 import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
 import static org.junit.Assert.fail;
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;

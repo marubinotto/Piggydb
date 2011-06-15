@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.fragments;
 
 import java.util.List;
 
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;

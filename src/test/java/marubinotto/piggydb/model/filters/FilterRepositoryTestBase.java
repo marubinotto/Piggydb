@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.filters;
 
 import java.util.List;
 
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.RepositoryTestBase;

@@ -70,6 +70,6 @@ public abstract class GlobalSetting {
 	}
 
 	// Implementation-specific GSKs
-	// 	database.version - marubinotto.piggydb.external.jdbc.DatabaseSchema
+	// 	database.version - marubinotto.piggydb.impl.jdbc.DatabaseSchema
 	// 	owner.password - marubinotto.piggydb.model.OwnerAuth
 }

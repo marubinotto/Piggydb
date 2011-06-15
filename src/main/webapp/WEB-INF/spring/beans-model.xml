@@ -13,7 +13,7 @@
 		Models
 	-->
 
-  <bean id="globalSetting" class="marubinotto.piggydb.external.jdbc.h2.H2GlobalSetting">
+  <bean id="globalSetting" class="marubinotto.piggydb.impl.jdbc.h2.H2GlobalSetting">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
 
@@ -32,12 +32,12 @@
     <property name="enableAnonymous" value="${piggydb.enableAnonymous}"/>
   </bean>
   
-  <bean id="tagRepository" class="marubinotto.piggydb.external.jdbc.h2.H2TagRepository">
+  <bean id="tagRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2TagRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
   </bean>
 
-  <bean id="fragmentRepository" class="marubinotto.piggydb.external.jdbc.h2.H2FragmentRepository">
+  <bean id="fragmentRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="fragmentIdIncrementer"><ref bean="seqFragmentId"/></property>
     <property name="relationIdIncrementer"><ref bean="seqRelationId"/></property>
@@ -45,17 +45,17 @@
     <property name="fileRepository"><ref bean="fileRepository"/></property>
   </bean>
 
-  <bean id="filterRepository" class="marubinotto.piggydb.external.jdbc.h2.H2FilterRepository">
+  <bean id="filterRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2FilterRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="filterIdIncrementer"><ref bean="seqFilterId"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>
   </bean>
   
-  <bean id="fileRepository" class="marubinotto.piggydb.external.file.FileRepositoryImpl">
+  <bean id="fileRepository" class="marubinotto.piggydb.impl.file.FileRepositoryImpl">
     <property name="databasePath" ref="databasePath"/>
   </bean>
 
-  <bean id="pigDump" class="marubinotto.piggydb.external.PigDump">
+  <bean id="pigDump" class="marubinotto.piggydb.impl.PigDump">
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="fileRepository"><ref bean="fileRepository"/></property>
   </bean>
@@ -65,7 +65,7 @@
 		Database Details
 	-->
 	 
-  <bean id="h2JdbcUrl" class="marubinotto.piggydb.external.jdbc.h2.H2JdbcUrl">
+  <bean id="h2JdbcUrl" class="marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl">
     <property name="databasePrefix" value="${piggydb.database.prefix}"/>
     <property name="databaseName" value="${piggydb.database.name}"/>
     <property name="logFile" value="/WEB-INF/logs/database-url.log"/>
@@ -93,7 +93,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
   </bean>
     
-  <bean id="databaseSchema" class="marubinotto.piggydb.external.jdbc.DatabaseSchema">
+  <bean id="databaseSchema" class="marubinotto.piggydb.impl.jdbc.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
@@ -101,7 +101,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_tag_id"/>
   </bean>
-  <bean id="seqTagIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqTagIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="tag"/>
     <property name="columnName" value="tag_id"/>
@@ -112,7 +112,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_fragment_id"/>
   </bean>
-  <bean id="seqFragmentIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqFragmentIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="fragment"/>
     <property name="columnName" value="fragment_id"/>
@@ -123,7 +123,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_fragment_relation_id"/>
   </bean>
-  <bean id="seqRelationIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqRelationIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="fragment_relation"/>
     <property name="columnName" value="fragment_relation_id"/>
@@ -134,7 +134,7 @@
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="incrementerName" value="seq_filter_id"/>
   </bean>
-  <bean id="seqFilterIdAdjuster" class="marubinotto.piggydb.external.jdbc.h2.util.H2SequenceAdjuster">
+  <bean id="seqFilterIdAdjuster" class="marubinotto.piggydb.impl.jdbc.h2.util.H2SequenceAdjuster">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tableName" value="filter"/>
     <property name="columnName" value="filter_id"/>
@@ -143,7 +143,7 @@
 
   <!-- Database initialization -->
   
-  <bean id="sequenceAdjusterList" class="marubinotto.piggydb.external.jdbc.SequenceAdjusterList">
+  <bean id="sequenceAdjusterList" class="marubinotto.piggydb.impl.jdbc.SequenceAdjusterList">
     <property name="sequenceAdjusters">
       <list>
         <ref bean="seqTagIdAdjuster"/>
@@ -154,7 +154,7 @@
     </property>
   </bean>
   
-  <bean id="h2DbUpgrade" class="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+  <bean id="h2DbUpgrade" class="marubinotto.piggydb.impl.jdbc.h2.util.H2DbUpgrade">
     <property name="h2JdbcUrl"><ref bean="h2JdbcUrl"/></property>
     <property name="dataSource"><ref bean="dataSource"/></property>
     <property name="username" value="${jdbc.username}"/>
@@ -175,7 +175,7 @@
     <property name="dataSource"><ref bean="singleDataSource"/></property>
   </bean>
   
-  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.external.jdbc.DatabaseSchema">
+  <bean id="databaseSchemaForInit" class="marubinotto.piggydb.impl.jdbc.DatabaseSchema">
     <property name="jdbcTemplate"><ref bean="jdbcTemplateForInit"/></property>
   </bean>
 

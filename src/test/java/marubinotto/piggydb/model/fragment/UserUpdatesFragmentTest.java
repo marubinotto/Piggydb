@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertNull;
 import static marubinotto.piggydb.model.Assert.assertClassificationEquals;
 import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;

@@ -3,8 +3,8 @@ package marubinotto.piggydb.ui.wiki.html;
 import java.io.StringWriter;
 import java.util.Stack;
 
-import marubinotto.piggydb.external.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
+import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.WebResources;

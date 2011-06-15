@@ -2,8 +2,8 @@ package marubinotto.piggydb.ui.page.command;
 
 import javax.servlet.http.HttpServletResponse;
 
-import marubinotto.piggydb.external.ExternalFactory;
-import marubinotto.piggydb.external.PigDump;
+import marubinotto.piggydb.impl.ExternalFactory;
+import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.time.DateTime;

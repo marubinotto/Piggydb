@@ -13,11 +13,11 @@
     <priority value="warn"/>
   </category>
 
-  <category name="marubinotto.piggydb.external.jdbc.h2.H2JdbcUrl">
+  <category name="marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl">
     <priority value="info"/>
   </category>
 
-  <category name="marubinotto.piggydb.external.jdbc.h2.util.H2DbUpgrade">
+  <category name="marubinotto.piggydb.impl.jdbc.h2.util.H2DbUpgrade">
     <priority value="info"/>
   </category>
 
