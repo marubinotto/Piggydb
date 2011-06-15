@@ -163,13 +163,12 @@ public class FragmentFormPanel extends Panel {
 	
 	@Override
 	public void onDeploy(ServletContext servletContext) {
-        String[] files = new String[] {
-            "/marubinotto/piggydb/presentation/page/control/twistie-down.gif",
-            "/marubinotto/piggydb/presentation/page/control/twistie-up.gif",
-            "/marubinotto/piggydb/presentation/page/control/delete.gif"
-        };
-        ClickUtils.deployFiles(servletContext, files, "images");
-    }
+		String[] files = new String[]{
+			"/marubinotto/piggydb/ui/page/control/twistie-down.gif",
+			"/marubinotto/piggydb/ui/page/control/twistie-up.gif",
+			"/marubinotto/piggydb/ui/page/control/delete.gif"};
+		ClickUtils.deployFiles(servletContext, files, "images");
+	}
 
 	@Override
 	public void onInit() {
