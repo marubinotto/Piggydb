@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;

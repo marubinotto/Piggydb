@@ -4,7 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitleAndTags;
 import static org.junit.Assert.assertTrue;
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.enums.Role;
 
 import org.junit.Before;

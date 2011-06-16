@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;

@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.model;
 
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitle;
 import static org.junit.Assert.assertEquals;
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;

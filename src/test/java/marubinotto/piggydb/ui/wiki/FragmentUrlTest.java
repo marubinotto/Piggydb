@@ -9,7 +9,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;

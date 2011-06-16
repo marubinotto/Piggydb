@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Test;

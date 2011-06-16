@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;

@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.tags;
 
 import java.util.List;
 
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.RepositoryTestBase;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;

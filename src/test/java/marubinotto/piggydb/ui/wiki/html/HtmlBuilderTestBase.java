@@ -4,7 +4,7 @@ import java.io.StringWriter;
 import java.util.Stack;
 
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.WebResources;

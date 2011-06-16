@@ -1,7 +1,7 @@
 package marubinotto.piggydb.model;
 
 import static org.junit.Assert.assertEquals;
-import marubinotto.piggydb.impl.jdbc.h2.InMemoryDatabase;
+import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawTag;
 
