@@ -115,6 +115,22 @@
 }
 
 
+/* 
+ * Fragment Update 
+ */
+
+.fragment-header .update-info {
+	margin-left: 15px;
+}
+
+.fragment-header .update-info .entity-timestamp {
+	color: silver;
+}
+
+.fragment-header .update-info .entity-timestamp a.user-name {
+	color: silver;
+}
+
 
 /*
  * Fragment Table
@@ -315,14 +331,6 @@ td.fragment-body .fragment-content div.file {
 
 td.fragment-body .fragment-content span.error-line {
 	color: silver;
-}
-
-td.fragment-body div.update-info {
-	padding: 3px;
-	padding-right: 0px;
-	
-  text-align: right;
-  font-size: 8pt;
 }
 
 

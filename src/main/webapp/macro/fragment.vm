@@ -25,6 +25,7 @@
         <span class="title">$fragment.title &nbsp;</span>
       </span>
       #fragmentTags($fragment $contextTags)
+			#fragmentUpdateInfo($fragment)
       #fragmentToolBar($fragment)
     </div>
   </th>
@@ -123,16 +124,6 @@
   #end
 #end
 
-<div class="update-info">
-<span class="entity-timestamp">
-  <span title="$fragment.updateDatetime.format("yyyy-MM-dd HH:mm")"
-    >$fragment.updateDatetime.getRelativeDescription($messageSource)</span>
-  (#if ($fragment.updater && $fragment.updater != $fragment.creator)<a 
-    class="user-name" href="$resources.userPath($fragment.updater)">$fragment.updater</a> / #end<a 
-    class="user-name" href="$resources.userPath($fragment.creator)">$fragment.creator</a>)
-</span>
-</div>
-
 </td>
 </tr>
   
@@ -181,6 +172,21 @@
 
 #end
 
+
+
+#macro( fragmentUpdateInfo $fragment )
+
+<span class="update-info">
+<span class="entity-timestamp">
+  <span title="$fragment.updateDatetime.format("yyyy-MM-dd HH:mm")"
+    >$fragment.updateDatetime.getRelativeDescription($messageSource)</span>
+  (#if ($fragment.updater && $fragment.updater != $fragment.creator)<a 
+    class="user-name" href="$resources.userPath($fragment.updater)">$fragment.updater</a> / #end<a 
+    class="user-name" href="$resources.userPath($fragment.creator)">$fragment.creator</a>)
+</span>
+</span>
+
+#end
 
 
 #macro( fragmentTextContent $fragment )
@@ -386,6 +392,7 @@
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
       #fragmentNodeCaption($fragment $contextRelation)
       #fragmentTags($fragment $contextTags)
+			#fragmentUpdateInfo($fragment)
       #fragmentToolBar($fragment)
     </div>
   </th>
@@ -405,6 +412,7 @@
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
       #fragmentNodeCaption($fragment $contextRelation)
       #fragmentTags($fragment $contextTags)
+			#fragmentUpdateInfo($fragment)
       #fragmentToolBar($fragment)
     </div>
   </th>

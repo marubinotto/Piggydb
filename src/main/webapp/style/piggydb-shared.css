@@ -641,12 +641,11 @@ div.user-fragment table.fragment {
 }
 
 .entity-timestamp a.user-name {
-  color: #333;
+	color: gray;
   text-decoration: none;
 }
 
 .entity-timestamp a.user-name:hover {
-  color: #333;
   text-decoration: underline;
 }
 
