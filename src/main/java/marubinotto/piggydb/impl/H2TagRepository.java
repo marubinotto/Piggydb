@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import static marubinotto.util.CollectionUtils.map;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.h2.mapper.TagRowMapper;
+import marubinotto.piggydb.impl.mapper.TagRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Tag;

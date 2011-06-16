@@ -3,10 +3,6 @@ package marubinotto.piggydb.impl;
 import javax.sql.DataSource;
 
 import marubinotto.piggydb.impl.db.DatabaseSchema;
-import marubinotto.piggydb.impl.jdbc.h2.H2FilterRepository;
-import marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository;
-import marubinotto.piggydb.impl.jdbc.h2.H2GlobalSetting;
-import marubinotto.piggydb.impl.jdbc.h2.H2TagRepository;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.util.RdbUtils;
 

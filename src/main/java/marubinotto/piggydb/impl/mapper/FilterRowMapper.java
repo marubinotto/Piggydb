@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2.mapper;
+package marubinotto.piggydb.impl.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,11 +1,9 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static marubinotto.util.time.DateTime.date;
 import marubinotto.piggydb.fixture.table.AllTables;
-import marubinotto.piggydb.impl.InMemoryDatabase;
-import marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.OwnerAuth;

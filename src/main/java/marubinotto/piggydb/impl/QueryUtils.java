@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.h2.mapper.TagRowMapper;
+import marubinotto.piggydb.impl.mapper.TagRowMapper;
 import marubinotto.piggydb.model.Classifiable;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.MutableClassification;

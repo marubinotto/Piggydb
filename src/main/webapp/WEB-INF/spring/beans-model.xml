@@ -13,7 +13,7 @@
 		Models
 	-->
 
-  <bean id="globalSetting" class="marubinotto.piggydb.impl.jdbc.h2.H2GlobalSetting">
+  <bean id="globalSetting" class="marubinotto.piggydb.impl.H2GlobalSetting">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
 
@@ -32,12 +32,12 @@
     <property name="enableAnonymous" value="${piggydb.enableAnonymous}"/>
   </bean>
   
-  <bean id="tagRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2TagRepository">
+  <bean id="tagRepository" class="marubinotto.piggydb.impl.H2TagRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
   </bean>
 
-  <bean id="fragmentRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository">
+  <bean id="fragmentRepository" class="marubinotto.piggydb.impl.H2FragmentRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="fragmentIdIncrementer"><ref bean="seqFragmentId"/></property>
     <property name="relationIdIncrementer"><ref bean="seqRelationId"/></property>
@@ -45,7 +45,7 @@
     <property name="fileRepository"><ref bean="fileRepository"/></property>
   </bean>
 
-  <bean id="filterRepository" class="marubinotto.piggydb.impl.jdbc.h2.H2FilterRepository">
+  <bean id="filterRepository" class="marubinotto.piggydb.impl.H2FilterRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="filterIdIncrementer"><ref bean="seqFilterId"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>

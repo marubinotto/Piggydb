@@ -3,7 +3,7 @@ package marubinotto.piggydb.model.fragments;
 import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.fixture.mock.FileItemMock;
-import marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository;
+import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;

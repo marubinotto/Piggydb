@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.util.Assert;

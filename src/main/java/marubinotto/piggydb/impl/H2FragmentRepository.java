@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import static marubinotto.util.CollectionUtils.list;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.h2.mapper.FragmentRelationRowMapper;
-import marubinotto.piggydb.impl.jdbc.h2.mapper.FragmentRowMapper;
+import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
+import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Filter;

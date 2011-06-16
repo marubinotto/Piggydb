@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2.mapper;
+package marubinotto.piggydb.impl.mapper;
 
 import static marubinotto.util.CollectionUtils.list;
 

@@ -1,10 +1,10 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import marubinotto.piggydb.impl.jdbc.h2.mapper.FilterRowMapper;
+import marubinotto.piggydb.impl.mapper.FilterRowMapper;
 import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Filter;

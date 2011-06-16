@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import marubinotto.piggydb.impl.jdbc.h2.H2FragmentRepository;
+import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
