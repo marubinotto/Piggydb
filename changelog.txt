@@ -1,6 +1,15 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 4.21 (2011-06-17) == #v4.21
+
+ * Hide the fragment content toggle when the content to display doesn't exist
+   * Moved some of the components in the fragment body (update-info, fragment-parents) to the fragment-header
+ * Fixed the bugs
+   * http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/7
+   * http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/10
+ * Fixed the error link on the system error page 
+
 == Changes in version 4.20 (2011-06-05) == #v4.20
 
  * Fixed a memory leak bug caused by H2 Database Engine
