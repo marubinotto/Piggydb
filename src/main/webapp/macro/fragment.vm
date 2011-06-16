@@ -109,24 +109,26 @@
 
 #macro( fragmentBodyRow $fragment )
 
-<tr class="fragment-body">
-<td class="fragment-body">
-    
 #if ($fragment.isFile())
-  <div class="fragment-content">
-  #fragmentFileContent($fragment)
-  </div>
+<tr class="fragment-body">
+  <td class="fragment-body">
+    <div class="fragment-content">
+    #fragmentFileContent($fragment)
+    </div>
+  </td>
+</tr>
 #else
-  #if ($fragment.content && $fragment.content.trim() != "")
+#if ($fragment.content && $fragment.content.trim() != "")
+<tr class="fragment-body">
+	<td class="fragment-body">
     <div class="fragment-content">
     #fragmentTextContent($fragment)
     </div>
-  #end
+	</td>
+</tr>
+#end
 #end
 
-</td>
-</tr>
-  
 #end
 
 
@@ -440,12 +442,14 @@
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end
 #fragmentCaption($fragment)
+#if ($fragment.hasMoreThanHeadline())
 <span class="fragment-content-toggle">
   <a class="tool-button" href="#" style="vertical-align: middle;"
     onclick="FragmentTree.onContentToggleClick(this, $fragment.id); return false;">
   <img src="$context/style/images/bullet-arrow-down.png" border="0" alt=""
     style="margin: -2px;"/></a>
 </span>
+#end
 
 #end
 

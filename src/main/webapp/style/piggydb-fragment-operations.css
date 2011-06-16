@@ -116,10 +116,11 @@
 
 
 /* 
- * Fragment Update 
+ * Fragment Update Info
  */
 
 .fragment-header .update-info {
+	font-weight: normal;
 	margin-left: 15px;
 }
 

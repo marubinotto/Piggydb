@@ -18,6 +18,8 @@ public interface Fragment extends Classifiable, Password {
 	
 	public String makeHeadline(int maxLength);
 	
+	public boolean hasMoreThanHeadline();
+	
 	public String getTitle();
 	
 	public void setTitleByUser(String title, User user);

@@ -63,11 +63,11 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	public String makeHeadline(int maxLength) {
 		String headline = makeHeadline();
 		if (headline == null) return null;
-		
+
 		if (headline.length() > maxLength) {
-    		headline = headline.substring(0, maxLength);
-    		headline = headline + "...";
-        }
+			headline = headline.substring(0, maxLength);
+			headline = headline + "...";
+		}
 		return headline;
 	}
 	
@@ -129,12 +129,22 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	
 	private static String getFirstSentence(String text) {
 		BreakIterator iterator = BreakIterator.getSentenceInstance();
-    	iterator.setText(text);
-    	int end = iterator.next();
-    	if (end == BreakIterator.DONE)
-    		return text;
-    	else
-    		return text.substring(0, end);	
+		iterator.setText(text);
+		int end = iterator.next();
+		if (end == BreakIterator.DONE)
+			return text;
+		else
+			return text.substring(0, end);
+	}
+	
+	// TODO
+	public boolean hasMoreThanHeadline() {
+		if (isFile()) return true;
+		if (StringUtils.isBlank(getContent())) return false;
+		if (getTitle() != null) return true;
+		
+		// is text && has content && hasn't a title
+		return !getContent().trim().equals(makeContentHeadline());
 	}
 
 	public void setContent(String content) {
