@@ -97,25 +97,25 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	public String makeContentHeadline() {
 		String content = getContent();
 		if (StringUtils.isBlank(content)) return null;
-		
+
 		String src = content.trim();
 		String firstLine = getFirstLine(src).trim();
 		String firstSentence = getFirstSentence(firstLine);
-    	
-    	String headline = firstSentence;
-    	
-    	// Trim to the max length
-    	if (headline.length() > TITLE_MAX_LENGTH) {
-    		headline = headline.substring(0, TITLE_MAX_LENGTH);
-        }
-		
-    	// trimmed to - the first line <or> the first sentence <or> the max length
-    	if (headline.length() < src.length()) {
-    		if (headline.equals(firstLine)) headline = headline + " ";
-    		headline = headline + "...";
-    	}
-		 
-    	return headline;
+
+		String headline = firstSentence;
+
+		// Trim to the max length
+		if (headline.length() > TITLE_MAX_LENGTH) {
+			headline = headline.substring(0, TITLE_MAX_LENGTH);
+		}
+
+		// trimmed to - the first line <or> the first sentence <or> the max length
+		if (headline.length() < src.length()) {
+			if (headline.equals(firstLine)) headline = headline + " ";
+			headline = headline + "...";
+		}
+
+		return headline;
 	}
 	
 	private static String getFirstLine(String text) {
