@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl.db;
 
 import java.io.File;
 import java.io.IOException;

@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.H2DbUpgrade;
-import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
 import marubinotto.util.FileSystemUtils;
 import marubinotto.util.procedure.Transaction;
 

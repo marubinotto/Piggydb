@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 import marubinotto.piggydb.impl.ExternalFactory;
-import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
+import marubinotto.piggydb.impl.db.H2JdbcUrl;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.util.Size;

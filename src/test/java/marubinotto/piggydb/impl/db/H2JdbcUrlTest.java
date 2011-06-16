@@ -1,11 +1,9 @@
-package marubinotto.piggydb.impl.jdbc.h2;
+package marubinotto.piggydb.impl.db;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 import java.io.File;
-
-import marubinotto.piggydb.impl.jdbc.h2.H2JdbcUrl;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockServletContext;
