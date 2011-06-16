@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-import marubinotto.piggydb.impl.ExternalFactory;
 import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.SequenceAdjusterList;
@@ -22,7 +21,7 @@ import org.dbunit.dataset.DataSetException;
 
 public class RestorePage extends BorderPage {
 	
-	private ExternalFactory externalFactory;
+	private DatabaseSpecificBeans dbSpecificBeans;
 	private SequenceAdjusterList sequenceAdjusterList;
 
 	public SequenceAdjusterList getSequenceAdjusterList() {
@@ -50,7 +49,7 @@ public class RestorePage extends BorderPage {
 	public void onInit() {
 		super.onInit();
 		initControls();
-		this.externalFactory = new ExternalFactory(getApplicationContext());
+		this.dbSpecificBeans = new DatabaseSpecificBeans(getApplicationContext());
 	}
 	
 	private void initControls() {
@@ -87,7 +86,7 @@ public class RestorePage extends BorderPage {
 	 * since the version belongs to the current schema, not the data.
 	 */
 	private void doRestore() throws Exception {
-		final DatabaseSchema schema = this.externalFactory.getDatabaseSchema();
+		final DatabaseSchema schema = this.dbSpecificBeans.getDatabaseSchema();
 		final FileItem fileItem = this.dataFileField.getFileItem();
 		
 		getTransaction().execute(new Procedure() {
@@ -118,7 +117,7 @@ public class RestorePage extends BorderPage {
 	private void cleanTables() throws DatabaseUnitException, SQLException {
 		getLogger().info("Cleaning all tables ...");
 		for (String tableName : PigDump.TABLES) {
-			RdbUtils.deleteAll(this.externalFactory.getJdbcConnection(), tableName);
+			RdbUtils.deleteAll(this.dbSpecificBeans.getJdbcConnection(), tableName);
 		}
 	}
 	
@@ -127,7 +126,7 @@ public class RestorePage extends BorderPage {
 		InputStream dataInput = null;
 		try {
 			dataInput = this.dataFileField.getFileItem().getInputStream();
-			RdbUtils.cleanImportXml(this.externalFactory.getJdbcConnection(), dataInput);
+			RdbUtils.cleanImportXml(this.dbSpecificBeans.getJdbcConnection(), dataInput);
 		}
 		finally {
 			dataInput.close();

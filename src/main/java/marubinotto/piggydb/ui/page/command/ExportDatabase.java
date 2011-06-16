@@ -2,9 +2,9 @@ package marubinotto.piggydb.ui.page.command;
 
 import javax.servlet.http.HttpServletResponse;
 
-import marubinotto.piggydb.impl.ExternalFactory;
 import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.ui.page.DatabaseSpecificBeans;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.web.WebUtils;
@@ -31,7 +31,7 @@ public class ExportDatabase extends AbstractCommand {
 			getLogger().info("Exporting as an XML ...");
 			WebUtils.setFileName(response, "piggydb-" + timeStamp + ".xml");
 	        RdbUtils.exportAsXml(
-	        	new ExternalFactory(getApplicationContext()).getJdbcConnection(), 
+	        	new DatabaseSpecificBeans(getApplicationContext()).getJdbcConnection(), 
 	        	PigDump.TABLES, 
 	        	response.getOutputStream());
 		}

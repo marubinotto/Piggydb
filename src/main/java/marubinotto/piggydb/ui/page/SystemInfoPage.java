@@ -3,7 +3,6 @@ package marubinotto.piggydb.ui.page;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
-import marubinotto.piggydb.impl.ExternalFactory;
 import marubinotto.piggydb.impl.db.H2JdbcUrl;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.enums.Role;
@@ -18,7 +17,7 @@ import org.apache.commons.lang.text.StrBuilder;
 
 public class SystemInfoPage extends BorderPage {
 
-	private ExternalFactory externalFactory;
+	private DatabaseSpecificBeans dbSpecificBeans;
 
 	@Override
     protected String[] getAuthorizedRoles() {
@@ -38,7 +37,7 @@ public class SystemInfoPage extends BorderPage {
 	public void onInit() {
 		super.onInit();
 		initControls();
-		this.externalFactory = new ExternalFactory(getApplicationContext());
+		this.dbSpecificBeans = new DatabaseSpecificBeans(getApplicationContext());
 	}
 	
 	private void initControls() {
@@ -120,7 +119,7 @@ public class SystemInfoPage extends BorderPage {
 	
 	private void setSettings() throws SQLException {
 		this.settings = new Settings();
-		H2JdbcUrl h2JdbcUrl = this.externalFactory.getH2JdbcUrl();
+		H2JdbcUrl h2JdbcUrl = this.dbSpecificBeans.getH2JdbcUrl();
 		if (h2JdbcUrl != null) this.settings.databasePath = h2JdbcUrl.getDatabasePath();
 		this.settings.anonymousAccess = getAuthentication().isEnableAnonymous();
 		this.settings.entityChangeableOnlyForCreator = RawEntity.changeableOnlyForCreator;
@@ -145,7 +144,7 @@ public class SystemInfoPage extends BorderPage {
 			" / max " + new Size(rt.maxMemory()));
 		
 		// Database version
-		DatabaseMetaData metaData = this.externalFactory.getJdbcConnection().getMetaData();
+		DatabaseMetaData metaData = this.dbSpecificBeans.getJdbcConnection().getMetaData();
 		String databaseVersion = metaData.getDatabaseProductName() + " " + metaData.getDatabaseProductVersion();
 		info.appendln("Database version: " + databaseVersion);
 

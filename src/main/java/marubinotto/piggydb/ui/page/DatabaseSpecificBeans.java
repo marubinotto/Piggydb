@@ -1,4 +1,4 @@
-package marubinotto.piggydb.impl;
+package marubinotto.piggydb.ui.page;
 
 import java.sql.Connection;
 
@@ -12,11 +12,11 @@ import marubinotto.util.RdbUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
-public class ExternalFactory {
+public class DatabaseSpecificBeans {
 
 	private BeanFactory factory;
 
-	public ExternalFactory(BeanFactory factory) {
+	public DatabaseSpecificBeans(BeanFactory factory) {
 		Assert.Arg.notNull(factory, "factory");
 		this.factory = factory;
 	}
