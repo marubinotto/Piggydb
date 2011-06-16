@@ -257,7 +257,7 @@ var FragmentTree = {
   CLOSED: "down",
   OPENED: "up",
   
-  onContentToggleClick: function(toggle, id, ctxRelationId) {
+  onContentToggleClick: function(toggle, id) {
     if (jQuery(toggle).hasDisabledFlag()) return;
     
     var table = jQuery(toggle).closest("table.fragment-node");
@@ -269,9 +269,7 @@ var FragmentTree = {
       var loadIcon = jQuery(span).putLoadingIcon("margin: -2px; margin-left: 5px;");
       this.setOpened(toggle);
       
-      var params = {"id" : id};
-      if (ctxRelationId != null) params.ctxRelationId = ctxRelationId;
-      jQuery.get("html/fragment-node-content.htm", params, function(html) {
+      jQuery.get("html/fragment-node-content.htm", {"id" : id}, function(html) {
         table.append(jQuery(html));
         loadIcon.remove();
         jQuery(toggle).deleteDisabledFlag();
@@ -280,7 +278,7 @@ var FragmentTree = {
     }
     // Close
     else if (this.isOpened(toggle)) {
-      table.find("tr:gt(0)").remove();
+      table.find("tr.fragment-body").remove();
       this.setClosed(toggle);
     }
   },

@@ -595,7 +595,7 @@ ul.subtree .fragment-content ol {
  */
 
 table.fragment-node {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 table.fragment-node th {
@@ -612,7 +612,8 @@ table.fragment-node span.title {
 }
 
 table.fragment-node td.superfragment-links {
-  padding: 5px;
+  padding: 3px 5px;
+  font-size: 7pt;
 }
 
 .fragment-root-node .sortable-icon {
