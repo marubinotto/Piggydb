@@ -356,8 +356,11 @@ public final class DateTime implements Serializable, Comparable<DateTime> {
 
 	public String getRelativeDescription(MessageSource messageSource) {
 		Assert.Arg.notNull(messageSource, "messageSource");
+		
+		DateTime now = DateTime.getCurrentTime();
+		if (after(now)) return "future time";
 
-		Interval interval = new Interval(this, DateTime.getCurrentTime());
+		Interval interval = new Interval(this, now);
 
 		if (interval.getTime() < Duration.Unit.MINUTE.getValue())
 			return messageSource.getMessage("ago-seconds");
@@ -400,7 +403,8 @@ public final class DateTime implements Serializable, Comparable<DateTime> {
 			: messageSource.getMessage("ago-years", years);
 	}
 
-	// Private methods
+	
+// Internals
 
 	private void initializeTime(long time) {
 		this.time = time;

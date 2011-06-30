@@ -36,6 +36,13 @@ public class DateTimeAsRelativeDescriptionTest {
 	};
 
 	@Test
+	public void future() throws Exception {
+		DateTime.setCurrentTimeForTest(2009, 1, 1);
+		assertEquals("future time",
+			this.object.getRelativeDescription(messageSource));
+	}
+
+	@Test
 	public void tenSecondsAgo() throws Exception {
 		DateTime.setCurrentTimeForTest(2010, 1, 1, 0, 0, 10);
 		assertEquals("ago-seconds",
