@@ -5,7 +5,7 @@
 $utils.raw($fragmentFormPanel)
 
 <table class="fragment fragment-main" cellpadding="5" cellspacing="0" width="100%" border="0">
-  #fragmentParentsRow($fragment.parentRelations)
+  #fragmentParentsRow($fragment.parentRelations $null)
   #fragmentHeaderRow($fragment $null)
   #fragmentBodyRow($fragment)
   <tr>

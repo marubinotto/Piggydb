@@ -5,7 +5,7 @@
 #macro( fragment $fragment $contextTags )
   
 <table class="fragment" cellpadding="5" cellspacing="0" width="100%" border="0">
-  #fragmentParentsRow($fragment.parentRelations)
+  #fragmentParentsRow($fragment.parentRelations $null)
   #fragmentHeaderRow($fragment $contextTags)
   #fragmentBodyRow($fragment)
   #fragmentChildrenRow($fragment.childRelations)
@@ -253,47 +253,23 @@
 
 
 
-#macro( fragmentParentsRow $parentRelations )
+#macro( fragmentParentsRow $parentRelations $excludeRelationId )
 
-#if ($parentRelations.size() > 0)
+#if (!$excludeRelationId && $parentRelations.size() > 0 || $parentRelations.size() > 1)
 <tr valign="middle">
   <td class="superfragment-links">
   #foreach ($relation in $parentRelations)
-    <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
-        style="margin-right: 1em;">
-      <span class="fragment-caption">
-        $utils.raw($html.linkToFragment($relation.from.id))
-        $utils.raw($html.fragmentHeadline($relation.from))
-      </span>
-      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
-      #deleteRelationButton($relation "span.fragment-header" "tr")
-    </span>
-  #end
-  </td>
-</tr>
-#end
-
-#end
-
-
-
-#macro( fragmentParentsRowAtBottom $fragment $contextRelationId )
-
-#if ((!$contextRelationId && !$fragment.parentRelations.isEmpty()) || $fragment.parentRelations.size() > 1)
-<tr valign="middle">
-  <td class="superfragment-links">
-  #foreach ($relation in $fragment.parentRelations)
-    #if (!$contextRelationId || $relation.id != $contextRelationId)
+		#if (!$excludeRelationId || $relation.id != $excludeRelationId)
       <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
           style="margin-right: 1em;">
         <span class="fragment-caption">
           $utils.raw($html.linkToFragment($relation.from.id))
           $utils.raw($html.fragmentHeadline($relation.from))
         </span>
-        <img src="$context/images/arrow-left-to-top.gif" border="0" alt="-"/>
+        <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
         #deleteRelationButton($relation "span.fragment-header" "tr")
       </span>
-    #end
+		#end
   #end
   </td>
 </tr>
@@ -388,6 +364,7 @@
   
 <table class="fragment fragment-node fragment-root-node" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
+#fragmentParentsRow($fragment.parentRelations $contextRelation.id)
 <tr>
   <th class="header-cell root-header-cell" title="$fragment.title" 
       valign="middle" style="padding-left: 5px;">
@@ -399,7 +376,6 @@
     </div>
   </th>
 </tr>
-#fragmentParentsRowAtBottom($fragment $contextRelation.id)
 </table>
   
 #end
@@ -410,6 +386,7 @@
   
 <table class="fragment fragment-node" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
+#fragmentParentsRow($fragment.parentRelations $contextRelation.id)
 <tr>
   <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
@@ -420,7 +397,6 @@
     </div>
   </th>
 </tr>
-#fragmentParentsRowAtBottom($fragment $contextRelation.id)
 </table>
   
 #end
