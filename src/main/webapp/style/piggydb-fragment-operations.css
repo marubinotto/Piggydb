@@ -140,6 +140,7 @@
 table.fragment {
   margin-bottom: 15px;
   border-collapse: collapse;
+  border: 1px solid #ccc;
 }
 
 .fragment-drophover,
@@ -148,7 +149,6 @@ table.fragment {
   border: 2px solid #FF9900 !important;
 }
 
-table.fragment, 
 table.fragment th, 
 table.fragment td {
   border: 1px solid #ccc;

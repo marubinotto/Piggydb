@@ -24,7 +24,7 @@ table.fragment td.subfragments table.page-link td,
 }
 
 .relation-form input {
-   vertical-align: middle;
+	vertical-align: middle;
 }
 
 #relationForm_targetId {
@@ -45,5 +45,9 @@ table.fragment td.subfragments table.page-link td,
 #children-content-toggle {
 	height: 20px;
 	margin-left: 5px;
+}
+
+table.fragment td.subfragments table.fragment-root-node {
+  margin-top: 5px;
 }
 
