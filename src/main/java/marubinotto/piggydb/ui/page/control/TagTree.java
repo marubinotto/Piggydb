@@ -9,7 +9,7 @@ import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.util.HtmlFragments;
-import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResourcePaths;
 import marubinotto.util.Assert;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Context;
@@ -22,10 +22,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class TagTree extends Tree {
 
-	private WebResources webResources;
+	private WebResourcePaths webResources;
 	private HtmlFragments htmlFragments;
 
-	public TagTree(String name, WebResources webResources,
+	public TagTree(String name, WebResourcePaths webResources,
 			HtmlFragments htmlFragments) {
 		super(name);
 		setDecorator(createDecorator());

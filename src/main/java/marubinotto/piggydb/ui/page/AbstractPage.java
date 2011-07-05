@@ -18,7 +18,7 @@ import marubinotto.piggydb.ui.page.util.DomainModelBeans;
 import marubinotto.piggydb.ui.page.util.HtmlFragments;
 import marubinotto.piggydb.ui.page.util.PageUrl;
 import marubinotto.piggydb.ui.page.util.TemplateUtils;
-import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResourcePaths;
 import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
@@ -56,7 +56,7 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public PageUrl thisPageUrl;
 	public TemplateUtils utils = TemplateUtils.INSTANCE;
-	public WebResources resources;
+	public WebResourcePaths resources;
 	public HtmlFragments html;
 	public LoopTool loop;
 	public WebMessageSource messageSource = this;
@@ -194,7 +194,7 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 
 		// Preparation before init()
-		this.resources = new WebResources(getContext().getRequest()
+		this.resources = new WebResourcePaths(getContext().getRequest()
 				.getContextPath(), getWarSetting().getPiggydbVersion());
 		this.html = new HtmlFragments(this.resources);
 		try {

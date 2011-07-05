@@ -9,7 +9,7 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.util.HtmlFragments;
-import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResourcePaths;
 import marubinotto.util.Assert;
 import marubinotto.util.ThreadLocalCache;
 
@@ -31,7 +31,7 @@ public class ParseContext {
     private User user;
     
     // global
-    private WebResources webResources;
+    private WebResourcePaths webResources;
     private HtmlFragments htmlFragments;
     private FragmentRepository fragmentRepository;
     private TagRepository tagRepository; 
@@ -41,7 +41,7 @@ public class ParseContext {
     		WikiParser wikiParser,
     		Stack<Long> fragmentStack,
     		User user,
-    		WebResources webResources,
+    		WebResourcePaths webResources,
     		FragmentRepository fragmentRepository,
     		TagRepository tagRepository) {
     	Assert.Arg.notNull(writer, "writer");
@@ -74,7 +74,7 @@ public class ParseContext {
     		wikiParser,
     		new Stack<Long>(),
     		user,
-    		new WebResources("", "test"),
+    		new WebResourcePaths("", "test"),
     		fragmentRepository,
     		tagRepository);
     }
@@ -115,7 +115,7 @@ public class ParseContext {
 		return this.user;
 	}
 
-	public WebResources getWebResources() {
+	public WebResourcePaths getWebResources() {
 		return this.webResources;
 	}
 

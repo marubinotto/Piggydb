@@ -7,7 +7,7 @@ import marubinotto.piggydb.fixture.mock.WikiParserMock;
 import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResourcePaths;
 import marubinotto.piggydb.ui.wiki.HtmlBuilder;
 import marubinotto.piggydb.ui.wiki.ParseContext;
 
@@ -34,7 +34,7 @@ public abstract class HtmlBuilderTestBase {
 			this.wikiParserMock,
 			new Stack<Long>(),
 			this.user,
-			new WebResources("", "test"), 
+			new WebResourcePaths("", "test"), 
 			this.fragmentRepository, 
 			this.fragmentRepository.getTagRepository());
 	}

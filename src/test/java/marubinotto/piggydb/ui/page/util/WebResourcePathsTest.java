@@ -4,9 +4,9 @@ import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class WebResourcesTest {
+public class WebResourcePathsTest {
 
-	private WebResources object = new WebResources("/context", "1.0");
+	private WebResourcePaths object = new WebResourcePaths("/context", "1.0");
 	
 	@Test
 	public void resourcePath() throws Exception {

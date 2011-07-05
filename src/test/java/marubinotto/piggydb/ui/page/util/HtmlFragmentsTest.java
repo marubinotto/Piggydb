@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class HtmlFragmentsTest {
 
-	private HtmlFragments object = new HtmlFragments(new WebResources("/context", "1.0"));
+	private HtmlFragments object = new HtmlFragments(new WebResourcePaths("/context", "1.0"));
 	
 	@Test
 	public void cssImport() throws Exception {

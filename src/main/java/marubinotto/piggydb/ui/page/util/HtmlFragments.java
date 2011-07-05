@@ -12,9 +12,9 @@ import marubinotto.util.xml.XmlStringBuilder;
 
 public class HtmlFragments {
 
-	private WebResources webResources;
+	private WebResourcePaths webResources;
 	
-	public HtmlFragments(WebResources webResources) {
+	public HtmlFragments(WebResourcePaths webResources) {
 		Assert.Arg.notNull(webResources, "webResources");
 		this.webResources = webResources;
 	}

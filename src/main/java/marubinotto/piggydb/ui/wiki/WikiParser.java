@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResourcePaths;
 import marubinotto.util.Assert;
 
 public abstract class WikiParser {
@@ -35,7 +35,7 @@ public abstract class WikiParser {
 		String wikiText, 
 		Long targetFragment,
 		User user,
-		WebResources webResources) 
+		WebResourcePaths webResources) 
 	throws Exception {
 		Stack<Long> fragmentStack = new Stack<Long>();
 		if (targetFragment != null) {
@@ -48,7 +48,7 @@ public abstract class WikiParser {
 		String wikiText, 
 		Stack<Long> fragmentStack,
 		User user,
-		WebResources webResources) 
+		WebResourcePaths webResources) 
 	throws Exception {
 		StringWriter output = new StringWriter();
 		invokeParse(wikiText, output, fragmentStack, user, webResources);
@@ -60,7 +60,7 @@ public abstract class WikiParser {
 		Writer output, 
 		Long targetFragment,
 		User user,
-		WebResources webResources) 
+		WebResourcePaths webResources) 
 	throws Exception {
 		Stack<Long> fragmentStack = new Stack<Long>();
 		if (targetFragment != null) {
@@ -74,7 +74,7 @@ public abstract class WikiParser {
 		Writer output, 
 		Stack<Long> fragmentStack,
 		User user,
-		WebResources webResources)
+		WebResourcePaths webResources)
 	throws Exception {
 		Assert.Arg.notNull(output, "output");
 		Assert.Arg.notNull(fragmentStack, "fragmentStack");
@@ -94,7 +94,7 @@ public abstract class WikiParser {
 			Writer output, 
 			Stack<Long> fragmentStack,
 			User user,
-			WebResources webResources) {
+			WebResourcePaths webResources) {
 		Assert.Property.requireNotNull(fragmentRepository, "fragmentRepository");
 		Assert.Property.requireNotNull(tagRepository, "tagRepository");
 		
@@ -111,7 +111,7 @@ public abstract class WikiParser {
 	public String parsePreformattedText(
 		String preformattedText, 
 		User user,
-		WebResources webResources) 
+		WebResourcePaths webResources) 
 	throws Exception {
 		StringWriter output = new StringWriter();
 		if (preformattedText != null) {

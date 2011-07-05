@@ -11,12 +11,12 @@ import org.apache.commons.lang.UnhandledException;
 import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.Assert;
 
-public class WebResources {
+public class WebResourcePaths {
 
 	private String contextPath;
 	private String piggydbVersion;
 	
-	public WebResources(String contextPath, String piggydbVersion) {
+	public WebResourcePaths(String contextPath, String piggydbVersion) {
 		Assert.Arg.notNull(contextPath, "contextPath");
 		Assert.Arg.notNull(piggydbVersion, "piggydbVersion");
 		this.contextPath = contextPath;
