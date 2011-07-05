@@ -20,9 +20,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.text.StrBuilder;
 
-public abstract class BorderPage extends ModelFactory {
+public abstract class AbstractBorderPage extends ModelFactory {
 
-	public BorderPage() {
+	public AbstractBorderPage() {
 	}
 
 	@Override

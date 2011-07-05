@@ -24,7 +24,7 @@ import net.sf.click.control.HiddenField;
 
 import org.apache.commons.lang.StringUtils;
 
-public abstract class AbstractFragmentsPage extends BorderPage {
+public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 	public AbstractFragmentsPage() {
 	}

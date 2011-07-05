@@ -9,7 +9,7 @@ import org.apache.commons.lang.UnhandledException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
-import marubinotto.piggydb.ui.page.BorderPage;
+import marubinotto.piggydb.ui.page.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.ModelFactory;
 import marubinotto.util.web.WebUtils;
 
@@ -80,7 +80,7 @@ public abstract class AbstractAtom extends ModelFactory {
 	protected void setFeedInfo() throws Exception {
 		this.databaseId = getGlobalSetting().getDatabaseId();
 		this.feedId = this.databaseId + GlobalSetting.URI_SEP + getName();
-		this.feedTitle = BorderPage.getPageTitle(getTargetPageName(), this);
+		this.feedTitle = AbstractBorderPage.getPageTitle(getTargetPageName(), this);
 		
 		this.contextUrl = WebUtils.makeContextUrl(getContext().getRequest());
 		this.resources.setContextPath(this.contextUrl);

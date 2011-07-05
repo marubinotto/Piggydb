@@ -12,7 +12,7 @@ import net.sf.click.control.TextField;
 
 import org.apache.commons.lang.StringUtils;
 
-public class LoginPage extends BorderPage {
+public class LoginPage extends AbstractBorderPage {
     
     @Override
     protected boolean needsAuthentication() {

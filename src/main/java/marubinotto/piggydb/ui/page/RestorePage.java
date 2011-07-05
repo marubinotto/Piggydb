@@ -20,7 +20,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.DataSetException;
 
-public class RestorePage extends BorderPage {
+public class RestorePage extends AbstractBorderPage {
 	
 	private DatabaseSpecificBeans dbSpecificBeans;
 	private SequenceAdjusterList sequenceAdjusterList;

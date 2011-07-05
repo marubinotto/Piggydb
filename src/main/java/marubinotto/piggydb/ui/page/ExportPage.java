@@ -5,7 +5,7 @@ import marubinotto.piggydb.ui.page.command.ExportDatabase;
 import net.sf.click.control.Form;
 import net.sf.click.extras.control.PageSubmit;
 
-public class ExportPage extends BorderPage {
+public class ExportPage extends AbstractBorderPage {
 
     @Override
     protected String[] getAuthorizedRoles() {

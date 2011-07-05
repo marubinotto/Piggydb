@@ -16,7 +16,7 @@ import net.sf.click.control.TextField;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.text.StrBuilder;
 
-public class SystemInfoPage extends BorderPage {
+public class SystemInfoPage extends AbstractBorderPage {
 
 	private DatabaseSpecificBeans dbSpecificBeans;
 

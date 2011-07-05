@@ -16,7 +16,7 @@ import net.sf.click.control.TextField;
 import org.apache.commons.lang.ObjectUtils;
 import org.springframework.core.ErrorCoded;
 
-public class TagsPage extends BorderPage {
+public class TagsPage extends AbstractBorderPage {
 
 	//
 	// Commands

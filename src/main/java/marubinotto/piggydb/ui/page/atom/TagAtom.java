@@ -5,7 +5,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.ui.page.BorderPage;
+import marubinotto.piggydb.ui.page.AbstractBorderPage;
 
 public class TagAtom extends AbstractAtom {
 	
@@ -25,7 +25,7 @@ public class TagAtom extends AbstractAtom {
 		this.tag = getTagRepository().get(this.id.longValue());
 		if (this.tag == null) return;
 		
-		this.feedTitle = this.feedTitle + BorderPage.HTML_TITLE_SEP + this.tag.getName();
+		this.feedTitle = this.feedTitle + AbstractBorderPage.HTML_TITLE_SEP + this.tag.getName();
 	}
 
 	@Override

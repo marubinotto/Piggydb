@@ -9,7 +9,7 @@ import net.sf.click.control.Form;
 import net.sf.click.control.PasswordField;
 import net.sf.click.control.Submit;
 
-public class PasswordPage extends BorderPage {
+public class PasswordPage extends AbstractBorderPage {
     
     @Override
     protected String[] getAuthorizedRoles() {
