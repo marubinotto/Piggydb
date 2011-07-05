@@ -2,18 +2,24 @@ package marubinotto.piggydb.ui.page;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.ui.page.model.FragmentTags;
+import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.page.util.DomainModelBeans;
 import marubinotto.piggydb.ui.page.util.HtmlFragments;
 import marubinotto.piggydb.ui.page.util.PageUrl;
 import marubinotto.piggydb.ui.page.util.TemplateUtils;
 import marubinotto.piggydb.ui.page.util.WebResources;
+import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.StopWatch;
@@ -28,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.app.FieldMethodizer;
 import org.apache.velocity.tools.generic.LoopTool;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -53,6 +60,7 @@ implements ApplicationContextAware, WebMessageSource {
 	public HtmlFragments html;
 	public LoopTool loop;
 	public WebMessageSource messageSource = this;
+	public WikiParser wikiParser;
 	
 	private Log logger;
 	private ApplicationContext applicationContext;
@@ -119,6 +127,10 @@ implements ApplicationContextAware, WebMessageSource {
 	protected final WarSetting getWarSetting() {
 		return (WarSetting)getBean("warSetting");
 	}
+	
+	private WikiParser getWikiParser() {
+		return (WikiParser)getBean("wikiParser");
+	}	
 
 	// Access control
 
@@ -222,15 +234,10 @@ implements ApplicationContextAware, WebMessageSource {
 		if (!getLogger().isDebugEnabled()) return;
 
 		getLogger().debug("Parameters {");
-		for (Enumeration e = getContext().getRequest().getParameterNames(); e
-				.hasMoreElements();) {
+		for (Enumeration e = getContext().getRequest().getParameterNames(); e.hasMoreElements();) {
 			String name = (String) e.nextElement();
-			getLogger().debug(
-					"  "
-							+ name
-							+ " = "
-							+ ArrayUtils.toString(getContext().getRequest()
-									.getParameterValues(name)));
+			getLogger().debug("  " + name + " = " + 
+				ArrayUtils.toString(getContext().getRequest().getParameterValues(name)));
 		}
 		getLogger().debug("}");
 	}
@@ -305,13 +312,10 @@ implements ApplicationContextAware, WebMessageSource {
 			return true;
 		}
 
-		String expected = (String) getContext().getSessionAttribute(
-				SK_CLIENT_ADDRESS);
+		String expected = (String) getContext().getSessionAttribute(SK_CLIENT_ADDRESS);
 		String actual = getContext().getRequest().getRemoteAddr();
 
-		getLogger().info(
-				"Validate the remote address: " + actual + " (expected: " + expected
-						+ ")");
+		getLogger().info("Validate the remote address: " + actual + " (expected: " + expected + ")");
 		return actual.equals(expected);
 	}
 
@@ -323,8 +327,7 @@ implements ApplicationContextAware, WebMessageSource {
 		String expected = (String) getContext().getSessionAttribute(SK_USER_AGENT);
 		String actual = getContext().getRequest().getHeader("User-Agent");
 
-		getLogger().info(
-				"Validate the user agent: " + actual + " (expected: " + expected + ")");
+		getLogger().info("Validate the user agent: " + actual + " (expected: " + expected + ")");
 		return ObjectUtils.equals(actual, expected);
 	}
 
@@ -388,6 +391,7 @@ implements ApplicationContextAware, WebMessageSource {
 		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
 		addModel(MK_LANG, getContext().getLocale().getLanguage());
 		this.loop = new LoopTool();
+		this.wikiParser = getWikiParser();
 
 		String atomUrl = getAtomUrl();
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
@@ -518,5 +522,36 @@ implements ApplicationContextAware, WebMessageSource {
 				- session.getCreationTime();
 		long left = (PERSISTED_SESSION_MAX_AGE * 1000) - sessionAge;
 		return left < THRESHOLD_TO_BE_EXPIRED;
+	}
+	
+	
+	// temp
+	
+	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
+	protected static final int ALMOST_UNLIMITED_PAGE_SIZE = 1000000;
+	
+	private static final FieldMethodizer CONSTANTS_TAG = new FieldMethodizer(Tag.class.getName());
+
+	public FieldMethodizer tagConstants = CONSTANTS_TAG;
+	
+	public Preformatted preformatted = Preformatted.INSTANCE;
+	public FragmentTags fragmentTagsPrototype = new FragmentTags();
+	public Map<Long, String> selectedFragments;
+
+	protected SelectedFragments getSelectedFragments() {
+		return createOrGetObjectInSession(
+			SK_SELECTED_FRAGMENTS, 
+			new Factory<SelectedFragments>() {
+				public SelectedFragments create() {
+					return new SelectedFragments();
+				}
+			});
+	}
+	
+	protected void setSelectedFragments() throws Exception {
+		SelectedFragments fragments = getSelectedFragments();
+		if (!fragments.isEmpty()) {
+			this.selectedFragments = fragments.getTitles(getDomain().getFragmentRepository());
+		}
 	}
 }

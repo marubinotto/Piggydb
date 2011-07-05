@@ -1,8 +1,8 @@
 package marubinotto.piggydb.ui.page.html;
 
-import marubinotto.piggydb.ui.page.ModelFactory;
+import marubinotto.piggydb.ui.page.AbstractPage;
 
-public abstract class AbstractHtml extends ModelFactory {
+public abstract class AbstractHtml extends AbstractPage {
 	
 	// Disable redirect to return an empty response when a session is expired
 	@Override

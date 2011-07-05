@@ -2,18 +2,18 @@ package marubinotto.piggydb.ui.page.atom;
 
 import java.util.List;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
-
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.piggydb.ui.page.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.ModelFactory;
+import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.web.WebUtils;
 
-public abstract class AbstractAtom extends ModelFactory {
+import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
+
+public abstract class AbstractAtom extends AbstractPage {
 
 	public AbstractAtom() {
 	}

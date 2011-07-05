@@ -1,10 +1,10 @@
 package marubinotto.piggydb.ui.page.command;
 
-import marubinotto.piggydb.ui.page.ModelFactory;
+import marubinotto.piggydb.ui.page.AbstractPage;
 
 import org.apache.commons.lang.UnhandledException;
 
-public abstract class AbstractCommand extends ModelFactory {
+public abstract class AbstractCommand extends AbstractPage {
 
 	@Override 
 	public String getPath() {
