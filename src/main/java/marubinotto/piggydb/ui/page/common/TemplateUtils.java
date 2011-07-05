@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.util;
+package marubinotto.piggydb.ui.page.common;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -8,8 +8,8 @@ import java.util.Stack;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.util.HtmlFragments;
-import marubinotto.piggydb.ui.page.util.WebResourcePaths;
+import marubinotto.piggydb.ui.page.common.HtmlFragments;
+import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 import marubinotto.util.Assert;
 import marubinotto.util.ThreadLocalCache;
 

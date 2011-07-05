@@ -5,7 +5,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.ui.page.util.Utils;
+import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.web.WebUtils;

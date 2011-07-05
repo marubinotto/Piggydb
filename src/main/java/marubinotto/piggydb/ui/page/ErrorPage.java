@@ -2,8 +2,8 @@ package marubinotto.piggydb.ui.page;
 
 import java.net.SocketException;
 
-import marubinotto.piggydb.ui.page.util.TemplateUtils;
-import marubinotto.piggydb.ui.page.util.Utils;
+import marubinotto.piggydb.ui.page.common.TemplateUtils;
+import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.Assert;
 import marubinotto.util.CodedException;
 

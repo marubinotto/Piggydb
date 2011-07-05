@@ -1,7 +1,7 @@
 package marubinotto.piggydb.ui.page;
 
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.ui.page.util.PageUrl;
+import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.paging.Page;
 

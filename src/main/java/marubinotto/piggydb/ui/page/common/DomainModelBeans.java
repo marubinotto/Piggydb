@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.util;
+package marubinotto.piggydb.ui.page.common;
 
 import marubinotto.piggydb.model.Authentication;
 import marubinotto.piggydb.model.FileRepository;

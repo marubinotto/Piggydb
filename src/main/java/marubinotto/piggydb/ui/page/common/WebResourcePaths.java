@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.util;
+package marubinotto.piggydb.ui.page.common;
 
 import static marubinotto.util.CollectionUtils.set;
 
