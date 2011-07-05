@@ -5,7 +5,7 @@ import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResources;
 import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
 import marubinotto.piggydb.ui.wiki.HtmlBlock;
 import marubinotto.piggydb.ui.wiki.HtmlBuilder;

@@ -1,10 +1,8 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.util;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.ui.page.HtmlFragments;
-import marubinotto.piggydb.ui.page.WebResources;
 import marubinotto.util.Size;
 
 import org.junit.Test;

@@ -11,6 +11,7 @@ import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
+import marubinotto.piggydb.ui.page.util.PageUrl;
 import marubinotto.util.Assert;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.ActionLink;

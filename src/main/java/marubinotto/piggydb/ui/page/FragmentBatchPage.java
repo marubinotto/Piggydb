@@ -14,6 +14,7 @@ import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
+import marubinotto.piggydb.ui.page.util.Utils;
 import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.Form;

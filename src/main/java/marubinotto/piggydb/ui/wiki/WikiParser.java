@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.WebResources;
+import marubinotto.piggydb.ui.page.util.WebResources;
 import marubinotto.util.Assert;
 
 public abstract class WikiParser {

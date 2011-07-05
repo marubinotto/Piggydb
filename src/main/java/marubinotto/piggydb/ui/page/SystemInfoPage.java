@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import marubinotto.piggydb.impl.db.H2JdbcUrl;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.ui.page.util.DatabaseSpecificBeans;
 import marubinotto.util.Size;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.Form;

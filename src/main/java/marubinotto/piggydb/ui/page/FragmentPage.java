@@ -7,6 +7,8 @@ import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
+import marubinotto.piggydb.ui.page.util.PageUrl;
+import marubinotto.piggydb.ui.page.util.Utils;
 import marubinotto.util.Assert;
 import net.sf.click.control.HiddenField;
 import net.sf.click.extras.tree.Tree;

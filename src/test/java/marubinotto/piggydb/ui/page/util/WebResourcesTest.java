@@ -1,8 +1,6 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.util;
 
 import static junit.framework.Assert.assertEquals;
-
-import marubinotto.piggydb.ui.page.WebResources;
 
 import org.junit.Test;
 

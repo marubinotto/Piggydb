@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page;
 import java.io.UnsupportedEncodingException;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.ui.page.util.PageUrl;
 
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang.UnhandledException;

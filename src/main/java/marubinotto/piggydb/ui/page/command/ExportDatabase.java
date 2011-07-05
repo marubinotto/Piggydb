@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.ui.page.DatabaseSpecificBeans;
+import marubinotto.piggydb.ui.page.util.DatabaseSpecificBeans;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.web.WebUtils;

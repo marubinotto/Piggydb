@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.UnhandledException;
 
+import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.Assert;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Context;
