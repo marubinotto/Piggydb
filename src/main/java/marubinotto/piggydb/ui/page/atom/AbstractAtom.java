@@ -6,14 +6,14 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.common.AbstractPage;
+import marubinotto.piggydb.ui.page.common.AbstractMarkupResource;
 import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 
-public abstract class AbstractAtom extends AbstractPage {
+public abstract class AbstractAtom extends AbstractMarkupResource {
 
 	public AbstractAtom() {
 	}

@@ -16,7 +16,6 @@ import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.model.FragmentTags;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
-import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.StopWatch;
@@ -57,7 +56,6 @@ implements ApplicationContextAware, WebMessageSource {
 	public HtmlFragments html;
 	public LoopTool loop;
 	public WebMessageSource messageSource = this;
-	public WikiParser wikiParser;
 	
 	private Log logger;
 	private ApplicationContext applicationContext;
@@ -124,10 +122,6 @@ implements ApplicationContextAware, WebMessageSource {
 	protected final WarSetting getWarSetting() {
 		return (WarSetting)getBean("warSetting");
 	}
-	
-	private WikiParser getWikiParser() {
-		return (WikiParser)getBean("wikiParser");
-	}	
 
 	// Access control
 
@@ -388,7 +382,6 @@ implements ApplicationContextAware, WebMessageSource {
 		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
 		addModel(MK_LANG, getContext().getLocale().getLanguage());
 		this.loop = new LoopTool();
-		this.wikiParser = getWikiParser();
 
 		String atomUrl = getAtomUrl();
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
