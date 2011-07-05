@@ -105,7 +105,7 @@ public class PasswordPage extends BorderPage {
     				return null;
     			}
     		});
-    		FragmentOperations.highlightFragment(userFragment.getId(), getContext());
+    		AbstractFragmentsPage.highlightFragment(userFragment.getId(), getContext());
     	}
     }
 }

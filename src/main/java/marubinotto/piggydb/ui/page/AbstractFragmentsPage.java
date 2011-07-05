@@ -24,9 +24,9 @@ import net.sf.click.control.HiddenField;
 
 import org.apache.commons.lang.StringUtils;
 
-public abstract class FragmentOperations extends BorderPage {
+public abstract class AbstractFragmentsPage extends BorderPage {
 
-	public FragmentOperations() {
+	public AbstractFragmentsPage() {
 	}
 
 	//
@@ -55,8 +55,8 @@ public abstract class FragmentOperations extends BorderPage {
 		importJsFile("scripts/piggydb-fragment-operations.js", true);
 		importJsFile("markitup/jquery.markitup.pack.js", false);
 
-		this.wikiHelpHref = getMessage("wiki-help-href", getContext().getRequest()
-			.getContextPath());
+		this.wikiHelpHref = getMessage("wiki-help-href", 
+			getContext().getRequest().getContextPath());
 
 		if (showsSelectedFragments()) setSelectedFragments();
 		setHighlightedFragment();

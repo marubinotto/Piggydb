@@ -26,89 +26,89 @@ public abstract class BorderPage extends ModelFactory {
 	}
 
 	@Override
-    public String getTemplate() {
-        return "/border-template.htm";
-    }
+	public String getTemplate() {
+		return "/border-template.htm";
+	}
 
 	@Override
 	protected boolean needsStopWatch() {
 		return true;
 	}
 
-	
 	//
 	// Control
 	//
-	
+
 	public Menu rootMenu;
 	public PageLink logoutLink = new PageLink(Logout.class);
 
 	@Override
 	public void onInit() {
-        super.onInit();
-        this.rootMenu = Menu.getRootMenu();		// "rootMenu" is the default name
-    }
-	
-	
+		super.onInit();
+		this.rootMenu = Menu.getRootMenu(); // "rootMenu" is the default name
+	}
+
 	//
 	// Model
 	//
-	
+
 	// an ID of an element that should be the top of the page
 	public static final String SK_SCROLL_TOP_ELEMENT = "scrollTopElement";
 	public static final String SK_RECENTLY_VIEWED = "recentlyViewed";
-	
+
 	public static final String MK_MESSAGE = "message";
-	
+
 	public String title;
 	public String htmlTitle;
 	public static final String HTML_TITLE_SEP = " - ";
-	
+
 	private static String APP_CSS_IMPORTS;
 	public String appCssImports;
-	
+
 	private static String APP_JS_IMPORTS;
 	public String appJsImports;
-	
+
 	public StrBuilder appAdditionalCssImports = new StrBuilder();
 	public StrBuilder appAdditionalJsImports = new StrBuilder();
-	
+
 	public Page<Fragment> bookmarkedFragments = EMPTY_FRAGMENTS;
 	public Tag bookmarkTag;
-	
+
 	public Page<Filter> filters;
-	
+
 	public Map<Entity, String> recentlyViewed;
 
-	@Override 
+	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
-		
+
 		setAppCssImports();
 		setAppJsImports();
-		
+
 		this.title = getMessage("application-title");
-		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()), this);
+		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()),
+			this);
 		showSessionMessageIfExist();
 	}
-	
-	public static String getPageTitle(String pageName, AbstractPage page) throws Exception {
+
+	public static String getPageTitle(String pageName, AbstractPage page)
+		throws Exception {
 		String pageTitle = page.getMessage(pageName + "-htmlTitle");
 		pageTitle = StringUtils.isNotBlank(pageTitle) ? (" - " + pageTitle) : "";
 		return page.getGlobalSetting().getDatabaseTitle() + pageTitle;
 	}
-	
-    protected void setMessage(String message) {
-    	addModel(MK_MESSAGE, message);
-    }
 
-    private void showSessionMessageIfExist() {
-        String sessionMessage = getSessionMessage();
-        if (sessionMessage != null) {
-        	setMessage(sessionMessage);
-        }
-    }
-	
+	protected void setMessage(String message) {
+		addModel(MK_MESSAGE, message);
+	}
+
+	private void showSessionMessageIfExist() {
+		String sessionMessage = getSessionMessage();
+		if (sessionMessage != null) {
+			setMessage(sessionMessage);
+		}
+	}
+
 	private void setAppCssImports() {
 		if (APP_CSS_IMPORTS == null) {
 			getLogger().debug("Initializing APP_CSS_IMPORTS ...");
@@ -128,7 +128,7 @@ public abstract class BorderPage extends ModelFactory {
 		}
 		this.appCssImports = APP_CSS_IMPORTS;
 	}
-	
+
 	private void setAppJsImports() {
 		if (APP_JS_IMPORTS == null) {
 			getLogger().debug("Initializing APP_JS_IMPORTS ...");
@@ -148,63 +148,61 @@ public abstract class BorderPage extends ModelFactory {
 		}
 		this.appJsImports = APP_JS_IMPORTS;
 	}
-   
-    protected void importCssFile(String filePath, boolean versioning, String media) {
-    	this.appAdditionalCssImports.appendln(this.html.cssImport(filePath, versioning, media));
-    }
-	
-	protected void importJsFile(String filePath, boolean versioning) {
-		this.appAdditionalJsImports.appendln(this.html.jsImport(filePath, versioning));
+
+	protected void importCssFile(String filePath, boolean versioning, String media) {
+		this.appAdditionalCssImports.appendln(this.html.cssImport(filePath,
+			versioning, media));
 	}
 
-    protected static final Page<Fragment> EMPTY_FRAGMENTS = PageUtils.empty(0);
-    
-    
-    // Sidebar contents
-    
-    protected void setCommonSidebarModels() throws Exception {
-    	setBookmarkedFragments();
-    	setFilters();
+	protected void importJsFile(String filePath, boolean versioning) {
+		this.appAdditionalJsImports.appendln(this.html.jsImport(filePath,
+			versioning));
+	}
+
+	protected static final Page<Fragment> EMPTY_FRAGMENTS = PageUtils.empty(0);
+
+	// Sidebar contents
+
+	protected void setCommonSidebarModels() throws Exception {
+		setBookmarkedFragments();
+		setFilters();
 		setRecentlyViewed();
-    }
-    
-    public static final int BOOKMARK_SIZE = 100;
-    
-    protected void setBookmarkedFragments() throws Exception {
+	}
+
+	public static final int BOOKMARK_SIZE = 100;
+
+	protected void setBookmarkedFragments() throws Exception {
 		this.bookmarkTag = getTagRepository().getByName(Tag.NAME_BOOKMARK);
 		if (this.bookmarkTag == null) return;
-		
+
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(this.bookmarkTag);
-		
+
 		Tag trashTag = getTagRepository().getTrashTag();
 		if (trashTag != null) filter.getExcludes().addTag(trashTag);
-		
-		this.bookmarkedFragments = 
-			getFragmentRepository().findByFilter(
-				filter, new FragmentsOptions(BOOKMARK_SIZE, 0, false));
+
+		this.bookmarkedFragments = getFragmentRepository().findByFilter(filter,
+			new FragmentsOptions(BOOKMARK_SIZE, 0, false));
 	}
-    
-    protected void setFilters() throws Exception {
-    	this.filters = getFilterRepository().getRecentChanges(ALMOST_UNLIMITED_PAGE_SIZE, 0);
-    }
-	
+
+	protected void setFilters() throws Exception {
+		this.filters = getFilterRepository().getRecentChanges(
+			ALMOST_UNLIMITED_PAGE_SIZE, 0);
+	}
+
 	protected RecentlyViewed getRecentlyViewed() {
-		return createOrGetObjectInSession(
-			SK_RECENTLY_VIEWED, 
+		return createOrGetObjectInSession(SK_RECENTLY_VIEWED,
 			new Factory<RecentlyViewed>() {
 				public RecentlyViewed create() {
 					return new RecentlyViewed(20);
 				}
 			});
 	}
-	
+
 	protected void setRecentlyViewed() {
 		try {
 			this.recentlyViewed = getRecentlyViewed().getAllWithNames(
-				getFragmentRepository(), 
-				getTagRepository(),
-				getFilterRepository());
+				getFragmentRepository(), getTagRepository(), getFilterRepository());
 		}
 		catch (Exception e) {
 			throw new UnhandledException(e);

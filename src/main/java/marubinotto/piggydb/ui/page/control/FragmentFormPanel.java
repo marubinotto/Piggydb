@@ -15,7 +15,7 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.BorderPage;
-import marubinotto.piggydb.ui.page.FragmentOperations;
+import marubinotto.piggydb.ui.page.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.control.form.FragmentForm;
 import marubinotto.util.Assert;
 import marubinotto.util.procedure.Procedure;
@@ -44,7 +44,7 @@ public class FragmentFormPanel extends Panel {
 	private FragmentRepository fragmentRepository;
 
 	// Control
-	private FragmentOperations page;
+	private AbstractFragmentsPage page;
 	private User user;
 	private String title;
 	private String redirectPathAfterRegistration;
@@ -89,7 +89,7 @@ public class FragmentFormPanel extends Panel {
 		return this.fragmentRepository;
 	}
 
-	public void setPage(FragmentOperations page) {
+	public void setPage(AbstractFragmentsPage page) {
 		this.page = page;
 	}
 

@@ -15,7 +15,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FragmentPage extends FragmentOperations {
+public class FragmentPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

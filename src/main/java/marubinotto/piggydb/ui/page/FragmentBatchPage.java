@@ -25,7 +25,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FragmentBatchPage extends FragmentOperations {
+public class FragmentBatchPage extends AbstractFragmentsPage {
 	
 	@Override
 	protected boolean showsSelectedFragments() {

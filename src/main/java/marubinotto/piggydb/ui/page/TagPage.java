@@ -26,7 +26,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class TagPage extends FragmentOperations {
+public class TagPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

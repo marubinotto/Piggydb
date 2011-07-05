@@ -8,7 +8,7 @@ import marubinotto.piggydb.ui.page.util.PageUrl;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang.UnhandledException;
 
-public class UserPage extends FragmentOperations {
+public class UserPage extends AbstractFragmentsPage {
 	
 	@Override
     protected PageUrl createThisPageUrl() {

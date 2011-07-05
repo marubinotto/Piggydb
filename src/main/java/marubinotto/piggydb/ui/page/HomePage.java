@@ -17,7 +17,7 @@ import marubinotto.util.time.Month;
 import marubinotto.util.time.TimeVisitors;
 import net.sf.click.control.PageLink;
 
-public class HomePage extends FragmentOperations {
+public class HomePage extends AbstractFragmentsPage {
 
 	@Override
 	protected String getAtomUrl() {

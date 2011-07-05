@@ -23,7 +23,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FilterPage extends FragmentOperations {
+public class FilterPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

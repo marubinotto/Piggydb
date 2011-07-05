@@ -7,7 +7,7 @@ import marubinotto.util.paging.Page;
 
 import org.apache.commons.lang.StringUtils;
 
-public class SearchPage extends FragmentOperations {
+public class SearchPage extends AbstractFragmentsPage {
 	
 	@Override
     protected PageUrl createThisPageUrl() {
