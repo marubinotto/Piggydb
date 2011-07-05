@@ -14,7 +14,7 @@ public class GetAllTags extends AbstractCommand {
 
 	@Override 
 	protected void execute() throws Exception {
-		Page<Tag> page = getTagRepository().orderByName(this.pageSize, this.pi);
+		Page<Tag> page = getDomain().getTagRepository().orderByName(this.pageSize, this.pi);
 		
 		HttpServletResponse response = getContext().getResponse();
 		response.setContentType(JsonUtils.CONTENT_TYPE);

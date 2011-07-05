@@ -21,7 +21,7 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.DataSetException;
 
 public class RestorePage extends AbstractBorderPage {
-	
+
 	private DatabaseSpecificBeans dbSpecificBeans;
 	private SequenceAdjusterList sequenceAdjusterList;
 
@@ -34,42 +34,40 @@ public class RestorePage extends AbstractBorderPage {
 	}
 
 	@Override
-    protected String[] getAuthorizedRoles() {
-    	return new String[]{Role.OWNER.getName()};
-    }
+	protected String[] getAuthorizedRoles() {
+		return new String[]{Role.OWNER.getName()};
+	}
 
-	
 	//
 	// Control
 	//
 
 	public Form restoreForm = new Form();
 	private FileField dataFileField = new FileField("dataFile", true);
-	
+
 	@Override
 	public void onInit() {
 		super.onInit();
 		initControls();
 		this.dbSpecificBeans = new DatabaseSpecificBeans(getApplicationContext());
 	}
-	
+
 	private void initControls() {
 		this.dataFileField.setLabel(getMessage("RestorePage-data-file") + " (*.xml/*.pig)");
 		this.dataFileField.setSize(50);
-		this.restoreForm.add(this.dataFileField);	
-		this.restoreForm.add(new Submit(
-			"restore", getMessage("RestorePage-restore"), this, "onRestoreClick"));
+		this.restoreForm.add(this.dataFileField);
+		this.restoreForm.add(new Submit("restore", getMessage("RestorePage-restore"), this, "onRestoreClick"));
 	}
 
 	public boolean onRestoreClick() throws Exception {
 		if (!this.restoreForm.isValid()) {
-        	return true;
-        }
-		
+			return true;
+		}
+
 		try {
 			doRestore();
 		}
-		catch (DataSetException e) {	// XML error
+		catch (DataSetException e) { // XML error
 			this.dataFileField.setError(getMessage("RestorePage-invalid-file"));
 			return true;
 		}
@@ -79,9 +77,9 @@ public class RestorePage extends AbstractBorderPage {
 		}
 
 		setRedirectWithMessage(HomePage.class, getMessage("RestorePage-database-restored"));
-        return false;
+		return false;
 	}
-	
+
 	/**
 	 * The database version (global_setting/database.version) won't be changed
 	 * since the version belongs to the current schema, not the data.
@@ -89,8 +87,8 @@ public class RestorePage extends AbstractBorderPage {
 	private void doRestore() throws Exception {
 		final DatabaseSchema schema = this.dbSpecificBeans.getDatabaseSchema();
 		final FileItem fileItem = this.dataFileField.getFileItem();
-		
-		getTransaction().execute(new Procedure() {
+
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				int currentVersion = schema.getVersion();
 				getLogger().info("currentVersion : " + currentVersion);
@@ -107,21 +105,21 @@ public class RestorePage extends AbstractBorderPage {
 					}
 					getPigDump().restore(uploadedFile);
 				}
-				
-				schema.setVersion(currentVersion);	// preserve the version
+
+				schema.setVersion(currentVersion); // preserve the version
 				getSequenceAdjusterList().adjust();
 				return null;
 			}
 		});
 	}
-	
+
 	private void cleanTables() throws DatabaseUnitException, SQLException {
 		getLogger().info("Cleaning all tables ...");
 		for (String tableName : PigDump.TABLES) {
 			RdbUtils.deleteAll(this.dbSpecificBeans.getJdbcConnection(), tableName);
 		}
 	}
-	
+
 	private void restoreWithXml() throws Exception {
 		getLogger().info("Restoring with xml ...");
 		InputStream dataInput = null;
@@ -132,12 +130,13 @@ public class RestorePage extends AbstractBorderPage {
 		finally {
 			dataInput.close();
 		}
-		getFileRepository().clear();
+		getDomain().getFileRepository().clear();
 	}
-   
-    private PigDump getPigDump() {
-    	return (PigDump)getBean("pigDump");
-    }
-	
-	private static class InvalidPigDumpException extends Exception {}
+
+	private PigDump getPigDump() {
+		return (PigDump) getBean("pigDump");
+	}
+
+	private static class InvalidPigDumpException extends Exception {
+	}
 }

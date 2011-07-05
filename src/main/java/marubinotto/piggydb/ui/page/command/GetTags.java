@@ -28,18 +28,18 @@ public class GetTags extends AbstractCommand {
 
 	private List<Tag> getResult() throws Exception {
 		if (this.parent != null) {
-			return getTagRepository().findByParentTag(
+			return getDomain().getTagRepository().findByParentTag(
 				this.parent, ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 		else if (this.child != null) {
-			Tag childTag = getTagRepository().get(this.child);
+			Tag childTag = getDomain().getTagRepository().get(this.child);
 			List<Tag> parents = new ArrayList<Tag>();
 			if (childTag == null) return parents;
 			for (Tag parent : childTag.getClassification()) parents.add(parent);
 			return parents;
 		}
 		else {
-			return getTagRepository().getRootTags(ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			return getDomain().getTagRepository().getRootTags(ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 	}
 		
@@ -47,6 +47,6 @@ public class GetTags extends AbstractCommand {
 	throws Exception {
 		Set<Long> tagIds = new HashSet<Long>();
 		for (Tag tag : tags) tagIds.add(tag.getId());
-		return getTagRepository().selectAllThatHaveChildren(tagIds);
+		return getDomain().getTagRepository().selectAllThatHaveChildren(tagIds);
 	}
 }

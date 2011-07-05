@@ -14,7 +14,7 @@ public class SelectedFragments extends AbstractFragments {
 	@Override 
 	protected void setFragments() throws Exception {
 		this.fragments = getSelectedFragments().getFragments(
-			getFragmentRepository(),
+			getDomain().getFragmentRepository(),
 			ModelFactory.ALMOST_UNLIMITED_PAGE_SIZE, this.options.pageIndex, 
 			this.options.eagerFetching);
 	}

@@ -45,16 +45,16 @@ public class TagsPage extends AbstractBorderPage {
 
 		if (selectedTagIds == null || selectedTagIds.length == 0) return false;
 		
-		getTransaction().execute(new Procedure() {
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				for (String targetTagId : selectedTagIds) {
-					Tag targetTag = getTagRepository().get(Long.parseLong(targetTagId));
+					Tag targetTag = getDomain().getTagRepository().get(Long.parseLong(targetTagId));
 					if (targetTag == null) {
 						continue;
 					}
 					
 					for (String classifyingTagId : classifyingTagIds) {
-						Tag classifyingTag = getTagRepository().get(Long.parseLong(classifyingTagId));
+						Tag classifyingTag = getDomain().getTagRepository().get(Long.parseLong(classifyingTagId));
 						if (classifyingTag == null) {
 							continue;
 						}
@@ -65,7 +65,7 @@ public class TagsPage extends AbstractBorderPage {
 						attachTag(targetTag, classifyingTagName);
 					}
 					
-					getTagRepository().update(targetTag);
+					getDomain().getTagRepository().update(targetTag);
 				}
 				return null;
 			}
@@ -108,7 +108,7 @@ public class TagsPage extends AbstractBorderPage {
 	throws Exception {
 		getLogger().info("Tagging: " + targetTag.getName() + " <- " + classifyingTagName);
 		try {
-			targetTag.addTagByUser(classifyingTagName, getTagRepository(), getUser());
+			targetTag.addTagByUser(classifyingTagName, getDomain().getTagRepository(), getUser());
 			this.taggingCount++;
 		}
 		catch (Exception e) {
@@ -134,10 +134,10 @@ public class TagsPage extends AbstractBorderPage {
 		
 		if (selectedTagIds == null || selectedTagIds.length == 0) return false;
 		
-		getTransaction().execute(new Procedure() {
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				for (String tagId : selectedTagIds) {
-					getTagRepository().delete(Long.parseLong(tagId), getUser());
+					getDomain().getTagRepository().delete(Long.parseLong(tagId), getUser());
 				}
 				return null;
 			}
@@ -183,7 +183,7 @@ public class TagsPage extends AbstractBorderPage {
 		// Create a tag with the name
 		Tag newTag = null;
 		try {
-			newTag = getTagRepository().newInstance(tagName, getUser());
+			newTag = getDomain().getTagRepository().newInstance(tagName, getUser());
 		} 
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.tagNameField, this);
@@ -194,9 +194,9 @@ public class TagsPage extends AbstractBorderPage {
 		final Tag tagToRegister = newTag;
 		long newId;
 		try {
-			newId = (Long)getTransaction().execute(new Procedure() {
+			newId = (Long)getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					return getTagRepository().register(tagToRegister);
+					return getDomain().getTagRepository().register(tagToRegister);
 				}
 			});
 		}
@@ -228,7 +228,7 @@ public class TagsPage extends AbstractBorderPage {
 		importCssFile("click/tree/tree.css", false, null);		
 		importJsFile("scripts/piggydb-tags.js", true);
 		
-		this.tagCount = getTagRepository().size();
-		this.recentChanges = getTagRepository().getRecentChanges(RECENT_CHANGES_SIZE, 0);
+		this.tagCount = getDomain().getTagRepository().size();
+		this.recentChanges = getDomain().getTagRepository().getRecentChanges(RECENT_CHANGES_SIZE, 0);
 	}
 }

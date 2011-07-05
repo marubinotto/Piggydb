@@ -9,7 +9,7 @@ public class GetTagId extends AbstractCommand {
 	@Override 
 	protected void execute() throws Exception {
 		getLogger().debug("name: " + name);
-		Long id = getTagRepository().getIdByName(this.name);
+		Long id = getDomain().getTagRepository().getIdByName(this.name);
 		if (id == null) {
 			return;
 		}

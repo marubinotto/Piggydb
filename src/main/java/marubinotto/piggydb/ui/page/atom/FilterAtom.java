@@ -21,7 +21,7 @@ public class FilterAtom extends AbstractAtom {
 		this.feedId = this.feedId + PARAM_PREFIX_IN_ID + this.id;
 		appendQueryToUrls("?id=" + this.id);
 		
-		this.filter = getFilterRepository().get(this.id);
+		this.filter = getDomain().getFilterRepository().get(this.id);
 		if (this.filter == null) return;
 		
 		this.feedTitle  = this.feedTitle + AbstractBorderPage.HTML_TITLE_SEP + this.filter.getName();	
@@ -30,6 +30,6 @@ public class FilterAtom extends AbstractAtom {
 	@Override
 	protected List<Fragment> getFragments() throws Exception {
 		if (this.filter == null) return null;
-		return getFragmentRepository().findByFilter(this.filter, this.fragmentsOptions);
+		return getDomain().getFragmentRepository().findByFilter(this.filter, this.fragmentsOptions);
 	}
 }

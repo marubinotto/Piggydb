@@ -12,16 +12,16 @@ public class PublicHome extends AbstractCommand {
 	
 	@Override
 	protected boolean needsAuthentication() {
-        return false;
-    }
+		return false;
+	}
 
 	@Override 
 	protected void execute() throws Exception {
 		Filter filter = createPublicHomeFilter();
 		if (filter == null) return;
 		
-		Page<Fragment> fragments = getFragmentRepository().findByFilter(
-			filter, new FragmentsOptions(1, 0, false));
+		Page<Fragment> fragments = getDomain().getFragmentRepository().
+			findByFilter(filter, new FragmentsOptions(1, 0, false));
 		if (fragments.isEmpty()) {
 			getLogger().debug("Public home fragments not found");
 			return;
@@ -37,8 +37,8 @@ public class PublicHome extends AbstractCommand {
 	}
 	
 	private Filter createPublicHomeFilter() throws Exception {
-		Tag publicTag = getTagRepository().getByName(Tag.NAME_PUBLIC);
-		Tag homeTag = getTagRepository().getByName(Tag.NAME_HOME);
+		Tag publicTag = getDomain().getTagRepository().getByName(Tag.NAME_PUBLIC);
+		Tag homeTag = getDomain().getTagRepository().getByName(Tag.NAME_HOME);
 		if (publicTag == null || homeTag == null) {
 			getLogger().debug("Missing needed tags");
 			return null;

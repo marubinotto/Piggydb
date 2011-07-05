@@ -8,6 +8,6 @@ public class HomeAtom extends AbstractAtom {
 
 	@Override
 	protected List<Fragment> getFragments() throws Exception {
-		return getFragmentRepository().getFragments(this.fragmentsOptions);
+		return getDomain().getFragmentRepository().getFragments(this.fragmentsOptions);
 	}
 }

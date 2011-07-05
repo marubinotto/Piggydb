@@ -10,60 +10,59 @@ public class DocumentViewPage extends ModelFactory {
 
 	@Override
 	protected boolean needsAuthentication() {
-        return false;
-    }
-	
-	
+		return false;
+	}
+
 	//
 	// Input
 	//
 
 	public Long id;
 	public Fragment fragment;
-	
+
 	@Override
 	protected boolean onPreInit() throws Exception {
 		if (this.id == null) {
 			getLogger().info("Missing parameter: id");
 			return true;
 		}
-		
-		this.fragment = getFragmentRepository().get(this.id.longValue());
+
+		this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
 		if (this.fragment == null) {
 			getLogger().info("Missing fragment: #" + this.id);
-			return true;		
+			return true;
 		}
-		
+
 		if (!isAuthenticated() && !this.fragment.isPublic()) {
 			getLogger().info("Forbidden: #" + this.id);
 			setRedirectToLogin();
 			return false;
 		}
-		
+
 		fetchTagsAdditionally(this.fragment);
-		
+
 		return true;
 	}
-	
+
 	private void fetchTagsAdditionally(Fragment fragment) throws Exception {
 		List<Fragment> tagNotFetched = new ArrayList<Fragment>();
-		
+
 		// Grandchildren
-		tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(fragment.getChildren()));
+		tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(fragment
+			.getChildren()));
 		// Great-grandchildren
 		tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(tagNotFetched));
-		
-		getFragmentRepository().refreshClassifications(tagNotFetched);
+
+		getDomain().getFragmentRepository().refreshClassifications(tagNotFetched);
 	}
 
-	
 	//
 	// Model
 	//
 
 	public Boolean publicOnly;
 
-	@Override 
+	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
 		this.publicOnly = !isAuthenticated();

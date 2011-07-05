@@ -12,9 +12,9 @@ public class DeleteRelation extends AbstractCommand {
 		
 		final long relationId = this.id;
 		getLogger().info("Deleting a relation: " + relationId);
-		getTransaction().execute(new Procedure() {
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {		
-				return getFragmentRepository().deleteRelation(relationId, getUser());
+				return getDomain().getFragmentRepository().deleteRelation(relationId, getUser());
 			}
 		});
 	}

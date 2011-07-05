@@ -12,12 +12,12 @@ public class FragmentsByFilter extends AbstractFragments {
 	@Override 
 	protected void setFragments() throws Exception {
 		if (this.id != null)
-			this.filter = getFilterRepository().get(this.id);
+			this.filter = getDomain().getFilterRepository().get(this.id);
 		else
 			this.filter = (Filter)getContext().getSessionAttribute(FilterPage.SK_NEW_FILTER);
 		if (this.filter == null) return;
 		
 		this.contextTags = this.filter.getClassification();
-		this.fragments = getFragmentRepository().findByFilter(this.filter, this.options);
+		this.fragments = getDomain().getFragmentRepository().findByFilter(this.filter, this.options);
 	}
 }

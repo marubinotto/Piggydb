@@ -95,7 +95,7 @@ public abstract class AbstractBorderPage extends ModelFactory {
 		throws Exception {
 		String pageTitle = page.getMessage(pageName + "-htmlTitle");
 		pageTitle = StringUtils.isNotBlank(pageTitle) ? (" - " + pageTitle) : "";
-		return page.getGlobalSetting().getDatabaseTitle() + pageTitle;
+		return page.getDomain().getGlobalSetting().getDatabaseTitle() + pageTitle;
 	}
 
 	protected void setMessage(String message) {
@@ -172,21 +172,21 @@ public abstract class AbstractBorderPage extends ModelFactory {
 	public static final int BOOKMARK_SIZE = 100;
 
 	protected void setBookmarkedFragments() throws Exception {
-		this.bookmarkTag = getTagRepository().getByName(Tag.NAME_BOOKMARK);
+		this.bookmarkTag = getDomain().getTagRepository().getByName(Tag.NAME_BOOKMARK);
 		if (this.bookmarkTag == null) return;
 
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(this.bookmarkTag);
 
-		Tag trashTag = getTagRepository().getTrashTag();
+		Tag trashTag = getDomain().getTagRepository().getTrashTag();
 		if (trashTag != null) filter.getExcludes().addTag(trashTag);
 
-		this.bookmarkedFragments = getFragmentRepository().findByFilter(filter,
-			new FragmentsOptions(BOOKMARK_SIZE, 0, false));
+		this.bookmarkedFragments = getDomain().getFragmentRepository().findByFilter(
+			filter, new FragmentsOptions(BOOKMARK_SIZE, 0, false));
 	}
 
 	protected void setFilters() throws Exception {
-		this.filters = getFilterRepository().getRecentChanges(
+		this.filters = getDomain().getFilterRepository().getRecentChanges(
 			ALMOST_UNLIMITED_PAGE_SIZE, 0);
 	}
 
@@ -202,7 +202,9 @@ public abstract class AbstractBorderPage extends ModelFactory {
 	protected void setRecentlyViewed() {
 		try {
 			this.recentlyViewed = getRecentlyViewed().getAllWithNames(
-				getFragmentRepository(), getTagRepository(), getFilterRepository());
+				getDomain().getFragmentRepository(), 
+				getDomain().getTagRepository(), 
+				getDomain().getFilterRepository());
 		}
 		catch (Exception e) {
 			throw new UnhandledException(e);

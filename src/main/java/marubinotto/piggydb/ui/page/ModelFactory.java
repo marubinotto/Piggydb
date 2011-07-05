@@ -2,16 +2,11 @@ package marubinotto.piggydb.ui.page;
 
 import java.util.Map;
 
-import marubinotto.piggydb.model.FileRepository;
-import marubinotto.piggydb.model.FilterRepository;
-import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.page.model.FragmentTags;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.wiki.WikiParser;
-import marubinotto.util.procedure.Transaction;
 
 import org.apache.velocity.app.FieldMethodizer;
 
@@ -25,30 +20,9 @@ public abstract class ModelFactory extends AbstractPage {
 	// Domain models
 	//
 
-    private WikiParser getWikiParser() {
-    	return (WikiParser)getBean("wikiParser");
-    }
-
-    protected Transaction getTransaction() {
-    	return (Transaction)getBean("transaction");
-    }
-    
-    protected TagRepository getTagRepository() {
-    	return (TagRepository)getBean("tagRepository");
-    }
-    
-    protected FragmentRepository getFragmentRepository() {
-    	return (FragmentRepository)getBean("fragmentRepository");
-    }
-    
-    protected FilterRepository getFilterRepository() {
-    	return (FilterRepository)getBean("filterRepository");
-    }
-    
-    protected FileRepository getFileRepository() {
-    	return (FileRepository)getBean("fileRepository");
-    }
-	
+	private WikiParser getWikiParser() {
+		return (WikiParser) getBean("wikiParser");
+	}	
 	
 	//
 	// Model for templates
@@ -84,7 +58,7 @@ public abstract class ModelFactory extends AbstractPage {
 	protected void setSelectedFragments() throws Exception {
 		SelectedFragments fragments = getSelectedFragments();
 		if (!fragments.isEmpty()) {
-			this.selectedFragments = fragments.getTitles(getFragmentRepository());
+			this.selectedFragments = fragments.getTitles(getDomain().getFragmentRepository());
 		}
 	}
 }

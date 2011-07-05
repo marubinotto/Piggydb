@@ -26,13 +26,12 @@ import net.sf.click.extras.tree.Tree;
 import org.apache.commons.lang.StringUtils;
 
 public class FragmentBatchPage extends AbstractFragmentsPage {
-	
+
 	@Override
 	protected boolean showsSelectedFragments() {
-        return false;
-    }
+		return false;
+	}
 
-	
 	//
 	// Control
 	//
@@ -42,15 +41,15 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		super.onInit();
 		initControls();
 	}
-	
+
 	private void initControls() {
 		// tagForm
 		this.tagForm.setListenerForAdd("onAddTagClick");
 		this.tagForm.setListenerForDelete("onRemoveCommonTagClick");
 		this.tagForm.initialize();
-		this.commonTags = new TagTree("commonTags", this.resources, this.html);		
+		this.commonTags = new TagTree("commonTags", this.resources, this.html);
 		addControl(this.commonTags);
-		
+
 		// parentForm
 		this.parentTitleField.setMaxLength(Fragment.TITLE_MAX_LENGTH);
 		this.parentTitleField.setAttribute("class", "watermarked");
@@ -58,97 +57,99 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		this.parentForm.add(this.parentTitleField);
 		this.parentForm.add(new Submit("createParent", getMessage("create"), this, "onCreateParentClick"));
 	}
-	
+
 	// Tag form
-	
+
 	public SingleTagForm tagForm = new SingleTagForm(this);
 	private Tree commonTags;
 
 	public boolean onAddTagClick() throws Exception {
-		if (!this.tagForm.isValid())  return true;
-		
+		if (!this.tagForm.isValid()) return true;
+
 		final String tagName = this.tagForm.tagField.getValue();
 		if (StringUtils.isBlank(tagName)) return true;
-		
+
 		SelectedFragments selected = getSelectedFragments();
 		if (selected.isEmpty()) return true;
-		final List<Fragment> fragments = selected.getAllFragments(getFragmentRepository(), true);
-		
+		final List<Fragment> fragments = 
+			selected.getAllFragments(getDomain().getFragmentRepository(), true);
+
 		try {
-			getTransaction().execute(new Procedure() {
+			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					for (Fragment fragment : fragments) {
-						fragment.addTagByUser(tagName, getTagRepository(), getUser());
-						getFragmentRepository().update(fragment);
+						fragment.addTagByUser(tagName, getDomain().getTagRepository(), getUser());
+						getDomain().getFragmentRepository().update(fragment);
 					}
 					return null;
 				}
 			});
-		} 
+		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.tagForm, this);
 			return true;
 		}
-		
+
 		setRedirectToThisPage(
 			getMessage(
 				"completed-add-tags-to-selected", 
-				new Object[]{this.html.linkToTag(tagName)},
+				new Object[]{this.html.linkToTag(tagName)}, 
 				false));
 		return false;
 	}
-	
+
 	public boolean onRemoveCommonTagClick() throws Exception {
 		final String tagToRemove = this.tagForm.tagToDeleteField.getValue();
 		if (StringUtils.isBlank(tagToRemove)) return true;
-		
+
 		SelectedFragments selected = getSelectedFragments();
 		if (selected.isEmpty()) return true;
-		final List<Fragment> fragments = selected.getAllFragments(getFragmentRepository(), true);
-		
+		final List<Fragment> fragments = 
+			selected.getAllFragments(getDomain().getFragmentRepository(), true);
+
 		try {
-			getTransaction().execute(new Procedure() {
+			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					for (Fragment fragment : fragments) {
 						fragment.removeTagByUser(tagToRemove, getUser());
-						getFragmentRepository().update(fragment);
+						getDomain().getFragmentRepository().update(fragment);
 					}
 					return null;
 				}
 			});
-		} 
+		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.tagForm, this);
 			return true;
 		}
-		
+
 		setRedirectToThisPage(
 			getMessage(
-				"completed-remove-tag",
+				"completed-remove-tag", 
 				new Object[]{
-					this.html.linkToTag(tagToRemove), 
-					getMessage("FragmentBatchPage-selected-fragments")},
+					this.html.linkToTag(tagToRemove),
+					getMessage("FragmentBatchPage-selected-fragments")}, 
 				false));
 		return false;
 	}
-	
+
 	// Parent form
 
 	public Form parentForm = new Form();
 	private TextField parentTitleField = new TextField("title", false);
-	
+
 	public boolean onCreateParentClick() throws Exception {
-		if (!this.parentForm.isValid())  return true;
-		
+		if (!this.parentForm.isValid()) return true;
+
 		String title = this.parentTitleField.getValue();
-		final Fragment parent = getFragmentRepository().newInstance(getUser());
+		final Fragment parent = getDomain().getFragmentRepository().newInstance(getUser());
 		parent.setTitleByUser(title, getUser());
-		
+
 		Long parentId = null;
 		try {
-			parentId = (Long)getTransaction().execute(new Procedure() {
+			parentId = (Long)getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					FragmentRepository repository = getFragmentRepository();
+					FragmentRepository repository = getDomain().getFragmentRepository();
 					long newId = repository.register(parent);
 					for (Long childId : getSelectedFragments()) {
 						repository.createRelation(newId, childId, getUser());
@@ -156,45 +157,51 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 					return newId;
 				}
 			});
-		} 
+		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.parentForm, this);
 			return true;
 		}
-		
-		setFlashMessage(getMessage(
-			"completed-register-fragment", 
-			this.html.linkToFragment(parentId),
-			false));
+
+		setFlashMessage(
+			getMessage(
+				"completed-register-fragment", 
+				this.html.linkToFragment(parentId), 
+				false));
 		highlightFragment(parentId);
 		setRedirect(getContext().getPagePath(FragmentPage.class) + "?id=" + parentId);
 		return false;
 	}
-	
+
 	// Remove parent form
-	
+
 	public static class RemoveParentForm extends PublicFieldForm {
-		public RemoveParentForm(Object listener, String method) { super(listener, method); }
+		public RemoveParentForm(Object listener, String method) {
+			super(listener, method);
+		}
+
 		public HiddenField parentToRemove = new HiddenField("parentToRemove", Long.class);
 	}
+
 	public RemoveParentForm removeParentForm = new RemoveParentForm(this, "onRemoveParentClick");
-	
+
 	public boolean onRemoveParentClick() throws Exception {
-		final long parentToRemove = (Long)this.removeParentForm.parentToRemove.getValueObject();
-		
+		final long parentToRemove = (Long) this.removeParentForm.parentToRemove.getValueObject();
+
 		SelectedFragments selected = getSelectedFragments();
 		if (selected.isEmpty()) return true;
-		final List<Fragment> fragments = selected.getAllFragments(getFragmentRepository(), true);
-		
+		final List<Fragment> fragments = 
+			selected.getAllFragments(getDomain().getFragmentRepository(), true);
+
 		Fragment removed = null;
 		try {
-			removed = (Fragment)getTransaction().execute(new Procedure() {
+			removed = (Fragment)getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					Fragment parent = null;
 					for (Fragment fragment : fragments) {
 						FragmentRelation relation = fragment.getParentRelationByParentId(parentToRemove);
 						if (relation != null) {
-							getFragmentRepository().deleteRelation(relation.getId(), getUser());
+							getDomain().getFragmentRepository().deleteRelation(relation.getId(), getUser());
 							parent = relation.from;
 						}
 					}
@@ -206,38 +213,38 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			Utils.handleFormError(e, this.parentForm, this);
 			return true;
 		}
-		
+
 		setRedirectToThisPage(
-			getMessage("FragmentBatchPage-completed-remove-parent",
-			new Object[]{
-				removed != null ? 
-					this.html.fragmentInMessage(removed) : 
-					this.html.linkToFragment(parentToRemove)
-			},
-			false));
+			getMessage(
+				"FragmentBatchPage-completed-remove-parent", 
+				new Object[]{
+					removed != null ? 
+						this.html.fragmentInMessage(removed) : 
+						this.html.linkToFragment(parentToRemove)
+				}, 
+				false));
 		return false;
 	}
-	
-	
+
 	//
 	// Model
 	//
 
 	public List<Fragment> commonParents;
-	
-	@Override 
+
+	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
-		
+
 		// always eager fetching in order to get common tags & parents
 		Page<Fragment> fragments = getSelectedFragments().getFragments(
-			getFragmentRepository(), ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
+			getDomain().getFragmentRepository(), ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
 		setCommonTags(fragments);
 		this.commonParents = ModelUtils.getCommonParents(fragments);
-		
+
 		setCommonSidebarModels();
 	}
-	
+
 	private void setCommonTags(List<Fragment> fragments) throws InvalidTaggingException {
 		Set<Tag> tags = ModelUtils.getCommonTags(fragments);
 		RawFragment dummyFragment = new RawFragment();

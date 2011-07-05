@@ -7,10 +7,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import marubinotto.piggydb.model.Authentication;
-import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.ui.page.util.DomainModelBeans;
 import marubinotto.piggydb.ui.page.util.HtmlFragments;
 import marubinotto.piggydb.ui.page.util.PageUrl;
 import marubinotto.piggydb.ui.page.util.TemplateUtils;
@@ -54,9 +53,10 @@ implements ApplicationContextAware, WebMessageSource {
 	public HtmlFragments html;
 	public LoopTool loop;
 	public WebMessageSource messageSource = this;
-
+	
 	private Log logger;
 	private ApplicationContext applicationContext;
+	private DomainModelBeans domain;
 	private User user;
 
 	public AbstractPage() {
@@ -101,6 +101,7 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
+		this.domain = new DomainModelBeans(this.applicationContext);
 	}
 
 	public ApplicationContext getApplicationContext() {
@@ -111,16 +112,12 @@ implements ApplicationContextAware, WebMessageSource {
 		return this.applicationContext.getBean(beanName);
 	}
 
+	public DomainModelBeans getDomain() {
+		return this.domain;
+	}
+
 	protected final WarSetting getWarSetting() {
-		return (WarSetting) getBean("warSetting");
-	}
-
-	protected final GlobalSetting getGlobalSetting() {
-		return (GlobalSetting) getBean("globalSetting");
-	}
-
-	protected final Authentication getAuthentication() {
-		return (Authentication) getBean("authentication");
+		return (WarSetting)getBean("warSetting");
 	}
 
 	// Access control
@@ -290,7 +287,7 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 
 		// Anonymous access is enabled?
-		if (!getAuthentication().isEnableAnonymous() && user.isAnonymous()) {
+		if (!getDomain().getAuthentication().isEnableAnonymous() && user.isAnonymous()) {
 			getContext().getSession().invalidate();
 			getLogger().warn("Invalid anonymous session invalidated");
 			return null;
@@ -332,7 +329,7 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	protected User autoLoginAsAnonymous() {
-		User user = getAuthentication().authenticateAsAnonymous();
+		User user = getDomain().getAuthentication().authenticateAsAnonymous();
 		if (user == null) return null;
 
 		newSession(user);

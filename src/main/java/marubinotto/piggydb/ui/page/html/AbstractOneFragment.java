@@ -12,7 +12,7 @@ public abstract class AbstractOneFragment extends AbstractHtml {
 		super.setModels();
 		
 		if (this.id == null) return;	
-		this.fragment = getFragmentRepository().get(this.id.longValue());
+		this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
 		setSelectedFragments();
 	}
 }

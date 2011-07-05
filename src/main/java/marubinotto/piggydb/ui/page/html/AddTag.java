@@ -20,16 +20,16 @@ public class AddTag extends AbstractHtml {
 		if (this.fragmentId == null) return;
 		if (this.tagId == null) return;
 		
-		this.fragment = getFragmentRepository().get(this.fragmentId);
+		this.fragment = getDomain().getFragmentRepository().get(this.fragmentId);
 		if (this.fragment == null) return;
 		
-		Tag tag = getTagRepository().get(this.tagId);
+		Tag tag = getDomain().getTagRepository().get(this.tagId);
 		if (tag == null) return;
 		
 		this.fragment.addTagByUser(tag, getUser());
-		getTransaction().execute(new Procedure() {
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
-				getFragmentRepository().update(fragment);
+				getDomain().getFragmentRepository().update(fragment);
 				return null;
 			}
 		});

@@ -26,7 +26,7 @@ public class FragmentsByKeywords extends AbstractFragments {
 			this.keywordRegx = "(" + keywordRegx.toString() + ")";
 		}
 		
-		this.fragments = getFragmentRepository().findByKeywords(
-			this.keywords, this.options);
+		this.fragments = getDomain().getFragmentRepository().
+			findByKeywords(this.keywords, this.options);
 	}
 }

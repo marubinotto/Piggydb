@@ -9,6 +9,6 @@ public class FragmentsByUser extends AbstractFragments {
 		if (this.name == null) return;
 		
 		this.name = modifyIfGarbledByTomcat(this.name);		
-		this.fragments = getFragmentRepository().findByUser(this.name, this.options);
+		this.fragments = getDomain().getFragmentRepository().findByUser(this.name, this.options);
 	}
 }

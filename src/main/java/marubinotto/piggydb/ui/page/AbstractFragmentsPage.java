@@ -108,9 +108,9 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		Assert.Arg.notNull(fragment, "fragment");
 		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
 
-		getTransaction().execute(new Procedure() {
+		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
-				getFragmentRepository().update(fragment);
+				getDomain().getFragmentRepository().update(fragment);
 				return null;
 			}
 		});
@@ -167,9 +167,9 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 		try {
-			getTransaction().execute(new Procedure() {
+			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					getFragmentRepository().createRelation(fromId, toId, getUser());
+					getDomain().getFragmentRepository().createRelation(fromId, toId, getUser());
 					return null;
 				}
 			});
@@ -183,8 +183,9 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 
-		Map<Long, Fragment> fragments = ModelUtils.toIdMap(getFragmentRepository()
-			.getByIds(set(fromId, toId), SortOption.getDefault(), false));
+		Map<Long, Fragment> fragments = ModelUtils.toIdMap(
+			getDomain().getFragmentRepository()
+				.getByIds(set(fromId, toId), SortOption.getDefault(), false));
 		Fragment from = fragments.get(fromId);
 		Fragment to = fragments.get(toId);
 		if (from == null || to == null) {
@@ -228,7 +229,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 
-		Integer relationCount = (Integer) getTransaction().execute(new Procedure() {
+		Integer relationCount = (Integer)getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				Integer count = 0;
 				getLogger().info("Create relations from #" + fromId + " {");
@@ -238,7 +239,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 						continue;
 					}
 					try {
-						getFragmentRepository().createRelation(fromId, toId, getUser());
+						getDomain().getFragmentRepository().createRelation(fromId, toId, getUser());
 						count++;
 						getLogger().info("  → #" + toId);
 					}
@@ -278,7 +279,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		long fragmentId = (Long) this.removeTagForm.fragmentId.getValueObject();
 		String tagName = this.removeTagForm.tagName.getValue();
 
-		Fragment fragment = getFragmentRepository().get(fragmentId);
+		Fragment fragment = getDomain().getFragmentRepository().get(fragmentId);
 		if (fragment == null || StringUtils.isBlank(tagName)) {
 			setRedirectToThisPage();
 			return false;
@@ -312,14 +313,14 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		long fragmentId = (Long) this.addTagForm.fragmentId.getValueObject();
 		String tagName = this.addTagForm.tagName.getValue();
 
-		Fragment fragment = getFragmentRepository().get(fragmentId);
+		Fragment fragment = getDomain().getFragmentRepository().get(fragmentId);
 		if (fragment == null || !ModelUtils.isTagNameValid(tagName)) {
 			setRedirectToThisPage();
 			return false;
 		}
 
 		getLogger().info("Add a tag <" + tagName + "> to: #" + fragmentId);
-		fragment.addTagByUser(tagName, getTagRepository(), getUser());
+		fragment.addTagByUser(tagName, getDomain().getTagRepository(), getUser());
 		saveFragment(fragment);
 
 		String message = null;
@@ -357,7 +358,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	public final boolean onAddTagsToSelected() throws Exception {
 		// tag
 		Long tagId = (Long) this.addTagsToSelectedForm.tagId.getValueObject();
-		final Tag tag = tagId != null ? getTagRepository().get(tagId) : null;
+		final Tag tag = tagId != null ? getDomain().getTagRepository().get(tagId) : null;
 		if (tag == null) {
 			setRedirectToThisPage();
 			return false;
@@ -370,17 +371,17 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 		final List<Fragment> fragments = selected.getAllFragments(
-			getFragmentRepository(), true);
+			getDomain().getFragmentRepository(), true);
 
 		// do tagging
 		try {
-			getTransaction().execute(new Procedure() {
+			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					for (Fragment fragment : fragments) {
 						getLogger().info(
 							"Adding a tag <" + tag.getName() + "> to: #" + fragment.getId());
 						fragment.addTagByUser(tag, getUser());
-						getFragmentRepository().update(fragment);
+						getDomain().getFragmentRepository().update(fragment);
 					}
 					return null;
 				}
@@ -413,7 +414,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		long fragmentId = (Long) this.removeBookmarkForm.fragmentId
 			.getValueObject();
 
-		Fragment fragment = getFragmentRepository().get(fragmentId);
+		Fragment fragment = getDomain().getFragmentRepository().get(fragmentId);
 		if (fragment == null) {
 			setRedirectToThisPage();
 			return false;

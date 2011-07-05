@@ -29,6 +29,6 @@ public class UserAtom extends AbstractAtom {
 	@Override
 	protected List<Fragment> getFragments() throws Exception {
 		if (this.name == null) return null;
-		return getFragmentRepository().findByUser(this.name, this.fragmentsOptions);
+		return getDomain().getFragmentRepository().findByUser(this.name, this.fragmentsOptions);
 	}
 }

@@ -11,13 +11,13 @@ public class FragmentsByDate extends AbstractFragments {
 	protected void setFragments() throws Exception {
 		CalendarFocus calendarFocus = CalendarFocus.parseString(this.date);
 		if (calendarFocus != null) {
-			this.fragments = getFragmentRepository().findByTime(
+			this.fragments = getDomain().getFragmentRepository().findByTime(
 				calendarFocus.toInterval(),
 				FragmentField.UPDATE_DATETIME,
 				this.options);
 		}
 		else {
-			this.fragments = getFragmentRepository().getFragments(this.options);
+			this.fragments = getDomain().getFragmentRepository().getFragments(this.options);
 		}
 	}
 }

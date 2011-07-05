@@ -29,7 +29,7 @@ public class CompleteTagName extends AbstractCommand {
 	protected void execute() throws Exception {
 		Assert.Property.requireNotNull(q, "q");
 		
-		List<String> names = getTagRepository().getNamesLike(this.q);
+		List<String> names = getDomain().getTagRepository().getNamesLike(this.q);
 		if (getLogger().isDebugEnabled()) {
 			getLogger().debug(this.q + " " + names);
 		}

@@ -16,7 +16,7 @@ public class UpdateChildRelationPriorities extends AbstractCommand {
 		// Parameter: parent
 		//
 		if (this.id == null) return;
-		final Fragment parent = getFragmentRepository().get(this.id);
+		final Fragment parent = getDomain().getFragmentRepository().get(this.id);
 		if (parent == null) return;
 		
 		//
@@ -33,9 +33,9 @@ public class UpdateChildRelationPriorities extends AbstractCommand {
 		// Transaction
 		//
 		try {
-			getTransaction().execute(new Procedure() {
+			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					getFragmentRepository().updateChildRelationPriorities(
+					getDomain().getFragmentRepository().updateChildRelationPriorities(
 						parent, relationOrder, getUser());
 					return null;
 				}

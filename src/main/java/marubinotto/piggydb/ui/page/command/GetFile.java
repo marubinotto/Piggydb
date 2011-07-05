@@ -8,35 +8,35 @@ import marubinotto.util.web.WebUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class GetFile extends AbstractCommand {
-	
+
 	public static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
 
 	public Long id;
-	
+
 	private Fragment fileFragment;
-	
+
 	@Override
 	protected boolean needsAuthentication() {
-        return false;
-    }
-	
+		return false;
+	}
+
 	@Override
 	protected boolean onPreInit() throws Exception {
 		if (this.id == null) {
 			getLogger().info("Missing parameter: id");
 			return false;
 		}
-		
+
 		this.fileFragment = getTargetFileFragment();
 		if (this.fileFragment == null) return false;
 
 		return true;
 	}
 
-	@Override 
+	@Override
 	protected void execute() throws Exception {
 		HttpServletResponse response = getContext().getResponse();
-		
+
 		// Content-Type
 		String mimeType = this.fileFragment.getMimeType();
 		if (mimeType == null) {
@@ -44,17 +44,17 @@ public class GetFile extends AbstractCommand {
 		}
 		response.setContentType(mimeType);
 		getLogger().info("ContentType: " + mimeType);
-		
+
 		// Content-Disposition (file name)
 		WebUtils.setFileName(response, decideFileName(this.fileFragment));
-		
+
 		// Content
-		getFileRepository().getFile(response.getOutputStream(), this.fileFragment);
+		getDomain().getFileRepository().getFile(response.getOutputStream(), this.fileFragment);
 		response.flushBuffer();
 	}
-	
+
 	private Fragment getTargetFileFragment() throws Exception {
-		Fragment fragment = getFragmentRepository().get(this.id);
+		Fragment fragment = getDomain().getFragmentRepository().get(this.id);
 		if (fragment == null) {
 			getLogger().info("Missing fragment: #" + this.id);
 			return null;
@@ -70,7 +70,7 @@ public class GetFile extends AbstractCommand {
 		}
 		return fragment;
 	}
-	
+
 	private static String decideFileName(Fragment fragment) {
 		if (StringUtils.isAsciiPrintable(fragment.getFileName())) {
 			return fragment.getFileName();
