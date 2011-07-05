@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page.atom;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.ui.page.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 import org.apache.commons.codec.net.URLCodec;
 

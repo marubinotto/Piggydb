@@ -7,6 +7,7 @@ import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;

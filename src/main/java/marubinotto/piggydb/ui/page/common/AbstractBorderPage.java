@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.common;
 
 import java.util.Map;
 

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.UnhandledException;
 
-import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.Assert;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Context;

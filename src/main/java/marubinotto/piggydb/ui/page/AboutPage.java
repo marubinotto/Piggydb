@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page;
 
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.util.time.DateTime;
 
 public class AboutPage extends AbstractBorderPage {

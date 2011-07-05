@@ -4,7 +4,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.ui.page.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 public class FilterAtom extends AbstractAtom {
 

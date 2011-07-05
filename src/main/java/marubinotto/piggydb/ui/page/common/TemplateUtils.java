@@ -6,7 +6,6 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.RegexUtils;
 import marubinotto.util.ThreadLocalCache;
 import marubinotto.util.RegexUtils.MatchProcessor;

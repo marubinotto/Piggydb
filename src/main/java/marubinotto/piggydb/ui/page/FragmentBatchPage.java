@@ -10,6 +10,7 @@ import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;

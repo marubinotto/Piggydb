@@ -5,7 +5,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.ui.page.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 public class TagAtom extends AbstractAtom {
 	

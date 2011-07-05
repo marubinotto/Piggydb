@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.common;
 
 import static marubinotto.util.CollectionUtils.set;
 
@@ -12,7 +12,6 @@ import marubinotto.piggydb.model.NoSuchEntityException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.enums.FragmentField;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.html.AbstractFragments;

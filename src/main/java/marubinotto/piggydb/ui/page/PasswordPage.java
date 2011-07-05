@@ -4,6 +4,8 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.OwnerAuth;
 import marubinotto.piggydb.model.Password;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.Form;
 import net.sf.click.control.PasswordField;

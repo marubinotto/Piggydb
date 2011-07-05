@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;

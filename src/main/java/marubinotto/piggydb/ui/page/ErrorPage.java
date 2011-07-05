@@ -2,6 +2,7 @@ package marubinotto.piggydb.ui.page;
 
 import java.net.SocketException;
 
+import marubinotto.piggydb.ui.page.common.AbstractPage;
 import marubinotto.piggydb.ui.page.common.TemplateUtils;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.Assert;

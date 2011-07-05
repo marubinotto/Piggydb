@@ -8,7 +8,6 @@ import java.util.Set;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang.UnhandledException;
 
-import marubinotto.piggydb.ui.page.AbstractPage;
 import marubinotto.util.Assert;
 
 public class WebResourcePaths {

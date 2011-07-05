@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.command;
 
-import marubinotto.piggydb.ui.page.AbstractPage;
+import marubinotto.piggydb.ui.page.common.AbstractPage;
 
 import org.apache.commons.lang.UnhandledException;
 

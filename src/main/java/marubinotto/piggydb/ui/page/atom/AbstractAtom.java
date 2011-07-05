@@ -5,8 +5,8 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
-import marubinotto.piggydb.ui.page.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.AbstractPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractPage;
 import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.ClassUtils;

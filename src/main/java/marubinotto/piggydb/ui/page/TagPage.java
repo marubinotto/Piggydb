@@ -7,6 +7,7 @@ import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.entity.RawFilter;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;

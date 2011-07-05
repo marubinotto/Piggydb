@@ -7,6 +7,7 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
 import marubinotto.piggydb.ui.page.control.CalendarIndex;

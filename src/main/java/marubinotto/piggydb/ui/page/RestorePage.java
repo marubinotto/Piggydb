@@ -8,6 +8,7 @@ import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.DatabaseSpecificBeans;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.procedure.Procedure;

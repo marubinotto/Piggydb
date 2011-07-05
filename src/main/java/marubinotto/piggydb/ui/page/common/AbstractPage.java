@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page;
+package marubinotto.piggydb.ui.page.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
@@ -12,11 +12,8 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.WarSetting;
-import marubinotto.piggydb.ui.page.common.DomainModelBeans;
-import marubinotto.piggydb.ui.page.common.HtmlFragments;
-import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.common.TemplateUtils;
-import marubinotto.piggydb.ui.page.common.WebResourcePaths;
+import marubinotto.piggydb.ui.page.HomePage;
+import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.model.FragmentTags;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.wiki.WikiParser;

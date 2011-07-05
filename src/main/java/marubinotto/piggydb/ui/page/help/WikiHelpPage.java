@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.help;
 
-import marubinotto.piggydb.ui.page.AbstractPage;
+import marubinotto.piggydb.ui.page.common.AbstractPage;
 
 public class WikiHelpPage extends AbstractPage {
 
