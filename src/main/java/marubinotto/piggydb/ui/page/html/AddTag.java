@@ -4,7 +4,7 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.util.procedure.Procedure;
 
-public class AddTag extends AbstractHtml {
+public class AddTag extends AbstractHtmlFragment {
 	
 	public Long fragmentId;
 	public Long tagId;

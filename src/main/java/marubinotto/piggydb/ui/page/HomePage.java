@@ -7,7 +7,7 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
-import marubinotto.piggydb.ui.page.common.FragmentsPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
 import marubinotto.piggydb.ui.page.control.CalendarIndex;
@@ -18,7 +18,7 @@ import marubinotto.util.time.Month;
 import marubinotto.util.time.TimeVisitors;
 import net.sf.click.control.PageLink;
 
-public class HomePage extends FragmentsPage {
+public class HomePage extends AbstractFragmentsPage {
 
 	@Override
 	protected String getAtomUrl() {

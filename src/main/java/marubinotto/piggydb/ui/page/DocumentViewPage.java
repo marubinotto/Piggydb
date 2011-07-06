@@ -5,9 +5,9 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.ModelUtils;
-import marubinotto.piggydb.ui.page.common.MarkupWebResource;
+import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
 
-public class DocumentViewPage extends MarkupWebResource {
+public class DocumentViewPage extends AbstractTemplateWebResource {
 
 	@Override
 	protected boolean needsAuthentication() {

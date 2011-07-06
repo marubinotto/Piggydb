@@ -34,7 +34,7 @@ import org.apache.velocity.app.FieldMethodizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public abstract class WebResource extends Page 
+public abstract class AbstractWebResource extends Page 
 implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
@@ -58,7 +58,7 @@ implements ApplicationContextAware, WebMessageSource {
 	private DomainModelBeans domain;
 	private User user;
 
-	public WebResource() {
+	public AbstractWebResource() {
 	}
 
 	protected Log getLogger() {

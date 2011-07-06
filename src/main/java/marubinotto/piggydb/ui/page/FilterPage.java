@@ -7,7 +7,7 @@ import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
-import marubinotto.piggydb.ui.page.common.FragmentsPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
@@ -24,7 +24,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FilterPage extends FragmentsPage {
+public class FilterPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

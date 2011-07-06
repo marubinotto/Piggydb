@@ -96,6 +96,6 @@ public class TemplateUtils {
 
 	public Object urlEncode(Object object) throws UnsupportedEncodingException {
 		return object == null ? null : new URLCodec().encode(object.toString(),
-			WebResource.CHAR_ENCODING);
+			AbstractWebResource.CHAR_ENCODING);
 	}
 }

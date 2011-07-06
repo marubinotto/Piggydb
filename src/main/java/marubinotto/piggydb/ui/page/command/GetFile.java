@@ -7,7 +7,7 @@ import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.StringUtils;
 
-public class GetFile extends Command {
+public class GetFile extends AbstractCommand {
 
 	public static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
 

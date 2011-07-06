@@ -3,13 +3,13 @@ package marubinotto.piggydb.ui.page;
 import java.io.UnsupportedEncodingException;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.ui.page.common.FragmentsPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang.UnhandledException;
 
-public class UserPage extends FragmentsPage {
+public class UserPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

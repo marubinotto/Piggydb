@@ -4,14 +4,14 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.OwnerAuth;
 import marubinotto.piggydb.model.Password;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.ui.page.common.BorderPage;
-import marubinotto.piggydb.ui.page.common.FragmentsPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.Form;
 import net.sf.click.control.PasswordField;
 import net.sf.click.control.Submit;
 
-public class PasswordPage extends BorderPage {
+public class PasswordPage extends AbstractBorderPage {
 
 	@Override
 	protected String[] getAuthorizedRoles() {
@@ -106,7 +106,7 @@ public class PasswordPage extends BorderPage {
 					return null;
 				}
 			});
-			FragmentsPage.highlightFragment(userFragment.getId(), getContext());
+			AbstractFragmentsPage.highlightFragment(userFragment.getId(), getContext());
 		}
 	}
 }

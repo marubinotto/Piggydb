@@ -47,7 +47,7 @@ public class WebResourcePaths {
 	public String tagPathByName(String name) {
 		URLCodec codec = new URLCodec();
 		try {
-			return this.contextPath + "/tag.htm?name=" + codec.encode(name, WebResource.CHAR_ENCODING);
+			return this.contextPath + "/tag.htm?name=" + codec.encode(name, AbstractWebResource.CHAR_ENCODING);
 		}
 		catch (UnsupportedEncodingException e) {
 			throw new UnhandledException(e);
@@ -69,7 +69,7 @@ public class WebResourcePaths {
 	public String userPath(String name) {
 		URLCodec codec = new URLCodec();
 		try {
-			return this.contextPath + "/user.htm?name=" + codec.encode(name, WebResource.CHAR_ENCODING);
+			return this.contextPath + "/user.htm?name=" + codec.encode(name, AbstractWebResource.CHAR_ENCODING);
 		} 
 		catch (UnsupportedEncodingException e) {
 			throw new UnhandledException(e);

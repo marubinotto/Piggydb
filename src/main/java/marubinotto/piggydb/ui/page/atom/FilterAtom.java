@@ -4,9 +4,9 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.ui.page.common.BorderPage;
+import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
-public class FilterAtom extends Atom {
+public class FilterAtom extends AbstractAtom {
 
 	public Long id;
 	
@@ -24,7 +24,7 @@ public class FilterAtom extends Atom {
 		this.filter = getDomain().getFilterRepository().get(this.id);
 		if (this.filter == null) return;
 		
-		this.feedTitle  = this.feedTitle + BorderPage.HTML_TITLE_SEP + this.filter.getName();	
+		this.feedTitle  = this.feedTitle + AbstractBorderPage.HTML_TITLE_SEP + this.filter.getName();	
 	}
 	
 	@Override

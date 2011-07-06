@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.html;
 
 import marubinotto.piggydb.model.Fragment;
 
-public abstract class AbstractOneFragment extends AbstractHtml {
+public abstract class AbstractOneFragment extends AbstractHtmlFragment {
 
 	public Long id;
 	public Fragment fragment;

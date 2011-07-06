@@ -1,14 +1,14 @@
 package marubinotto.piggydb.ui.page;
 
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.ui.page.common.FragmentsPage;
+import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.paging.Page;
 
 import org.apache.commons.lang.StringUtils;
 
-public class SearchPage extends FragmentsPage {
+public class SearchPage extends AbstractFragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {

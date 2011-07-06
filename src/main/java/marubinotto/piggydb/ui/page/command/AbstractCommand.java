@@ -1,10 +1,10 @@
 package marubinotto.piggydb.ui.page.command;
 
-import marubinotto.piggydb.ui.page.common.WebResource;
+import marubinotto.piggydb.ui.page.common.AbstractWebResource;
 
 import org.apache.commons.lang.UnhandledException;
 
-public abstract class Command extends WebResource {
+public abstract class AbstractCommand extends AbstractWebResource {
 
 	@Override 
 	public String getPath() {

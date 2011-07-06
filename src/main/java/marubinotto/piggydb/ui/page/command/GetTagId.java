@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.command;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class GetTagId extends Command {
+public class GetTagId extends AbstractCommand {
 	
 	public String name;
 

@@ -9,7 +9,7 @@ import org.apache.commons.codec.net.URLCodec;
 
 import marubinotto.util.Assert;
 
-public class CompleteTagName extends Command {
+public class CompleteTagName extends AbstractCommand {
 	
 	public static final String CONTENT_TYPE = "text/plain; charset=UTF-8";
 

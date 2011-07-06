@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.command;
 
-public class FragmentSelection extends Command {
+public class FragmentSelection extends AbstractCommand {
 	
 	public String command;
 	public Long id;

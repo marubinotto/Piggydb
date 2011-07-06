@@ -4,7 +4,7 @@ import org.apache.velocity.tools.generic.LoopTool;
 
 import marubinotto.piggydb.ui.wiki.WikiParser;
 
-public abstract class MarkupWebResource extends WebResource {
+public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 	
 	public HtmlFragments html;
 

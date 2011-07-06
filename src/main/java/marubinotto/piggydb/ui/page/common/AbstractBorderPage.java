@@ -20,9 +20,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.text.StrBuilder;
 
-public abstract class BorderPage extends MarkupWebResource {
+public abstract class AbstractBorderPage extends AbstractTemplateWebResource {
 
-	public BorderPage() {
+	public AbstractBorderPage() {
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public abstract class BorderPage extends MarkupWebResource {
 		showSessionMessageIfExist();
 	}
 
-	public static String getPageTitle(String pageName, WebResource page)
+	public static String getPageTitle(String pageName, AbstractWebResource page)
 		throws Exception {
 		String pageTitle = page.getMessage(pageName + "-htmlTitle");
 		pageTitle = StringUtils.isNotBlank(pageTitle) ? (" - " + pageTitle) : "";
