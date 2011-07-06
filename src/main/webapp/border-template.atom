@@ -26,7 +26,7 @@
 #else
   <content type="html">
   #if ($preformatted.evaluate($fragment))
-    $html.preformattedContent($fragment)
+    $html.preformattedContent($fragment, $wikiParser, $user)
   #else
     $utils.escapeXml($wikiParser.parse($fragment.content, $fragment.id, $user, $resources))
   #end

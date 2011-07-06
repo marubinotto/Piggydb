@@ -172,8 +172,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		this.classificationForm
 			.setListenerForDelete("onDeleteClassificationTagClick");
 		this.classificationForm.initialize();
-		this.classificationTags = new TagTree("classificationTags", this.resources,
-			this.html);
+		this.classificationTags = new TagTree("classificationTags", this.resources, this.html);
 		addControl(this.classificationTags);
 
 		// Excludes

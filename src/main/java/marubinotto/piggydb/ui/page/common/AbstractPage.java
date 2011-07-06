@@ -51,9 +51,7 @@ implements ApplicationContextAware, WebMessageSource {
 	private static final String SK_STOP_WATCH = "stopWatch";
 
 	public PageUrl thisPageUrl;
-	public TemplateUtils utils = TemplateUtils.INSTANCE;
 	public WebResourcePaths resources;
-	public HtmlFragments html;
 	public LoopTool loop;
 	public WebMessageSource messageSource = this;
 	
@@ -185,9 +183,9 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 
 		// Preparation before init()
-		this.resources = new WebResourcePaths(getContext().getRequest()
-				.getContextPath(), getWarSetting().getPiggydbVersion());
-		this.html = new HtmlFragments(this.resources);
+		this.resources = new WebResourcePaths(
+			getContext().getRequest().getContextPath(), 
+			getWarSetting().getPiggydbVersion());
 		try {
 			return onPreInit();
 		}
