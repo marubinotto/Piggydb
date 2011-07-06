@@ -2,17 +2,16 @@ package marubinotto.piggydb.ui.page;
 
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.piggydb.ui.page.command.ExportDatabase;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 import net.sf.click.control.Form;
 import net.sf.click.extras.control.PageSubmit;
 
-public class ExportPage extends AbstractBorderPage {
+public class ExportPage extends BorderPage {
 
-    @Override
-    protected String[] getAuthorizedRoles() {
-    	return new String[]{Role.OWNER.getName()};
-    }
-    
+	@Override
+	protected String[] getAuthorizedRoles() {
+		return new String[]{Role.OWNER.getName()};
+	}    
     
 	//
 	// Control

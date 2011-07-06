@@ -3,11 +3,11 @@ package marubinotto.piggydb.ui.page.atom;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 
 import org.apache.commons.codec.net.URLCodec;
 
-public class UserAtom extends AbstractAtom {
+public class UserAtom extends Atom {
 
 	public String name;
 	
@@ -23,7 +23,7 @@ public class UserAtom extends AbstractAtom {
 		this.feedId = this.feedId + PARAM_PREFIX_IN_ID + encodedName;
 		appendQueryToUrls("?name=" + encodedName);
 		
-		this.feedTitle  = this.feedTitle + AbstractBorderPage.HTML_TITLE_SEP + this.name;
+		this.feedTitle  = this.feedTitle + BorderPage.HTML_TITLE_SEP + this.name;
 	}
 	
 	@Override

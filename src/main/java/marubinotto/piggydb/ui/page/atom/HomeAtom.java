@@ -4,7 +4,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
 
-public class HomeAtom extends AbstractAtom {
+public class HomeAtom extends Atom {
 
 	@Override
 	protected List<Fragment> getFragments() throws Exception {

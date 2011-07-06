@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page;
 
 import java.net.SocketException;
 
-import marubinotto.piggydb.ui.page.common.AbstractPage;
+import marubinotto.piggydb.ui.page.common.WebResource;
 import marubinotto.piggydb.ui.page.common.TemplateUtils;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.Assert;
@@ -50,7 +50,7 @@ public class ErrorPage extends net.sf.click.util.ErrorPage {
 	
 	private void redirectHomeWithMessage(String message) {
     	Assert.Arg.notNull(message, "message");
-    	getContext().setFlashAttribute(AbstractPage.SK_MESSAGE, message);
+    	getContext().setFlashAttribute(WebResource.SK_MESSAGE, message);
     	setRedirect(HomePage.class);
     }
 }

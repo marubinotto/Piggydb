@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import marubinotto.piggydb.model.Tag;
 
-public class GetPopularTags extends AbstractCommand {
+public class GetPopularTags extends Command {
 
 	public static final int MAX_SIZE = 200;
 

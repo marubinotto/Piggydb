@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.html;
 
-import marubinotto.piggydb.ui.page.common.AbstractPage;
+import marubinotto.piggydb.ui.page.common.WebResource;
 
 public class SelectedFragments extends AbstractFragments {
 	
@@ -15,7 +15,7 @@ public class SelectedFragments extends AbstractFragments {
 	protected void setFragments() throws Exception {
 		this.fragments = getSelectedFragments().getFragments(
 			getDomain().getFragmentRepository(),
-			AbstractPage.ALMOST_UNLIMITED_PAGE_SIZE, this.options.pageIndex, 
+			WebResource.ALMOST_UNLIMITED_PAGE_SIZE, this.options.pageIndex, 
 			this.options.eagerFetching);
 	}
 }

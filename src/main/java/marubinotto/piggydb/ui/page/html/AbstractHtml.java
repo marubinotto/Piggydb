@@ -1,8 +1,8 @@
 package marubinotto.piggydb.ui.page.html;
 
-import marubinotto.piggydb.ui.page.common.AbstractMarkupResource;
+import marubinotto.piggydb.ui.page.common.MarkupWebResource;
 
-public abstract class AbstractHtml extends AbstractMarkupResource {
+public abstract class AbstractHtml extends MarkupWebResource {
 	
 	// Disable redirect to return an empty response when a session is expired
 	@Override

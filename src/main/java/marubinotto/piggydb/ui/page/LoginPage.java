@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page;
 import javax.servlet.http.HttpSession;
 
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 import net.sf.click.control.Checkbox;
 import net.sf.click.control.Form;
 import net.sf.click.control.HiddenField;
@@ -13,7 +13,7 @@ import net.sf.click.control.TextField;
 
 import org.apache.commons.lang.StringUtils;
 
-public class LoginPage extends AbstractBorderPage {
+public class LoginPage extends BorderPage {
 
 	@Override
 	protected boolean needsAuthentication() {

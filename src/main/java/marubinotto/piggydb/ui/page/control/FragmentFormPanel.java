@@ -14,8 +14,8 @@ import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
+import marubinotto.piggydb.ui.page.common.FragmentsPage;
 import marubinotto.piggydb.ui.page.control.form.FragmentForm;
 import marubinotto.util.Assert;
 import marubinotto.util.procedure.Procedure;
@@ -44,7 +44,7 @@ public class FragmentFormPanel extends Panel {
 	private FragmentRepository fragmentRepository;
 
 	// Control
-	private AbstractFragmentsPage page;
+	private FragmentsPage page;
 	private User user;
 	private String title;
 	private String redirectPathAfterRegistration;
@@ -89,7 +89,7 @@ public class FragmentFormPanel extends Panel {
 		return this.fragmentRepository;
 	}
 
-	public void setPage(AbstractFragmentsPage page) {
+	public void setPage(FragmentsPage page) {
 		this.page = page;
 	}
 
@@ -340,7 +340,7 @@ public class FragmentFormPanel extends Panel {
 	
 	private void restoreScrollTop() {
 		if (this.restoresScrollTop) {
-			getContext().setFlashAttribute(AbstractBorderPage.SK_SCROLL_TOP_ELEMENT, getName());
+			getContext().setFlashAttribute(BorderPage.SK_SCROLL_TOP_ELEMENT, getName());
 		}
 	}
 	

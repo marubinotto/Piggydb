@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
+import marubinotto.piggydb.ui.page.common.FragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
@@ -16,7 +16,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FragmentPage extends AbstractFragmentsPage {
+public class FragmentPage extends FragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {
@@ -41,27 +41,18 @@ public class FragmentPage extends AbstractFragmentsPage {
 
 	@Override
 	protected boolean onPreInit() throws Exception {
-		initControls();
-		setTargetFragment();
-		if (this.fragment != null || getContext().isAjaxRequest()) {
-			return true;
-		}
-		else {
-			getLogger().debug("Missing a target fragment.");
-			if (this.id != null) {
+		this.fragment = this.id != null ? 
+			getDomain().getFragmentRepository().get(this.id) : null;
+		
+		if (this.fragment == null && !getContext().isAjaxRequest()) {
+			if (this.id != null)
 				setRedirectWithMessage(HomePage.class, getMessage("no-such-fragment", this.id));
-			}
-			else {
+			else
 				setRedirect(HomePage.class);
-			}
 			return false;
 		}
-	}
-
-	private void setTargetFragment() throws Exception {
-		if (this.id != null) {
-			this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
-		}
+		
+		return true;
 	}
 
 	//
@@ -74,6 +65,8 @@ public class FragmentPage extends AbstractFragmentsPage {
 	@Override
 	public void onInit() {
 		super.onInit();
+		
+		initControls();
 		if (this.fragment != null) applyTargetFragmentToControls();
 	}
 

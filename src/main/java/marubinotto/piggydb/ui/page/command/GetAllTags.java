@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.util.paging.Page;
 
-public class GetAllTags extends AbstractCommand {
+public class GetAllTags extends Command {
 	
 	private int pageSize = 200;
 	public int pi = 0;	

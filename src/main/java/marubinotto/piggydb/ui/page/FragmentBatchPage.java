@@ -10,7 +10,7 @@ import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
+import marubinotto.piggydb.ui.page.common.FragmentsPage;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
@@ -26,7 +26,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FragmentBatchPage extends AbstractFragmentsPage {
+public class FragmentBatchPage extends FragmentsPage {
 
 	@Override
 	protected boolean showsSelectedFragments() {

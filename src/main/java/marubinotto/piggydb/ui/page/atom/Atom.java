@@ -5,17 +5,17 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.common.AbstractMarkupResource;
+import marubinotto.piggydb.ui.page.common.BorderPage;
+import marubinotto.piggydb.ui.page.common.MarkupWebResource;
 import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 
-public abstract class AbstractAtom extends AbstractMarkupResource {
+public abstract class Atom extends MarkupWebResource {
 
-	public AbstractAtom() {
+	public Atom() {
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public abstract class AbstractAtom extends AbstractMarkupResource {
 	protected void setFeedInfo() throws Exception {
 		this.databaseId = getDomain().getGlobalSetting().getDatabaseId();
 		this.feedId = this.databaseId + GlobalSetting.URI_SEP + getName();
-		this.feedTitle = AbstractBorderPage.getPageTitle(getTargetPageName(), this);
+		this.feedTitle = BorderPage.getPageTitle(getTargetPageName(), this);
 
 		this.contextUrl = WebUtils.makeContextUrl(getContext().getRequest());
 		this.resources.setContextPath(this.contextUrl);

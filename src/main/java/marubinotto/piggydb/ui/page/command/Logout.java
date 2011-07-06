@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.command;
 
 import marubinotto.piggydb.ui.page.LoginPage;
 
-public class Logout extends AbstractCommand {
+public class Logout extends Command {
 
 	@Override 
 	protected void execute() throws Exception {	

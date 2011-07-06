@@ -47,7 +47,7 @@ public class PageUrl {
 		if (!allParameters.isEmpty()) {
 			path.append("?");
 			try {
-				path.append(WebUtils.toQueryString(allParameters, AbstractPage.CHAR_ENCODING));
+				path.append(WebUtils.toQueryString(allParameters, WebResource.CHAR_ENCODING));
 			}
 			catch (UnsupportedEncodingException e) {
 				throw new UnhandledException(e);

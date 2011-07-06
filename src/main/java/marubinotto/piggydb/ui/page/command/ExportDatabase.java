@@ -9,7 +9,7 @@ import marubinotto.util.RdbUtils;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.web.WebUtils;
 
-public class ExportDatabase extends AbstractCommand {
+public class ExportDatabase extends Command {
 
 	@Override
 	protected String[] getAuthorizedRoles() {

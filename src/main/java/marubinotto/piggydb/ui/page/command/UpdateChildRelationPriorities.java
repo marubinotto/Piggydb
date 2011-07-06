@@ -6,7 +6,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.procedure.Procedure;
 
-public class UpdateChildRelationPriorities extends AbstractCommand {
+public class UpdateChildRelationPriorities extends Command {
 	
 	public Long id;
 

@@ -8,7 +8,7 @@ import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.ui.page.DocumentViewPage;
 import marubinotto.util.paging.Page;
 
-public class PublicHome extends AbstractCommand {
+public class PublicHome extends Command {
 	
 	@Override
 	protected boolean needsAuthentication() {

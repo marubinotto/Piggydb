@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.command;
 
 import marubinotto.util.procedure.Procedure;
 
-public class DeleteRelation extends AbstractCommand {
+public class DeleteRelation extends Command {
 	
 	public Long id;
 

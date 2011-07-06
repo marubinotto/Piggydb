@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.command;
 
-public class PutSessionValue extends AbstractCommand {
+public class PutSessionValue extends Command {
 
 	public String name;
 	public String value;

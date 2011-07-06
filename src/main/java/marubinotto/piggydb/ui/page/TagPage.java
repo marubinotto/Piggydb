@@ -7,7 +7,7 @@ import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
+import marubinotto.piggydb.ui.page.common.FragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
@@ -27,7 +27,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class TagPage extends AbstractFragmentsPage {
+public class TagPage extends FragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {
@@ -63,8 +63,7 @@ public class TagPage extends AbstractFragmentsPage {
 	}
 
 	@Override
-	protected boolean onPreInit() throws Exception {
-		initControls();
+	protected boolean onPreInit() throws Exception {	
 		setTargetTag();
 		if (this.tag == null && !getContext().isAjaxRequest()) {
 			setRedirect(TagsPage.class);
@@ -85,7 +84,7 @@ public class TagPage extends AbstractFragmentsPage {
 			this.tag = getDomain().getTagRepository().getByName(this.name);
 		}
 		else {
-			Long lastId = (Long) getContext().getSessionAttribute(SK_LAST_TAG_ID);
+			Long lastId = (Long)getContext().getSessionAttribute(SK_LAST_TAG_ID);
 			if (lastId != null) this.tag = getDomain().getTagRepository().get(lastId);
 		}
 		if (this.tag != null) {
@@ -100,6 +99,8 @@ public class TagPage extends AbstractFragmentsPage {
 	@Override
 	public void onInit() {
 		super.onInit();
+		
+		initControls();
 		if (this.tag != null) applyTargetTagToControls();
 	}
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import marubinotto.piggydb.model.Tag;
 
-public class GetTags extends AbstractCommand {
+public class GetTags extends Command {
 	
 	public Long parent;
 	public Long child;

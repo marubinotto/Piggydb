@@ -7,7 +7,7 @@ import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
-import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
+import marubinotto.piggydb.ui.page.common.FragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
@@ -24,7 +24,7 @@ import net.sf.click.extras.tree.Tree;
 
 import org.apache.commons.lang.StringUtils;
 
-public class FilterPage extends AbstractFragmentsPage {
+public class FilterPage extends FragmentsPage {
 
 	@Override
 	protected PageUrl createThisPageUrl() {
@@ -52,11 +52,10 @@ public class FilterPage extends AbstractFragmentsPage {
 
 	public Long id;
 
-	// a target filter, which will be stored in the session when a new target is set
 	public Filter filter;
 
 	public static final String SK_NEW_FILTER = FilterPage.class.getName() + "#filter";
-	// a dirty flag for a new filter stored as a model attribute (Entity.getAttributes)
+	// Filter attribute(Entity.getAttributes): a dirty flag for a new filter
 	public static final String MA_NEW_INSTANCE_MODIFIED = "newInstanceModified";
 
 	public Filter getFilter() {
@@ -70,21 +69,16 @@ public class FilterPage extends AbstractFragmentsPage {
 
 	@Override
 	protected boolean onPreInit() throws Exception {
-		if (StringUtils.isNotBlank(getContext().getRequestParameter(PN_NEW))) {
+		if (StringUtils.isNotBlank(getContext().getRequestParameter(PN_NEW)))
 			getContext().removeSessionAttribute(SK_NEW_FILTER);
-		}
 
-		// TODO why is it called here? (maybe related to click's auto-complete component)
-		initControls();
-
-		String errorMessage = setTargetFilter();
-		if (errorMessage != null && !getContext().isAjaxRequest()) {
-			setRedirectWithMessage(FilterPage.class, errorMessage);
+		setTargetFilter();
+		if (this.id != null && this.filter == null && !getContext().isAjaxRequest()) {
+			setRedirectWithMessage(FilterPage.class, getMessage("FilterPage-no-such-filter", this.id));
 			return false;
 		}
 
 		if (updateFilterWithParameters()) {
-			getLogger().debug("The filter has been updated with parameters.");
 			setRedirect(createThisPageUrl().getPagePath());
 			return false;
 		}
@@ -92,31 +86,29 @@ public class FilterPage extends AbstractFragmentsPage {
 		return true;
 	}
 
-	private String setTargetFilter() throws Exception {
+	private void setTargetFilter() throws Exception {
 		if (this.id != null) {
 			this.filter = getDomain().getFilterRepository().get(this.id);
-			if (this.filter == null)
-				return getMessage("FilterPage-no-such-filter", this.id);
-			getLogger().debug("TargetFilter - by ID: " + this.id);
 		}
-		else { // 1) create a new filter, 2) edit a new filter, 3) redirect after saving a new filter
-			this.filter = (Filter) getContext().getSessionAttribute(SK_NEW_FILTER);
+		else {
+			this.filter = (Filter)getContext().getSessionAttribute(SK_NEW_FILTER);
 			if (this.filter == null) {
 				this.filter = createNewFilter();
 				getContext().setSessionAttribute(SK_NEW_FILTER, this.filter);
-				getLogger().debug("TargetFilter - created newly");
-			}
-			else {
-				getLogger().debug("TargetFilter - the new instance restored from the session");
 			}
 		}
-		return null;
+	}
+
+	private Filter createNewFilter() throws Exception {
+		Filter filter = getDomain().getFilterRepository().newInstance(getUser());
+		Tag trashTag = getDomain().getTagRepository().getTrashTag();
+		if (trashTag != null) filter.addExcludeByUser(trashTag, getUser());
+		return filter;
 	}
 
 	private boolean updateFilterWithParameters() throws Exception {
 		String[] tagIds = getContext().getRequestParameterValues(PN_TAG_IDS);
-		String[] exTagIds = getContext().getRequestParameterValues(
-			PN_EXCLUDE_TAG_IDS);
+		String[] exTagIds = getContext().getRequestParameterValues(PN_EXCLUDE_TAG_IDS);
 		if (tagIds != null || exTagIds != null) {
 			if (tagIds != null) {
 				for (String tagId : tagIds) {
@@ -136,13 +128,6 @@ public class FilterPage extends AbstractFragmentsPage {
 		return false;
 	}
 
-	private Filter createNewFilter() throws Exception {
-		Filter filter = getDomain().getFilterRepository().newInstance(getUser());
-		Tag trashTag = getDomain().getTagRepository().getTrashTag();
-		if (trashTag != null) filter.addExcludeByUser(trashTag, getUser());
-		return filter;
-	}
-
 	//
 	// Control
 	//
@@ -152,6 +137,8 @@ public class FilterPage extends AbstractFragmentsPage {
 	@Override
 	public void onInit() {
 		super.onInit();
+		
+		initControls();
 		if (this.filter != null) applyTargetFilterToControls();
 	}
 
@@ -169,8 +156,7 @@ public class FilterPage extends AbstractFragmentsPage {
 
 		// Classification
 		this.classificationForm.setListenerForAdd("onAddClassificationTagClick");
-		this.classificationForm
-			.setListenerForDelete("onDeleteClassificationTagClick");
+		this.classificationForm.setListenerForDelete("onDeleteClassificationTagClick");
 		this.classificationForm.initialize();
 		this.classificationTags = new TagTree("classificationTags", this.resources, this.html);
 		addControl(this.classificationTags);

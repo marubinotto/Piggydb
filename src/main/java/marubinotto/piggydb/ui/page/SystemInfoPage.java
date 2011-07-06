@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import marubinotto.piggydb.impl.db.H2JdbcUrl;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 import marubinotto.piggydb.ui.page.common.DatabaseSpecificBeans;
 import marubinotto.util.Size;
 import marubinotto.util.procedure.Procedure;
@@ -17,7 +17,7 @@ import net.sf.click.control.TextField;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.text.StrBuilder;
 
-public class SystemInfoPage extends AbstractBorderPage {
+public class SystemInfoPage extends BorderPage {
 
 	private DatabaseSpecificBeans dbSpecificBeans;
 

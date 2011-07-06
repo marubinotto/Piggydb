@@ -1,21 +1,21 @@
 package marubinotto.piggydb.ui.page;
 
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 import marubinotto.util.time.DateTime;
 
-public class AboutPage extends AbstractBorderPage {
+public class AboutPage extends BorderPage {
 
 	@Override
 	protected boolean needsAuthentication() {
-        return false;
-    }
-	
+		return false;
+	}
+
 	public String cacheControlToken;
-	
-	@Override 
+
+	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
-		
+
 		importCssFile("style/piggydb-about.css", true, null);
 		this.cacheControlToken = DateTime.getCurrentTime().format("yyyyMMdd");
 	}

@@ -31,11 +31,10 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.FieldMethodizer;
-import org.apache.velocity.tools.generic.LoopTool;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public abstract class AbstractPage extends Page 
+public abstract class WebResource extends Page 
 implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
@@ -52,7 +51,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public PageUrl thisPageUrl;
 	public WebResourcePaths resources;
-	public LoopTool loop;
 	public WebMessageSource messageSource = this;
 	
 	private Log logger;
@@ -60,7 +58,7 @@ implements ApplicationContextAware, WebMessageSource {
 	private DomainModelBeans domain;
 	private User user;
 
-	public AbstractPage() {
+	public WebResource() {
 	}
 
 	protected Log getLogger() {
@@ -379,8 +377,7 @@ implements ApplicationContextAware, WebMessageSource {
 	protected void setModels() throws Exception {
 		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
 		addModel(MK_LANG, getContext().getLocale().getLanguage());
-		this.loop = new LoopTool();
-
+		
 		String atomUrl = getAtomUrl();
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 	}

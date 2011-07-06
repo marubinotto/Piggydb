@@ -1,8 +1,8 @@
 package marubinotto.piggydb.ui.page.help;
 
-import marubinotto.piggydb.ui.page.common.AbstractPage;
+import marubinotto.piggydb.ui.page.common.WebResource;
 
-public class WikiHelpPage extends AbstractPage {
+public class WikiHelpPage extends WebResource {
 
 	public String lang;
 	public String localizedPath;

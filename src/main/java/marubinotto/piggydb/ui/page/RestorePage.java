@@ -8,7 +8,7 @@ import marubinotto.piggydb.impl.PigDump;
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.model.enums.Role;
-import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
+import marubinotto.piggydb.ui.page.common.BorderPage;
 import marubinotto.piggydb.ui.page.common.DatabaseSpecificBeans;
 import marubinotto.util.RdbUtils;
 import marubinotto.util.procedure.Procedure;
@@ -21,7 +21,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.DataSetException;
 
-public class RestorePage extends AbstractBorderPage {
+public class RestorePage extends BorderPage {
 
 	private DatabaseSpecificBeans dbSpecificBeans;
 	private SequenceAdjusterList sequenceAdjusterList;
