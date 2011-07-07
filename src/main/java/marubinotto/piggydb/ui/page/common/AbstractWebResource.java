@@ -34,7 +34,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
 
-	public static final String MK_USER = "user";
 	public static final String MK_ATOM_URL = "atomUrl";
 
 	public static final String SK_MESSAGE = "message";
@@ -45,12 +44,12 @@ implements ApplicationContextAware, WebMessageSource {
 	public PageUrl thisPageUrl;
 	public WebResourcePaths resources;
 	public WebMessageSource messageSource = this;
+	public User user;
 	
 	private Log logger;
 	private ApplicationContext applicationContext;
 	private DomainModelBeans domain;
-	private User user;
-
+	
 	public AbstractWebResource() {
 	}
 
@@ -156,7 +155,6 @@ implements ApplicationContextAware, WebMessageSource {
 		if (this.user != null) {
 			// for marubinotto.util.web.CustomizedSecurityRequestWrapper (for click menu auth)
 			getContext().getRequest().setAttribute(User.KEY, this.user);
-			addModel(MK_USER, this.user);
 		}
 
 		// Check security if needed
