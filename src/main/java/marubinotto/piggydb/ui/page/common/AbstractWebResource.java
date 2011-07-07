@@ -34,7 +34,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
 
-	public static final String MK_VERSION = "version";
 	public static final String MK_LANG = "lang";
 	public static final String MK_USER = "user";
 	public static final String MK_ATOM_URL = "atomUrl";
@@ -370,7 +369,6 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	protected void setModels() throws Exception {
-		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
 		addModel(MK_LANG, getContext().getLocale().getLanguage());
 		
 		String atomUrl = getAtomUrl();
