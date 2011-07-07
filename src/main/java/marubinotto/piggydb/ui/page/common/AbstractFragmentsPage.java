@@ -27,10 +27,16 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 	public AbstractFragmentsPage() {
 	}
+	
+	protected String getAtomUrl() {
+		return null;
+	}
 
 	//
 	// Model
 	//
+	
+	public static final String MK_ATOM_URL = "atomUrl";
 
 	public static final String MK_HIGHLIGHTED_FRAGMENT = "highlightedFragment";
 	private static final String SK_HIGHLIGHTED_FRAGMENT = "highlightedFragment";
@@ -46,6 +52,9 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
+		
+		String atomUrl = getAtomUrl();
+		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 
 		importCssFile("style/piggydb-fragment-operations.css", true, null);
 		importCssFile("markitup/skins/simple/style.css", true, "screen");

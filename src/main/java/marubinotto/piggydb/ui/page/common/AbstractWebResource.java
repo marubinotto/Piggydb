@@ -34,8 +34,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
 
-	public static final String MK_ATOM_URL = "atomUrl";
-
 	public static final String SK_MESSAGE = "message";
 	private static final String SK_CLIENT_ADDRESS = "clientAddress";
 	private static final String SK_USER_AGENT = "userAgent";
@@ -346,10 +344,6 @@ implements ApplicationContextAware, WebMessageSource {
 		return StringUtils.replace(getFullPageUrl(), ".htm", ".atom");
 	}
 
-	protected String getAtomUrl() {
-		return null;
-	}
-
 	@Override
 	public void onRender() {
 		super.onRender();
@@ -365,8 +359,6 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	protected void setModels() throws Exception {
-		String atomUrl = getAtomUrl();
-		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 	}
 
 	// Utilities
