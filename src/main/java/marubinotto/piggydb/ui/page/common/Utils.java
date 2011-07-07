@@ -11,6 +11,8 @@ import net.sf.click.control.Form;
 import org.springframework.core.ErrorCoded;
 
 public class Utils {
+	
+	public static final int ALMOST_UNLIMITED_PAGE_SIZE = 1000000;
 
 	public static String getMessage(CodedException codedException, Page messages) {
 		Assert.Arg.notNull(codedException, "codedException");

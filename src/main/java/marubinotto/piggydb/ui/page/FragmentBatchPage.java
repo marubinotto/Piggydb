@@ -239,7 +239,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 
 		// always eager fetching in order to get common tags & parents
 		Page<Fragment> fragments = getSelectedFragments().getFragments(
-			getDomain().getFragmentRepository(), ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
+			getDomain().getFragmentRepository(), Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
 		setCommonTags(fragments);
 		this.commonParents = ModelUtils.getCommonParents(fragments);
 

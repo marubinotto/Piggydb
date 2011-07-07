@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
+import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.paging.Page;
 
@@ -62,7 +63,7 @@ public class SearchPage extends AbstractFragmentsPage {
 		if (StringUtils.isNotBlank(this.keywords)) this.keywordList = PiggydbUtils.splitToKeywords(this.keywords);
 
 		this.tags = getDomain().getTagRepository().
-			findByKeywords(this.keywords, ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			findByKeywords(this.keywords, Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
 
 		setCommonSidebarModels();
 	}

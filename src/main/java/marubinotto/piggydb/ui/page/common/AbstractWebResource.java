@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
@@ -513,7 +512,6 @@ implements ApplicationContextAware, WebMessageSource {
 	// temp
 	
 	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
-	protected static final int ALMOST_UNLIMITED_PAGE_SIZE = 1000000;
 	
 	private static final FieldMethodizer CONSTANTS_TAG = new FieldMethodizer(Tag.class.getName());
 

@@ -187,7 +187,7 @@ public abstract class AbstractBorderPage extends AbstractTemplateWebResource {
 
 	protected void setFilters() throws Exception {
 		this.filters = getDomain().getFilterRepository().getRecentChanges(
-			ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
 	}
 
 	protected RecentlyViewed getRecentlyViewed() {
