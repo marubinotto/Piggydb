@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.text.StrBuilder;
 
-public abstract class AbstractBorderPage extends AbstractTemplateWebResource {
+public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
 	public AbstractBorderPage() {
 	}

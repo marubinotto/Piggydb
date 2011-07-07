@@ -12,7 +12,6 @@ import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
-import marubinotto.piggydb.ui.page.model.FragmentTags;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
