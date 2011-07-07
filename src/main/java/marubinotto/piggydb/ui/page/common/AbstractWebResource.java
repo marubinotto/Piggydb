@@ -420,8 +420,7 @@ implements ApplicationContextAware, WebMessageSource {
 		if (!needsStopWatch()) return;
 		if (!getContext().hasSession()) return;
 
-		StopWatch stopWatch = (StopWatch) getContext().getSessionAttribute(
-				SK_STOP_WATCH);
+		StopWatch stopWatch = (StopWatch) getContext().getSessionAttribute(SK_STOP_WATCH);
 		if (stopWatch == null) stopWatch = new StopWatch(getPath());
 		getContext().setFlashAttribute(SK_STOP_WATCH, stopWatch);
 	}
