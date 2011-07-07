@@ -519,7 +519,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public FieldMethodizer tagConstants = CONSTANTS_TAG;
 	
-	public Preformatted preformatted = Preformatted.INSTANCE;
 	public FragmentTags fragmentTagsPrototype = new FragmentTags();
 	public Map<Long, String> selectedFragments;
 

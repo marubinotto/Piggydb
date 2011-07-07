@@ -2,6 +2,7 @@ package marubinotto.piggydb.ui.page.common;
 
 import org.apache.velocity.tools.generic.LoopTool;
 
+import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.wiki.WikiParser;
 
 public abstract class AbstractTemplateWebResource extends AbstractWebResource {
@@ -11,6 +12,7 @@ public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 	public TemplateUtils utils = TemplateUtils.INSTANCE;
 	public LoopTool loop;
 	public WikiParser wikiParser;
+	public Preformatted preformatted = Preformatted.INSTANCE;
 
 	@Override
 	public void onInit() {
