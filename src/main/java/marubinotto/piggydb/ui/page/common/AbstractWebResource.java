@@ -276,8 +276,7 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 
 		if (user.hasSessionPersisted()) {
-			setSessionCookieWhenPersistentCookieIsAboutToBeExpired(getContext()
-					.getSession());
+			setSessionCookieWhenPersistentCookieIsAboutToBeExpired(getContext().getSession());
 		}
 		return user;
 	}

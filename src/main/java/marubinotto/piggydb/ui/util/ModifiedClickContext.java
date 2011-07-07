@@ -13,17 +13,17 @@ public class ModifiedClickContext extends Context {
 
 	public ModifiedClickContext(
 		ServletContext context, 
-		ServletConfig config,
-        HttpServletRequest request, 
-        HttpServletResponse response,
-        boolean isPost, 
-        ClickServlet clickServlet) {
-		
+		ServletConfig config, 
+		HttpServletRequest request, 
+		HttpServletResponse response, 
+		boolean isPost,
+		ClickServlet clickServlet) {
+
 		super(context, config, request, response, isPost, clickServlet);
 	}
-	
+
 	@Override
 	public HttpSession getSession() {
-        return getRequest().getSession();
-    }
+		return getRequest().getSession();
+	}
 }
