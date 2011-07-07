@@ -8,7 +8,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
@@ -29,7 +28,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.app.FieldMethodizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -512,11 +510,7 @@ implements ApplicationContextAware, WebMessageSource {
 	// temp
 	
 	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
-	
-	private static final FieldMethodizer CONSTANTS_TAG = new FieldMethodizer(Tag.class.getName());
-
-	public FieldMethodizer tagConstants = CONSTANTS_TAG;
-	
+		
 	public FragmentTags fragmentTagsPrototype = new FragmentTags();
 	public Map<Long, String> selectedFragments;
 
