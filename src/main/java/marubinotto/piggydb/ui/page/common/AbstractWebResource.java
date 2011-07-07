@@ -510,8 +510,6 @@ implements ApplicationContextAware, WebMessageSource {
 	// temp
 	
 	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
-		
-	public FragmentTags fragmentTagsPrototype = new FragmentTags();
 	public Map<Long, String> selectedFragments;
 
 	protected SelectedFragments getSelectedFragments() {

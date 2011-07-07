@@ -5,6 +5,7 @@ import org.apache.velocity.tools.generic.LoopTool;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.predicate.Preformatted;
+import marubinotto.piggydb.ui.page.model.FragmentTags;
 import marubinotto.piggydb.ui.wiki.WikiParser;
 
 public abstract class AbstractTemplateWebResource extends AbstractWebResource {
@@ -18,6 +19,7 @@ public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 
 	public FieldMethodizer tagConstants = TAG_CONSTANTS;
 	private static final FieldMethodizer TAG_CONSTANTS = new FieldMethodizer(Tag.class.getName());
+	public FragmentTags fragmentTagsPrototype = new FragmentTags();
 
 	@Override
 	public void onInit() {
