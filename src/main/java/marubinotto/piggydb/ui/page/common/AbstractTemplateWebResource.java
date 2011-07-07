@@ -8,6 +8,7 @@ import org.apache.velocity.tools.generic.LoopTool;
 public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 	
 	private static final String MK_VERSION = "version";
+	private static final String MK_LANG = "lang";
 	
 	public HtmlFragments html;
 
@@ -31,6 +32,7 @@ public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 		super.setModels();
 		
 		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
+		addModel(MK_LANG, getContext().getLocale().getLanguage());
 			
 		this.loop = new LoopTool();
 		this.wikiParser = (WikiParser)getBean("wikiParser");

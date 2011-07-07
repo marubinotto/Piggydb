@@ -34,7 +34,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
 
-	public static final String MK_LANG = "lang";
 	public static final String MK_USER = "user";
 	public static final String MK_ATOM_URL = "atomUrl";
 
@@ -155,8 +154,7 @@ implements ApplicationContextAware, WebMessageSource {
 		this.user = getUserInSession();
 		if (this.user == null) this.user = autoLoginAsAnonymous();
 		if (this.user != null) {
-			// for marubinotto.util.web.CustomizedSecurityRequestWrapper (for click
-			// menu auth)
+			// for marubinotto.util.web.CustomizedSecurityRequestWrapper (for click menu auth)
 			getContext().getRequest().setAttribute(User.KEY, this.user);
 			addModel(MK_USER, this.user);
 		}
@@ -369,8 +367,6 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	protected void setModels() throws Exception {
-		addModel(MK_LANG, getContext().getLocale().getLanguage());
-		
 		String atomUrl = getAtomUrl();
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 	}
