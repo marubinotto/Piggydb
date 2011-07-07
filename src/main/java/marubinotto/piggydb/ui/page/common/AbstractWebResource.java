@@ -2,7 +2,6 @@ package marubinotto.piggydb.ui.page.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -466,6 +465,18 @@ implements ApplicationContextAware, WebMessageSource {
 	protected static interface Factory<T> {
 		public T create();
 	}
+	
+	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
+	
+	protected SelectedFragments getSelectedFragments() {
+		return createOrGetObjectInSession(
+			SK_SELECTED_FRAGMENTS, 
+			new Factory<SelectedFragments>() {
+				public SelectedFragments create() {
+					return new SelectedFragments();
+				}
+			});
+	}
 
 	// Session persistence
 
@@ -503,28 +514,5 @@ implements ApplicationContextAware, WebMessageSource {
 				- session.getCreationTime();
 		long left = (PERSISTED_SESSION_MAX_AGE * 1000) - sessionAge;
 		return left < THRESHOLD_TO_BE_EXPIRED;
-	}
-	
-	
-	// temp
-	
-	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
-	public Map<Long, String> selectedFragments;
-
-	protected SelectedFragments getSelectedFragments() {
-		return createOrGetObjectInSession(
-			SK_SELECTED_FRAGMENTS, 
-			new Factory<SelectedFragments>() {
-				public SelectedFragments create() {
-					return new SelectedFragments();
-				}
-			});
-	}
-	
-	protected void setSelectedFragments() throws Exception {
-		SelectedFragments fragments = getSelectedFragments();
-		if (!fragments.isEmpty()) {
-			this.selectedFragments = fragments.getTitles(getDomain().getFragmentRepository());
-		}
 	}
 }
