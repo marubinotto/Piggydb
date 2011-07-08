@@ -1,7 +1,5 @@
 package marubinotto.piggydb.ui.page;
 
-import javax.servlet.http.HttpSession;
-
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import net.sf.click.control.Checkbox;
@@ -18,20 +16,6 @@ public class LoginPage extends AbstractBorderPage {
 	@Override
 	protected boolean needsAuthentication() {
 		return false;
-	}
-
-	@Override
-	protected User getUserInSession() {
-		User user = super.getUserInSession();
-		if (user == null) {
-			return null;
-		}
-		if (user.isAnonymous()) {
-			getContext().getSession().invalidate();
-			getLogger().info("The anonymous session has been invalidated.");
-			return null;
-		}
-		return user;
 	}
 
 	@Override
@@ -81,8 +65,7 @@ public class LoginPage extends AbstractBorderPage {
 	public boolean onOkClick() throws Exception {
 		if (!this.loginForm.isValid()) return true;
 
-		HttpSession oldSession = getContext().getRequest().getSession(false);
-		if (oldSession != null) oldSession.invalidate();
+		getSession().invalidateIfExists();
 
 		User user = getDomain().getAuthentication().
 			authenticate(this.userNameField.getValue(), this.passwordField.getValue());
@@ -90,14 +73,8 @@ public class LoginPage extends AbstractBorderPage {
 			this.loginForm.setError(getMessage("LoginPage-login-error"));
 			return true;
 		}
-
-		HttpSession newSession = newSession(user);
-
-		if (this.rememberMeField.isChecked()) {
-			storeSession(newSession);
-			user.setSessionPersisted(true);
-			getLogger().debug("Set the session persisted");
-		}
+		
+		getSession().start(user, this.rememberMeField.isChecked());
 
 		String originalPath = this.originalPathField.getValue();
 		// Avoid redirecting to external unknown URLs
@@ -116,8 +93,14 @@ public class LoginPage extends AbstractBorderPage {
 		super.onGet();
 
 		if (isAuthenticated()) {
-			getLogger().debug("Already authenticated. Redirecting to HomePage ...");
-			setRedirect(HomePage.class);
+			if (this.user.isAnonymous()) {
+				getSession().invalidateIfExists();
+				this.user = null;
+				getLogger().info("Invalidated an anonymous session.");
+			}
+			else {
+				setRedirect(HomePage.class);
+			}
 		}
 	}
 

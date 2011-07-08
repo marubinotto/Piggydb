@@ -3,9 +3,7 @@ package marubinotto.piggydb.ui.page.common;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
@@ -13,7 +11,6 @@ import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
-import marubinotto.util.time.DateTime;
 import marubinotto.util.time.StopWatch;
 import marubinotto.util.web.WebMessageSource;
 import marubinotto.util.web.WebUtils;
@@ -21,7 +18,6 @@ import net.sf.click.Page;
 
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
@@ -35,8 +31,6 @@ implements ApplicationContextAware, WebMessageSource {
 	public static final String CHAR_ENCODING = "UTF-8";
 
 	public static final String SK_MESSAGE = "message";
-	private static final String SK_CLIENT_ADDRESS = "clientAddress";
-	private static final String SK_USER_AGENT = "userAgent";
 	private static final String SK_STOP_WATCH = "stopWatch";
 
 	public PageUrl thisPageUrl;
@@ -47,6 +41,7 @@ implements ApplicationContextAware, WebMessageSource {
 	private Log logger;
 	private ApplicationContext applicationContext;
 	private DomainModelBeans domain;
+	private Session session;
 	
 	public AbstractWebResource() {
 	}
@@ -115,6 +110,10 @@ implements ApplicationContextAware, WebMessageSource {
 		return true;
 	}
 
+	public Session getSession() {
+		return this.session;
+	}
+
 	public User getUser() {
 		return this.user;
 	}
@@ -144,11 +143,17 @@ implements ApplicationContextAware, WebMessageSource {
 	@Override
 	public final boolean onSecurityCheck() {
 		logParameters();
-		logSession();
+	
+		this.session = new Session(
+			getContext(), 
+			getWarSetting(), 
+			getDomain().getAuthentication().isEnableAnonymous());
+		this.session.log();
+		
 		createStopWatchIfNeeded();
 
 		// Get a user object if it exists
-		this.user = getUserInSession();
+		this.user = this.session.getUser();
 		if (this.user == null) this.user = autoLoginAsAnonymous();
 		if (this.user != null) {
 			// for marubinotto.util.web.CustomizedSecurityRequestWrapper (for click menu auth)
@@ -162,8 +167,7 @@ implements ApplicationContextAware, WebMessageSource {
 				return false;
 			}
 			if (!isAuthorized()) {
-				setRedirectWithMessage(HomePage.class,
-						getMessage("no-authority-for-page"));
+				setRedirectWithMessage(HomePage.class, getMessage("no-authority-for-page"));
 				return false;
 			}
 		}
@@ -217,99 +221,11 @@ implements ApplicationContextAware, WebMessageSource {
 		getLogger().debug("}");
 	}
 
-	@SuppressWarnings("rawtypes")
-	private void logSession() {
-		if (!getLogger().isDebugEnabled()) return;
-
-		HttpSession session = getContext().getRequest().getSession(false);
-		if (session == null) {
-			getLogger().debug("No session.");
-			return;
-		}
-
-		getLogger().debug("Session {");
-		for (Enumeration e = session.getAttributeNames(); e.hasMoreElements();) {
-			getLogger().debug("  " + e.nextElement());
-		}
-		getLogger().debug("}");
-	}
-
-	protected HttpSession newSession(User user) {
-		Assert.Arg.notNull(user, "user");
-
-		HttpServletRequest request = getContext().getRequest();
-		HttpSession newSession = request.getSession(true);
-		newSession.setAttribute(User.KEY, user);
-		newSession.setAttribute(SK_CLIENT_ADDRESS, request.getRemoteAddr());
-		newSession.setAttribute(SK_USER_AGENT, request.getHeader("User-Agent"));
-		return newSession;
-	}
-
-	protected User getUserInSession() {
-		if (!getContext().hasSession()) {
-			return null;
-		}
-
-		// Avoid the session hijacking
-		if (!validateRemoteAddress()) {
-			getContext().getSession().invalidate();
-			getLogger().warn("Session invalidated for an invalid client address");
-			return null;
-		}
-		if (!validateUserAgent()) {
-			getContext().getSession().invalidate();
-			getLogger().warn("Session invalidated for an invalid user agent");
-			return null;
-		}
-
-		// Get the user object in the session
-		User user = (User) getContext().getSessionAttribute(User.KEY);
-		if (user == null) {
-			return null;
-		}
-
-		// Anonymous access is enabled?
-		if (!getDomain().getAuthentication().isEnableAnonymous() && user.isAnonymous()) {
-			getContext().getSession().invalidate();
-			getLogger().warn("Invalid anonymous session invalidated");
-			return null;
-		}
-
-		if (user.hasSessionPersisted()) {
-			setSessionCookieWhenPersistentCookieIsAboutToBeExpired(getContext().getSession());
-		}
-		return user;
-	}
-
-	private boolean validateRemoteAddress() {
-		if (!getWarSetting().isClientAddressAuthEnabled()) {
-			return true;
-		}
-
-		String expected = (String) getContext().getSessionAttribute(SK_CLIENT_ADDRESS);
-		String actual = getContext().getRequest().getRemoteAddr();
-
-		getLogger().info("Validate the remote address: " + actual + " (expected: " + expected + ")");
-		return actual.equals(expected);
-	}
-
-	private boolean validateUserAgent() {
-		if (!getWarSetting().isUserAgentAuthEnabled()) {
-			return true;
-		}
-
-		String expected = (String) getContext().getSessionAttribute(SK_USER_AGENT);
-		String actual = getContext().getRequest().getHeader("User-Agent");
-
-		getLogger().info("Validate the user agent: " + actual + " (expected: " + expected + ")");
-		return ObjectUtils.equals(actual, expected);
-	}
-
 	protected User autoLoginAsAnonymous() {
 		User user = getDomain().getAuthentication().authenticateAsAnonymous();
 		if (user == null) return null;
 
-		newSession(user);
+		getSession().start(user, false);
 		getLogger().debug("Anonymous session created");
 		return user;
 	}
@@ -458,43 +374,5 @@ implements ApplicationContextAware, WebMessageSource {
 					return new SelectedFragments();
 				}
 			});
-	}
-
-	// Session persistence
-
-	public static final int PERSISTED_SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 1
-																																				// week
-	public static final String COOKIE_NAME_SESSION_ID = "JSESSIONID";
-
-	protected void storeSession(HttpSession session) {
-		session.setMaxInactiveInterval(PERSISTED_SESSION_MAX_AGE);
-
-		Cookie cookie = createSessionCookie(session);
-		cookie.setMaxAge(PERSISTED_SESSION_MAX_AGE);
-		getContext().getResponse().addCookie(cookie);
-	}
-
-	protected Cookie createSessionCookie(HttpSession session) {
-		Cookie cookie = new Cookie(COOKIE_NAME_SESSION_ID, session.getId());
-		cookie.setPath(getContext().getRequest().getContextPath());
-		return cookie;
-	}
-
-	public static final long THRESHOLD_TO_BE_EXPIRED = 1000 * 60 * 60; // 1 hour
-
-	private void setSessionCookieWhenPersistentCookieIsAboutToBeExpired(
-			HttpSession session) {
-		if (isPersistentCookieAboutToBeExpired(session)) {
-			getContext().getResponse().addCookie(createSessionCookie(session));
-			getLogger().debug(
-					"The persistent Cookie to be overwritten with a session cookie.");
-		}
-	}
-
-	private static boolean isPersistentCookieAboutToBeExpired(HttpSession session) {
-		long sessionAge = DateTime.getCurrentTime().getTime()
-				- session.getCreationTime();
-		long left = (PERSISTED_SESSION_MAX_AGE * 1000) - sessionAge;
-		return left < THRESHOLD_TO_BE_EXPIRED;
 	}
 }
