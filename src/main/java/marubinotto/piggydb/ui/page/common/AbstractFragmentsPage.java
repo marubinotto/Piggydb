@@ -231,7 +231,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		}
 
 		// to
-		final SelectedFragments selected = getSelectedFragments();
+		final SelectedFragments selected = getSession().getSelectedFragments();
 		if (selected.isEmpty()) {
 			setRedirectToThisPage(getMessage("no-selected-fragments"));
 			return false;
@@ -373,7 +373,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		}
 
 		// selected fragments
-		SelectedFragments selected = getSelectedFragments();
+		SelectedFragments selected = getSession().getSelectedFragments();
 		if (selected.isEmpty()) {
 			setRedirectToThisPage(getMessage("no-selected-fragments"));
 			return false;

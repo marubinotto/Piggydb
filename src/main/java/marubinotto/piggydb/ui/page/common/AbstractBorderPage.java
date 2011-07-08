@@ -191,8 +191,8 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	}
 
 	protected RecentlyViewed getRecentlyViewed() {
-		return createOrGetObjectInSession(SK_RECENTLY_VIEWED,
-			new Factory<RecentlyViewed>() {
+		return getSession().createOrGet(SK_RECENTLY_VIEWED,
+			new Session.Factory<RecentlyViewed>() {
 				public RecentlyViewed create() {
 					return new RecentlyViewed(20);
 				}

@@ -20,7 +20,7 @@ public abstract class AbstractMainUiHtml extends AbstractTemplateWebResource {
 	}
 	
 	protected void setSelectedFragments() throws Exception {
-		SelectedFragments fragments = getSelectedFragments();
+		SelectedFragments fragments = getSession().getSelectedFragments();
 		if (!fragments.isEmpty()) {
 			this.selectedFragments = fragments.getTitles(getDomain().getFragmentRepository());
 		}

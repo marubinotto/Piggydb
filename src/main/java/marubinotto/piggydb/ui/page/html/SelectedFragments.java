@@ -13,10 +13,11 @@ public class SelectedFragments extends AbstractFragments {
 
 	@Override 
 	protected void setFragments() throws Exception {
-		this.fragments = getSelectedFragments().getFragments(
-			getDomain().getFragmentRepository(),
-			Utils.ALMOST_UNLIMITED_PAGE_SIZE, 
-			this.options.pageIndex, 
-			this.options.eagerFetching);
+		this.fragments = getSession().getSelectedFragments().
+			getFragments(
+				getDomain().getFragmentRepository(),
+				Utils.ALMOST_UNLIMITED_PAGE_SIZE, 
+				this.options.pageIndex, 
+				this.options.eagerFetching);
 	}
 }

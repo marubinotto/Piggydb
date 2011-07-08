@@ -70,7 +70,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		final String tagName = this.tagForm.tagField.getValue();
 		if (StringUtils.isBlank(tagName)) return true;
 
-		SelectedFragments selected = getSelectedFragments();
+		SelectedFragments selected = getSession().getSelectedFragments();
 		if (selected.isEmpty()) return true;
 		final List<Fragment> fragments = 
 			selected.getAllFragments(getDomain().getFragmentRepository(), true);
@@ -103,7 +103,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		final String tagToRemove = this.tagForm.tagToDeleteField.getValue();
 		if (StringUtils.isBlank(tagToRemove)) return true;
 
-		SelectedFragments selected = getSelectedFragments();
+		SelectedFragments selected = getSession().getSelectedFragments();
 		if (selected.isEmpty()) return true;
 		final List<Fragment> fragments = 
 			selected.getAllFragments(getDomain().getFragmentRepository(), true);
@@ -152,7 +152,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 				public Object execute(Object input) throws Exception {
 					FragmentRepository repository = getDomain().getFragmentRepository();
 					long newId = repository.register(parent);
-					for (Long childId : getSelectedFragments()) {
+					for (Long childId : getSession().getSelectedFragments()) {
 						repository.createRelation(newId, childId, getUser());
 					}
 					return newId;
@@ -189,7 +189,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 	public boolean onRemoveParentClick() throws Exception {
 		final long parentToRemove = (Long) this.removeParentForm.parentToRemove.getValueObject();
 
-		SelectedFragments selected = getSelectedFragments();
+		SelectedFragments selected = getSession().getSelectedFragments();
 		if (selected.isEmpty()) return true;
 		final List<Fragment> fragments = 
 			selected.getAllFragments(getDomain().getFragmentRepository(), true);
@@ -238,8 +238,8 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		super.setModels();
 
 		// always eager fetching in order to get common tags & parents
-		Page<Fragment> fragments = getSelectedFragments().getFragments(
-			getDomain().getFragmentRepository(), Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
+		Page<Fragment> fragments = getSession().getSelectedFragments().
+			getFragments(getDomain().getFragmentRepository(), Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
 		setCommonTags(fragments);
 		this.commonParents = ModelUtils.getCommonParents(fragments);
 

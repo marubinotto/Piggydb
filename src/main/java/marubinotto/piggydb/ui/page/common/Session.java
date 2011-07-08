@@ -6,15 +6,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 import net.sf.click.Context;
+
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Session {
 	
@@ -22,6 +23,7 @@ public class Session {
 	
 	private static final String SK_CLIENT_ADDRESS = "clientAddress";
 	private static final String SK_USER_AGENT = "userAgent";
+	private static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
 
 	private Context context;
 	private HttpServletRequest request;
@@ -134,6 +136,33 @@ public class Session {
 
 		logger.info("Validate the user agent: " + actual + " (expected: " + expected + ")");
 		return ObjectUtils.equals(actual, expected);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T createOrGet(String name, Factory<T> factory) {
+		Assert.Arg.notNull(name, "name");
+		Assert.Arg.notNull(factory, "factory");
+
+		T object = (T)this.context.getSessionAttribute(name);
+		if (object == null) {
+			object = factory.create();
+			this.context.setSessionAttribute(name, object);
+		}
+		return object;
+	}
+
+	public static interface Factory<T> {
+		public T create();
+	}
+	
+	public SelectedFragments getSelectedFragments() {
+		return createOrGet(
+			SK_SELECTED_FRAGMENTS, 
+			new Factory<SelectedFragments>() {
+				public SelectedFragments create() {
+					return new SelectedFragments();
+				}
+			});
 	}
 	
 	

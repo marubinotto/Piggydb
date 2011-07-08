@@ -9,7 +9,6 @@ import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
-import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
 import marubinotto.util.time.StopWatch;
 import marubinotto.util.web.WebMessageSource;
@@ -345,34 +344,5 @@ implements ApplicationContextAware, WebMessageSource {
 		if (!getContext().hasSession()) return;
 
 		getContext().removeSessionAttribute(SK_STOP_WATCH);
-	}
-
-	@SuppressWarnings("unchecked")
-	protected <T> T createOrGetObjectInSession(String name, Factory<T> factory) {
-		Assert.Arg.notNull(name, "name");
-		Assert.Arg.notNull(factory, "factory");
-
-		T object = (T) getContext().getSessionAttribute(name);
-		if (object == null) {
-			object = factory.create();
-			getContext().setSessionAttribute(name, object);
-		}
-		return object;
-	}
-
-	protected static interface Factory<T> {
-		public T create();
-	}
-	
-	public static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
-	
-	protected SelectedFragments getSelectedFragments() {
-		return createOrGetObjectInSession(
-			SK_SELECTED_FRAGMENTS, 
-			new Factory<SelectedFragments>() {
-				public SelectedFragments create() {
-					return new SelectedFragments();
-				}
-			});
 	}
 }
