@@ -42,13 +42,14 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	protected Log getLogger() {
-		if (this.logger == null) {
+		if (this.logger == null)
 			this.logger = LogFactory.getLog(getClass());
-		}
 		return this.logger;
 	}
 
+	//
 	// WebMessageSource
+	//
 
 	@Override
 	public String getMessage(String name, Object arg) {
@@ -61,7 +62,7 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 
 	public String getMessage(String name, Object arg, boolean escapeArg) {
-		return getMessage(name, new Object[] { arg }, escapeArg);
+		return getMessage(name, new Object[]{arg}, escapeArg);
 	}
 
 	public String getMessage(String name, Object[] args, boolean escapeArgs) {
@@ -76,7 +77,9 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 	}
 
+	//
 	// ApplicationContextAware
+	//
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -99,7 +102,9 @@ implements ApplicationContextAware, WebMessageSource {
 		return (WarSetting)getBean("warSetting");
 	}
 
+	//
 	// Access control
+	//
 
 	protected boolean needsAuthentication() {
 		return true;
@@ -201,19 +206,6 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	private void logParameters() {
-		if (!getLogger().isDebugEnabled()) return;
-
-		getLogger().debug("Parameters {");
-		for (Enumeration e = getContext().getRequest().getParameterNames(); e.hasMoreElements();) {
-			String name = (String) e.nextElement();
-			getLogger().debug("  " + name + " = " + 
-				ArrayUtils.toString(getContext().getRequest().getParameterValues(name)));
-		}
-		getLogger().debug("}");
-	}
-
 	protected User autoLoginAsAnonymous() {
 		User user = getDomain().getAuthentication().authenticateAsAnonymous();
 		if (user == null) return null;
@@ -223,7 +215,9 @@ implements ApplicationContextAware, WebMessageSource {
 		return user;
 	}
 
-	// Workflow
+	//
+	// Page Processing Flow
+	//
 
 	/**
 	 * A target entity object should be prepared here (if this page is for an
@@ -236,8 +230,7 @@ implements ApplicationContextAware, WebMessageSource {
 	@Override
 	public void onInit() {
 		super.onInit();
-		this.thisPageUrl = createThisPageUrl(); // A target entity object maybe
-																						// needed
+		this.thisPageUrl = createThisPageUrl(); // An ID of a target entity object maybe needed
 	}
 
 	protected PageUrl createThisPageUrl() {
@@ -248,6 +241,7 @@ implements ApplicationContextAware, WebMessageSource {
 		return WebUtils.makeContextUrl(getContext().getRequest()) + getPath();
 	}
 
+	// TODO
 	protected String getDefaultAtomUrl() {
 		return StringUtils.replace(getFullPageUrl(), ".htm", ".atom");
 	}
@@ -267,11 +261,26 @@ implements ApplicationContextAware, WebMessageSource {
 	protected void setModels() throws Exception {
 	}
 
+	//
 	// Utilities
+	//
+
+	@SuppressWarnings("rawtypes")
+	private void logParameters() {
+		if (!getLogger().isDebugEnabled()) return;
+
+		getLogger().debug("Parameters {");
+		for (Enumeration e = getContext().getRequest().getParameterNames(); e.hasMoreElements();) {
+			String name = (String) e.nextElement();
+			getLogger().debug("  " + name + " = " + 
+				ArrayUtils.toString(getContext().getRequest().getParameterValues(name)));
+		}
+		getLogger().debug("}");
+	}
 
 	protected void disableClientCaching() {
-		getContext().getResponse().addHeader("Cache-Control",
-				"no-store, max-age=0, no-cache, must-revalidate");
+		getContext().getResponse().addHeader(
+			"Cache-Control", "no-store, max-age=0, no-cache, must-revalidate");
 	}
 
 	protected String modifyIfGarbledByTomcat(String value) {
