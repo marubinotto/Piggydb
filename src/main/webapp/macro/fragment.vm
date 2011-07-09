@@ -121,7 +121,7 @@
 #if ($fragment.content && $fragment.content.trim() != "")
 <tr class="fragment-body">
 	<td class="fragment-body">
-    <div class="fragment-content">
+    <div class="fragment-content fragment-content-text">
     #fragmentTextContent($fragment)
     </div>
 	</td>

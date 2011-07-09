@@ -36,6 +36,9 @@ jQuery(function() {
   jQuery("table.fragment").live('mouseleave', function() {
     jQuery(this).find(".fragment-tools").eq(0).hide();
   });
+  jQuery("div.fragment-content-text").live('dblclick', function() {
+    alert("hello");
+  });
   jQuery("a.img-link").live("click", onImageClick);
   makeFragmentsDroppable("table.fragment", null);
   makeSelectedFragmentsDroppable();
