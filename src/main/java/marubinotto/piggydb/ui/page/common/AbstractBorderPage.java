@@ -30,11 +30,6 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		return "/border-template.htm";
 	}
 
-	@Override
-	protected boolean needsStopWatch() {
-		return true;
-	}
-
 	//
 	// Control
 	//

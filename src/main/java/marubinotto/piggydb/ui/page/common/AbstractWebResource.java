@@ -10,7 +10,6 @@ import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.util.Assert;
-import marubinotto.util.time.StopWatch;
 import marubinotto.util.web.WebMessageSource;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Page;
@@ -30,7 +29,6 @@ implements ApplicationContextAware, WebMessageSource {
 	public static final String CHAR_ENCODING = "UTF-8";
 
 	public static final String SK_MESSAGE = "message";
-	private static final String SK_STOP_WATCH = "stopWatch";
 
 	public PageUrl thisPageUrl;
 	public WebResourcePaths resources;
@@ -148,8 +146,6 @@ implements ApplicationContextAware, WebMessageSource {
 			getWarSetting(), 
 			getDomain().getAuthentication().isEnableAnonymous());
 		this.session.log();
-		
-		createStopWatchIfNeeded();
 
 		// Get a user object if it exists
 		this.user = this.session.getUser();
@@ -262,8 +258,6 @@ implements ApplicationContextAware, WebMessageSource {
 	public void onRender() {
 		super.onRender();
 
-		if (!needsStopWatch()) discardStopWatch();
-
 		try {
 			setModels();
 		}
@@ -325,24 +319,5 @@ implements ApplicationContextAware, WebMessageSource {
 
 	protected String getSessionMessage() {
 		return (String) getContext().getSessionAttribute(SK_MESSAGE);
-	}
-
-	protected boolean needsStopWatch() {
-		return false;
-	}
-
-	private void createStopWatchIfNeeded() {
-		if (!needsStopWatch()) return;
-		if (!getContext().hasSession()) return;
-
-		StopWatch stopWatch = (StopWatch) getContext().getSessionAttribute(SK_STOP_WATCH);
-		if (stopWatch == null) stopWatch = new StopWatch(getPath());
-		getContext().setFlashAttribute(SK_STOP_WATCH, stopWatch);
-	}
-
-	private void discardStopWatch() {
-		if (!getContext().hasSession()) return;
-
-		getContext().removeSessionAttribute(SK_STOP_WATCH);
 	}
 }
