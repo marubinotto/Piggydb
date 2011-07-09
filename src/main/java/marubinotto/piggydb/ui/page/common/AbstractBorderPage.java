@@ -98,7 +98,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	}
 
 	private void showSessionMessageIfExist() {
-		String sessionMessage = getSessionMessage();
+		String sessionMessage = getSession().getMessage();
 		if (sessionMessage != null) {
 			setMessage(sessionMessage);
 		}

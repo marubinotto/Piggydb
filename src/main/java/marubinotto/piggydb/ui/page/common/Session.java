@@ -21,6 +21,7 @@ public class Session {
 	
 	private static Log logger = LogFactory.getLog(Session.class);
 	
+	public static final String SK_MESSAGE = "message";
 	private static final String SK_CLIENT_ADDRESS = "clientAddress";
 	private static final String SK_USER_AGENT = "userAgent";
 	private static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
@@ -138,6 +139,20 @@ public class Session {
 		return ObjectUtils.equals(actual, expected);
 	}
 	
+	
+	// Message
+	
+	public void setFlashMessage(String message) {
+		this.context.setFlashAttribute(SK_MESSAGE, message);
+	}
+
+	public String getMessage() {
+		return (String)this.context.getSessionAttribute(SK_MESSAGE);
+	}
+	
+	
+	// Session objects
+	
 	@SuppressWarnings("unchecked")
 	public <T> T createOrGet(String name, Factory<T> factory) {
 		Assert.Arg.notNull(name, "name");
@@ -164,7 +179,7 @@ public class Session {
 				}
 			});
 	}
-	
+
 	
 	// Session persistence
 

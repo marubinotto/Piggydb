@@ -320,7 +320,7 @@ public class FragmentFormPanel extends Panel {
 					return newId;
 				}
 			});
-			this.page.setFlashMessage(
+			this.page.getSession().setFlashMessage(
 				getMessage(
 					"completed-register-fragment", 
 					this.page.html.linkToFragment(fragmentId)));

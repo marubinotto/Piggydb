@@ -28,8 +28,6 @@ implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
 
-	public static final String SK_MESSAGE = "message";
-
 	public PageUrl thisPageUrl;
 	public WebResourcePaths resources;
 	public WebMessageSource messageSource = this;
@@ -301,7 +299,7 @@ implements ApplicationContextAware, WebMessageSource {
 		Assert.Arg.notNull(pageClass, "pageClass");
 		Assert.Arg.notNull(message, "message");
 
-		setFlashMessage(message);
+		getSession().setFlashMessage(message);
 		setRedirect(pageClass);
 	}
 
@@ -309,15 +307,7 @@ implements ApplicationContextAware, WebMessageSource {
 		Assert.Arg.notNull(path, "path");
 		Assert.Arg.notNull(message, "message");
 
-		setFlashMessage(message);
+		getSession().setFlashMessage(message);
 		setRedirect(path);
-	}
-
-	public void setFlashMessage(String message) {
-		getContext().setFlashAttribute(SK_MESSAGE, message);
-	}
-
-	protected String getSessionMessage() {
-		return (String) getContext().getSessionAttribute(SK_MESSAGE);
 	}
 }

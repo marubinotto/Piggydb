@@ -164,7 +164,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			return true;
 		}
 
-		setFlashMessage(
+		getSession().setFlashMessage(
 			getMessage(
 				"completed-register-fragment", 
 				this.html.linkToFragment(parentId), 
