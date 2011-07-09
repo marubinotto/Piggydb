@@ -142,6 +142,7 @@ implements ApplicationContextAware, WebMessageSource {
 
 	@Override
 	public final boolean onSecurityCheck() {
+		getLogger().debug("--------------------------------------------------");
 		logParameters();
 	
 		this.session = new Session(
