@@ -241,11 +241,6 @@ implements ApplicationContextAware, WebMessageSource {
 		return WebUtils.makeContextUrl(getContext().getRequest()) + getPath();
 	}
 
-	// TODO
-	protected String getDefaultAtomUrl() {
-		return StringUtils.replace(getFullPageUrl(), ".htm", ".atom");
-	}
-
 	@Override
 	public void onRender() {
 		super.onRender();

@@ -31,6 +31,11 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	protected String getAtomUrl() {
 		return null;
 	}
+	
+	protected String getDefaultAtomUrl() {
+		return StringUtils.replace(getFullPageUrl(), ".htm", ".atom");
+	}
+
 
 	//
 	// Model
