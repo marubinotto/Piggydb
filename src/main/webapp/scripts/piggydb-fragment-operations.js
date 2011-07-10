@@ -37,7 +37,11 @@ jQuery(function() {
     jQuery(this).find(".fragment-tools").eq(0).hide();
   });
   jQuery("div.fragment-content-text").live('dblclick', function() {
-    alert("hello");
+	var id = Fragment.getId(this);
+	alert(id);
+    //jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
+	    
+    //});
   });
   jQuery("a.img-link").live("click", onImageClick);
   makeFragmentsDroppable("table.fragment", null);
@@ -221,6 +225,18 @@ function highlightFragment(id, baseSelector) {
   if (baseSelector != null) selector = baseSelector + " " + selector;
   jQuery(selector).fadingHighlight("#ff9900");
 }
+
+
+
+//
+// Fragment 
+//
+
+var Fragment = {
+  getId: function(node) {
+    return jQuery(node).closest("table.fragment").find("span.fragment-id:first").text();
+  }
+};
 
 
 
