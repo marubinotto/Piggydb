@@ -49,9 +49,8 @@ public class QueryUtils {
 		sql.append("tag_id, target_id, target_type");
 		sql.append(") values (?, ?, ?)");
 
-		Object[] params = new Object[] { new Long(tagId), new Long(targetId),
-				targetType };
-
+		Object[] params = new Object[]{
+			new Long(tagId), new Long(targetId), targetType};
 		jdbcTemplate.update(sql.toString(), params);
 	}
 
@@ -65,9 +64,8 @@ public class QueryUtils {
 		sql.append("delete from tagging");
 		sql.append(" where tag_id = ? and target_id = ? and target_type = ?");
 
-		Object[] params = new Object[] { new Long(tagId), new Long(targetId),
-				targetType };
-
+		Object[] params = new Object[]{
+			new Long(tagId), new Long(targetId), targetType};
 		jdbcTemplate.update(sql.toString(), params);
 	}
 
@@ -100,8 +98,12 @@ public class QueryUtils {
 		JdbcTemplate jdbcTemplate, 
 		TagRepository tagRepository)
 	throws Exception {
-		updateTaggings(classifiable.getClassification(), classifiable.getId(),
-				targetType, jdbcTemplate, tagRepository);
+		updateTaggings(
+			classifiable.getClassification(), 
+			classifiable.getId(), 
+			targetType, 
+			jdbcTemplate, 
+			tagRepository);
 	}
 
 	public static void updateTaggings(
@@ -111,8 +113,7 @@ public class QueryUtils {
 		JdbcTemplate jdbcTemplate,
 		TagRepository tagRepository) 
 	throws Exception {
-		List<Long> currentTagIds = getParentTagIds(targetId, targetType,
-				jdbcTemplate);
+		List<Long> currentTagIds = getParentTagIds(targetId, targetType, jdbcTemplate);
 		for (Tag tag : classification) {
 			Long tagId = tag.getId();
 			if (tagId == null) tagId = tagRepository.register(tag);

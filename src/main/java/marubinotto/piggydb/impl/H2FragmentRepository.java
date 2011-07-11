@@ -127,7 +127,7 @@ implements RawEntityFactory<RawFragment> {
 			"select count(*) from fragment", Long.class);
 	}
 
-	public Fragment get(long id) throws Exception {	
+	public Fragment get(long id, boolean fetchingRelations) throws Exception {
 		logger.debug("get: " + id);
 		
 		// entity
@@ -140,9 +140,11 @@ implements RawEntityFactory<RawFragment> {
 		refreshClassifications(list(fragment));
 		
 		// relationships
-		setParentsTo(fragment);
-		Map<Long, RawFragment> id2child = setChildrenWithTagsTo(fragment);
-		setParentsAndChildrenWithGrandchildrenToEach(id2child);
+		if (fetchingRelations) {
+			setParentsTo(fragment);
+			Map<Long, RawFragment> id2child = setChildrenWithTagsTo(fragment);
+			setParentsAndChildrenWithGrandchildrenToEach(id2child);
+		}
 
 		return fragment;
 	}

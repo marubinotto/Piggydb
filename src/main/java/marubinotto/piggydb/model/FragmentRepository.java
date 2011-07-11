@@ -23,6 +23,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public TagRepository getTagRepository();
 	
+	public Fragment get(long id, boolean fetchingRelations) throws Exception;
+	
 	public void setFileRepository(FileRepository fileRepository);
 	
 	public void refreshClassifications(List<? extends Fragment> fragments) throws Exception;
@@ -92,6 +94,10 @@ public interface FragmentRepository extends Repository<Fragment> {
 
 		public FileRepository getFileRepository() {
 			return fileRepository;
+		}
+		
+		public Fragment get(long id) throws Exception {
+			return get(id, true);
 		}
 		
 		public final boolean update(Fragment fragment) 
