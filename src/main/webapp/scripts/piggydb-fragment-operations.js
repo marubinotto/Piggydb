@@ -260,7 +260,7 @@ var Fragment = {
 	var id = Fragment.getId(editorDiv);
 	var contentDiv = editorDiv.siblings("div.fragment-content-text");
 	contentDiv.empty().putLoadingIcon();
-	jQuery.get("html/fragment-node-content.htm", {"id" : id}, function(html) {
+	jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
 	  contentDiv.html(jQuery(html).find("div.fragment-content").html());
       prettyPrint();
     });
@@ -317,7 +317,7 @@ var FragmentTree = {
       var loadIcon = jQuery(span).putLoadingIcon("margin: -2px; margin-left: 5px;");
       this.setOpened(toggle);
       
-      jQuery.get("html/fragment-node-content.htm", {"id" : id}, function(html) {
+      jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
         table.append(jQuery(html));
         loadIcon.remove();
         jQuery(toggle).deleteDisabledFlag();
