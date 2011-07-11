@@ -251,6 +251,19 @@ var Fragment = {
 		editor.height(Math.min(height, 500));
       });
 	});
+  },
+  
+  onQuickEditCancel: function(button) {
+	var editorDiv = jQuery(button).closest("div.fragment-content-editor");
+	editorDiv.empty();
+	
+	var id = Fragment.getId(editorDiv);
+	var contentDiv = editorDiv.siblings("div.fragment-content-text");
+	contentDiv.empty().putLoadingIcon();
+	jQuery.get("html/fragment-node-content.htm", {"id" : id}, function(html) {
+	  contentDiv.html(jQuery(html).find("div.fragment-content").html());
+      prettyPrint();
+    });
   }
 };
 
