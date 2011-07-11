@@ -274,7 +274,7 @@ var Fragment = {
 	
 	editorDiv.empty();
 	contentDiv.empty().putLoadingIcon();
-	jQuery.get("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
+	jQuery.post("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
 	  contentDiv.html(jQuery(html));
       prettyPrint();
     });
