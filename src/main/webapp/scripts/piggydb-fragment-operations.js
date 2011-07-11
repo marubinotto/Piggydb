@@ -254,14 +254,28 @@ var Fragment = {
   },
   
   onQuickEditCancel: function(button) {
-	var editorDiv = jQuery(button).closest("div.fragment-content-editor");
-	editorDiv.empty();
-	
-	var id = Fragment.getId(editorDiv);
+	var id = Fragment.getId(button);
+	var editorDiv = jQuery(button).closest("div.fragment-content-editor");	
 	var contentDiv = editorDiv.siblings("div.fragment-content-text");
+	
+	editorDiv.empty();
 	contentDiv.empty().putLoadingIcon();
 	jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
 	  contentDiv.html(jQuery(html).find("div.fragment-content").html());
+      prettyPrint();
+    });
+  },
+  
+  onQuickEditUpdate: function(button) {
+	var id = Fragment.getId(button);
+	var editorDiv = jQuery(button).closest("div.fragment-content-editor");
+	var content = editorDiv.find("textarea").val();
+	var contentDiv = editorDiv.siblings("div.fragment-content-text");
+	
+	editorDiv.empty();
+	contentDiv.empty().putLoadingIcon();
+	jQuery.get("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
+	  contentDiv.html(jQuery(html));
       prettyPrint();
     });
   }
