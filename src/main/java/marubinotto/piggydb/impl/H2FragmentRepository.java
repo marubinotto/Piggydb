@@ -132,15 +132,14 @@ implements RawEntityFactory<RawFragment> {
 		
 		// entity
 		RawFragment fragment = queryForOneFragment(
-			"select " + this.fragmentRowMapper.selectAll() + 
-				" from fragment where fragment_id = ?", 
+			"select " + this.fragmentRowMapper.selectAll() + " from fragment where fragment_id = ?",
 			new Object[]{new Long(id)});
 		if (fragment == null) return null;
 		
 		// classification
 		refreshClassifications(list(fragment));
 		
-		// relations
+		// relationships
 		setParentsTo(fragment);
 		Map<Long, RawFragment> id2child = setChildrenWithTagsTo(fragment);
 		setParentsAndChildrenWithGrandchildrenToEach(id2child);
