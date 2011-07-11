@@ -234,15 +234,21 @@ var Fragment = {
   setUpQuickEdit: function() {
     jQuery("div.fragment-content-text").live('dblclick', function() {
 	  var contentDiv = jQuery(this);
+	  var contentDivHeight = contentDiv.height();
 	  var id = Fragment.getId(contentDiv);
 	  contentDiv.empty().putLoadingIcon();
 	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
 	  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
         contentDiv.empty();
 		editorDiv.html(html);
-		editorDiv.find("textarea.fragment-content").markItUp(markItUpSettings);
+		
+		var editor = editorDiv.find("textarea.fragment-content");
+		editor.markItUp(markItUpSettings);
 		editorDiv.find(".markItUp .markItUpButton9 a")
 		  .attr("href", constants["wiki-help-href"]).click(onWikiHelpClick);
+		
+		var height = Math.max(contentDivHeight, editor.height());
+		editor.height(Math.min(height, 500));
       });
 	});
   }
