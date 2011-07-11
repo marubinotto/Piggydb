@@ -2,8 +2,8 @@
 <textarea name="content" class="fragment-content" rows="3" cols="20">$fragment.content</textarea>
 <div class="fragment-content-editor-buttons">
 	<button class="cancel-button" style="float: left; margin-bottom: 5px;"
-		onclick="Fragment.onQuickEditCancel(this)">Cancel</button>
+		onclick="Fragment.onQuickEditCancel(this)">$messages.get("cancel")</button>
 	<button class="update-button" style="float: right; margin-bottom: 5px;"
-		onclick="Fragment.onQuickEditUpdate(this)">Update</button>
+		onclick="Fragment.onQuickEditUpdate(this)">$messages.get("update")</button>
 </div>
 #end

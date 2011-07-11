@@ -54,7 +54,7 @@ public class SystemInfoPage extends AbstractBorderPage {
 		}
 		this.databaseTitleForm.add(this.titleField);
 		this.databaseTitleForm.add(
-			new Submit("update", getMessage("SystemInfoPage-update"), this, "onUpdateDatabaseTitleClick"));
+			new Submit("update", getMessage("update"), this, "onUpdateDatabaseTitleClick"));
 	}
 
 	public boolean onUpdateDatabaseTitleClick() throws Exception {
