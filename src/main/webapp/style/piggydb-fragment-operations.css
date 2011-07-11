@@ -575,14 +575,8 @@ ul.fragment-tree li {
   margin: 0px;
 }
 
-ul.fragment-tree .subtree li {
+ul.fragment-tree .subtree li.fragment-node {
   margin-left: 25px;
-}
-
-ul.subtree .fragment-content ul,
-ul.subtree .fragment-content ol {
-  margin: 0;
-  padding: 0;
 }
 
 .fragment-content ul.level1 {
