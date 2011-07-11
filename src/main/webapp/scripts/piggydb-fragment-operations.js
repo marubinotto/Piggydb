@@ -36,14 +36,8 @@ jQuery(function() {
   jQuery("table.fragment").live('mouseleave', function() {
     jQuery(this).find(".fragment-tools").eq(0).hide();
   });
-  jQuery("div.fragment-content-text").live('dblclick', function() {
-	var id = Fragment.getId(this);
-	alert(id);
-    //jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
-	    
-    //});
-  });
   jQuery("a.img-link").live("click", onImageClick);
+  Fragment.setUpQuickEdit();
   makeFragmentsDroppable("table.fragment", null);
   makeSelectedFragmentsDroppable();
   makeRelationsDraggable("");
@@ -235,6 +229,22 @@ function highlightFragment(id, baseSelector) {
 var Fragment = {
   getId: function(node) {
     return jQuery(node).closest("table.fragment").find("span.fragment-id:first").text();
+  },
+  
+  setUpQuickEdit: function() {
+    jQuery("div.fragment-content-text").live('dblclick', function() {
+	  var contentDiv = jQuery(this);
+	  var id = Fragment.getId(contentDiv);
+	  contentDiv.empty().putLoadingIcon();
+	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
+	  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
+        contentDiv.empty();
+		editorDiv.html(html);
+		editorDiv.find("textarea.fragment-content").markItUp(markItUpSettings);
+		editorDiv.find(".markItUp .markItUpButton9 a")
+		  .attr("href", constants["wiki-help-href"]).click(onWikiHelpClick);
+      });
+	});
   }
 };
 
