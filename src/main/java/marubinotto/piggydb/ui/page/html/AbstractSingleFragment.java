@@ -7,9 +7,9 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 
 /**
- * HTML Fragment based on a knowledge fragment without its relationships
+ * HTML Fragment based on a knowledge fragment without its tags and relationships
  */
-public abstract class AbstractOneFragment extends AbstractHtmlFragment {
+public abstract class AbstractSingleFragment extends AbstractHtmlFragment {
 
 	public Long id;
 	public Fragment fragment;
