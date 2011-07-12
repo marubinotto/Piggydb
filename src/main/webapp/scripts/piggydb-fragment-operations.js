@@ -36,25 +36,6 @@ jQuery(function() {
 
 
 //
-// Fragment 
-//
-var Fragment = {
-	getId: function(node) {
-		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
-	},
-	
-	findInTheSameFragment: function(node, selector) {
-		return jQuery(node).closest("table.fragment").find(selector);
-	},
-	
-	findInTheSameFragmentNode: function(node, selector) {
-		return jQuery(node).closest("table.fragment-node").find(selector);
-	}      
-};
-
-
-
-//
 // Fragment Form
 //
 var FragmentForm = {
@@ -126,6 +107,25 @@ var FragmentForm = {
       {name: messages["help"]}
     ]
   }
+};
+
+
+
+//
+// Fragment 
+//
+var Fragment = {
+	getId: function(node) {
+		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
+	},
+	
+	findInTheSameFragment: function(node, selector) {
+		return jQuery(node).closest("table.fragment").find(selector);
+	},
+	
+	findInTheSameFragmentNode: function(node, selector) {
+		return jQuery(node).closest("table.fragment-node").find(selector);
+	}      
 };
 
 
