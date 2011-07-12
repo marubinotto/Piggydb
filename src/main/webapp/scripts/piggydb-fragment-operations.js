@@ -138,9 +138,9 @@ var QuickEdit = {
 	  jQuery("div.fragment-content-text").live('dblclick', function() {
 		  var contentDiv = jQuery(this);
 		  var contentDivHeight = contentDiv.height();
-		  var id = Fragment.getId(contentDiv);
-		  contentDiv.empty().putLoadingIcon();
 		  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
+		  var id = Fragment.getId(contentDiv);
+		  contentDiv.empty().putLoadingIcon(); 
 		  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
 		  	contentDiv.empty();
 		  	editorDiv.html(html);
