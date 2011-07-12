@@ -10,12 +10,12 @@ jQuery(function() {
     jQuery(this).find(".fragment-tools").eq(0).hide();
   });
   jQuery("a.img-link").live("click", onImageClick);
-  Fragment.setUpQuickEdit();
   makeFragmentsDroppable("table.fragment", null);
   makeSelectedFragmentsDroppable();
   makeRelationsDraggable("");
   
   FragmentForm.init();
+  QuickEdit.init();
   
   // auto-complete
   jQuery("input[name=tags]").autocomplete(constants["autocomplete-url"], {
@@ -34,8 +34,28 @@ jQuery(function() {
 });
 
 
+
 //
-// Fragment form
+// Fragment 
+//
+var Fragment = {
+	getId: function(node) {
+		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
+	},
+	
+	findInTheSameFragment: function(node, selector) {
+		return jQuery(node).closest("table.fragment").find(selector);
+	},
+	
+	findInTheSameFragmentNode: function(node, selector) {
+		return jQuery(node).closest("table.fragment-node").find(selector);
+	}      
+};
+
+
+
+//
+// Fragment Form
 //
 var FragmentForm = {
 	init: function() {
@@ -111,7 +131,68 @@ var FragmentForm = {
 
 
 //
-// Liquid blocks
+// Quick Edit
+//
+var QuickEdit = {
+	init: function() {
+	  jQuery("div.fragment-content-text").live('dblclick', function() {
+		  var contentDiv = jQuery(this);
+		  var contentDivHeight = contentDiv.height();
+		  var id = Fragment.getId(contentDiv);
+		  contentDiv.empty().putLoadingIcon();
+		  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
+		  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
+		  	contentDiv.empty();
+		  	editorDiv.html(html);
+			
+		  	var editor = editorDiv.find("textarea.fragment-content");
+		  	editor.markItUp(FragmentForm.markItUpSettings);
+		  	editorDiv.find(".markItUp .markItUpButton9 a")
+			  	.attr("href", constants["wiki-help-href"]).click(FragmentForm.onWikiHelpClick);
+			
+		  	var height = Math.max(contentDivHeight, editor.height());
+		  	editor.height(Math.min(height, 500));
+		  });
+		});
+	},
+
+	onCancel: function(button) {
+		var id = Fragment.getId(button);
+		var editorDiv = jQuery(button).closest("div.fragment-content-editor");	
+		var contentDiv = editorDiv.siblings("div.fragment-content-text");
+		
+		editorDiv.empty();
+		contentDiv.empty().putLoadingIcon();
+		jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
+		  contentDiv.html(jQuery(html).find("div.fragment-content").html());
+		  prettyPrint();
+		});
+	},
+
+	onUpdate: function(button) {
+		var id = Fragment.getId(button);
+		var editorDiv = jQuery(button).closest("div.fragment-content-editor");
+		var content = editorDiv.find("textarea").val();
+		var contentDiv = editorDiv.siblings("div.fragment-content-text");
+		
+		editorDiv.empty();
+		contentDiv.empty().putLoadingIcon();
+		jQuery.post("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
+		  if (isNotBlank(html))
+		  	contentDiv.html(jQuery(html));
+		  else {
+		  	Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
+		  	contentDiv.closest("tr.fragment-body").remove();
+		  }
+		  prettyPrint();
+		});
+	}
+};
+
+
+
+//
+// Liquid Blocks
 //
 function liquidBlocks(selectorPrefix, blockWidth, containerWidth) {
   var blocksSelector = selectorPrefix + "ul.liquid-blocks";
@@ -220,80 +301,6 @@ function highlightFragment(id, baseSelector) {
   if (baseSelector != null) selector = baseSelector + " " + selector;
   jQuery(selector).fadingHighlight("#ff9900");
 }
-
-
-
-//
-// Fragment 
-//
-
-var Fragment = {
-  getId: function(node) {
-    return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
-  },
-  
-  findInTheSameFragment: function(node, selector) {
-    return jQuery(node).closest("table.fragment").find(selector);
-  },
-  
-  findInTheSameFragmentNode: function(node, selector) {
-    return jQuery(node).closest("table.fragment-node").find(selector);
-  },
-  
-  setUpQuickEdit: function() {
-    jQuery("div.fragment-content-text").live('dblclick', function() {
-	  var contentDiv = jQuery(this);
-	  var contentDivHeight = contentDiv.height();
-	  var id = Fragment.getId(contentDiv);
-	  contentDiv.empty().putLoadingIcon();
-	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
-	  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
-        contentDiv.empty();
-		editorDiv.html(html);
-		
-		var editor = editorDiv.find("textarea.fragment-content");
-		editor.markItUp(FragmentForm.markItUpSettings);
-		editorDiv.find(".markItUp .markItUpButton9 a")
-		  .attr("href", constants["wiki-help-href"]).click(FragmentForm.onWikiHelpClick);
-		
-		var height = Math.max(contentDivHeight, editor.height());
-		editor.height(Math.min(height, 500));
-      });
-	});
-  },
-  
-  onQuickEditCancel: function(button) {
-	var id = Fragment.getId(button);
-	var editorDiv = jQuery(button).closest("div.fragment-content-editor");	
-	var contentDiv = editorDiv.siblings("div.fragment-content-text");
-	
-	editorDiv.empty();
-	contentDiv.empty().putLoadingIcon();
-	jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
-	  contentDiv.html(jQuery(html).find("div.fragment-content").html());
-      prettyPrint();
-    });
-  },
-  
-  onQuickEditUpdate: function(button) {
-	var id = Fragment.getId(button);
-	var editorDiv = jQuery(button).closest("div.fragment-content-editor");
-	var content = editorDiv.find("textarea").val();
-	var contentDiv = editorDiv.siblings("div.fragment-content-text");
-	
-	editorDiv.empty();
-	contentDiv.empty().putLoadingIcon();
-	jQuery.post("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
-	  if (isNotBlank(html))
-		contentDiv.html(jQuery(html));
-	  else {
-		Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
-		contentDiv.closest("tr.fragment-body").remove();
-	  }
-      prettyPrint();
-    });
-  }
-};
 
 
 
