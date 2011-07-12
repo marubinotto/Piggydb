@@ -228,7 +228,15 @@ function highlightFragment(id, baseSelector) {
 
 var Fragment = {
   getId: function(node) {
-    return jQuery(node).closest("table.fragment").find("span.fragment-id:first").text();
+    return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
+  },
+  
+  findInTheSameFragment: function(node, selector) {
+    return jQuery(node).closest("table.fragment").find(selector);
+  },
+  
+  findInTheSameFragmentNode: function(node, selector) {
+    return jQuery(node).closest("table.fragment-node").find(selector);
   },
   
   setUpQuickEdit: function() {
@@ -275,7 +283,12 @@ var Fragment = {
 	editorDiv.empty();
 	contentDiv.empty().putLoadingIcon();
 	jQuery.post("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
-	  contentDiv.html(jQuery(html));
+	  if (isNotBlank(html))
+		contentDiv.html(jQuery(html));
+	  else {
+		Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
+		contentDiv.closest("tr.fragment-body").remove();
+	  }
       prettyPrint();
     });
   }
