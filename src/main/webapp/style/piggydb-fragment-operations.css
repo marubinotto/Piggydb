@@ -334,6 +334,14 @@ td.fragment-body .fragment-content span.error-line {
 	color: silver;
 }
 
+td.fragment-body .fragment-content div.error {
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid silver;
+	color: red;
+	font-size: 8pt;
+}
+
 
 
 /*

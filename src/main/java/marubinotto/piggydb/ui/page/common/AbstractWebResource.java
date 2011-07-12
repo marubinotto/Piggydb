@@ -221,8 +221,7 @@ implements ApplicationContextAware, WebMessageSource {
 	//
 
 	/**
-	 * A target entity object should be prepared here (if this page is for an
-	 * entity).
+	 * A target entity object should be prepared here (if this page is for an entity).
 	 */
 	protected boolean onPreInit() throws Exception {
 		return true;
@@ -245,9 +244,11 @@ implements ApplicationContextAware, WebMessageSource {
 	@Override
 	public void onRender() {
 		super.onRender();
-
 		try {
 			setModels();
+		}
+		catch (RuntimeException e) {
+			throw e;
 		}
 		catch (Exception e) {
 			throw new UnhandledException(e);
