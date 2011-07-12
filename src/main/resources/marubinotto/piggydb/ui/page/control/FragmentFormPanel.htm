@@ -9,7 +9,8 @@
 #else
 	<img class="toggle-icon" id="${this.name}-toggle-icon" src="$context/images/twistie-up.gif" alt=""/> 
 #end 
-	<a class="toggle-link" href="#" onclick="onFragmentFormToggleClick('${this.name}'); return false;">$formTitle</a>
+	<a class="toggle-link" href="#" onclick="FragmentForm.onToggleClick('${this.name}'); return false;"
+		>$formTitle</a>
 </div>
 
 ##

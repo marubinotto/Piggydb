@@ -58,9 +58,10 @@ jQuery(function() {
   });
   
   // fragment form
-  jQuery('.content-type-switch input').click(onContentTypeSwitch);
+  jQuery('.content-type-switch input').click(FragmentForm.onContentTypeSwitch);
   jQuery("textarea.fragment-content").markItUp(markItUpSettings);
-  jQuery(".markItUp .markItUpButton9 a").attr("href", constants["wiki-help-href"]).click(onWikiHelpClick);
+  jQuery(".markItUp .markItUpButton9 a").attr("href", constants["wiki-help-href"])
+  	.click(FragmentForm.onWikiHelpClick);
   jQuery("input[name=preview]").click(function () {
     this.form.contentFieldHeight.value = jQuery(this.form.content).height();
   });
@@ -76,36 +77,37 @@ jQuery(function() {
 //
 // Fragment form
 //
-
-function onFragmentFormToggleClick(panelName) {
-  var formDiv = document.getElementById(panelName + "-div");
-  var toggleIcon = document.getElementById(panelName + "-toggle-icon");
-  if (formDiv.style.display == "none") {
-    toggleIcon.src = "images/twistie-down.gif";
-    formDiv.style.display = "block";
-  } 
-  else {
-    toggleIcon.src = "images/twistie-up.gif";
-    formDiv.style.display = "none";
+var FragmentForm = {
+  onToggleClick: function(panelName) {
+		var formDiv = document.getElementById(panelName + "-div");
+		var toggleIcon = document.getElementById(panelName + "-toggle-icon");
+		if (formDiv.style.display == "none") {
+		  toggleIcon.src = "images/twistie-down.gif";
+		  formDiv.style.display = "block";
+		} 
+		else {
+		  toggleIcon.src = "images/twistie-up.gif";
+		  formDiv.style.display = "none";
+		}
+  },
+  
+  onContentTypeSwitch: function() {
+    var formId = jQuery(this.form).attr("id");
+    var newValue = this.value;
+    var oldValue = this.form.contentType.value;
+    if (newValue == oldValue) {
+      return;
+    }
+    jQuery('#' + formId + ' .for-' + oldValue).hide();
+    jQuery('#' + formId + ' .for-' + newValue).show();
+    this.form.contentType.value = newValue;
+  },
+  
+  onWikiHelpClick: function() {
+    wikiHelp.show(this.href);
+    return false;
   }
-}
-
-function onContentTypeSwitch() { 
-  var formId = jQuery(this.form).attr("id");
-  var newValue = this.value;
-  var oldValue = this.form.contentType.value;
-  if (newValue == oldValue) {
-    return;
-  }
-  jQuery('#' + formId + ' .for-' + oldValue).hide();
-  jQuery('#' + formId + ' .for-' + newValue).show();
-  this.form.contentType.value = newValue;
-}
-
-function onWikiHelpClick() {
-  wikiHelp.show(this.href);
-  return false;
-}
+};
 
 
 
@@ -253,7 +255,7 @@ var Fragment = {
 		var editor = editorDiv.find("textarea.fragment-content");
 		editor.markItUp(markItUpSettings);
 		editorDiv.find(".markItUp .markItUpButton9 a")
-		  .attr("href", constants["wiki-help-href"]).click(onWikiHelpClick);
+		  .attr("href", constants["wiki-help-href"]).click(FragmentForm.onWikiHelpClick);
 		
 		var height = Math.max(contentDivHeight, editor.height());
 		editor.height(Math.min(height, 500));
