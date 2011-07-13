@@ -2,19 +2,8 @@
 // Initialization
 //
 jQuery(function() {
-  // fragment
-  jQuery("table.fragment").live('mouseenter', function() {
-    jQuery(this).find(".fragment-tools").eq(0).show();
-  });
-  jQuery("table.fragment").live('mouseleave', function() {
-    jQuery(this).find(".fragment-tools").eq(0).hide();
-  });
-  jQuery("a.img-link").live("click", onImageClick);
-  makeFragmentsDroppable("table.fragment", null);
-  makeSelectedFragmentsDroppable();
-  makeRelationsDraggable("");
-  
   FragmentForm.init();
+  Fragment.init();
   QuickEdit.init();
   
   // auto-complete
@@ -115,6 +104,19 @@ var FragmentForm = {
 // Fragment 
 //
 var Fragment = {
+	init: function() {
+		jQuery("table.fragment").live('mouseenter', function() {
+	    jQuery(this).find(".fragment-tools").eq(0).show();
+	  });
+	  jQuery("table.fragment").live('mouseleave', function() {
+	    jQuery(this).find(".fragment-tools").eq(0).hide();
+	  });
+	  jQuery("a.img-link").live("click", onImageClick);
+	  makeFragmentsDroppable("table.fragment", null);
+	  makeSelectedFragmentsDroppable();
+	  makeRelationsDraggable("");
+	},
+	
 	getId: function(node) {
 		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
 	},
@@ -163,7 +165,7 @@ var QuickEdit = {
 		
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
-		jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
+		jQuery.get("html/fragment-body-row.htm", {"id": id}, function(html) {
 		  contentDiv.html(jQuery(html).find("div.fragment-content").html());
 		  prettyPrint();
 		});
@@ -177,14 +179,16 @@ var QuickEdit = {
 		
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
-		jQuery.post("html/update-fragment-content.htm", {"id" : id, "content": content}, function(html) {
-		  if (isNotBlank(html))
+		var params = {"id": id, "content": content};
+		jQuery.post("html/update-fragment-content.htm", params, function(html) {
+		  if (isNotBlank(html)) {
 		  	contentDiv.html(jQuery(html));
+		  	prettyPrint();
+		  }
 		  else {
 		  	Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
 		  	contentDiv.closest("tr.fragment-body").remove();
-		  }
-		  prettyPrint();
+		  } 
 		});
 	}
 };
