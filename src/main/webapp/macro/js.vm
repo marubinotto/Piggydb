@@ -79,6 +79,10 @@ jQuery(function() {
 #if ($highlightedFragment)
   highlightFragment($highlightedFragment, null);
 #end
+
+#if ($user.isViewer())
+	QuickEdit.init = function(){ /* disabled */ };
+#end
 });
 
 
