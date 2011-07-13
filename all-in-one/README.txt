@@ -3,7 +3,7 @@ Piggydb - http://piggydb.net/
 
 1. REQUIREMENTS
 
-Java 1.5 or later.
+Java 1.6 or later.
 java.exe (Windows) or java (other OS's) must be in the system path.
 
 Java Download: http://www.java.com/
