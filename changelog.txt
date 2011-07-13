@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 4.22 (2011-07-13) == #v4.22
+
+ * Added Quick Edit for fragment content
+ * Moved the parents of a fragment node from below to above the header 
+
 == Changes in version 4.21 (2011-06-17) == #v4.21
 
  * Hide the fragment content toggle when the content to display doesn't exist
