@@ -8,10 +8,11 @@ import marubinotto.piggydb.model.entity.RawTag;
 
 public class DefaultTest {
 
-	private RawTag object = new RawTag("idiot");
+	private RawTag object = new RawTag();
 	
 	@Test
-	public void getName() throws Exception {
-		assertEquals("idiot", this.object.getName());
+	public void name() throws Exception {
+		this.object.setName("hogehoge");
+		assertEquals("hogehoge", this.object.getName());
 	}
 }

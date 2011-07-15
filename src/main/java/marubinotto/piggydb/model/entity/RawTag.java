@@ -9,9 +9,11 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.InvalidTagNameException;
 import marubinotto.util.Assert;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class RawTag extends RawClassifiable implements Tag {
@@ -26,18 +28,21 @@ public class RawTag extends RawClassifiable implements Tag {
 		setName(name);
 	}
 	
+	public RawTag(String name, long id) {
+		setName(name);
+		setId(id);
+	}
+	
 	public RawTag(String name, User user) {
 		super(user);
+		
+		if (StringUtils.containsAny(name, INVALID_CHARS))
+			throw new InvalidTagNameException();
 		
 		ensureCanUse(new RawTag(name), user);
 		
 		setName(name);
 		onPropertyChange(user);
-	}
-	
-	public RawTag(String name, long id) {
-		this.name = name;
-		setId(new Long(id));
 	}
 	
 	public String getName() {
@@ -52,7 +57,7 @@ public class RawTag extends RawClassifiable implements Tag {
 		Assert.Arg.notNull(name, "name");
 		Assert.Arg.notNull(user, "user");
 		
-		if (ObjectUtils.equals(name, this.name)) return;
+		if (ObjectUtils.equals(name, getName())) return;
 		
 		ensureCanChange(user);		// this tag
 		ensureCanUse(new RawTag(name), user);	// rename to
@@ -63,7 +68,7 @@ public class RawTag extends RawClassifiable implements Tag {
 	
 	public boolean isClassifiedAs(String name) {
 		Assert.Arg.notNull(name, "name");
-		if (name.equals(this.name) || getClassification().isSubordinateOf(name)) {
+		if (name.equals(getName()) || getClassification().isSubordinateOf(name)) {
 			return true;
 		}
 		else {
@@ -95,12 +100,12 @@ public class RawTag extends RawClassifiable implements Tag {
 	}
 	
 	public boolean isTrashTag() {
-		return NAME_TRASH.equals(this.name);
+		return NAME_TRASH.equals(getName());
 	}
 	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(this.name).toHashCode();
+		return new HashCodeBuilder().append(getName()).toHashCode();
 	}
 	
 	@Override
@@ -109,15 +114,15 @@ public class RawTag extends RawClassifiable implements Tag {
 			return false;
 		}
 		String targetName = ((Tag)object).getName();
-		if (targetName == null && this.name == null) return true;
+		if (targetName == null && getName() == null) return true;
 		if (targetName == null) return false;
-		if (this.name == null) return false;
-		return targetName.equals(this.name);
+		if (getName() == null) return false;
+		return targetName.equals(getName());
 	}
 	
 	@Override
 	public String toString() {
-		return getId() + ":" + this.name;
+		return getId() + ":" + getName();
 	}
 
 

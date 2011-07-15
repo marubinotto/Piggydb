@@ -39,9 +39,9 @@ public class H2TagRepository extends TagRepository.Base {
 	
 	private TagRowMapper tagRowMapper = new TagRowMapper(this, "tag.");
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
