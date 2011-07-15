@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.util.Assert;
 
 import org.apache.commons.logging.Log;

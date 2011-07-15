@@ -1,6 +1,7 @@
 package marubinotto.piggydb.model;
 
 import marubinotto.piggydb.model.entity.RawClassifiable;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;
 
 public class FragmentRelation extends RawClassifiable {

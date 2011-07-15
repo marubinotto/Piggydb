@@ -5,10 +5,10 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 
 import org.junit.After;
 import org.junit.Before;

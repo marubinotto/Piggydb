@@ -1,4 +1,4 @@
-package marubinotto.piggydb.model;
+package marubinotto.piggydb.model.exception;
 
 import org.springframework.core.ErrorCoded;
 

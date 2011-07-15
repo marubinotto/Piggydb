@@ -2,8 +2,8 @@ package marubinotto.piggydb.model.tag;
 
 import static org.junit.Assert.*;
 
-import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 
 import org.junit.Test;
 

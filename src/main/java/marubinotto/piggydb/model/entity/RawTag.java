@@ -5,10 +5,10 @@ import static marubinotto.util.CollectionUtils.set;
 import java.util.HashSet;
 import java.util.Set;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;
 
 import org.apache.commons.lang.ObjectUtils;

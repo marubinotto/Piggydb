@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.entity.RawEntity;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 

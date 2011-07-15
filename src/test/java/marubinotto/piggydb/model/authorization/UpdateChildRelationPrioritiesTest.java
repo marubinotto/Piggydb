@@ -3,9 +3,9 @@ package marubinotto.piggydb.model.authorization;
 import static junit.framework.Assert.fail;
 import static marubinotto.util.CollectionUtils.list;
 import static org.junit.Assert.assertEquals;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 
 import org.junit.Before;

@@ -1,11 +1,11 @@
 package marubinotto.piggydb.model.entity;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Filter;
-import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.util.Assert;
 
 import org.apache.commons.lang.UnhandledException;

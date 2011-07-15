@@ -3,8 +3,8 @@ package marubinotto.piggydb.ui.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.paging.Page;

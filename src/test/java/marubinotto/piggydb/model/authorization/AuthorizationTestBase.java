@@ -2,10 +2,10 @@ package marubinotto.piggydb.model.authorization;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 
 import org.junit.Before;
 

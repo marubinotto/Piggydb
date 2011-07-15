@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Entity;
 import marubinotto.piggydb.model.OwnerAuth;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 

@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
+import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
 

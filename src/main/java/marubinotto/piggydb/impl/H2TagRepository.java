@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.TagRowMapper;
-import marubinotto.piggydb.model.BaseDataObsoleteException;
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
+import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;

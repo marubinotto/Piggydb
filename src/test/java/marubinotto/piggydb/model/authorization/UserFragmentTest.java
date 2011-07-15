@@ -5,12 +5,12 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Before;

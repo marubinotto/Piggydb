@@ -2,6 +2,8 @@ package marubinotto.piggydb.model;
 
 import java.util.List;
 
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
+
 public interface Classifiable extends Entity {
 
 	public Classification getClassification();

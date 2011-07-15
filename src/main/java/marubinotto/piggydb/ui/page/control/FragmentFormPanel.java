@@ -5,15 +5,15 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import marubinotto.piggydb.model.AuthorizationException;
-import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.control.form.FragmentForm;

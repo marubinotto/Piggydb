@@ -5,13 +5,13 @@ import static marubinotto.util.CollectionUtils.set;
 import java.util.List;
 import java.util.Map;
 
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.ModelUtils;
-import marubinotto.piggydb.model.NoSuchEntityException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.exception.DuplicateException;
+import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.html.AbstractFragments;

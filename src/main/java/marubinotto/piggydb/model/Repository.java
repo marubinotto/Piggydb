@@ -5,6 +5,7 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.util.Assert;
 
 public interface Repository<E extends Entity> {

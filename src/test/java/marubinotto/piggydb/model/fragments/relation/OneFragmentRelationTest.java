@@ -5,10 +5,10 @@ import static marubinotto.util.CollectionUtils.set;
 import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.NoSuchEntityException;
+import marubinotto.piggydb.model.exception.DuplicateException;
+import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.util.time.DateTime;
 

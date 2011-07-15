@@ -10,11 +10,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;
 import marubinotto.util.PasswordDigest;
 import marubinotto.util.Size;

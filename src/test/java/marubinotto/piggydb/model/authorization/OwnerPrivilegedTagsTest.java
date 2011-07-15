@@ -8,12 +8,12 @@ import static junit.framework.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Classifiable;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 
 import org.junit.Before;
 import org.junit.Test;

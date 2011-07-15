@@ -8,14 +8,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import marubinotto.piggydb.model.BaseDataObsoleteException;
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.entity.RawTag;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
+import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Before;

@@ -2,8 +2,8 @@ package marubinotto.piggydb.model.authorization;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 
 import org.junit.Before;
 import org.junit.Test;

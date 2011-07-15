@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import marubinotto.piggydb.model.BaseDataObsoleteException;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Before;

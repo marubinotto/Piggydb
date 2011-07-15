@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Classifiable;
 import marubinotto.piggydb.model.Classification;
-import marubinotto.piggydb.model.InvalidTaggingException;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.util.Assert;
 
 public abstract class RawClassifiable extends RawEntity implements Classifiable {

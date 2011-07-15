@@ -2,11 +2,11 @@ package marubinotto.piggydb.ui.page;
 
 import java.util.List;
 
-import marubinotto.piggydb.model.DuplicateException;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
+import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;

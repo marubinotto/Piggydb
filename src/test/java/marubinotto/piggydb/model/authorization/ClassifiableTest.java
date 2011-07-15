@@ -7,10 +7,10 @@ import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
 import static org.junit.Assert.fail;
 import marubinotto.piggydb.impl.InMemoryDatabase;
-import marubinotto.piggydb.model.AuthorizationException;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.exception.AuthorizationException;
 
 import org.junit.Before;
 import org.junit.Test;
