@@ -21,11 +21,6 @@ public class ModelUtils {
 		return children;
 	}
 	
-	public static boolean isTagNameValid(String name) {
-		if (name == null) return false;
-		return Tag.MIN_LENGTH <= name.length() && name.length() <= Tag.MAX_LENGTH;
-	}
-	
 	public static <E extends Entity> Map<Long, E> toIdMap(Collection<? extends E> entities) {
 		Assert.Arg.notNull(entities, "entities");
 		

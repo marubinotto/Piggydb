@@ -1,11 +1,14 @@
 package marubinotto.piggydb.model.exception;
 
-import marubinotto.piggydb.model.Tag;
 import marubinotto.util.CodedException;
 
 public class InvalidTagNameException extends CodedException {
 
-	public InvalidTagNameException() {
-		super("invalid-tag-name", Tag.INVALID_CHARS);
+	public InvalidTagNameException(String errorCode) {
+		super(errorCode, (String[])null);
+	}
+
+	public InvalidTagNameException(String errorCode, String field) {
+		super(errorCode, new String[]{field});
 	}
 }

@@ -249,28 +249,6 @@ public class FragmentForm extends Form {
 		
 		// tags
 		List<String> tagNames = splitIntoTagNames(this.tagsField.getValue());
-		for (String tagName : tagNames) {
-			if (tagName.length() < Tag.MIN_LENGTH) {
-				this.tagsField.setError(
-					getMessage(
-						"field-minlength-error", 
-						new Object[]{
-							this.messages.getMessage("tag"), 
-							Tag.MIN_LENGTH
-						}));
-				return false;
-			}
-			if (tagName.length() > Tag.MAX_LENGTH) {
-				this.tagsField.setError(
-					getMessage(
-						"field-maxlength-error", 
-						new Object[]{
-							this.messages.getMessage("tag"), 
-							Tag.MAX_LENGTH
-						}));
-				return false;
-			}
-		}
 		try {
 			object.updateTagsByUser(tagNames, tagRepository, user);
 		} 

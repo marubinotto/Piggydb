@@ -107,8 +107,6 @@ public class TagPage extends AbstractFragmentsPage {
 	private void initControls() {
 		// Target tag
 		this.tagNameField.setSize(40);
-		this.tagNameField.setMinLength(Tag.MIN_LENGTH);
-		this.tagNameField.setMaxLength(Tag.MAX_LENGTH);
 		this.tagNameForm.add(this.tagNameField);
 		this.tagNameForm.add(new Submit("commitRename", "  OK  ", this, "onCommitRenameClick"));
 

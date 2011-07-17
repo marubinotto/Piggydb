@@ -327,7 +327,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		String tagName = this.addTagForm.tagName.getValue();
 
 		Fragment fragment = getDomain().getFragmentRepository().get(fragmentId);
-		if (fragment == null || !ModelUtils.isTagNameValid(tagName)) {
+		if (fragment == null) {
 			setRedirectToThisPage();
 			return false;
 		}

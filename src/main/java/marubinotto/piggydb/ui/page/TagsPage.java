@@ -165,8 +165,6 @@ public class TagsPage extends AbstractBorderPage {
 	
 	private void initControls() {
 		this.tagNameField.setSize(40);
-		this.tagNameField.setMinLength(Tag.MIN_LENGTH);
-		this.tagNameField.setMaxLength(Tag.MAX_LENGTH);
 		this.tagNameField.setAttribute("class", "watermarked");
 		this.tagNameField.setTitle(getMessage("TagsPage-new-tag-name"));
 		this.tagForm.add(this.tagNameField);

@@ -1,6 +1,5 @@
 package marubinotto.piggydb.ui.page.control.form;
 
-import marubinotto.piggydb.model.Tag;
 import marubinotto.util.Assert;
 import net.sf.click.Page;
 import net.sf.click.control.Form;
@@ -35,8 +34,6 @@ public class SingleTagForm extends Form {
 		Assert.Property.requireNotNull(listenerForAdd, "listenerForAdd");
 		
 		this.tagField.setSize(20);
-		this.tagField.setMinLength(Tag.MIN_LENGTH);
-		this.tagField.setMaxLength(Tag.MAX_LENGTH);
 		this.tagField.setAttribute("class", "single-tag watermarked");
 		this.tagField.setTitle(getMessage("tag"));
 		add(this.tagField);

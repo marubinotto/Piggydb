@@ -6,10 +6,6 @@ import java.util.Set;
 
 public interface Tag extends Classifiable {
 	
-	public final static int MIN_LENGTH = 2;
-	public final static int MAX_LENGTH = 50;
-	public final static String INVALID_CHARS = "\\";
-	
 	public final static String NAME_TRASH = "#trash";
 	public final static String NAME_HOME = "#home";
 	public final static String NAME_BOOKMARK = "#bookmark";

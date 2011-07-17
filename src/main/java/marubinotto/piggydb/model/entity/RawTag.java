@@ -18,6 +18,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class RawTag extends RawClassifiable implements Tag {
 
+	protected final static int MIN_LENGTH = 2;
+	protected final static int MAX_LENGTH = 50;
+	protected final static String INVALID_CHARS = "\\";
+
 	private String name;
 	private Long popularity;
 
@@ -31,13 +35,19 @@ public class RawTag extends RawClassifiable implements Tag {
 	public RawTag(String name, User user) {
 		super(user);
 		
-		if (StringUtils.containsAny(name, INVALID_CHARS))
-			throw new InvalidTagNameException();
-		
-		ensureCanUse(new RawTag(name), user);
-		
+		validateName(name);
+		ensureCanUse(new RawTag(name), user);		
 		setName(name);
 		onPropertyChange(user);
+	}
+	
+	private void validateName(String name) {
+		if (StringUtils.containsAny(name, INVALID_CHARS))
+			throw new InvalidTagNameException("invalid-tag-chars", INVALID_CHARS);
+		if (name.length() < MIN_LENGTH)
+			throw new InvalidTagNameException("tag-minlength-error", String.valueOf(MIN_LENGTH));
+		if (name.length() > MAX_LENGTH)
+			throw new InvalidTagNameException("tag-maxlength-error", String.valueOf(MAX_LENGTH));
 	}
 	
 	public String getName() {
@@ -54,6 +64,7 @@ public class RawTag extends RawClassifiable implements Tag {
 		
 		if (ObjectUtils.equals(name, getName())) return;
 		
+		validateName(name);
 		ensureCanChange(user);		// this tag
 		ensureCanUse(new RawTag(name), user);	// rename to
 		
