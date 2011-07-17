@@ -24,4 +24,14 @@ public class UserCreatesTagTest {
 	public void invalidChars() throws Exception {
 		new RawTag("--\\--", new User("daisuke"));
 	}
+	
+	@Test(expected=InvalidTagNameException.class)
+	public void tooShortName() throws Exception {
+		new RawTag("a", new User("daisuke"));
+	}
+	
+	@Test(expected=InvalidTagNameException.class)
+	public void tooLongName() throws Exception {
+		new RawTag("12345678901234567890123456789012345678901234567890a", new User("daisuke"));
+	}
 }
