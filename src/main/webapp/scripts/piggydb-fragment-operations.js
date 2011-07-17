@@ -121,6 +121,15 @@ var Fragment = {
 		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
 	},
 	
+	getFragmentHeader: function(node) {
+		return Fragment.findInTheSameFragment(node, "div.fragment-header:first")
+	},
+	
+	getBodyRow: function(node) {
+		// should avoid to retrieve rows of subordinate fragments on fragment.htm
+		return Fragment.getFragmentHeader(node).closest("tr").siblings("tr.fragment-body");
+	},
+	
 	findInTheSameFragment: function(node, selector) {
 		return jQuery(node).closest("table.fragment").find(selector);
 	},
@@ -139,23 +148,36 @@ var QuickEdit = {
 	init: function() {
 	  jQuery("div.fragment-content-text").live('dblclick', function() {
 		  var contentDiv = jQuery(this);
-		  var contentDivHeight = contentDiv.height();
-		  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
-		  var id = Fragment.getId(contentDiv);
-		  contentDiv.empty().putLoadingIcon(); 
-		  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
-		  	contentDiv.empty();
-		  	editorDiv.html(html);
-			
-		  	var editor = editorDiv.find("textarea.fragment-content");
-		  	editor.markItUp(FragmentForm.markItUpSettings);
-		  	editorDiv.find(".markItUp .markItUpButton9 a")
-			  	.attr("href", constants["wiki-help-href"]).click(FragmentForm.onWikiHelpClick);
-			
-		  	var height = Math.max(contentDivHeight, editor.height());
-		  	editor.height(Math.min(height, 500));
-		  });
+		  QuickEdit.openEditor(Fragment.getId(contentDiv), contentDiv);
 		});
+	},
+	
+	onEditButtonClick: function(button) {
+		var id = Fragment.getId(button);
+		var contentDiv = Fragment.getBodyRow(button).find("div.fragment-content-text");
+		if (contentDiv.size() == 1) {
+			QuickEdit.openEditor(id, contentDiv);
+			return true;
+		}
+		return false;
+	},
+	
+	openEditor: function(id, contentDiv) {
+		var contentDivHeight = contentDiv.height();
+	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
+	  contentDiv.empty().putLoadingIcon(); 
+	  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
+	  	contentDiv.empty();
+	  	editorDiv.html(html);
+		
+	  	var editor = editorDiv.find("textarea.fragment-content");
+	  	editor.markItUp(FragmentForm.markItUpSettings);
+	  	editorDiv.find(".markItUp .markItUpButton9 a")
+		  	.attr("href", constants["wiki-help-href"]).click(FragmentForm.onWikiHelpClick);
+		
+	  	var height = Math.max(contentDivHeight, editor.height());
+	  	editor.height(Math.min(height, 500));
+	  });
 	},
 
 	onCancel: function(button) {
