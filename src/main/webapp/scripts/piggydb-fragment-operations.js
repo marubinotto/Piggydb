@@ -103,40 +103,41 @@ var FragmentForm = {
 //
 // Fragment 
 //
-var Fragment = {
-	init: function() {
-		jQuery("table.fragment").live('mouseenter', function() {
-	    jQuery(this).find(".fragment-tools").eq(0).show();
-	  });
-	  jQuery("table.fragment").live('mouseleave', function() {
-	    jQuery(this).find(".fragment-tools").eq(0).hide();
-	  });
-	  jQuery("a.img-link").live("click", onImageClick);
-	  makeFragmentsDroppable("table.fragment", null);
-	  makeSelectedFragmentsDroppable();
-	  makeRelationsDraggable("");
+function Fragment(node) {
+	this.node = jQuery(node);
+	this.root = this.node.closest("table.fragment");
+}
+Fragment.init = function() {
+	jQuery("table.fragment").live('mouseenter', function() {
+    jQuery(this).find(".fragment-tools").eq(0).show();
+  });
+  jQuery("table.fragment").live('mouseleave', function() {
+    jQuery(this).find(".fragment-tools").eq(0).hide();
+  });
+  jQuery("a.img-link").live("click", onImageClick);
+  makeFragmentsDroppable("table.fragment", null);
+  makeSelectedFragmentsDroppable();
+  makeRelationsDraggable("");
+};
+Fragment.findInTheSameFragmentNode = function(node, selector) {
+	return jQuery(node).closest("table.fragment-node").find(selector);
+};
+Fragment.prototype = {
+	id: function() {
+		return this.root.find("span.fragment-id:first").text();
 	},
 	
-	getId: function(node) {
-		return Fragment.findInTheSameFragment(node, "span.fragment-id:first").text();
+	header: function() {
+		return this.root.find("div.fragment-header:first");
 	},
 	
-	getFragmentHeader: function(node) {
-		return Fragment.findInTheSameFragment(node, "div.fragment-header:first")
+	bodyRow: function() {
+		return this.header().closest("tr").siblings("tr.fragment-body");
 	},
 	
-	getBodyRow: function(node) {
-		// should avoid to retrieve rows of subordinate fragments on fragment.htm
-		return Fragment.getFragmentHeader(node).closest("tr").siblings("tr.fragment-body");
-	},
-	
-	findInTheSameFragment: function(node, selector) {
-		return jQuery(node).closest("table.fragment").find(selector);
-	},
-	
-	findInTheSameFragmentNode: function(node, selector) {
-		return jQuery(node).closest("table.fragment-node").find(selector);
-	}      
+	textContentDiv: function() {
+		return this.bodyRow().find("div.fragment-content-text");
+	}
 };
 
 
@@ -148,15 +149,15 @@ var QuickEdit = {
 	init: function() {
 	  jQuery("div.fragment-content-text").live('dblclick', function() {
 		  var contentDiv = jQuery(this);
-		  QuickEdit.openEditor(Fragment.getId(contentDiv), contentDiv);
+		  QuickEdit.openEditor(new Fragment(contentDiv).id(), contentDiv);
 		});
 	},
 	
 	onEditButtonClick: function(button) {
-		var id = Fragment.getId(button);
-		var contentDiv = Fragment.getBodyRow(button).find("div.fragment-content-text");
+		var fragment = new Fragment(button);
+		var contentDiv = fragment.textContentDiv();
 		if (contentDiv.size() == 1) {
-			QuickEdit.openEditor(id, contentDiv);
+			QuickEdit.openEditor(fragment.id(), contentDiv);
 			return true;
 		}
 		return false;
@@ -181,27 +182,27 @@ var QuickEdit = {
 	},
 
 	onCancel: function(button) {
-		var id = Fragment.getId(button);
+		var fragment = new Fragment(button);
 		var editorDiv = jQuery(button).closest("div.fragment-content-editor");	
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
-		jQuery.get("html/fragment-body-row.htm", {"id": id}, function(html) {
+		jQuery.get("html/fragment-body-row.htm", {"id": fragment.id()}, function(html) {
 		  contentDiv.html(jQuery(html).find("div.fragment-content").html());
 		  prettyPrint();
 		});
 	},
 
 	onUpdate: function(button) {
-		var id = Fragment.getId(button);
+		var fragment = new Fragment(button);
 		var editorDiv = jQuery(button).closest("div.fragment-content-editor");
 		var content = editorDiv.find("textarea").val();
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
-		var params = {"id": id, "content": content};
+		var params = {"id": fragment.id(), "content": content};
 		jQuery.post("html/update-fragment-content.htm", params, function(html) {
 		  if (isNotBlank(html)) {
 		  	contentDiv.html(jQuery(html));

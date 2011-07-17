@@ -121,16 +121,26 @@
 </tr>
 #else
 #if ($fragment.content && $fragment.content.trim() != "")
+#fragmentBodyRowWithTextContent($fragment)
+#end
+#end
+
+#end
+
+
+
+#macro( fragmentBodyRowWithTextContent $fragment )
+	
 <tr class="fragment-body">
 	<td class="fragment-body">
 		<div class="fragment-content-editor"></div>
     <div class="fragment-content fragment-content-text">
-    #fragmentTextContent($fragment)
+		#if ($fragment)
+			#fragmentTextContent($fragment)
+		#end
     </div>
 	</td>
 </tr>
-#end
-#end
 
 #end
 
