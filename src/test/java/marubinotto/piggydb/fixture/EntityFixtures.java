@@ -35,4 +35,10 @@ public class EntityFixtures {
 		}
 		return fragment;
 	}
+	
+	public static RawTag tagWithId(String name, long id) {
+		RawTag tag = new RawTag(name);
+		tag.setId(id);
+		return tag;
+	}
 }

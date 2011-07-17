@@ -1,9 +1,9 @@
 package marubinotto.piggydb.model;
 
+import static marubinotto.piggydb.fixture.EntityFixtures.tagWithId;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.model.entity.RawTag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -98,7 +98,7 @@ public class RelatedTagsTest {
 	
 	@Test
 	public void shouldExcludeTagsInCondition_classification() throws Exception {
-		this.filter.getClassification().addTag(new RawTag("foo", 1));
+		this.filter.getClassification().addTag(tagWithId("foo", 1));
 
 		this.object.add(1, 1);
 		this.object.add(2, 1);
@@ -110,7 +110,7 @@ public class RelatedTagsTest {
 	
 	@Test
 	public void shouldExcludeTagsInCondition_excludes() throws Exception {
-		this.filter.getExcludes().addTag(new RawTag("bar", 2));
+		this.filter.getExcludes().addTag(tagWithId("bar", 2));
 
 		this.object.add(1, 1);
 		this.object.add(2, 1);

@@ -28,11 +28,6 @@ public class RawTag extends RawClassifiable implements Tag {
 		setName(name);
 	}
 	
-	public RawTag(String name, long id) {
-		setName(name);
-		setId(id);
-	}
-	
 	public RawTag(String name, User user) {
 		super(user);
 		

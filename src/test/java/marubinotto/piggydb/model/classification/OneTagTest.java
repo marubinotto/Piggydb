@@ -1,5 +1,6 @@
 package marubinotto.piggydb.model.classification;
 
+import static marubinotto.piggydb.fixture.EntityFixtures.tagWithId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -19,7 +20,7 @@ import org.junit.Test;
 public class OneTagTest {
 
 	private MutableClassification object = new MutableClassification();
-	private RawTag tag = new RawTag("tag", 1); 
+	private RawTag tag = tagWithId("tag", 1); 
 	
 	@Before
 	public void given() throws Exception {
@@ -79,7 +80,7 @@ public class OneTagTest {
 	
 	@Test
 	public void replaceTagIfSameNameExists() throws Exception {
-		this.object.addTag(new RawTag("tag", 2));
+		this.object.addTag(tagWithId("tag", 2));
 		
 		assertEquals(1, this.object.size());
 		assertTrue(this.object.containsTagName("tag"));
