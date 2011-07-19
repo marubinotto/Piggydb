@@ -23,101 +23,14 @@
 <div id="$id" class="fragments-view">
 <script type="text/javascript">
 //<![CDATA[
-var fragmentsView_$id = {
-  MIN_SCALE: 0,
-  MAX_SCALE: 1000,
-  
-  scale: $fragmentsViewScale,
-  
-  orderBy: $fragmentsViewOrderBy,
-  ascending: $fragmentsViewAscending,
-
-  highlighted: false,
-  
-  init: function () {
-    var outer = this;
-    jQuery("#$id .view-slider").slider({ 
-      max: outer.MAX_SCALE,
-      min: outer.MIN_SCALE,
-      value: outer.scale,
-      change: function(event, ui) {
-        outer.scale = ui.value;
-        outer.loadFirstSet();
-      }
-    });
-    jQuery("#$id .select-orderBy").change(function () {
-      outer.orderBy = jQuery(this).val();
-      outer.loadFirstSet();
-    });
-    jQuery("#$id .select-ascending-or-not button").click(function () {
-      var button = jQuery(this);
-      if (button.hasClass("selected")) return;
-      button.siblings("button.selected").removeClass("selected");
-      button.addClass("selected");
-      
-      outer.ascending = (button.attr("name") == "ascending");
-      outer.loadFirstSet();
-    });
-    
-    this.loadFirstSet();
-  },
-  
-  createParameters: function () {
-    return {
-      "viewId": "$id", 
-      "scale": this.scale, 
-      "orderBy": this.orderBy,
-      "ascending": this.ascending
-    };
-  },
-  
-  loadFirstSet: function () {
-    var contentDivSelector = "#$id .view-content";
-    var contentDiv = jQuery(contentDivSelector);
-    contentDiv.empty();
-    
-    this.pageIndex = 0;
-    
-    var loadIcon = jQuery(contentDiv).putLoadingIcon("margin: 5px;");
-    var outer = this;
-    jQuery.get("$fragmentsUrl", this.createParameters(), function(html) {
-      if (jQuery.trim(html) != "") {
-        contentDiv.append(jQuery(html));
-        jQuery("#$id .view-control").show();
-        prettyPrint();
-        
-      #if ($highlightedFragment)
-        if (!outer.highlighted) {
-          highlightFragment($highlightedFragment, contentDivSelector);
-          outer.highlighted = true;
-        }
-      #end
-      }
-      loadIcon.remove();
-    });
-  },
-  
-  pageIndex: 0,
-  
-  showMore: function (button) {
-    jQuery(button).remove();
-    var fragmentsContainer = jQuery("#$id .fragments-container");
-    
-    var loadIcon = jQuery('<div style="text-align: center; margin-bottom: 5px;">')
-      .appendTo(fragmentsContainer);
-    loadIcon.putLoadingIcon(null);
-    
-    var params = this.createParameters();
-    params.pi = ++this.pageIndex;
-    jQuery.get("$fragmentsUrl", params, function(html) {
-      fragmentsContainer.append(jQuery(html));
-      loadIcon.remove();
-      prettyPrint();
-    });
-  }
-};
+var fragmentsView_$id;
 
 jQuery(document).ready(function() {
+	fragmentsView_$id = new FragmentsView(
+		"$id", "$fragmentsUrl", $fragmentsViewScale, $fragmentsViewOrderBy, $fragmentsViewAscending);
+#if ($highlightedFragment)
+	fragmentsView_${id}.highlight = $highlightedFragment;
+#end
   fragmentsView_${id}.init();
 });
 //]]>
