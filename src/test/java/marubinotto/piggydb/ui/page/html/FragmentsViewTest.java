@@ -1,10 +1,6 @@
 package marubinotto.piggydb.ui.page.html;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import marubinotto.piggydb.ui.page.html.FragmentsView;
 
 import org.junit.Test;
 
@@ -20,10 +16,10 @@ public class FragmentsViewTest {
 		
 		assertEquals("multicolumn", this.object.viewType);
 		assertEquals(200, this.object.getPageSize());
-		assertFalse(this.object.needsEagerFetching());
+		assertEquals(false, this.object.needsEagerFetching());
 		
 		assertEquals(120, this.object.columnWidth);
-		assertTrue(this.object.compactColumn);
+		assertEquals(true, this.object.compactColumn);
 	}
 	
 	@Test
@@ -34,10 +30,10 @@ public class FragmentsViewTest {
 		
 		assertEquals("multicolumn", this.object.viewType);
 		assertEquals(100, this.object.getPageSize());
-		assertFalse(this.object.needsEagerFetching());
+		assertEquals(false, this.object.needsEagerFetching());
 		
 		assertEquals(600, this.object.columnWidth);
-		assertFalse(this.object.compactColumn);
+		assertEquals(false, this.object.compactColumn);
 	}
 	
 	@Test
@@ -48,7 +44,20 @@ public class FragmentsViewTest {
 		
 		assertEquals("tree", this.object.viewType);
 		assertEquals(50, this.object.getPageSize());
-		assertTrue(this.object.needsEagerFetching());
+		assertEquals(true, this.object.needsEagerFetching());
+		assertEquals(true, this.object.lightNode);
+	}
+	
+	@Test
+	public void scale_700() throws Exception {
+		this.object.setScale(700);
+		
+		assertEquals(700, this.object.getScale());
+		
+		assertEquals("tree", this.object.viewType);
+		assertEquals(50, this.object.getPageSize());
+		assertEquals(true, this.object.needsEagerFetching());
+		assertEquals(false, this.object.lightNode);
 	}
 	
 	@Test
@@ -59,6 +68,6 @@ public class FragmentsViewTest {
 		
 		assertEquals("detail", this.object.viewType);
 		assertEquals(10, this.object.getPageSize());
-		assertTrue(this.object.needsEagerFetching());
+		assertEquals(true, this.object.needsEagerFetching());
 	}
 }

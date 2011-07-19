@@ -168,7 +168,7 @@ jQuery(document).ready(function() {
 #if ($firstSet)<ul class="fragment-tree fragments-container">#end
 #foreach ($fragment in $fragments)
 <li class="fragment-node fragment-root-node page-index-${fragments.pageIndex}"
-  >#fragmentRootNode($fragment $null $contextTags) 
+  >#fragmentRootNode($fragment $null $contextTags $view.lightNode) 
 </li>
 #end
 #if ($firstSet)</ul>#end

@@ -16,11 +16,14 @@ public class FragmentsView {
 	private static final String TYPE_TREE = "tree";
 	private static final String TYPE_DETAIL = "detail";
 	
+	// Range of scale for each view
+	// (0) - multicolumn - (400) - tree - (800) - detail - (1000)
+	
 	// Multi-column
 
 	private static final int MAX_SCALE_FOR_MULTICOL = 400;
 	
-	private static final int MIN_WIDTH_COLUMN= 120;
+	private static final int MIN_WIDTH_COLUMN = 120;
 	private static final int MAX_WIDTH_COLUMN = 600;
 	private static final double PIXEL_PER_SCALE = 
 		(double)(MAX_WIDTH_COLUMN - MIN_WIDTH_COLUMN) / MAX_SCALE_FOR_MULTICOL;
@@ -29,9 +32,15 @@ public class FragmentsView {
 	public int columnWidth;
 	public boolean compactColumn = false;
 	
+	// Tree
+	
+	private static final int MAX_SCALE_FOR_LIGHT_NODE = 600;
+	
+	public boolean lightNode = false;
+	
 	// Detail
 
-	private static final int MIN_SCALE_FOR_DETAIL = 700;
+	private static final int MIN_SCALE_FOR_DETAIL = 800;
 	
 	public FragmentsView(String viewId) {
 		this.viewId = viewId;
@@ -40,19 +49,23 @@ public class FragmentsView {
 	public void setScale(int scale) {
 		this.scale = scale;
 		
-		if (this.scale <= MAX_SCALE_FOR_MULTICOL)
+		if (this.scale <= MAX_SCALE_FOR_MULTICOL) {
 			this.viewType = TYPE_MULTICOLUMN;
-		else if (this.scale >= MIN_SCALE_FOR_DETAIL) 
-			this.viewType = TYPE_DETAIL;
-		else
-			this.viewType = TYPE_TREE;
-		
-		// Multi-column
-		if (this.viewType.equals(TYPE_MULTICOLUMN)) {
+			
 			this.columnWidth = MIN_WIDTH_COLUMN + (int)(this.scale * PIXEL_PER_SCALE);
 			logger.info("columnWidth: " + this.columnWidth);
 			if (this.columnWidth < MAX_WIDTH_COMPACT_COLUMN) {
 				this.compactColumn = true;
+			}
+		}
+		else if (this.scale >= MIN_SCALE_FOR_DETAIL) { 
+			this.viewType = TYPE_DETAIL;
+		}
+		else {
+			this.viewType = TYPE_TREE;
+			
+			if (this.scale <= MAX_SCALE_FOR_LIGHT_NODE) {
+				this.lightNode = true;
 			}
 		}
 	}
