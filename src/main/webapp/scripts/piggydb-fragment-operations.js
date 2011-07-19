@@ -139,6 +139,10 @@ Fragment.prototype = {
 		return this.headerRow().siblings("tr.fragment-body");
 	},
 	
+	setBodyRow: function(rowHtml) {
+		this.headerRow().after(rowHtml);
+	},
+	
 	textContentDiv: function() {
 		return this.bodyRow().find("div.fragment-content-text");
 	},
@@ -180,7 +184,7 @@ var QuickEdit = {
 		
 		if (fragment.isMultirow()) {
 			var emptyBodyRow = jQuery("#tpl-fragment-body-row-with-empty-text tbody").html().trim();
-			fragment.headerRow().after(emptyBodyRow);
+			fragment.setBodyRow(emptyBodyRow);
 			QuickEdit.openEditor(fragment.id(), fragment.textContentDiv());
 			return true;
 		}	
@@ -356,7 +360,6 @@ var fragmentOps = {
 //
 // Fragment highlighting
 //
-
 function highlightFragment(id, baseSelector) {
   var selector = ".fragment-header-" + id;
   if (baseSelector != null) selector = baseSelector + " " + selector;
@@ -366,9 +369,96 @@ function highlightFragment(id, baseSelector) {
 
 
 //
+// Content Toggle
+//
+function ContentToggle(toggleButton) {
+	this.toggleButton = jQuery(toggleButton);
+	this.toggleSpan = this.toggleButton.closest("span.fragment-content-toggle");
+	this.fragment = new Fragment(toggleButton);
+}
+ContentToggle.CLOSED = "down";
+ContentToggle.OPENED = "up";
+ContentToggle.onContentToggleClick = function(toggle, id) {
+	var toggle = new ContentToggle(toggle);
+	
+  if (toggle.isDisabled()) return;
+  
+  if (toggle.isClosed()) {
+  	toggle.setDisabled(true);
+    var loadIcon = toggle.loading();
+    toggle.setOpened();
+    
+    jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
+    	toggle.fragment.setBodyRow(html);
+      loadIcon.remove();
+      toggle.setDisabled(false);
+      prettyPrint();
+    });
+  }
+  else if (toggle.isOpened()) {
+  	toggle.fragment.bodyRow().remove();
+    toggle.setClosed();
+  }
+};
+ContentToggle.onAllContentToggleClick = function(toggle) {
+	var toggle = new ContentToggle(toggle);
+  if (toggle.isClosed()) {
+    jQuery(".fragment-content-toggle img[src*='" + ContentToggle.CLOSED + "']").closest("a").click();
+    toggle.setOpened();
+  }
+  else if (toggle.isOpened()) {
+    jQuery(".fragment-content-toggle img[src*='" + ContentToggle.OPENED + "']").closest("a").click();
+    toggle.setClosed();
+  }
+};
+ContentToggle.prototype = {
+	isDisabled: function() {
+		return this.toggleButton.hasDisabledFlag();
+	},
+	
+	setDisabled: function(disabled) {
+		if (disabled)
+			this.toggleButton.setDisabledFlag();
+		else
+			this.toggleButton.deleteDisabledFlag();
+	},
+	
+	loading: function() {
+		return this.toggleSpan.putLoadingIcon("margin: -2px; margin-left: 5px;");
+	},
+	
+	buttonImg: function() {
+		return this.toggleButton.children("img");
+	},
+	
+	buttonImgSrc: function() {
+		return this.buttonImg().attr("src");
+	},
+	
+	isClosed: function(toggle) {
+    return this.buttonImgSrc().indexOf(ContentToggle.CLOSED) != -1;
+  },
+  
+  isOpened: function(toggle) {
+    return this.buttonImgSrc().indexOf(ContentToggle.OPENED) != -1;
+  },
+  
+  setOpened: function(toggle) {
+    var img = this.buttonImg();
+    img.attr("src", img.attr("src").replace(ContentToggle.CLOSED, ContentToggle.OPENED));
+  },
+  
+  setClosed: function(toggle) {
+    var img = this.buttonImg();
+    img.attr("src", img.attr("src").replace(ContentToggle.OPENED, ContentToggle.CLOSED));
+  }
+};
+
+
+
+//
 // Fragment Tree
 //
-
 var FragmentTree = {
   COLLAPSED: "plus",
   EXPANDED: "minus",
@@ -395,64 +485,6 @@ var FragmentTree = {
     else if (iconSrc.indexOf(this.EXPANDED) != -1) {
       icon.attr("src", iconSrc.replace(this.EXPANDED, this.COLLAPSED));
       li.children("ul").remove();
-    }
-  },
-  
-  CLOSED: "down",
-  OPENED: "up",
-  
-  onContentToggleClick: function(toggle, id) {
-    if (jQuery(toggle).hasDisabledFlag()) return;
-    
-    var table = jQuery(toggle).closest("table.fragment-node");
-    var span = jQuery(toggle).closest("span.fragment-content-toggle");
-    
-    // Open
-    if (this.isClosed(toggle)) {
-      jQuery(toggle).setDisabledFlag();
-      var loadIcon = jQuery(span).putLoadingIcon("margin: -2px; margin-left: 5px;");
-      this.setOpened(toggle);
-      
-      jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
-        table.append(html);
-        loadIcon.remove();
-        jQuery(toggle).deleteDisabledFlag();
-        prettyPrint();
-      });
-    }
-    // Close
-    else if (this.isOpened(toggle)) {
-      table.find("tr.fragment-body").remove();
-      this.setClosed(toggle);
-    }
-  },
-  
-  isClosed: function(toggle) {
-    return jQuery(toggle).children("img").attr("src").indexOf(this.CLOSED) != -1;
-  },
-  
-  isOpened: function(toggle) {
-    return jQuery(toggle).children("img").attr("src").indexOf(this.OPENED) != -1;
-  },
-  
-  setOpened: function(toggle) {
-    var icon = jQuery(toggle).children("img");
-    icon.attr("src", icon.attr("src").replace(this.CLOSED, this.OPENED));
-  },
-  
-  setClosed: function(toggle) {
-    var icon = jQuery(toggle).children("img");
-    icon.attr("src", icon.attr("src").replace(this.OPENED, this.CLOSED));
-  },
-  
-  onAllContentToggleClick: function(toggle) {
-    if (this.isClosed(toggle)) {
-      jQuery(".fragment-content-toggle img[src*='" + this.CLOSED + "']").closest("a").click();
-      this.setOpened(toggle);
-    }
-    else if (this.isOpened(toggle)) {
-      jQuery(".fragment-content-toggle img[src*='" + this.OPENED + "']").closest("a").click();
-      this.setClosed(toggle);
     }
   },
   
