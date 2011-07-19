@@ -130,6 +130,10 @@ Fragment.highlight = function(id, baseNode) {
   else
   	jQuery(baseNode).find(selector).fadingHighlight(color);
 };
+Fragment.onShowHiddenTags = function(button) {
+  jQuery(button).siblings(".hidden-tags").show();
+  jQuery(button).hide();
+};
 Fragment.prototype = {
 	id: function() {
 		return this.root.find("span.fragment-id:first").text();
@@ -313,11 +317,6 @@ function liquidBlocks(selectorPrefix, blockWidth, containerWidth) {
 //
 // Fragment Operations
 //
-
-function onShowHiddenTags(button) {
-  jQuery(button).siblings(".hidden-tags").show();
-  jQuery(button).hide();
-}
 
 function onImageClick() {
   imageViewer.showImage(this.href);

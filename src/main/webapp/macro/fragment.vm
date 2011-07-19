@@ -159,7 +159,7 @@
 #end
 
 #if ($fragmentTags.toHide.size() > 0)
-<a class="show-hidden-tags" href="#" onclick="onShowHiddenTags(this); return false;">...</a>
+<a class="show-hidden-tags" href="#" onclick="Fragment.onShowHiddenTags(this); return false;">...</a>
 <span class="hidden-tags" style="display: none;">
   #foreach ($tag in $fragmentTags.toHide)
     #fragmentTag($tag $fragment)
