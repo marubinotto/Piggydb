@@ -379,17 +379,6 @@ var fragmentOps = {
 
 
 //
-// Fragment highlighting
-//
-function highlightFragment(id, baseSelector) {
-  var selector = ".fragment-header-" + id;
-  if (baseSelector != null) selector = baseSelector + " " + selector;
-  jQuery(selector).fadingHighlight("#ff9900");
-}
-
-
-
-//
 // Content Toggle
 //
 function ContentToggle(toggleButton) {

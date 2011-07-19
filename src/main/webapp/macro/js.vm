@@ -77,7 +77,7 @@ jQuery(function() {
   prettyPrint();
   jQuery.updnWatermark.attachAll();
 #if ($highlightedFragment)
-  highlightFragment($highlightedFragment, null);
+  Fragment.highlight($highlightedFragment, null);
 #end
 
 #if ($user.isViewer())
@@ -139,7 +139,7 @@ function makeFragmentsDroppable(selector, hoverClass) {
           jQuery.get("html/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
             function(html) {
               tags.empty().append(jQuery(html).children("span.tags"));
-              highlightFragment(targetId, null);
+              Fragment.highlight(targetId, null);
             });
         }
       }
