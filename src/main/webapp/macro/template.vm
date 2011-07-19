@@ -56,7 +56,11 @@
 </div>
 
 <div id="tpl-fragment-body-row-with-empty-text">
+	<table border="0">
+	<tbody>
 	#fragmentBodyRowWithTextContent($null)
+  </tbody>
+	</table>
 </div>
 
 </div>

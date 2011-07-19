@@ -137,6 +137,10 @@ Fragment.prototype = {
 	
 	textContentDiv: function() {
 		return this.bodyRow().find("div.fragment-content-text");
+	},
+	
+	isMultirow: function() {
+		return this.root.hasClass("multirow");
 	}
 };
 
@@ -158,6 +162,12 @@ var QuickEdit = {
 		var contentDiv = fragment.textContentDiv();
 		if (contentDiv.size() == 1) {
 			QuickEdit.openEditor(fragment.id(), contentDiv);
+			return true;
+		}
+		if (fragment.isMultirow()) {
+			var emptyBodyRow = jQuery("#tpl-fragment-body-row-with-empty-text tbody").html().trim();
+			fragment.root.append(emptyBodyRow);
+			QuickEdit.openEditor(fragment.id(), fragment.textContentDiv());
 			return true;
 		}
 		return false;
@@ -189,9 +199,20 @@ var QuickEdit = {
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
 		jQuery.get("html/fragment-body-row.htm", {"id": fragment.id()}, function(html) {
-		  contentDiv.html(jQuery(html).find("div.fragment-content").html());
-		  prettyPrint();
+			if (isNotBlank(html)) {
+				var content = jQuery(html).find("div.fragment-content").html();
+				contentDiv.html(content);
+				prettyPrint();
+			}
+			else {
+				QuickEdit.emptyContent(contentDiv);
+			}
 		});
+	},
+	
+	emptyContent: function(contentDiv) {
+		Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
+  	contentDiv.closest("tr.fragment-body").remove();
 	},
 
 	onUpdate: function(button) {
@@ -205,12 +226,11 @@ var QuickEdit = {
 		var params = {"id": fragment.id(), "content": content};
 		jQuery.post("html/update-fragment-content.htm", params, function(html) {
 		  if (isNotBlank(html)) {
-		  	contentDiv.html(jQuery(html));
+		  	contentDiv.html(html);
 		  	prettyPrint();
 		  }
 		  else {
-		  	Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
-		  	contentDiv.closest("tr.fragment-body").remove();
+		  	QuickEdit.emptyContent(contentDiv);
 		  } 
 		});
 	}
@@ -380,7 +400,7 @@ var FragmentTree = {
       this.setOpened(toggle);
       
       jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
-        table.append(jQuery(html));
+        table.append(html);
         loadIcon.remove();
         jQuery(toggle).deleteDisabledFlag();
         prettyPrint();
