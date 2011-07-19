@@ -120,7 +120,6 @@ var fragmentsView_$id = {
 jQuery(document).ready(function() {
   fragmentsView_${id}.init();
 });
-
 //]]>
 </script>
 <table class="view-control" width="100%" 
@@ -181,18 +180,18 @@ jQuery(document).ready(function() {
   
 <script type="text/javascript">
 //<![CDATA[
-  jQuery(function() {
-  #if ($view.viewType == "multicolumn")
-    makeFragmentsDroppable(
-      "#$view.viewId .page-index-${fragments.pageIndex} .liquid-block-frame", 
-      "liquid-block-drophover");
-  #else
-    makeFragmentsDroppable(
-      "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
-      null);
-  #end
-    makeRelationsDraggable("#$view.viewId .page-index-${fragments.pageIndex} ");
-  });
+jQuery(function() {
+#if ($view.viewType == "multicolumn")
+  makeFragmentsDroppable(
+    "#$view.viewId .page-index-${fragments.pageIndex} .liquid-block-frame", 
+    "liquid-block-drophover");
+#else
+  makeFragmentsDroppable(
+    "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
+    null);
+#end
+  makeRelationsDraggable("#$view.viewId .page-index-${fragments.pageIndex} ");
+});
 //]]>
 </script>
 
@@ -204,23 +203,23 @@ jQuery(document).ready(function() {
 #if ($firstSet)
 <script type="text/javascript">
 //<![CDATA[
-  var OUTER_WIDTH = 305;
-  var blockWidth = $view.columnWidth;
-  
-  function initLiquidBlocks(selectorPrefix, blockWidth) {
-    // Workaround for a browser bug where the container width 
-    // won't be calculated correctly when first loading
-    liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
-    liquidBlocks(selectorPrefix, blockWidth, null);
-  }
+var OUTER_WIDTH = 305;
+var blockWidth = $view.columnWidth;
 
-  jQuery(document).ready(function() {
-    jQuery(window).resize(function () {
-      liquidBlocks("#$view.viewId ", blockWidth, null);
-    });
-  
-    initLiquidBlocks("#$view.viewId ", blockWidth);
+function initLiquidBlocks(selectorPrefix, blockWidth) {
+  // Workaround for a browser bug where the container width 
+  // won't be calculated correctly when first loading
+  liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
+  liquidBlocks(selectorPrefix, blockWidth, null);
+}
+
+jQuery(document).ready(function() {
+  jQuery(window).resize(function () {
+    liquidBlocks("#$view.viewId ", blockWidth, null);
   });
+
+  initLiquidBlocks("#$view.viewId ", blockWidth);
+});
 //]]>
 </script>
 <ul class="liquid-blocks fragments-container">
@@ -241,9 +240,9 @@ jQuery(document).ready(function() {
 #if (!$firstSet)
 <script type="text/javascript">
 //<![CDATA[
-  jQuery(document).ready(function() {
-    initLiquidBlocks("#$view.viewId ", $view.columnWidth);
-  });
+jQuery(document).ready(function() {
+  initLiquidBlocks("#$view.viewId ", $view.columnWidth);
+});
 //]]>
 </script>
 #end
