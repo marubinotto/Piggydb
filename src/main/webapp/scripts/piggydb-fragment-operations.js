@@ -140,6 +140,7 @@ Fragment.prototype = {
 	},
 	
 	setBodyRow: function(rowHtml) {
+		this.bodyRow().remove();
 		this.headerRow().after(rowHtml);
 	},
 	
@@ -153,6 +154,11 @@ Fragment.prototype = {
 	
 	isMain: function() {
 		return this.root.hasClass("fragment-main");
+	},
+	
+	contentToggle: function() {
+		var toggle = this.header().find(".fragment-content-toggle a.tool-button");
+		return toggle.size() == 0 ? null : new ContentToggle(toggle);
 	}
 };
 
@@ -171,18 +177,25 @@ var QuickEdit = {
 	
 	onEditButtonClick: function(button) {
 		var fragment = new Fragment(button);
+		
+		// fragment page
 		if (fragment.isMain()) {
 			jQuery("#fragmentFormPanel a.toggle-link").click();
 			return true;
 		}
 		
+		// content opened
 		var contentDiv = fragment.textContentDiv();	
 		if (contentDiv.size() == 1) {
 			QuickEdit.openEditor(fragment.id(), contentDiv);
 			return true;
 		}
 		
+		// content hidden or empty on a multirow fragment table
 		if (fragment.isMultirow()) {
+			var contentToggle = fragment.contentToggle();
+			if (contentToggle != null) contentToggle.setOpened();
+			
 			var emptyBodyRow = jQuery("#tpl-fragment-body-row-with-empty-text tbody").html().trim();
 			fragment.setBodyRow(emptyBodyRow);
 			QuickEdit.openEditor(fragment.id(), fragment.textContentDiv());
@@ -435,20 +448,20 @@ ContentToggle.prototype = {
 		return this.buttonImg().attr("src");
 	},
 	
-	isClosed: function(toggle) {
+	isClosed: function() {
     return this.buttonImgSrc().indexOf(ContentToggle.CLOSED) != -1;
   },
   
-  isOpened: function(toggle) {
+  isOpened: function() {
     return this.buttonImgSrc().indexOf(ContentToggle.OPENED) != -1;
   },
   
-  setOpened: function(toggle) {
+  setOpened: function() {
     var img = this.buttonImg();
     img.attr("src", img.attr("src").replace(ContentToggle.CLOSED, ContentToggle.OPENED));
   },
   
-  setClosed: function(toggle) {
+  setClosed: function() {
     var img = this.buttonImg();
     img.attr("src", img.attr("src").replace(ContentToggle.OPENED, ContentToggle.CLOSED));
   }
