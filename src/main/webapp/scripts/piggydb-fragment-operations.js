@@ -131,8 +131,12 @@ Fragment.prototype = {
 		return this.root.find("div.fragment-header:first");
 	},
 	
+	headerRow: function() {
+		return this.header().closest("tr");
+	},
+	
 	bodyRow: function() {
-		return this.header().closest("tr").siblings("tr.fragment-body");
+		return this.headerRow().siblings("tr.fragment-body");
 	},
 	
 	textContentDiv: function() {
@@ -141,6 +145,10 @@ Fragment.prototype = {
 	
 	isMultirow: function() {
 		return this.root.hasClass("multirow");
+	},
+	
+	isMain: function() {
+		return this.root.hasClass("fragment-main");
 	}
 };
 
@@ -159,17 +167,23 @@ var QuickEdit = {
 	
 	onEditButtonClick: function(button) {
 		var fragment = new Fragment(button);
-		var contentDiv = fragment.textContentDiv();
+		if (fragment.isMain()) {
+			jQuery("#fragmentFormPanel a.toggle-link").click();
+			return true;
+		}
+		
+		var contentDiv = fragment.textContentDiv();	
 		if (contentDiv.size() == 1) {
 			QuickEdit.openEditor(fragment.id(), contentDiv);
 			return true;
 		}
+		
 		if (fragment.isMultirow()) {
 			var emptyBodyRow = jQuery("#tpl-fragment-body-row-with-empty-text tbody").html().trim();
-			fragment.root.append(emptyBodyRow);
+			fragment.headerRow().after(emptyBodyRow);
 			QuickEdit.openEditor(fragment.id(), fragment.textContentDiv());
 			return true;
-		}
+		}	
 		return false;
 	},
 	
