@@ -114,7 +114,7 @@ Fragment.init = function() {
   jQuery("table.fragment").live('mouseleave', function() {
     jQuery(this).find(".fragment-tools").eq(0).hide();
   });
-  jQuery("a.img-link").live("click", onImageClick);
+  jQuery("a.img-link").live("click", Fragment.onImageClick);
   makeFragmentsDroppable("table.fragment", null);
   makeSelectedFragmentsDroppable();
   makeRelationsDraggable("");
@@ -133,6 +133,11 @@ Fragment.highlight = function(id, baseNode) {
 Fragment.onShowHiddenTags = function(button) {
   jQuery(button).siblings(".hidden-tags").show();
   jQuery(button).hide();
+};
+Fragment.imageViewer = new Facebox("facebox-image-viewer");
+Fragment.onImageClick = function() {
+	Fragment.imageViewer.showImage(this.href);
+  return false;
 };
 Fragment.prototype = {
 	id: function() {
@@ -284,11 +289,6 @@ var QuickEdit = {
 //
 // Fragment Operations
 //
-
-function onImageClick() {
-  imageViewer.showImage(this.href);
-  return false;
-}
 
 function onDeleteTagClick(tagName, form) {
   form.tagToDelete.value = tagName;
