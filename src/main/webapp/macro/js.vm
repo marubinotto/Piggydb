@@ -10,7 +10,6 @@ var TAG_URL_PREFIX = '$context/tag.htm?id=';
 ## Widgets
 ##
 var selectedFragments;
-var wikiHelp = new Facebox("facebox-wiki-help");
 
 
 ##

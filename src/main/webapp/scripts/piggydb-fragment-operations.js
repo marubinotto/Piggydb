@@ -69,8 +69,10 @@ var FragmentForm = {
     this.form.contentType.value = newValue;
   },
   
+  wikiHelp: new Facebox("facebox-wiki-help"),
+  
   onWikiHelpClick: function() {
-    wikiHelp.show(this.href);
+  	FragmentForm.wikiHelp.show(this.href);
     return false;
   },
   
