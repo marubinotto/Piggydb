@@ -292,10 +292,6 @@ var QuickEdit = {
 // Fragment Operations
 //
 
-function onDeleteTagClick(tagName, form) {
-  form.tagToDelete.value = tagName;
-}
-
 function onFragmentChecked(checkbox, fragmentId, fragmentTitle) {
   if (checkbox.checked)
     selectedFragments.add(fragmentId, fragmentTitle);

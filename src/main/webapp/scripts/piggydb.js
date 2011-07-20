@@ -42,6 +42,9 @@ function miniTagIconClass(tagName) {
 	return c;
 }
 
+function onDeleteTagClick(tagName, form) {
+  form.tagToDelete.value = tagName;
+}
 
 
 //
