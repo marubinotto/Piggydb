@@ -98,7 +98,7 @@
 #if (!$user.isViewer())
   <input type="checkbox" class="fragment-checkbox"
     name="fragmentCheckbox" value="$fragment.id"
-    onclick="onFragmentChecked(this, $fragment.id, '$format.javascript($fragment.title)')"
+    onclick="selectedFragments.onFragmentChecked(this, $fragment.id, '$format.javascript($fragment.title)')"
     #if (($selectedFragments && $selectedFragments.containsKey($fragment.id)) || $fragmentBatchPage) checked="checked" #end
     />
 #end

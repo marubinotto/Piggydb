@@ -291,14 +291,6 @@ var QuickEdit = {
 //
 // Fragment Operations
 //
-
-function onFragmentChecked(checkbox, fragmentId, fragmentTitle) {
-  if (checkbox.checked)
-    selectedFragments.add(fragmentId, fragmentTitle);
-  else 
-    selectedFragments.remove(fragmentId);
-}
-
 var fragmentOps = {
   deleteRelation: function (id, relationHtml, relationContainerHtml) {
     if (!window.confirm(messages["confirm-delete-relation"])) 

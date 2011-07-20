@@ -201,6 +201,13 @@ SelectedFragments.prototype = {
     else {
       this.widget.fadeOut();
     }
+  },
+  
+  onFragmentChecked: function(checkbox, fragmentId, fragmentTitle) {
+    if (checkbox.checked)
+      this.add(fragmentId, fragmentTitle);
+    else 
+      this.remove(fragmentId);
   }
 };
 
