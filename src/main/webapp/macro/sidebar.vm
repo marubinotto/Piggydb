@@ -86,6 +86,11 @@
 
 #macro( sidebarTagPalette )
 
+##
+## resizableDiv has a max-height property to limit the default height of it (without fixing the height).
+## But if it has a max-height, it cannot be resized beyond the max-height,
+## so the property will be set to "none" after the height is decided.
+##
 #sidebarEntryHeader("sidebar-tag-palette" $messages.get("tag-palette") "$context/style/images/tag.png" $null)
 #set ($heightKey = "sidebar-tag-palette-height")
 #set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
@@ -105,8 +110,8 @@
     palette.onPaletteInit = function () {
       var resizableDiv = jQuery("#sidebar-tag-palette .tag-palette-resizable-div");
       
-      var height = $paletteHeight;
-      if (height == null) height = resizableDiv.height();
+      var height = $paletteHeight;	// the height stored in the session
+      if (height == null) height = resizableDiv.height();		// default height
       
       resizableDiv.css("height", height).css("max-height", "none");
       resizableDiv.resizable({ 
