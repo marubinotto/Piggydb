@@ -36,7 +36,7 @@
           <span class="$html.miniTagIconClass($tag.name)"
 						><img src="$context/images/empty.png" border="0" alt=""/></span>
           <a class="tag" href="#" title="$tag.name"
-						onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '${tag.name}', ${jsPaletteRef}); return false;">$tag.name</a>
+						onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '$utils.escapeJs($tag.name)', ${jsPaletteRef}); return false;">$tag.name</a>
           <span class="id" style="display: none;">$tag.id</span>
         </span>
       </span>

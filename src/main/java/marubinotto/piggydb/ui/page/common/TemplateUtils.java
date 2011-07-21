@@ -77,17 +77,23 @@ public class TemplateUtils {
 	}
 
 	public Object raw(Object object) {
-		return object == null ? "" : new InescapableWrapper(object);
+		return object == null ? "" : 
+			new InescapableWrapper(object);
 	}
 
 	public Object escapeAmp(Object object) {
-		return object == null ? "" : StringUtils.replace(object.toString(), "&",
-			"&amp;");
+		return object == null ? "" : 
+			StringUtils.replace(object.toString(), "&", "&amp;");
 	}
 
 	public Object escapeXml(Object object) {
-		return object == null ? null : raw(StringEscapeUtils.escapeXml(object
-			.toString()));
+		return object == null ? null : 
+			raw(StringEscapeUtils.escapeXml(object.toString()));
+	}
+	
+	public Object escapeJs(Object object) {
+		return object == null ? "" : 
+			StringEscapeUtils.escapeJavaScript(object.toString());
 	}
 
 	public Object defaultIfNull(Object object, Object defaultValue) {
@@ -95,7 +101,7 @@ public class TemplateUtils {
 	}
 
 	public Object urlEncode(Object object) throws UnsupportedEncodingException {
-		return object == null ? null : new URLCodec().encode(object.toString(),
-			AbstractWebResource.CHAR_ENCODING);
+		return object == null ? null : 
+			new URLCodec().encode(object.toString(), AbstractWebResource.CHAR_ENCODING);
 	}
 }

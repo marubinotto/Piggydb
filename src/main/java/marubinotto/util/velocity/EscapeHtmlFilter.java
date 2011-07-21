@@ -50,8 +50,8 @@ public class EscapeHtmlFilter implements ReferenceInsertionEventHandler, Runtime
 
 	public Object referenceInsert(String reference, Object value) {
 		if (value == null) {
-            return "";
-        }
+			return "";
+		}
 		if (value instanceof Inescapable) {
 			return value;
 		}
