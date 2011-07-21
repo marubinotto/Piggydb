@@ -1,0 +1,58 @@
+#if ($tags.size() > 0)
+<table border="0">
+<tr>
+  <td class="control">
+    <a class="to-roots" href="#" title="$messages.get("to-roots")"
+			onclick="${jsPaletteRef}.toRoot(); return false;">
+    <img src="$context/images/to-roots.png" border="0" alt="&lt;&lt;"/></a>
+  </td>
+  <td class="control">
+	#if ($enableBack)
+    <a class="back" href="#" title="$messages.get("back")"
+			onclick="${jsPaletteRef}.back(); return false;">
+    <img src="$context/images/to-parents.png" border="0" alt="&lt;"/></a>
+	#end
+  </td>
+  <td></td>
+  <td>
+    <a class="close" href="#" 
+			onclick="${jsPaletteRef}.close(); return false;">
+    <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+  </td>
+</tr>
+#foreach ($tag in $tags)
+<tr class="context">
+  <td class="control">
+	#if (!$tag.classification.isEmpty() || $parent)
+    <a class="to-parents" href="#" title="$messages.get("to-parents")"
+			onclick="${jsPaletteRef}.toParent(${tag.id}); return false;">
+    <img src="$context/images/to-parents.png" border="0" alt="&lt;"/></a>
+	#end
+  </td>
+  <td class="tag" nowrap="nowrap" colspan="2">
+    <div class="tag-container">
+      <span class="tag-palette-draggable droppable-to-fragment">
+        <span class="tag">
+          <span class="$html.miniTagIconClass($tag.name)"
+						><img src="$context/images/empty.png" border="0" alt=""/></span>
+          <a class="tag" href="#" title="$tag.name"
+						onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '${tag.name}', ${jsPaletteRef}); return false;">$tag.name</a>
+          <span class="id" style="display: none;">$tag.id</span>
+        </span>
+      </span>
+    </div>
+  </td>
+  <td class="control">
+	#if ($tag.attributes.hasChildren)
+    <a class="to-children" href="#" title="$messages.get("to-children")"
+			onclick="${jsPaletteRef}.toChild(${tag.id}); return false;">
+    <img src="$context/images/to-children.png" border="0" alt="&gt;"/></a>
+	#end
+  </td>
+</tr>
+#end
+</table>
+
+#else
+<div class="empty-tag-palette" style="padding: 5px;">$messages.get("no-tags")</div>
+#end

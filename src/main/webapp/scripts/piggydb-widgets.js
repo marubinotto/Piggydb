@@ -286,7 +286,7 @@ function TagPalette(paletteDiv, onTagSelect, toggleButton) {
   this.onPaletteInit = null;
   this.onPaletteUpdate = null;
   this.decideMaxHeight = null;
-  this.breadcrumbs = [];
+  this.breadcrumbs = [];	// breadcrumb => [0] tagId, [1] toChildren(true/false)
   
   if (toggleButton != null) {
     this.toggleButton = toggleButton;
@@ -311,12 +311,8 @@ TagPalette.DRAGGABLE_SETTINGS = {
 TagPalette.prototype = {
   init: function() {
     this.breadcrumbs = [];  
-    this.paletteDiv.empty().html(LOAD_ICON).show();
-    var outer = this;
-    getJSON("get-tags", null, function(tags) {
-      outer.setTags(tags, false);
-      if (outer.onPaletteInit) outer.onPaletteInit();
-    });
+    this.paletteDiv.empty().show();
+    this.updatePalette({}, true);
   },
   
   onToggleButtonClick: function() {
@@ -336,11 +332,7 @@ TagPalette.prototype = {
   
   toRoot: function() {
     this.breadcrumbs = [];
-    this.setLoading();
-    var outer = this;
-    getJSON("get-tags", null, function(tags) {
-      outer.setTags(tags, false);
-    });
+    this.updatePalette({}, false);
   },
   
   back: function() {
@@ -353,76 +345,35 @@ TagPalette.prototype = {
     var redo = this.breadcrumbs[this.breadcrumbs.length - 1];
     var tagId = redo[0];
     var toChildren = redo[1];
-    var parameters = toChildren ? {"parent": tagId} : {"child": tagId};
+    var params = toChildren ? {"parent": tagId} : {"child": tagId};
     
-    this.setLoading();
-    var outer = this;
-    getJSON("get-tags", parameters, function(tags) {
-      outer.setTags(tags, toChildren);
-    });
+    this.updatePalette(params, false);
   },
   
-  toParentOrChild: function(tagId, toChildren) {
-    this.setLoading();
-    var parameters = toChildren ? {"parent": tagId} : {"child": tagId};
-    var outer = this;
-    getJSON("get-tags", parameters, function(tags) {
-      outer.setTags(tags, toChildren);
-    });
-    this.breadcrumbs.push([tagId, toChildren]);
+  toParent: function(tagId) {
+  	this.breadcrumbs.push([tagId, false]);
+  	this.updatePalette({"child": tagId}, false);
   },
   
-  // tags don't necessarily hold their parents even if they actually have
-  // so it is needed to be complemented by the "asChildren" parameter
-  setTags: function(tags, asChildren) {
-    if (tags.length == 0) {
-      this.paletteDiv.html(EMPTY_TAG_PALETTE);
-      return;
-    }
-    
-    var outer = this;
-    var directive = { 
-      'a.back[style]' : function(arg) {
-        if (outer.breadcrumbs.length == 0) return "display: none;";
-      },
-      'a.to-parents[style]' : function(arg) {
-        if (!asChildren && !arg.item.hasParents) return "display: none;";
-      },
-      'a.to-children[style]' : function(arg) {
-        if (!arg.item.hasChildren) return "display: none;";
-      },
-      'a.to-parents[onclick]' : function(arg) {
-        return outer.ref + ".toParentOrChild(" + arg.item.id + ", false); return false;";
-      },
-      'a.to-children[onclick]' : function(arg) {
-        return outer.ref + ".toParentOrChild(" + arg.item.id + ", true); return false;";
-      },
-      'span.miniTagIcon[class]' : function(arg) {
-        return miniTagIconClass(arg.item.name);
-      },
-      'a.tag[onclick]' : function(arg) {
-        return outer.ref + ".onTagSelect(this, " + 
-          arg.item.id + ", '" + escapeJsString(arg.item.name) + "', " + outer.ref + "); return false;";
-      }
-    };
-    
-    // PURE's autoRender will remove the jQuery object from the DOM tree for some reason
-    // so autoRender will called against the children of this.paletteDiv
-    this.paletteDiv.html(jQuery("#tpl-tag-palette").html());
-    this.paletteDiv.children().autoRender(tags, directive);
-
-    this.paletteDiv.find("a.close").click(function() {
-      outer.close(); return false;
-    });
-    this.paletteDiv.find("a.to-roots").click(function() {
-      outer.toRoot(); return false;
-    });
-    this.paletteDiv.find("a.back").click(function() {
-      outer.back(); return false;
-    });
-    
-    if (this.decideMaxHeight) this.paletteDiv.css("max-height", this.decideMaxHeight());
-    if (this.onPaletteUpdate) this.onPaletteUpdate();
+  toChild: function(tagId) {
+  	this.breadcrumbs.push([tagId, true]);
+  	this.updatePalette({"parent": tagId}, false);
+  },
+  
+  updatePalette: function(params, init) {
+  	this.setLoading(); 	
+  	var outer = this;
+  	params.jsPaletteRef = this.ref;
+  	params.enableBack = this.breadcrumbs.length > 0;
+  	jQuery.post("html/tag-palette-tree.htm", params, function(html) {
+  		outer.paletteDiv.html(html);
+  		if (outer.decideMaxHeight) 
+  			outer.paletteDiv.css("max-height", outer.decideMaxHeight());
+  		if (init && outer.onPaletteInit)
+  			outer.onPaletteInit();
+      if (outer.onPaletteUpdate) 
+      	outer.onPaletteUpdate();
+  	});
   },
   
   setLoading: function() {

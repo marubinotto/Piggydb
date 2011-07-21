@@ -2,47 +2,6 @@
 
 <div id="templates" style="display: none;">
 
-<div id="tpl-tag-palette">
-  <table border="0">
-  <tr>
-    <td class="control">
-      <a class="to-roots" href="#" title="$messages.get("to-roots")">
-      <img src="$context/images/to-roots.png" border="0" alt="&lt;&lt;"/></a>
-    </td>
-    <td class="control">
-      <a class="back" href="#" title="$messages.get("back")">
-      <img src="$context/images/to-parents.png" border="0" alt="&lt;"/></a>
-    </td>
-    <td></td>
-    <td>
-      <a class="close" href="#">
-      <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
-    </td>
-  </tr>
-  <tr class="context">
-    <td class="control">
-      <a class="to-parents" href="#" title="$messages.get("to-parents")">
-      <img src="$context/images/to-parents.png" border="0" alt="&lt;"/></a>
-    </td>
-    <td class="tag" nowrap="nowrap" colspan="2">
-      <div class="tag-container">
-        <span class="tag-palette-draggable droppable-to-fragment">
-          <span class="tag">
-            <span class="miniTagIcon"><img src="$context/images/empty.png" border="0" alt=""/></span>
-            <a class="tag name name@title" href="#" title="Piggydb">Piggydb</a>
-            <span class="id" style="display: none;">1</span>
-          </span>
-        </span>
-      </div>
-    </td>
-    <td class="control">
-      <a class="to-children" href="#" title="$messages.get("to-children")">
-      <img src="$context/images/to-children.png" border="0" alt="&gt;"/></a>
-    </td>
-  </tr>
-  </table>
-</div>
-
 <div id="tpl-selected-fragment-entry">
   #selectedFragmentEntry($null, "dummy")
 </div>

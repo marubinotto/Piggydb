@@ -12,6 +12,12 @@ import java.util.TreeSet;
 import marubinotto.util.Assert;
 
 public class ModelUtils {
+	
+	public static List<Long> toIds(Collection<? extends Entity> entities) {
+		List<Long> ids = new ArrayList<Long>();
+		for (Entity entity : entities) ids.add(entity.getId());
+		return ids;
+	}
 
 	public static List<Fragment> collectChildrenOfEach(List<? extends Fragment> fragments) {
 		Assert.Arg.notNull(fragments, "fragments");

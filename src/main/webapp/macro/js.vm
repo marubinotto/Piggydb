@@ -1,7 +1,6 @@
 #macro( contextualizedJs )
 
 var LOAD_ICON = '<img src="$context/images/load.gif" border="0"  alt="loading" style="margin:5px"/>';
-var EMPTY_TAG_PALETTE = '<div class="empty-tag-palette" style="padding: 5px;">$messages.get("no-tags")<\/div>';
 var FRAGMENT_URL_PREFIX = '$context/fragment.htm?id=';
 var TAG_URL_PREFIX = '$context/tag.htm?id=';
 
