@@ -10,13 +10,10 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.ui.page.common.Utils;
 
-public class TagPaletteTree extends AbstractHtmlFragment {
+public class TagPaletteTree extends AbstractTagPalette {
 	
 	public Long parent;
 	public Long child;
-	
-	public String jsPaletteRef;
-	public boolean enableClose = false;
 	public boolean enableBack = false;
 	
 	public List<Tag> tags;

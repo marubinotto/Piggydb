@@ -1,0 +1,16 @@
+#if ($tags.size() > 0)
+<table border="0">
+#tagPaletteHeaderRow()
+<tr class="context">
+	<td colspan="4">
+	#foreach ($tag in $tags)
+		#tagPaletteEntry($tag)
+	#end
+	</td>
+</tr>
+</table>
+
+#else
+#emptyTagPalette()
+#end
+
