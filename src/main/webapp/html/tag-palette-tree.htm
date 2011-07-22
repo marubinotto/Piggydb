@@ -10,9 +10,11 @@
     </div>
 	</td>
 	<td>
+	#if ($enableClose)
     <a class="close" href="#" 
 			onclick="${jsPaletteRef}.close(); return false;">
     <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+	#end
   </td>
 </tr>
 <tr>

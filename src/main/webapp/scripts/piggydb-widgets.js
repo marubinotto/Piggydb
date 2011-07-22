@@ -364,6 +364,7 @@ TagPalette.prototype = {
   	this.setLoading(); 	
   	var outer = this;
   	params.jsPaletteRef = this.ref;
+  	params.enableClose = this.toggleButton != null;
   	params.enableBack = this.breadcrumbs.length > 0;
   	jQuery.post("html/tag-palette-tree.htm", params, function(html) {
   		outer.paletteDiv.html(html);

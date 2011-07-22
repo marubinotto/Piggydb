@@ -16,6 +16,7 @@ public class TagPaletteTree extends AbstractHtmlFragment {
 	public Long child;
 	
 	public String jsPaletteRef;
+	public boolean enableClose = false;
 	public boolean enableBack = false;
 	
 	public List<Tag> tags;
