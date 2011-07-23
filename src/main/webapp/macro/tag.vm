@@ -94,7 +94,7 @@ $utils.raw($superTagForm.endTag())
         ><img src="$context/images/palette-flat.png" border="0" alt="$messages.get("tag-flat")"/></button>
     </div>
 	</td>
-	<td align="center">
+	<td>
 	#if ($enableClose)
     <a class="close" href="#" 
 			onclick="${jsPaletteRef}.close(); return false;">

@@ -312,7 +312,7 @@ TagPalette.prototype = {
   init: function() {
     this.breadcrumbs = [];  
     this.paletteDiv.empty().show();
-    this.updatePalette({}, true);
+    this.updatePaletteTree({}, true);
   },
   
   onToggleButtonClick: function() {
@@ -332,7 +332,7 @@ TagPalette.prototype = {
   
   toRoot: function() {
     this.breadcrumbs = [];
-    this.updatePalette({}, false);
+    this.updatePaletteTree({}, false);
   },
   
   back: function() {
@@ -347,36 +347,52 @@ TagPalette.prototype = {
     var toChildren = redo[1];
     var params = toChildren ? {"parent": tagId} : {"child": tagId};
     
-    this.updatePalette(params, false);
+    this.updatePaletteTree(params, false);
   },
   
   toParent: function(tagId) {
   	this.breadcrumbs.push([tagId, false]);
-  	this.updatePalette({"child": tagId}, false);
+  	this.updatePaletteTree({"child": tagId}, false);
   },
   
   toChild: function(tagId) {
   	this.breadcrumbs.push([tagId, true]);
-  	this.updatePalette({"parent": tagId}, false);
+  	this.updatePaletteTree({"parent": tagId}, false);
   },
   
-  updatePalette: function(params, init) {
+  updatePaletteTree: function(params, init) {
   	this.setLoading(); 	
+  	this.setCommonParams(params);
+  	params.enableBack = this.breadcrumbs.length > 0;
   	var outer = this;
+  	jQuery.post("html/tag-palette-tree.htm", params, function(html) {
+  		outer.updatePalette(html, init);
+  	});
+  },
+  
+  updatePaletteFlat: function(params, init) {
+  	this.setLoading(); 	
+  	this.setCommonParams(params);
+  	var outer = this;
+  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
+  		outer.updatePalette(html, init);
+      liquidBlocks(".tag-palette ", 80, 220);
+  	});
+  },
+  
+  setCommonParams: function(params) {
   	params.jsPaletteRef = this.ref;
   	params.enableClose = this.toggleButton != null;
-  	params.enableBack = this.breadcrumbs.length > 0;
-  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
-  		outer.paletteDiv.html(html);
-  		if (outer.decideMaxHeight) 
-  			outer.paletteDiv.css("max-height", outer.decideMaxHeight());
-  		if (init && outer.onPaletteInit)
-  			outer.onPaletteInit();
-      if (outer.onPaletteUpdate) 
-      	outer.onPaletteUpdate();
-      
-      liquidBlocks(".tag-palette ", 80, 220);	// TODO
-  	});
+  },
+  
+  updatePalette: function(html, init) {
+  	this.paletteDiv.html(html);
+		if (this.decideMaxHeight) 
+			this.paletteDiv.css("max-height", this.decideMaxHeight());
+		if (init && this.onPaletteInit)
+			this.onPaletteInit();
+    if (this.onPaletteUpdate) 
+    	this.onPaletteUpdate();
   },
   
   setLoading: function() {
