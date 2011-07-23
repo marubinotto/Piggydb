@@ -315,6 +315,14 @@ TagPalette.prototype = {
     this.updatePaletteTree({}, true);
   },
   
+  onViewSwitchClick: function(button, name) {
+  	if (!clickSelectSwitch(button)) return;
+  	if (name == "flat")
+  		this.updatePaletteFlat({}, false);
+  	else
+  		this.toRoot();
+  },
+  
   onToggleButtonClick: function() {
     if (this.toggleButton.hasClass(TagPalette.CLASS_OPENED)) {
       this.close();

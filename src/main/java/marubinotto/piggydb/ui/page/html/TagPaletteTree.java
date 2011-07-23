@@ -12,6 +12,8 @@ import marubinotto.piggydb.ui.page.common.Utils;
 
 public class TagPaletteTree extends AbstractTagPalette {
 	
+	private static final String VIEW_TYPE = "tree";
+	
 	public Long parent;
 	public Long child;
 	public boolean enableBack = false;
@@ -22,6 +24,7 @@ public class TagPaletteTree extends AbstractTagPalette {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
+		this.viewType = VIEW_TYPE;
 		this.tags = getSiblingTags();
 		setHasChildren(this.tags);
 	}

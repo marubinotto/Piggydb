@@ -88,9 +88,13 @@ $utils.raw($superTagForm.endTag())
 <tr>
 	<td colspan="3">
 		<div class="select-switch" style="padding: 2px;">
-      <button type="button" class="selected" title="$messages.get("tag-tree")"
-        ><img src="$context/images/palette-tree.png" border="0" alt="$messages.get("tag-tree")"
-			/></button><button type="button" title="$messages.get("tag-flat")"
+      <button type="button" #if ($viewType == "tree") class="selected" #end
+				title="$messages.get("tag-tree")"
+        onclick="${jsPaletteRef}.onViewSwitchClick(this, 'tree')"
+				><img src="$context/images/palette-tree.png" border="0" alt="$messages.get("tag-tree")"
+			/></button><button type="button" #if ($viewType == "flat") class="selected" #end
+				title="$messages.get("tag-flat")"
+				onclick="${jsPaletteRef}.onViewSwitchClick(this, 'flat')"
         ><img src="$context/images/palette-flat.png" border="0" alt="$messages.get("tag-flat")"/></button>
     </div>
 	</td>

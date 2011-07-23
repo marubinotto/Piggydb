@@ -7,6 +7,7 @@ import marubinotto.piggydb.ui.page.common.Utils;
 
 public class TagPaletteFlat extends AbstractTagPalette {
 	
+	private static final String VIEW_TYPE = "flat";
 	private static final int PAGE_SIZE = Utils.ALMOST_UNLIMITED_PAGE_SIZE;
 
 	public int pi = 0;
@@ -17,6 +18,7 @@ public class TagPaletteFlat extends AbstractTagPalette {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
+		this.viewType = VIEW_TYPE;
 		this.tags = getDomain().getTagRepository().orderByName(PAGE_SIZE, this.pi);
 	}
 }

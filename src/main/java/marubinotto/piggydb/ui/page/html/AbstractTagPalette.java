@@ -4,4 +4,6 @@ public abstract class AbstractTagPalette extends AbstractHtmlFragment {
 
 	public String jsPaletteRef;
 	public boolean enableClose = false;
+	
+	public String viewType;
 }
