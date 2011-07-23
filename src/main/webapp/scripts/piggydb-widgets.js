@@ -286,7 +286,7 @@ function TagPalette(paletteDiv, onTagSelect, toggleButton) {
   this.onPaletteInit = null;
   this.onPaletteUpdate = null;
   this.decideMaxHeight = null;
-  this.breadcrumbs = [];	// breadcrumb => [0] tagId, [1] toChildren(true/false)
+  this.breadcrumbs = [];	// breadcrumb: [0] tagId, [1] toChildren(true/false)
   
   if (toggleButton != null) {
     this.toggleButton = toggleButton;
@@ -395,6 +395,9 @@ TagPalette.prototype = {
   
   updatePalette: function(html, init) {
   	this.paletteDiv.html(html);
+  	
+  	
+  	
 		if (this.decideMaxHeight) 
 			this.paletteDiv.css("max-height", this.decideMaxHeight());
 		if (init && this.onPaletteInit)

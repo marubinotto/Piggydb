@@ -72,18 +72,20 @@ function toggleTreeNode(node) {
 // Others
 //
 
-function setScrollTopTo(id) {
-  var targets = jQuery('#' + id);
-  if (targets.size() == 0) return;
-  
-  var element = targets[0];
-  var offset = 0;
+function cumulativeOffset(element) {
+	var offset = 0;
   while (true) {
     offset += element.offsetTop;
     element = element.offsetParent;
     if (!element) break;
   }
-  
+  return offset;
+}
+
+function setScrollTopTo(id) {
+  var targets = jQuery('#' + id);
+  if (targets.size() == 0) return;
+  var offset = cumulativeOffset(targets[0]);
   jQuery("html, body").scrollTop(offset);
 }
 
