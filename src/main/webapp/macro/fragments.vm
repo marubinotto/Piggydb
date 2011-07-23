@@ -122,13 +122,13 @@ var blockWidth = $view.columnWidth;
 function initLiquidBlocks(selectorPrefix, blockWidth) {
   // Workaround for a browser bug where the container width 
   // won't be calculated correctly when first loading
-  FragmentsView.liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
-  FragmentsView.liquidBlocks(selectorPrefix, blockWidth, null);
+  liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
+  liquidBlocks(selectorPrefix, blockWidth, null);
 }
 
 jQuery(document).ready(function() {
   jQuery(window).resize(function () {
-    FragmentsView.liquidBlocks("#$view.viewId ", blockWidth, null);
+    liquidBlocks("#$view.viewId ", blockWidth, null);
   });
 
   initLiquidBlocks("#$view.viewId ", blockWidth);
