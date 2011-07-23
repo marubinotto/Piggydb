@@ -1,4 +1,6 @@
-#if ($tags.size() > 0)
+#if ($tags.totalSize > 0)
+	
+#if ($tags.isFirstPage())
 <table border="0">
 #tagPaletteHeaderRow()
 <tr class="context">
@@ -15,12 +17,22 @@
 #if (!$tags.isLastPage())
 <tr class="context">
 	<td colspan="4" align="center">
-		<a href="#" onclick="return false;">
+		<a class="show-more" href="#" 
+			onclick="${jsPaletteRef}.showMore(this); return false;">
 		<img src="$context/images/resultset-next.png" border="0" alt=""/></a>
 	</td>
 </tr>
 #end
 </table>
+
+#else
+#foreach ($tag in $tags)
+	<li class="liquid-block">
+		#tagPaletteEntry($tag)
+	</li>
+#end
+	
+#end
 
 #else
 #emptyTagPalette()

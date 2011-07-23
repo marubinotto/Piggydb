@@ -412,6 +412,12 @@ TagPalette.prototype = {
   setLoading: function() {
     if (navigator.userAgent.indexOf("AppleWebKit") != -1) return;
     this.paletteDiv.html(LOAD_ICON);
+  },
+  
+  showMore: function (button) {
+  	button = jQuery(button);
+  	button.hide();
+  	var loadIcon = button.closest("td").putLoadingIcon("margin: 2px;");
   }
 };
 
