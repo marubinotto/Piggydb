@@ -3,12 +3,11 @@ package marubinotto.piggydb.ui.page.html;
 import java.util.List;
 
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.ui.page.common.Utils;
 
 public class TagPaletteFlat extends AbstractTagPalette {
 	
 	private static final String VIEW_TYPE = "flat";
-	private static final int PAGE_SIZE = Utils.ALMOST_UNLIMITED_PAGE_SIZE;
+	private static final int PAGE_SIZE = 100;
 
 	public int pi = 0;
 	
