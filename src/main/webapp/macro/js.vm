@@ -79,7 +79,8 @@ jQuery(function() {
 #end
 
 #if ($user.isViewer())
-	QuickEdit.init = function(){ /* disabled */ };
+	if (typeof QuickEdit != 'undefined') 
+		QuickEdit.init = function(){ /* disabled */ };
 #end
 });
 

@@ -524,11 +524,8 @@ FragmentsView.prototype = {
       outer.loadFirstSet();
     });
     this.rootDiv.find(".select-ascending-or-not button").click(function () {
-      var button = jQuery(this);
-      if (button.hasClass("selected")) return;
-      button.siblings("button.selected").removeClass("selected");
-      button.addClass("selected");
-      
+    	var button = jQuery(this);
+      if (!clickSelectSwitch(button)) return;     
       outer.ascending = (button.attr("name") == "ascending");
       outer.loadFirstSet();
     });

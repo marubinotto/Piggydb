@@ -47,6 +47,7 @@ function onDeleteTagClick(tagName, form) {
 }
 
 
+
 //
 // Tree
 //
@@ -116,6 +117,14 @@ function liquidBlocks(selectorPrefix, blockWidth, containerWidth) {
 
   // Set exact width of the re-adjusted block
   jQuery(blocksSelector + " li.liquid-block").css({ 'width' : colFixed });
+}
+
+function clickSelectSwitch(button) {
+	button = jQuery(button);
+  if (button.hasClass("selected")) return false;
+  button.siblings("button.selected").removeClass("selected");
+  button.addClass("selected");
+  return true;
 }
 
 

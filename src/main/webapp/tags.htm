@@ -98,11 +98,7 @@ $utils.raw($tagForm.endTag())
   };
   
   function switchView(button, name) {
-    button = jQuery(button);
-    if (button.hasClass("selected")) return;
-    button.siblings("button.selected").removeClass("selected");
-    button.addClass("selected");
-    
+		if (!clickSelectSwitch(button)) return;
     tagViews[name].render();
     currentView = name;
   }
