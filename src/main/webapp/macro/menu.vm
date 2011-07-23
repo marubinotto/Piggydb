@@ -56,9 +56,11 @@
                       document.location.href = TAG_URL_PREFIX + tagId;
                   },
                   jQuery("#global-tag-pulldown"));
-                globaTagPalette.decideMaxHeight = function () {
-                  return jQuery(window).height() - 50;
-                };
+									
+								globaTagPalette.decideMaxHeight = function () {
+									return jQuery(window).height() - 50;
+								};
+								
               #if (!$user.isViewer())
                 globaTagPalette.onPaletteUpdate = function () {
                   jQuery("#global-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);

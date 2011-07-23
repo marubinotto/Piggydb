@@ -106,7 +106,7 @@
           document.location.href = TAG_URL_PREFIX + tagId;
       },
       null);
-
+		palette.autoHeight = false;
     palette.onPaletteInit = function () {
       var resizableDiv = jQuery("#sidebar-tag-palette .tag-palette-resizable-div");
       

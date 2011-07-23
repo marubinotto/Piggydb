@@ -285,7 +285,7 @@ function TagPalette(paletteDiv, onTagSelect, toggleButton) {
   this.onTagSelect = onTagSelect;
   this.onPaletteInit = null;
   this.onPaletteUpdate = null;
-  this.decideMaxHeight = null;
+  this.autoHeight = true;
   this.breadcrumbs = [];	// breadcrumb: [0] tagId, [1] toChildren(true/false)
   
   if (toggleButton != null) {
@@ -395,15 +395,18 @@ TagPalette.prototype = {
   
   updatePalette: function(html, init) {
   	this.paletteDiv.html(html);
-  	
-  	
-  	
-		if (this.decideMaxHeight) 
+		if (this.autoHeight) 
 			this.paletteDiv.css("max-height", this.decideMaxHeight());
 		if (init && this.onPaletteInit)
 			this.onPaletteInit();
     if (this.onPaletteUpdate) 
     	this.onPaletteUpdate();
+  },
+  
+  decideMaxHeight: function() {
+  	var scrollTop = jQuery(document).scrollTop();
+  	var offset = cumulativeOffsetTop(this.paletteDiv[0]) - scrollTop;
+  	return jQuery(window).height() - offset - 20;
   },
   
   setLoading: function() {
