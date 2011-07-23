@@ -374,6 +374,14 @@ a.filter:hover {
   white-space: nowrap;
 }
 
+.tag-palette li.liquid-block div.tag-container {
+	overflow: hidden;
+  white-space: nowrap;
+  padding: 2px;
+  padding-left: 3px;
+  font-size: 9pt;
+}
+
 .tag-palette-draggable .miniTagIcon {
 	padding-right: 5px;
 }

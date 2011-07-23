@@ -374,6 +374,8 @@ TagPalette.prototype = {
   			outer.onPaletteInit();
       if (outer.onPaletteUpdate) 
       	outer.onPaletteUpdate();
+      
+      liquidBlocks(".tag-palette ", 80, 220);	// TODO
   	});
   },
   

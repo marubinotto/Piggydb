@@ -3,9 +3,13 @@
 #tagPaletteHeaderRow()
 <tr class="context">
 	<td colspan="4">
-	#foreach ($tag in $tags)
-		#tagPaletteEntry($tag)
-	#end
+		<ul class="liquid-blocks">
+  	#foreach ($tag in $tags)
+			<li class="liquid-block">
+				#tagPaletteEntry($tag)
+			</li>
+  	#end
+		</ul>
 	</td>
 </tr>
 </table>
