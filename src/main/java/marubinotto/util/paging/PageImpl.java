@@ -5,16 +5,16 @@ import java.util.List;
 import marubinotto.util.Assert;
 
 public class PageImpl<E> extends AbstractPage<E> {
-		
-    private List<E> elements;
-    
-    private int pageSize;
-    private int pageIndex;
-    private long totalSize;
+
+	private List<E> elements;
+
+	private int pageSize;
+	private int pageIndex;
+	private long totalSize;
 
 	public PageImpl(List<E> elements, int pageSize, int pageIndex, long totalSize) {
 		Assert.Arg.notNull(elements, "elements");
-		
+
 		this.elements = elements;
 		this.pageSize = pageSize;
 		this.pageIndex = pageIndex;
@@ -42,9 +42,9 @@ public class PageImpl<E> extends AbstractPage<E> {
 	public long getTotalSize() {
 		return this.totalSize;
 	}
-    
-    public String toString() {
-        return "Page: page(" + getPageIndex() + "/" + getPageCount() + 
-        	") size(" + size() + "/" + getTotalSize() + ") " + this.elements;
-    }
+
+	public String toString() {
+		return "Page: page(" + getPageIndex() + "/" + getPageCount() + 
+			") size(" + size() + "/" + getTotalSize() + ") " + this.elements;
+	}
 }

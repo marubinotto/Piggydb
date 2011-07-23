@@ -12,12 +12,14 @@
 		</ul>
 	</td>
 </tr>
+#if (!$tags.isLastPage())
 <tr class="context">
 	<td colspan="4" align="center">
 		<a href="#" onclick="return false;">
 		<img src="$context/images/resultset-next.png" border="0" alt=""/></a>
 	</td>
 </tr>
+#end
 </table>
 
 #else
