@@ -425,18 +425,6 @@ a.filter:hover {
   z-index: 100;
 }
 
-.sidebar .tag-palette {
-  width: 190px;
-}
-
-.sidebar .tag-palette table {
-  width: 180px;
-}
-
-.sidebar .tag-palette td.tag div {
-  width: 128px;
-}
-
 .empty-tag-palette {
   font-size: 10pt;
   color: gray;
@@ -491,7 +479,7 @@ a.filter:hover {
 }
 
 #sidebar-tag-palette .tag-palette-container {
-	 position: relative;
+	position: relative;
 }
 
 #sidebar-tag-palette .tag-palette-resizable-div {
