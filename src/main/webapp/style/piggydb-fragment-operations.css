@@ -479,33 +479,8 @@ td.minor-edit label {
 
 
 /*
- * Liquid blocks
+ * Multi-column
  */
-
-ul.liquid-blocks {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  list-style: none;
-}
-
-ul.liquid-blocks li.liquid-block {
-  float: left;
-  /* width: 200px; Set default width */
-  padding: 0px;
-  margin: 0px;
-  display: inline;
-}
-
-ul.liquid-blocks div.liquid-block {
-  margin: 0px;
-  margin-left: 3px;
-  margin-right: 3px; 
-  margin-bottom: 6px;
-  padding: 0px;
-  
-  overflow: hidden;
-}
 
 ul.liquid-blocks div.liquid-block table.fragment {
 	height: 28px;
