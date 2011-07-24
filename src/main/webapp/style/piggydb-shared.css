@@ -502,6 +502,10 @@ a.filter:hover {
 	width: 240px;
 }
 
+#sidebar-tag-palette table {
+	width: auto;
+}
+
 #sidebar-tag-palette .tag-palette td.tag div.tag-container {
   width: 190px;
 }
