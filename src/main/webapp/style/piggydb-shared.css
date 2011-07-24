@@ -353,7 +353,7 @@ a.filter:hover {
 
 .tag-palette table {
   border-collapse: collapse;
-  width: 240px;
+  width: auto;
 }
 
 .tag-palette table td {
