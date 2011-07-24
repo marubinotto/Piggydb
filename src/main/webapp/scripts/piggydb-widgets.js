@@ -416,7 +416,7 @@ TagPalette.prototype = {
   },
   
   setLoading: function() {
-    if (navigator.userAgent.indexOf("AppleWebKit") != -1) return;
+    // if (navigator.userAgent.indexOf("AppleWebKit") != -1) return;
     this.paletteDiv.html(LOAD_ICON);
   },
   
