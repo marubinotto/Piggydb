@@ -287,6 +287,7 @@ function TagPalette(paletteDiv, onTagSelect, toggleButton) {
   this.onPaletteUpdate = null;
   this.autoHeight = true;
   this.breadcrumbs = [];	// breadcrumb: [0] tagId, [1] toChildren(true/false)
+  this.flatIndex = 0;
   
   if (toggleButton != null) {
     this.toggleButton = toggleButton;
@@ -379,13 +380,18 @@ TagPalette.prototype = {
   },
   
   updatePaletteFlat: function(params, init) {
+  	this.flatIndex = 0;
   	this.setLoading(); 	
   	this.setCommonParams(params);
   	var outer = this;
   	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
   		outer.updatePalette(html, init);
-      liquidBlocks(".tag-palette ", 80, 220);
+      outer.arrangeFlat();
   	});
+  },
+  
+  arrangeFlat: function() {
+  	liquidBlocks(".tag-palette ", 80, this.paletteDiv.width() - 30);
   },
   
   setCommonParams: function(params) {
@@ -418,6 +424,18 @@ TagPalette.prototype = {
   	button = jQuery(button);
   	button.hide();
   	var loadIcon = button.closest("td").putLoadingIcon("margin: 2px;");
+  	
+  	var params = {pi: ++this.flatIndex};
+  	this.setCommonParams(params);
+  	var outer = this;
+  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
+  		var page = jQuery(html);
+  		outer.paletteDiv.find("ul.liquid-blocks").append(page);
+  		loadIcon.remove();
+  		outer.arrangeFlat();
+  		if (!page.filter("li:first").hasClass("last-page")) button.show();
+  		if (outer.onPaletteUpdate) outer.onPaletteUpdate();
+  	});
   }
 };
 

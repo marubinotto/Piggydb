@@ -26,8 +26,11 @@
 </table>
 
 #else
+#if ($tags.isLastPage())
+	#set ($additionalClasses = " last-page")
+#end
 #foreach ($tag in $tags)
-	<li class="liquid-block">
+	<li class="liquid-block$additionalClasses">
 		#tagPaletteEntry($tag)
 	</li>
 #end
