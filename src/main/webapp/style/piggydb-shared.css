@@ -380,6 +380,7 @@ a.filter:hover {
   padding: 2px;
   padding-left: 3px;
   font-size: 9pt;
+  line-height: 120%;
 }
 
 .tag-palette-draggable .miniTagIcon {
