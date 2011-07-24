@@ -1,6 +1,15 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 4.23 (2011-07-24) == #v4.23
+
+ * Updated Tag Palette to have multiple views: tree, flat
+ * Quick Edit can be used via the edit button (pencil icon) on the fragment toolbar
+   * Users can quick edit fragments which have contents hidden or no contents.
+ * Updated the fragments view slider
+   * http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/14
+ * Added validation for invalid chars in a tag name 
+
 == Changes in version 4.22 (2011-07-13) == #v4.22
 
  * Added Quick Edit for fragment content
