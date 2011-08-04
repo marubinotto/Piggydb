@@ -37,6 +37,13 @@ $utils.raw($form.startTag())
 #formErrorsRow($form)
 <tr><td>
   <table class="fields" id="${this.name}-fields">
+  ## Title
+  <tr class="fields">
+    <td align="left" valign="middle">
+      #formField($form.fields.title)
+    </td>
+  </tr>
+		
   ## Content
   <tr class="fields">
     <td align="left" valign="middle" style="padding-right: 5px;">
@@ -57,13 +64,6 @@ $utils.raw($form.startTag())
         $utils.raw($form.fields.file)
       </div>
       #end
-    </td>
-  </tr>
-  
-  ## Title
-  <tr class="fields">
-    <td align="left" valign="middle">
-      #formField($form.fields.title)
     </td>
   </tr>
 
