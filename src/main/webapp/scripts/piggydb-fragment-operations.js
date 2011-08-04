@@ -227,7 +227,7 @@ var QuickEdit = {
 		var contentDivHeight = contentDiv.height();
 	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
 	  contentDiv.empty().putLoadingIcon(); 
-	  jQuery.get("html/fragment-content-editor.htm", {"id" : id}, function(html) {
+	  jQuery.get("html/fragment-editor.htm", {"id" : id}, function(html) {
 	  	contentDiv.empty();
 	  	editorDiv.html(html);
 		
