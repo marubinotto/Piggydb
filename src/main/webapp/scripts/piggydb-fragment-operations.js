@@ -230,6 +230,8 @@ var QuickEdit = {
 	  jQuery.get("html/fragment-editor.htm", {"id" : id}, function(html) {
 	  	contentDiv.empty();
 	  	editorDiv.html(html);
+	  	
+	  	jQuery.updnWatermark.attachAll();
 		
 	  	var editor = editorDiv.find("textarea.fragment-content");
 	  	editor.markItUp(FragmentForm.markItUpSettings);

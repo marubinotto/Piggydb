@@ -480,6 +480,17 @@ td.minor-edit label {
 
 
 /*
+ * Quick Edit
+ */
+
+div.fragment-content-editor input.fragment-title {
+	margin-top: 3px;
+	width: 100%;
+}
+
+
+
+/*
  * Multi-column
  */
 
