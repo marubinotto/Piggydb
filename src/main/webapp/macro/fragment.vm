@@ -4,7 +4,7 @@
 
 #macro( fragment $fragment $contextTags )
   
-<table class="fragment multirow" cellpadding="5" cellspacing="0" width="100%" border="0">
+<table class="fragment fragment-full multirow" cellpadding="5" cellspacing="0" width="100%" border="0">
 #fragmentParentsRow($fragment.parentRelations $null)
 #fragmentHeaderRow($fragment $contextTags)
 #fragmentBodyRow($fragment)

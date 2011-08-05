@@ -1,6 +1,14 @@
-#if ($error)
-<div class="error">$error</div>
-#end
-#if ($fragment.content && $fragment.content.trim() != "")
-#fragmentTextContent($fragment)
-#end
+<div>
+  <div class="fragment-title">
+  	<span class="title">$fragment.title &nbsp;</span>
+  	<span class="headline">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
+  </div>
+  <div class="fragment-content">
+  #if ($error)
+  	<div class="error">$error</div>
+  #end
+  #if ($fragment.content && $fragment.content.trim() != "")
+  	#fragmentTextContent($fragment)
+  #end
+  </div>
+</div>

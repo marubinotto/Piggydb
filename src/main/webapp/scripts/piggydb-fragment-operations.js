@@ -167,6 +167,10 @@ Fragment.prototype = {
 		return this.bodyRow().find("div.fragment-content-text");
 	},
 	
+	isFull: function() {
+		return this.root.hasClass("fragment-full");
+	},
+	
 	isMultirow: function() {
 		return this.root.hasClass("multirow");
 	},
@@ -269,16 +273,27 @@ var QuickEdit = {
 
 	onUpdate: function(button) {
 		var fragment = new Fragment(button);
+		
+		var titleSpan = fragment.header().find("span.title");
 		var editorDiv = jQuery(button).closest("div.fragment-editor");
-		var content = editorDiv.find("textarea").val();
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
+		var params = {
+			id: fragment.id(),
+			title: editorDiv.find("input.fragment-title").val(),
+			content: editorDiv.find("textarea.fragment-content").val()};
+		
 		editorDiv.empty();
+		titleSpan.empty().putLoadingIcon();
 		contentDiv.empty().putLoadingIcon();
-		var params = {"id": fragment.id(), "content": content};
 		jQuery.post("html/update-fragment.htm", params, function(html) {
 		  if (isNotBlank(html)) {
-		  	contentDiv.html(html);
+		  	html = jQuery(html);
+		  	if (fragment.isFull())
+		  		titleSpan.html(html.find("div.fragment-title span.title").html());
+		  	else
+		  		titleSpan.html(html.find("div.fragment-title span.headline").html());
+		  	contentDiv.html(html.find("div.fragment-content").html());
 		  	prettyPrint();
 		  }
 		  else {
