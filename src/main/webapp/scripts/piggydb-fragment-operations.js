@@ -276,7 +276,7 @@ var QuickEdit = {
 		editorDiv.empty();
 		contentDiv.empty().putLoadingIcon();
 		var params = {"id": fragment.id(), "content": content};
-		jQuery.post("html/update-fragment-content.htm", params, function(html) {
+		jQuery.post("html/update-fragment.htm", params, function(html) {
 		  if (isNotBlank(html)) {
 		  	contentDiv.html(html);
 		  	prettyPrint();

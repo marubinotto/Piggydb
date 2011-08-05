@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page.html;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.procedure.Procedure;
 
-public class UpdateFragmentContent extends AbstractSingleFragment {
+public class UpdateFragment extends AbstractSingleFragment {
 	
 	public String content;
 	
