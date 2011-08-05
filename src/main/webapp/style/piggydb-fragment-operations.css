@@ -483,7 +483,7 @@ td.minor-edit label {
  * Quick Edit
  */
 
-div.fragment-content-editor input.fragment-title {
+div.fragment-editor input.fragment-title {
 	margin-top: 3px;
 	width: 100%;
 }

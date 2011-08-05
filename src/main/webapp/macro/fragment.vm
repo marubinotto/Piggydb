@@ -135,7 +135,7 @@
 	
 <tr class="fragment-body">
 	<td class="fragment-body">
-		<div class="fragment-content-editor"></div>
+		<div class="fragment-editor"></div>
     <div class="fragment-content fragment-content-text">
 		#if ($fragment)
 			#fragmentTextContent($fragment)

@@ -225,7 +225,7 @@ var QuickEdit = {
 	
 	openEditor: function(id, contentDiv) {
 		var contentDivHeight = contentDiv.height();
-	  var editorDiv = contentDiv.siblings("div.fragment-content-editor");
+	  var editorDiv = contentDiv.siblings("div.fragment-editor");
 	  contentDiv.empty().putLoadingIcon(); 
 	  jQuery.get("html/fragment-editor.htm", {"id" : id}, function(html) {
 	  	contentDiv.empty();
@@ -245,7 +245,7 @@ var QuickEdit = {
 
 	onCancel: function(button) {
 		var fragment = new Fragment(button);
-		var editorDiv = jQuery(button).closest("div.fragment-content-editor");	
+		var editorDiv = jQuery(button).closest("div.fragment-editor");	
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
 		editorDiv.empty();
@@ -269,7 +269,7 @@ var QuickEdit = {
 
 	onUpdate: function(button) {
 		var fragment = new Fragment(button);
-		var editorDiv = jQuery(button).closest("div.fragment-content-editor");
+		var editorDiv = jQuery(button).closest("div.fragment-editor");
 		var content = editorDiv.find("textarea").val();
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
