@@ -182,6 +182,10 @@ Fragment.prototype = {
 	contentToggle: function() {
 		var toggle = this.header().find(".fragment-content-toggle a.tool-button");
 		return toggle.size() == 0 ? null : new ContentToggle(toggle);
+	},
+	
+	highlight: function() {
+		Fragment.highlight(this.id(), this.root);
 	}
 };
 
@@ -298,7 +302,8 @@ var QuickEdit = {
 		  }
 		  else {
 		  	QuickEdit.emptyContent(contentDiv);
-		  } 
+		  }
+		  fragment.highlight();
 		});
 	}
 };
