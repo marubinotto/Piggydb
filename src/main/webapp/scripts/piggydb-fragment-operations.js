@@ -230,7 +230,8 @@ var QuickEdit = {
 			var contentToggle = fragment.contentToggle();
 			if (contentToggle != null) contentToggle.setOpened();
 			
-			var emptyBodyRow = jQuery("#tpl-fragment-body-row-with-empty-text tbody").html().trim();
+			var emptyBodyRow = jQuery.trim(
+				jQuery("#tpl-fragment-body-row-with-empty-text tbody").html());
 			fragment.setBodyRow(emptyBodyRow);
 			QuickEdit.openEditor(fragment.id(), fragment.textContentDiv());
 			return true;
