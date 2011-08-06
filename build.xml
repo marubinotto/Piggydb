@@ -218,7 +218,6 @@
   -->
   <target name="war-en" depends="prepare-demo">
     <antcall target="_enable-anonymous"/>
-    <antcall target="_add-ad-top"/>
     
     <build-war 
       warfile="${build.dir}/en-${build.war.file.name}" 
