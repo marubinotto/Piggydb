@@ -318,6 +318,11 @@ var QuickEdit = {
 		  else {
 		  	QuickEdit.emptyContent(contentDiv);
 		  }
+	  	
+	  	// update info
+	  	fragment.header().find("span.update-info").html(
+	  		html.find("div.fragment-update-info span.update-info").html());
+	  	
 		  fragment.highlight();
 		});
 	}
