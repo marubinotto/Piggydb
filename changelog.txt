@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.0-dev1 (2011-08-06) == #v5.0-dev1
+
+ * Updated Quick Edit to support fragment title
+ * Updated the fragment form: moved the title field to the top 
+
 == Changes in version 4.23 (2011-07-24) == #v4.23
 
  * Updated Tag Palette to have multiple views: tree, flat
