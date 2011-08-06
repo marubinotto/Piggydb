@@ -8,9 +8,14 @@ public class UpdateFragment extends AbstractSingleFragment {
 	
 	public String title;
 	public String content;
+	public String minorEdit;
 	
 	private Fragment getFragment() {
 		return this.fragment;
+	}
+	
+	private boolean isMinorEdit() {
+		return this.minorEdit != null;
 	}
 
 	@Override 
@@ -24,7 +29,7 @@ public class UpdateFragment extends AbstractSingleFragment {
 		
 		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
-				getDomain().getFragmentRepository().update(getFragment());
+				getDomain().getFragmentRepository().update(getFragment(), !isMinorEdit());
 				return null;
 			}
 		});

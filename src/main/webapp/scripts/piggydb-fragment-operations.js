@@ -286,18 +286,26 @@ var QuickEdit = {
 			id: fragment.id(),
 			title: editorDiv.find("input.fragment-title").val(),
 			content: editorDiv.find("textarea.fragment-content").val()};
+		if (editorDiv.find("input.fragment-minorEdit").get(0).checked) {
+			params.minorEdit = "on";
+		}
 		
 		editorDiv.empty();
 		titleSpan.empty().putLoadingIcon();
 		contentDiv.empty().putLoadingIcon();
 		jQuery.post("html/update-fragment.htm", params, function(html) {
-		  if (isNotBlank(html)) {
-		  	html = jQuery(html);
-		  	if (fragment.isFull())
-		  		titleSpan.html(html.find("div.fragment-title span.title").html());
-		  	else
-		  		titleSpan.html(html.find("div.fragment-title span.headline").html());
-		  	contentDiv.html(html.find("div.fragment-content").html());
+			html = jQuery(html);
+			
+			// new title
+	  	if (fragment.isFull())
+	  		titleSpan.html(html.find("div.fragment-title span.title").html());
+	  	else
+	  		titleSpan.html(html.find("div.fragment-title span.headline").html());
+	  	
+	  	// new content
+	  	var newContent = html.find("div.fragment-content").html();
+	  	if (isNotBlank(newContent)) {
+	  		contentDiv.html(newContent);
 		  	prettyPrint();
 		  }
 		  else {
