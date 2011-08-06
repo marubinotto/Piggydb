@@ -63,7 +63,7 @@
   <img src="$context/images/document.png" border="0" alt="$messages.get("document")"/></a>
 
 #if ($fragment.canChange($user))
-  <a class="tool-button"
+  <a class="tool-button edit-fragment"
 		#if (!$fragment.isFile()) 
 			onclick="return !QuickEdit.onEditButtonClick(this);" 
 		#end

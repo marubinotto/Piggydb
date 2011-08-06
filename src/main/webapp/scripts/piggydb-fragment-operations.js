@@ -179,6 +179,10 @@ Fragment.prototype = {
 		return this.root.hasClass("fragment-main");
 	},
 	
+	isEditable: function() {
+		return this.header().find("a.edit-fragment").size() > 0;
+	},
+	
 	contentToggle: function() {
 		var toggle = this.header().find(".fragment-content-toggle a.tool-button");
 		return toggle.size() == 0 ? null : new ContentToggle(toggle);
@@ -198,7 +202,10 @@ var QuickEdit = {
 	init: function() {
 	  jQuery("div.fragment-content-text").live('dblclick', function() {
 		  var contentDiv = jQuery(this);
-		  QuickEdit.openEditor(new Fragment(contentDiv).id(), contentDiv);
+		  var fragment = new Fragment(contentDiv);
+		  if (fragment.isEditable()) {
+		  	QuickEdit.openEditor(fragment.id(), contentDiv);
+		  }
 		});
 	},
 	
