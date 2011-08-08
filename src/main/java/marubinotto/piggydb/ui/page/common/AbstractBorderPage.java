@@ -117,7 +117,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 			imports.appendln(this.html.cssImport("style/piggydb-shared.css", true, "screen"));
 			imports.appendln(this.html.cssImport("style/piggydb-wiki-help.css", true, null));
 			imports.appendln(this.html.cssImport("style/piggydb-print.css", true, "print"));
-			imports.appendln(this.html.cssImport("jquery-ui-1.8.6/themes/base/jquery.ui.all.css", false, "screen"));
+			imports.appendln(this.html.cssImport("jquery-ui-1.8.14/themes/base/jquery.ui.all.css", false, "screen"));
 			imports.appendln(this.html.cssImport("autocomplete/jquery.autocomplete-1.1-1.css", false, "screen"));
 			APP_CSS_IMPORTS = imports.toString();
 		}
@@ -129,7 +129,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 			getLogger().debug("Initializing APP_JS_IMPORTS ...");
 			StrBuilder imports = new StrBuilder();
 			imports.appendln(this.html.jsImport("scripts/jquery-1.4.2.min.js", false));
-			imports.appendln(this.html.jsImport("jquery-ui-1.8.6/jquery-ui-1.8.6.custom.min.js", false));
+			imports.appendln(this.html.jsImport("jquery-ui-1.8.14/jquery-ui-1.8.14.custom.min.js", false));
 			imports.appendln(this.html.jsImport("scripts/purePacked.js", false));
 			imports.appendln(this.html.jsImport("scripts/prettify-8.js", false));
 			imports.appendln(this.html.jsImport("scripts/jquery.updnWatermark.js", true));
