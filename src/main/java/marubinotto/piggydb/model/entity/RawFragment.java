@@ -42,6 +42,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	
 	private String password;
 	
+	private boolean asTag = false;
+	
 	public RawFragment() {
 	}
 
@@ -137,7 +139,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
 			return text.substring(0, end);
 	}
 	
-	// TODO
 	public boolean hasMoreThanHeadline() {
 		if (isFile()) return true;
 		if (StringUtils.isBlank(getContent())) return false;
@@ -526,5 +527,29 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		
 		PasswordDigest pd = new PasswordDigest();
 		this.password = pd.createSshaDigest(password);
+	}
+	
+	
+	//
+	// As a tag
+	//
+	
+	public boolean isTag() {
+		return this.asTag;
+	}
+	
+	public void setAsTag(boolean asTag) {
+		this.asTag = asTag;
+	}
+	
+	public void setAsTagByUser(boolean asTag, User user) {
+		Assert.Arg.notNull(user, "user");
+		
+		if (ObjectUtils.equals(asTag, this.asTag) && !canChange(user)) return;
+		
+		ensureCanChange(user);
+		
+		setAsTag(asTag);
+		onPropertyChange(user);
 	}
 }

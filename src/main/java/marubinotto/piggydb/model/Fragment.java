@@ -69,4 +69,8 @@ public interface Fragment extends Classifiable, Password {
 	public List<FragmentRelation> getChildRelations(boolean publicOnly);
 	
 	public List<Fragment> getChildren();
+	
+	public boolean isTag();
+	
+	public void setAsTagByUser(boolean asTag, User user);
 }

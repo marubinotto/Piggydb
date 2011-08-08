@@ -121,6 +121,7 @@ public class FragmentForm extends Form {
 		Assert.Arg.notNull(user, "user");
 		
 		this.titleField.setValue(fragment.getTitle());
+		this.asTagCheckbox.setChecked(fragment.isTag());
 		this.contentField.setValue(fragment.getContent());
 		if (!fragment.getClassification().isEmpty()) {
 			this.tagsField.setValue(toString(fragment.getClassification()));
@@ -228,6 +229,15 @@ public class FragmentForm extends Form {
 		} 
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.titleField, getPage());
+			return false;
+		}
+		
+		// as a tag
+		try {
+			object.setAsTagByUser(this.asTagCheckbox.isChecked(), user);
+		}
+		catch (Exception e) {
+			Utils.handleFieldError(e, this.asTagCheckbox, getPage());
 			return false;
 		}
 		
