@@ -38,6 +38,7 @@ public class FragmentForm extends Form {
 	private HiddenField baseTimestampField = new HiddenField("baseTimestamp", String.class);
 	
 	private TextField titleField = new TextField("title", false);
+	private Checkbox asTagCheckbox = new Checkbox("asTag", false);
 
 	public static final String CONTENT_TYPE_TEXT = "text";
 	public static final String CONTENT_TYPE_FILE = "file";
@@ -81,6 +82,9 @@ public class FragmentForm extends Form {
 		this.titleField.setAttribute("class", "fragment-title watermarked");
 		this.titleField.setTitle(messages.getMessage("FragmentForm-title"));
 		add(this.titleField);
+		
+		this.asTagCheckbox.setAttribute("class", "fragment-as-tag");
+		add(this.asTagCheckbox);
 
 		add(this.contentTypeField);
 		this.contentTypeSwitch.setVerticalLayout(false);

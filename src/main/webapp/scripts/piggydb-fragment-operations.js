@@ -42,6 +42,13 @@ var FragmentForm = {
 	    panel.find(".toggle-icon").attr("src", "images/twistie-up.gif");
 	    panel.find(".fragment-form-div").hide();
 	  });
+	  
+	  jQuery("input.fragment-as-tag").button({
+      icons: {
+      	primary: "ui-icon-piggydb-tag"
+      },
+      text: false
+	  });
 	},
 		
   onToggleClick: function(panelName) {

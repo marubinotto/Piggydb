@@ -434,7 +434,16 @@ div.content-type-switch {
 }
 
 input.fragment-title {
-  width: 98%;
+  width: 95%;
+}
+
+span.fragment-as-tag .ui-button {
+	font-size: 0.8em; !important;
+}
+
+.ui-icon-piggydb-tag {
+	background-image: url(images/mini-tag.png) !important;
+	background-position: center center;
 }
 
 input.fragment-tags {
