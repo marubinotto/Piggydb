@@ -40,11 +40,19 @@ $utils.raw($form.startTag())
   ## Title
   <tr class="fields">
     <td align="left" valign="middle">
-			<span class="fragment-as-tag">
-  			$utils.raw($form.fields.asTag)<label 
-  				for="$utils.raw($form.fields.asTag.id)">As a tag</label>
-			</span>
-      #formField($form.fields.title)
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td class="fragment-as-tag">
+    			<span class="fragment-as-tag">
+      			$utils.raw($form.fields.asTag)<label 
+      				for="$utils.raw($form.fields.asTag.id)">As a tag</label>
+					</span>
+				</td>
+				<td>
+					#formField($form.fields.title)
+				</td>
+			</tr>
+			</table>
     </td>
   </tr>
 		
