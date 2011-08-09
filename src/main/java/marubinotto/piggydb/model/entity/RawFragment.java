@@ -13,8 +13,10 @@ import java.util.Stack;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.util.Assert;
 import marubinotto.util.PasswordDigest;
 import marubinotto.util.Size;
@@ -43,6 +45,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	private String password;
 	
 	private boolean asTag = false;
+	private Long tagId;
+	private Tag tag;
 	
 	public RawFragment() {
 	}
@@ -55,6 +59,16 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	public Fragment copyForUpdate() {
 		return (Fragment)getDeepCopy();
 	}
+	
+	@Override
+	public String toString() {
+		return "#" + getId() + (this.title != null ? " " + this.title : "");
+	}
+
+	
+	//
+	// Title
+	//
 	
 	public String makeHeadline() {
 		if (getTitle() != null) return getTitle();
@@ -91,6 +105,11 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		setTitle(title);
 		onPropertyChange(user);
 	}
+	
+	
+	//
+	// Content
+	//
 
 	public String getContent() {
 		return this.content;
@@ -161,11 +180,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		
 		setContent(content);
 		onPropertyChange(user);
-	}
-	
-	@Override
-	public String toString() {
-		return "#" + getId() + (this.title != null ? " " + this.title : "");
 	}
 	
 	public String toStringWithDescendents() {
@@ -551,5 +565,33 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		
 		setAsTag(asTag);
 		onPropertyChange(user);
+	}
+	
+	public Long getTagId() {
+		return this.tagId;
+	}
+
+	public void setTagId(Long tagId) {
+		this.tagId = tagId;
+	}
+	
+	public Tag asTag() {
+		return this.tag;
+	}
+	
+	public void setTag(Tag tag) {
+		this.tag = tag;
+	}
+	
+	
+	//
+	// Validation
+	//
+	
+	public void validate(User user, TagRepository tagRepository) {
+		if (isTag()) {
+			if (StringUtils.isBlank(getTitle()))
+				throw new InvalidTitleException("blank-tag-fragment-title");
+		}
 	}
 }

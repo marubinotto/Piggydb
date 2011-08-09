@@ -3,11 +3,6 @@ package marubinotto.piggydb.ui.page.control.form;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
@@ -27,6 +22,11 @@ import net.sf.click.control.Radio;
 import net.sf.click.control.RadioGroup;
 import net.sf.click.control.Submit;
 import net.sf.click.control.TextField;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class FragmentForm extends Form {
 	
@@ -268,6 +268,15 @@ public class FragmentForm extends Form {
 		} 
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.tagsField, getPage());
+			return false;
+		}
+		
+		// validation involving multiple properties
+		try {
+			object.validate(user, tagRepository);
+		}
+		catch (Exception e) {
+			Utils.handleFormError(e, this, getPage());
 			return false;
 		}
 		

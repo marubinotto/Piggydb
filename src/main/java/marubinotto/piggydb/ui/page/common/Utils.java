@@ -53,8 +53,8 @@ public class Utils {
 		}
 	}
 
-	public static void handleFieldError(Exception exception, Field field,
-		Page messages) throws Exception {
+	public static void handleFieldError(Exception exception, Field field, Page messages) 
+	throws Exception {
 		Assert.Arg.notNull(exception, "exception");
 		Assert.Arg.notNull(field, "field");
 		Assert.Arg.notNull(messages, "messages");
@@ -62,8 +62,8 @@ public class Utils {
 		field.setError(getCodedMessageOrThrow(exception, messages));
 	}
 
-	public static void handleFormError(Exception exception, Form form,
-		Page messages) throws Exception {
+	public static void handleFormError(Exception exception, Form form, Page messages) 
+	throws Exception {
 		Assert.Arg.notNull(exception, "exception");
 		Assert.Arg.notNull(form, "form");
 		Assert.Arg.notNull(messages, "messages");

@@ -14,6 +14,11 @@ public interface Fragment extends Classifiable, Password {
 	
 	public String toStringWithDescendents();
 	
+	
+	//
+	// Title
+	//
+	
 	public String makeHeadline();
 	
 	public String makeHeadline(int maxLength);
@@ -25,6 +30,11 @@ public interface Fragment extends Classifiable, Password {
 	public void setTitleByUser(String title, User user);
 	
 	public boolean canChangeTitle(User user);
+	
+	
+	//
+	// Content
+	//
 	
 	public String getContent();
 	
@@ -48,11 +58,21 @@ public interface Fragment extends Classifiable, Password {
 	
 	public Size getFileSize();
 	
+	
+	//
+	// Tagged
+	//
+	
 	public boolean isPublic();
 	
 	public boolean isTrash();
 	
 	public boolean isUserFragment();
+	
+	
+	//
+	// Relationships
+	//
 	
 	public List<FragmentRelation> getParentRelations();
 	
@@ -70,7 +90,23 @@ public interface Fragment extends Classifiable, Password {
 	
 	public List<Fragment> getChildren();
 	
+	
+	//
+	// As a tag
+	//
+	
 	public boolean isTag();
 	
 	public void setAsTagByUser(boolean asTag, User user);
+	
+	public Long getTagId();
+	
+	public Tag asTag();
+	
+	
+	//
+	// Validation involving multiple properties
+	//
+	
+	public void validate(User user, TagRepository tagRepository);
 }
