@@ -72,7 +72,7 @@ public class H2TagRepository extends TagRepository.Base {
 	}
 	
 	private void throwDuplicateException() {
-		throw new DuplicateException("tag-name-already-exists");
+		throw new DuplicateException("duplicate-tag-name");
 	}
 
 	public Tag get(long id) throws Exception {
