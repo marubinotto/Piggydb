@@ -4,11 +4,11 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
-import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
-import marubinotto.piggydb.model.exception.DuplicateException;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
+import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
@@ -243,8 +243,8 @@ public class FilterPage extends AbstractFragmentsPage {
 				}
 			});
 		}
-		catch (DuplicateException e) {
-			this.filterNameForm.setError(getMessage("FilterPage-name-already-exists"));
+		catch (Exception e) {
+			Utils.handleFormError(e, this.filterNameForm, this);
 			if (oldName != null) this.filter.setNameByUser(oldName, getUser());
 			return true;
 		}

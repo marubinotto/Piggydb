@@ -62,9 +62,7 @@ implements RawEntityFactory<RawFilter> {
 		Assert.require(filter.getId() == null, "filter.getId() == null");
 		Assert.Property.requireNotNull(filterIdIncrementer, "filterIdIncrementer");
 
-		if (containsName(filter.getName())) {
-			throw new DuplicateException("Duplicate filter name: " + filter.getName());
-		}
+		if (containsName(filter.getName())) throwDuplicateException();
 
 		((RawFilter) filter).setId(new Long(this.filterIdIncrementer
 			.nextLongValue()));
@@ -77,6 +75,10 @@ implements RawEntityFactory<RawFilter> {
 			this.tagRepository);
 
 		return filter.getId();
+	}
+	
+	private void throwDuplicateException() {
+		throw new DuplicateException("duplicate-filter-name");
 	}
 
 	private boolean containsName(String name) throws Exception {
@@ -197,14 +199,13 @@ implements RawEntityFactory<RawFilter> {
 			"select count(*) from filter where filter_id = ?", new Object[]{id}) > 0;
 	}
 
-	private void checkIfNameIsValidToUpdate(Filter filter)
-		throws DuplicateException {
+	private void checkIfNameIsValidToUpdate(Filter filter) throws DuplicateException {
 		int duplicate = this.jdbcTemplate.queryForInt(
-			"select count(*) from filter where filter_id <> ? and filter_name = ?",
-			new Object[]{filter.getId(), filter.getName()});
-		if (duplicate > 0) {
-			throw new DuplicateException("Duplicate filter name: " + filter.getName());
-		}
+			"select count(*) from filter where filter_id <> ? and filter_name = ?", 
+			new Object[]{
+				filter.getId(), 
+				filter.getName()});
+		if (duplicate > 0) throwDuplicateException();
 	}
 
 	@SuppressWarnings("unchecked")
