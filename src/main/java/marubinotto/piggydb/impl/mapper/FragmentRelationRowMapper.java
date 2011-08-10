@@ -73,7 +73,7 @@ public class FragmentRelationRowMapper extends EntityRowMapper<FragmentRelation>
 		}
 	}
 
-    public FragmentRelation mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public FragmentRelation mapRow(ResultSet rs, int rowNum) throws SQLException {
 		FragmentRelation relation = createEntityWithCommonColumns(rs);
 
 		if (this.fragmentResolver != null) {
@@ -82,10 +82,10 @@ public class FragmentRelationRowMapper extends EntityRowMapper<FragmentRelation>
 		else {
 			fetchFromJoinedResultSet(rs, rowNum, relation);
 		}
-		
-        return relation;
-    }
-	
+
+		return relation;
+	}
+
 	private void fetchFromRepository(ResultSet rs, FragmentRelation relation) 
 	throws SQLException {
 		try {
