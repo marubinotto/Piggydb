@@ -1,6 +1,6 @@
 package marubinotto.piggydb.model;
 
-import java.util.List;
+import java.util.Collection;
 
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 
@@ -20,7 +20,7 @@ public interface Classifiable extends Entity {
 	public boolean canAddTag(String tagName, User user);
 	
 	public void updateTagsByUser(
-		List<String> tagNames, 
+		Collection<String> tagNames, 
 		TagRepository tagRepository, 
 		User user) 
 	throws InvalidTaggingException, Exception;

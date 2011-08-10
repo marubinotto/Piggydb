@@ -1,5 +1,6 @@
 package marubinotto.piggydb.model.entity;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -117,7 +118,7 @@ public abstract class RawClassifiable extends RawEntity implements Classifiable 
 	}
 
 	public final void updateTagsByUser(
-		List<String> tagNames, 
+		Collection<String> tagNames, 
 		TagRepository tagRepository, 
 		User user) 
 	throws InvalidTaggingException, Exception {
@@ -137,7 +138,7 @@ public abstract class RawClassifiable extends RawEntity implements Classifiable 
 	}
 	
 	public static MutableClassification selectMostConcreteTags(
-		List<String> tagNames, 
+		Collection<String> tagNames, 
 		TagRepository tagRepository, 
 		User user) 
 	throws Exception {

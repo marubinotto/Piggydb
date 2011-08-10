@@ -9,6 +9,7 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.exception.InvalidTagNameException;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.EditDataStore;
@@ -283,6 +284,10 @@ public class FragmentForm extends Form {
 		}
 		catch (InvalidTagNameException e) {
 			Utils.handleFieldError(e, this.titleField, getPage());
+			return false;
+		}
+		catch (InvalidTaggingException e) {
+			Utils.handleFieldError(e, this.tagsField, getPage());
 			return false;
 		}
 		catch (Exception e) {

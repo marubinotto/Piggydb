@@ -601,6 +601,15 @@ public class RawFragment extends RawClassifiable implements Fragment {
 					tagRepository.newInstance(getTitle(), user);
 				setTag(tag);
 			}
+			
+			if (tag != null) {
+				tag.setNameByUser(getTitle(), user);
+				tag.updateTagsByUser(getClassification().getTagNames(), tagRepository, user);
+			}
+			else {
+				setAsTag(false);
+				setTagId(null);
+			}
 		}
 	}
 }
