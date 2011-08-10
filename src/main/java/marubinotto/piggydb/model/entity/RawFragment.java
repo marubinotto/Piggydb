@@ -594,6 +594,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 				throw new InvalidTitleException("blank-tag-fragment-title");
 			}
 			
+			// Get or create the tag role of this fragment
 			Tag tag = asTag();
 			if (tag == null) {
 				tag = getTagId() != null ? 
@@ -602,6 +603,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 				setTag(tag);
 			}
 			
+			// Update the tag role corresponding to this fragment
 			if (tag != null) {
 				tag.setNameByUser(getTitle(), user);
 				tag.updateTagsByUser(getClassification().getTagNames(), tagRepository, user);
