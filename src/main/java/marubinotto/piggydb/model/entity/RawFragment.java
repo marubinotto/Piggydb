@@ -552,7 +552,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return this.asTag;
 	}
 	
-	public void setAsTag(boolean asTag) {
+	private void setAsTag(boolean asTag) {
 		this.asTag = asTag;
 	}
 	
@@ -573,6 +573,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 
 	public void setTagId(Long tagId) {
 		this.tagId = tagId;
+		setAsTag(this.tagId != null);
 	}
 	
 	public Tag asTag() {
