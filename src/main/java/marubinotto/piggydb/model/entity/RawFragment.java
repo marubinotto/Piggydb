@@ -588,10 +588,19 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	// Validation
 	//
 	
-	public void validate(User user, TagRepository tagRepository) {
+	public void validate(User user, TagRepository tagRepository) throws Exception {
 		if (isTag()) {
-			if (StringUtils.isBlank(getTitle()))
+			if (StringUtils.isBlank(getTitle())) {
 				throw new InvalidTitleException("blank-tag-fragment-title");
+			}
+			
+			Tag tag = asTag();
+			if (tag == null) {
+				tag = getTagId() != null ? 
+					tagRepository.get(getTagId()) :
+					tagRepository.newInstance(getTitle(), user);
+				setTag(tag);
+			}
 		}
 	}
 }

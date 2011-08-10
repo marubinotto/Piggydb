@@ -108,5 +108,5 @@ public interface Fragment extends Classifiable, Password {
 	// Validation involving multiple properties
 	//
 	
-	public void validate(User user, TagRepository tagRepository);
+	public void validate(User user, TagRepository tagRepository) throws Exception;
 }
