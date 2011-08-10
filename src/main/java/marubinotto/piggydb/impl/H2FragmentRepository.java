@@ -649,23 +649,23 @@ implements RawEntityFactory<RawFragment> {
 	}
 
 	@Override
-	protected long doCreateRelation(long from, long to, User user)
+	protected long doCreateRelation(long from, long to, User user) 
 	throws NoSuchEntityException, DuplicateException, Exception {
 		Assert.Property.requireNotNull(relationIdIncrementer, "relationIdIncrementer");
-		
+
 		if (!containsId(from)) {
 			throw new NoSuchEntityException(from);
 		}
 		if (!containsId(to)) {
 			throw new NoSuchEntityException(to);
 		}
-		
+
 		FragmentRelation newRelation = new FragmentRelation(user);
 		newRelation.setId(this.relationIdIncrementer.nextLongValue());
-		
+
 		FragmentRelationRowMapper.insert(newRelation, from, to, this.jdbcTemplate);
-		
-        return newRelation.getId();
+
+		return newRelation.getId();
 	}
 	
 	public FragmentRelation getRelation(long relationId) throws Exception {

@@ -1,16 +1,14 @@
 package marubinotto.piggydb.model.exception;
 
-public class DuplicateException extends Exception {
+import marubinotto.util.CodedException;
 
-	public DuplicateException() {
-		super();
+public class DuplicateException extends CodedException {
+
+	public DuplicateException(String errorCode) {
+		super(errorCode, (String[])null);
 	}
 
-	public DuplicateException(String message) {
-		super(message);
-	}
-
-	public DuplicateException(String message, Throwable cause) {
-		super(message, cause);
+	public DuplicateException(String errorCode, String field) {
+		super(errorCode, new String[]{field});
 	}
 }

@@ -69,7 +69,7 @@ public class FragmentRelationRowMapper extends EntityRowMapper<FragmentRelation>
 			TABLE.insert(relation, values, jdbcTemplate);
 		} 
 		catch (DataIntegrityViolationException e) {
-			throw new DuplicateException(e.toString(), e);
+			throw new DuplicateException("duplicate-fragment-relation");
 		}
 	}
 

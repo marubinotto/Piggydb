@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.paging.Page;
@@ -177,33 +176,18 @@ public class TagsPage extends AbstractBorderPage {
 		}
 		
 		String tagName = this.tagNameField.getValue();
-		getLogger().info("onCreateTagClick: " + tagName);
-		
-		// Create a tag with the name
-		Tag newTag = null;
 		try {
-			newTag = getDomain().getTagRepository().newInstance(tagName, getUser());
+			final Tag newTag = getDomain().getTagRepository().newInstance(tagName, getUser());
+			getDomain().getTransaction().execute(new Procedure() {
+				public Object execute(Object input) throws Exception {
+					return getDomain().getTagRepository().register(newTag);
+				}
+			});
 		} 
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.tagNameField, this);
 			return true;
 		}
-		
-		// Register the tag
-		final Tag tagToRegister = newTag;
-		long newId;
-		try {
-			newId = (Long)getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					return getDomain().getTagRepository().register(tagToRegister);
-				}
-			});
-		}
-		catch (DuplicateException e) {
-			this.tagForm.setError(getMessage("tag-name-already-exists"));
-			return true;
-		}
-		getLogger().debug("newId: " + newId);
 
 		setRedirectToThisPage();
 		return false;

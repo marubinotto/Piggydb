@@ -3,10 +3,9 @@ package marubinotto.piggydb.ui.page;
 import java.util.List;
 
 import marubinotto.piggydb.model.RelatedTags;
-import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
-import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.common.Utils;
@@ -168,22 +167,12 @@ public class TagPage extends AbstractFragmentsPage {
 		}
 
 		String newName = this.tagNameField.getValue();
-		getLogger().info("onCommitRenameClick: " + newName);
-
 		try {
 			this.tag.setNameByUser(newName, getUser());
+			saveTag(this.tag);
 		}
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.tagNameField, this);
-			this.renameMode = true;
-			return true;
-		}
-
-		try {
-			saveTag(this.tag);
-		}
-		catch (DuplicateException e) {
-			this.tagNameField.setError(getMessage("tag-name-already-exists"));
 			this.renameMode = true;
 			return true;
 		}

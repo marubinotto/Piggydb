@@ -58,9 +58,7 @@ public class H2TagRepository extends TagRepository.Base {
 		Assert.require(tag.getId() == null, "tag.getId() == null");
 		Assert.Property.requireNotNull(tagIdIncrementer, "tagIdIncrementer");
 		
-		if (containsName(tag.getName())) {
-			throw new DuplicateException("Duplicate tag name: " + tag.getName());
-		}
+		if (containsName(tag.getName())) throwDuplicateException();
 		
 		((RawTag)tag).setId(new Long(this.tagIdIncrementer.nextLongValue()));
 		TagRowMapper.insert((RawTag)tag, this.jdbcTemplate);
@@ -71,6 +69,10 @@ public class H2TagRepository extends TagRepository.Base {
 			this);
 		
 		return tag.getId().longValue();
+	}
+	
+	private void throwDuplicateException() {
+		throw new DuplicateException("tag-name-already-exists");
 	}
 
 	public Tag get(long id) throws Exception {
@@ -171,9 +173,7 @@ public class H2TagRepository extends TagRepository.Base {
 		int duplicate = this.jdbcTemplate.queryForInt(
 			"select count(*) from tag where tag_id <> ? and tag_name = ?",
 			new Object[]{tag.getId(), tag.getName()});
-		if (duplicate > 0) {
-			throw new DuplicateException("Duplicate tag name: " + tag.getName());
-		}
+		if (duplicate > 0) throwDuplicateException();
 	}
 
 	@Override

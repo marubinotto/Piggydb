@@ -17,6 +17,7 @@ import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.html.AbstractFragments;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
+import marubinotto.util.CodedException;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.Context;
 import net.sf.click.control.HiddenField;
@@ -187,12 +188,12 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 				}
 			});
 		}
-		catch (NoSuchEntityException e) {
-			setRedirectToThisPage(getMessage("no-such-fragment", e.id));
+		catch (CodedException e) {
+			setRedirectToThisPage(Utils.getMessage(e, this));
 			return false;
 		}
-		catch (DuplicateException e) {
-			setRedirectToThisPage(getMessage("duplicate-fragment-relation"));
+		catch (NoSuchEntityException e) {
+			setRedirectToThisPage(getMessage("no-such-fragment", e.id));
 			return false;
 		}
 
