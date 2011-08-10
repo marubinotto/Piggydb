@@ -24,6 +24,7 @@ public class RawTag extends RawClassifiable implements Tag {
 
 	private String name;
 	private Long popularity;
+	private Long fragmentId;
 
 	public RawTag() {
 	}
@@ -109,6 +110,14 @@ public class RawTag extends RawClassifiable implements Tag {
 		return NAME_TRASH.equals(getName());
 	}
 	
+	public Long getFragmentId() {
+		return this.fragmentId;
+	}
+	
+	public void setFragmentId(Long fragmentId) {
+		this.fragmentId = fragmentId;
+	}
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(getName()).toHashCode();

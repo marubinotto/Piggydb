@@ -40,4 +40,6 @@ public interface Tag extends Classifiable {
 	throws Exception;
 	
 	public boolean isTrashTag();
+	
+	public Long getFragmentId();
 }

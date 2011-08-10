@@ -21,7 +21,35 @@ public class FragmentRowMapper extends EntityRowMapper<RawFragment> {
 			.defColumn("file_name")
 			.defColumn("file_type")
 			.defColumn("file_size")
-			.defColumn("password");
+			.defColumn("password")
+			.defColumn("tag_id");
+	
+	private static Object[] toValues(RawFragment fragment) {
+		return new Object[]{
+			fragment.getTitle(),
+			fragment.getContent(),
+			fragment.getFileName(),
+			fragment.getFileType(),
+			fragment.getFileSize() != null ? fragment.getFileSize().getValue() : null,
+			fragment.getPassword(),
+			fragment.getTagId()
+		};
+	}
+
+	public static void insert(RawFragment fragment, JdbcTemplate jdbcTemplate) {
+		Assert.Arg.notNull(fragment, "fragment");
+		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
+
+		TABLE.insert(fragment, toValues(fragment), jdbcTemplate);
+	}
+
+	public static void update(RawFragment fragment, boolean updateTimestamp,
+		JdbcTemplate jdbcTemplate) throws BaseDataObsoleteException {
+		Assert.Arg.notNull(fragment, "fragment");
+		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
+
+		TABLE.update(fragment, toValues(fragment), updateTimestamp, jdbcTemplate);
+	}
 
 	public FragmentRowMapper(RawEntityFactory<RawFragment> factory, String prefix) {
 		super(factory, prefix);
@@ -30,35 +58,6 @@ public class FragmentRowMapper extends EntityRowMapper<RawFragment> {
 	@Override
 	protected EntityTable getEntityTable() {
 		return TABLE;
-	}
-
-	public static void insert(RawFragment fragment, JdbcTemplate jdbcTemplate) {
-		Assert.Arg.notNull(fragment, "fragment");
-		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
-
-		Object[] values = new Object[]{
-			fragment.getTitle(),
-			fragment.getContent(),
-			fragment.getFileName(),
-			fragment.getFileType(),
-			fragment.getFileSize() != null ? fragment.getFileSize().getValue() : null,
-			fragment.getPassword()};
-		TABLE.insert(fragment, values, jdbcTemplate);
-	}
-
-	public static void update(RawFragment fragment, boolean updateTimestamp,
-		JdbcTemplate jdbcTemplate) throws BaseDataObsoleteException {
-		Assert.Arg.notNull(fragment, "fragment");
-		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
-
-		Object[] values = new Object[]{
-			fragment.getTitle(),
-			fragment.getContent(),
-			fragment.getFileName(),
-			fragment.getFileType(),
-			fragment.getFileSize() != null ? fragment.getFileSize().getValue() : null,
-			fragment.getPassword()};
-		TABLE.update(fragment, values, updateTimestamp, jdbcTemplate);
 	}
 
 	public RawFragment mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -72,6 +71,7 @@ public class FragmentRowMapper extends EntityRowMapper<RawFragment> {
 		Long fileSize = rs.getLong(columns.next());
 		if (fileSize != null) fragment.setFileSize(new Size(fileSize));
 		fragment.setPassword(rs.getString(columns.next()));
+		fragment.setTagId(rs.getLong(columns.next()));
 
 		return fragment;
 	}

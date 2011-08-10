@@ -29,6 +29,7 @@ import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -103,9 +104,21 @@ implements RawEntityFactory<RawFragment> {
 		Assert.require(fragment instanceof RawFragment, "fragment instanceof RawFragment");
 		Assert.require(fragment.getId() == null, "fragment.getId() == null");	
 		Assert.Property.requireNotNull(fragmentIdIncrementer, "fragmentIdIncrementer");
-		Assert.Property.requireNotNull(fileRepository, "fileRepository");		
+		Assert.Property.requireNotNull(fileRepository, "fileRepository");
 		
-		((RawFragment)fragment).setId(new Long(this.fragmentIdIncrementer.nextLongValue()));	
+		Long fragmentId = new Long(this.fragmentIdIncrementer.nextLongValue());
+		Long tagId = null;
+		
+		// tag
+		Tag tag = fragment.asTag();
+		if (tag != null) {
+			((RawTag)tag).setFragmentId(fragmentId);
+			tagId = getTagRepository().register(tag);
+		}
+		
+		// fragment
+		((RawFragment)fragment).setId(fragmentId);
+		((RawFragment)fragment).setTagId(tagId);
 		FragmentRowMapper.insert((RawFragment)fragment, this.jdbcTemplate);
 		QueryUtils.registerTaggings(
 			fragment, 
