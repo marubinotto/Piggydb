@@ -58,7 +58,7 @@ public class H2TagRepository extends TagRepository.Base {
 		Assert.require(tag.getId() == null, "tag.getId() == null");
 		Assert.Property.requireNotNull(tagIdIncrementer, "tagIdIncrementer");
 		
-		if (containsName(tag.getName())) throwDuplicateException();
+		validate(tag);
 		
 		((RawTag)tag).setId(new Long(this.tagIdIncrementer.nextLongValue()));
 		TagRowMapper.insert((RawTag)tag, this.jdbcTemplate);
@@ -69,6 +69,22 @@ public class H2TagRepository extends TagRepository.Base {
 			this);
 		
 		return tag.getId().longValue();
+	}
+	
+	public void validate(Tag tag) throws Exception {
+		if (tag.getId() == null) {
+			if (containsName(tag.getName())) throwDuplicateException();
+		}
+		else {
+			int duplicate = this.jdbcTemplate.queryForInt(
+				"select count(*) from tag where tag_id <> ? and tag_name = ?",
+				new Object[]{tag.getId(), tag.getName()});
+			if (duplicate > 0) throwDuplicateException();
+			
+			if (tag.getUpdateDatetime() == null) {
+				throw new BaseDataObsoleteException();
+			}
+		}
 	}
 	
 	private void throwDuplicateException() {
@@ -151,10 +167,7 @@ public class H2TagRepository extends TagRepository.Base {
 			logger.info("[update] No such tag ID: " + tag.getId()); 
 			return false;
 		}
-		checkIfNameIsValidToUpdate(tag);
-		if (tag.getUpdateDatetime() == null) {
-			throw new BaseDataObsoleteException();
-		}
+		validate(tag);
 		
 		// Do update
 		TagRowMapper.update((RawTag)tag, this.jdbcTemplate);
@@ -167,13 +180,6 @@ public class H2TagRepository extends TagRepository.Base {
 	private boolean containsId(Long id) throws Exception {
 		return this.jdbcTemplate.queryForInt(
 			"select count(*) from tag where tag_id = ?", new Object[]{id}) > 0;
-	}
-	
-	private void checkIfNameIsValidToUpdate(Tag tag) throws DuplicateException {
-		int duplicate = this.jdbcTemplate.queryForInt(
-			"select count(*) from tag where tag_id <> ? and tag_name = ?",
-			new Object[]{tag.getId(), tag.getName()});
-		if (duplicate > 0) throwDuplicateException();
 	}
 
 	@Override

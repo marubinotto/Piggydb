@@ -12,6 +12,8 @@ public interface TagRepository extends Repository<Tag> {
 	
 	public Tag newInstance(String name, User user);
 	
+	public void validate(Tag tag) throws Exception;
+	
 	// By name
 
 	public Tag getByName(String name) throws Exception;
