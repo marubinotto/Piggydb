@@ -275,9 +275,8 @@ public class FragmentForm extends Form {
 			return false;
 		}
 		
-		// validation involving multiple properties
 		try {
-			object.validate(user, tagRepository);
+			object.validateTagRole(user, tagRepository);
 		}
 		catch (InvalidTitleException e) {
 			Utils.handleFieldError(e, this.titleField, getPage());

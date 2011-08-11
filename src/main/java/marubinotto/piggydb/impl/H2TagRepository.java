@@ -184,13 +184,18 @@ public class H2TagRepository extends TagRepository.Base {
 
 	@Override
 	protected void doDelete(Tag tag, User user) throws Exception {
-		this.jdbcTemplate.update("delete from tag where tag_id = ?",
-			new Object[]{tag.getId()});
+		delete(tag.getId());
+	}
+	
+	@Override
+	protected void delete(Long id) throws Exception {
+		this.jdbcTemplate.update(
+			"delete from tag where tag_id = ?",
+			new Object[]{id});
 
-		this.jdbcTemplate
-			.update(
-				"delete from tagging where tag_id = ? or (target_id = ? and target_type = ?)",
-				new Object[]{tag.getId(), tag.getId(), QueryUtils.TAGGING_TARGET_TAG});
+		this.jdbcTemplate.update(
+			"delete from tagging where tag_id = ? or (target_id = ? and target_type = ?)",
+			new Object[]{id, id, QueryUtils.TAGGING_TARGET_TAG});
 	}
 	
 	public long size() throws Exception {

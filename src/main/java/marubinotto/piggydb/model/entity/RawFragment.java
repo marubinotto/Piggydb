@@ -556,17 +556,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		this.asTag = asTag;
 	}
 	
-	public void setAsTagByUser(boolean asTag, User user) {
-		Assert.Arg.notNull(user, "user");
-		
-		if (ObjectUtils.equals(asTag, this.asTag) && !canChange(user)) return;
-		
-		ensureCanChange(user);
-		
-		setAsTag(asTag);
-		onPropertyChange(user);
-	}
-	
 	public Long getTagId() {
 		return this.tagId;
 	}
@@ -584,36 +573,42 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		this.tag = tag;
 	}
 	
-	
-	//
-	// Validation
-	//
-	
-	public void validate(User user, TagRepository tagRepository) throws Exception {
+	public void setAsTagByUser(boolean asTag, User user) {
+		Assert.Arg.notNull(user, "user");
+		
+		if (ObjectUtils.equals(asTag, this.asTag) && !canChange(user)) return;
+		
+		ensureCanChange(user);
+		
+		setAsTag(asTag);
+		onPropertyChange(user);
+	}
+
+	public void validateTagRole(User user, TagRepository tagRepository) 
+	throws Exception {
+		Tag tag = asTag();
+		if (tag == null && getTagId() != null) {
+			tag = tagRepository.get(getTagId());
+			setTag(tag);
+		}
+		
+		// new or update
 		if (isTag()) {
-			if (StringUtils.isBlank(getTitle())) {
+			if (StringUtils.isBlank(getTitle()))
 				throw new InvalidTitleException("blank-tag-fragment-title");
-			}
-			
-			// Get or create the tag role of this fragment
-			Tag tag = asTag();
-			if (tag == null) {
-				tag = getTagId() != null ? 
-					tagRepository.get(getTagId()) :
-					tagRepository.newInstance(getTitle(), user);
+
+			if (tag == null) {	// new
+				tag = tagRepository.newInstance(getTitle(), user);
 				setTag(tag);
 			}
 			
-			// Update the tag role corresponding to this fragment and validate it
-			if (tag != null) {
-				tag.setNameByUser(getTitle(), user);
-				tag.updateTagsByUser(getClassification().getTagNames(), tagRepository, user);
-				tagRepository.validate(tag);
-			}
-			else {
-				setAsTag(false);
-				setTagId(null);
-			}
+			tag.setNameByUser(getTitle(), user);
+			tag.updateTagsByUser(getClassification().getTagNames(), tagRepository, user);
+			tagRepository.validate(tag);
+		}
+		// delete
+		else {
+			if (tag != null) tag.ensureCanDelete(user);
 		}
 	}
 }

@@ -96,17 +96,13 @@ public interface Fragment extends Classifiable, Password {
 	//
 	
 	public boolean isTag();
-	
-	public void setAsTagByUser(boolean asTag, User user);
-	
+
 	public Long getTagId();
 	
 	public Tag asTag();
 	
-	
-	//
-	// Validation involving multiple properties
-	//
-	
-	public void validate(User user, TagRepository tagRepository) throws Exception;
+	public void setAsTagByUser(boolean asTag, User user);
+
+	public void validateTagRole(User user, TagRepository tagRepository) 
+	throws Exception;
 }

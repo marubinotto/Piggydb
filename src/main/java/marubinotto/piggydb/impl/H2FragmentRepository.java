@@ -29,7 +29,6 @@ import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
-import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -106,19 +105,12 @@ implements RawEntityFactory<RawFragment> {
 		Assert.Property.requireNotNull(fragmentIdIncrementer, "fragmentIdIncrementer");
 		Assert.Property.requireNotNull(fileRepository, "fileRepository");
 		
-		Long fragmentId = new Long(this.fragmentIdIncrementer.nextLongValue());
-		Long tagId = null;
+		((RawFragment)fragment).setId(this.fragmentIdIncrementer.nextLongValue());
 		
-		// tag
-		Tag tag = fragment.asTag();
-		if (tag != null) {
-			((RawTag)tag).setFragmentId(fragmentId);
-			tagId = getTagRepository().register(tag);
-		}
+		// Tag role
+		this.tagRepository.updateTagRole((RawFragment)fragment);
 		
-		// fragment
-		((RawFragment)fragment).setId(fragmentId);
-		((RawFragment)fragment).setTagId(tagId);
+		// Fragment
 		FragmentRowMapper.insert((RawFragment)fragment, this.jdbcTemplate);
 		QueryUtils.registerTaggings(
 			fragment, 
@@ -180,15 +172,13 @@ implements RawEntityFactory<RawFragment> {
 		Assert.Property.requireNotNull(fileRepository, "fileRepository");
 		
 		// Check preconditions
-		if (!containsId(fragment.getId())) {
-			logger.info("[update] No such fragment ID: " + fragment.getId()); 
-			return false;
-		}
-		if (fragment.getUpdateDatetime() == null) {
-			throw new BaseDataObsoleteException();
-		}
+		if (!containsId(fragment.getId())) return false;
+		if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
+
+		// Tag role
+		this.tagRepository.updateTagRole((RawFragment)fragment);
 		
-		// Do update
+		// Fragment
 		FragmentRowMapper.update((RawFragment)fragment, updateTimestamp, this.jdbcTemplate);
 		QueryUtils.updateTaggings(
 			(RawFragment)fragment, 
