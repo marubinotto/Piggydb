@@ -27,6 +27,8 @@ public class UpdateFragment extends AbstractSingleFragment {
 		this.fragment.setTitleByUser(trimToNull(this.title), getUser());
 		this.fragment.setContentByUser(this.content, getUser());
 		
+		this.fragment.validateTagRole(getUser(), getDomain().getTagRepository());
+		
 		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				getDomain().getFragmentRepository().update(getFragment(), !isMinorEdit());
