@@ -1,6 +1,15 @@
 /*
- * Shared
+ * Fragment Caption
  */
+
+span.fragment-caption a.tag-fragment-caption {
+	color: navy;
+	text-decoration: none;
+}
+
+span.fragment-caption a.tag-fragment-caption:hover span.title {
+	text-decoration: underline;
+}
 
 .selected-fragment .fragment-caption {
   background-color: #FFFF66;
@@ -115,6 +124,7 @@
 }
 
 
+
 /* 
  * Fragment Update Info
  */
@@ -131,6 +141,7 @@
 .fragment-header .update-info .entity-timestamp a.user-name {
 	color: #aaa;
 }
+
 
 
 /*

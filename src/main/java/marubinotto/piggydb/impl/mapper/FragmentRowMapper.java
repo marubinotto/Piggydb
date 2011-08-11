@@ -62,16 +62,23 @@ public class FragmentRowMapper extends EntityRowMapper<RawFragment> {
 
 	public RawFragment mapRow(ResultSet rs, int rowNum) throws SQLException {
 		RawFragment fragment = createEntityWithCommonColumns(rs);
+		
+		// ResultSet.getLong
+		// 	if the value is SQL NULL, the value returned is 0
 
 		Iterator<String> columns = properColumns();
 		fragment.setTitle(rs.getString(columns.next()));
 		fragment.setContent(rs.getString(columns.next()));
 		fragment.setFileName(rs.getString(columns.next()));
 		fragment.setFileType(rs.getString(columns.next()));
+		
 		Long fileSize = rs.getLong(columns.next());
-		if (fileSize != null) fragment.setFileSize(new Size(fileSize));
+		if (fileSize != 0) fragment.setFileSize(new Size(fileSize));
+		
 		fragment.setPassword(rs.getString(columns.next()));
-		fragment.setTagId(rs.getLong(columns.next()));
+		
+		Long tagId = rs.getLong(columns.next());	
+		if (tagId != 0) fragment.setTagId(tagId);
 
 		return fragment;
 	}

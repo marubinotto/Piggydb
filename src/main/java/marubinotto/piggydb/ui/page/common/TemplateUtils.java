@@ -38,6 +38,10 @@ public class TemplateUtils {
 	public Object nullToEmpty(Object object) {
 		return object == null ? "" : object;
 	}
+	
+	public Object blankToNbsp(Object object) {
+		return object == null || StringUtils.isBlank(object.toString()) ? raw("&nbsp;") : object;
+	}
 
 	@SuppressWarnings("rawtypes")
 	public Object getWithDefault(Map map, String key, String defaultValue) {

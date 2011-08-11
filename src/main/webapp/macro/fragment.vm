@@ -20,16 +20,37 @@
 <tr>
   <th class="header-cell" title="$fragment.title" valign="middle">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
-      <span class="fragment-caption">
-        $utils.raw($html.linkToFragment($fragment.id))
-        <span class="title">$fragment.title &nbsp;</span>
-      </span>
+      #fragmentCaption($fragment false false)
       #fragmentTags($fragment $contextTags)
 			#fragmentUpdateInfo($fragment)
       #fragmentToolBar($fragment)
     </div>
   </th>
 </tr>
+
+#end
+
+
+
+#macro( fragmentCaption $fragment $useHeadline $withImageLink )
+
+<span class="fragment-caption">
+#if ($fragment.isTag())
+	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
+	#miniTagIcon($fragment.title)
+	<span class="title">$fragment.title</span></a>
+#else
+  $utils.raw($html.linkToFragment($fragment.id))
+	#if ($withImageLink) #imageLink($fragment) #end
+	<span class="title">
+	#if ($useHeadline)
+    $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
+	#else
+    $utils.blankToNbsp($fragment.title)
+	#end
+	</span>
+#end
+</span>
 
 #end
 
@@ -277,10 +298,7 @@
 		#if (!$excludeRelationId || $relation.id != $excludeRelationId)
       <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
           style="margin-right: 1em;">
-        <span class="fragment-caption">
-          $utils.raw($html.linkToFragment($relation.from.id))
-          $utils.raw($html.fragmentHeadline($relation.from))
-        </span>
+				#fragmentCaption($relation.from true false)
         <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
         #deleteRelationButton($relation "span.fragment-header" "tr")
       </span>
@@ -303,10 +321,7 @@
     <span class="$html.fragmentHeaderClass(${relation.to.id}, $selectedFragments)" 
         style="margin-right: 1em;">
       <img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
-      <span class="fragment-caption">
-        $utils.raw($html.linkToFragment($relation.to.id))
-        $utils.raw($html.fragmentHeadline($relation.to))
-      </span>
+			#fragmentCaption($relation.to true false)
       #if ($relation.to.hasChildren()) 
         <img src="$context/images/arrow-with-children.gif" border="0" alt="&rarr; ..."/>
       #end
@@ -345,13 +360,17 @@
   <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
     #if ($compactColumn)
-      <span class="fragment-caption">
-        #imageLink($fragment)
-        <a class="title-link" href="$resources.fragmentPath($fragment.id)">
-        <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
-      </span>
+			#if ($fragment.isTag())
+				#fragmentCaption($fragment false false)
+			#else
+        <span class="fragment-caption">
+          #imageLink($fragment)
+          <a class="title-link" href="$resources.fragmentPath($fragment.id)">
+          <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
+        </span>
+			#end
     #else
-      #fragmentCaption($fragment)
+      #fragmentCaption($fragment true true)
     #end
       #fragmentToolBar($fragment)
     </div>
@@ -359,18 +378,6 @@
 </tr>
 </table>
   
-#end
-
-
-
-#macro ( fragmentCaption $fragment )
-  
-<span class="fragment-caption">
-  $utils.raw($html.linkToFragment($fragment.id))
-  #imageLink($fragment)
-  <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
-</span>
-
 #end
 
 
@@ -434,7 +441,7 @@
   <img src="$context/images/node-plus.png" alt="+" border="0" 
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end
-#fragmentCaption($fragment)
+#fragmentCaption($fragment true true)
 #if ($fragment.hasMoreThanHeadline())
 <span class="fragment-content-toggle">
   <a class="tool-button" href="#" style="vertical-align: middle;"

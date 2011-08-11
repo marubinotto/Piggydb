@@ -153,7 +153,7 @@ $utils.raw($form.endTag())
   <div class="fragment-header">
     <span style="color: red;">#$messages.get("preview")</span>
 		#if ($editData.isTag())
-			<span class="miniTagIcon">&nbsp;</span>
+			#miniTagIcon($editData.title)
 		#end
     <span class="title">$editData.title &nbsp;</span>
     #if ($editData.classification.size() > 0)

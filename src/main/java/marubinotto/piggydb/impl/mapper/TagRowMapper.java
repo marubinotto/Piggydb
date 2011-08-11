@@ -51,10 +51,15 @@ public class TagRowMapper extends EntityRowMapper<RawTag> {
 
 	public RawTag mapRow(ResultSet rs, int rowNum) throws SQLException {
 		RawTag tag = createEntityWithCommonColumns(rs);
+		
+		// ResultSet.getLong
+		// 	if the value is SQL NULL, the value returned is 0
 
 		Iterator<String> columns = properColumns();
 		tag.setName(rs.getString(columns.next()));
-		tag.setFragmentId(rs.getLong(columns.next()));
+		
+		Long fragmentId = rs.getLong(columns.next());
+		if (fragmentId != 0) tag.setFragmentId(fragmentId);
 
 		return tag;
 	}
