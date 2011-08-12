@@ -30,7 +30,6 @@ import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
-import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.util.Assert;
@@ -96,6 +95,12 @@ implements RawEntityFactory<RawFragment> {
 	public void setRelationIdIncrementer(
 		DataFieldMaxValueIncrementer relationIdIncrementer) {
 		this.relationIdIncrementer = relationIdIncrementer;
+	}
+	
+	public boolean containsId(Long id) throws Exception {
+		return this.jdbcTemplate.queryForInt(
+	    "select count(*) from fragment where fragment_id = ?", 
+	    new Object[]{id}) > 0;
 	}
 
 	public long register(Fragment fragment) throws Exception {
@@ -164,21 +169,8 @@ implements RawEntityFactory<RawFragment> {
 		}
 	}
 
-	public boolean update(Fragment fragment, boolean updateTimestamp) 
-	throws BaseDataObsoleteException, Exception {
-		Assert.Arg.notNull(fragment, "fragment");
-		Assert.require(fragment instanceof RawFragment, "fragment instanceof RawFragment");
-		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
-		Assert.Property.requireNotNull(fileRepository, "fileRepository");
-		
-		// Check preconditions
-		if (!containsId(fragment.getId())) return false;
-		if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
-
-		// Tag role
-		updateTagRole((RawFragment)fragment);
-		
-		// Fragment
+	public void updateFragment(Fragment fragment, boolean updateTimestamp) 
+	throws Exception {
 		FragmentRowMapper.update((RawFragment)fragment, updateTimestamp, this.jdbcTemplate);
 		QueryUtils.updateTaggings(
 			(RawFragment)fragment, 
@@ -191,14 +183,6 @@ implements RawEntityFactory<RawFragment> {
 		if (fragment.isFile() && fragment.getFileInput() != null) {
 			this.fileRepository.putFile(fragment);
 		}
-		
-		return true;
-	}
-	
-	private boolean containsId(Long id) throws Exception {
-		return this.jdbcTemplate.queryForInt(
-	    "select count(*) from fragment where fragment_id = ?", 
-	    new Object[]{id}) > 0;
 	}
 	
 	@Override

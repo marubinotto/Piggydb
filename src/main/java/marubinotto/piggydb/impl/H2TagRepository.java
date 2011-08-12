@@ -11,11 +11,9 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.TagRowMapper;
-import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -140,6 +138,11 @@ public class H2TagRepository extends TagRepository.Base {
 		QueryUtils.setTagsRecursively(
 			map(tag.getId(), tag), QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
 	}
+	
+	public boolean containsId(Long id) throws Exception {
+		return this.jdbcTemplate.queryForInt(
+			"select count(*) from tag where tag_id = ?", new Object[]{id}) > 0;
+	}
 
 	public boolean containsName(String name) throws Exception {
 		Assert.Arg.notNull(name, "name");
@@ -170,37 +173,10 @@ public class H2TagRepository extends TagRepository.Base {
 			"select tag_name from tag where LOWER(tag_name) like '" + criteria + "%'", String.class);
 	}
 
-	public boolean update(Tag tag) throws BaseDataObsoleteException, Exception {
-		Assert.Arg.notNull(tag, "tag");
-		Assert.require(tag instanceof RawTag, "tag instanceof RawTag");
-		Assert.Arg.notNull(tag.getId(), "tag.getId()");
-		Assert.Arg.notNull(tag.getName(), "tag.getName()");
-				
-		// Check preconditions
-		if (!containsId(tag.getId())) {
-			logger.info("[update] No such tag ID: " + tag.getId()); 
-			return false;
-		}
-		validate(tag);
-		
-		// Tag
+	public void updateTag(Tag tag) throws Exception {
 		TagRowMapper.update((RawTag)tag, this.jdbcTemplate);
 		QueryUtils.updateTaggings(
 			(RawTag)tag, QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
-		
-		// Fragment
-		Fragment fragment = tag.asFragment();
-		if (fragment != null) {
-			((RawFragment)fragment).setTag(null);	// avoid to update the tag again
-			getFragmentRepository().update(fragment);
-		}
-		
-		return true;
-	}
-	
-	private boolean containsId(Long id) throws Exception {
-		return this.jdbcTemplate.queryForInt(
-			"select count(*) from tag where tag_id = ?", new Object[]{id}) > 0;
 	}
 
 	@Override

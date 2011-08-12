@@ -16,6 +16,8 @@ public interface TagRepository extends Repository<Tag> {
 	
 	public void validate(Tag tag) throws Exception;
 	
+	public boolean containsId(Long id) throws Exception;
+	
 	// By name
 
 	public Tag getByName(String name) throws Exception;
@@ -70,6 +72,8 @@ public interface TagRepository extends Repository<Tag> {
 			Assert.Arg.notNull(user, "user");
 			return new RawTag(name, user);
 		}
+		
+		public abstract FragmentRepository.Base getFragmentRepository();
 
 		public Tag getTrashTag() throws Exception {
 			return getByName(Tag.NAME_TRASH);
@@ -81,6 +85,29 @@ public interface TagRepository extends Repository<Tag> {
 				tag.setFragment(getFragmentRepository().get(fragmentId));
 			}
 		}
+		
+		public final boolean update(Tag tag) throws Exception {
+			Assert.Arg.notNull(tag, "tag");
+			Assert.require(tag instanceof RawTag, "tag instanceof RawTag");
+			Assert.Arg.notNull(tag.getId(), "tag.getId()");
+			Assert.Arg.notNull(tag.getName(), "tag.getName()");
+			
+			// Check preconditions
+			if (!containsId(tag.getId())) return false;
+			validate(tag);
+			
+			// Update the tag
+			updateTag(tag);
+			
+			// Update the fragment role
+			Fragment fragment = tag.asFragment();
+			if (fragment != null) {
+				getFragmentRepository().updateFragment(fragment, true);
+			}
+			return true;
+		}
+		
+		public abstract void updateTag(Tag tag) throws Exception;
 		
 		protected abstract void delete(Long id) throws Exception;
 	}

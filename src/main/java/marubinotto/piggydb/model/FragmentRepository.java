@@ -27,6 +27,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public TagRepository getTagRepository();
 	
+	public boolean containsId(Long id) throws Exception;
+	
 	public Fragment get(long id, boolean fetchingRelations) throws Exception;
 	
 	public void setFileRepository(FileRepository fileRepository);
@@ -82,8 +84,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	extends Repository.Base<Fragment, RawFragment> implements FragmentRepository {
 		
 		protected FileRepository fileRepository;
-		
-		public abstract TagRepository.Base getTagRepository();
 
 		public RawFragment newRawEntity() {
 			return new RawFragment();
@@ -93,6 +93,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 			Assert.Arg.notNull(user, "user");
 			return new RawFragment(user);
 		}
+		
+		public abstract TagRepository.Base getTagRepository();
 
 		public void setFileRepository(FileRepository fileRepository) {
 			this.fileRepository = fileRepository;
@@ -106,10 +108,32 @@ public interface FragmentRepository extends Repository<Fragment> {
 			return get(id, true);
 		}
 		
-		public final boolean update(Fragment fragment) 
-		throws BaseDataObsoleteException, Exception {
+		public final boolean update(Fragment fragment) throws Exception {
 			return update(fragment, true); 
 		}
+		
+		public final boolean update(Fragment fragment, boolean updateTimestamp) 
+		throws Exception {
+			Assert.Arg.notNull(fragment, "fragment");
+			Assert.require(fragment instanceof RawFragment, "fragment instanceof RawFragment");
+			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+			Assert.Property.requireNotNull(fileRepository, "fileRepository");
+			
+			// Check preconditions
+			if (!containsId(fragment.getId())) return false;
+			if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
+			
+			// Update the tag role
+			updateTagRole((RawFragment)fragment);
+			
+			// Update the fragment
+			updateFragment(fragment, updateTimestamp);
+			
+			return true;
+		}
+		
+		public abstract void updateFragment(Fragment fragment, boolean updateTimestamp) 
+		throws Exception;
 		
 		protected void updateTagRole(RawFragment fragment) throws Exception {
 			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
@@ -126,7 +150,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 					}
 					// update
 					else {
-						getTagRepository().update(tag);
+						getTagRepository().updateTag(tag);
 					}
 				}
 			}
