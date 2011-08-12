@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
@@ -84,34 +83,5 @@ public interface TagRepository extends Repository<Tag> {
 		}
 		
 		protected abstract void delete(Long id) throws Exception;
-		
-		public void updateTagRole(RawFragment fragment) throws Exception {
-			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
-			
-			if (fragment.isTag()) {
-				RawTag tag = (RawTag)fragment.asTag();
-				// skip the update if the tag object is null
-				if (tag != null) {
-					// new
-					if (tag.getId() == null) {
-						tag.setFragmentId(fragment.getId());
-						Long tagId = register(tag);
-						fragment.setTagId(tagId);
-					}
-					// update
-					else {
-						update(tag);
-					}
-				}
-			}
-			else {
-				Long tagId = fragment.getTagId();
-				// delete
-				if (tagId != null) {
-					delete(tagId);
-					fragment.setTagId(null);
-				}
-			}
-		}
 	}
 }

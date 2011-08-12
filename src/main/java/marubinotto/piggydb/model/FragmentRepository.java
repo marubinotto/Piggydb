@@ -6,6 +6,7 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -81,6 +82,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 	extends Repository.Base<Fragment, RawFragment> implements FragmentRepository {
 		
 		protected FileRepository fileRepository;
+		
+		public abstract TagRepository.Base getTagRepository();
 
 		public RawFragment newRawEntity() {
 			return new RawFragment();
@@ -106,6 +109,35 @@ public interface FragmentRepository extends Repository<Fragment> {
 		public final boolean update(Fragment fragment) 
 		throws BaseDataObsoleteException, Exception {
 			return update(fragment, true); 
+		}
+		
+		protected void updateTagRole(RawFragment fragment) throws Exception {
+			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+			
+			if (fragment.isTag()) {
+				RawTag tag = (RawTag)fragment.asTag();
+				// skip the update if the tag object is null
+				if (tag != null) {
+					// new
+					if (tag.getId() == null) {
+						tag.setFragmentId(fragment.getId());
+						Long tagId = getTagRepository().register(tag);
+						fragment.setTagId(tagId);
+					}
+					// update
+					else {
+						getTagRepository().update(tag);
+					}
+				}
+			}
+			else {
+				Long tagId = fragment.getTagId();
+				// delete
+				if (tagId != null) {
+					getTagRepository().delete(tagId);
+					fragment.setTagId(null);
+				}
+			}
 		}
 		
 		public final long createRelation(long from, long to, User user)

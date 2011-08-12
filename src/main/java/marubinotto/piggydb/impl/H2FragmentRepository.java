@@ -108,7 +108,7 @@ implements RawEntityFactory<RawFragment> {
 		((RawFragment)fragment).setId(this.fragmentIdIncrementer.nextLongValue());
 		
 		// Tag role
-		this.tagRepository.updateTagRole((RawFragment)fragment);
+		updateTagRole((RawFragment)fragment);
 		
 		// Fragment
 		FragmentRowMapper.insert((RawFragment)fragment, this.jdbcTemplate);
@@ -176,7 +176,7 @@ implements RawEntityFactory<RawFragment> {
 		if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
 
 		// Tag role
-		this.tagRepository.updateTagRole((RawFragment)fragment);
+		updateTagRole((RawFragment)fragment);
 		
 		// Fragment
 		FragmentRowMapper.update((RawFragment)fragment, updateTimestamp, this.jdbcTemplate);
