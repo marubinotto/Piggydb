@@ -33,11 +33,21 @@ import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer
 public class H2TagRepository extends TagRepository.Base {
 	
 	private static Log logger = LogFactory.getLog(H2TagRepository.class);
+	
+	private H2FragmentRepository fragmentRepository;
 
 	protected JdbcTemplate jdbcTemplate;
 	private DataFieldMaxValueIncrementer tagIdIncrementer;
 	
 	private TagRowMapper tagRowMapper = new TagRowMapper(this, "tag.");
+	
+	public void setFragmentRepository(H2FragmentRepository fragmentRepository) {
+		this.fragmentRepository = fragmentRepository;
+	}
+	
+	public H2FragmentRepository getFragmentRepository() {
+		return this.fragmentRepository;
+	}
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -96,7 +106,9 @@ public class H2TagRepository extends TagRepository.Base {
 			"select " + tagRowMapper.selectAll() + " from tag where tag_id = ?", 
 			new Object[]{new Long(id)});
 		if (tag == null) return null;
+		
 		setSuperordinateTags(tag);
+		setFragmentTo(tag);
 		return tag;
 	}
 
@@ -107,7 +119,9 @@ public class H2TagRepository extends TagRepository.Base {
 			"select " + tagRowMapper.selectAll() + " from tag where tag_name = ?", 
 			new Object[]{name});
 		if (tag == null) return null;
-		setSuperordinateTags(tag);	
+		
+		setSuperordinateTags(tag);
+		setFragmentTo(tag);
 		return tag;
 	}
 

@@ -31,11 +31,6 @@
     <property name="enableGuest" value="false"/>
     <property name="enableAnonymous" value="${piggydb.enableAnonymous}"/>
   </bean>
-  
-  <bean id="tagRepository" class="marubinotto.piggydb.impl.H2TagRepository">
-    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
-    <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
-  </bean>
 
   <bean id="fragmentRepository" class="marubinotto.piggydb.impl.H2FragmentRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
@@ -43,6 +38,12 @@
     <property name="relationIdIncrementer"><ref bean="seqRelationId"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>
     <property name="fileRepository"><ref bean="fileRepository"/></property>
+  </bean>
+  
+  <bean id="tagRepository" class="marubinotto.piggydb.impl.H2TagRepository">
+    <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+    <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
+    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
   </bean>
 
   <bean id="filterRepository" class="marubinotto.piggydb.impl.H2FilterRepository">

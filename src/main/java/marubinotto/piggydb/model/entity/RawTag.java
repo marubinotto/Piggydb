@@ -5,6 +5,7 @@ import static marubinotto.util.CollectionUtils.set;
 import java.util.HashSet;
 import java.util.Set;
 
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
@@ -26,6 +27,7 @@ public class RawTag extends RawClassifiable implements Tag {
 	private Long popularity;
 	
 	private Long fragmentId;
+	private Fragment fragment;
 
 	public RawTag() {
 	}
@@ -117,6 +119,14 @@ public class RawTag extends RawClassifiable implements Tag {
 	
 	public void setFragmentId(Long fragmentId) {
 		this.fragmentId = fragmentId;
+	}
+	
+	public Fragment getFragment() {
+		return this.fragment;
+	}
+	
+	public void setFragment(Fragment fragment) {
+		this.fragment = fragment;
 	}
 
 	@Override

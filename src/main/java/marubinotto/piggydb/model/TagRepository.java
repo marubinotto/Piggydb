@@ -13,6 +13,8 @@ public interface TagRepository extends Repository<Tag> {
 	
 	public Tag newInstance(String name, User user);
 	
+	public FragmentRepository getFragmentRepository();
+	
 	public void validate(Tag tag) throws Exception;
 	
 	// By name
@@ -72,6 +74,13 @@ public interface TagRepository extends Repository<Tag> {
 
 		public Tag getTrashTag() throws Exception {
 			return getByName(Tag.NAME_TRASH);
+		}
+		
+		protected void setFragmentTo(RawTag tag) throws Exception {
+			Long fragmentId = tag.getFragmentId();
+			if (fragmentId != null) {
+				tag.setFragment(getFragmentRepository().get(fragmentId));
+			}
 		}
 		
 		protected abstract void delete(Long id) throws Exception;
