@@ -93,8 +93,7 @@ public class H2TagRepository extends TagRepository.Base {
 
 	public Tag get(long id) throws Exception {
 		RawTag tag = queryForOneTag(
-			"select " + tagRowMapper.selectAll() + 
-				" from tag where tag_id = ?", 
+			"select " + tagRowMapper.selectAll() + " from tag where tag_id = ?", 
 			new Object[]{new Long(id)});
 		if (tag == null) return null;
 		setSuperordinateTags(tag);
@@ -105,8 +104,7 @@ public class H2TagRepository extends TagRepository.Base {
 		Assert.Arg.notNull(name, "name");
 		
 		RawTag tag = queryForOneTag(
-			"select " + tagRowMapper.selectAll() + 
-				" from tag where tag_name = ?", 
+			"select " + tagRowMapper.selectAll() + " from tag where tag_name = ?", 
 			new Object[]{name});
 		if (tag == null) return null;
 		setSuperordinateTags(tag);	

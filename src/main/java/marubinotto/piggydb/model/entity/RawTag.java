@@ -24,6 +24,7 @@ public class RawTag extends RawClassifiable implements Tag {
 
 	private String name;
 	private Long popularity;
+	
 	private Long fragmentId;
 
 	public RawTag() {
