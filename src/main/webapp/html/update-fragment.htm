@@ -1,17 +1,19 @@
 <div>
-  <div class="fragment-title">
+#if ($error)
+	<div class="res-error">
+		<div class="error">$error</div>
+	</div>
+#end
+  <div class="res-title">
   	<span class="title">$fragment.title &nbsp;</span>
   	<span class="headline">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
   </div>
-  <div class="fragment-content">
-  #if ($error)
-  	<div class="error">$error</div>
-  #end
+  <div class="res-content">
   #if ($fragment.content && $fragment.content.trim() != "")
   	#fragmentTextContent($fragment)
   #end
   </div>
-	<div class="fragment-update-info">
+	<div class="res-update-info">
 		#fragmentUpdateInfo($fragment)
 	</div>
 </div>

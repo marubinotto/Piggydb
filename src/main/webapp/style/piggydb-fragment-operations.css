@@ -345,14 +345,6 @@ td.fragment-body .fragment-content span.error-line {
 	color: silver;
 }
 
-td.fragment-body .fragment-content div.error {
-	margin: 5px;
-	padding: 3px;
-	border: 1px solid silver;
-	color: red;
-	font-size: 8pt;
-}
-
 
 
 /*
@@ -514,6 +506,14 @@ td.minor-edit label {
 div.fragment-editor input.fragment-title {
 	margin-top: 3px;
 	width: 100%;
+}
+
+div.fragment-editor div.error {
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid silver;
+	color: red;
+	font-size: 8pt;
 }
 
 

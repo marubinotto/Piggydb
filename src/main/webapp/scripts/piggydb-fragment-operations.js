@@ -305,20 +305,32 @@ var QuickEdit = {
 			params.minorEdit = "on";
 		}
 		
-		editorDiv.empty();
-		titleSpan.empty().putLoadingIcon();
-		contentDiv.empty().putLoadingIcon();
+		editorDiv.hide();
+		var loadingIcon = contentDiv.empty().putLoadingIcon();
 		jQuery.post("html/update-fragment.htm", params, function(html) {
 			html = jQuery(html);
 			
+			// error
+			var error = html.find("div.res-error");
+			if (error.size() > 0) {
+				loadingIcon.remove();
+				editorDiv.find("div.error").remove();
+				editorDiv.prepend(error.html());
+				editorDiv.show();
+				return;
+			}
+			else {
+				editorDiv.empty().show();
+			}
+			
 			// new title
 	  	if (fragment.isFull())
-	  		titleSpan.html(html.find("div.fragment-title span.title").html());
+	  		titleSpan.html(html.find("div.res-title span.title").html());
 	  	else
-	  		titleSpan.html(html.find("div.fragment-title span.headline").html());
+	  		titleSpan.html(html.find("div.res-title span.headline").html());
 	  	
 	  	// new content
-	  	var newContent = html.find("div.fragment-content").html();
+	  	var newContent = html.find("div.res-content").html();
 	  	if (isNotBlank(newContent)) {
 	  		contentDiv.html(newContent);
 		  	prettyPrint();
@@ -329,7 +341,7 @@ var QuickEdit = {
 	  	
 	  	// update info
 	  	fragment.header().find("span.update-info").html(
-	  		html.find("div.fragment-update-info span.update-info").html());
+	  		html.find("div.res-update-info span.update-info").html());
 	  	
 		  fragment.highlight();
 		});
