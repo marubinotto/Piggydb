@@ -189,7 +189,7 @@ public class H2TagRepository extends TagRepository.Base {
 			(RawTag)tag, QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
 		
 		// Fragment
-		Fragment fragment = tag.getFragment();
+		Fragment fragment = tag.asFragment();
 		if (fragment != null) {
 			((RawFragment)fragment).setTag(null);	// avoid to update the tag again
 			getFragmentRepository().update(fragment);

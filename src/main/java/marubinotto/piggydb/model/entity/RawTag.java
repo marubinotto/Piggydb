@@ -73,8 +73,8 @@ public class RawTag extends RawClassifiable implements Tag {
 		ensureCanUse(new RawTag(name), user);	// rename to
 		
 		setName(name);	
-		if (getFragment() != null) 
-			getFragment().setTitleByUser(name, user);
+		if (asFragment() != null) 
+			asFragment().setTitleByUser(name, user);
 		
 		onPropertyChange(user);
 	}
@@ -124,7 +124,7 @@ public class RawTag extends RawClassifiable implements Tag {
 		this.fragmentId = fragmentId;
 	}
 	
-	public Fragment getFragment() {
+	public Fragment asFragment() {
 		return this.fragment;
 	}
 	

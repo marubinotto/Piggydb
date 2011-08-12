@@ -43,5 +43,5 @@ public interface Tag extends Classifiable {
 	
 	public Long getFragmentId();
 	
-	public Fragment getFragment();
+	public Fragment asFragment();
 }
