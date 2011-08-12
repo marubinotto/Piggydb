@@ -11,9 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.TagRowMapper;
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -181,10 +183,17 @@ public class H2TagRepository extends TagRepository.Base {
 		}
 		validate(tag);
 		
-		// Do update
+		// Tag
 		TagRowMapper.update((RawTag)tag, this.jdbcTemplate);
 		QueryUtils.updateTaggings(
 			(RawTag)tag, QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
+		
+		// Fragment
+		Fragment fragment = tag.getFragment();
+		if (fragment != null) {
+			((RawFragment)fragment).setTag(null);	// avoid to update the tag again
+			getFragmentRepository().update(fragment);
+		}
 		
 		return true;
 	}

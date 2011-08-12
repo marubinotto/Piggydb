@@ -90,15 +90,18 @@ public interface TagRepository extends Repository<Tag> {
 			
 			if (fragment.isTag()) {
 				RawTag tag = (RawTag)fragment.asTag();
-				// new
-				if (tag.getId() == null) {
-					tag.setFragmentId(fragment.getId());
-					Long tagId = register(tag);
-					fragment.setTagId(tagId);
-				}
-				// update
-				else {
-					update(tag);
+				// skip the update if the tag object is null
+				if (tag != null) {
+					// new
+					if (tag.getId() == null) {
+						tag.setFragmentId(fragment.getId());
+						Long tagId = register(tag);
+						fragment.setTagId(tagId);
+					}
+					// update
+					else {
+						update(tag);
+					}
 				}
 			}
 			else {

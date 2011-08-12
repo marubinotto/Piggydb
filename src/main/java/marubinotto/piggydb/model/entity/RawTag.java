@@ -72,7 +72,10 @@ public class RawTag extends RawClassifiable implements Tag {
 		ensureCanChange(user);		// this tag
 		ensureCanUse(new RawTag(name), user);	// rename to
 		
-		setName(name);
+		setName(name);	
+		if (getFragment() != null) 
+			getFragment().setTitleByUser(name, user);
+		
 		onPropertyChange(user);
 	}
 	

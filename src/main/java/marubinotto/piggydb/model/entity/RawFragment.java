@@ -584,6 +584,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		onPropertyChange(user);
 	}
 
+	// ensure: asTag() != null if isTag() == true
 	public void validateTagRole(User user, TagRepository tagRepository) 
 	throws Exception {
 		Tag tag = asTag();
