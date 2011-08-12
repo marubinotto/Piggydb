@@ -113,7 +113,7 @@ public class H2TagRepository extends TagRepository.Base {
 
 	private RawTag queryForOneTag(String sql, Object[] args) {
 		try {
-			return (RawTag) this.jdbcTemplate.queryForObject(sql, args, tagRowMapper);
+			return (RawTag)this.jdbcTemplate.queryForObject(sql, args, tagRowMapper);
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;
