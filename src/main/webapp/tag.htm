@@ -145,6 +145,16 @@ $utils.raw($subTagForm.endTag())
 
 
 ##
+## Tag-Fragment
+##
+#if ($tag.asFragment())
+<div class="tag-fragment">
+#fragment($tag.asFragment() $null)
+</div>
+#end
+
+
+##
 ## Fragments
 ##
 <div class="fragments">

@@ -4,12 +4,6 @@
   right: 15px;
 }
 
-.super-and-sub-tags {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #ccc;
-}
-
 .super-and-sub-tags div.tag-input table.fields {
   width: 100%;
 }
@@ -26,4 +20,14 @@
 #subtags table.page-link td {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+div.tag-fragment {
+	margin-top: 10px;
+}
+
+div.fragments {
+	border-top: 2px solid #ccc;
+	margin-top: 10px;
+	padding-top: 10px;
 }
