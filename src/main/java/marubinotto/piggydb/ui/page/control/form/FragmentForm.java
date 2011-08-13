@@ -278,24 +278,18 @@ public class FragmentForm extends Form {
 		try {
 			object.validateTagRole(user, tagRepository);
 		}
-		catch (InvalidTitleException e) {
-			Utils.handleFieldError(e, this.titleField, getPage());
-			return false;
-		}
-		catch (InvalidTagNameException e) {
-			Utils.handleFieldError(e, this.titleField, getPage());
-			return false;
-		}
-		catch (DuplicateException e) {
-			Utils.handleFieldError(e, this.titleField, getPage());
-			return false;
-		}
-		catch (InvalidTaggingException e) {
-			Utils.handleFieldError(e, this.tagsField, getPage());
-			return false;
-		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this, getPage());
+			if (e instanceof InvalidTitleException ||
+					e instanceof InvalidTagNameException ||
+					e instanceof DuplicateException) {
+				Utils.handleFieldError(e, this.titleField, getPage());
+			}
+			else if (e instanceof InvalidTaggingException) {
+				Utils.handleFieldError(e, this.tagsField, getPage());
+			}
+			else {
+				Utils.handleFormError(e, this, getPage());
+			}
 			return false;
 		}
 		
