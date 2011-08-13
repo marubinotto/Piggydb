@@ -14,16 +14,32 @@ public class AddTag extends AbstractHtmlFragment {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		if (this.fragmentId == null) return;
-		if (this.tagId == null) return;
-		
-		this.fragment = getDomain().getFragmentRepository().get(this.fragmentId);
+		// fragment
+		setFragment();
 		if (this.fragment == null) return;
 		
-		Tag tag = getDomain().getTagRepository().get(this.tagId);
+		// tag
+		Tag tag = getTag();
 		if (tag == null) return;
 		
+		// tagging
 		this.fragment.addTagByUser(tag, getUser());
-		getDomain().saveFragment(this.fragment, getUser());
+		try {
+			getDomain().saveFragment(this.fragment, getUser());
+		}
+		catch (Exception e) {
+			setFragment();	// restore the original data
+			throw e;
+		}
+	}
+	
+	private void setFragment() throws Exception {
+		if (this.fragmentId == null) return;
+		this.fragment = getDomain().getFragmentRepository().get(this.fragmentId);
+	}
+	
+	private Tag getTag() throws Exception {
+		if (this.tagId == null) return null;
+		return getDomain().getTagRepository().get(this.tagId);
 	}
 }
