@@ -121,6 +121,8 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	protected void saveFragment(final Fragment fragment) throws Exception {
 		Assert.Arg.notNull(fragment, "fragment");
 		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+		
+		fragment.validateTagRole(getUser(), getDomain().getTagRepository());
 
 		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
