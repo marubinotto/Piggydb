@@ -187,7 +187,12 @@ implements RawEntityFactory<RawFragment> {
 	
 	@Override
 	protected void doDelete(Fragment fragment, User user) throws Exception {
-		// Delete related taggings
+		// Delete the tag role
+		if (fragment.getTagId() != null) {
+			getTagRepository().delete(fragment.getTagId(), user);
+		}
+		
+		// Delete the related taggings
 		this.jdbcTemplate.update(
 	    "delete from tagging where target_id = ? and target_type = ?", 
 	    new Object[]{
@@ -195,7 +200,7 @@ implements RawEntityFactory<RawFragment> {
 	    	QueryUtils.TAGGING_TARGET_FRAGMENT
 	    });
 		
-		// Delete relations
+		// Delete the relations
 		this.jdbcTemplate.update(
       "delete from fragment_relation where from_id = ? or to_id = ?", 
       new Object[]{
