@@ -2,6 +2,10 @@
  * Fragment Caption
  */
 
+span.fragment-caption {
+	margin-right: 6px;
+}
+
 span.fragment-caption a.tag-fragment-caption {
 	color: navy;
 	text-decoration: none;
