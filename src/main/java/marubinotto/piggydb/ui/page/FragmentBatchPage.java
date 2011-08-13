@@ -67,24 +67,26 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 	public boolean onAddTagClick() throws Exception {
 		if (!this.tagForm.isValid()) return true;
 
-		final String tagName = this.tagForm.tagField.getValue();
-		if (StringUtils.isBlank(tagName)) return true;
+		// tag
+		String tagName = this.tagForm.tagField.getValue();
+		if (StringUtils.isBlank(tagName)) {
+			setRedirectToThisPage();
+			return false;
+		}	
 
+		// selected fragments
 		SelectedFragments selected = getSession().getSelectedFragments();
-		if (selected.isEmpty()) return true;
+		if (selected.isEmpty()) {
+			setRedirectToThisPage(getMessage("no-selected-fragments"));
+			return false;
+		}
 		final List<Fragment> fragments = 
 			selected.getAllFragments(getDomain().getFragmentRepository(), true);
 
+		// do tagging
 		try {
-			getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					for (Fragment fragment : fragments) {
-						fragment.addTagByUser(tagName, getDomain().getTagRepository(), getUser());
-						getDomain().getFragmentRepository().update(fragment);
-					}
-					return null;
-				}
-			});
+			Tag tag = getDomain().getTagRepository().getOrCreateTag(tagName, getUser());
+			getDomain().tagToFragments(fragments, tag, getUser());
 		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.tagForm, this);

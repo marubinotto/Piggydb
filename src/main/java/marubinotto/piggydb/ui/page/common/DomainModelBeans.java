@@ -1,11 +1,14 @@
 package marubinotto.piggydb.ui.page.common;
 
+import java.util.List;
+
 import marubinotto.piggydb.model.Authentication;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.GlobalSetting;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.util.Assert;
@@ -54,12 +57,34 @@ public class DomainModelBeans {
 	public void saveFragment(final Fragment fragment, User user) throws Exception {
 		Assert.Arg.notNull(fragment, "fragment");
 		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+		Assert.Arg.notNull(user, "user");
 		
 		fragment.validateTagRole(user, getTagRepository());
 
 		getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				getFragmentRepository().update(fragment);
+				return null;
+			}
+		});
+	}
+	
+	public void tagToFragments(
+		final List<Fragment> fragments, 
+		final Tag tag, 
+		final User user)
+	throws Exception {
+		Assert.Arg.notNull(fragments, "fragments");
+		Assert.Arg.notNull(tag, "tag");
+		Assert.Arg.notNull(user, "user");
+		
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				for (Fragment fragment : fragments) {
+					fragment.addTagByUser(tag, user);
+					fragment.validateTagRole(user, getTagRepository());
+					getFragmentRepository().update(fragment);
+				}
 				return null;
 			}
 		});

@@ -13,6 +13,8 @@ public interface TagRepository extends Repository<Tag> {
 	
 	public Tag newInstance(String name, User user);
 	
+	public Tag getOrCreateTag(String name, User user) throws Exception;
+	
 	public FragmentRepository getFragmentRepository();
 	
 	public void validate(Tag tag) throws Exception;
@@ -72,6 +74,14 @@ public interface TagRepository extends Repository<Tag> {
 		public Tag newInstance(String name, User user) {
 			Assert.Arg.notNull(user, "user");
 			return new RawTag(name, user);
+		}
+		
+		public Tag getOrCreateTag(String name, User user) throws Exception {
+			Assert.Arg.notNull(name, "name");
+			Assert.Arg.notNull(user, "user");
+			
+			Tag tag = getByName(name);
+			return tag != null ? tag : newInstance(name, user);
 		}
 		
 		public abstract FragmentRepository.Base getFragmentRepository();

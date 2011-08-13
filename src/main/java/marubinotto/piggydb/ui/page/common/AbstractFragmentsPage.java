@@ -358,8 +358,8 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 	public final boolean onAddTagsToSelected() throws Exception {
 		// tag
-		Long tagId = (Long) this.addTagsToSelectedForm.tagId.getValueObject();
-		final Tag tag = tagId != null ? getDomain().getTagRepository().get(tagId) : null;
+		Long tagId = (Long)this.addTagsToSelectedForm.tagId.getValueObject();
+		Tag tag = (tagId != null) ? getDomain().getTagRepository().get(tagId) : null;
 		if (tag == null) {
 			setRedirectToThisPage();
 			return false;
@@ -371,29 +371,23 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			setRedirectToThisPage(getMessage("no-selected-fragments"));
 			return false;
 		}
-		final List<Fragment> fragments = selected.getAllFragments(
-			getDomain().getFragmentRepository(), true);
+		final List<Fragment> fragments = 
+			selected.getAllFragments(getDomain().getFragmentRepository(), true);
 
 		// do tagging
 		try {
-			getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					for (Fragment fragment : fragments) {
-						fragment.addTagByUser(tag, getUser());
-						fragment.validateTagRole(getUser(), getDomain().getTagRepository());
-						getDomain().getFragmentRepository().update(fragment);
-					}
-					return null;
-				}
-			});
+			getDomain().tagToFragments(fragments, tag, getUser());
 		}
 		catch (Exception e) {
 			setRedirectToThisPage(Utils.getCodedMessageOrThrow(e, this));
 			return false;
 		}
 
-		setRedirectToThisPage(getMessage("completed-add-tags-to-selected",
-			new Object[]{this.html.linkToTag(tag.getName())}, false));
+		setRedirectToThisPage(
+			getMessage(
+				"completed-add-tags-to-selected",
+				new Object[]{this.html.linkToTag(tag.getName())}, 
+				false));
 		return false;
 	}
 

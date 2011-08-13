@@ -107,14 +107,7 @@ public abstract class RawClassifiable extends RawEntity implements Classifiable 
 		Assert.Arg.notNull(tagRepository, "tagRepository");
 		Assert.Arg.notNull(user, "user");
 		
-		addTagByUser(getOrCreateTag(name, tagRepository, user), user);
-	}
-	
-	private static Tag getOrCreateTag(String name, TagRepository tagRepository, User user) 
-	throws Exception {
-		Tag tag = tagRepository.getByName(name);
-		if (tag != null) return tag;
-		return tagRepository.newInstance(name, user);
+		addTagByUser(tagRepository.getOrCreateTag(name, user), user);
 	}
 
 	public final void updateTagsByUser(
@@ -145,7 +138,7 @@ public abstract class RawClassifiable extends RawEntity implements Classifiable 
 		MutableClassification classification = new MutableClassification();
 		for (String name : tagNames) {
 			if (!classification.isSubordinateOf(name)) {
-				classification.addTag(getOrCreateTag(name, tagRepository, user));
+				classification.addTag(tagRepository.getOrCreateTag(name, user));
 			}
 		}
 		return classification;
