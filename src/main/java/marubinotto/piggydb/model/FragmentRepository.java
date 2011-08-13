@@ -140,21 +140,21 @@ public interface FragmentRepository extends Repository<Fragment> {
 			
 			if (fragment.isTag()) {
 				RawTag tag = (RawTag)fragment.asTag();
-				// skip the update if the tag object is null
-				if (tag != null) {
-					// new
-					if (tag.getId() == null) {
-						tag.setFragmentId(fragment.getId());
-						Long tagId = getTagRepository().register(tag);
-						fragment.setTagId(tagId);
-					}
-					// update
-					else {
-						getTagRepository().updateTag(tag);
-					}
-					// avoid duplicate tag registration
-					fragment.syncClassificationWith(tag);
+				Assert.assertTrue(tag != null, 
+					"Fragment's tag role must be validated before update");
+				
+				// new
+				if (tag.getId() == null) {
+					tag.setFragmentId(fragment.getId());
+					Long tagId = getTagRepository().register(tag);
+					fragment.setTagId(tagId);
 				}
+				// update
+				else {
+					getTagRepository().updateTag(tag);
+				}
+				// avoid duplicate tag registration
+				fragment.syncClassificationWith(tag);
 			}
 			else {
 				Long tagId = fragment.getTagId();
