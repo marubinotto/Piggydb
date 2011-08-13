@@ -102,24 +102,22 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 	}
 
 	public boolean onRemoveCommonTagClick() throws Exception {
-		final String tagToRemove = this.tagForm.tagToDeleteField.getValue();
-		if (StringUtils.isBlank(tagToRemove)) return true;
+		String tagToRemove = this.tagForm.tagToDeleteField.getValue();
+		if (StringUtils.isBlank(tagToRemove)) {
+			setRedirectToThisPage();
+			return false;
+		}
 
 		SelectedFragments selected = getSession().getSelectedFragments();
-		if (selected.isEmpty()) return true;
+		if (selected.isEmpty()) {
+			setRedirectToThisPage(getMessage("no-selected-fragments"));
+			return false;
+		}
 		final List<Fragment> fragments = 
 			selected.getAllFragments(getDomain().getFragmentRepository(), true);
 
 		try {
-			getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					for (Fragment fragment : fragments) {
-						fragment.removeTagByUser(tagToRemove, getUser());
-						getDomain().getFragmentRepository().update(fragment);
-					}
-					return null;
-				}
-			});
+			getDomain().removeTagFromFragments(fragments, tagToRemove, getUser());
 		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.tagForm, this);

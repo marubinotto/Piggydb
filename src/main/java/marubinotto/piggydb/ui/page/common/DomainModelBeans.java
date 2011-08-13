@@ -89,4 +89,25 @@ public class DomainModelBeans {
 			}
 		});
 	}
+	
+	public void removeTagFromFragments(
+		final List<Fragment> fragments, 
+		final String tagName,
+		final User user)
+	throws Exception {
+		Assert.Arg.notNull(fragments, "fragments");
+		Assert.Arg.notNull(tagName, "tagName");
+		Assert.Arg.notNull(user, "user");
+		
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				for (Fragment fragment : fragments) {
+					fragment.removeTagByUser(tagName, user);
+					fragment.validateTagRole(user, getTagRepository());
+					getFragmentRepository().update(fragment);
+				}
+				return null;
+			}
+		});
+	}
 }
