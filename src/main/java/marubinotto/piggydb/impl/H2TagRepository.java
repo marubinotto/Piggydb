@@ -11,9 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.TagRowMapper;
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -182,6 +184,12 @@ public class H2TagRepository extends TagRepository.Base {
 	@Override
 	protected void doDelete(Tag tag, User user) throws Exception {
 		delete(tag.getId());
+		
+		Fragment fragment = tag.asFragment();
+		if (fragment != null) {
+			((RawFragment)fragment).setTagId(null);
+			getFragmentRepository().update(fragment);
+		}
 	}
 	
 	@Override
