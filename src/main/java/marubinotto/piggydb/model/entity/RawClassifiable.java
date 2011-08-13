@@ -175,6 +175,12 @@ public abstract class RawClassifiable extends RawEntity implements Classifiable 
 		}
 	}
 	
+	public void syncClassificationWith(Classifiable classifiable) 
+	throws InvalidTaggingException {
+		Assert.Arg.notNull(classifiable, "classifiable");
+		getMutableClassification().syncWith(classifiable.getClassification());
+	}
+	
 	public static  void refreshEachTag(
 		List<? extends RawClassifiable> classifiables, 
 		TagRepository tagRepository) 

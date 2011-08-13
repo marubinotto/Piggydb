@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
@@ -102,6 +103,8 @@ public interface TagRepository extends Repository<Tag> {
 			// Update the fragment role
 			Fragment fragment = tag.asFragment();
 			if (fragment != null) {
+				// avoid duplicate tag registration
+				((RawFragment)fragment).syncClassificationWith(tag);
 				getFragmentRepository().updateFragment(fragment, true);
 			}
 			return true;

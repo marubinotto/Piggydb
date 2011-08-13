@@ -152,6 +152,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 					else {
 						getTagRepository().updateTag(tag);
 					}
+					// avoid duplicate tag registration
+					fragment.syncClassificationWith(tag);
 				}
 			}
 			else {
