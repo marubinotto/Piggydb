@@ -380,6 +380,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 				public Object execute(Object input) throws Exception {
 					for (Fragment fragment : fragments) {
 						fragment.addTagByUser(tag, getUser());
+						fragment.validateTagRole(getUser(), getDomain().getTagRepository());
 						getDomain().getFragmentRepository().update(fragment);
 					}
 					return null;
