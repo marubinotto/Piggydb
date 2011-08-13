@@ -379,8 +379,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					for (Fragment fragment : fragments) {
-						getLogger().info(
-							"Adding a tag <" + tag.getName() + "> to: #" + fragment.getId());
 						fragment.addTagByUser(tag, getUser());
 						getDomain().getFragmentRepository().update(fragment);
 					}
