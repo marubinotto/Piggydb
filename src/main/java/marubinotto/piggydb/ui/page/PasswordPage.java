@@ -6,7 +6,6 @@ import marubinotto.piggydb.model.Password;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
-import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.Form;
 import net.sf.click.control.PasswordField;
 import net.sf.click.control.Submit;
@@ -98,14 +97,9 @@ public class PasswordPage extends AbstractBorderPage {
 
 	private void ensurePasswordStored(final Password password) throws Exception {
 		if (password instanceof Fragment) {
-			final Fragment userFragment = (Fragment) password;
-			userFragment.touch(getUser(), true);
-			getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					getDomain().getFragmentRepository().update(userFragment);
-					return null;
-				}
-			});
+			Fragment userFragment = (Fragment)password;
+			userFragment.touch(getUser(), true);	
+			getDomain().saveFragment(userFragment, getUser());
 			AbstractFragmentsPage.highlightFragment(userFragment.getId(), getContext());
 		}
 	}
