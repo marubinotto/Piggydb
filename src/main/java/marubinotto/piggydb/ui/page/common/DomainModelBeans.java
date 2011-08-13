@@ -3,10 +3,13 @@ package marubinotto.piggydb.ui.page.common;
 import marubinotto.piggydb.model.Authentication;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.FilterRepository;
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.piggydb.model.TagRepository;
+import marubinotto.piggydb.model.User;
 import marubinotto.util.Assert;
+import marubinotto.util.procedure.Procedure;
 import marubinotto.util.procedure.Transaction;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -47,4 +50,18 @@ public class DomainModelBeans {
 	public FileRepository getFileRepository() {
   	return (FileRepository)this.factory.getBean("fileRepository");
   }
+	
+	public void saveFragment(final Fragment fragment, User user) throws Exception {
+		Assert.Arg.notNull(fragment, "fragment");
+		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+		
+		fragment.validateTagRole(user, getTagRepository());
+
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				getFragmentRepository().update(fragment);
+				return null;
+			}
+		});
+	}
 }

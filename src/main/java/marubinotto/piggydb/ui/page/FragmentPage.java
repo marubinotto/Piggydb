@@ -137,7 +137,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 			Utils.handleFormError(e, this.superTagForm, this);
 			return true;
 		}
-		saveFragment(this.fragment);
+		getDomain().saveFragment(this.fragment, getUser());
 
 		highlightFragment(this.fragment.getId());
 		setRedirectToThisPage();
@@ -153,7 +153,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 		}
 
 		this.fragment.removeTagByUser(tagToRemove, getUser());
-		saveFragment(this.fragment);
+		getDomain().saveFragment(this.fragment, getUser());
 
 		highlightFragment(this.fragment.getId());
 		setRedirectToThisPage(getMessage("completed-remove-tag",

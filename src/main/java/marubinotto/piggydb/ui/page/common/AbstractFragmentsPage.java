@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
@@ -16,7 +16,6 @@ import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.html.AbstractFragments;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
-import marubinotto.util.Assert;
 import marubinotto.util.CodedException;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.Context;
@@ -117,20 +116,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	//
 	// Control
 	//
-
-	protected void saveFragment(final Fragment fragment) throws Exception {
-		Assert.Arg.notNull(fragment, "fragment");
-		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
-		
-		fragment.validateTagRole(getUser(), getDomain().getTagRepository());
-
-		getDomain().getTransaction().execute(new Procedure() {
-			public Object execute(Object input) throws Exception {
-				getDomain().getFragmentRepository().update(fragment);
-				return null;
-			}
-		});
-	}
 
 	protected void addParameterToCommonForms(String name, Object value) {
 		this.createRelationForm.add(new HiddenField(name, value));
@@ -303,7 +288,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 		getLogger().info("Removing the tag: " + tagName + " from: #" + fragmentId);
 		fragment.removeTagByUser(tagName, getUser());
-		saveFragment(fragment);
+		getDomain().saveFragment(fragment, getUser());
 
 		highlightFragment(fragment.getId());
 		setRedirectToThisPage(getMessage("completed-remove-tag", new Object[]{
@@ -337,7 +322,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 		getLogger().info("Add a tag <" + tagName + "> to: #" + fragmentId);
 		fragment.addTagByUser(tagName, getDomain().getTagRepository(), getUser());
-		saveFragment(fragment);
+		getDomain().saveFragment(fragment, getUser());
 
 		String message = null;
 		if (tagName.equals(Tag.NAME_TRASH)) {
@@ -438,7 +423,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 		getLogger().info("Removing #" + fragmentId + " from the bookmarks ...");
 		fragment.removeTagsByUserClassifiedAs(Tag.NAME_BOOKMARK, getUser());
-		saveFragment(fragment);
+		getDomain().saveFragment(fragment, getUser());
 
 		highlightFragment(fragment.getId());
 		setRedirectToThisPage(getMessage("completed-remove-bookmark",
