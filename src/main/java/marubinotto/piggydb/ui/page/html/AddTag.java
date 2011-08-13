@@ -2,7 +2,6 @@ package marubinotto.piggydb.ui.page.html;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.util.procedure.Procedure;
 
 public class AddTag extends AbstractHtmlFragment {
 	
@@ -15,8 +14,6 @@ public class AddTag extends AbstractHtmlFragment {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		getLogger().info("Adding the tag: " + this.tagId + " to the fragment: " + this.fragmentId);
-		
 		if (this.fragmentId == null) return;
 		if (this.tagId == null) return;
 		
@@ -27,11 +24,6 @@ public class AddTag extends AbstractHtmlFragment {
 		if (tag == null) return;
 		
 		this.fragment.addTagByUser(tag, getUser());
-		getDomain().getTransaction().execute(new Procedure() {
-			public Object execute(Object input) throws Exception {
-				getDomain().getFragmentRepository().update(fragment);
-				return null;
-			}
-		});
+		getDomain().saveFragment(this.fragment, getUser());
 	}
 }
