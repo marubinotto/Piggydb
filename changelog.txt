@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.0-dev2 (2011-08-14) == #v5.0-dev2
+
+ * Introduced Tag-Fragment
+   * added an "as a tag" toggle button
+   * updated the database schema 
+   * updated the code for displaying/creating/updating/deleting/tagging a tag-fragment
+
 == Changes in version 5.0-dev1 (2011-08-06) == #v5.0-dev1
 
  * Updated Quick Edit to support fragment title
