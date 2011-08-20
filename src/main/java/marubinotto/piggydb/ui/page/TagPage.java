@@ -91,9 +91,6 @@ public class TagPage extends AbstractFragmentsPage {
 		
 		if (this.tag != null) {
 			getContext().setSessionAttribute(SK_LAST_TAG_ID, this.tag.getId());
-			if (this.tag.getFragmentId() != null) {
-				this.fragment = getDomain().getFragmentRepository().get(this.tag.getFragmentId());
-			}
 		}
 	}
 
@@ -141,15 +138,7 @@ public class TagPage extends AbstractFragmentsPage {
 		TagTree.restoreTagTree(this.superTags, this.tag, getUser());
 		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
 	}
-
-	private void saveTag(final Tag tag) throws Exception {
-		getDomain().getTransaction().execute(new Procedure() {
-			public Object execute(Object input) throws Exception {
-				getDomain().getTagRepository().update(tag);
-				return null;
-			}
-		});
-	}
+	
 
 	// Target tag
 
@@ -175,7 +164,7 @@ public class TagPage extends AbstractFragmentsPage {
 		String newName = this.tagNameField.getValue();
 		try {
 			this.tag.setNameByUser(newName, getUser());
-			saveTag(this.tag);
+			getDomain().saveTag(this.tag, getUser());
 		}
 		catch (Exception e) {
 			Utils.handleFieldError(e, this.tagNameField, this);
@@ -228,7 +217,7 @@ public class TagPage extends AbstractFragmentsPage {
 			Utils.handleFormError(e, this.superTagForm, this);
 			return true;
 		}
-		saveTag(this.tag);
+		getDomain().saveTag(this.tag, getUser());
 
 		setRedirectToThisPage();
 		return false;
@@ -243,7 +232,7 @@ public class TagPage extends AbstractFragmentsPage {
 		}
 
 		this.tag.removeTagByUser(tagToRemove, getUser());
-		saveTag(this.tag);
+		getDomain().saveTag(this.tag, getUser());
 
 		setRedirectToThisPage();
 		return false;
@@ -280,7 +269,7 @@ public class TagPage extends AbstractFragmentsPage {
 			}
 			else {
 				subTag.addTagByUser(this.tag, getUser());
-				saveTag(subTag);
+				getDomain().saveTag(subTag, getUser());
 			}
 		}
 		catch (Exception e) {
@@ -303,7 +292,7 @@ public class TagPage extends AbstractFragmentsPage {
 		Tag subTag = getDomain().getTagRepository().getByName(tagToRemove);
 		if (subTag != null && subTag.getClassification().containsTagName(this.tag.getName())) {
 			subTag.removeTagByUser(this.tag.getName(), getUser());
-			saveTag(subTag);
+			getDomain().saveTag(subTag, getUser());
 		}
 
 		setRedirectToThisPage();
@@ -343,6 +332,9 @@ public class TagPage extends AbstractFragmentsPage {
 
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + this.tag.getName();
 		importCssFile("style/piggydb-tag.css", true, null);
+		
+		if (this.tag.getFragmentId() != null)
+			this.fragment = getDomain().getFragmentRepository().get(this.tag.getFragmentId());
 
 		this.subtags = getDomain().getTagRepository().
 			findByParentTag(this.tag.getId(), this.subTagsPageSize, this.sbtpi);

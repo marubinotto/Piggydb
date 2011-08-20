@@ -80,6 +80,9 @@ public interface FragmentRepository extends Repository<Fragment> {
 	throws Exception;
 	
 	
+	public void update(Tag tag, User user) throws Exception;
+	
+	
 	public static abstract class Base 
 	extends Repository.Base<Fragment, RawFragment> implements FragmentRepository {
 		
@@ -89,7 +92,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 			return new RawFragment();
 		}
 
-		public Fragment newInstance(User user) {
+		public RawFragment newInstance(User user) {
 			Assert.Arg.notNull(user, "user");
 			return new RawFragment(user);
 		}
@@ -119,16 +122,11 @@ public interface FragmentRepository extends Repository<Fragment> {
 			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
 			Assert.Property.requireNotNull(fileRepository, "fileRepository");
 			
-			// Check preconditions
 			if (!containsId(fragment.getId())) return false;
 			if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
 			
-			// Update the tag role
 			updateTagRole((RawFragment)fragment);
-			
-			// Update the fragment
 			updateFragment(fragment, updateTimestamp);
-			
 			return true;
 		}
 		
@@ -140,8 +138,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 			
 			if (fragment.isTag()) {
 				RawTag tag = (RawTag)fragment.asTag();
-				Assert.assertTrue(tag != null, 
-					"Fragment's tag role must be validated before update");
+				if (tag == null) return;	// skip the updating if not prepared
 				
 				// new
 				if (tag.getId() == null) {
@@ -153,7 +150,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 				else {
 					getTagRepository().update(tag);
 				}
-				// avoid duplicate tag registration
+				// refresh the fragment's tags
 				fragment.syncClassificationWith(tag);
 			}
 			else {
@@ -164,6 +161,35 @@ public interface FragmentRepository extends Repository<Fragment> {
 					fragment.setTagId(null);
 				}
 			}
+		}
+		
+		public void update(Tag tag, User user) throws Exception {
+			Assert.Arg.notNull(tag, "tag");
+			Assert.Arg.notNull(tag.getId(), "tag.getId()");
+			Assert.Arg.notNull(user, "user");
+			
+			// Fragment
+			RawFragment fragment = null;
+			if (tag.getFragmentId() != null) {
+				fragment = (RawFragment)get(tag.getFragmentId());
+			}
+			if (fragment == null) {
+				fragment = newInstance(user);
+				fragment.setTagId(tag.getId());
+			}
+			fragment.setTitleByUser(tag.getName(), user);
+			fragment.syncClassificationWith(tag);
+			
+			if (fragment.getId() == null) {
+				long fragmentId = register(fragment);
+				((RawTag)tag).setFragmentId(fragmentId);
+			}
+			else {
+				updateFragment(fragment, true);
+			}
+			
+			// Tag
+			getTagRepository().update(tag);
 		}
 		
 		public final long createRelation(long from, long to, User user)

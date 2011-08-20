@@ -86,7 +86,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 		// do tagging
 		try {
 			Tag tag = getDomain().getTagRepository().getOrCreateTag(tagName, getUser());
-			getDomain().tagToFragments(fragments, tag, getUser());
+			getDomain().addTagToFragments(fragments, tag, getUser());
 		}
 		catch (Exception e) {
 			Utils.handleFormError(e, this.tagForm, this);

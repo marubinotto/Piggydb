@@ -55,12 +55,7 @@ public class DomainModelBeans {
   }
 	
 	public void saveFragment(final Fragment fragment, User user) throws Exception {
-		Assert.Arg.notNull(fragment, "fragment");
-		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
-		Assert.Arg.notNull(user, "user");
-		
 		fragment.validateTagRole(user, getTagRepository());
-
 		getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				getFragmentRepository().update(fragment);
@@ -69,15 +64,20 @@ public class DomainModelBeans {
 		});
 	}
 	
-	public void tagToFragments(
+	public void saveTag(final Tag tag, final User user) throws Exception {
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				getFragmentRepository().update(tag, user);
+				return null;
+			}
+		});
+	}
+	
+	public void addTagToFragments(
 		final List<Fragment> fragments, 
 		final Tag tag, 
 		final User user)
 	throws Exception {
-		Assert.Arg.notNull(fragments, "fragments");
-		Assert.Arg.notNull(tag, "tag");
-		Assert.Arg.notNull(user, "user");
-		
 		getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				for (Fragment fragment : fragments) {
@@ -95,10 +95,6 @@ public class DomainModelBeans {
 		final String tagName,
 		final User user)
 	throws Exception {
-		Assert.Arg.notNull(fragments, "fragments");
-		Assert.Arg.notNull(tagName, "tagName");
-		Assert.Arg.notNull(user, "user");
-		
 		getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				for (Fragment fragment : fragments) {
