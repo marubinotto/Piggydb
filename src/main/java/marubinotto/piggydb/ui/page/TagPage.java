@@ -2,6 +2,7 @@ package marubinotto.piggydb.ui.page;
 
 import java.util.List;
 
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
@@ -53,6 +54,7 @@ public class TagPage extends AbstractFragmentsPage {
 	public String name;
 
 	public Tag tag;
+	public Fragment fragment;
 
 	public int sbtpi = 0; // Page index for sub tags
 	private int subTagsPageSize = 20;
@@ -86,8 +88,12 @@ public class TagPage extends AbstractFragmentsPage {
 			Long lastId = (Long)getContext().getSessionAttribute(SK_LAST_TAG_ID);
 			if (lastId != null) this.tag = getDomain().getTagRepository().get(lastId);
 		}
+		
 		if (this.tag != null) {
 			getContext().setSessionAttribute(SK_LAST_TAG_ID, this.tag.getId());
+			if (this.tag.getFragmentId() != null) {
+				this.fragment = getDomain().getFragmentRepository().get(this.tag.getFragmentId());
+			}
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
@@ -14,8 +13,6 @@ public interface TagRepository extends Repository<Tag> {
 	public Tag newInstance(String name, User user);
 	
 	public Tag getOrCreateTag(String name, User user) throws Exception;
-	
-	public FragmentRepository getFragmentRepository();
 	
 	public void validate(Tag tag) throws Exception;
 	
@@ -63,7 +60,6 @@ public interface TagRepository extends Repository<Tag> {
 	public Long countTaggings() throws Exception;
 	
 	
-	
 	public static abstract class Base
 	extends Repository.Base<Tag, RawTag> implements TagRepository {
 		
@@ -83,44 +79,15 @@ public interface TagRepository extends Repository<Tag> {
 			Tag tag = getByName(name);
 			return tag != null ? tag : newInstance(name, user);
 		}
-		
-		public abstract FragmentRepository.Base getFragmentRepository();
 
 		public Tag getTrashTag() throws Exception {
 			return getByName(Tag.NAME_TRASH);
 		}
 		
-		protected void setFragmentTo(RawTag tag) throws Exception {
-			Long fragmentId = tag.getFragmentId();
-			if (fragmentId != null) {
-				tag.setFragment(getFragmentRepository().get(fragmentId));
-			}
+		@Override
+		protected void doDelete(Tag tag, User user) throws Exception {
+			delete(tag.getId());
 		}
-		
-		public final boolean update(Tag tag) throws Exception {
-			Assert.Arg.notNull(tag, "tag");
-			Assert.require(tag instanceof RawTag, "tag instanceof RawTag");
-			Assert.Arg.notNull(tag.getId(), "tag.getId()");
-			Assert.Arg.notNull(tag.getName(), "tag.getName()");
-			
-			// Check preconditions
-			if (!containsId(tag.getId())) return false;
-			validate(tag);
-			
-			// Update the tag
-			updateTag(tag);
-			
-			// Update the fragment role
-			Fragment fragment = tag.asFragment();
-			if (fragment != null) {
-				// avoid duplicate tag registration
-				((RawFragment)fragment).syncClassificationWith(tag);
-				getFragmentRepository().updateFragment(fragment, true);
-			}
-			return true;
-		}
-		
-		public abstract void updateTag(Tag tag) throws Exception;
 		
 		protected abstract void delete(Long id) throws Exception;
 	}

@@ -11,11 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.TagRowMapper;
-import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
-import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -35,21 +32,11 @@ import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer
 public class H2TagRepository extends TagRepository.Base {
 	
 	private static Log logger = LogFactory.getLog(H2TagRepository.class);
-	
-	private H2FragmentRepository fragmentRepository;
 
 	protected JdbcTemplate jdbcTemplate;
 	private DataFieldMaxValueIncrementer tagIdIncrementer;
 	
 	private TagRowMapper tagRowMapper = new TagRowMapper(this, "tag.");
-	
-	public void setFragmentRepository(H2FragmentRepository fragmentRepository) {
-		this.fragmentRepository = fragmentRepository;
-	}
-	
-	public H2FragmentRepository getFragmentRepository() {
-		return this.fragmentRepository;
-	}
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -110,7 +97,6 @@ public class H2TagRepository extends TagRepository.Base {
 		if (tag == null) return null;
 		
 		setSuperordinateTags(tag);
-		setFragmentTo(tag);
 		return tag;
 	}
 
@@ -123,7 +109,6 @@ public class H2TagRepository extends TagRepository.Base {
 		if (tag == null) return null;
 		
 		setSuperordinateTags(tag);
-		setFragmentTo(tag);
 		return tag;
 	}
 
@@ -175,24 +160,22 @@ public class H2TagRepository extends TagRepository.Base {
 			"select tag_name from tag where LOWER(tag_name) like '" + criteria + "%'", String.class);
 	}
 
-	public void updateTag(Tag tag) throws Exception {
+	public boolean update(Tag tag) throws Exception {
+		Assert.Arg.notNull(tag, "tag");
+		Assert.require(tag instanceof RawTag, "tag instanceof RawTag");
+		Assert.Arg.notNull(tag.getId(), "tag.getId()");
+		Assert.Arg.notNull(tag.getName(), "tag.getName()");
+		
+		if (!containsId(tag.getId())) return false;
+		validate(tag);
+		
 		TagRowMapper.update((RawTag)tag, this.jdbcTemplate);
 		QueryUtils.updateTaggings(
 			(RawTag)tag, QueryUtils.TAGGING_TARGET_TAG, this.jdbcTemplate, this);
-	}
-
-	@Override
-	protected void doDelete(Tag tag, User user) throws Exception {
-		delete(tag.getId());
 		
-		Fragment fragment = tag.asFragment();
-		if (fragment != null) {
-			((RawFragment)fragment).setTagId(null);
-			getFragmentRepository().update(fragment);
-		}
+		return true;
 	}
 	
-	@Override
 	protected void delete(Long id) throws Exception {
 		this.jdbcTemplate.update(
 			"delete from tag where tag_id = ?",

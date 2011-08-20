@@ -43,7 +43,6 @@
   <bean id="tagRepository" class="marubinotto.piggydb.impl.H2TagRepository">
     <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
     <property name="tagIdIncrementer"><ref bean="seqTagId"/></property>
-    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
   </bean>
 
   <bean id="filterRepository" class="marubinotto.piggydb.impl.H2FilterRepository">
