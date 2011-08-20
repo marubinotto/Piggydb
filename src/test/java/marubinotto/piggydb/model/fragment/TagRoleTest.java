@@ -17,7 +17,7 @@ import org.junit.runners.Enclosed;
 @RunWith(Enclosed.class)
 public class TagRoleTest {
 	
-	public static class TestBase {
+	private static class TestBase {
 		
 		protected FragmentRepository fragmentRepository = 
 			new InMemoryDatabase().getFragmentRepository();
@@ -26,7 +26,7 @@ public class TagRoleTest {
 		protected User normalUser = new User("normal");
 	}
 	
-	public static class DefaultTest extends TestBase {
+	public static class NewInstanceTest extends TestBase {
 
 		private RawFragment object = new RawFragment();		
 		
