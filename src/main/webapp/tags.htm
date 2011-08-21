@@ -3,34 +3,6 @@
 <td valign="top">
 
 ##
-## Recent Changes
-##
-#if ($recentChanges && $recentChanges.totalSize > 0)
-<div class="content-box recent-tags" title="$messages.get("TagsPage-recent-changes")">
-#foreach ($tag in $recentChanges)
-  <span class="tag">
-    #if ($tag.isUpdated())
-      <img border="0" 
-        alt="$messages.get("TagsPage-updated"): " 
-        title="$messages.get("TagsPage-updated")"
-        src="$context/images/edit-tag.png" style="vertical-align:middle;"/>
-    #else
-      <img border="0" 
-        alt="$messages.get("TagsPage-new"): " 
-        title="$messages.get("TagsPage-new")"
-        src="$context/images/new-tag.png" style="vertical-align:middle;"/>
-    #end
-    <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a> 
-    <span class="update-datetime" title="$tag.updateDatetime.format("yyyy-MM-dd HH:mm")"
-      >($tag.updateDatetime.getRelativeDescription($messageSource))</span>
-  </span> 
-  &nbsp; &nbsp; ## workaround for a newline problem on IE, Chrome, Safari
-#end
-</div>
-#end
-
-
-##
 ## Tag View
 ##
 #if ($tagCount > 0)

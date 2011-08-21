@@ -5,7 +5,6 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
-import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.web.WebUtils;
 
@@ -149,8 +148,7 @@ public class TagsPage extends AbstractBorderPage {
 	// Model
 	//
 
-	public long tagCount = 0;
-	public Page<Tag> recentChanges;
+	public long tagCount = 0;;
 	
 	public static final int RECENT_CHANGES_SIZE = 10;
 
@@ -163,6 +161,5 @@ public class TagsPage extends AbstractBorderPage {
 		importJsFile("scripts/piggydb-tags.js", true);
 		
 		this.tagCount = getDomain().getTagRepository().size();
-		this.recentChanges = getDomain().getTagRepository().getRecentChanges(RECENT_CHANGES_SIZE, 0);
 	}
 }
