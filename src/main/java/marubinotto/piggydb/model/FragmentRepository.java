@@ -163,24 +163,14 @@ public interface FragmentRepository extends Repository<Fragment> {
 			}
 		}
 		
-		public RawFragment getOrCreateFragment(Tag tag, User user) throws Exception {
+		public RawFragment asFragment(Tag tag, User user) throws Exception {
 			Assert.Arg.notNull(tag, "tag");
-			Assert.Arg.notNull(tag.getId(), "tag.getId()");
 			
-			// Get or create the fragment role
-			RawFragment fragment = null;
-			if (tag.getFragmentId() != null) {
-				fragment = (RawFragment)get(tag.getFragmentId());
-			}
-			if (fragment == null) {
-				fragment = newInstance(user);
-				fragment.setTagId(tag.getId());
-			}
+			RawFragment fragment = (tag.getFragmentId() != null) ? 
+				(RawFragment)get(tag.getFragmentId()) : null;
+			if (fragment == null) return null;
 			
-			// Sync with the tag
-			fragment.setTitleByUser(tag.getName(), user);
-			fragment.syncClassificationWith(tag);
-			
+			fragment.syncWith(tag, user);
 			return fragment;
 		}
 		
@@ -189,16 +179,10 @@ public interface FragmentRepository extends Repository<Fragment> {
 			Assert.Arg.notNull(tag.getId(), "tag.getId()");
 			Assert.Arg.notNull(user, "user");
 			
-			RawFragment fragment = getOrCreateFragment(tag, user);
-			if (fragment.getId() == null) {
-				long fragmentId = register(fragment);
-				((RawTag)tag).setFragmentId(fragmentId);
-			}
-			else {
-				updateFragment(fragment, true);
-			}
-			
 			getTagRepository().update(tag);
+			
+			RawFragment fragment = asFragment(tag, user);
+			if (fragment != null) updateFragment(fragment, true);
 		}
 		
 		public final long createRelation(long from, long to, User user)

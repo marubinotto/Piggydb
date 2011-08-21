@@ -350,12 +350,6 @@ public class TagPage extends AbstractFragmentsPage {
 		if (this.tag.getFragmentId() != null) {
 			this.fragment = repository.get(this.tag.getFragmentId());
 		}
-		
-		// Convert an old tag to a tag-fragment
-		if (this.fragment == null && this.tag.authorizes(getUser())) {
-			getDomain().saveTag(this.tag, getUser());
-			this.fragment = repository.get(this.tag.getFragmentId());
-		}
 	}
 
 	private void setRelatedTags() throws Exception {

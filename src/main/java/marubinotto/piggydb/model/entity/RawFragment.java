@@ -16,6 +16,7 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.exception.AuthorizationException;
+import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.util.Assert;
 import marubinotto.util.PasswordDigest;
@@ -611,5 +612,13 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		else {
 			if (tag != null) tag.ensureCanDelete(user);
 		}
+	}
+	
+	public void syncWith(Tag tag, User user) throws InvalidTaggingException {
+		Assert.Arg.notNull(tag, "tag");
+		Assert.Arg.notNull(user, "user");
+		
+		setTitleByUser(tag.getName(), user);
+		syncClassificationWith(tag);
 	}
 }
