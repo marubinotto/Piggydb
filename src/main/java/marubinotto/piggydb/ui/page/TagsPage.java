@@ -5,13 +5,9 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.web.WebUtils;
-import net.sf.click.control.Form;
-import net.sf.click.control.Submit;
-import net.sf.click.control.TextField;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.springframework.core.ErrorCoded;
@@ -146,51 +142,6 @@ public class TagsPage extends AbstractBorderPage {
 		setRedirectWithMessage(TagsPage.class, 
 			getMessage("TagsPage-delete-all-completed", selectedTagIds.length));
 		return true;
-	}
-	
-	
-	//
-	// Control
-	//
-	
-	public Form tagForm = new Form();
-	private TextField tagNameField = new TextField("tagName", true);
-
-	@Override
-	public void onInit() {
-		super.onInit();
-		initControls();
-	}
-	
-	private void initControls() {
-		this.tagNameField.setSize(40);
-		this.tagNameField.setAttribute("class", "watermarked");
-		this.tagNameField.setTitle(getMessage("TagsPage-new-tag-name"));
-		this.tagForm.add(this.tagNameField);
-		this.tagForm.add(new Submit("createTag", getMessage("add"), this, "onCreateTagClick"));
-	}
-
-	public boolean onCreateTagClick() throws Exception {
-		if (!this.tagForm.isValid()) {
-			return true;
-		}
-		
-		String tagName = this.tagNameField.getValue();
-		try {
-			final Tag newTag = getDomain().getTagRepository().newInstance(tagName, getUser());
-			getDomain().getTransaction().execute(new Procedure() {
-				public Object execute(Object input) throws Exception {
-					return getDomain().getTagRepository().register(newTag);
-				}
-			});
-		} 
-		catch (Exception e) {
-			Utils.handleFieldError(e, this.tagNameField, this);
-			return true;
-		}
-
-		setRedirectToThisPage();
-		return false;
 	}
 
 	

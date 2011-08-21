@@ -1,29 +1,6 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td valign="top">
-    
-##
-## New Tag Form 
-##
-#if (!$user.isViewer())
-$utils.raw($tagForm.startTag())
-#formErrors($tagForm)
-<div class="tag-title">
-<div class="curve-double-head"><div>&nbsp;</div></div>
-<div class="curve-double-body">
-<div>
-<p>
-  <img border="0" alt="New Tag: " src="$context/images/new-tag.png" style="vertical-align:middle;"/>
-  $utils.raw($tagForm.fields.tagName)<span style="margin-left: 1px;"
-    >$utils.raw($tagForm.fields.createTag)</span>
-</p>
-</div>
-</div>
-<div class="curve-double-bottom"><div>&nbsp;</div></div>
-</div>
-$utils.raw($tagForm.endTag())
-#end
-
 
 ##
 ## Recent Changes
