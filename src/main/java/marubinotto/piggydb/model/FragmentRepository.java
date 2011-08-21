@@ -80,6 +80,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 	throws Exception;
 	
 	
+	public long register(Tag tag, User user) throws Exception;
+	
 	public void update(Tag tag, User user) throws Exception;
 	
 	
@@ -163,12 +165,11 @@ public interface FragmentRepository extends Repository<Fragment> {
 			}
 		}
 		
-		public void update(Tag tag, User user) throws Exception {
+		public RawFragment getOrCreateFragment(Tag tag, User user) throws Exception {
 			Assert.Arg.notNull(tag, "tag");
 			Assert.Arg.notNull(tag.getId(), "tag.getId()");
-			Assert.Arg.notNull(user, "user");
 			
-			// Fragment
+			// Get or create the fragment role
 			RawFragment fragment = null;
 			if (tag.getFragmentId() != null) {
 				fragment = (RawFragment)get(tag.getFragmentId());
@@ -177,9 +178,35 @@ public interface FragmentRepository extends Repository<Fragment> {
 				fragment = newInstance(user);
 				fragment.setTagId(tag.getId());
 			}
+			
+			// Sync with the tag
 			fragment.setTitleByUser(tag.getName(), user);
 			fragment.syncClassificationWith(tag);
 			
+			return fragment;
+		}
+		
+		public long register(Tag tag, User user) throws Exception {
+			Assert.Arg.notNull(tag, "tag");
+			Assert.Arg.notNull(user, "user");
+			
+			getTagRepository().register(tag);
+			
+			RawFragment newFragment = getOrCreateFragment(tag, user);
+			long fragmentId = register(newFragment);
+			
+			((RawTag)tag).setFragmentId(fragmentId);
+			getTagRepository().update(tag);
+			
+			return tag.getId();
+		}
+		
+		public void update(Tag tag, User user) throws Exception {
+			Assert.Arg.notNull(tag, "tag");
+			Assert.Arg.notNull(tag.getId(), "tag.getId()");
+			Assert.Arg.notNull(user, "user");
+			
+			RawFragment fragment = getOrCreateFragment(tag, user);
 			if (fragment.getId() == null) {
 				long fragmentId = register(fragment);
 				((RawTag)tag).setFragmentId(fragmentId);
@@ -188,7 +215,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 				updateFragment(fragment, true);
 			}
 			
-			// Tag
 			getTagRepository().update(tag);
 		}
 		
