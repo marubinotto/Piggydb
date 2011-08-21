@@ -24,7 +24,6 @@
   
 <script type="text/javascript">
 //<![CDATA[
-  var tagSelection;
   var currentView = "tree";
   var tagViews;
   
@@ -53,55 +52,20 @@
   }
 
   jQuery(document).ready(function() {
-  #if ($user.isViewer())
-    TagUtils.selectable = false;
-  #end
-
-    tagSelection = new TagSelection(jQuery("#facebox-tags"), "$messages.get("TagsPage-confirm-delete-all")");
-    
-    tagTree = new TagTree(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
-      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
-    });
-    tagCloud = new TagCloud(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
-      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
-    });
-    tagFlat = new TagFlat(jQuery("#tag-view"), tagData, tagSelection, function(checkbox, tag) {
-      tagSelection.setSelection(checkbox.checked, tag.id, tag.name);
-    }, {
+    tagTree = new TagTree(jQuery("#tag-view"), tagData);
+    tagCloud = new TagCloud(jQuery("#tag-view"), tagData);
+    tagFlat = new TagFlat(jQuery("#tag-view"), tagData, {
       previous: "$messages.get("previous")", 
       next: "$messages.get("next")"
     });
-    tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};
-    
-    tagSelection.setHandlerOnTagDeletion(function(tagId) {
-      tagViews[currentView].setSelection(tagId, false);
-    });
-    tagSelection.slotOnClassificationModeSet = function(selectedId2name) {
-      tagViews[currentView].disableCheckboxes(selectedId2name);
-    };
-    tagSelection.slotOnBackToSelection = function(selectedId2name) {
-      tagViews[currentView].restoreSelections(selectedId2name);
-    };
-    tagSelection.slotOnTagSelection = function(tagId) {
-      tagViews[currentView].setSelection(tagId, true);
-    };
-    
+    tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};    
     tagViews[currentView].render();
-    
-    jQuery("#classifying-tag-name").autocomplete(constants["autocomplete-url"], {
-      minChars: 1,
-      selectFirst: true,
-      multiple: false,
-      scrollHeight: 120
-    });
   });
 //]]>
 </script>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
-  <form action="">
   <div id="tag-view" style="width: 100%;"></div>
-  </form>
 </td></tr>
 </table>
 
@@ -115,73 +79,4 @@
 </tr>
 </table>
 ## End Content
-
-#faceboxHeader("facebox-tags")
-<div class="content">
-
-<table cellpadding="0" cellspacing="0" border="0">
-<tr>
-
-<td id="selected-tags-pane" valign="top">
-  <table cellpadding="5" cellspacing="0" border="0">
-  <tr>
-    <th class="section-title">$messages.get("TagsPage-selected-tags")</th>
-  </tr>
-  <tr>
-    <td>
-      <div class="selected-tags simple-list">
-        <ul class="tags" style="margin-left: 0px;"></ul>
-      </div>
-    </td>
-  </tr>
-  </table>
-</td>
-
-<td id="classified-by-pane" valign="top" style="display:none;">
-  <table cellpadding="5" cellspacing="0" border="0" style="margin-left: 10px;">
-  <tr>
-    <th class="section-title">$messages.get("TagsPage-classified-by")</th>
-  </tr>
-  <tr>
-    <td>
-      <form name="classifying" action="" style="margin-top: 10px; margin-left: 10px;">
-        $messages.get("tag"):&nbsp;
-        <input id="classifying-tag-name" type="text" maxlength="50" style="width: 120px;" />
-        <input id="add-classifying-tag" type="button" value="$messages.get("add")" />
-      </form>
-      <div class="classified-by simple-list">
-        <ul class="tags" style="margin-left: 0px;"></ul>
-      </div>
-    </td>
-  </tr>
-  </table>
-</td>
-
-<td valign="middle">
-<form action="">
-  <div id="buttons-for-selected-tags">
-    <input id="create-filter" type="button" value="$messages.get("TagsPage-create-filter")"/>
-    <br/><br/>
-    <input id="set-classification-mode" type="button" value="$messages.get("TagsPage-classify-all")"/>
-    <br/><br/>
-    <input id="delete-all" type="button" value="$messages.get("TagsPage-delete-all")"/>
-  </div>
-  <div id="buttons-for-classification" style="display:none;">
-    <input id="classify-all" type="button" value=" OK "/>
-    <br/><br/>
-    <input id="back-to-selection" type="button" value="$messages.get("TagsPage-back-to-selection")"/>
-  </div>
-</form>
-</td>
-
-</tr>
-</table>
-</div>
-#faceboxFooter()
-
-<form name="filter-form" method="post" action="$context/filter.htm">
-</form>
-
-<form name="tags-form" method="post" action="">
-</form>
 
