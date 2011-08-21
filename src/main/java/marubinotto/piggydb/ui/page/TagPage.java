@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
@@ -333,8 +334,7 @@ public class TagPage extends AbstractFragmentsPage {
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + this.tag.getName();
 		importCssFile("style/piggydb-tag.css", true, null);
 		
-		if (this.tag.getFragmentId() != null)
-			this.fragment = getDomain().getFragmentRepository().get(this.tag.getFragmentId());
+		setFragment();
 
 		this.subtags = getDomain().getTagRepository().
 			findByParentTag(this.tag.getId(), this.subTagsPageSize, this.sbtpi);
@@ -343,6 +343,19 @@ public class TagPage extends AbstractFragmentsPage {
 		getRecentlyViewed().add(new RecentlyViewed.Entity(RecentlyViewed.TYPE_TAG, this.tag.getId()));
 
 		setCommonSidebarModels();
+	}
+	
+	private void setFragment() throws Exception {
+		FragmentRepository repository = getDomain().getFragmentRepository();
+		if (this.tag.getFragmentId() != null) {
+			this.fragment = repository.get(this.tag.getFragmentId());
+		}
+		
+		// Convert an old tag to a tag-fragment
+		if (this.fragment == null && this.tag.authorizes(getUser())) {
+			getDomain().saveTag(this.tag, getUser());
+			this.fragment = repository.get(this.tag.getFragmentId());
+		}
 	}
 
 	private void setRelatedTags() throws Exception {
