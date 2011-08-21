@@ -347,9 +347,7 @@ public class TagPage extends AbstractFragmentsPage {
 	
 	private void setFragment() throws Exception {
 		FragmentRepository repository = getDomain().getFragmentRepository();
-		if (this.tag.getFragmentId() != null) {
-			this.fragment = repository.get(this.tag.getFragmentId());
-		}
+		this.fragment = repository.asFragment(this.tag);
 	}
 
 	private void setRelatedTags() throws Exception {
