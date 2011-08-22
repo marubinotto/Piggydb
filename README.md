@@ -11,7 +11,7 @@ to build your knowledge personally or collaboratively.
    * You can login with the guest account (guest/guest).
    * The owner-only features are disabled.
 * [Piggydb Documents](http://piggydb.jp/en/)
-* [Piggydb@Facebook](http://www.facebook.com/pages/Piggydb/128024087272905)
+* [Piggydb@Facebook](http://www.facebook.com/piggydb)
 * [Piggydb@GitHub](https://github.com/marubinotto/Piggydb)
 * [Piggydb.jp](http://piggydb.jp/) - Japanese
 * [Feedback (bugs / feature requests)](http://piggydb.lighthouseapp.com/projects/61149-piggydb/overview)
