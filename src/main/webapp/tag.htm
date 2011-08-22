@@ -31,7 +31,12 @@ $utils.raw($tagNameForm.startTag())
     #end
       title="$messages.get("rename")">
     <img src="$context/images/rename.png" border="0" alt="$messages.get("rename")"/></a>
-  #end
+	#end
+	#if (!$fragment && $tag.canChange($user))
+		## Edit
+		<a class="tool-button" href="$editLink.href" title="$messages.get("edit")">
+    <img src="$context/images/edit.png" border="0" alt="$messages.get("edit")"/></a>
+	#end
   #if ($tag.canDelete($user))
     ## Delete
     <a class="tool-button" href="$deleteLink.href" title="$messages.get("delete")"

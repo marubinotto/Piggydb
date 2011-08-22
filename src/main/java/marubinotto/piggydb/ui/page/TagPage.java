@@ -146,6 +146,7 @@ public class TagPage extends AbstractFragmentsPage {
 	public Form tagNameForm = new Form();
 	private TextField tagNameField = new TextField("tagName", true);
 	public ActionLink renameLink = new ActionLink(this, "onRenameClick");
+	public ActionLink editLink = new ActionLink(this, "onEditClick");
 	public ActionLink deleteLink = new ActionLink(this, "onDeleteClick");
 	public boolean renameMode = false;
 
@@ -175,6 +176,15 @@ public class TagPage extends AbstractFragmentsPage {
 
 		setRedirectToThisPage();
 		return false;
+	}
+	
+	public boolean onEditClick() throws Exception {
+		Assert.Property.requireNotNull(tag, "tag");
+		
+		if (!this.tag.canChange(getUser())) return true;
+		
+		getDomain().registerFragmentIfNotExists(this.tag, getUser());
+		return true;
 	}
 
 	public boolean onDeleteClick() throws Exception {
