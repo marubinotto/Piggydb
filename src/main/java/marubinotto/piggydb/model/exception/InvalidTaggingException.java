@@ -1,14 +1,10 @@
 package marubinotto.piggydb.model.exception;
 
-import org.springframework.core.ErrorCoded;
+import marubinotto.util.CodedException;
 
-public class InvalidTaggingException extends Exception implements ErrorCoded {
+public class InvalidTaggingException extends CodedException {
 
 	public InvalidTaggingException() {
-		super();
-	}
-
-	public String getErrorCode() {
-		return "invalid-tagging";
+		super("invalid-tagging");
 	}
 }
