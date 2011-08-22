@@ -68,7 +68,7 @@ public class TagPage extends AbstractFragmentsPage {
 	protected boolean onPreInit() throws Exception {	
 		setTargetTag();
 		if (this.tag == null && !getContext().isAjaxRequest()) {
-			setRedirect(TagsPage.class);
+			setRedirect(HomePage.class);
 			return false;
 		}
 		return true;
@@ -188,7 +188,7 @@ public class TagPage extends AbstractFragmentsPage {
 			}
 		});
 
-		setRedirectWithMessage(TagsPage.class, 
+		setRedirectWithMessage(HomePage.class, 
 			getMessage("TagPage-completed-delete-tag", this.tag.getName()));
 		return false;
 	}
