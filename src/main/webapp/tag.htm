@@ -34,7 +34,7 @@ $utils.raw($tagNameForm.startTag())
 	#end
 	#if (!$fragment && $tag.canChange($user))
 		## Edit
-		<a class="tool-button" href="$editLink.href" title="$messages.get("edit")">
+		<a class="tool-button" title="$messages.get("edit")" href="$editLink.href">
     <img src="$context/images/edit.png" border="0" alt="$messages.get("edit")"/></a>
 	#end
   #if ($tag.canDelete($user))
@@ -154,6 +154,15 @@ $utils.raw($subTagForm.endTag())
 ##
 #if ($fragment)
 <div class="tag-fragment">
+#if ($edit)
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() { 
+		jQuery("div.tag-fragment a.edit-fragment:first").click();
+	});
+//]]>
+</script>
+#end
 #fragment($fragment $null)
 </div>
 #end
@@ -171,11 +180,13 @@ $utils.raw($subTagForm.endTag())
     $messages.get("TagPage-delete-trashes")
   </button>
   <script type="text/javascript">
+	//<![CDATA[
     function onDeleteTrashesClick() {
       if (!window.confirm('$messages.get("TagPage-confirm-delete-trashes")')) 
         return false;
       document.forms['deleteTrashesForm'].submit();
     }
+	//]]>
   </script>
   $utils.raw($deleteTrashesForm.startTag())
   $utils.raw($deleteTrashesForm.endTag())
