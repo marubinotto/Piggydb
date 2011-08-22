@@ -86,7 +86,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public void update(Tag tag, User user) throws Exception;
 	
-	public void delete(Tag tag, User user) throws Exception;
+	public Fragment delete(Tag tag, User user) throws Exception;
 	
 	
 	public static abstract class Base 
@@ -201,7 +201,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 			}
 		}
 		
-		public void delete(Tag tag, User user) throws Exception {
+		public Fragment delete(Tag tag, User user) throws Exception {
 			Assert.Arg.notNull(tag, "tag");
 			Assert.Arg.notNull(tag.getId(), "tag.getId()");
 			Assert.Arg.notNull(user, "user");
@@ -213,6 +213,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 				fragment.setTagId(null);
 				updateFragment(fragment, true);
 			}
+			return fragment;
 		}
 		
 		public final long createRelation(long from, long to, User user)

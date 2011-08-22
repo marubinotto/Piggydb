@@ -300,8 +300,7 @@ implements ApplicationContextAware, WebMessageSource {
 		setRedirectWithMessage(this.thisPageUrl.getPagePath(), message);
 	}
 
-	public void setRedirectWithMessage(Class<? extends Page> pageClass,
-			String message) {
+	public void setRedirectWithMessage(Class<? extends Page> pageClass, String message) {
 		Assert.Arg.notNull(pageClass, "pageClass");
 		Assert.Arg.notNull(message, "message");
 

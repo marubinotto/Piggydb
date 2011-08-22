@@ -180,11 +180,16 @@ public class TagPage extends AbstractFragmentsPage {
 	public boolean onDeleteClick() throws Exception {
 		Assert.Property.requireNotNull(tag, "tag");
 
-		getDomain().deleteTag(this.tag, getUser());
+		Fragment fragment = getDomain().deleteTag(this.tag, getUser());
 
-		setRedirectWithMessage(
-			HomePage.class, 
-			getMessage("TagPage-completed-delete-tag", this.tag.getName()));
+		String message = getMessage("TagPage-completed-delete-tag", this.tag.getName());
+		if (fragment != null) {
+			String path = getContext().getPagePath(FragmentPage.class);
+			setRedirectWithMessage(path + "?id=" + fragment.getId(), message);
+		}
+		else {
+			setRedirectWithMessage(HomePage.class, message);
+		}
 		return false;
 	}
 
