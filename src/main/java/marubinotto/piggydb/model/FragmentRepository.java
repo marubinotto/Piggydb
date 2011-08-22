@@ -86,6 +86,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public void update(Tag tag, User user) throws Exception;
 	
+	public void delete(Tag tag, User user) throws Exception;
+	
 	
 	public static abstract class Base 
 	extends Repository.Base<Fragment, RawFragment> implements FragmentRepository {
@@ -195,6 +197,20 @@ public interface FragmentRepository extends Repository<Fragment> {
 			RawFragment fragment = asFragment(tag);
 			if (fragment != null) {
 				fragment.syncWith(tag, user);
+				updateFragment(fragment, true);
+			}
+		}
+		
+		public void delete(Tag tag, User user) throws Exception {
+			Assert.Arg.notNull(tag, "tag");
+			Assert.Arg.notNull(tag.getId(), "tag.getId()");
+			Assert.Arg.notNull(user, "user");
+			
+			getTagRepository().delete(tag.getId());
+			
+			RawFragment fragment = asFragment(tag);
+			if (fragment != null) {
+				fragment.setTagId(null);
 				updateFragment(fragment, true);
 			}
 		}

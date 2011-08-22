@@ -73,6 +73,15 @@ public class DomainModelBeans {
 		});
 	}
 	
+	public void deleteTag(final Tag tag, final User user) throws Exception {
+		getTransaction().execute(new Procedure() {
+			public Object execute(Object input) throws Exception {
+				getFragmentRepository().delete(tag, user);
+				return null;
+			}
+		});
+	}
+	
 	public void addTagToFragments(
 		final List<Fragment> fragments, 
 		final Tag tag, 
