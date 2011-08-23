@@ -129,7 +129,7 @@ public class TagFragmentTest {
 		}
 		
 		@Test
-		public void setTagRole() throws Exception {
+		public void setTagRoleToFragment() throws Exception {
 			this.object.validateTagRole(this.normalUser, this.tagRepository);
 			
 			Tag tagRole = this.object.asTag();
@@ -149,29 +149,55 @@ public class TagFragmentTest {
 		
 		@Test
 		public void updateViaFragment() throws Exception {
-			this.object.setTitleByUser("hogehoge", this.normalUser);
+			this.object.setTitleByUser("test2", this.normalUser);
+			this.object.addTagByUser("parent2", this.tagRepository, this.normalUser);
 			this.object.validateTagRole(this.normalUser, this.tagRepository);
 			this.fragmentRepository.update(this.object);
 			
 			Fragment fragment = this.fragmentRepository.get(this.object.getId());
-			assertEquals("hogehoge", fragment.getTitle());
+			assertEquals("test2", fragment.getTitle());
 			
 			fragment.validateTagRole(this.normalUser, this.tagRepository);
 			Tag tagRole = fragment.asTag();
-			assertEquals("hogehoge", tagRole.getName());
+			assertEquals("test2", tagRole.getName());
+			assertEquals("(parent, parent2)", tagRole.getClassification().toString());
+		}
+		
+		@Test
+		public void updateViaTag() throws Exception {
+			this.tag.setNameByUser("test2", this.normalUser);
+			this.tag.addTagByUser("parent2", this.tagRepository, this.normalUser);
+			this.fragmentRepository.update(this.tag, this.normalUser);
+			
+			Fragment fragment = this.fragmentRepository.get(this.object.getId());
+			assertEquals("test2", fragment.getTitle());
+			assertEquals("(parent, parent2)", fragment.getClassification().toString());
+			
+			fragment.validateTagRole(this.normalUser, this.tagRepository);
+			Tag tagRole = fragment.asTag();
+			assertEquals("test2", tagRole.getName());
+			assertEquals("(parent, parent2)", tagRole.getClassification().toString());
 		}
 		
 		@Test
 		public void deleteTagRoleViaFragment() throws Exception {
-			assertEquals(true, this.tagRepository.containsName("test"));
-			
 			this.object.setAsTagByUser(false, this.normalUser);
 			this.object.validateTagRole(this.normalUser, this.tagRepository);
 			this.fragmentRepository.update(this.object);
 			
 			Fragment fragment = this.fragmentRepository.get(this.object.getId());
-			assertEquals(null, fragment.getTagId());
+			assertEquals(null, fragment.getTagId());		
+			assertEquals(false, this.tagRepository.containsName("test"));
+		}
+		
+		@Test
+		public void deleteTagRoleViaTag() throws Exception {
+			Fragment fragment1 = this.fragmentRepository.delete(this.tag, this.normalUser);
+			assertEquals(this.object.getId(), fragment1.getId());
+			assertEquals(null, fragment1.getTagId());
 			
+			Fragment fragment2 = this.fragmentRepository.get(this.object.getId());
+			assertEquals(null, fragment2.getTagId());
 			assertEquals(false, this.tagRepository.containsName("test"));
 		}
 	}
