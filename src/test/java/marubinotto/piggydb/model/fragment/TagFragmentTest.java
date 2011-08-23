@@ -139,7 +139,16 @@ public class TagFragmentTest {
 		}
 		
 		@Test
-		public void updateName() throws Exception {
+		public void getFragmentViaTag() throws Exception {
+			Fragment fragment = this.fragmentRepository.asFragment(this.tag);
+			assertEquals(this.object.getId(), fragment.getId());
+			assertEquals("test", fragment.getTitle());
+			assertEquals(this.tag.getId(), fragment.getTagId());
+			assertEquals("(parent)", fragment.getClassification().toString());
+		}
+		
+		@Test
+		public void updateViaFragment() throws Exception {
 			this.object.setTitleByUser("hogehoge", this.normalUser);
 			this.object.validateTagRole(this.normalUser, this.tagRepository);
 			this.fragmentRepository.update(this.object);
@@ -153,7 +162,7 @@ public class TagFragmentTest {
 		}
 		
 		@Test
-		public void deleteTagRole() throws Exception {
+		public void deleteTagRoleViaFragment() throws Exception {
 			assertEquals(true, this.tagRepository.containsName("test"));
 			
 			this.object.setAsTagByUser(false, this.normalUser);
