@@ -199,6 +199,7 @@ public class TagPage extends AbstractFragmentsPage {
 		if (!this.tag.canChange(getUser())) return true;
 		
 		getDomain().registerFragmentIfNotExists(this.tag, getUser());
+		this.fragment = getDomain().getFragmentRepository().asFragment(this.tag);
 		this.edit = true;
 		return true;
 	}
