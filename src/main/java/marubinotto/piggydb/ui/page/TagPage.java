@@ -43,6 +43,7 @@ public class TagPage extends AbstractFragmentsPage {
 		return getDefaultAtomUrl() + "?id=" + this.tag.getId();
 	}
 
+	
 	//
 	// Input
 	//
@@ -205,6 +206,7 @@ public class TagPage extends AbstractFragmentsPage {
 		return false;
 	}
 
+	
 	// Super tags
 
 	public SingleTagForm superTagForm = new SingleTagForm(this);
@@ -251,6 +253,7 @@ public class TagPage extends AbstractFragmentsPage {
 		return false;
 	}
 
+	
 	// Sub tags
 
 	public SingleTagForm subTagForm = new SingleTagForm(this);
@@ -312,6 +315,7 @@ public class TagPage extends AbstractFragmentsPage {
 		return false;
 	}
 
+	
 	// Fragments
 
 	private FragmentFormPanel fragmentFormPanel;
@@ -331,6 +335,7 @@ public class TagPage extends AbstractFragmentsPage {
 		return false;
 	}
 
+	
 	//
 	// Model
 	//
