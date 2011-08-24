@@ -201,4 +201,34 @@ public class TagFragmentTest {
 			assertEquals(false, this.tagRepository.containsName("test"));
 		}
 	}
+	
+	public static class ConvertTagToTagFragmentTest extends TestBase {
+		
+		private Tag object;
+		private Long fragmentId;
+		
+		@Before
+		public void given() throws Exception {
+			this.object = this.tagRepository.newInstance("test", this.normalUser);
+			this.object.addTagByUser("parent", this.tagRepository, this.normalUser);
+			this.tagRepository.register(this.object);
+			
+			this.fragmentId = this.fragmentRepository.
+				registerFragmentIfNotExists(this.object, this.normalUser);
+		}
+		
+		@Test
+		public void tag() throws Exception {
+			assertEquals(this.fragmentId, this.object.getFragmentId());
+		}
+		
+		@Test
+		public void fragment() throws Exception {
+			Fragment fragment = this.fragmentRepository.asFragment(this.object);
+			assertEquals(this.fragmentId, fragment.getId());
+			assertEquals(this.object.getId(), fragment.getTagId());
+			assertEquals("test", fragment.getTitle());
+			assertEquals("(parent)", fragment.getClassification().toString());
+		}
+	}
 }

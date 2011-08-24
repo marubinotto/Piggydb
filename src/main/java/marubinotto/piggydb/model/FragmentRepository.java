@@ -82,7 +82,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public Fragment newInstance(Tag tag, User user) throws Exception;
 	
-	public void registerFragmentIfNotExists(Tag tag, User user) throws Exception;
+	public Long registerFragmentIfNotExists(Tag tag, User user) throws Exception;
 	
 	public Fragment asFragment(Tag tag) throws Exception;
 	
@@ -182,14 +182,15 @@ public interface FragmentRepository extends Repository<Fragment> {
 			return fragment;
 		}
 		
-		public synchronized void registerFragmentIfNotExists(Tag tag, User user) 
+		public synchronized Long registerFragmentIfNotExists(Tag tag, User user) 
 		throws Exception {
-			if (asFragment(tag) != null) return;
+			if (asFragment(tag) != null) return null;
 			
 			Fragment newfragment = newInstance(tag, user);
 			long fragmentId = register(newfragment);
 			((RawTag)tag).setFragmentId(fragmentId);
 			getTagRepository().update(tag);
+			return fragmentId;
 		}
 		
 		public RawFragment asFragment(Tag tag) throws Exception {
