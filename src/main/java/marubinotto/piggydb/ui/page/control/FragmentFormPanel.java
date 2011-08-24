@@ -157,6 +157,19 @@ public class FragmentFormPanel extends Panel {
 	}
 	
 	
+	public void setParentFragment(Fragment fragment) {
+		setParentId(fragment.getId());
+		for (Tag tag : fragment.getClassification()) {
+			if (isInheritedByDefault(tag)) addDefaultTag(tag);
+		}
+	}
+	
+	private static boolean isInheritedByDefault(Tag tag) {
+		if (tag.getName().startsWith("#")) return false;
+		return true;
+	}
+	
+	
 	//
 	// Control
 	//

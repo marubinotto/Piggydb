@@ -1,7 +1,6 @@
 package marubinotto.piggydb.ui.page;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
@@ -73,7 +72,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 	private void initControls() {
 		// Fragment
 		this.fragmentFormPanel = createFragmentFormPanel();
-		this.fragmentFormPanel.setTitle(getMessage("FragmentPage-edit-this-fragment"));
+		this.fragmentFormPanel.setTitle(getMessage("FragmentPage-edit-this-fragment"));		
 		if (StringUtils.isNotBlank(getContext().getRequestParameter("edit"))) {
 			this.fragmentFormPanel.setActive(true);
 		}
@@ -91,25 +90,20 @@ public class FragmentPage extends AbstractFragmentsPage {
 		this.subFragmentFormPanel.setRestoresScrollTop(true);
 	}
 
+	// this.thisPageUrl needs the target model: this.fragment
 	private void applyTargetFragmentToControls() {
 		Assert.Property.requireNotNull(fragment, "fragment");
 
 		this.fragmentFormPanel.setBaseData(this.fragment);
 		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
-
-		for (Tag tag : this.fragment.getClassification()) {
-			if (isInheritedByDefault(tag)) this.subFragmentFormPanel.addDefaultTag(tag);
-		}
+		
+		this.subFragmentFormPanel.setParentFragment(this.fragment);
 		this.subFragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
-		this.subFragmentFormPanel.setParentId(this.fragment.getId());
-
+		
 		TagTree.restoreTagTree(this.superTags, this.fragment, getUser());
 	}
 
-	private static boolean isInheritedByDefault(Tag tag) {
-		if (tag.getName().startsWith("#")) return false;
-		return true;
-	}
+	
 
 	// Super tag
 

@@ -3,7 +3,6 @@ package marubinotto.piggydb.ui.page;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
@@ -94,6 +93,7 @@ public class TagPage extends AbstractFragmentsPage {
 		
 		if (this.tag != null) {
 			getContext().setSessionAttribute(SK_LAST_TAG_ID, this.tag.getId());
+			this.fragment = getDomain().getFragmentRepository().asFragment(this.tag);
 		}
 	}
 
@@ -126,6 +126,11 @@ public class TagPage extends AbstractFragmentsPage {
 		this.subTagForm.setListenerForAdd("onAddSubTagClick");
 		this.subTagForm.setListenerForDelete("onRemoveSubTagClick");
 		this.subTagForm.initialize();
+		
+		// Sub fragments
+		this.subFragmentFormPanel = createFragmentFormPanel("subFragmentFormPanel");
+		this.subFragmentFormPanel.setTitle(getMessage("FragmentPage-create-new-related-fragment"));
+		this.subFragmentFormPanel.setRestoresScrollTop(true);
 
 		// Fragments
 		this.fragmentFormPanel = createFragmentFormPanel();
@@ -133,12 +138,20 @@ public class TagPage extends AbstractFragmentsPage {
 		this.deleteTrashesForm.setListener(this, "onDeleteTrashes");
 	}
 
+	// this.thisPageUrl needs the target model: this.tag
 	private void applyTargetTagToControls() {
 		Assert.Property.requireNotNull(tag, "tag");
 
 		this.tagNameField.setValue(this.tag.getName());
-		this.fragmentFormPanel.addDefaultTag(this.tag);
+		
 		TagTree.restoreTagTree(this.superTags, this.tag, getUser());
+		
+		if (this.fragment != null) {
+			this.subFragmentFormPanel.setParentFragment(this.fragment);
+			this.subFragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
+		}
+		
+		this.fragmentFormPanel.addDefaultTag(this.tag);
 		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
 	}
 	
@@ -314,6 +327,11 @@ public class TagPage extends AbstractFragmentsPage {
 		setRedirectToThisPage();
 		return false;
 	}
+	
+	
+	// Sub fragments
+	
+	private FragmentFormPanel subFragmentFormPanel;
 
 	
 	// Fragments
@@ -353,8 +371,6 @@ public class TagPage extends AbstractFragmentsPage {
 		importCssFile("style/piggydb-tag.css", true, null);
 		importCssFile("style/piggydb-fragment.css", true, null);
 		importJsFile("scripts/piggydb-fragment.js", true);
-		
-		setFragment();
 
 		this.subtags = getDomain().getTagRepository().
 			findByParentTag(this.tag.getId(), this.subTagsPageSize, this.sbtpi);
@@ -363,11 +379,6 @@ public class TagPage extends AbstractFragmentsPage {
 		getRecentlyViewed().add(new RecentlyViewed.Entity(RecentlyViewed.TYPE_TAG, this.tag.getId()));
 
 		setCommonSidebarModels();
-	}
-	
-	private void setFragment() throws Exception {
-		FragmentRepository repository = getDomain().getFragmentRepository();
-		this.fragment = repository.asFragment(this.tag);
 	}
 
 	private void setRelatedTags() throws Exception {
@@ -391,6 +402,7 @@ public class TagPage extends AbstractFragmentsPage {
 		this.tagNameForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.superTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.subTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
+		this.subFragmentFormPanel.fragmentForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.fragmentFormPanel.fragmentForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.deleteTrashesForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 
