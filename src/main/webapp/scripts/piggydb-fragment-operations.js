@@ -517,7 +517,8 @@ var FragmentTree = {
   },
   
   enableSortable: function(parentId) {
-    jQuery(".sortable-children").sortable({
+  	var sortableUl = jQuery(".sortable-children");
+  	sortableUl.sortable({
       update: function(event, ui) {
         var children = jQuery(this);
         var childOrder = children.sortable('toArray');
@@ -535,17 +536,18 @@ var FragmentTree = {
         });
       }
     });
-    jQuery(".sortable-children").disableSelection();
-    jQuery("table.fragment-root-node").css("cursor", "move");
-    jQuery(".fragment-root-node .root-header-cell .fragment-header")
+  	sortableUl.disableSelection();
+  	sortableUl.find("table.fragment-root-node").css("cursor", "move");
+  	sortableUl.find(".fragment-root-node .root-header-cell .fragment-header")
       .prepend('<img class="sortable-icon" src="images/sortable.png" border="0" alt=""/>');
   },
   
   disableSortable: function() {
-    jQuery(".sortable-children").sortable("destroy");
-    jQuery(".sortable-children").enableSelection();
-    jQuery("table.fragment-root-node").css("cursor", "auto");
-    jQuery(".fragment-root-node .sortable-icon").remove();
+  	var sortableUl = jQuery(".sortable-children");
+  	sortableUl.sortable("destroy");
+  	sortableUl.enableSelection();
+  	sortableUl.find("table.fragment-root-node").css("cursor", "auto");
+  	sortableUl.find(".fragment-root-node .sortable-icon").remove();
   }
 };
 
