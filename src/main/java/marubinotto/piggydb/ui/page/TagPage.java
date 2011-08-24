@@ -344,7 +344,10 @@ public class TagPage extends AbstractFragmentsPage {
 		Assert.Property.requireNotNull(tag, "tag");
 
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + this.tag.getName();
+		
 		importCssFile("style/piggydb-tag.css", true, null);
+		importCssFile("style/piggydb-fragment.css", true, null);
+		importJsFile("scripts/piggydb-fragment.js", true);
 		
 		setFragment();
 

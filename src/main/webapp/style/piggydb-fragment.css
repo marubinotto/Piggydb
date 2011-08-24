@@ -3,7 +3,7 @@
  */
 
 table.fragment td.subfragments {
-  background: #eee;
+  background: #f8f8f8;
 }
 
 #subFragmentFormPanel {
@@ -14,7 +14,7 @@ table.fragment td.subfragments table.errors td,
 table.fragment td.subfragments table.page-link td,
 #subFragmentFormPanel-table td,
 #children-control td {
-  background-color: #eee;
+  background-color: #f8f8f8;
   border: none;
 }
 
