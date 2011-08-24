@@ -1,84 +1,8 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td class="fragments" valign="top">
-  
 $utils.raw($fragmentFormPanel)
-
-<table class="fragment fragment-full fragment-main multirow" 
-	cellpadding="5" cellspacing="0" width="100%" border="0">
-#fragmentParentsRow($fragment.parentRelations $null)
-#fragmentHeaderRow($fragment $null)
-#fragmentBodyRow($fragment)
-<tr>
-  <td class="subfragments">
-    #adFragment()
-          
-    $utils.raw($subFragmentFormPanel)
-
-  #if ($fragment.hasChildren())
-    <table id="children-control" border="0" cellpadding="0" cellspacing="0">
-    <tr>
-      <td align="left" valign="middle">
-        <span id="processing-children">&nbsp; </span> ## a place for loading icon
-      </td>
-      #if ($fragment.canChange($user))
-      <td align="right">
-        <script type="text/javascript">
-        //<![CDATA[
-          jQuery(function() {
-            jQuery("#reorder-switch button").click(function () {
-              var button = jQuery(this);
-              if (button.hasClass("selected")) {
-                FragmentTree.disableSortable();
-                button.removeClass("selected");
-              }
-              else {
-                FragmentTree.enableSortable($fragment.id);
-                button.addClass("selected");
-              }
-            });
-          });
-        //]]>
-        </script>
-        <div id="reorder-switch" class="select-switch" style="margin-left: 20px;">
-          <button type="button" name="reorder">
-            <img src="$context/images/sortable.png" alt="$messages.get("FragmentPage-reorder")" 
-              border="0" style="vertical-align: middle;"/> 
-            <span style="vertical-align: middle;">$messages.get("FragmentPage-reorder")</span>
-          </button>
-        </div>
-      </td>
-      #end
-      <td width="30">
-        <script type="text/javascript">
-        //<![CDATA[
-          jQuery(function() {
-            jQuery("#children-content-toggle").click(function () {
-              ContentToggle.onAllContentToggleClick(this);
-            });
-          });
-        //]]>
-        </script>
-        <button type="button" id="children-content-toggle">
-          <img src="$context/style/images/bullet-arrow-down.png" border="0" alt="" style="margin: -2px;"/>
-        </button>
-      </td>
-    </tr>
-    </table>
-           
-    <div id="children-tree" class="children">
-      <ul class="fragment-tree sortable-children">
-      #foreach ($relation in $fragment.childRelations)
-        <li class="fragment-node" id="child_${relation.id}"
-          >#fragmentRootNode($relation.to $relation $fragment.classification $null) </li>
-      #end
-      </ul>
-    </div>
-  #end
-  </td>
-</tr>
-</table>
-  
+#fragmentForPage($fragment $subFragmentFormPanel)
 </td>
   
 <td class="sidebar" align="left" valign="top">
