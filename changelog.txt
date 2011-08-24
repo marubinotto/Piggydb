@@ -1,6 +1,10 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.0-dev4 (2011-08-25) == #v5.0-dev4
+
+ * Updated the fragment part of the tag page to have full-fledged features
+
 == Changes in version 5.0-dev3 (2011-08-22) == #v5.0-dev3
 
  * Added a feature of converting a tag to a tag-fragment (an edit button)
