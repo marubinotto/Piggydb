@@ -197,6 +197,11 @@ Fragment.prototype = {
 	
 	highlight: function() {
 		Fragment.highlight(this.id(), this.root);
+	},
+	
+	fullEditor: function() {
+		var editor = this.root.siblings(".fragment-form-panel");
+		return editor.size() > 0 ? editor : null;
 	}
 };
 
@@ -219,9 +224,10 @@ var QuickEdit = {
 	onEditButtonClick: function(button) {
 		var fragment = new Fragment(button);
 		
-		// fragment page
-		if (fragment.isMain()) {
-			jQuery("#fragmentFormPanel a.toggle-link").click();
+		// if there's a full-fledged editor, open it
+		var fullEditor = fragment.fullEditor();
+		if (fullEditor != null) {
+			fullEditor.find("a.toggle-link").click();
 			return true;
 		}
 		
