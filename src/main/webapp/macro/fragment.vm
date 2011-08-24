@@ -50,7 +50,7 @@
         //<![CDATA[
           jQuery(function() {
             jQuery("#children-content-toggle").click(function () {
-              ContentToggle.onAllContentToggleClick(this);
+              ContentToggle.onAllContentToggleClick(this, jQuery("#children-tree"));
             });
           });
         //]]>

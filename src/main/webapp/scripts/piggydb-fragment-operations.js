@@ -428,14 +428,14 @@ ContentToggle.onContentToggleClick = function(toggle, id) {
     toggle.setClosed();
   }
 };
-ContentToggle.onAllContentToggleClick = function(toggle) {
+ContentToggle.onAllContentToggleClick = function(toggle, root) {
 	var toggle = new ContentToggle(toggle);
   if (toggle.isClosed()) {
-    jQuery(".fragment-content-toggle img[src*='" + ContentToggle.CLOSED + "']").closest("a").click();
+  	root.find(".fragment-content-toggle img[src*='" + ContentToggle.CLOSED + "']").closest("a").click();
     toggle.setOpened();
   }
   else if (toggle.isOpened()) {
-    jQuery(".fragment-content-toggle img[src*='" + ContentToggle.OPENED + "']").closest("a").click();
+  	root.find(".fragment-content-toggle img[src*='" + ContentToggle.OPENED + "']").closest("a").click();
     toggle.setClosed();
   }
 };
