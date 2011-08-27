@@ -92,6 +92,10 @@ $utils.raw($superTagForm.endTag())
 				title="$messages.get("tag-tree")"
         onclick="${jsPaletteRef}.onViewSwitchClick(this, 'tree')"
 				><img src="$context/images/palette-tree.png" border="0" alt="$messages.get("tag-tree")"
+			/></button><button type="button" #if ($viewType == "cloud") class="selected" #end
+				title="$messages.get("tag-cloud")"
+				onclick="${jsPaletteRef}.onViewSwitchClick(this, 'cloud')"
+        ><img src="$context/images/palette-cloud.png" border="0" alt="$messages.get("tag-cloud")"
 			/></button><button type="button" #if ($viewType == "flat") class="selected" #end
 				title="$messages.get("tag-flat")"
 				onclick="${jsPaletteRef}.onViewSwitchClick(this, 'flat')"
