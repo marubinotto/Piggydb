@@ -3,19 +3,21 @@
 #if ($tags.isFirstPage())
 <table border="0">
 #tagPaletteHeaderRow()
-<tr class="context">
+<tr>
 	<td>
 		<ul class="liquid-blocks">
   	#foreach ($tag in $tags)
 			<li class="liquid-block">
-				#tagPaletteEntry($tag)
+				<div class="tag-container">
+					#tagPaletteEntry($tag)
+				</div>
 			</li>
   	#end
 		</ul>
 	</td>
 </tr>
 #if (!$tags.isLastPage())
-<tr class="context">
+<tr>
 	<td align="center">
 		<a class="show-more" href="#" 
 			onclick="${jsPaletteRef}.showMore(this); return false;">
@@ -31,7 +33,9 @@
 #end
 #foreach ($tag in $tags)
 	<li class="liquid-block$additionalClasses">
-		#tagPaletteEntry($tag)
+		<div class="tag-container">
+			#tagPaletteEntry($tag)
+		</div>
 	</li>
 #end
 	

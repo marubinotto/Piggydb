@@ -18,7 +18,7 @@
   <td></td>
 </tr>
 #foreach ($tag in $tags)
-<tr class="context">
+<tr>
   <td class="control">
 	#if (!$tag.classification.isEmpty() || $parent)
     <a class="to-parents" href="#" title="$messages.get("to-parents")"
@@ -27,7 +27,9 @@
 	#end
   </td>
   <td class="tag" nowrap="nowrap" colspan="2">
-		#tagPaletteEntry($tag)
+		<div class="tag-container">
+			#tagPaletteEntry($tag)
+		</div>
   </td>
   <td class="control">
 	#if ($tag.attributes.hasChildren)

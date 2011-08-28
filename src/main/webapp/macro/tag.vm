@@ -120,17 +120,15 @@ onclick="${jsPaletteRef}.onViewSwitchClick(this, '$type')"
 
 #macro ( tagPaletteEntry $tag ) 
 	
-<div class="tag-container">
-  <span class="tag-palette-draggable droppable-to-fragment">
-    <span class="tag">
-      <span class="$html.miniTagIconClass($tag.name)"
-				><img src="$context/images/empty.png" border="0" alt=""/></span>
-      <a class="tag" href="#" title="$tag.name"
-				onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '$utils.escapeJs($tag.name)', ${jsPaletteRef}); return false;">$tag.name</a>
-      <span class="id" style="display: none;">$tag.id</span>
-    </span>
+<span class="tag-palette-draggable droppable-to-fragment">
+  <span class="tag">
+    <span class="$html.miniTagIconClass($tag.name)"
+			><img src="$context/images/empty.png" border="0" alt=""/></span>
+    <a class="tag" href="#" title="$tag.name"
+			onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '$utils.escapeJs($tag.name)', ${jsPaletteRef}); return false;">$tag.name</a>
+    <span class="id" style="display: none;">$tag.id</span>
   </span>
-</div>
+</span>
 
 #end
 
