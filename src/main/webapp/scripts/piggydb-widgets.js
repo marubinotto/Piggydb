@@ -320,6 +320,8 @@ TagPalette.prototype = {
   	if (!clickSelectSwitch(button)) return;
   	if (name == "flat")
   		this.updatePaletteFlat({}, false);
+  	else if (name == "cloud")
+  		this.updatePaletteCloud(false);
   	else
   		this.toRoot();
   },
@@ -387,6 +389,16 @@ TagPalette.prototype = {
   	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
   		outer.updatePalette(html, init);
       outer.arrangeFlat();
+  	});
+  },
+  
+  updatePaletteCloud: function(init) {
+  	this.setLoading();
+  	var params = {};
+  	this.setCommonParams(params);
+  	var outer = this;
+  	jQuery.post("html/tag-palette-cloud.htm", params, function(html) {
+  		outer.updatePalette(html, init);
   	});
   },
   

@@ -1,0 +1,14 @@
+#if ($tags.size() > 0)
+<table border="0">
+#tagPaletteHeaderRow()
+<tr class="context">
+	<td>
+  	#foreach ($tag in $tags)
+			<span style="font-size: ${tag.attributes.fontSize}px;">$tag.name</span>
+  	#end
+	</td>
+</tr>	
+</table>
+#else
+#emptyTagPalette()
+#end
