@@ -1,7 +1,10 @@
 package marubinotto.piggydb.ui.page.control.form;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
@@ -13,11 +16,11 @@ import marubinotto.piggydb.model.exception.InvalidTagNameException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.piggydb.ui.page.common.Utils;
-import marubinotto.piggydb.ui.page.control.EditDataStore;
 import marubinotto.piggydb.ui.page.control.FragmentContentField;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.web.WebMessageSource;
+import net.sf.click.Context;
 import net.sf.click.control.Checkbox;
 import net.sf.click.control.FileField;
 import net.sf.click.control.Form;
@@ -325,6 +328,21 @@ public class FragmentForm extends Form {
 	//
 	// Edit Session
 	//
+	
+	private static class EditDataStore implements Serializable {
+		
+		public Map<String, Fragment> data = new HashMap<String, Fragment>();
+		
+		public static EditDataStore getStore(Context context) {
+			EditDataStore store = (EditDataStore)
+				context.getSessionAttribute(EditDataStore.class.getName());
+			if (store == null) {
+				store = new EditDataStore();
+				context.setSessionAttribute(EditDataStore.class.getName(), store);
+			}
+			return store;
+		}
+	}
 
 	public String getEditSessionId() {
 		return getContext().getRequestParameter(this.editSessionIdField.getName());
