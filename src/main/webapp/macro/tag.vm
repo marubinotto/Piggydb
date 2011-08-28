@@ -88,18 +88,10 @@ $utils.raw($superTagForm.endTag())
 <tr>
 	<td colspan="3">
 		<div class="select-switch" style="padding: 2px;">
-      <button type="button" #if ($viewType == "tree") class="selected" #end
-				title="$messages.get("tag-tree")"
-        onclick="${jsPaletteRef}.onViewSwitchClick(this, 'tree')"
-				><img src="$context/images/palette-tree.png" border="0" alt="$messages.get("tag-tree")"
-			/></button><button type="button" #if ($viewType == "cloud") class="selected" #end
-				title="$messages.get("tag-cloud")"
-				onclick="${jsPaletteRef}.onViewSwitchClick(this, 'cloud')"
-        ><img src="$context/images/palette-cloud.png" border="0" alt="$messages.get("tag-cloud")"
-			/></button><button type="button" #if ($viewType == "flat") class="selected" #end
-				title="$messages.get("tag-flat")"
-				onclick="${jsPaletteRef}.onViewSwitchClick(this, 'flat')"
-        ><img src="$context/images/palette-flat.png" border="0" alt="$messages.get("tag-flat")"/></button>
+      <button type="button" #tagPaletteButtonContent("tree", $viewType)
+			/></button><button type="button" #tagPaletteButtonContent("cloud", $viewType)
+			/></button><button type="button" #tagPaletteButtonContent("flat", $viewType)
+			/></button>
     </div>
 	</td>
 	<td>
@@ -111,6 +103,17 @@ $utils.raw($superTagForm.endTag())
   </td>
 </tr>
 
+#end
+
+
+
+#macro ( tagPaletteButtonContent $type $selectedType ) 
+
+#if ($selectedType == $type) class="selected" #end
+title="$messages.get("tag-$type")"
+onclick="${jsPaletteRef}.onViewSwitchClick(this, '$type')"
+><img src="$context/images/palette-${type}.png" border="0" alt="$messages.get("tag-$type")"
+	
 #end
 
 
