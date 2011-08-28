@@ -4,7 +4,7 @@
 <table border="0">
 #tagPaletteHeaderRow()
 <tr>
-	<td>
+	<td colspan="4">
 		<ul class="liquid-blocks">
   	#foreach ($tag in $tags)
 			<li class="liquid-block">
@@ -18,7 +18,7 @@
 </tr>
 #if (!$tags.isLastPage())
 <tr>
-	<td align="center">
+	<td colspan="4" align="center">
 		<a class="show-more" href="#" 
 			onclick="${jsPaletteRef}.showMore(this); return false;">
 		<img src="$context/images/resultset-next.png" border="0" alt=""/></a>

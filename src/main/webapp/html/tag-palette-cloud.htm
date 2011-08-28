@@ -2,10 +2,14 @@
 <table border="0">
 #tagPaletteHeaderRow()
 <tr>
-	<td>
+	<td colspan="4">
+		<div class="tag-cloud">
   	#foreach ($tag in $tags)
-			<span style="font-size: ${tag.attributes.fontSize}px;">$tag.name</span>
+  		<span class="tag-cloud-entry" style="font-size: ${tag.attributes.fontSize}px;">
+  			#tagPaletteEntry($tag)
+  		</span>
   	#end
+		</div>
 	</td>
 </tr>	
 </table>

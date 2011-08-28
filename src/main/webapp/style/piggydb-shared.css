@@ -383,6 +383,20 @@ a.filter:hover {
   line-height: 120%;
 }
 
+.tag-palette .tag-cloud {
+	padding-left: 5px;
+	white-space: normal;
+}
+
+.tag-palette .tag-cloud span.tag-cloud-entry {
+	white-space: nowrap;
+	margin-right: 5px;
+}
+
+.tag-palette .tag-cloud span.tag-cloud-entry span.miniTagIcon {
+	display: none;
+}
+
 .tag-palette-draggable .miniTagIcon {
 	padding-right: 5px;
 }

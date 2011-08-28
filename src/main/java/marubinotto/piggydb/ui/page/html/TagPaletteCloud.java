@@ -10,8 +10,8 @@ public class TagPaletteCloud extends AbstractTagPalette {
 	private static final String VIEW_TYPE = "cloud";
 	
 	public static final int MAX_SIZE = 100;
-	public static final int MAX_FONT_SIZE = 32;
-	public static final int MIN_FONT_SIZE = 12;
+	public static final int MAX_FONT_SIZE = 30;
+	public static final int MIN_FONT_SIZE = 10;
 	
 	public Set<Tag> tags;
 	
