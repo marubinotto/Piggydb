@@ -19,12 +19,15 @@ public class TagPaletteTree extends AbstractTagPalette {
 	public boolean enableBack = false;
 	
 	public List<Tag> tags;
+	
+	protected String getViewType() {
+		return VIEW_TYPE;
+	}
 
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		this.viewType = VIEW_TYPE;
 		this.tags = getSiblingTags();
 		setHasChildren(this.tags);
 	}

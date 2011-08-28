@@ -12,12 +12,15 @@ public class TagPaletteFlat extends AbstractTagPalette {
 	public int pi = 0;
 	
 	public List<Tag> tags;
+	
+	protected String getViewType() {
+		return VIEW_TYPE;
+	}
 
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		this.viewType = VIEW_TYPE;
 		this.tags = getDomain().getTagRepository().orderByName(PAGE_SIZE, this.pi);
 	}
 }
