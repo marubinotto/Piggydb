@@ -36,8 +36,8 @@ public class JsonUtils {
 			out.print(", \"hasParents\": " + (tag.getClassification().size() > 0));
 			if (hasChildren != null) 
 				out.print(", \"hasChildren\": " + hasChildren.contains(tag.getId()));
-			if (tag.getPopularity() != null) 
-				out.print(", \"popularity\": " + tag.getPopularity());
+			if (tag.getAttributes().get("fontSize") != null) 
+				out.print(", \"fontSize\": " + tag.getAttributes().get("fontSize"));
 			out.println("}");
 		}
 		out.println("]");

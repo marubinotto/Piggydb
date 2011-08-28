@@ -55,7 +55,7 @@ TagCloud.prototype = jQuery.extend({
   },
   
   addTag: function(tag, containerDiv) {
-    var html = ['<span class="tag" style="font-size: ' + tag.popularity + 'px;">'];
+    var html = ['<span class="tag" style="font-size: ' + tag.fontSize + 'px;">'];
     html.push(TagUtils.htmlTag(tag));
     html.push("</span> <span> </span>");
     containerDiv.append(html.join(""));

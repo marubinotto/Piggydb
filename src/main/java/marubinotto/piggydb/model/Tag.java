@@ -34,8 +34,6 @@ public interface Tag extends Classifiable {
 	
 	public Long getPopularity();
 	
-	public void setPopularity(Long popularity); // Only for the tag cloud
-	
 	public Set<Long> expandToIdsOfSubtree(TagRepository tagRepository) 
 	throws Exception;
 	
