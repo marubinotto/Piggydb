@@ -390,7 +390,8 @@ a.filter:hover {
 
 .tag-palette .tag-cloud span.tag-cloud-entry {
 	white-space: nowrap;
-	margin-right: 5px;
+	margin-right: 3px;
+	vertical-align: middle;
 }
 
 .tag-palette .tag-cloud span.tag-cloud-entry span.miniTagIcon {
