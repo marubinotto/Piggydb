@@ -1,7 +1,7 @@
 #if ($tags.totalSize > 0)
-#tagPaletteHeader()
 
 #if ($tags.isFirstPage())
+#tagPaletteHeader()
 <table border="0">
 <tr>
 	<td>
@@ -19,8 +19,7 @@
 #if (!$tags.isLastPage())
 <tr>
 	<td align="center">
-		<a class="show-more" href="#" 
-			onclick="${jsPaletteRef}.showMore(this); return false;">
+		<a class="show-more" href="#" onclick="${jsPaletteRef}.showMore(this); return false;">
 		<img src="$context/images/resultset-next.png" border="0" alt=""/></a>
 	</td>
 </tr>
