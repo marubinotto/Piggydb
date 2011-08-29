@@ -1,8 +1,9 @@
 #if ($tags.size() > 0)
+#tagPaletteHeader()
+
 <table border="0">
-#tagPaletteHeaderRow()
 <tr>
-	<td colspan="4">
+	<td>
 		<div class="tag-cloud">
   	#foreach ($tag in $tags)
   		<span class="tag-cloud-entry" style="font-size: ${tag.attributes.fontSize}px;">

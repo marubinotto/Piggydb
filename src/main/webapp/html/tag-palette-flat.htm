@@ -1,10 +1,10 @@
 #if ($tags.totalSize > 0)
-	
+#tagPaletteHeader()
+
 #if ($tags.isFirstPage())
 <table border="0">
-#tagPaletteHeaderRow()
 <tr>
-	<td colspan="4">
+	<td>
 		<ul class="liquid-blocks">
   	#foreach ($tag in $tags)
 			<li class="liquid-block">
@@ -18,7 +18,7 @@
 </tr>
 #if (!$tags.isLastPage())
 <tr>
-	<td colspan="4" align="center">
+	<td align="center">
 		<a class="show-more" href="#" 
 			onclick="${jsPaletteRef}.showMore(this); return false;">
 		<img src="$context/images/resultset-next.png" border="0" alt=""/></a>

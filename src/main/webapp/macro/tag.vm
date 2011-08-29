@@ -83,10 +83,11 @@ $utils.raw($superTagForm.endTag())
 
 
 
-#macro ( tagPaletteHeaderRow ) 
+#macro ( tagPaletteHeader ) 
 
+<table class="tag-palette-header" border="0" style="width: 100%;">
 <tr>
-	<td colspan="3">
+	<td>
 		<div class="select-switch" style="padding: 2px;">
       <button type="button" #tagPaletteButtonContent("tree", $viewType)
 			/></button><button type="button" #tagPaletteButtonContent("cloud", $viewType)
@@ -94,14 +95,14 @@ $utils.raw($superTagForm.endTag())
 			/></button>
     </div>
 	</td>
-	<td>
+	<td align="center" style="width: 20px;">
 	#if ($enableClose)
-    <a class="close" href="#" 
-			onclick="${jsPaletteRef}.close(); return false;">
+    <a class="close" href="#" onclick="${jsPaletteRef}.close(); return false;">
     <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
 	#end
   </td>
 </tr>
+</table>
 
 #end
 
