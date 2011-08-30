@@ -90,15 +90,14 @@ $utils.raw($subTagForm.startTag())
       <script type="text/javascript">
       //<![CDATA[
         jQuery(function() {
-          new TagPalette(
-            jQuery("#subtag-tag-palette"), 
-            function(source, tagId, tagName, palette) {
-              var input = jQuery("#$subTagForm.fields.tag.id");
-              input.val(tagName);
-              palette.close();
-              input.focus();
-            },
-            jQuery("#subtag-tag-pulldown"));
+          var palette = new TagPalette(jQuery("#subtag-tag-palette"));
+          palette.onTagSelect = function(source, tagId, tagName, palette) {
+            var input = jQuery("#$subTagForm.fields.tag.id");
+            input.val(tagName);
+            palette.close();
+            input.focus();
+          };
+					palette.init(jQuery("#subtag-tag-pulldown"));
         });
       //]]>
       </script>
