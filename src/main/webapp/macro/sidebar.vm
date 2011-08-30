@@ -89,6 +89,7 @@
 ## so the property will be set to "none" after the height is decided.
 ##
 #sidebarEntryHeader("sidebar-tag-palette" $messages.get("tag-palette") "$context/style/images/tag.png" $null)
+#set ($paletteViewType = $utils.getUiState($session, "sidebar-tag-palette.viewType", "tree"))
 #set ($heightKey = "sidebar-tag-palette-height")
 #set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
 <script type="text/javascript">
@@ -96,13 +97,9 @@
   var sidebarTagPaletteInitialized = false;
 
   function initSidebarTagPalette() {
-    var palette = new TagPalette(
-      jQuery("#sidebar-tag-palette .tag-palette"), 
-      function(source, tagId, tagName, palette) {
-        if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
-          document.location.href = TAG_URL_PREFIX + tagId;
-      },
-      null);
+    var palette = new TagPalette(jQuery("#sidebar-tag-palette .tag-palette"));
+		palette.sessionName = "sidebar-tag-palette";
+		palette.viewType = "$paletteViewType";
 		palette.autoHeight = false;
     palette.onPaletteInit = function () {
       var resizableDiv = jQuery("#sidebar-tag-palette .tag-palette-resizable-div");
@@ -118,12 +115,16 @@
         }
       })
     };
-    
+		palette.onTagSelect = function(source, tagId, tagName, palette) {
+      if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
+        document.location.href = TAG_URL_PREFIX + tagId;
+    };    
   #if (!$user.isViewer())
     palette.onPaletteUpdate = function () {
       jQuery("#sidebar-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);
     };
   #end
+		palette.init(null);
 
     sidebarTagPaletteInitialized = true;
   }
@@ -132,8 +133,7 @@
     var sidebarTagPalette = SidebarEntry.instances["sidebar-tag-palette"];
     sidebarTagPalette.toggle.onShow = function () {
       if (!sidebarTagPaletteInitialized) initSidebarTagPalette();
-    };
-    
+    };   
     if (!sidebarTagPalette.isContentHidden()) initSidebarTagPalette();
   });
 //]]>

@@ -278,28 +278,21 @@ var ClassUtils = {
   }
 };
 
-function TagPalette(paletteDiv, onTagSelect, toggleButton) {
+function TagPalette(paletteDiv) {
   this.ref = "TagPalette.instances[" + ClassUtils.registerInstance(this, TagPalette) + "]";
   
   this.paletteDiv = paletteDiv;
-  this.onTagSelect = onTagSelect;
+  
+  this.viewType = "tree";
+  this.sessionName = null;
+  this.autoHeight = true;
+  
   this.onPaletteInit = null;
   this.onPaletteUpdate = null;
-  this.autoHeight = true;
+  this.onTagSelect = null;
+  
   this.breadcrumbs = [];	// breadcrumb: [0] tagId, [1] toChildren(true/false)
   this.flatIndex = 0;
-  
-  if (toggleButton != null) {
-    this.toggleButton = toggleButton;
-    var outer = this;
-    this.toggleButton.click(function() {
-      outer.onToggleButtonClick();
-      return false;
-    });
-  }
-  else {
-    this.init();
-  }
 }
 TagPalette.CLASS_OPENED = "pulled";
 TagPalette.DRAGGABLE_SETTINGS = { 
@@ -310,20 +303,38 @@ TagPalette.DRAGGABLE_SETTINGS = {
   zIndex: 120
 };
 TagPalette.prototype = {
-  init: function() {
+	init: function(toggleButton) {
+		if (toggleButton != null) {
+	    this.toggleButton = toggleButton;
+	    var outer = this;
+	    this.toggleButton.click(function() {
+	      outer.onToggleButtonClick();
+	      return false;
+	    });
+	  }
+	  else {
+	    this.open();
+	  }
+	},
+	
+  open: function() {
     this.breadcrumbs = [];  
     this.paletteDiv.empty().show();
-    this.updatePaletteTree({}, true);
+    this.switchView(this.viewType, true);
+  },
+  
+  switchView: function(name, init) {
+  	if (name == "flat")
+  		this.updatePaletteFlat({}, init);
+  	else if (name == "cloud")
+  		this.updatePaletteCloud(init);
+  	else
+  		this.updatePaletteTree({}, init);
   },
   
   onViewSwitchClick: function(button, name) {
   	if (!clickSelectSwitch(button)) return;
-  	if (name == "flat")
-  		this.updatePaletteFlat({}, false);
-  	else if (name == "cloud")
-  		this.updatePaletteCloud(false);
-  	else
-  		this.toRoot();
+  	this.switchView(name, false);
   },
   
   onToggleButtonClick: function() {
@@ -332,7 +343,7 @@ TagPalette.prototype = {
     } 
     else {
       this.toggleButton.addClass(TagPalette.CLASS_OPENED);
-      this.init();
+      this.open();
     }
   },
   
@@ -409,6 +420,7 @@ TagPalette.prototype = {
   setCommonParams: function(params) {
   	params.jsPaletteRef = this.ref;
   	params.enableClose = this.toggleButton != null;
+  	if (this.sessionName != null) params.sessionName = this.sessionName;
   },
   
   updatePalette: function(html, init) {

@@ -4,6 +4,7 @@ public abstract class AbstractTagPalette extends AbstractHtmlFragment {
 
 	public String jsPaletteRef;
 	public boolean enableClose = false;
+	public String sessionName = null;
 	
 	public String viewType;
 	
@@ -12,6 +13,9 @@ public abstract class AbstractTagPalette extends AbstractHtmlFragment {
 		super.setModels();
 		
 		this.viewType = getViewType();
+		if (this.sessionName != null) {
+			getSession().getUiState().put(this.sessionName + ".viewType", this.viewType);
+		}
 	}
 	
 	protected abstract String getViewType();

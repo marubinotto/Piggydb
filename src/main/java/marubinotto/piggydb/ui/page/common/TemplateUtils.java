@@ -48,6 +48,14 @@ public class TemplateUtils {
 		Object value = map.get(key);
 		return value != null ? value : defaultValue;
 	}
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public Object getUiState(Map map, String key, String defaultValue) {
+		Map<String, Object> uiState = (Map<String, Object>)map.get(Session.SK_UI_STATE);
+		if (uiState == null) return defaultValue;
+		Object value = uiState.get(key);
+		return value != null ? value : defaultValue;
+	}
 
 	public Object renderMenuItem(Object item, final MessagesMap messages) {
 		if (item == null) {

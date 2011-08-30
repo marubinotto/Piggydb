@@ -1,6 +1,8 @@
 package marubinotto.piggydb.ui.page.common;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public class Session {
 	private static final String SK_CLIENT_ADDRESS = "clientAddress";
 	private static final String SK_USER_AGENT = "userAgent";
 	private static final String SK_SELECTED_FRAGMENTS = "selectedFragments";
+	public static final String SK_UI_STATE = "ui-state";
 
 	private Context context;
 	private HttpServletRequest request;
@@ -52,7 +55,8 @@ public class Session {
 
 		logger.debug("Session {");
 		for (Enumeration e = session.getAttributeNames(); e.hasMoreElements();) {
-			logger.debug("  " + e.nextElement());
+			String name = (String)e.nextElement();
+			logger.debug("  " + name + " => " + session.getAttribute(name));
 		}
 		logger.debug("}");
 	}
@@ -176,6 +180,16 @@ public class Session {
 			new Factory<SelectedFragments>() {
 				public SelectedFragments create() {
 					return new SelectedFragments();
+				}
+			});
+	}
+	
+	public Map<String, Object> getUiState() {
+		return createOrGet(
+			SK_UI_STATE,
+			new Factory<Map<String, Object>>() {
+				public Map<String, Object> create() {
+					return new HashMap<String, Object>();
 				}
 			});
 	}
