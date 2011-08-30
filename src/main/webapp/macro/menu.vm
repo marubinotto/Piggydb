@@ -49,23 +49,20 @@
             <script type="text/javascript">
             //<![CDATA[
               jQuery(function() {
-                var globaTagPalette = new TagPalette(
-                  jQuery("#global-tag-palette"), 
-                  function(source, tagId, tagName, palette) {
-                    if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
-                      document.location.href = TAG_URL_PREFIX + tagId;
-                  },
-                  jQuery("#global-tag-pulldown"));
-									
+                var globaTagPalette = new TagPalette(jQuery("#global-tag-palette"));
+								globaTagPalette.onTagSelect = function(source, tagId, tagName, palette) {
+                  if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
+                    document.location.href = TAG_URL_PREFIX + tagId;
+                };
 								globaTagPalette.decideMaxHeight = function () {
 									return jQuery(window).height() - 50;
-								};
-								
+								};							
               #if (!$user.isViewer())
                 globaTagPalette.onPaletteUpdate = function () {
                   jQuery("#global-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);
                 };
               #end
+								globaTagPalette.init(jQuery("#global-tag-pulldown"));
               });
             //]]>
             </script>
