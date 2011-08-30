@@ -19,15 +19,14 @@
 <script type="text/javascript">
 //<![CDATA[
   jQuery(function() {
-    new TagPalette(
-      jQuery("#${tagInput.id}-tag-palette"), 
-      function(source, tagId, tagName, palette) {
-        var input = jQuery("#${tagInput.id}");
-        input.val(tagName);
-        palette.close();
-        input.focus();
-      },
-      jQuery("#${tagInput.id}-pulldown"));
+    var palette = new TagPalette(jQuery("#${tagInput.id}-tag-palette"));
+		palette.onTagSelect = function(source, tagId, tagName, palette) {
+      var input = jQuery("#${tagInput.id}");
+      input.val(tagName);
+      palette.close();
+      input.focus();
+    };
+    palette.init(jQuery("#${tagInput.id}-pulldown"));
   });
 //]]>
 </script>
