@@ -85,19 +85,18 @@ $utils.raw($form.startTag())
       <script type="text/javascript">
       //<![CDATA[
         jQuery(function() {
-          new TagPalette(
-            jQuery("#${this.name}-tag-palette"),
-            function(source, tagId, tagName, palette) {
-              var input = jQuery("#${this.name} input[name='tags']");
-              var tags = jQuery.trim(input.val());
-              if (tags == null || tags == "")
-                tags = tagName;
-              else
-                tags = tags + ", " + tagName;
-              input.val(tags);
-              input.focus();
-            },
-            jQuery("#${this.name} button.pulldown"));
+          var palette = new TagPalette(jQuery("#${this.name}-tag-palette"));
+					palette.onTagSelect = function(source, tagId, tagName, palette) {
+            var input = jQuery("#${this.name} input[name='tags']");
+            var tags = jQuery.trim(input.val());
+            if (tags == null || tags == "")
+              tags = tagName;
+            else
+              tags = tags + ", " + tagName;
+            input.val(tags);
+            input.focus();
+          };
+          palette.init(jQuery("#${this.name} button.pulldown"));
         });
       //]]>
       </script>
