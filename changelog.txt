@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.0-dev5 (2011-08-30) == #v5.0-dev5
+
+ * Added a cloud view to Tag Palette
+ * Updated the Sidebar Tag Palette to save view selection
+
 == Changes in version 5.0-dev4 (2011-08-25) == #v5.0-dev4
 
  * Updated the fragment part of the tag page to have full-fledged features
