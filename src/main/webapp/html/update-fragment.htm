@@ -3,7 +3,7 @@
 	<div class="res-error">
 		<div class="error">$error</div>
 	</div>
-#end
+#else
   <div class="res-title">
   	<span class="title">$fragment.title &nbsp;</span>
   	<span class="headline">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
@@ -16,4 +16,5 @@
 	<div class="res-update-info">
 		#fragmentUpdateInfo($fragment)
 	</div>
+#end
 </div>

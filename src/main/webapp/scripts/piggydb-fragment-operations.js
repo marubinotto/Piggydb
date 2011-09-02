@@ -325,9 +325,9 @@ var QuickEdit = {
 				editorDiv.show();
 				return;
 			}
-			else {
-				editorDiv.empty().show();
-			}
+			
+			// prepare to show the new content
+			editorDiv.empty().show();
 			
 			// new title
 	  	if (fragment.isFull())

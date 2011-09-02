@@ -2,6 +2,7 @@ package marubinotto.piggydb.ui.page.html;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.util.CodedException;
 import marubinotto.util.procedure.Procedure;
 
 public class UpdateFragment extends AbstractSingleFragment {
@@ -22,7 +23,9 @@ public class UpdateFragment extends AbstractSingleFragment {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		if (this.fragment == null) return;
+		if (this.fragment == null) {
+			throw new CodedException("no-such-fragment", String.valueOf(this.id));
+		}
 		
 		this.fragment.setTitleByUser(trimToNull(this.title), getUser());
 		this.fragment.setContentByUser(this.content, getUser());
