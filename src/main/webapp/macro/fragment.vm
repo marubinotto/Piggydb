@@ -140,7 +140,7 @@
 <span class="fragment-tools">
   <span class="fragment-id" style="display: none;">$fragment.id</span>
   #if ($fragmentHeadline)
-    <span class="fragment-headline" style="display: none;">$fragmentHeadline</span>
+    <span class="fragment-title" style="display: none;">$fragmentHeadline</span>
   #end
 
 #if (!$user.isViewer())

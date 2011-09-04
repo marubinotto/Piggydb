@@ -147,7 +147,7 @@ function makeFragmentsDroppable(selector, hoverClass) {
       if (ui.draggable.hasClass("relation-draggable")) {
         var fromId = ui.draggable.find(".fragment-id").text();
         var fromTitle = ui.draggable.find(".fragment-title").text();
-        var toTitle = jQuery(this).find(".fragment-tools .fragment-headline:first").text();
+        var toTitle = jQuery(this).find(".fragment-tools .fragment-title:first").text();
         var message = "$messages.get("confirm-create-relation")" +
           '<div class="detail">' + 
           "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
