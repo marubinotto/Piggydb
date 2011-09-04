@@ -312,11 +312,12 @@ var QuickEdit = {
 	onUpdate: function(button) {
 		var fragment = new Fragment(button);
 		
+		var fragmentId = fragment.id();
 		var editorDiv = jQuery(button).closest("div.fragment-editor");
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
 		var params = {
-			id: fragment.id(),
+			id: fragmentId,
 			title: editorDiv.find("input.fragment-title").val(),
 			content: editorDiv.find("textarea.fragment-content").val()};
 		if (editorDiv.find("input.fragment-minorEdit").get(0).checked) {
@@ -343,7 +344,7 @@ var QuickEdit = {
 			
 			// new title
 			Fragment.syncTitles(
-				fragment.id(), 
+				fragmentId, 
 				html.find("div.res-title span.title").html(),
 				html.find("div.res-title span.headline").html());
 	  	
@@ -364,7 +365,7 @@ var QuickEdit = {
 	  	fragment.header().find("span.update-info").html(
 	  		html.find("div.res-update-info span.update-info").html());
 	  	
-		  fragment.highlight();
+	  	Fragment.highlight(fragmentId, null);
 		});
 	}
 };
