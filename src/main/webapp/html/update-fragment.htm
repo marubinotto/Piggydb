@@ -5,9 +5,9 @@
 	</div>
 #else
   <div class="res-title">
-  	<span class="title">$fragment.title &nbsp;</span>
-		<span class="title-short">$fragment.makeHeadline(15) &nbsp;</span>
-  	<span class="headline">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span>
+  	<span class="title">$utils.blankToNbsp($fragment.title)</span>
+		<span class="title-short">$utils.blankToNbsp($fragment.makeHeadline(15))</span>
+  	<span class="headline">$utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))</span>
   </div>
   <div class="res-content">
   #if ($fragment.content && $fragment.content.trim() != "")
