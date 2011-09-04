@@ -160,7 +160,7 @@ SelectedFragments.prototype = {
         return "selectedFragments.remove('" + arg.context.id + "'); return false;";
       }
     };
-    li.autoRender({"id": id, "title": escapeHtml(title)}, directive);
+    li.autoRender({"id": id, "title": title}, directive);
     this.update();
   },
   
@@ -203,9 +203,12 @@ SelectedFragments.prototype = {
     }
   },
   
-  onFragmentChecked: function(checkbox, fragmentId, fragmentTitle) {
+  onFragmentChecked: function(checkbox, fragmentId) {
+  	var fragment = new Fragment(checkbox);
+  	var title = fragment.mainTitleSpan().html();
+  	
     if (checkbox.checked)
-      this.add(fragmentId, fragmentTitle);
+      this.add(fragmentId, title);
     else 
       this.remove(fragmentId);
   }
