@@ -161,6 +161,10 @@ Fragment.prototype = {
 		return this.header().find("span.title");
 	},
 	
+	shortTitleSpan: function() {
+		return this.header().find(".fragment-tools span.fragment-title");
+	},
+	
 	headerRow: function() {
 		return this.header().closest("tr");
 	},
@@ -339,8 +343,8 @@ var QuickEdit = {
 	  	else
 	  		titleSpan.html(html.find("div.res-title span.headline").html());
 	  	
-	  	var shortTitleSpan = fragment.header().find(".fragment-tools span.fragment-title");
-	  	shortTitleSpan.html(html.find("div.res-title span.title-short").html());
+	  	fragment.shortTitleSpan().html(
+	  		html.find("div.res-title span.title-short").html());
 	  	
 	  	// new content
 	  	var newContent = html.find("div.res-content").html();
