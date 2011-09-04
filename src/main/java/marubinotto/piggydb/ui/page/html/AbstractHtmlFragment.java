@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page.html;
 
+import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.common.AbstractMainUiHtml;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.CodedException;
@@ -8,9 +9,15 @@ public abstract class AbstractHtmlFragment extends AbstractMainUiHtml {
 	
 	public String error;
 	
-	// Disable redirect to return an empty response when a session is expired
+	@Override
+	public void setRedirect(String location) {
+		if (location.startsWith(getContext().getPagePath(LoginPage.class)))
+			this.error = getMessage("session-expired");
+	}
+	
 	@Override
 	public String getRedirect() {
+		// Disable redirect
 		return null;
 	}
 
