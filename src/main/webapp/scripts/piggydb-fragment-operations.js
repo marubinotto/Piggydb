@@ -148,6 +148,11 @@ Fragment.onImageClick = function() {
 	Fragment.imageViewer.showImage(this.href);
   return false;
 };
+Fragment.syncTitles = function(id, title, headline) {
+	var selector = ".fragment-header-" + id + " span.title";
+	jQuery(selector).html(headline);
+	jQuery("table.fragment-full " + selector).html(title);
+};
 Fragment.prototype = {
 	id: function() {
 		return this.root.find("span.fragment-id:first").text();
@@ -337,11 +342,10 @@ var QuickEdit = {
 			editorDiv.empty().show();
 			
 			// new title
-			var titleSpan = fragment.mainTitleSpan();
-	  	if (fragment.isFull())
-	  		titleSpan.html(html.find("div.res-title span.title").html());
-	  	else
-	  		titleSpan.html(html.find("div.res-title span.headline").html());
+			Fragment.syncTitles(
+				fragment.id(), 
+				html.find("div.res-title span.title").html(),
+				html.find("div.res-title span.headline").html());
 	  	
 	  	fragment.shortTitleSpan().html(
 	  		html.find("div.res-title span.title-short").html());
