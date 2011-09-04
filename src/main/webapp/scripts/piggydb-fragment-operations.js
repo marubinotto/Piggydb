@@ -157,6 +157,10 @@ Fragment.prototype = {
 		return this.root.find("div.fragment-header:first");
 	},
 	
+	mainTitleSpan: function() {
+		return this.header().find("span.title");
+	},
+	
 	headerRow: function() {
 		return this.header().closest("tr");
 	},
@@ -299,7 +303,6 @@ var QuickEdit = {
 	onUpdate: function(button) {
 		var fragment = new Fragment(button);
 		
-		var titleSpan = fragment.header().find("span.title");
 		var editorDiv = jQuery(button).closest("div.fragment-editor");
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
@@ -330,10 +333,14 @@ var QuickEdit = {
 			editorDiv.empty().show();
 			
 			// new title
+			var titleSpan = fragment.mainTitleSpan();
 	  	if (fragment.isFull())
 	  		titleSpan.html(html.find("div.res-title span.title").html());
 	  	else
 	  		titleSpan.html(html.find("div.res-title span.headline").html());
+	  	
+	  	var shortTitleSpan = fragment.header().find(".fragment-tools span.fragment-title");
+	  	shortTitleSpan.html(html.find("div.res-title span.title-short").html());
 	  	
 	  	// new content
 	  	var newContent = html.find("div.res-content").html();
