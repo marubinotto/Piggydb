@@ -151,7 +151,7 @@ Fragment.onImageClick = function() {
 Fragment.syncTitles = function(id, title, headline) {
 	var selector = ".fragment-header-" + id + " span.title";
 	jQuery(selector).html(headline);
-	jQuery("table.fragment-full th.header-cell:first " + selector).html(title);
+	jQuery("table.fragment-full > tbody > tr > th.header-cell " + selector).html(title);
 };
 Fragment.prototype = {
 	id: function() {
