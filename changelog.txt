@@ -1,6 +1,14 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.0 (2011-09-06) == #v5.0
+
+ * Fixed a bug - http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/19
+ * Improved Quick Edit: synchronizing all the fragment titles in the page after update
+ * Added Ajax error handling
+   * the session expired during quick-editing 
+   * the target fragment has been deleted during quick-editing
+
 == Changes in version 5.0-dev5 (2011-08-30) == #v5.0-dev5
 
  * Added a cloud view to Tag Palette
