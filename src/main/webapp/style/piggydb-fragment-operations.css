@@ -256,8 +256,8 @@ table.fragment td.subfragment-links  {
  
 td.fragment-body {
   padding: 0px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 td.fragment-body .fragment-content a.tag {
@@ -279,9 +279,18 @@ td.fragment-body .fragment-content pre {
   padding-bottom: 0.5em;
 }
 
-td.fragment-body .fragment-content pre.pre-fragment {
-  padding-left: 5px;
+td.fragment-body .fragment-content pre {
+	background-color: #f5f5f5;	
+	padding-left: 5px;
   padding-right: 5px;
+	
+	white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+td.fragment-body .fragment-content pre.pre-fragment {
+	background-color: white;
+	padding: 0px;
 }
 
 td.fragment-body .fragment-content ul {
