@@ -33,7 +33,6 @@ public class GetPopularTagsTest extends TagRepositoryTestBase {
 	
 	@Test
 	public void oneUsed() throws Exception {
-		this.object.register(newTag("lang"));
 		this.object.register(newTagWithTags("java", "lang"));
 		
 		List<Tag> results = this.object.getPopularTags(10);
@@ -46,7 +45,6 @@ public class GetPopularTagsTest extends TagRepositoryTestBase {
 	@Test
 	public void twoUsed() throws Exception {
 		// Given
-		this.object.register(newTag("lang"));
 		this.object.register(newTagWithTags("java", "lang"));
 		this.object.register(newTagWithTags("ruby", "lang"));
 		this.object.register(newTagWithTags("javabeans", "java"));
@@ -67,7 +65,6 @@ public class GetPopularTagsTest extends TagRepositoryTestBase {
 	@Test
 	public void oneOutOfTwo() throws Exception {
 		// Given
-		this.object.register(newTag("lang"));
 		this.object.register(newTagWithTags("java", "lang"));
 		this.object.register(newTagWithTags("ruby", "lang"));
 		this.object.register(newTagWithTags("javabeans", "java"));
@@ -80,5 +77,16 @@ public class GetPopularTagsTest extends TagRepositoryTestBase {
 		
 		assertEquals("lang", results.get(0).getName());
 		assertEquals(2, results.get(0).getPopularity().longValue());
+	}
+	
+	@Test
+	public void excludeSystemTags() throws Exception {
+		this.object.register(newTagWithTags("java", "lang", "#system"));
+		
+		List<Tag> results = this.object.getPopularTags(10);
+		
+		assertEquals(1, results.size());
+		assertEquals("lang", results.get(0).getName());
+		assertEquals(1, results.get(0).getPopularity().longValue());
 	}
 }

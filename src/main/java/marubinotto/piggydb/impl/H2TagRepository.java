@@ -384,6 +384,7 @@ public class H2TagRepository extends TagRepository.Base {
 		sql.append(", count(tag.tag_id) as popularity");
 		sql.append(" from tagging, tag");
 		sql.append(" where tagging.tag_id = tag.tag_id");
+		sql.append(" and tag.tag_name not like '" + Tag.PREFIX_SYSTEM_TAG + "%'");
 		sql.append(" and tagging.target_type in (");
 		sql.append(QueryUtils.TAGGING_TARGET_TAG);
 		sql.append(", " + QueryUtils.TAGGING_TARGET_FRAGMENT + ")");
