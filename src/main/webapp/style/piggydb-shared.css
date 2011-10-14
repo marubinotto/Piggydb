@@ -545,6 +545,25 @@ a.filter:hover {
  * Contents of Global Tools
  */
 
+#global-tools .keyword-search {
+}
+
+#searchForm_keywords {
+  margin: 0px;
+  padding: 1px;
+  border-top: solid 1px #777;
+  border-left: solid 1px #777;
+  border-bottom:solid 1px  #eaeaea;
+  border-right: solid 1px #eaeaea;
+  width: 100px;
+  height: 13px;
+  font-size: 10px;
+  vertical-align: top;
+}
+
+#global-tools .tag-pulldown {
+}
+
 #global-tools a.pulled img {
   border-top: solid 1px #777;
   border-left: solid 1px #777;
@@ -561,30 +580,27 @@ a.filter:hover {
   line-height: normal;
 }
 
-#searchForm_keywords {
-  margin: 0px;
-  padding: 1px;
-  border-top: solid 1px #777;
-  border-left: solid 1px #777;
-  border-bottom:solid 1px  #eaeaea;
-  border-right: solid 1px #eaeaea;
-  width: 100px;
-  height: 13px;
-  font-size: 10px;
-  vertical-align: top;
+#global-tools .login-user ul.menubar {
+	margin-top: -5px;
 }
 
-#global-tools .login-user a {
+#global-tools .login-user a.user-name {
 	color: #555;
-	text-decoration: none;
+	padding: 3px 6px;
 }
 
-#global-tools .login-user a:hover {
-  text-decoration: underline;
+#global-tools .login-user ul.submenu {
+	right: 0px; 
+	width: auto;
 }
 
-#global-tools .login-user .user-name {
-  vertical-align: top;
+#global-tools .login-user ul.submenu a {
+	padding-left: 10px; 
+	padding-right: 10px;
+}
+
+#global-tools .to-login {
+	padding-right: 5px;
 }
 
 

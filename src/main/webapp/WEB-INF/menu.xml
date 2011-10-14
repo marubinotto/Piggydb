@@ -8,7 +8,6 @@
   </menu>
   
   <menu label="menu-system" path="home.htm" roles="owner" imageSrc="/images/system.png">
-    <menu label="menu-change-password" path="password.htm" roles="owner,internal-user"/>
     <menu label="menu-export" path="export.htm" roles="owner"/>
     <menu label="menu-restore" path="restore.htm" roles="owner"/>
     <menu label="menu-system-info" path="system-info.htm" roles="owner"/>

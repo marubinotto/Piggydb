@@ -198,8 +198,8 @@ div.message .fragment-title {
   position: absolute; 
   right: 0px; 
   margin-right: 0px;
+  padding: 0px;
   padding-top: 5px;
-  padding-right: 5px;
 }
 
 #global-tools .nowrap-frame {

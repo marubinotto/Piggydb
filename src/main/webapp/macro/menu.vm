@@ -5,27 +5,23 @@
   <td>
     <div class="menustyle" id="menu" style="position: relative;">
       <ul class="menubar" id="dmenu">      
-#foreach ($topMenu in $rootMenu.children)
-  #if ($topMenu.isUserInRoles() || $topMenu.isUserInChildMenuRoles())
-    #if ($topMenu.children.empty)
-      <li class="topitem">$utils.renderMenuItem($topMenu, $messages)</li>
-    #else
-      <li class="topitem">$utils.renderMenuItem($topMenu, $messages)
-        <ul class="submenu"
-        #foreach ($subMenu in $topMenu.children)
-          #if ($subMenu.isUserInRoles())
-            ><li>$utils.renderMenuItem($subMenu, $messages)</li
+      #foreach ($topMenu in $rootMenu.children)
+        #if ($topMenu.isUserInRoles() || $topMenu.isUserInChildMenuRoles())
+          #if ($topMenu.children.empty)
+            <li class="topitem">$utils.renderMenuItem($topMenu, $messages)</li>
+          #else
+            <li class="topitem">$utils.renderMenuItem($topMenu, $messages)
+              <ul class="submenu"
+              #foreach ($subMenu in $topMenu.children)
+                #if ($subMenu.isUserInRoles())
+                  ><li>$utils.renderMenuItem($subMenu, $messages)</li
+                #end
+              #end
+              ></ul>
+            </li>
           #end
         #end
-        ></ul>
-      </li>
-    #end
-  #end
-#end
-#if ($user && !$user.isAnonymous())
-  <li class="topitem"><a href="$utils.raw($logoutLink.href)"><img 
-    border="0" class="link" src="$context/images/logout.png" alt=""/>$messages.get("menu-logout")</a></li>
-#end
+      #end
         <li style="display: none;">&nbsp;</li> ## dummy for xhtml validity
       </ul>
 
@@ -33,7 +29,8 @@
       <div id="global-tools">
         <table class="nowrap-frame" border="0">
         <tr>
-          <td nowrap="nowrap">
+					## Keyword Search
+          <td class="keyword-search" nowrap="nowrap">
             <form id="search-form" action="$context/search.htm" method="get">
               <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/><a 
                 class="tool-button" href="#" title="$messages.get("search")"
@@ -44,8 +41,10 @@
                     ><img src="$context/images/jump-to-tag.png" border="0" alt="$messages.get("jump-to-tag")"/></a>
             </form>
           </td>
+					
+					## Global Tag Pulldown
           <td class="separator"></td>
-          <td nowrap="nowrap">
+          <td class="tag-pulldown" nowrap="nowrap">
             <script type="text/javascript">
             //<![CDATA[
               jQuery(function() {
@@ -71,18 +70,32 @@
             <br/>
             <div class="pulldown-box tag-palette" id="global-tag-palette"></div>
           </td>
+					
         #if (!$user.isViewer())
+					## Login User Menu
           <td class="separator"></td>
           <td class="login-user" nowrap="nowrap">
-            <a href="$resources.userPath($user.name)">
-            <img src="$context/style/images/tag-user.png" border="0"
-              title="$messages.get("login-user")" alt="$messages.get("login-user")"/>
-            <span class="user-name">$user.name</span></a>
+						<ul class="menubar">
+              <li class="topitem">
+								<a class="user-name" href="$resources.userPath($user.name)">
+								<img class="link" alt="$messages.get("login-user")" 
+									src="$context/style/images/tag-user.png" border="0"/>$user.name
+  							<img border="0" alt="" style="margin: -2px;" 
+									src="$context/style/images/bullet-arrow-down.png"/></a>
+  							
+  							<ul class="submenu">
+  								<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
+  								<li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
+  							</ul>
+              </li>
+            </ul>
           </td>
-        #end
+				#end
+				
         #if ($user.isAnonymous())
+					## Login Link for Anonymous User
           <td class="separator"></td>
-          <td nowrap="nowrap">
+          <td class="to-login" nowrap="nowrap">
             <a class="tool-button" href="$context/login.htm" title="$messages.get("menu-login")">
             <img src="$context/style/images/tag-user.png" border="0" alt="$messages.get("menu-login")"/></a>
           </td>
