@@ -148,17 +148,22 @@ function makeFragmentsDroppable(selector, hoverClass) {
         var fromId = ui.draggable.find(".fragment-id").text();
         var fromTitle = ui.draggable.find(".fragment-title").text();
         var toTitle = jQuery(this).find(".fragment-tools .fragment-title:first").text();
-        var message = "$messages.get("confirm-create-relation")" +
-          '<div class="detail">' + 
-          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
-          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
-          "<strong>#" + targetId + "<\/strong> " + escapeHtml(toTitle) + "<\/div>";
-        showConfirmDialog("$messages.get("create-relation")", message, "$messages.get("create")", function () {
-          var fm = document.forms['createRelationForm'];
-          fm.fromId.value = fromId;
-          fm.toId.value = targetId;
-          fm.submit();
-        });
+        var message = jQuery(jQuery("#tpl-confirm-create-relation").html());
+				message.find(".from-id").text(fromId);
+				message.find(".from-title").text(escapeHtml(fromTitle));
+				message.find(".to-id").text(targetId);
+				message.find(".to-title").text(escapeHtml(toTitle));
+        showConfirmDialog(
+					"$messages.get("create-relation")", 
+					message.html(), 
+					"$messages.get("create")", 
+					function () {
+            var fm = document.forms['createRelationForm'];
+            fm.fromId.value = fromId;
+            fm.toId.value = targetId;
+            fm.submit();
+          }
+				);
       }
     }
   });

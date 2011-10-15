@@ -14,6 +14,19 @@
   </div>
 </div>
 
+<div id="tpl-confirm-create-relation">
+	<div>
+  	$messages.get("confirm-create-relation")
+  	<div class="detail">
+  		<strong>#<span class="from-id">&nbsp;</span></strong>
+  		<span class="from-title">&nbsp;</span>
+  		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
+  		<strong>#<span class="to-id">&nbsp;</span></strong>
+  		<span class="to-title">&nbsp;</span>
+  	</div>
+	</div>
+</div>
+
 <div id="tpl-fragment-body-row-with-empty-text">
 	<table border="0">
 	<tbody>
