@@ -8,7 +8,7 @@
 
 <div id="tpl-dialog-confirm">
   <div class="dialog-confirm" title="">
-    <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;">
+    <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;">
       <img src="$context/images/empty.png" border="0" width="0" height="0" alt=""/>
     </span>
   </div>
@@ -17,13 +17,26 @@
 <div id="tpl-confirm-create-relation">
 	<div>
   	$messages.get("confirm-create-relation")
-  	<div class="detail">
-  		<strong>#<span class="from-id">&nbsp;</span></strong>
-  		<span class="from-title">&nbsp;</span>
-  		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
-  		<strong>#<span class="to-id">&nbsp;</span></strong>
-  		<span class="to-title">&nbsp;</span>
-  	</div>
+		<div class="detail" style="padding-left: 0px;">
+  		<ul class="relation-types">
+  			<li>
+					<input type="radio" name="relationType" value="one-way" checked="checked"/>
+      		<strong>#<span class="from-id">&nbsp;</span></strong>
+      		<span class="from-title">&nbsp;</span>
+      		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
+      		<strong>#<span class="to-id">&nbsp;</span></strong>
+      		<span class="to-title">&nbsp;</span>
+  			</li>
+  			<li>
+					<input type="radio" name="relationType" value="two-way"/>
+      		<strong>#<span class="from-id">&nbsp;</span></strong>
+      		<span class="from-title">&nbsp;</span>
+      		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
+      		<strong>#<span class="to-id">&nbsp;</span></strong>
+      		<span class="to-title">&nbsp;</span>
+  			</li>
+  		</ul>
+		</div>
 	</div>
 </div>
 

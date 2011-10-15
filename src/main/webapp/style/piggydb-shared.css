@@ -41,7 +41,9 @@ table.form {
 }
 
 .ui-dialog .dialog-confirm .detail {
-	padding-top: 10px;
+	clear: both;
+	margin-top: 10px;
+	padding-left: 10px;
 }
 
 .ui-dialog .dialog-confirm .detail img {
@@ -50,6 +52,18 @@ table.form {
 
 .ui-dialog .ui-dialog-buttonset {
   font-size: 12px;
+}
+
+ul.relation-types {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul.relation-types li {
+	margin: 0px;
+	padding: 0px;
+	padding-bottom: 5px;
 }
 
 

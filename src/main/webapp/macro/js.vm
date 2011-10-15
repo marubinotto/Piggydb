@@ -192,8 +192,8 @@ function makeSelectedFragmentsDroppable() {
     drop: function(event, ui) {
       // add a tag
       if (ui.draggable.hasClass("tag-palette-draggable")) {
-        var tagId = ui.draggable.find(".tag .id").text();
-        var tagName = ui.draggable.find(".tag .name").text();
+        var tagId = ui.draggable.find("span.tag span.id").text();
+        var tagName = ui.draggable.find("span.tag a.tag").text();
         var message = "$messages.get("confirm-add-tags-to-selected")" +
           '<div class="detail">' + 
           '<span class="' + miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
