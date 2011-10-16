@@ -150,9 +150,9 @@ function makeFragmentsDroppable(selector, hoverClass) {
         var toTitle = jQuery(this).find(".fragment-tools .fragment-title:first").text();
         var message = jQuery(jQuery("#tpl-confirm-create-relation").html());
 				message.find(".from-id").text(fromId);
-				message.find(".from-title").text(escapeHtml(fromTitle));
+				message.find(".from-title").text(fromTitle);
 				message.find(".to-id").text(targetId);
-				message.find(".to-title").text(escapeHtml(toTitle));
+				message.find(".to-title").text(toTitle);
         showConfirmDialog(
 					"$messages.get("create-relation")", 
 					message.html(), 
@@ -197,7 +197,7 @@ function makeSelectedFragmentsDroppable() {
         var message = "$messages.get("confirm-add-tags-to-selected")" +
           '<div class="detail">' + 
           '<span class="' + miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
-          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
           "$messages.get("selected-fragments")<\/div>";
         showConfirmDialog("$messages.get("add-tag")", message, "$messages.get("add")", function () {
           var fm = document.forms['addTagsToSelectedForm'];
@@ -213,7 +213,7 @@ function makeSelectedFragmentsDroppable() {
         var message = "$messages.get("confirm-create-relations-to-selected")" +
           '<div class="detail">' + 
           "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
-          '<img src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
           "$messages.get("selected-fragments")<\/div>";
         showConfirmDialog("$messages.get("create-relation")", message, "$messages.get("create")", function () {
           var fm = document.forms['createRelationsToSelectedForm'];

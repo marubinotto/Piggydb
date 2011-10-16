@@ -17,25 +17,21 @@
 <div id="tpl-confirm-create-relation">
 	<div>
   	$messages.get("confirm-create-relation")
-		<div class="detail" style="padding-left: 0px;">
-  		<ul class="relation-types">
-  			<li>
-					<input type="radio" name="relationType" value="one-way" checked="checked"/>
-      		<strong>#<span class="from-id">&nbsp;</span></strong>
-      		<span class="from-title">&nbsp;</span>
-      		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
-      		<strong>#<span class="to-id">&nbsp;</span></strong>
-      		<span class="to-title">&nbsp;</span>
-  			</li>
-  			<li>
-					<input type="radio" name="relationType" value="two-way"/>
-      		<strong>#<span class="from-id">&nbsp;</span></strong>
-      		<span class="from-title">&nbsp;</span>
-      		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
-      		<strong>#<span class="to-id">&nbsp;</span></strong>
-      		<span class="to-title">&nbsp;</span>
-  			</li>
-  		</ul>
+		<div class="detail">
+			<div>
+				<strong>#<span class="from-id">&nbsp;</span></strong>
+				<span class="from-title">&nbsp;</span>
+			</div>
+			<div class="two-way-relation">
+  			<input class="arrow-check" type="checkbox"/>
+  			<img src="$context/images/arrow-right.gif" alt="&larr;"/>
+    		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
+  			<input class="arrow-check" type="checkbox" checked="checked"/>
+			</div>
+			<div>
+				<strong>#<span class="to-id">&nbsp;</span></strong>
+				<span class="to-title">&nbsp;</span>
+			</div>
 		</div>
 	</div>
 </div>

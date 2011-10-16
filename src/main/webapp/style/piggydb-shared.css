@@ -46,25 +46,22 @@ table.form {
 	padding-left: 10px;
 }
 
-.ui-dialog .dialog-confirm .detail img {
-	margin: 0 5px;
+.ui-dialog .dialog-confirm .detail img.arrow {
+	margin: 0px 5px;
+}
+
+.ui-dialog .dialog-confirm .detail .two-way-relation {
+	margin: 10px 0px;
+}
+
+.ui-dialog .dialog-confirm .detail .two-way-relation .arrow-check {
+	margin: 0px;
 }
 
 .ui-dialog .ui-dialog-buttonset {
   font-size: 12px;
 }
 
-ul.relation-types {
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-ul.relation-types li {
-	margin: 0px;
-	padding: 0px;
-	padding-bottom: 5px;
-}
 
 
 /* Tool Button */
