@@ -51,11 +51,13 @@ table.form {
 }
 
 .ui-dialog .dialog-confirm .detail .two-way-relation {
-	margin: 10px 0px;
+	margin: 5px 0px;
 }
 
-.ui-dialog .dialog-confirm .detail .two-way-relation .arrow-check {
-	margin: 0px;
+.ui-dialog .dialog-confirm .detail div.from,
+.ui-dialog .dialog-confirm .detail div.to {
+	padding: 5px;
+	background: #eee;
 }
 
 .ui-dialog .ui-dialog-buttonset {

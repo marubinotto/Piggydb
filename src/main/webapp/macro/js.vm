@@ -106,6 +106,8 @@ function showConfirmDialog(title, message, actionLabel, actionHandler) {
     minHeight: 100,
     buttons: buttons
   });
+	dialogContent.closest(".ui-dialog").find(".ui-dialog-buttonset button").get(0).focus();
+	return dialogContent;
 }
 
 function makeFragmentsDroppable(selector, hoverClass) {
@@ -153,7 +155,7 @@ function makeFragmentsDroppable(selector, hoverClass) {
 				message.find(".from-title").text(fromTitle);
 				message.find(".to-id").text(targetId);
 				message.find(".to-title").text(toTitle);
-        showConfirmDialog(
+        var dialog = showConfirmDialog(
 					"$messages.get("create-relation")", 
 					message.html(), 
 					"$messages.get("create")", 

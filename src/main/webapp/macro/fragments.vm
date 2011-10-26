@@ -61,10 +61,10 @@ jQuery(document).ready(function() {
         <div class="select-switch select-ascending-or-not">
           <button type="button" name="ascending"
             #if ($fragmentsViewAscending) class="selected" #end
-            ><img src="$context/images/arrow-down.png" border="0" alt=""/></button><button 
+            ><img src="$context/images/order-ascending.png" border="0" alt=""/></button><button 
           type="button" name="descending"
             #if (!$fragmentsViewAscending) class="selected" #end
-            ><img src="$context/images/arrow-up.png" border="0" alt=""/></button>
+            ><img src="$context/images/order-descending.png" border="0" alt=""/></button>
         </div>
       </td>
     </tr>

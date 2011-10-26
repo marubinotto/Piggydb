@@ -136,7 +136,7 @@
 #macro( fragmentToolBar $fragment )
 
 #set ($fragmentHeadline = false)
-#set ($fragmentHeadline = $fragment.makeHeadline(15))
+#set ($fragmentHeadline = $fragment.makeHeadline(20))
 <span class="fragment-tools">
   <span class="fragment-id" style="display: none;">$fragment.id</span>
   #if ($fragmentHeadline)

@@ -18,17 +18,21 @@
 	<div>
   	$messages.get("confirm-create-relation")
 		<div class="detail">
-			<div>
+			<div class="from">
 				<strong>#<span class="from-id">&nbsp;</span></strong>
 				<span class="from-title">&nbsp;</span>
 			</div>
 			<div class="two-way-relation">
-  			<input class="arrow-check" type="checkbox"/>
-  			<img src="$context/images/arrow-right.gif" alt="&larr;"/>
-    		<img src="$context/images/arrow-right.gif" alt="&rarr;"/>
-  			<input class="arrow-check" type="checkbox" checked="checked"/>
+				<label>
+					<input type="checkbox" checked="checked"/>
+					<img src="$context/images/arrow-down.png" alt="&darr;" style="margin-left: -5px;"/>
+				</label>
+				<label>
+					<img src="$context/images/arrow-up.png" alt="&uarr;" style="margin-right: -5px;"/>
+					<input type="checkbox"/>
+				</label>
 			</div>
-			<div>
+			<div class="to">
 				<strong>#<span class="to-id">&nbsp;</span></strong>
 				<span class="to-title">&nbsp;</span>
 			</div>
