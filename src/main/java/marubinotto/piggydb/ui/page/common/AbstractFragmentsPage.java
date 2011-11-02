@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
@@ -150,27 +151,40 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
 		public HiddenField fromId = new HiddenField("fromId", Long.class);
 		public HiddenField toId = new HiddenField("toId", Long.class);
+		
+		public HiddenField forward = new HiddenField("forward", String.class);
+		public HiddenField backward = new HiddenField("backward", String.class);
 	}
 
 	public CreateRelationForm createRelationForm = new CreateRelationForm(this,
 		"onCreateRelation");
 
 	public final boolean onCreateRelation() throws Exception {
-		final Long fromId = (Long) this.createRelationForm.fromId.getValueObject();
-		final Long toId = (Long) this.createRelationForm.toId.getValueObject();
+		final Long fromId = (Long)this.createRelationForm.fromId.getValueObject();
+		final Long toId = (Long)this.createRelationForm.toId.getValueObject();
+		
 		if (fromId == null || toId == null) {
 			setRedirectToThisPage();
 			return false;
 		}
-
 		if (fromId.equals(toId)) {
 			setRedirectToThisPage(getMessage("cannot-relate-to-itself"));
 			return false;
 		}
+		
+		final String forward = this.createRelationForm.forward.getValue();
+		final String backward = this.createRelationForm.backward.getValue();
+
+		final FragmentRepository repository = getDomain().getFragmentRepository();
 		try {
 			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					getDomain().getFragmentRepository().createRelation(fromId, toId, getUser());
+					// forward
+					if (StringUtils.isNotBlank(forward))
+						repository.createRelation(fromId, toId, getUser());
+					// backward
+					if (StringUtils.isNotBlank(backward))
+						repository.createRelation(toId, fromId, getUser());
 					return null;
 				}
 			});
@@ -184,19 +198,23 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 
+		// Get the node fragments for a result message
 		Map<Long, Fragment> fragments = ModelUtils.toIdMap(
 			getDomain().getFragmentRepository()
 				.getByIds(set(fromId, toId), SortOption.getDefault(), false));
 		Fragment from = fragments.get(fromId);
 		Fragment to = fragments.get(toId);
 		if (from == null || to == null) {
-			// [rare case] either of the fragments has been deleted just after created
-			// the relation
+			// [rare case] either of the fragments has been deleted just after created the relation
 			setRedirectToThisPage();
 			return false;
 		}
-		setRedirectToThisPage(getMessage("completed-create-relation", new Object[]{
-			this.html.fragmentInMessage(from), this.html.fragmentInMessage(to)},
+		
+		setRedirectToThisPage(
+			getMessage("completed-create-relation", 
+			new Object[]{
+				this.html.fragmentInMessage(from), 
+				this.html.fragmentInMessage(to)},
 			false));
 		return false;
 	}

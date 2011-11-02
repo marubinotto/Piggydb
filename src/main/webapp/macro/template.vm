@@ -24,12 +24,12 @@
 			</div>
 			<div class="two-way-relation">
 				<label>
-					<input type="checkbox" checked="checked"/>
+					<input class="forward" type="checkbox" checked="checked"/>
 					<img src="$context/images/arrow-down.png" alt="&darr;" style="margin-left: -5px;"/>
 				</label>
 				<label>
 					<img src="$context/images/arrow-up.png" alt="&uarr;" style="margin-right: -5px;"/>
-					<input type="checkbox"/>
+					<input class="backward" type="checkbox"/>
 				</label>
 			</div>
 			<div class="to">

@@ -160,9 +160,14 @@ function makeFragmentsDroppable(selector, hoverClass) {
 					message.html(), 
 					"$messages.get("create")", 
 					function () {
+						var forward = jQuery(this).find("input.forward")[0].checked;
+						var backward = jQuery(this).find("input.backward")[0].checked;
+					
             var fm = document.forms['createRelationForm'];
             fm.fromId.value = fromId;
             fm.toId.value = targetId;
+						if (forward) fm.forward.value = "on";
+						if (backward) fm.backward.value = "on";
             fm.submit();
           }
 				);
