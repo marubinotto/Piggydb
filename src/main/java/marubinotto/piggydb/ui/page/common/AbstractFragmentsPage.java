@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.common;
 
 import static marubinotto.util.CollectionUtils.set;
+import static org.apache.commons.lang.StringUtils.*;
 
 import java.util.List;
 import java.util.Map;
@@ -160,9 +161,9 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		"onCreateRelation");
 
 	public final boolean onCreateRelation() throws Exception {
+		// [param] fromId, toId
 		final Long fromId = (Long)this.createRelationForm.fromId.getValueObject();
-		final Long toId = (Long)this.createRelationForm.toId.getValueObject();
-		
+		final Long toId = (Long)this.createRelationForm.toId.getValueObject();		
 		if (fromId == null || toId == null) {
 			setRedirectToThisPage();
 			return false;
@@ -172,18 +173,23 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 		
+		// [param] forward, backward
 		final String forward = this.createRelationForm.forward.getValue();
 		final String backward = this.createRelationForm.backward.getValue();
+		if (isBlank(forward) && isBlank(backward)) {
+			setRedirectToThisPage();
+			return false;
+		}
 
 		final FragmentRepository repository = getDomain().getFragmentRepository();
 		try {
 			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					// forward
-					if (StringUtils.isNotBlank(forward))
+					if (isNotBlank(forward))
 						repository.createRelation(fromId, toId, getUser());
 					// backward
-					if (StringUtils.isNotBlank(backward))
+					if (isNotBlank(backward))
 						repository.createRelation(toId, fromId, getUser());
 					return null;
 				}
