@@ -843,8 +843,10 @@ implements RawEntityFactory<RawFragment> {
 		
 		FragmentRelationRowMapper parentMapper = 
 			new FragmentRelationRowMapper(
-				this.relationFactory, "fragment_relation.", 
-				this.fragmentRowMapper, null, 
+				this.relationFactory, 
+				"fragment_relation.", 
+				this.fragmentRowMapper, 
+				null, 
 				results);
 		
 		StringBuilder sql = new StringBuilder();
@@ -875,8 +877,10 @@ implements RawEntityFactory<RawFragment> {
 		
 		FragmentRelationRowMapper childMapper =
 			new FragmentRelationRowMapper(
-				this.relationFactory, "fragment_relation.", 
-				null, this.fragmentRowMapper, 
+				this.relationFactory, 
+				"fragment_relation.", 
+				null, 
+				this.fragmentRowMapper, 
 				results);
 		
 		StringBuilder sql = new StringBuilder();
