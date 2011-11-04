@@ -1,5 +1,6 @@
 package marubinotto.piggydb.impl;
 
+import static marubinotto.piggydb.model.ModelUtils.toIdMap;
 import static marubinotto.util.CollectionUtils.list;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
@@ -289,7 +290,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
 		}
 		
 		return PageUtils.<Fragment>covariantCast(
@@ -331,7 +332,7 @@ implements RawEntityFactory<RawFragment> {
 
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -498,7 +499,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -541,7 +542,7 @@ implements RawEntityFactory<RawFragment> {
 
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -600,7 +601,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(id2fragment(results));
+			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
 		}
 		
 		return CollectionUtils.<Fragment>covariantCast(results);
@@ -696,12 +697,6 @@ implements RawEntityFactory<RawFragment> {
 	
 	
 // Utilities
-	
-	private Map<Long, RawFragment> id2fragment(List<RawFragment> fragments) {
-		Map<Long, RawFragment> id2fragment = new HashMap<Long, RawFragment>();
-		for (RawFragment fragment : fragments) id2fragment.put(fragment.getId(), fragment);
-		return id2fragment;
-	}
 
 	private List<Long> selectIdsClassifiedAsTrash() throws Exception {
 		logger.debug("selectIdsClassifiedAsTrash ...");
