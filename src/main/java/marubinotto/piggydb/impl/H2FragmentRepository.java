@@ -778,8 +778,7 @@ implements RawEntityFactory<RawFragment> {
 		return id2child;
 	}
 	
-	private void setParentsAndChildrenWithGrandchildrenToEach(
-		Map<Long, RawFragment> id2fragment) 
+	private void setParentsAndChildrenWithGrandchildrenToEach(Map<Long, RawFragment> id2fragment) 
 	throws Exception {
 		if (id2fragment.isEmpty()) return;
 		
@@ -792,15 +791,11 @@ implements RawEntityFactory<RawFragment> {
 		}
 		
 		// Children
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(ids);
-		
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(ids);		
 		List<RawFragment> allChildren = new ArrayList<RawFragment>();
 		for (Long id : id2children.keySet()) {
 			List<FragmentRelation> children = id2children.get(id);
-			
-			// Set children
-			RawFragment fragment = id2fragment.get(id);
-			fragment.setChildRelations(children);
+			id2fragment.get(id).setChildRelations(children);
 			
 			// Collect all children
 			for (FragmentRelation relation : children) 
