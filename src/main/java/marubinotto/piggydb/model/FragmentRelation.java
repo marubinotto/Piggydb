@@ -1,5 +1,7 @@
 package marubinotto.piggydb.model;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;
@@ -10,6 +12,7 @@ public class FragmentRelation extends RawClassifiable {
 	public Fragment to;
 	
 	public Integer priority = 0;
+	public Boolean twoWay;
 	
 	public FragmentRelation() {		
 	}
@@ -21,6 +24,21 @@ public class FragmentRelation extends RawClassifiable {
 	public FragmentRelation(Fragment from, Fragment to) {
 		this.from = from;
 		this.to = to;
+	}
+	
+	public boolean isSamePairAs(FragmentRelation other) {
+		Assert.Arg.notNull(other, "other");
+		Assert.Arg.notNull(other.from, "other.from");
+		Assert.Arg.notNull(other.from.getId(), "other.from.getId()");
+		Assert.Arg.notNull(other.to, "other.to");
+		Assert.Arg.notNull(other.to.getId(), "other.to.getId()");
+		Assert.Property.requireNotNull(from, "from");
+		Assert.Property.requireNotNull(from.getId(), "from.getId()");
+		Assert.Property.requireNotNull(to, "to");
+		Assert.Property.requireNotNull(to.getId(), "to.getId()");
+		
+		return min(from.getId(), to.getId()) == min(other.from.getId(), other.to.getId())
+			&& max(from.getId(), to.getId()) == max(other.from.getId(), other.to.getId());
 	}
 	
 	@Override
