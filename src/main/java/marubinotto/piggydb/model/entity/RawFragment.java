@@ -396,7 +396,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	
 	public List<Fragment> getParents() {
 		List<Fragment> parents = new ArrayList<Fragment>();
-		for (FragmentRelation parentRelation : getParentRelations()) parents.add(parentRelation.from);
+		for (FragmentRelation parentRelation : getParentRelations()) 
+			parents.add(parentRelation.from);
 		return parents;
 	}
 	
@@ -409,7 +410,9 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		Assert.Arg.notNull(relation, "relation");
 		Assert.Arg.notNull(relation.from, "relation.from");
 		if (relation.from.getId() != null)
-			Assert.require(!relation.from.getId().equals(getId()), "!relation.from.id.equals(this.id)");
+			Assert.require(
+				!relation.from.getId().equals(getId()), 
+				"!relation.from.id.equals(this.id)");
 		
 		relation.to = this;
 		getParentRelations().add(relation);

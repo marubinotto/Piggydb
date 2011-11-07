@@ -3,12 +3,12 @@ package marubinotto.piggydb.model.fragment;
 import static marubinotto.piggydb.fixture.EntityFixtures.fragment;
 import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitle;
 import static marubinotto.util.CollectionUtils.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFragment;
@@ -33,11 +33,35 @@ public class RelationsTest {
 			this.object.addParent(fragment(1));
 			this.object.addParent(fragment(2));
 				
-			FragmentRelation relation = this.object.getParentRelationByParentId(100);
+			FragmentRelation relation = this.object.getParentRelationByParentId(3);
 			assertNull(relation);
 			
-			relation = this.object.getParentRelationByParentId(1L);
+			relation = this.object.getParentRelationByParentId(1);
 			assertEquals(1, relation.from.getId().longValue());
+		}
+		
+		@Test
+		public void addParentRelation() throws Exception {
+			Fragment parent = new RawFragment();
+			FragmentRelation relation = new FragmentRelation(parent, null);
+			
+			this.object.addParentRelation(relation);
+			
+			FragmentRelation result = this.object.getParentRelations().get(0);
+			assertSame(parent, result.from);
+			assertSame(this.object, result.to);
+		}
+		
+		@Test
+		public void addChildRelation() throws Exception {
+			Fragment child = new RawFragment();
+			FragmentRelation relation = new FragmentRelation(null, child);
+			
+			this.object.addChildRelation(relation);
+			
+			FragmentRelation result = this.object.getChildRelations().get(0);
+			assertSame(this.object, result.from);
+			assertSame(child, result.to);
 		}
 	}
 	
