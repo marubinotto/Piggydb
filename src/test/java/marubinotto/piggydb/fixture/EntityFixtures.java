@@ -36,6 +36,12 @@ public class EntityFixtures {
 		return fragment;
 	}
 	
+	public static RawFragment fragment(long id) {
+		RawFragment fragment = new RawFragment();
+		fragment.setId(id);
+		return fragment;
+	}
+	
 	public static RawTag tagWithId(String name, long id) {
 		RawTag tag = new RawTag(name);
 		tag.setId(id);

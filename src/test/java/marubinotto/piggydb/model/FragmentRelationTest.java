@@ -1,7 +1,8 @@
 package marubinotto.piggydb.model;
 
-import static org.junit.Assert.*;
-import marubinotto.piggydb.model.entity.RawFragment;
+import static marubinotto.piggydb.fixture.EntityFixtures.fragment;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -17,11 +18,5 @@ public class FragmentRelationTest {
 		assertTrue("Same pairs in the same order", relation1.isSamePairAs(relation2));
 		assertTrue("Same pairs in reverse order", relation1.isSamePairAs(relation3));
 		assertFalse("Different pairs", relation1.isSamePairAs(relation4));
-	}
-	
-	static RawFragment fragment(long id) {
-		RawFragment fragment = new RawFragment();
-		fragment.setId(id);
-		return fragment;
 	}
 }
