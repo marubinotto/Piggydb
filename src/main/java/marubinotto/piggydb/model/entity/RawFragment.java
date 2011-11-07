@@ -385,6 +385,20 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	// Relations
 	//
 	
+	public void checkTwoWayRelations() {
+		for (FragmentRelation relation : getParentRelations()) relation.twoWay = false;
+		for (FragmentRelation relation : getChildRelations()) relation.twoWay = false;
+		
+		for (FragmentRelation parent : getParentRelations()) {
+			for (FragmentRelation child : getChildRelations()) {
+				if (parent.isSamePairAs(child)) {
+					parent.twoWay = true;
+					child.twoWay = true;
+				}
+			}
+		}
+	}
+	
 	// Parents
 
 	public List<FragmentRelation> getParentRelations() {

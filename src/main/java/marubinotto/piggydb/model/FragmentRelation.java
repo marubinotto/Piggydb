@@ -12,7 +12,7 @@ public class FragmentRelation extends RawClassifiable {
 	public Fragment to;
 	
 	public Integer priority = 0;
-	public Boolean twoWay;
+	public Boolean twoWay = null;
 	
 	public FragmentRelation() {		
 	}

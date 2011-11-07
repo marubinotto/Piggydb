@@ -63,6 +63,22 @@ public class RelationsTest {
 			assertSame(this.object, result.from);
 			assertSame(child, result.to);
 		}
+		
+		@Test
+		public void checkTwoWayRelations() throws Exception {
+			this.object.setId(1L);
+			this.object.addParent(fragment(2));
+			this.object.addParent(fragment(3));
+			this.object.addChild(fragment(3));
+			this.object.addChild(fragment(4));
+			
+			this.object.checkTwoWayRelations();
+			
+			assertEquals(false, this.object.getParentRelations().get(0).twoWay);
+			assertEquals(true, this.object.getParentRelations().get(1).twoWay);
+			assertEquals(true, this.object.getChildRelations().get(0).twoWay);
+			assertEquals(false, this.object.getChildRelations().get(1).twoWay);
+		}
 	}
 	
 	public static class GetChildRelationsTest extends TestBase {
@@ -122,7 +138,7 @@ public class RelationsTest {
 		}
 		
 		@Test
-		public void sortByPriority() throws Exception {
+		public void shouldBeInOrderByPriority() throws Exception {
 			this.object.addChildRelation(createChildRelation(1L, 1));
 			this.object.addChildRelation(createChildRelation(2L, 2));
 			
@@ -132,7 +148,7 @@ public class RelationsTest {
 		}
 		
 		@Test
-		public void sortByIdWhenPriorityIsSame() throws Exception {
+		public void shouldBeInOrderByIdIfPrioritiesAreSame() throws Exception {
 			this.object.addChildRelation(createChildRelation(1L, 0));
 			this.object.addChildRelation(createChildRelation(2L, 0));
 			
