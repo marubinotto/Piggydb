@@ -63,21 +63,36 @@ public class RelationsTest {
 			assertSame(this.object, result.from);
 			assertSame(child, result.to);
 		}
+	}
+	
+	public static class TwoWayRelationsTest extends TestBase {
 		
-		@Test
-		public void checkTwoWayRelations() throws Exception {
+		@Before
+		public void given() throws Exception {
 			this.object.setId(1L);
 			this.object.addParent(fragment(2));
 			this.object.addParent(fragment(3));
 			this.object.addChild(fragment(3));
 			this.object.addChild(fragment(4));
-			
+		}
+		
+		@Test
+		public void checkTwoWayRelations() throws Exception {
 			this.object.checkTwoWayRelations();
 			
 			assertEquals(false, this.object.getParentRelations().get(0).twoWay);
 			assertEquals(true, this.object.getParentRelations().get(1).twoWay);
 			assertEquals(true, this.object.getChildRelations().get(0).twoWay);
 			assertEquals(false, this.object.getChildRelations().get(1).twoWay);
+		}
+		
+		@Test
+		public void getOneWayParentRelations() throws Exception {
+			this.object.checkTwoWayRelations();			
+			List<FragmentRelation> relations = this.object.getOneWayParentRelations();
+			
+			assertEquals(1, relations.size());
+			assertEquals(2L, relations.get(0).from.getId().longValue());
 		}
 	}
 	
