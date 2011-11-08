@@ -155,6 +155,7 @@ implements RawEntityFactory<RawFragment> {
 			setParentsTo(fragment);
 			Map<Long, RawFragment> id2child = setChildrenWithTagsTo(fragment);
 			setParentsAndChildrenWithGrandchildrenToEach(id2child);
+			fragment.checkTwoWayRelations();
 		}
 
 		return fragment;

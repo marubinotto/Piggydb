@@ -372,7 +372,7 @@
 <tr valign="middle">
   <td class="superfragment-links">
   #foreach ($relation in $parentRelations)
-		#if (!$excludeRelationId || $relation.id != $excludeRelationId)
+		#if (!$relation.twoWay && (!$excludeRelationId || $relation.id != $excludeRelationId))
       <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
           style="margin-right: 1em;">
 				#fragmentCaption($relation.from true false)
@@ -397,7 +397,11 @@
   #foreach ($relation in $childRelations)
     <span class="$html.fragmentHeaderClass(${relation.to.id}, $selectedFragments)" 
         style="margin-right: 1em;">
-      <img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+			#if ($relation.twoWay)
+				<img src="$context/images/arrow-top-to-right-two-way.png" border="0" alt=""/>
+			#else
+				<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+			#end
 			#fragmentCaption($relation.to true false)
       #if ($relation.to.hasChildren()) 
         <img src="$context/images/arrow-with-children.gif" border="0" alt="&rarr; ..."/>
