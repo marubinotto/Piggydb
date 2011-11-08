@@ -513,7 +513,11 @@
 
 #if ($contextRelation)
 <span style="margin-left: 0px; margin-right: 3px;">
-  <img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+	#if ($contextRelation.twoWay)
+		<img src="$context/images/arrow-top-to-right-two-way.png" border="0" alt=""/>
+	#else
+		<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+	#end
   #deleteRelationButton($contextRelation "li.fragment-node" $null)
 </span>
 #end
