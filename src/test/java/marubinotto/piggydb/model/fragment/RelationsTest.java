@@ -29,6 +29,11 @@ public class RelationsTest {
 	public static class DefaultTest extends TestBase {
 		
 		@Test
+		public void hasChildren() throws Exception {
+			assertEquals(false, this.object.hasChildren());
+		}
+		
+		@Test
 		public void getParentRelationByParentId() throws Exception {
 			this.object.addParent(fragment(1));
 			this.object.addParent(fragment(2));
@@ -58,6 +63,8 @@ public class RelationsTest {
 			FragmentRelation relation = new FragmentRelation(null, child);
 			
 			this.object.addChildRelation(relation);
+			
+			assertEquals(true, this.object.hasChildren());
 			
 			FragmentRelation result = this.object.getChildRelations().get(0);
 			assertSame(this.object, result.from);
@@ -96,7 +103,43 @@ public class RelationsTest {
 		}
 	}
 	
-	public static class GetChildRelationsTest extends TestBase {
+	public static class GetChildRelationsWithContextRelation extends TestBase {
+
+		@Before
+		public void given() throws Exception {
+			this.object.addChild(fragment(1));
+			this.object.addChild(fragment(2));
+			assertEquals(2, this.object.getChildRelations().size());
+		}
+		
+		@Test
+		public void withContextParentId() throws Exception {
+			List<FragmentRelation> relations = this.object.getChildRelations(1);
+			
+			assertEquals(1, relations.size());
+			assertEquals(2, relations.get(0).to.getId().longValue());
+		}
+		
+		@Test
+		public void withContextRelation() throws Exception {
+			FragmentRelation contextRelation = new FragmentRelation(fragment(1), fragment(3));
+			List<FragmentRelation> relations = this.object.getChildRelations(contextRelation);
+			
+			assertEquals(1, relations.size());
+			assertEquals(2, relations.get(0).to.getId().longValue());
+		}
+		
+		@Test
+		public void withNullContextRelation() throws Exception {
+			List<FragmentRelation> relations = this.object.getChildRelations(null);
+			
+			assertEquals(2, relations.size());
+			assertEquals(1, relations.get(0).to.getId().longValue());
+			assertEquals(2, relations.get(1).to.getId().longValue());
+		}
+	}
+	
+	public static class GetChildRelationsByAccessLevelTest extends TestBase {
 		
 		@Before
 		public void given() throws Exception {
