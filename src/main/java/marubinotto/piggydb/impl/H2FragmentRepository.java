@@ -805,6 +805,10 @@ implements RawEntityFactory<RawFragment> {
 		
 		// Grandchildren
 		setChildrenToEach(allChildren);
+		
+		// Check two-way relations
+		for (RawFragment fragment : id2fragment.values())
+			fragment.checkTwoWayRelations();
 	}
 	
 	private void setChildrenToEach(List<RawFragment> fragments) throws Exception {
