@@ -404,9 +404,6 @@
 				<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
 			#end
 			#fragmentCaption($relation.to true false)
-      #if ($relation.to.hasChildren()) 
-        <img src="$context/images/arrow-with-children.gif" border="0" alt="&rarr; ..."/>
-      #end
       #deleteRelationButton($relation "span.fragment-header" "tr")
     </span>
   #end
