@@ -518,9 +518,14 @@
   #deleteRelationButton($contextRelation "li.fragment-node" $null)
 </span>
 #end
-#if ($fragment.hasChildren())
-  <a class="fragment-node-toggle" href="#" 
-    onclick="FragmentTree.onNodeToggleClick(this, $fragment.id); return false;">
+#if ($fragment.hasChildren($contextRelation))
+	#if ($contextRelation)
+		#set ($contextParentId = $contextRelation.from.id)
+	#else
+		#set ($contextParentId = "null")	
+	#end
+  <a class="fragment-node-toggle" href="#"
+		onclick="FragmentTree.onNodeToggleClick(this, $fragment.id, $contextParentId); return false;">
   <img src="$context/images/node-plus.png" alt="+" border="0" 
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end

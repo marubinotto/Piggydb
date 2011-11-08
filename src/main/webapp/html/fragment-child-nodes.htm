@@ -1,4 +1,4 @@
-#if ($fragment && $fragment.hasChildren())
+#if ($childRelations && !$childRelations.isEmpty())
 <script type="text/javascript">
 //<![CDATA[
   jQuery(function() {
@@ -8,7 +8,7 @@
 //]]>
 </script>
 <ul class="fragment-tree subtree subfragments-of-${fragment.id}">
-#foreach ($relation in $fragment.childRelations)
+#foreach ($relation in $childRelations)
   <li class="fragment-node">#fragmentNode($relation.to $relation $fragment.classification) </li>
 #end
 </ul>

@@ -76,15 +76,23 @@ public interface Fragment extends Classifiable, Password {
 	
 	public List<FragmentRelation> getParentRelations();
 	
+	public List<FragmentRelation> getOneWayParentRelations();
+	
 	public List<Fragment> getParents();
 	
 	public FragmentRelation getParentRelationByParentId(long parentId);
 	
 	public boolean hasChildren();
 	
+	public boolean hasChildren(FragmentRelation contextRelation);
+	
 	public boolean hasChildren(boolean publicOnly);
 	
 	public List<FragmentRelation> getChildRelations();
+	
+	public List<FragmentRelation> getChildRelations(FragmentRelation contextRelation);
+	
+	public List<FragmentRelation> getChildRelations(long contextParentId);
 	
 	public List<FragmentRelation> getChildRelations(boolean publicOnly);
 	

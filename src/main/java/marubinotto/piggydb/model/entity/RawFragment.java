@@ -465,6 +465,10 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return getChildRelations().size() > 0;
 	}
 	
+	public boolean hasChildren(FragmentRelation contextRelation) {
+		return getChildRelations(contextRelation).size() > 0;
+	}
+	
 	public boolean hasChildren(boolean publicOnly) {
 		return getChildRelations(publicOnly).size() > 0;
 	}
@@ -474,6 +478,20 @@ public class RawFragment extends RawClassifiable implements Fragment {
 			this.childRelations = new ArrayList<FragmentRelation>();
 		}
 		return this.childRelations;
+	}
+	
+	public List<FragmentRelation> getChildRelations(FragmentRelation contextRelation) {
+		if (contextRelation == null) return getChildRelations();
+		return getChildRelations(contextRelation.from.getId());
+	}
+	
+	public List<FragmentRelation> getChildRelations(long contextParentId) {
+		List<FragmentRelation> relations = new ArrayList<FragmentRelation>();
+		for (FragmentRelation relation : getChildRelations()) {
+			if (contextParentId != relation.to.getId().longValue()) 
+				relations.add(relation);
+		}
+		return relations;
 	}
 	
 	public List<FragmentRelation> getChildRelations(boolean publicOnly) {
@@ -491,7 +509,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	
 	public List<Fragment> getChildren() {
 		List<Fragment> children = new ArrayList<Fragment>();
-		for (FragmentRelation childRelation : getChildRelations()) children.add(childRelation.to);
+		for (FragmentRelation childRelation : getChildRelations()) 
+			children.add(childRelation.to);
 		return children;
 	}
 	

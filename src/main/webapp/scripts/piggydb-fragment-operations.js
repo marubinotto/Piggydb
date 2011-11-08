@@ -513,7 +513,7 @@ var FragmentTree = {
   COLLAPSED: "plus",
   EXPANDED: "minus",
   
-  onNodeToggleClick: function(toggle, id) {
+  onNodeToggleClick: function(toggle, id, contextParentId) {
     if (jQuery(toggle).hasDisabledFlag()) return;
   
     var li = jQuery(toggle).closest("li");
@@ -525,7 +525,9 @@ var FragmentTree = {
       jQuery(toggle).setDisabledFlag();
       icon.attr("src", iconSrc.replace(this.COLLAPSED, this.EXPANDED));
       var loadIcon = jQuery(li).putLoadingIcon("margin:5px");
-      jQuery.get("html/fragment-child-nodes.htm", {"id" : id}, function(childrenHtml) {
+      var params = {"id" : id};
+      if (contextParentId != null) params.contextParentId = contextParentId;
+      jQuery.get("html/fragment-child-nodes.htm", params, function(childrenHtml) {
         li.append(childrenHtml);
         loadIcon.remove();
         jQuery(toggle).deleteDisabledFlag();
