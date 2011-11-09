@@ -76,7 +76,7 @@ public interface Fragment extends Classifiable, Password {
 	
 	public List<FragmentRelation> getParentRelations();
 	
-	public List<FragmentRelation> getOneWayParentRelations();
+	public List<FragmentRelation> navigateToOneWayParents(Long contextRelationId);
 	
 	public List<Fragment> getParents();
 	

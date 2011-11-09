@@ -1,5 +1,7 @@
 package marubinotto.piggydb.fixture;
 
+import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 
@@ -36,10 +38,16 @@ public class EntityFixtures {
 		return fragment;
 	}
 	
-	public static RawFragment fragment(long id) {
+	public static RawFragment fragment(Long id) {
 		RawFragment fragment = new RawFragment();
 		fragment.setId(id);
 		return fragment;
+	}
+	
+	public static FragmentRelation relation(Long id, Fragment from, Fragment to) {
+		FragmentRelation relation = new FragmentRelation(from, to);
+		relation.setId(id);
+		return relation;
 	}
 	
 	public static RawTag tagWithId(String name, long id) {

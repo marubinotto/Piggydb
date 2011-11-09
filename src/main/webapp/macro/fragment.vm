@@ -366,21 +366,19 @@
 
 
 
-#macro( fragmentParentsRow $fragment $excludeRelationId )
+#macro( fragmentParentsRow $fragment $contextRelation )
 
-#set ($parentRelations = $fragment.oneWayParentRelations)
-#if (!$excludeRelationId && $parentRelations.size() > 0 || $parentRelations.size() > 1)
+#set ($parentRelations = $fragment.navigateToOneWayParents($contextRelation.id))
+#if (!$parentRelations.isEmpty())
 <tr valign="middle">
   <td class="superfragment-links">
   #foreach ($relation in $parentRelations)
-		#if (!$excludeRelationId || $relation.id != $excludeRelationId)
-      <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
-          style="margin-right: 1em;">
-				#fragmentCaption($relation.from true false)
-        <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
-        #deleteRelationButton($relation "span.fragment-header" "tr")
-      </span>
-		#end
+    <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
+        style="margin-right: 1em;">
+  		#fragmentCaption($relation.from true false)
+      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
+      #deleteRelationButton($relation "span.fragment-header" "tr")
+    </span>
   #end
   </td>
 </tr>
@@ -466,7 +464,7 @@
 <table class="fragment fragment-node fragment-root-node multirow" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
 #if (!$lightNode)
-#fragmentParentsRow($fragment $contextRelation.id)
+#fragmentParentsRow($fragment $contextRelation)
 #end
 <tr>
   <th class="header-cell root-header-cell" title="$fragment.title" 
@@ -489,7 +487,7 @@
   
 <table class="fragment fragment-node multirow" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
-#fragmentParentsRow($fragment $contextRelation.id)
+#fragmentParentsRow($fragment $contextRelation)
 <tr>
   <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">

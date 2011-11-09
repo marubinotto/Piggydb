@@ -408,10 +408,14 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return this.parentRelations;
 	}
 	
-	public List<FragmentRelation> getOneWayParentRelations() {
+	public List<FragmentRelation> navigateToOneWayParents(Long contextRelationId) {
 		List<FragmentRelation> relations = new ArrayList<FragmentRelation>();
 		for (FragmentRelation relation : getParentRelations()) {
-			Assert.assertTrue(relation.twoWay != null, "relation.twoWay != null");
+			// exclude the context relation
+			if (contextRelationId != null && relation.getId().equals(contextRelationId))
+				continue;
+			
+			// include only one-way parents
 			if (!relation.twoWay) relations.add(relation);
 		}
 		return relations;

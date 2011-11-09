@@ -10,10 +10,10 @@ public class FragmentRelationTest {
 
 	@Test
 	public void isSamePairAs() throws Exception {
-		FragmentRelation relation1 = new FragmentRelation(fragment(1), fragment(2)); 
-		FragmentRelation relation2 = new FragmentRelation(fragment(1), fragment(2)); 
-		FragmentRelation relation3 = new FragmentRelation(fragment(2), fragment(1)); 
-		FragmentRelation relation4 = new FragmentRelation(fragment(2), fragment(3)); 
+		FragmentRelation relation1 = new FragmentRelation(fragment(1L), fragment(2L)); 
+		FragmentRelation relation2 = new FragmentRelation(fragment(1L), fragment(2L)); 
+		FragmentRelation relation3 = new FragmentRelation(fragment(2L), fragment(1L)); 
+		FragmentRelation relation4 = new FragmentRelation(fragment(2L), fragment(3L)); 
 		
 		assertTrue("Same pairs in the same order", relation1.isSamePairAs(relation2));
 		assertTrue("Same pairs in reverse order", relation1.isSamePairAs(relation3));

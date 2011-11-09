@@ -1,7 +1,6 @@
 package marubinotto.piggydb.model.fragment;
 
-import static marubinotto.piggydb.fixture.EntityFixtures.fragment;
-import static marubinotto.piggydb.fixture.EntityFixtures.newFragmentWithTitle;
+import static marubinotto.piggydb.fixture.EntityFixtures.*;
 import static marubinotto.util.CollectionUtils.list;
 import static org.junit.Assert.*;
 
@@ -35,8 +34,8 @@ public class RelationsTest {
 		
 		@Test
 		public void getParentRelationByParentId() throws Exception {
-			this.object.addParent(fragment(1));
-			this.object.addParent(fragment(2));
+			this.object.addParent(fragment(1L));
+			this.object.addParent(fragment(2L));
 				
 			FragmentRelation relation = this.object.getParentRelationByParentId(3);
 			assertNull(relation);
@@ -77,16 +76,15 @@ public class RelationsTest {
 		@Before
 		public void given() throws Exception {
 			this.object.setId(1L);
-			this.object.addParent(fragment(2));
-			this.object.addParent(fragment(3));
-			this.object.addChild(fragment(3));
-			this.object.addChild(fragment(4));
+			this.object.addParentRelation(relation(1L, fragment(2L), null));
+			this.object.addParentRelation(relation(2L, fragment(3L), null));
+			this.object.addChildRelation(relation(3L, null, fragment(3L)));
+			this.object.addChildRelation(relation(4L, null, fragment(4L)));
+			this.object.checkTwoWayRelations();
 		}
 		
 		@Test
 		public void checkTwoWayRelations() throws Exception {
-			this.object.checkTwoWayRelations();
-			
 			assertEquals(false, this.object.getParentRelations().get(0).twoWay);
 			assertEquals(true, this.object.getParentRelations().get(1).twoWay);
 			assertEquals(true, this.object.getChildRelations().get(0).twoWay);
@@ -94,12 +92,20 @@ public class RelationsTest {
 		}
 		
 		@Test
-		public void getOneWayParentRelations() throws Exception {
-			this.object.checkTwoWayRelations();			
-			List<FragmentRelation> relations = this.object.getOneWayParentRelations();
+		public void navigateToOneWayParents() throws Exception {		
+			List<FragmentRelation> relations = this.object.navigateToOneWayParents(null);
 			
 			assertEquals(1, relations.size());
 			assertEquals(2L, relations.get(0).from.getId().longValue());
+		}
+		
+		@Test
+		public void navigateToOneWayParentsWithContextParent() throws Exception {
+			long contextRelationId = 1;
+			List<FragmentRelation> relations = 
+				this.object.navigateToOneWayParents(contextRelationId);
+			
+			assertEquals(0, relations.size());
 		}
 	}
 	
@@ -107,8 +113,8 @@ public class RelationsTest {
 
 		@Before
 		public void given() throws Exception {
-			this.object.addChild(fragment(1));
-			this.object.addChild(fragment(2));
+			this.object.addChild(fragment(1L));
+			this.object.addChild(fragment(2L));
 			assertEquals(2, this.object.getChildRelations().size());
 		}
 		
@@ -122,7 +128,7 @@ public class RelationsTest {
 		
 		@Test
 		public void withContextRelation() throws Exception {
-			FragmentRelation contextRelation = new FragmentRelation(fragment(1), fragment(3));
+			FragmentRelation contextRelation = new FragmentRelation(fragment(1L), fragment(3L));
 			List<FragmentRelation> relations = this.object.getChildRelations(contextRelation);
 			
 			assertEquals(1, relations.size());
