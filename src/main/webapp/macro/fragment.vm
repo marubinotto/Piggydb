@@ -516,7 +516,7 @@
   #deleteRelationButton($contextRelation "li.fragment-node" $null)
 </span>
 #end
-#if ($fragment.hasChildren($contextRelation))
+#if ($fragment.isNavigableToChildren($contextRelation))
 	#if ($contextRelation)
 		#set ($contextParentId = $contextRelation.from.id)
 	#else

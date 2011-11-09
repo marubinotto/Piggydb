@@ -469,10 +469,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return getChildRelations().size() > 0;
 	}
 	
-	public boolean hasChildren(FragmentRelation contextRelation) {
-		return navigateToChildren(contextRelation).size() > 0;
-	}
-	
 	public boolean hasChildren(boolean publicOnly) {
 		return getChildRelations(publicOnly).size() > 0;
 	}
@@ -495,6 +491,10 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		else {
 			return getChildRelations();
 		}
+	}
+	
+	public boolean isNavigableToChildren(FragmentRelation contextRelation) {
+		return navigateToChildren(contextRelation).size() > 0;
 	}
 	
 	public List<FragmentRelation> navigateToChildren(FragmentRelation contextRelation) {
