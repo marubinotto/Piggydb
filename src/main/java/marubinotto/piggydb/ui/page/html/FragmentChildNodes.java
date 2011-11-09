@@ -20,10 +20,8 @@ public class FragmentChildNodes extends AbstractHtmlFragment {
 		if (this.id == null) return;
 		
 		this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());		
-		this.childRelations = contextParentId != null ? 
-			this.fragment.getChildRelations(this.contextParentId) :
-			this.fragment.getChildRelations();
-		
+		this.childRelations = this.fragment.navigateToChildren(this.contextParentId);
+			
 		setSelectedFragments();
 	}
 }

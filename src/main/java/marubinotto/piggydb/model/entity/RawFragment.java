@@ -470,7 +470,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
 	}
 	
 	public boolean hasChildren(FragmentRelation contextRelation) {
-		return getChildRelations(contextRelation).size() > 0;
+		return navigateToChildren(contextRelation).size() > 0;
 	}
 	
 	public boolean hasChildren(boolean publicOnly) {
@@ -484,20 +484,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return this.childRelations;
 	}
 	
-	public List<FragmentRelation> getChildRelations(FragmentRelation contextRelation) {
-		if (contextRelation == null) return getChildRelations();
-		return getChildRelations(contextRelation.from.getId());
-	}
-	
-	public List<FragmentRelation> getChildRelations(long contextParentId) {
-		List<FragmentRelation> relations = new ArrayList<FragmentRelation>();
-		for (FragmentRelation relation : getChildRelations()) {
-			if (contextParentId != relation.to.getId().longValue()) 
-				relations.add(relation);
-		}
-		return relations;
-	}
-	
 	public List<FragmentRelation> getChildRelations(boolean publicOnly) {
 		if (publicOnly) {
 			List<FragmentRelation> publicChildren = new ArrayList<FragmentRelation>();
@@ -509,6 +495,22 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		else {
 			return getChildRelations();
 		}
+	}
+	
+	public List<FragmentRelation> navigateToChildren(FragmentRelation contextRelation) {
+		if (contextRelation == null) return getChildRelations();
+		return navigateToChildren(contextRelation.from.getId());
+	}
+	
+	public List<FragmentRelation> navigateToChildren(Long contextParentId) {
+		if (contextParentId == null) return getChildRelations();
+		
+		List<FragmentRelation> relations = new ArrayList<FragmentRelation>();
+		for (FragmentRelation relation : getChildRelations()) {
+			if (!contextParentId.equals(relation.to.getId())) 
+				relations.add(relation);
+		}
+		return relations;
 	}
 	
 	public List<Fragment> getChildren() {

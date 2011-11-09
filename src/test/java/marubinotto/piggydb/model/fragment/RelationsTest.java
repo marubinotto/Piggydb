@@ -109,7 +109,7 @@ public class RelationsTest {
 		}
 	}
 	
-	public static class GetChildRelationsWithContextRelation extends TestBase {
+	public static class NavigateToChildrenTest extends TestBase {
 
 		@Before
 		public void given() throws Exception {
@@ -119,17 +119,9 @@ public class RelationsTest {
 		}
 		
 		@Test
-		public void withContextParentId() throws Exception {
-			List<FragmentRelation> relations = this.object.getChildRelations(1);
-			
-			assertEquals(1, relations.size());
-			assertEquals(2, relations.get(0).to.getId().longValue());
-		}
-		
-		@Test
 		public void withContextRelation() throws Exception {
 			FragmentRelation contextRelation = new FragmentRelation(fragment(1L), fragment(3L));
-			List<FragmentRelation> relations = this.object.getChildRelations(contextRelation);
+			List<FragmentRelation> relations = this.object.navigateToChildren(contextRelation);
 			
 			assertEquals(1, relations.size());
 			assertEquals(2, relations.get(0).to.getId().longValue());
@@ -137,7 +129,24 @@ public class RelationsTest {
 		
 		@Test
 		public void withNullContextRelation() throws Exception {
-			List<FragmentRelation> relations = this.object.getChildRelations(null);
+			List<FragmentRelation> relations = this.object.navigateToChildren((FragmentRelation)null);
+			
+			assertEquals(2, relations.size());
+			assertEquals(1, relations.get(0).to.getId().longValue());
+			assertEquals(2, relations.get(1).to.getId().longValue());
+		}
+		
+		@Test
+		public void withContextParentId() throws Exception {
+			List<FragmentRelation> relations = this.object.navigateToChildren(1L);
+			
+			assertEquals(1, relations.size());
+			assertEquals(2, relations.get(0).to.getId().longValue());
+		}
+		
+		@Test
+		public void withNullContextParentId() throws Exception {
+			List<FragmentRelation> relations = this.object.navigateToChildren((Long)null);
 			
 			assertEquals(2, relations.size());
 			assertEquals(1, relations.get(0).to.getId().longValue());
