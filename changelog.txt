@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 5.1 (2011-11-10) == #v5.1
+
+ * Added Two-way Relationship Creation and Display
+ * Moved the user-related actions from the main menu to the pulldown menu at the user name
+ * Updated the tag cloud to exclude system tags that start with '#'
+ * Fixed the style of <pre> in fragment content
+
 == Changes in version 5.0 (2011-09-06) == #v5.0
 
  * Fixed a bug - http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/19
