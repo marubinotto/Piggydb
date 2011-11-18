@@ -50,6 +50,7 @@ public class OwnerAuth implements Password {
 
 		logger.info("Owner auth OK: " + user);
 		user.addRole(Role.OWNER);
+		user.addRole(Role.INTERNAL_USER);
 		return true;
 	}
 

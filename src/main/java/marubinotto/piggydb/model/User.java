@@ -35,6 +35,10 @@ public class User extends GenericUser {
 	public boolean isViewer() {
 		return isInRole(Role.VIEWER);
 	}
+	
+	public boolean isInternalUser() {
+		return isInRole(Role.INTERNAL_USER);
+	}
 
 	public void setSessionPersisted(boolean persisted) {
 		this.sessionPersisted = persisted;

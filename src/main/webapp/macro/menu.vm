@@ -84,7 +84,9 @@
 									src="$context/style/images/bullet-arrow-down.png"/></a>
   							
   							<ul class="submenu">
+								#if ($user.isInternalUser())
   								<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
+								#end
   								<li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
   							</ul>
               </li>
