@@ -29,7 +29,16 @@
       <div id="global-tools">
         <table class="nowrap-frame" border="0">
         <tr>
-					## Keyword Search
+				#if (!$user.isViewer())
+					<td class="add-fragment" nowrap="nowrap">
+						<a class="tool-button" href="#" title="$messages.get("create-new-fragment")">
+            <img src="$context/images/add-fragment.png" border="0" 
+							alt="$messages.get("create-new-fragment")"/></a>
+					</td>
+					<td class="separator"></td>
+				#end
+				
+					## Keyword Search		
           <td class="keyword-search" nowrap="nowrap">
             <form id="search-form" action="$context/search.htm" method="get">
               <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/><a 
