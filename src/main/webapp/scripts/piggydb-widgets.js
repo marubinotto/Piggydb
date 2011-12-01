@@ -107,6 +107,21 @@ Facebox.prototype = {
 };
 
 
+
+var FragmentFormDialog = {
+	openToCreate: function() {
+		jQuery("#dialog-fragment-form").remove();
+		jQuery.get("html/fragment-editor.htm", function(html) {
+			jQuery("body").append(html);
+			jQuery("#dialog-fragment-form").dialog({
+		    modal: true
+		  });
+		});
+	}
+};
+
+
+
 /* 
  *  Selected Fragments
  */
