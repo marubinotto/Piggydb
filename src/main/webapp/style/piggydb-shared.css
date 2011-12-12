@@ -277,6 +277,18 @@ button.pulled span.label {
 
 
 /*
+ * Fragment Form Dialog
+ */
+
+#dialog-fragment-form {
+	background: #eee;
+	padding: 0px;
+	border: solid 1px red;
+}
+
+
+
+/*
  * Tag
  */
 

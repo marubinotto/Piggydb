@@ -1,4 +1,22 @@
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+    jQuery("#dialog-fragment-form input.fragment-as-tag").button({
+      icons: {
+      	primary: "ui-icon-piggydb-tag"
+      },
+      text: false
+	  });
+  });
+//]]>
+</script>
 <div id="dialog-fragment-form" title="$messages.get("create-new-fragment")" style="display: none;">
-<p>This is the default dialog which is useful for displaying information. 
-The dialog window can be moved, resized and closed with the 'x' icon.</p>
+<form>
+<div class="title-div">
+	<span class="fragment-as-tag">
+		<input type="checkbox" name="asTag" id="fragment-form-asTag" class="fragment-as-tag"
+			><label for="fragment-form-asTag">$messages.get("as-tag")</label>
+	</span>
+</div>
+</form>
 </div>
