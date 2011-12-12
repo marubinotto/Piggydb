@@ -114,8 +114,11 @@ var FragmentFormDialog = {
 		jQuery.get("html/fragment-editor.htm", function(html) {
 			jQuery("body").append(html);
 			jQuery("#dialog-fragment-form").dialog({
-		    modal: true
+		    modal: true,
+		    width: 500,
+		    height: 400
 		  });
+			// TODO focus on the preview button
 		});
 	}
 };

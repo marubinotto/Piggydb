@@ -1,6 +1,7 @@
 <script type="text/javascript">
 //<![CDATA[
   jQuery(function() {
+		jQuery.updnWatermark.attachAll();
     jQuery("#dialog-fragment-form input.fragment-as-tag").button({
       icons: {
       	primary: "ui-icon-piggydb-tag"
@@ -13,10 +14,20 @@
 <div id="dialog-fragment-form" title="$messages.get("create-new-fragment")" style="display: none;">
 <form>
 <div class="title-div">
-	<span class="fragment-as-tag">
-		<input type="checkbox" name="asTag" id="fragment-form-asTag" class="fragment-as-tag"
-			><label for="fragment-form-asTag">$messages.get("as-tag")</label>
-	</span>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="fragment-as-tag">
+    	<span class="fragment-as-tag">
+    		<input type="checkbox" name="asTag" id="fragment-form-asTag" class="fragment-as-tag"
+    			><label for="fragment-form-asTag">$messages.get("as-tag")</label>
+    	</span>
+		</td>
+		<td>
+    	<input type="text" name="title" value="" title="$messages.get("FragmentForm-title")" 
+    		maxlength="$titleMaxLength" class="fragment-title watermarked"/>
+		</td>
+	</tr>
+	</table>
 </div>
 </form>
 </div>

@@ -282,8 +282,10 @@ button.pulled span.label {
 
 #dialog-fragment-form {
 	background: #eee;
-	padding: 0px;
-	border: solid 1px red;
+	padding: 5px;
+	padding-right: 10px;
+	
+	font-family: Arial, Helvetica, "Sans Serif";
 }
 
 
