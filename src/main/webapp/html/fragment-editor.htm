@@ -1,16 +1,3 @@
-<script type="text/javascript">
-//<![CDATA[
-  jQuery(function() {
-		jQuery.updnWatermark.attachAll();
-    jQuery("#dialog-fragment-form input.fragment-as-tag").button({
-      icons: {
-      	primary: "ui-icon-piggydb-tag"
-      },
-      text: false
-	  });
-  });
-//]]>
-</script>
 <div id="dialog-fragment-form" title="$messages.get("create-new-fragment")" style="display: none;">
 <form>
 <div class="title-div">
@@ -28,6 +15,10 @@
 		</td>
 	</tr>
 	</table>
+</div>
+<div class="content-div">
+	<textarea class="fragment-content" name="content" rows="3" cols="20" 
+		title="$messages.get("FragmentForm-content")"></textarea>
 </div>
 </form>
 </div>

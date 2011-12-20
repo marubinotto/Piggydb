@@ -288,6 +288,41 @@ button.pulled span.label {
 	font-family: Arial, Helvetica, "Sans Serif";
 }
 
+input.fragment-title {
+  width: 100%;
+}
+
+td.fragment-as-tag {
+	width: 30px;
+}
+
+span.fragment-as-tag .ui-button {
+	font-size: 0.8em; !important;
+}
+
+.ui-icon-piggydb-tag {
+	background-image: url(images/mini-tag-disabled.png) !important;
+	background-position: center center;
+}
+
+.ui-state-active .ui-icon-piggydb-tag {
+	background-image: url(images/mini-tag.png) !important;
+}
+
+#dialog-fragment-form div.content-div {
+	padding: 3px;
+}
+
+#dialog-fragment-form textarea.fragment-content {
+  padding: 2px;
+  height: 200px;
+  font-size: 10pt;
+}
+
+#facebox-wiki-help {
+	z-index: 1200;
+}
+
 
 
 /*

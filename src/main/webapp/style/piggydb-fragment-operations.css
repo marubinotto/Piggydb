@@ -449,27 +449,6 @@ div.content-type-switch {
   margin-right: 3px;
 }
 
-input.fragment-title {
-  width: 100%;
-}
-
-td.fragment-as-tag {
-	width: 30px;
-}
-
-span.fragment-as-tag .ui-button {
-	font-size: 0.8em; !important;
-}
-
-.ui-icon-piggydb-tag {
-	background-image: url(images/mini-tag-disabled.png) !important;
-	background-position: center center;
-}
-
-.ui-state-active .ui-icon-piggydb-tag {
-	background-image: url(images/mini-tag.png) !important;
-}
-
 input.fragment-tags {
   width: 85%;
 }
@@ -478,12 +457,6 @@ input.fragment-tags {
   position: relative; 
   margin: 0px; 
   padding: 0px; 
-}
-
-textarea.fragment-content {
-  padding: 2px;
-  width: 100%;
-  height: 100px;
 }
 
 td.minor-edit {
