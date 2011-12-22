@@ -57,13 +57,13 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	public String htmlTitle;
 	public static final String HTML_TITLE_SEP = " - ";
 
-	private static String APP_CSS_IMPORTS;
-	public String appCssImports;
-
+	// CSS imports
+	private static String DEFAULT_APP_CSS_IMPORTS;
+	public StrBuilder appCssImports = new StrBuilder();
+	
+	// JavaScript imports
 	private static String APP_JS_IMPORTS;
 	public String appJsImports;
-
-	public StrBuilder appAdditionalCssImports = new StrBuilder();
 	public StrBuilder appAdditionalJsImports = new StrBuilder();
 
 	public Page<Fragment> bookmarkedFragments = EMPTY_FRAGMENTS;
@@ -105,8 +105,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	}
 
 	private void setAppCssImports() {
-		if (APP_CSS_IMPORTS == null) {
-			getLogger().debug("Initializing APP_CSS_IMPORTS ...");
+		if (DEFAULT_APP_CSS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
 			imports.appendln(this.html.cssImport("style/prettify.css", true, null));
 			imports.appendln(this.html.cssImport("style/watermark.css", true, null));
@@ -119,9 +118,9 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 			imports.appendln(this.html.cssImport("style/piggydb-print.css", true, "print"));
 			imports.appendln(this.html.cssImport("jquery-ui-1.8.14/themes/base/jquery.ui.all.css", false, "screen"));
 			imports.appendln(this.html.cssImport("autocomplete/jquery.autocomplete-1.1-1.css", false, "screen"));
-			APP_CSS_IMPORTS = imports.toString();
+			DEFAULT_APP_CSS_IMPORTS = imports.toString();
 		}
-		this.appCssImports = APP_CSS_IMPORTS;
+		this.appCssImports.append(DEFAULT_APP_CSS_IMPORTS);
 	}
 
 	private void setAppJsImports() {
@@ -145,8 +144,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	}
 
 	protected void importCssFile(String filePath, boolean versioning, String media) {
-		this.appAdditionalCssImports.appendln(this.html.cssImport(filePath,
-			versioning, media));
+		this.appCssImports.appendln(this.html.cssImport(filePath, versioning, media));
 	}
 
 	protected void importJsFile(String filePath, boolean versioning) {
