@@ -369,8 +369,8 @@ public class TagPage extends AbstractFragmentsPage {
 
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + this.tag.getName();
 		
-		importCssFile("style/piggydb-tag.css", true, null);
-		importCssFile("style/piggydb-fragment.css", true, null);
+		importCss("style/piggydb-tag.css", true, null);
+		importCss("style/piggydb-fragment.css", true, null);
 		importJsFile("scripts/piggydb-fragment.js", true);
 
 		this.subtags = getDomain().getTagRepository().

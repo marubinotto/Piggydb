@@ -80,7 +80,7 @@ public class HomePage extends AbstractFragmentsPage {
 	protected void setModels() throws Exception {
 		super.setModels();
 
-		importCssFile("style/piggydb-home.css", true, null);
+		importCss("style/piggydb-home.css", true, null);
 
 		setHomeFragments();
 		setUserFragment();

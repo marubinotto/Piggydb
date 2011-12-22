@@ -167,7 +167,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 		String fragmentTitle = this.fragment.makeHeadline();
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + (fragmentTitle != null ? fragmentTitle : "");
 
-		importCssFile("style/piggydb-fragment.css", true, null);
+		importCss("style/piggydb-fragment.css", true, null);
 		importJsFile("scripts/piggydb-fragment.js", true);
 
 		getRecentlyViewed().add(

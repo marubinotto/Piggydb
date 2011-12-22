@@ -10,8 +10,8 @@ public class TagsPage extends AbstractBorderPage {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		importCssFile("style/piggydb-tags.css", true, null);
-		importCssFile("click/tree/tree.css", false, null);		
+		importCss("style/piggydb-tags.css", true, null);
+		importCss("click/tree/tree.css", false, null);		
 		importJsFile("scripts/piggydb-tags.js", true);
 		
 		this.tagCount = getDomain().getTagRepository().size();

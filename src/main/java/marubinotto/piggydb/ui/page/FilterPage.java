@@ -381,7 +381,7 @@ public class FilterPage extends AbstractFragmentsPage {
 			this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + this.filter.getName();
 		}
 
-		importCssFile("style/piggydb-filter.css", true, null);
+		importCss("style/piggydb-filter.css", true, null);
 
 		setRelatedTags();
 

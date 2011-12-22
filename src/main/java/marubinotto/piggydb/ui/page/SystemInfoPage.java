@@ -100,7 +100,7 @@ public class SystemInfoPage extends AbstractBorderPage {
 	protected void setModels() throws Exception {
 		super.setModels();
 
-		importCssFile("style/piggydb-system-info.css", true, null);
+		importCss("style/piggydb-system-info.css", true, null);
 		getFormat().setEmptyString("N/A");
 
 		setSettings();

@@ -56,10 +56,8 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	public String title;
 	public String htmlTitle;
 	public static final String HTML_TITLE_SEP = " - ";
-
-	// CSS imports
-	private static String DEFAULT_APP_CSS_IMPORTS;
-	public StrBuilder appCssImports = new StrBuilder();
+	
+	public PageImports appPageImports;
 	
 	// JavaScript imports
 	private static String APP_JS_IMPORTS;
@@ -77,12 +75,11 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	protected void setModels() throws Exception {
 		super.setModels();
 
-		setAppCssImports();
+		this.appPageImports = new PageImports(this.html);
 		setAppJsImports();
 
 		this.title = getMessage("application-title");
-		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()),
-			this);
+		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()), this);
 		showSessionMessageIfExist();
 	}
 
@@ -102,25 +99,6 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		if (sessionMessage != null) {
 			setMessage(sessionMessage);
 		}
-	}
-
-	private void setAppCssImports() {
-		if (DEFAULT_APP_CSS_IMPORTS == null) {
-			StrBuilder imports = new StrBuilder();
-			imports.appendln(this.html.cssImport("style/prettify.css", true, null));
-			imports.appendln(this.html.cssImport("style/watermark.css", true, null));
-			imports.appendln(this.html.cssImport("style/curve/curve.css", true, "screen"));
-			imports.appendln(this.html.cssImport("style/tree/tree.css", true, null));
-			imports.appendln(this.html.cssImport("style/facebox/facebox.css", true, null));
-			imports.appendln(this.html.cssImport("style/piggydb-base.css", true, "screen"));
-			imports.appendln(this.html.cssImport("style/piggydb-shared.css", true, "screen"));
-			imports.appendln(this.html.cssImport("style/piggydb-wiki-help.css", true, null));
-			imports.appendln(this.html.cssImport("style/piggydb-print.css", true, "print"));
-			imports.appendln(this.html.cssImport("jquery-ui-1.8.14/themes/base/jquery.ui.all.css", false, "screen"));
-			imports.appendln(this.html.cssImport("autocomplete/jquery.autocomplete-1.1-1.css", false, "screen"));
-			DEFAULT_APP_CSS_IMPORTS = imports.toString();
-		}
-		this.appCssImports.append(DEFAULT_APP_CSS_IMPORTS);
 	}
 
 	private void setAppJsImports() {
@@ -143,8 +121,8 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		this.appJsImports = APP_JS_IMPORTS;
 	}
 
-	protected void importCssFile(String filePath, boolean versioning, String media) {
-		this.appCssImports.appendln(this.html.cssImport(filePath, versioning, media));
+	protected void importCss(String filePath, boolean versioning, String media) {
+		this.appPageImports.importCss(filePath, versioning, media);
 	}
 
 	protected void importJsFile(String filePath, boolean versioning) {

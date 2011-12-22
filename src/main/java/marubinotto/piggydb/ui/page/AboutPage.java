@@ -16,7 +16,7 @@ public class AboutPage extends AbstractBorderPage {
 	protected void setModels() throws Exception {
 		super.setModels();
 
-		importCssFile("style/piggydb-about.css", true, null);
+		importCss("style/piggydb-about.css", true, null);
 		this.cacheControlToken = DateTime.getCurrentTime().format("yyyyMMdd");
 	}
 }
