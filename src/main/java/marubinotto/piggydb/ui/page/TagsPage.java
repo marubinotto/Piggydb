@@ -12,7 +12,7 @@ public class TagsPage extends AbstractBorderPage {
 		
 		importCss("style/piggydb-tags.css", true, null);
 		importCss("click/tree/tree.css", false, null);		
-		importJsFile("scripts/piggydb-tags.js", true);
+		importBottomJs("scripts/piggydb-tags.js", true);
 		
 		this.tagCount = getDomain().getTagRepository().size();
 	}

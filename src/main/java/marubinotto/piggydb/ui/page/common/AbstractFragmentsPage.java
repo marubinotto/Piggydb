@@ -67,8 +67,8 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		importCss("markitup/skins/simple/style.css", true, "screen");
 		importCss("markitup/sets/wiki/style.css", true, "screen");
 
-		importJsFile("scripts/piggydb-fragment-operations.js", true);
-		importJsFile("markitup/jquery.markitup.pack.js", false);
+		importBottomJs("scripts/piggydb-fragment-operations.js", true);
+		importBottomJs("markitup/jquery.markitup.pack.js", false);
 
 		this.wikiHelpHref = getMessage("wiki-help-href", 
 			getContext().getRequest().getContextPath());

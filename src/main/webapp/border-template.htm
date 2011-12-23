@@ -10,7 +10,7 @@
   $utils.raw($cssImports)
   $utils.raw($appPageImports.css)
   <link rel="shortcut icon" href="$context/images/favicon.ico" type="image/vnd.microsoft.icon"/>
-  $utils.raw($appJsImports)
+  $utils.raw($appPageImports.headJs)
   <script type="text/javascript">
   //<![CDATA[
 #contextualizedJs()
@@ -107,7 +107,7 @@ $utils.raw($removeBookmarkForm.endTag())
 #globalTemplates()
 
 $utils.raw($jsImports)
-$utils.raw($appAdditionalJsImports)
+$utils.raw($appPageImports.bottomJs)
 
 ##BOTTOM_OF_BODY
 </body>

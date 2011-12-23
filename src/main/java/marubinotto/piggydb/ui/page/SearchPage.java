@@ -58,7 +58,7 @@ public class SearchPage extends AbstractFragmentsPage {
 		super.setModels();
 
 		importCss("style/piggydb-search.css", true, null);
-		importJsFile("scripts/jquery.highlightRegex-2.js", false);
+		importBottomJs("scripts/jquery.highlightRegex-2.js", false);
 
 		if (StringUtils.isNotBlank(this.keywords)) this.keywordList = PiggydbUtils.splitToKeywords(this.keywords);
 

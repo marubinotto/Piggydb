@@ -18,7 +18,6 @@ import net.sf.click.extras.control.Menu;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
-import org.apache.commons.lang.text.StrBuilder;
 
 public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
@@ -58,11 +57,6 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	public static final String HTML_TITLE_SEP = " - ";
 	
 	public PageImports appPageImports;
-	
-	// JavaScript imports
-	private static String APP_JS_IMPORTS;
-	public String appJsImports;
-	public StrBuilder appAdditionalJsImports = new StrBuilder();
 
 	public Page<Fragment> bookmarkedFragments = EMPTY_FRAGMENTS;
 	public Tag bookmarkTag;
@@ -76,7 +70,6 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		super.setModels();
 
 		this.appPageImports = new PageImports(this.html);
-		setAppJsImports();
 
 		this.title = getMessage("application-title");
 		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()), this);
@@ -101,33 +94,12 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		}
 	}
 
-	private void setAppJsImports() {
-		if (APP_JS_IMPORTS == null) {
-			getLogger().debug("Initializing APP_JS_IMPORTS ...");
-			StrBuilder imports = new StrBuilder();
-			imports.appendln(this.html.jsImport("scripts/jquery-1.4.2.min.js", false));
-			imports.appendln(this.html.jsImport("jquery-ui-1.8.14/jquery-ui-1.8.14.custom.min.js", false));
-			imports.appendln(this.html.jsImport("scripts/purePacked.js", false));
-			imports.appendln(this.html.jsImport("scripts/prettify-8.js", false));
-			imports.appendln(this.html.jsImport("scripts/jquery.updnWatermark.js", true));
-			imports.appendln(this.html.jsImport("autocomplete/jquery.bgiframe.min.js", false));
-			imports.appendln(this.html.jsImport("autocomplete/jquery.ajaxQueue.js", false));
-			imports.appendln(this.html.jsImport("autocomplete/jquery.autocomplete-1.1-modified.js", true));
-			imports.appendln(this.html.jsImport("scripts/piggydb.js", true));
-			imports.appendln(this.html.jsImport("scripts/piggydb-jquery.js", true));
-			imports.appendln(this.html.jsImport("scripts/piggydb-widgets.js", true));
-			APP_JS_IMPORTS = imports.toString();
-		}
-		this.appJsImports = APP_JS_IMPORTS;
-	}
-
 	protected void importCss(String filePath, boolean versioning, String media) {
 		this.appPageImports.importCss(filePath, versioning, media);
 	}
 
-	protected void importJsFile(String filePath, boolean versioning) {
-		this.appAdditionalJsImports.appendln(this.html.jsImport(filePath,
-			versioning));
+	protected void importBottomJs(String filePath, boolean versioning) {
+		this.appPageImports.importBottomJs(filePath, versioning);
 	}
 
 	protected static final Page<Fragment> EMPTY_FRAGMENTS = PageUtils.empty(0);
