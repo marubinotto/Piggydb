@@ -1,5 +1,5 @@
 //
-// Utilities
+// Piggydb Utilities
 //
 
 function escapeHtml(str) {
@@ -46,12 +46,6 @@ function onDeleteTagClick(tagName, form) {
   form.tagToDelete.value = tagName;
 }
 
-
-
-//
-// Tree
-//
-
 function toggleTreeNode(node) {
   var node = jQuery(node).closest("li");
   var className = node.attr("class");
@@ -65,12 +59,6 @@ function toggleTreeNode(node) {
     node.children("ul").hide();
   }
 }
-
-
-
-//
-// Others
-//
 
 function cumulativeOffsetTop(element) {
 	var offset = 0;
