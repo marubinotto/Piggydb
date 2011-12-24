@@ -1,4 +1,4 @@
-#macro( contextualizedJs )
+#macro( parameterizedJs )
 
 var LOAD_ICON = '<img src="$context/images/load.gif" border="0"  alt="loading" style="margin:5px"/>';
 var FRAGMENT_URL_PREFIX = '$context/fragment.htm?id=';
