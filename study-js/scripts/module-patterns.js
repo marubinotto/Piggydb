@@ -1,6 +1,8 @@
+//
 // Module Patterns
 // http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/
 // http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth
+//
 
 //
 // Basic
@@ -66,11 +68,16 @@ var module3 = {};
 })(module3);	
 
 
-// 2) Use this as a Namespace Proxy with apply
+// 2) Use this as a Namespace Proxy
 
 // the namespace is injected via the this keyword 
 // (which is static within a given execution context) 
 // it cannot be accidentally modified. 
+
+// (*) not solved the this problem inside the member functions?
+// http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/#comment-1210
+
+// with apply
 
 var module4 = {};
 (function() {
@@ -85,10 +92,7 @@ var module4 = {};
 	};
 }).apply(module4);	
 
-
-// 3) Use this as a Namespace Proxy with call
-
-// passing additional arguments to the module creator 
+// with call: passing additional arguments to the module creator 
 
 var module5 = {};
 var module5Creator = function(initial) {
