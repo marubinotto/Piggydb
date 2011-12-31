@@ -14,13 +14,23 @@ jQuery(function() {
 	jQuery("#hello-button").click(function() {
 		hello();
 	});
+	
+	var counter = module5;
+	jQuery("#add-button").click(function() {
+		counter.add();
+	});
+	jQuery("#count-button").click(function() {
+		alert(counter.getCount());
+	});
 });
 //]]>
 </script>
 </head>
 <body>
 <button id="hello-button">Hello</button>
+&nbsp;&nbsp;
+<button id="add-button">Add</button>
+<button id="count-button">Count</button>
 
-<div id="message"></div>
 </body>
 </html>
