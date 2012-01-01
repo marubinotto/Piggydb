@@ -8,6 +8,7 @@
 <script type="text/javascript" src="scripts/global.js"></script>
 <script type="text/javascript" src="scripts/simply-run-some-code.js"></script>
 <script type="text/javascript" src="scripts/module-patterns.js"></script>
+<script type="text/javascript" src="scripts/namespace.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 jQuery(function() {
@@ -20,11 +21,19 @@ jQuery(function() {
 		counter.add();
 	});
 	jQuery("#count-button").click(function() {
-		alert(counter.getCount());
+		net.piggydb.util.log("count: " + counter.getCount());
 	});
 });
 //]]>
 </script>
+<style type="text/css">
+#console {
+	margin-top: 10px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	width: 500px;
+}
+</style>
 </head>
 <body>
 <button id="hello-button">Hello</button>
@@ -32,5 +41,6 @@ jQuery(function() {
 <button id="add-button">Add</button>
 <button id="count-button">Count</button>
 
+<div id="console"></div>
 </body>
 </html>
