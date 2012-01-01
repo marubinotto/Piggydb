@@ -25,6 +25,10 @@ jQuery(function() {
 	jQuery("#count-button").click(function() {
 		log("count: " + counter.getCount());
 	});
+	
+	var test = {};
+	piggydb.namespace.import("piggydb.util.*", test);
+	test.log("Hi, this is JavaScript Sandbox.");
 });
 //]]>
 </script>

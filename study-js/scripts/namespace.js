@@ -45,16 +45,17 @@ piggydb.namespace = (function() {
 	};
 
 	//
-	// Imports properties from the specified namespace to the global space (ie. under window)
+	// Imports properties from the specified namespace to the global space.
 	// 
-	// The identifier string can contain the * wildcard character as its last segment (eg: com.test.*) 
-	// which will import all properties from the namespace.
+	// The identifier string can contain the * wildcard character as its last segment 
+	// (eg: com.test.*) which will import all properties from the namespace.
 	// 
-	// If not, the targeted namespace will be imported (ie. if com.test is imported, the test object 
-	// will now be global). If the targeted object is not found, it will be included using include().
+	// If not, the targeted namespace will be imported (ie. if com.test is imported, 
+	// the test object will now be global).
 	//
 	_namespace.import = function(identifier) {
 		var identifiers = _toArray(identifier);
+		var to = arguments[1] || window; 
 		var parts, target, ns;
 		
 		for (var i = 0; i < identifiers.length; i++) {
@@ -68,7 +69,7 @@ piggydb.namespace = (function() {
 				// imports all objects from the identifier, can't use include() in that case
 				for (var objectName in ns) {
 					if (ns.hasOwnProperty(objectName)) {
-						window[objectName] = ns[objectName];
+						to[objectName] = ns[objectName];
 					}
 				}
 			} 
@@ -76,7 +77,7 @@ piggydb.namespace = (function() {
 				// imports only one object
 				if (ns[target]) {
 					// the object exists, import it
-					window[target] = ns[target];
+					to[target] = ns[target];
 				}
 			}
 		}
