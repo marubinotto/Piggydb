@@ -1,3 +1,3 @@
 function hello() {
-	net.piggydb.util.log("Hello, world!");
+	piggydb.util.log("Hello, world!");
 }

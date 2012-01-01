@@ -11,6 +11,8 @@
 <script type="text/javascript" src="scripts/namespace.js"></script>
 <script type="text/javascript">
 //<![CDATA[
+piggydb.namespace.import("piggydb.util.*");
+
 jQuery(function() {
 	jQuery("#hello-button").click(function() {
 		hello();
@@ -21,7 +23,7 @@ jQuery(function() {
 		counter.add();
 	});
 	jQuery("#count-button").click(function() {
-		net.piggydb.util.log("count: " + counter.getCount());
+		log("count: " + counter.getCount());
 	});
 });
 //]]>
