@@ -599,7 +599,7 @@ ul.fragment-tree .subtree li.fragment-node {
  */
 
 table.fragment-node {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 table.fragment-node th {
