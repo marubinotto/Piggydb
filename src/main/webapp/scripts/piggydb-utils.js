@@ -2,16 +2,6 @@
 // Piggydb Utilities
 //
 
-function isBlank(str) {
-  if (str == null) return true;
-  if (jQuery.trim(str) == "") return true;
-  return false;
-}
-
-function isNotBlank(str) {
-  return !isBlank(str);
-}
-
 var FormUtils = {
   addParamToForm: function(form, name, value) {
     jQuery('<input type="hidden" name="' + name + '" value="' + value + '"/>')
