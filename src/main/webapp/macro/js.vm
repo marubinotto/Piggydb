@@ -1,4 +1,6 @@
 #macro( parameterizedJs )
+	
+piggydb.namespace.import("piggydb.util.*");
 
 var LOAD_ICON = '<img src="$context/images/load.gif" border="0"  alt="loading" style="margin:5px"/>';
 var FRAGMENT_URL_PREFIX = '$context/fragment.htm?id=';
@@ -65,6 +67,9 @@ jQuery(function() {
     function (id) { ajaxCommand("fragment-selection", {command: "remove", id: id}) },
     function () { ajaxCommand("fragment-selection", {command: "clear"}) });
 
+	jQuery.Autocompleter.defaults.formatItem = function(row) { 
+    return escapeHtml(row[0]); 
+  };
   jQuery("#searchForm_keywords").autocomplete(constants["autocomplete-url"], {
     minChars: 1,
     selectFirst: true,

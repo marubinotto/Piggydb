@@ -2,11 +2,6 @@
 // Piggydb Utilities
 //
 
-function escapeHtml(str) {
-  if (!str) return str;
-  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
 function escapeJsString(str) {
   if (!str) return str;
   return str.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
@@ -76,10 +71,6 @@ function setScrollTopTo(id) {
   var offset = cumulativeOffsetTop(targets[0]);
   jQuery("html, body").scrollTop(offset);
 }
-
-jQuery.Autocompleter.defaults.formatItem = function(row) { 
-  return escapeHtml(row[0]); 
-};
 
 function liquidBlocks(selectorPrefix, blockWidth, containerWidth) {
   var blocksSelector = selectorPrefix + "ul.liquid-blocks";
