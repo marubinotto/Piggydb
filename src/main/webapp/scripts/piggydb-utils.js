@@ -2,13 +2,6 @@
 // Piggydb Utilities
 //
 
-var FormUtils = {
-  addParamToForm: function(form, name, value) {
-    jQuery('<input type="hidden" name="' + name + '" value="' + value + '"/>')
-      .appendTo(form);
-  }
-};
-
 // The tag name should be html escaped before
 function tagIconClass(tagName) {
 	var c = "tagIcon";

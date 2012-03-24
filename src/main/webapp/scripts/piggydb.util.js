@@ -13,5 +13,9 @@ piggydb.namespace("piggydb.util", {
 	
 	isNotBlank: function(str) {
 	  return !isBlank(str);
+	},
+	
+	addHiddenValue: function(form, name, value) {
+    jQuery('<input type="hidden" name="' + name + '" value="' + value + '"/>').appendTo(form);
 	}
 });
