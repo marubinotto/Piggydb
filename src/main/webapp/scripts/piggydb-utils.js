@@ -2,11 +2,6 @@
 // Piggydb Utilities
 //
 
-function escapeJsString(str) {
-  if (!str) return str;
-  return str.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
-}
-
 function isBlank(str) {
   if (str == null) return true;
   if (jQuery.trim(str) == "") return true;
