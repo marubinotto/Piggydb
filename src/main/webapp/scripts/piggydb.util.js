@@ -19,3 +19,19 @@ piggydb.namespace("piggydb.util", {
     jQuery('<input type="hidden" name="' + name + '" value="' + value + '"/>').appendTo(form);
 	}
 });
+
+
+piggydb.namespace("piggydb.util.domain", {
+	
+	tagIconClass: function(tagName) {
+		var c = "tagIcon";
+		if (tagName.charAt(0) == "#") c = c + " tagIcon-" + tagName.substring(1);
+		return c;
+	},
+	
+	miniTagIconClass: function(tagName) {
+		var c = "miniTagIcon";
+		if (tagName.charAt(0) == "#") c = c + " miniTagIcon-" + tagName.substring(1);
+		return c;
+	}
+});

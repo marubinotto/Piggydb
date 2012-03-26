@@ -208,7 +208,7 @@ function makeSelectedFragmentsDroppable() {
         var tagName = ui.draggable.find("span.tag a.tag").text();
         var message = "$messages.get("confirm-add-tags-to-selected")" +
           '<div class="detail">' + 
-          '<span class="' + miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
+          '<span class="' + domain.miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
           '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
           "$messages.get("selected-fragments")<\/div>";
         showConfirmDialog("$messages.get("add-tag")", message, "$messages.get("add")", function () {

@@ -3,7 +3,7 @@
  */
 var TagUtils = {
   htmlTagIcon: function(tagName) {
-    return '<span class="' + tagIconClass(tagName) + '">&nbsp;<\/span>';
+    return '<span class="' + domain.tagIconClass(tagName) + '">&nbsp;<\/span>';
   },
   
   htmlTag: function(tag) {

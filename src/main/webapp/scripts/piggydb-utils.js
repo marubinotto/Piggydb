@@ -2,19 +2,6 @@
 // Piggydb Utilities
 //
 
-// The tag name should be html escaped before
-function tagIconClass(tagName) {
-	var c = "tagIcon";
-	if (tagName.charAt(0) == "#") c = c + " tagIcon-" + tagName.substring(1);
-	return c;
-}
-
-function miniTagIconClass(tagName) {
-	var c = "miniTagIcon";
-	if (tagName.charAt(0) == "#") c = c + " miniTagIcon-" + tagName.substring(1);
-	return c;
-}
-
 function onDeleteTagClick(tagName, form) {
   form.tagToDelete.value = tagName;
 }
