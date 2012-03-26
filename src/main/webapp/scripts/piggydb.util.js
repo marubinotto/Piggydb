@@ -33,5 +33,10 @@ piggydb.namespace("piggydb.util.domain", {
 		var c = "miniTagIcon";
 		if (tagName.charAt(0) == "#") c = c + " miniTagIcon-" + tagName.substring(1);
 		return c;
+	},
+	
+	onDeleteTagClick: function(tagName, form) {
+	  form.tagToDelete.value = tagName;
 	}
 });
+

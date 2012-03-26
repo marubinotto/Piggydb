@@ -107,7 +107,7 @@ public class TagTree extends Tree {
 						buffer.append(" src=\"");
 						buffer.append(context.getRequest().getContextPath());
 						buffer.append("/images/delete.gif\"");
-						buffer.append(" onclick=\"onDeleteTagClick('");
+						buffer.append(" onclick=\"piggydb.util.domain.onDeleteTagClick('");
 						buffer.append(StringEscapeUtils.escapeHtml((String)treeNode.getValue()));
 						buffer.append("', this.form)\"/>");
 					}

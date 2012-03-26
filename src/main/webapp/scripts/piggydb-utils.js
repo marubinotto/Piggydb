@@ -2,10 +2,6 @@
 // Piggydb Utilities
 //
 
-function onDeleteTagClick(tagName, form) {
-  form.tagToDelete.value = tagName;
-}
-
 function toggleTreeNode(node) {
   var node = jQuery(node).closest("li");
   var className = node.attr("class");

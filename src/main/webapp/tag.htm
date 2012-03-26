@@ -129,7 +129,7 @@ $utils.raw($subTagForm.startTag())
     <a class="tag" href="$resources.tagPath(${subtag.id})">$subtag.name</a>
     #if ($subtag.canRemoveTag($tag, $user))
       <input class="delete-button" type='image' name="deleteTag" src='$context/images/delete.gif'
-        onclick="onDeleteTagClick('$subtag.name', this.form)"/>
+        onclick="piggydb.util.domain.onDeleteTagClick('$subtag.name', this.form)"/>
     #end
   </li>
   #end
