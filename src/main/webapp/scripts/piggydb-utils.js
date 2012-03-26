@@ -2,23 +2,6 @@
 // Piggydb Utilities
 //
 
-function cumulativeOffsetTop(element) {
-	var offset = 0;
-  while (true) {
-    offset += element.offsetTop;
-    element = element.offsetParent;
-    if (!element) break;
-  }
-  return offset;
-}
-
-function setScrollTopTo(id) {
-  var targets = jQuery('#' + id);
-  if (targets.size() == 0) return;
-  var offset = cumulativeOffsetTop(targets[0]);
-  jQuery("html, body").scrollTop(offset);
-}
-
 function liquidBlocks(selectorPrefix, blockWidth, containerWidth) {
   var blocksSelector = selectorPrefix + "ul.liquid-blocks";
 

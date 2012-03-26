@@ -31,6 +31,23 @@ piggydb.namespace("piggydb.util", {
 	    node.addClass(className.replace("expanded", "collapsed"));
 	    node.children("ul").hide();
 	  }
+	},
+	
+	cumulativeOffsetTop: function(element) {
+		var offset = 0;
+	  while (true) {
+	    offset += element.offsetTop;
+	    element = element.offsetParent;
+	    if (!element) break;
+	  }
+	  return offset;
+	},
+	
+	setScrollTopTo: function(id) {
+	  var targets = jQuery('#' + id);
+	  if (targets.size() == 0) return;
+	  var offset = cumulativeOffsetTop(targets[0]);
+	  jQuery("html, body").scrollTop(offset);
 	}
 });
 
