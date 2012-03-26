@@ -2,20 +2,6 @@
 // Piggydb Utilities
 //
 
-function toggleTreeNode(node) {
-  var node = jQuery(node).closest("li");
-  var className = node.attr("class");
-  node.removeAttr("class");
-  if (className.match("^collapsed")) {
-    node.addClass(className.replace("collapsed", "expanded"));
-    node.children("ul").show();
-  }
-  else if (className.match("^expanded")) {
-    node.addClass(className.replace("expanded", "collapsed"));
-    node.children("ul").hide();
-  }
-}
-
 function cumulativeOffsetTop(element) {
 	var offset = 0;
   while (true) {
