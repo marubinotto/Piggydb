@@ -48,6 +48,35 @@ piggydb.namespace("piggydb.util", {
 	  if (targets.size() == 0) return;
 	  var offset = cumulativeOffsetTop(targets[0]);
 	  jQuery("html, body").scrollTop(offset);
+	},
+	
+	// for ul.liquid-blocks / li.liquid-block
+	liquidBlocks: function(selectorPrefix, blockWidth, containerWidth) {
+	  var blocksSelector = selectorPrefix + "ul.liquid-blocks";
+
+	  // Get the width of row
+	  if (containerWidth == null) {
+	    // Reset the container size to a 100% once view port has been adjusted
+	    jQuery(blocksSelector).css({ 'width' : "100%" });
+	    containerWidth = jQuery(blocksSelector).width();
+	  }
+
+	  // Find how many blocks can fit per row
+	  // then round it down to a whole number
+	  var colNum = Math.floor(containerWidth / blockWidth);
+	  if (colNum == 0) colNum = 1;
+
+	  // Get the width of the row and divide it by the number of blocks it can fit
+	  // then round it down to a whole number.
+	  // This value will be the exact width of the re-adjusted block
+	  var colFixed = Math.floor(containerWidth / colNum);
+
+	  // Set exact width of row in pixels instead of using %
+	  // Prevents cross-browser bugs that appear in certain view port resolutions.
+	  jQuery(blocksSelector).css({ 'width' : containerWidth });
+
+	  // Set exact width of the re-adjusted block
+	  jQuery(blocksSelector + " li.liquid-block").css({ 'width' : colFixed });
 	}
 });
 
