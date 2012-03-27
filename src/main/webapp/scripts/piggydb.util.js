@@ -77,6 +77,14 @@ piggydb.namespace("piggydb.util", {
 
 	  // Set exact width of the re-adjusted block
 	  jQuery(blocksSelector + " li.liquid-block").css({ 'width' : colFixed });
+	},
+	
+	clickSelectSwitch: function(button) {
+		button = jQuery(button);
+	  if (button.hasClass("selected")) return false;
+	  button.siblings("button.selected").removeClass("selected");
+	  button.addClass("selected");
+	  return true;
 	}
 });
 
