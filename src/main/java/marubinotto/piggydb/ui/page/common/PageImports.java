@@ -51,7 +51,7 @@ public class PageImports {
 			addCssImportTo(imports, "style/piggydb-shared.css", true, "screen");
 			addCssImportTo(imports, "style/piggydb-wiki-help.css", true, null);
 			addCssImportTo(imports, "style/piggydb-print.css", true, "print");
-			addCssImportTo(imports, "jquery-ui-1.8.14/themes/base/jquery.ui.all.css", false, "screen");
+			addCssImportTo(imports, "js/vendor/jquery-ui-1.8.18/themes/base/jquery.ui.all.css", false, "screen");
 			addCssImportTo(imports, "autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
 			DEFAULT_CSS_IMPORTS = imports.toString();
 		}
@@ -62,7 +62,7 @@ public class PageImports {
 		if (DEFAULT_HEAD_JS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
 			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
-			addJsImportTo(imports, "jquery-ui-1.8.14/jquery-ui-1.8.14.custom.min.js", false);
+			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
 			addJsImportTo(imports, "scripts/purePacked.js", false);
 			addJsImportTo(imports, "scripts/prettify-8.js", false);
 			addJsImportTo(imports, "scripts/jquery.updnWatermark.js", true);
