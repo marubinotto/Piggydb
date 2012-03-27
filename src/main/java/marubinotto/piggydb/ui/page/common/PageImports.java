@@ -61,7 +61,7 @@ public class PageImports {
 	private void setDefaultHeadJs() {
 		if (DEFAULT_HEAD_JS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
-			addJsImportTo(imports, "scripts/jquery-1.4.2.min.js", false);
+			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
 			addJsImportTo(imports, "jquery-ui-1.8.14/jquery-ui-1.8.14.custom.min.js", false);
 			addJsImportTo(imports, "scripts/purePacked.js", false);
 			addJsImportTo(imports, "scripts/prettify-8.js", false);
