@@ -1,3 +1,0 @@
-//
-// Piggydb Utilities
-//
