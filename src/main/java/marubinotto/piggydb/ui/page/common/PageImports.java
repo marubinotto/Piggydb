@@ -63,7 +63,7 @@ public class PageImports {
 			StrBuilder imports = new StrBuilder();
 			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
 			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
-			addJsImportTo(imports, "scripts/purePacked.js", false);
+			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "scripts/prettify-8.js", false);
 			addJsImportTo(imports, "scripts/jquery.updnWatermark.js", true);
 			addJsImportTo(imports, "autocomplete/jquery.bgiframe.min.js", false);
