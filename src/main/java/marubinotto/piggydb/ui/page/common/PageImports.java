@@ -43,7 +43,7 @@ public class PageImports {
 		if (DEFAULT_CSS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
 			addCssImportTo(imports, "js/vendor/prettify/prettify.css", true, null);
-			addCssImportTo(imports, "style/watermark.css", true, null);
+			addCssImportTo(imports, "js/vendor/updnWatermark/watermark.css", true, null);
 			addCssImportTo(imports, "style/curve/curve.css", true, "screen");
 			addCssImportTo(imports, "style/tree/tree.css", true, null);
 			addCssImportTo(imports, "style/facebox/facebox.css", true, null);
@@ -65,7 +65,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
-			addJsImportTo(imports, "scripts/jquery.updnWatermark.js", true);
+			addJsImportTo(imports, "js/vendor/updnWatermark/jquery.updnWatermark.js", true);
 			addJsImportTo(imports, "autocomplete/jquery.bgiframe.min.js", false);
 			addJsImportTo(imports, "autocomplete/jquery.ajaxQueue.js", false);
 			addJsImportTo(imports, "autocomplete/jquery.autocomplete-1.1-modified.js", true);
