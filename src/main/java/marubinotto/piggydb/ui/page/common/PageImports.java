@@ -42,7 +42,7 @@ public class PageImports {
 	private void setDefaultCss() {
 		if (DEFAULT_CSS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
-			addCssImportTo(imports, "style/prettify.css", true, null);
+			addCssImportTo(imports, "js/vendor/prettify/prettify.css", true, null);
 			addCssImportTo(imports, "style/watermark.css", true, null);
 			addCssImportTo(imports, "style/curve/curve.css", true, "screen");
 			addCssImportTo(imports, "style/tree/tree.css", true, null);
@@ -64,7 +64,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
 			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
-			addJsImportTo(imports, "scripts/prettify-8.js", false);
+			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
 			addJsImportTo(imports, "scripts/jquery.updnWatermark.js", true);
 			addJsImportTo(imports, "autocomplete/jquery.bgiframe.min.js", false);
 			addJsImportTo(imports, "autocomplete/jquery.ajaxQueue.js", false);
