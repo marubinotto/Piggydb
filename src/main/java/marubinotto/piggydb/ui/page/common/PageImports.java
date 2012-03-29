@@ -44,6 +44,8 @@ public class PageImports {
 			StrBuilder imports = new StrBuilder();
 			addCssImportTo(imports, "js/vendor/prettify/prettify.css", true, null);
 			addCssImportTo(imports, "js/vendor/updnWatermark/watermark.css", true, null);
+			addCssImportTo(imports, "js/vendor/jquery-ui-1.8.18/themes/base/jquery.ui.all.css", false, "screen");
+			addCssImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
 			addCssImportTo(imports, "style/curve/curve.css", true, "screen");
 			addCssImportTo(imports, "style/tree/tree.css", true, null);
 			addCssImportTo(imports, "style/facebox/facebox.css", true, null);
@@ -51,8 +53,7 @@ public class PageImports {
 			addCssImportTo(imports, "style/piggydb-shared.css", true, "screen");
 			addCssImportTo(imports, "style/piggydb-wiki-help.css", true, null);
 			addCssImportTo(imports, "style/piggydb-print.css", true, "print");
-			addCssImportTo(imports, "js/vendor/jquery-ui-1.8.18/themes/base/jquery.ui.all.css", false, "screen");
-			addCssImportTo(imports, "autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
+			
 			DEFAULT_CSS_IMPORTS = imports.toString();
 		}
 		this.css.append(DEFAULT_CSS_IMPORTS);
@@ -66,9 +67,9 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
 			addJsImportTo(imports, "js/vendor/updnWatermark/jquery.updnWatermark.js", true);
-			addJsImportTo(imports, "autocomplete/jquery.bgiframe.min.js", false);
-			addJsImportTo(imports, "autocomplete/jquery.ajaxQueue.js", false);
-			addJsImportTo(imports, "autocomplete/jquery.autocomplete-1.1-modified.js", true);
+			addJsImportTo(imports, "js/vendor/autocomplete/jquery.bgiframe.min.js", false);
+			addJsImportTo(imports, "js/vendor/autocomplete/jquery.ajaxQueue.js", false);
+			addJsImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-modified.js", true);
 			addJsImportTo(imports, "scripts/piggydb.js", true);
 			addJsImportTo(imports, "scripts/piggydb.util.js", true);
 			addJsImportTo(imports, "scripts/piggydb-jquery.js", true);
