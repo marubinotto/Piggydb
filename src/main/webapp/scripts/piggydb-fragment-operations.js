@@ -76,7 +76,7 @@ var FragmentForm = {
     this.form.contentType.value = newValue;
   },
   
-  wikiHelp: new Facebox("facebox-wiki-help"),
+  wikiHelp: new piggydb.util.Facebox("facebox-wiki-help"),
   
   onWikiHelpClick: function() {
   	FragmentForm.wikiHelp.show(this.href);
@@ -143,7 +143,7 @@ Fragment.onShowHiddenTags = function(button) {
   jQuery(button).siblings(".hidden-tags").show();
   jQuery(button).hide();
 };
-Fragment.imageViewer = new Facebox("facebox-image-viewer");
+Fragment.imageViewer = new piggydb.util.Facebox("facebox-image-viewer");
 Fragment.onImageClick = function() {
 	Fragment.imageViewer.showImage(this.href);
   return false;
