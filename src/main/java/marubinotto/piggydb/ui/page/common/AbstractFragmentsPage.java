@@ -64,11 +64,11 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 
 		importCss("style/piggydb-fragment-operations.css", true, null);
-		importCss("markitup/skins/simple/style.css", true, "screen");
-		importCss("markitup/sets/wiki/style.css", true, "screen");
+		importCss("js/vendor/markitup/skins/simple/style.css", true, "screen");
+		importCss("js/vendor/markitup/sets/wiki/style.css", true, "screen");
 
 		importBottomJs("scripts/piggydb-fragment-operations.js", true);
-		importBottomJs("markitup/jquery.markitup.pack.js", false);
+		importBottomJs("js/vendor/markitup/jquery.markitup.pack.js", true);
 
 		this.wikiHelpHref = getMessage("wiki-help-href", 
 			getContext().getRequest().getContextPath());
