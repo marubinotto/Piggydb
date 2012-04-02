@@ -71,7 +71,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.ajaxQueue.js", false);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-modified.js", true);
 			addJsImportTo(imports, "js/piggydb.js", true);
-			addJsImportTo(imports, "scripts/piggydb.util.js", true);
+			addJsImportTo(imports, "js/piggydb.util.js", true);
 			addJsImportTo(imports, "scripts/piggydb-jquery.js", true);
 			addJsImportTo(imports, "scripts/piggydb-widgets.js", true);
 			DEFAULT_HEAD_JS_IMPORTS = imports.toString();
