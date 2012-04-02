@@ -1,14 +1,3 @@
-/*
- * Global utilities
- */
- 
-function getFragmentHeaders(fragmentId) {
-  var headerClass = ".fragment-header";
-  if (fragmentId != null) headerClass = headerClass + "-" + fragmentId;
-  return jQuery(headerClass);
-}
-
-
 /* 
  *  Facebox based on facebox (http://famspam.com/facebox)
  */
@@ -180,7 +169,7 @@ SelectedFragments.prototype = {
     this.callback_add(id);
   
     // Fragment headers
-    var headers = getFragmentHeaders(id);
+    var headers = Fragment.getHeaders(id);
     var allCheckboxes = headers.find("input.fragment-checkbox");
     headers.addClass(this.CLASS_FRAGMENT_SELECTED);
     allCheckboxes.attr("checked", "checked");
@@ -208,7 +197,7 @@ SelectedFragments.prototype = {
     this.callback_remove(id);
   
     // Fragment headers
-    var headers = getFragmentHeaders(id);
+    var headers = Fragment.getHeaders(id);
     var allCheckboxes = headers.find("input.fragment-checkbox");
     headers.removeClass(this.CLASS_FRAGMENT_SELECTED);
     allCheckboxes.removeAttr("checked");
@@ -224,7 +213,7 @@ SelectedFragments.prototype = {
     this.callback_clear();
         
     // Fragment headers
-    var headers = getFragmentHeaders(null);
+    var headers = Fragment.getHeaders(null);
     var allCheckboxes = headers.find("input.fragment-checkbox");
     headers.removeClass(this.CLASS_FRAGMENT_SELECTED);
     allCheckboxes.removeAttr("checked");

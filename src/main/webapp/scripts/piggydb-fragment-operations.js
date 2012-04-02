@@ -153,6 +153,11 @@ Fragment.syncTitles = function(id, title, headline) {
 	jQuery(selector).html(headline);
 	jQuery("table.fragment-full > tbody > tr > th.header-cell " + selector).html(title);
 };
+Fragment.getHeaders = function(fragmentId) {
+  var headerClass = ".fragment-header";
+  if (fragmentId != null) headerClass = headerClass + "-" + fragmentId;
+  return jQuery(headerClass);
+};
 Fragment.prototype = {
 	id: function() {
 		return this.root.find("span.fragment-id:first").text();
