@@ -27,7 +27,7 @@ var FragmentFormDialog = {
 	  	.click(FragmentFormDialog.onWikiHelpClick);
 	},
   
-  wikiHelp: new piggydb.util.Facebox("facebox-wiki-help"),
+  // wikiHelp: new piggydb.util.Facebox("facebox-wiki-help"),
   
   onWikiHelpClick: function() {
   	FragmentFormDialog.wikiHelp.show(this.href);

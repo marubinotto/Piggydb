@@ -21,6 +21,7 @@ public class PageImports {
 		this.html = html;
 		setDefaultCss();
 		setDefaultHeadJs();
+		setDefaultBottomJs();
 	}
 	
 	public void importCss(String filePath, boolean versioning, String media) {
@@ -77,5 +78,9 @@ public class PageImports {
 			DEFAULT_HEAD_JS_IMPORTS = imports.toString();
 		}
 		this.headJs.append(DEFAULT_HEAD_JS_IMPORTS);
+	}
+	
+	private void setDefaultBottomJs() {
+		importBottomJs("js/piggydb.widget.js", true);
 	}
 }
