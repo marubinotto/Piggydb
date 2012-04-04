@@ -5,7 +5,7 @@
 <script type="text/javascript">
 //<![CDATA[
   jQuery(function() {
-    new SidebarEntry("$id", "$toggleId", putSessionValue);
+    new SidebarEntry("$id", "$toggleId", piggydb.server.putSessionValue);
   });
 //]]>
 </script>
@@ -111,7 +111,7 @@
       resizableDiv.resizable({ 
         handles: 's', 
         stop: function(event, ui) {
-          putSessionValue("$heightKey", resizableDiv.height());
+          piggydb.server.putSessionValue("$heightKey", resizableDiv.height());
         }
       })
     };

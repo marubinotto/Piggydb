@@ -9,6 +9,8 @@
     <page path="tag.atom" classname="atom.TagAtom"/>
     <page path="filter.atom" classname="atom.FilterAtom"/>
     <page path="user.atom" classname="atom.UserAtom"/>
+    
+    <page path="js/piggydb.server.js" classname="js.ServerContextJs"/>
   </pages>
 
   <mode value="development"/>

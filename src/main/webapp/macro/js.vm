@@ -24,12 +24,6 @@ function getJSON(command, parameters, callback) {
   jQuery.getJSON("$context/command/" + command + ".htm", parameters, callback);
 }
 
-function putSessionValue(name, value) {
-  jQuery.post(
-    "$context/command/put-session-value.htm", 
-    {name: name, value: value});
-}
-
 
 ##
 ## Constants

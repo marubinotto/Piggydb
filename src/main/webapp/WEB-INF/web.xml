@@ -80,6 +80,10 @@
     <servlet-name>click-servlet</servlet-name>
     <url-pattern>*.atom</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>click-servlet</servlet-name>
+    <url-pattern>/js/piggydb.server.js</url-pattern>
+  </servlet-mapping>
 
   <session-config>
     <session-timeout>30</session-timeout>
