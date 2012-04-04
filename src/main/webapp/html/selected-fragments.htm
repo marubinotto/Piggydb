@@ -4,7 +4,7 @@
     var checkboxes = jQuery('#$viewId .fragment-checkbox').removeAttr("onclick");
     checkboxes.click(function () {
       if (!this.checked) {
-        ajaxCommand("fragment-selection", {command: "remove", id: this.value});
+        piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: this.value});
         jQuery(this).closest("li.liquid-block").remove();
         jQuery(this).closest("li.fragment-root-node").remove();
         jQuery(this).closest("table.fragment").remove();

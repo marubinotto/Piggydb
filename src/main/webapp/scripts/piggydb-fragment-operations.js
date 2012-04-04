@@ -385,7 +385,7 @@ var fragmentOps = {
     if (!window.confirm(messages["confirm-delete-relation"])) 
       return false;
     
-    ajaxCommand("delete-relation", {"id": id});
+    piggydb.server.ajaxCommand("delete-relation", {"id": id});
     relationHtml.fadeOut("slow", function() {
       if (relationContainerHtml != null && relationHtml.siblings().size() == 0)
         relationContainerHtml.remove();

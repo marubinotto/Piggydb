@@ -16,10 +16,6 @@ var selectedFragments;
 ##
 ## Utilities
 ##
-function ajaxCommand(command, parameters) {
-  jQuery.get("$context/command/" + command + ".htm", parameters);
-}
-
 function getJSON(command, parameters, callback) {
   jQuery.getJSON("$context/command/" + command + ".htm", parameters, callback);
 }
@@ -57,9 +53,9 @@ jQuery(function() {
     "facebox-selected-fragments", 
     FRAGMENT_URL_PREFIX, 
     '$messages.get("confirm-clear-all-selections")',
-    function (id) { ajaxCommand("fragment-selection", {command: "add", id: id}) },
-    function (id) { ajaxCommand("fragment-selection", {command: "remove", id: id}) },
-    function () { ajaxCommand("fragment-selection", {command: "clear"}) });
+    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
+    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
+    function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });
 
 	jQuery.Autocompleter.defaults.formatItem = function(row) { 
     return escapeHtml(row[0]); 
