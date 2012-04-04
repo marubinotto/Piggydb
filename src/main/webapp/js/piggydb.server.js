@@ -6,6 +6,10 @@ piggydb.namespace("piggydb.server", {
     jQuery.get("$context/command/" + command + ".htm", parameters);
   },
 	
+  getJSON: function(command, parameters, callback) {
+    jQuery.getJSON("$context/command/" + command + ".htm", parameters, callback);
+  },
+	
   putSessionValue: function(name, value) {
     jQuery.post(
       "$context/command/put-session-value.htm", 

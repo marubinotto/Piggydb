@@ -14,14 +14,6 @@ var selectedFragments;
 
 
 ##
-## Utilities
-##
-function getJSON(command, parameters, callback) {
-  jQuery.getJSON("$context/command/" + command + ".htm", parameters, callback);
-}
-
-
-##
 ## Constants
 ##
 var messages = {

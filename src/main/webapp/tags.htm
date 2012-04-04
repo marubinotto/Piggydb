@@ -29,19 +29,19 @@
   
   var tagData = {
     rootTags: function(callback) {
-      getJSON("get-tags", null, callback);
+      piggydb.server.getJSON("get-tags", null, callback);
     },
     
     children: function(id, callback) {
-      getJSON("get-tags", {"parent" : id}, callback);
+      piggydb.server.getJSON("get-tags", {"parent" : id}, callback);
     },
     
     tagsByPopularity: function(callback) {
-      getJSON("get-popular-tags", null, callback);
+      piggydb.server.getJSON("get-popular-tags", null, callback);
     },
     
     allTags: function(pageIndex, callback) {
-      getJSON("get-all-tags", {"pi" : pageIndex}, callback);
+      piggydb.server.getJSON("get-all-tags", {"pi" : pageIndex}, callback);
     }
   };
   
