@@ -145,47 +145,10 @@ SelectedFragments.prototype = {
 };
 
 
-function ShowHideToggle(id, target, putState) {
-  this.id = id;
-  this.target = target;
-  this.putState = putState;
-  this.onShow = null;
-  
-  this.widget = jQuery('#' + id);
-  this.icon = this.widget.children("img");
-   
-  var outer = this;
-  this.widget.click(function() {
-    outer.onToggleClick();
-    return false;
-  });
-}
-ShowHideToggle.prototype = {
-  SHOW: "down",
-  HIDE: "up",
-  
-  onToggleClick: function() {
-    var iconSrc = this.icon.attr("src");
-    var stateKey = "state." + this.id;
-    if (iconSrc.indexOf(this.SHOW) != -1) {
-      this.icon.attr("src", iconSrc.replace(this.SHOW, this.HIDE));
-      this.target.slideDown("fast");
-      this.putState(stateKey, "shown");
-      if (this.onShow) this.onShow();
-    }
-    else if (iconSrc.indexOf(this.HIDE) != -1) {
-      this.target.slideUp("fast");
-      this.icon.attr("src", iconSrc.replace(this.HIDE, this.SHOW));
-      this.putState(stateKey, "hidden");
-    }
-  }
-};
-
-
 function SidebarEntry(id, toggleId, putState) {
   this.id = id;
   this.content = jQuery("#" + id + " .sidebar-content");
-  this.toggle = new ShowHideToggle(toggleId, this.content, putState);
+  this.toggle = new piggydb.widget.ShowHideToggle(toggleId, this.content);
   
   if (!SidebarEntry.instances) SidebarEntry.instances = [];
   SidebarEntry.instances[id] = this;

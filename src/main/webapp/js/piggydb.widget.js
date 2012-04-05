@@ -9,9 +9,12 @@ piggydb.namespace("piggydb.widget", {
  */
 piggydb.widget.Widget = function(jQueryElement) {
 	this.element = jQueryElement;
-}
+};
 piggydb.widget.Widget.prototype = {
 		
+  saveState: function(name, value) {
+  	piggydb.server.putSessionValue(name, value);
+  }
 };
 
 
@@ -114,4 +117,49 @@ piggydb.widget.Facebox.prototype = jQuery.extend({
 	  return false;
 	}		
 }, piggydb.widget.Widget.prototype);
+
+
+
+/**
+ *  ShowHideToggle
+ */
+piggydb.widget.ShowHideToggle = function(id, target) {
+  this.id = id;
+  this.target = target;
+  this.onShow = null;
+  
+  this.widget = jQuery('#' + id);
+  this.icon = this.widget.children("img");
+   
+  var outer = this;
+  this.widget.click(function() {
+    outer.onToggleClick();
+    return false;
+  });
+};
+piggydb.widget.ShowHideToggle.prototype = jQuery.extend({
+	
+  SHOW: "down",
+  HIDE: "up",
+  
+  onToggleClick: function() {
+    var iconSrc = this.icon.attr("src");
+    var stateKey = "state." + this.id;
+    if (iconSrc.indexOf(this.SHOW) != -1) {
+      this.icon.attr("src", iconSrc.replace(this.SHOW, this.HIDE));
+      this.target.slideDown("fast");
+      this.saveState(stateKey, "shown");
+      if (this.onShow) this.onShow();
+    }
+    else if (iconSrc.indexOf(this.HIDE) != -1) {
+      this.target.slideUp("fast");
+      this.icon.attr("src", iconSrc.replace(this.HIDE, this.SHOW));
+      this.saveState(stateKey, "hidden");
+    }
+  }
+}, piggydb.widget.Widget.prototype);
+
+
+
+
 
