@@ -124,15 +124,15 @@ piggydb.widget.Facebox.prototype = jQuery.extend({
  *  ShowHideToggle
  */
 piggydb.widget.ShowHideToggle = function(id, target) {
+	piggydb.widget.Widget.call(this, jQuery('#' + id));
+	
   this.id = id;
   this.target = target;
-  this.onShow = null;
-  
-  this.widget = jQuery('#' + id);
-  this.icon = this.widget.children("img");
+  this.onShow = null; 
+  this.icon = this.element.children("img");
    
   var outer = this;
-  this.widget.click(function() {
+  this.element.click(function() {
     outer.onToggleClick();
     return false;
   });
