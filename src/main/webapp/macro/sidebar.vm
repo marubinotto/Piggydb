@@ -5,7 +5,7 @@
 <script type="text/javascript">
 //<![CDATA[
   jQuery(function() {
-    new SidebarEntry("$id", "$toggleId", piggydb.server.putSessionValue);
+    new piggydb.widget.SidebarEntry("$id", "$toggleId");
   });
 //]]>
 </script>
@@ -130,7 +130,7 @@
   }
 
   jQuery(function() {
-    var sidebarTagPalette = SidebarEntry.instances["sidebar-tag-palette"];
+    var sidebarTagPalette = piggydb.widget.SidebarEntry.instances["sidebar-tag-palette"];
     sidebarTagPalette.toggle.onShow = function () {
       if (!sidebarTagPaletteInitialized) initSidebarTagPalette();
     };   

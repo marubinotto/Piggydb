@@ -159,4 +159,27 @@ piggydb.namespace("piggydb.widget", {
 	  }
 	}, module.Widget.prototype);
 
+	
+	
+	/**
+	 *  SidebarEntry
+	 */
+	module.SidebarEntry = function(id, toggleId) {
+		module.Widget.call(this, jQuery('#' + id));
+		
+	  this.id = id;
+	  this.content = this.element.find(".sidebar-content");
+	  this.toggle = new module.ShowHideToggle(toggleId, this.content);
+	  
+	  var cls = module.SidebarEntry;
+	  if (!cls.instances) cls.instances = [];
+	  cls.instances[id] = this;
+	}
+	module.SidebarEntry.prototype = jQuery.extend({
+		
+		isContentHidden: function() {
+	    return this.content.css("display") == "none";
+	  }
+	}, module.Widget.prototype);
+
 })(piggydb.widget);	

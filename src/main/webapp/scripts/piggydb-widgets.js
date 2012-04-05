@@ -145,22 +145,6 @@ SelectedFragments.prototype = {
 };
 
 
-function SidebarEntry(id, toggleId, putState) {
-  this.id = id;
-  this.content = jQuery("#" + id + " .sidebar-content");
-  this.toggle = new piggydb.widget.ShowHideToggle(toggleId, this.content);
-  
-  if (!SidebarEntry.instances) SidebarEntry.instances = [];
-  SidebarEntry.instances[id] = this;
-}
-SidebarEntry.prototype = {
-  isContentHidden: function() {
-    return this.content.css("display") == "none";
-  }
-    
-};
-
-
 
 /* 
  *  Tag Palette
