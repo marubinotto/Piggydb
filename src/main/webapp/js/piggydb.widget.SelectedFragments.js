@@ -16,9 +16,10 @@ jQuery(function() {
 	   callback_add,
 	   callback_remove,
 	   callback_clear) {
+		
+		module.Widget.call(this, jQuery('#' + id));
 	   
-	  this.widget = jQuery('#' + id);
-	  this.content = this.widget.find(".content");
+	  this.content = this.element.find(".content");
 	  this.ul = this.content.children("ul");
 	  if (this.ul.size() == 0) this.ul = jQuery('<ul>').appendTo(this.content);
 	  this.fragmentUrlPrefix = fragmentUrlPrefix;
@@ -33,7 +34,7 @@ jQuery(function() {
 	  CLASS_FRAGMENT_SELECTED: "selected-fragment",
 	  
 	  size: function() {
-	    return this.widget.find(".content li").size();
+	    return this.element.find(".content li").size();
 	  },
 	  
 	  add: function(id, title) {
@@ -96,10 +97,10 @@ jQuery(function() {
 	  
 	  update: function() {
 	    if (this.size() > 0) {
-	      this.widget.show();
+	    	this.element.show();
 	    }
 	    else {
-	      this.widget.fadeOut();
+	    	this.element.fadeOut();
 	    }
 	  },
 	  
