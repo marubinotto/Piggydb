@@ -14,6 +14,10 @@ piggydb.namespace("piggydb.widget", {
 			
 	  saveState: function(name, value) {
 	  	piggydb.server.putSessionValue(name, value);
+	  },
+	  
+	  getMessage: function(key) {
+	  	return piggydb.server.messages[key];
 	  }
 	};
 	

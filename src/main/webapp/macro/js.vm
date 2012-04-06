@@ -44,7 +44,6 @@ jQuery(function() {
   selectedFragments = new piggydb.widget.SelectedFragments(
     "facebox-selected-fragments", 
     FRAGMENT_URL_PREFIX, 
-    '$messages.get("confirm-clear-all-selections")',
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
     function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });

@@ -3,7 +3,6 @@
 	module.SelectedFragments = function(
 	   id, 
 	   fragmentUrlPrefix, 
-	   clearConfirmMessage,
 	   callback_add,
 	   callback_remove,
 	   callback_clear) {
@@ -13,7 +12,6 @@
 	  this.ul = this.content.children("ul");
 	  if (this.ul.size() == 0) this.ul = jQuery('<ul>').appendTo(this.content);
 	  this.fragmentUrlPrefix = fragmentUrlPrefix;
-	  this.clearConfirmMessage = clearConfirmMessage;
 	  this.callback_add = callback_add;
 	  this.callback_remove = callback_remove;
 	  this.callback_clear = callback_clear;
@@ -71,7 +69,7 @@
 	  },
 	  
 	  clear: function() {
-	    if (!window.confirm(this.clearConfirmMessage)) return false;
+	    if (!window.confirm(this.getMessage("confirm-clear-all-selections"))) return false;
 	        
 	    this.callback_clear();
 	        
