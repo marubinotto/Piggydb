@@ -8,12 +8,6 @@ var TAG_URL_PREFIX = '$context/tag.htm?id=';
 
 
 ##
-## Widgets
-##
-var selectedFragments;
-
-
-##
 ## Constants
 ##
 var messages = {
@@ -40,13 +34,6 @@ jQuery(function() {
 #if ($session.containsKey("scrollTopElement"))
   setScrollTopTo('$session.scrollTopElement');
 #end
-
-  selectedFragments = new piggydb.widget.SelectedFragments(
-    "facebox-selected-fragments", 
-    FRAGMENT_URL_PREFIX, 
-    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
-    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
-    function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });
 
 	jQuery.Autocompleter.defaults.formatItem = function(row) { 
     return escapeHtml(row[0]); 

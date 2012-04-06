@@ -196,7 +196,7 @@
 #if (!$user.isViewer())
   <input type="checkbox" class="fragment-checkbox"
     name="fragmentCheckbox" value="$fragment.id"
-    onclick="selectedFragments.onFragmentChecked(this, $fragment.id)"
+    onclick="piggydb.widget.SelectedFragments.instance.onFragmentChecked(this, $fragment.id)"
     #if (($selectedFragments && $selectedFragments.containsKey($fragment.id)) || $fragmentBatchPage) checked="checked" #end
     />
 #end
@@ -546,7 +546,8 @@
 <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
   <a class="fragment-link" href="$resources.fragmentPath($fragmentId)">#$fragmentId</a>
   <span class="title">$fragmentTitle &nbsp;</span>
-  <a class="remove" href="#" onclick="selectedFragments.remove('$fragmentId'); return false;">
+  <a class="remove" href="#" 
+		onclick="piggydb.widget.SelectedFragments.instance.remove('$fragmentId'); return false;">
     <img class="delete-button" src="$context/images/delete.gif" 
       border="0" alt="x" style="padding-right: 5px;"/></a>
 </td></tr></table>

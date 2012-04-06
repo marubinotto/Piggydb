@@ -1,3 +1,13 @@
+jQuery(function() {
+	piggydb.widget.SelectedFragments.instance = new piggydb.widget.SelectedFragments(
+    "facebox-selected-fragments", 
+    FRAGMENT_URL_PREFIX, 
+    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
+    function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
+    function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });
+});
+
+
 (function(module) {
 	
 	module.SelectedFragments = function(
@@ -47,7 +57,7 @@
 	        return urlPrefix + arg.context.id;
 	      },
 	      'a.remove[onclick]' : function(arg) {
-	        return "selectedFragments.remove('" + arg.context.id + "'); return false;";
+	        return "piggydb.widget.SelectedFragments.instance.remove('" + arg.context.id + "'); return false;";
 	      }
 	    };
 	    li.autoRender({"id": id, "title": title}, directive);
