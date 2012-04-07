@@ -2,8 +2,6 @@
 	
 piggydb.namespace.import("piggydb.util.*");
 
-var TAG_URL_PREFIX = '$context/tag.htm?id=';
-
 
 ##
 ## Constants

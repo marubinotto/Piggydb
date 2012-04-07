@@ -18,6 +18,10 @@ piggydb.namespace("piggydb.server", {
 	
 	getFragmentUrl: function(id) {
 		return "$context/fragment.htm?id=" + id;
+	},
+	
+	getTagUrl: function(id) {
+		return "$context/tag.htm?id=" + id;
 	}
 });
 

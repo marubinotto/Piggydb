@@ -61,7 +61,7 @@
                 var globaTagPalette = new TagPalette(jQuery("#global-tag-palette"));
 								globaTagPalette.onTagSelect = function(source, tagId, tagName, palette) {
                   if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
-                    document.location.href = TAG_URL_PREFIX + tagId;
+                    document.location.href = piggydb.server.getTagUrl(tagId);
                 };
 								globaTagPalette.decideMaxHeight = function () {
 									return jQuery(window).height() - 50;
