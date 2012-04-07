@@ -1,9 +1,9 @@
 (function(module) {
 	
 	module.TagPalette = function(paletteDiv) {
+		module.Widget.call(this, paletteDiv);
+		
 	  this.ref = piggydb.widget.getGlobalIdentifier(this);
-	  
-	  this.paletteDiv = paletteDiv;
 	  
 	  this.viewType = "tree";
 	  this.sessionName = null;
@@ -13,7 +13,7 @@
 	  this.onPaletteUpdate = null;
 	  this.onTagSelect = null;
 	  
-	  this.breadcrumbs = [];	// breadcrumb: [0] tagId, [1] toChildren(true/false)
+	  this.breadcrumbs = [];	// a breadcrumb => [tagId, toChildren(true/false)]
 	  this.flatIndex = 0;
 	};
 	
@@ -45,7 +45,7 @@
 		
 	  open: function() {
 	    this.breadcrumbs = [];  
-	    this.paletteDiv.empty().show();
+	    this.element.empty().show();
 	    this.switchView(this.viewType, true);
 	  },
 	  
@@ -75,7 +75,7 @@
 	  
 	  close: function() {
 	    this.toggleButton.removeClass(module.TagPalette.CLASS_OPENED);
-	    this.paletteDiv.hide();
+	    this.element.hide();
 	  },
 	  
 	  toRoot: function() {
@@ -140,7 +140,7 @@
 	  },
 	  
 	  arrangeFlat: function() {
-	  	liquidBlocks(".tag-palette ", 80, this.paletteDiv.width() - 30);
+	  	liquidBlocks(".tag-palette ", 80, this.element.width() - 30);
 	  },
 	  
 	  setCommonParams: function(params) {
@@ -150,9 +150,9 @@
 	  },
 	  
 	  updatePalette: function(html, init) {
-	  	this.paletteDiv.html(html);
+	  	this.element.html(html);
 			if (this.autoHeight) 
-				this.paletteDiv.css("max-height", this.decideMaxHeight());
+				this.element.css("max-height", this.decideMaxHeight());
 			if (init && this.onPaletteInit)
 				this.onPaletteInit();
 	    if (this.onPaletteUpdate) 
@@ -161,13 +161,13 @@
 	  
 	  decideMaxHeight: function() {
 	  	var scrollTop = jQuery(document).scrollTop();
-	  	var offset = cumulativeOffsetTop(this.paletteDiv[0]) - scrollTop;
+	  	var offset = cumulativeOffsetTop(this.element[0]) - scrollTop;
 	  	return jQuery(window).height() - offset - 20;
 	  },
 	  
 	  setLoading: function() {
 	    // if (navigator.userAgent.indexOf("AppleWebKit") != -1) return;
-	    this.paletteDiv.empty().putLoadingIcon("margin: 5px");
+	  	this.element.empty().putLoadingIcon("margin: 5px");
 	  },
 	  
 	  showMore: function (button) {
