@@ -212,7 +212,7 @@ TagPalette.prototype = {
   
   setLoading: function() {
     // if (navigator.userAgent.indexOf("AppleWebKit") != -1) return;
-    this.paletteDiv.html(LOAD_ICON);
+    this.paletteDiv.empty().putLoadingIcon("margin: 5px");
   },
   
   showMore: function (button) {
