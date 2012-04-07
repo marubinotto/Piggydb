@@ -85,7 +85,7 @@ $utils.raw($form.startTag())
       <script type="text/javascript">
       //<![CDATA[
         jQuery(function() {
-          var palette = new TagPalette(jQuery("#${this.name}-tag-palette"));
+          var palette = new piggydb.widget.TagPalette(jQuery("#${this.name}-tag-palette"));
 					palette.onTagSelect = function(source, tagId, tagName, palette) {
             var input = jQuery("#${this.name} input[name='tags']");
             var tags = jQuery.trim(input.val());

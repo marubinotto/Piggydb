@@ -97,7 +97,7 @@
   var sidebarTagPaletteInitialized = false;
 
   function initSidebarTagPalette() {
-    var palette = new TagPalette(jQuery("#sidebar-tag-palette .tag-palette"));
+    var palette = new piggydb.widget.TagPalette(jQuery("#sidebar-tag-palette .tag-palette"));
 		palette.sessionName = "sidebar-tag-palette";
 		palette.viewType = "$paletteViewType";
 		palette.autoHeight = false;
@@ -121,7 +121,8 @@
     };    
   #if (!$user.isViewer())
     palette.onPaletteUpdate = function () {
-      jQuery("#sidebar-tag-palette .tag-palette-draggable").draggable(TagPalette.DRAGGABLE_SETTINGS);
+      jQuery("#sidebar-tag-palette .tag-palette-draggable")
+				.draggable(piggydb.widget.TagPalette.DRAGGABLE_SETTINGS);
     };
   #end
 		palette.init(null);

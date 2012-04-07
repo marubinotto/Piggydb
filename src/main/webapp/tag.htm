@@ -90,7 +90,7 @@ $utils.raw($subTagForm.startTag())
       <script type="text/javascript">
       //<![CDATA[
         jQuery(function() {
-          var palette = new TagPalette(jQuery("#subtag-tag-palette"));
+          var palette = new piggydb.widget.TagPalette(jQuery("#subtag-tag-palette"));
           palette.onTagSelect = function(source, tagId, tagName, palette) {
             var input = jQuery("#$subTagForm.fields.tag.id");
             input.val(tagName);

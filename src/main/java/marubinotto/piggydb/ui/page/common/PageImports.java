@@ -84,5 +84,6 @@ public class PageImports {
 	private void setDefaultBottomJs() {
 		importBottomJs("js/piggydb.widget.js", true);
 		importBottomJs("js/piggydb.widget.SelectedFragments.js", true);
+		importBottomJs("js/piggydb.widget.TagPalette.js", true);
 	}
 }
