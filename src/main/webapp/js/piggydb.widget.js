@@ -1,5 +1,12 @@
 piggydb.namespace("piggydb.widget", {
 	
+	instances: [],
+	
+	getGlobalIdentifier: function(instance) {
+		this.instances.push(instance);
+		var index = this.instances.length - 1;
+		return "piggydb.widget.instances[" + index + "]";
+	}
 });
 
 (function(module) {

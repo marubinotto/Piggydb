@@ -41,16 +41,8 @@ var FragmentFormDialog = {
  *  Tag Palette
  */
 
-var ClassUtils = {
-  registerInstance: function(newInstance, classObject) {
-    if (!classObject.instances) classObject.instances = [];
-    classObject.instances.push(newInstance);
-    return classObject.instances.length - 1;
-  }
-};
-
 function TagPalette(paletteDiv) {
-  this.ref = "TagPalette.instances[" + ClassUtils.registerInstance(this, TagPalette) + "]";
+  this.ref = piggydb.widget.getGlobalIdentifier(this);
   
   this.paletteDiv = paletteDiv;
   
