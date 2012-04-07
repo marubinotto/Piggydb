@@ -1,7 +1,6 @@
 jQuery(function() {
 	piggydb.widget.SelectedFragments.instance = new piggydb.widget.SelectedFragments(
     "facebox-selected-fragments", 
-    FRAGMENT_URL_PREFIX, 
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
     function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });
@@ -12,7 +11,6 @@ jQuery(function() {
 	
 	module.SelectedFragments = function(
 	   id, 
-	   fragmentUrlPrefix, 
 	   callback_add,
 	   callback_remove,
 	   callback_clear) {
@@ -22,7 +20,6 @@ jQuery(function() {
 	  this.content = this.element.find(".content");
 	  this.ul = this.content.children("ul");
 	  if (this.ul.size() == 0) this.ul = jQuery('<ul>').appendTo(this.content);
-	  this.fragmentUrlPrefix = fragmentUrlPrefix;
 	  this.callback_add = callback_add;
 	  this.callback_remove = callback_remove;
 	  this.callback_clear = callback_clear;
@@ -47,7 +44,6 @@ jQuery(function() {
 	    allCheckboxes.attr("checked", "checked");
 	  
 	    // Selection widget
-	    var urlPrefix = this.fragmentUrlPrefix;
 	    var li = jQuery('<li id="selected-fragment-' + id + '">').prependTo(this.ul);
 	    li.html(jQuery("#tpl-selected-fragment-entry").html());
 		  var directive = { 
@@ -55,7 +51,7 @@ jQuery(function() {
 		      return '#' + arg.context.id;
 		    },
 	      'a.fragment-link[href]' : function(arg) {
-	        return urlPrefix + arg.context.id;
+	        return piggydb.server.getFragmentUrl(arg.context.id);
 	      },
 	      'a.remove[onclick]' : function(arg) {
 	        return "piggydb.widget.SelectedFragments.instance.remove('" + arg.context.id + "'); return false;";

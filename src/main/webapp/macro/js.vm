@@ -2,7 +2,6 @@
 	
 piggydb.namespace.import("piggydb.util.*");
 
-var FRAGMENT_URL_PREFIX = '$context/fragment.htm?id=';
 var TAG_URL_PREFIX = '$context/tag.htm?id=';
 
 

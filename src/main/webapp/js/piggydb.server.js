@@ -14,7 +14,11 @@ piggydb.namespace("piggydb.server", {
     jQuery.post(
       "$context/command/put-session-value.htm", 
       {name: name, value: value});
-  }
+  },
+	
+	getFragmentUrl: function(id) {
+		return "$context/fragment.htm?id=" + id;
+	}
 });
 
 
