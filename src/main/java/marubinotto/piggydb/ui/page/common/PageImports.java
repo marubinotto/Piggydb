@@ -75,7 +75,6 @@ public class PageImports {
 			addJsImportTo(imports, "js/piggydb.util.js", true);
 			addJsImportTo(imports, "js/piggydb.server.js", true);
 			addJsImportTo(imports, "js/piggydb-jquery.js", true);	
-			addJsImportTo(imports, "scripts/piggydb-widgets.js", true);
 			DEFAULT_HEAD_JS_IMPORTS = imports.toString();
 		}
 		this.headJs.append(DEFAULT_HEAD_JS_IMPORTS);
@@ -85,5 +84,6 @@ public class PageImports {
 		importBottomJs("js/piggydb.widget.js", true);
 		importBottomJs("js/piggydb.widget.SelectedFragments.js", true);
 		importBottomJs("js/piggydb.widget.TagPalette.js", true);
+		importBottomJs("js/piggydb.widget.FragmentForm.js", true);
 	}
 }

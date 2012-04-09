@@ -32,7 +32,7 @@
 				#if (!$user.isViewer())
 					<td class="add-fragment" nowrap="nowrap">
 						<a class="tool-button" href="#" title="$messages.get("create-new-fragment")"
-							onclick="FragmentFormDialog.openToCreate(); return false;">
+							onclick="piggydb.widget.FragmentForm.openToCreate(); return false;">
             <img src="$context/images/add-fragment.png" border="0" 
 							alt="$messages.get("create-new-fragment")"/></a>
 					</td>
