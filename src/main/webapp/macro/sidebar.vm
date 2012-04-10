@@ -88,7 +88,8 @@
 ## But if it has a max-height, it cannot be resized beyond the max-height,
 ## so the property will be set to "none" after the height is decided.
 ##
-#sidebarEntryHeader("sidebar-tag-palette" $messages.get("tag-palette") "$context/style/images/tag.png" $null)
+#sidebarEntryHeader("sidebar-tag-palette" 
+	$messages.get("tag-palette") "$context/style/images/tag.png" "$context/tags.htm")
 #set ($paletteViewType = $utils.getUiState($session, "sidebar-tag-palette.viewType", "tree"))
 #set ($heightKey = "sidebar-tag-palette-height")
 #set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
