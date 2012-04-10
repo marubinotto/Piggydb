@@ -52,9 +52,9 @@
   }
 
   jQuery(document).ready(function() {
-    tagTree = new TagTree(jQuery("#tag-view"), tagData);
-    tagCloud = new TagCloud(jQuery("#tag-view"), tagData);
-    tagFlat = new TagFlat(jQuery("#tag-view"), tagData, {
+    tagTree = new piggydb.widget.tags.TagTree(jQuery("#tag-view"), tagData);
+    tagCloud = new piggydb.widget.tags.TagCloud(jQuery("#tag-view"), tagData);
+    tagFlat = new piggydb.widget.tags.TagFlat(jQuery("#tag-view"), tagData, {
       previous: "$messages.get("previous")", 
       next: "$messages.get("next")"
     });
