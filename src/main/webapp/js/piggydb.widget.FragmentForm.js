@@ -41,7 +41,7 @@
       text: false
 	  });
 		element.find("textarea.fragment-content").markItUp(_markItUpSettings);
-		element.find(".markItUp .markItUpButton9 a").attr("href", piggydb.server.wikiHelpHref)
+		element.find(".markItUp .markItUpButton9 a").attr("href", piggydb.server.wikiHelpUrl)
 	  	.click(_onWikiHelpClick);
 	};
 	

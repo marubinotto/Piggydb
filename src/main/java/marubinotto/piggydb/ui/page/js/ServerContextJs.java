@@ -21,13 +21,13 @@ public class ServerContextJs extends AbstractTemplateWebResource {
 	}
 	
 	
-	public String wikiHelpHref;
+	public String wikiHelpUrl;
 	
 	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		this.wikiHelpHref = getMessage("wiki-help-href", 
+		this.wikiHelpUrl = getMessage("wiki-help-href", 
 			getContext().getRequest().getContextPath());
 	}
 }

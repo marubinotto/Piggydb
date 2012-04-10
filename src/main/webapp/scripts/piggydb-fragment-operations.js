@@ -31,7 +31,7 @@ var FragmentForm = {
 	init: function() {
 		jQuery('.content-type-switch input').click(FragmentForm.onContentTypeSwitch);
 	  jQuery("textarea.fragment-content").markItUp(FragmentForm.markItUpSettings);
-	  jQuery(".markItUp .markItUpButton9 a").attr("href", piggydb.server.wikiHelpHref)
+	  jQuery(".markItUp .markItUpButton9 a").attr("href", piggydb.server.wikiHelpUrl)
 	  	.click(FragmentForm.onWikiHelpClick);
 	  jQuery("input[name=preview]").click(function () {
 	    this.form.contentFieldHeight.value = jQuery(this.form.content).height();
@@ -283,7 +283,7 @@ var QuickEdit = {
 	  	var editor = editorDiv.find("textarea.fragment-content");
 	  	editor.markItUp(FragmentForm.markItUpSettings);
 	  	editorDiv.find(".markItUp .markItUpButton9 a")
-		  	.attr("href", piggydb.server.wikiHelpHref).click(FragmentForm.onWikiHelpClick);
+		  	.attr("href", piggydb.server.wikiHelpUrl).click(FragmentForm.onWikiHelpClick);
 		
 	  	var height = Math.max(contentDivHeight, editor.height());
 	  	editor.height(Math.min(height, 500));

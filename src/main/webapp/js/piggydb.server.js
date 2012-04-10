@@ -2,7 +2,7 @@ piggydb.namespace("piggydb.server", {
 
   contextPath: "$context/",
 	
-  wikiHelpHref: "$wikiHelpHref",
+  wikiHelpUrl: "$wikiHelpUrl",
 	
   ajaxCommand: function(command, parameters) {
     jQuery.get("$context/command/" + command + ".htm", parameters);
