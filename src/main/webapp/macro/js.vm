@@ -18,8 +18,7 @@ var messages = {
   "help": '$messages.get("help")'
 };
 var constants = {
-  "autocomplete-url": '$context/command/complete-tag-name.htm',
-  "wiki-help-href": '$wikiHelpHref'
+  "autocomplete-url": '$context/command/complete-tag-name.htm'
 };
     
 

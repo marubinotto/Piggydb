@@ -49,7 +49,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	private static final String SK_HIGHLIGHTED_FRAGMENT = "highlightedFragment";
 
 	public Boolean fragmentOperations = true;
-	public String wikiHelpHref;
 	public List<FragmentField> fragmentFields = FragmentField.getEnumList();
 
 	public Integer fragmentsViewScale;
@@ -63,15 +62,8 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		String atomUrl = getAtomUrl();
 		if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
 
-		importCss("style/piggydb-fragment-operations.css", true, null);
-		importCss("js/vendor/markitup/skins/simple/style.css", true, "screen");
-		importCss("js/vendor/markitup/sets/wiki/style.css", true, "screen");
-
-		importBottomJs("scripts/piggydb-fragment-operations.js", true);
-		importBottomJs("js/vendor/markitup/jquery.markitup.pack.js", true);
-
-		this.wikiHelpHref = getMessage("wiki-help-href", 
-			getContext().getRequest().getContextPath());
+		importCss("style/piggydb-fragment-operations.css", true, null);	
+		importBottomJs("scripts/piggydb-fragment-operations.js", true);		
 
 		if (showsSelectedFragments()) setSelectedFragments();
 		setHighlightedFragment();

@@ -19,4 +19,15 @@ public class ServerContextJs extends AbstractTemplateWebResource {
 		// to use the path defined in click.xml as the template for rendering
 		setForward((String) null);	
 	}
+	
+	
+	public String wikiHelpHref;
+	
+	@Override
+	protected void setModels() throws Exception {
+		super.setModels();
+		
+		this.wikiHelpHref = getMessage("wiki-help-href", 
+			getContext().getRequest().getContextPath());
+	}
 }
