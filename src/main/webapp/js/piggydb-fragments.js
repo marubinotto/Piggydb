@@ -3,7 +3,6 @@
 //
 jQuery(function() {
   FragmentForm.init();
-  Fragment.init();
   QuickEdit.init();
   
   // auto-complete
@@ -108,123 +107,6 @@ var FragmentForm = {
 };
 
 
-
-//
-// Fragment 
-//
-function Fragment(node) {
-	this.node = jQuery(node);
-	this.root = this.node.closest("table.fragment");
-}
-Fragment.init = function() {
-	jQuery("table.fragment").live('mouseenter', function() {
-    jQuery(this).find(".fragment-tools").eq(0).show();
-  });
-  jQuery("table.fragment").live('mouseleave', function() {
-    jQuery(this).find(".fragment-tools").eq(0).hide();
-  });
-  jQuery("a.img-link").live("click", Fragment.onImageClick);
-  makeFragmentsDroppable("table.fragment", null);
-  makeSelectedFragmentsDroppable();
-  makeRelationsDraggable("");
-};
-Fragment.findInTheSameFragmentNode = function(node, selector) {
-	return jQuery(node).closest("table.fragment-node").find(selector);
-};
-Fragment.highlight = function(id, baseNode) {
-  var selector = ".fragment-header-" + id;
-  var color = "#ff9900";
-  if (baseNode == null)
-  	jQuery(selector).fadingHighlight(color);
-  else
-  	jQuery(baseNode).find(selector).fadingHighlight(color);
-};
-Fragment.onShowHiddenTags = function(button) {
-  jQuery(button).siblings(".hidden-tags").show();
-  jQuery(button).hide();
-};
-Fragment.imageViewer = new piggydb.widget.Facebox("facebox-image-viewer");
-Fragment.onImageClick = function() {
-	Fragment.imageViewer.showImage(this.href);
-  return false;
-};
-Fragment.syncTitles = function(id, title, headline) {
-	var selector = ".fragment-header-" + id + " span.title";
-	jQuery(selector).html(headline);
-	jQuery("table.fragment-full > tbody > tr > th.header-cell " + selector).html(title);
-};
-Fragment.getHeaders = function(fragmentId) {
-  var headerClass = ".fragment-header";
-  if (fragmentId != null) headerClass = headerClass + "-" + fragmentId;
-  return jQuery(headerClass);
-};
-Fragment.prototype = {
-	id: function() {
-		return this.root.find("span.fragment-id:first").text();
-	},
-	
-	header: function() {
-		return this.root.find("div.fragment-header:first");
-	},
-	
-	mainTitleSpan: function() {
-		return this.header().find("span.title");
-	},
-	
-	shortTitleSpan: function() {
-		return this.header().find(".fragment-tools span.fragment-title");
-	},
-	
-	headerRow: function() {
-		return this.header().closest("tr");
-	},
-	
-	bodyRow: function() {
-		return this.headerRow().siblings("tr.fragment-body");
-	},
-	
-	setBodyRow: function(rowHtml) {
-		this.bodyRow().remove();
-		this.headerRow().after(rowHtml);
-	},
-	
-	textContentDiv: function() {
-		return this.bodyRow().find("div.fragment-content-text");
-	},
-	
-	isFull: function() {
-		return this.root.hasClass("fragment-full");
-	},
-	
-	isMultirow: function() {
-		return this.root.hasClass("multirow");
-	},
-	
-	isMain: function() {
-		return this.root.hasClass("fragment-main");
-	},
-	
-	isEditable: function() {
-		return this.header().find("a.edit-fragment").size() > 0;
-	},
-	
-	contentToggle: function() {
-		var toggle = this.header().find(".fragment-content-toggle a.tool-button");
-		return toggle.size() == 0 ? null : new ContentToggle(toggle);
-	},
-	
-	highlight: function() {
-		Fragment.highlight(this.id(), this.root);
-	},
-	
-	fullEditor: function() {
-		var editor = this.root.siblings(".fragment-form-panel");
-		return editor.size() > 0 ? editor : null;
-	}
-};
-
-
-
 //
 // Quick Edit
 //
@@ -232,7 +114,7 @@ var QuickEdit = {
 	init: function() {
 	  jQuery("div.fragment-content-text").live('dblclick', function() {
 		  var contentDiv = jQuery(this);
-		  var fragment = new Fragment(contentDiv);
+		  var fragment = new piggydb.widget.Fragment(contentDiv);
 		  if (fragment.isEditable()) {
 		  	QuickEdit.openEditor(fragment.id(), contentDiv);
 		  }
@@ -240,7 +122,7 @@ var QuickEdit = {
 	},
 	
 	onEditButtonClick: function(button) {
-		var fragment = new Fragment(button);
+		var fragment = new piggydb.widget.Fragment(button);
 		
 		// if there's a full-fledged editor, open it
 		var fullEditor = fragment.fullEditor();
@@ -291,7 +173,7 @@ var QuickEdit = {
 	},
 
 	onCancel: function(button) {
-		var fragment = new Fragment(button);
+		var fragment = new piggydb.widget.Fragment(button);
 		var editorDiv = jQuery(button).closest("div.fragment-editor");	
 		var contentDiv = editorDiv.siblings("div.fragment-content-text");
 		
@@ -310,12 +192,13 @@ var QuickEdit = {
 	},
 	
 	emptyContent: function(contentDiv) {
-		Fragment.findInTheSameFragmentNode(contentDiv, "span.fragment-content-toggle:first").remove();
+		piggydb.widget.Fragment.findInTheSameFragmentNode(
+			contentDiv, "span.fragment-content-toggle:first").remove();
   	contentDiv.closest("tr.fragment-body").remove();
 	},
 
 	onUpdate: function(button) {
-		var fragment = new Fragment(button);
+		var fragment = new piggydb.widget.Fragment(button);
 		
 		var fragmentId = fragment.id();
 		var editorDiv = jQuery(button).closest("div.fragment-editor");
@@ -348,7 +231,7 @@ var QuickEdit = {
 			editorDiv.empty().show();
 			
 			// new title
-			Fragment.syncTitles(
+			piggydb.widget.Fragment.syncTitles(
 				fragmentId, 
 				html.find("div.res-title span.title").html(),
 				html.find("div.res-title span.headline").html());
@@ -370,7 +253,7 @@ var QuickEdit = {
 	  	fragment.header().find("span.update-info").html(
 	  		html.find("div.res-update-info span.update-info").html());
 	  	
-	  	Fragment.highlight(fragmentId, null);
+	  	piggydb.widget.Fragment.highlight(fragmentId, null);
 		});
 	}
 };
@@ -429,7 +312,7 @@ var fragmentOps = {
 function ContentToggle(toggleButton) {
 	this.toggleButton = jQuery(toggleButton);
 	this.toggleSpan = this.toggleButton.closest("span.fragment-content-toggle");
-	this.fragment = new Fragment(toggleButton);
+	this.fragment = new piggydb.widget.Fragment(toggleButton);
 }
 ContentToggle.CLOSED = "down";
 ContentToggle.OPENED = "up";
@@ -646,9 +529,9 @@ FragmentsView.prototype = {
       	outer.viewControl.show();
         prettyPrint();
         if (outer.highlight != null && !outer.highlighted) {
-        	Fragment.highlight(outer.highlight, outer.contentDiv);
+        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
           // highlighing should be done only once 
-        	// in other words, when a user changes the scale in the same page,
+        	// for example, when a user changes the scale in the same page,
           // highlighing should not be enabled.
           outer.highlighted = true;
         }

@@ -40,7 +40,7 @@ jQuery(function() {
   prettyPrint();
   jQuery.updnWatermark.attachAll();
 #if ($highlightedFragment)
-  Fragment.highlight($highlightedFragment, null);
+  piggydb.widget.Fragment.highlight($highlightedFragment, null);
 #end
 
 #if ($user.isViewer())
@@ -105,7 +105,7 @@ function makeFragmentsDroppable(selector, hoverClass) {
           jQuery.get("html/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
             function(html) {
               tags.empty().append(jQuery(html).children("span.tags"));
-              Fragment.highlight(targetId, null);
+              piggydb.widget.Fragment.highlight(targetId, null);
             });
         }
       }

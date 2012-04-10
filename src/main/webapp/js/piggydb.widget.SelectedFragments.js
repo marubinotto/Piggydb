@@ -38,7 +38,7 @@ jQuery(function() {
 	    this.callback_add(id);
 	  
 	    // Fragment headers
-	    var headers = Fragment.getHeaders(id);
+	    var headers = piggydb.widget.Fragment.getHeaders(id);
 	    var allCheckboxes = headers.find("input.fragment-checkbox");
 	    headers.addClass(this.CLASS_FRAGMENT_SELECTED);
 	    allCheckboxes.attr("checked", "checked");
@@ -65,7 +65,7 @@ jQuery(function() {
 	    this.callback_remove(id);
 	  
 	    // Fragment headers
-	    var headers = Fragment.getHeaders(id);
+	    var headers = piggydb.widget.Fragment.getHeaders(id);
 	    var allCheckboxes = headers.find("input.fragment-checkbox");
 	    headers.removeClass(this.CLASS_FRAGMENT_SELECTED);
 	    allCheckboxes.removeAttr("checked");
@@ -81,7 +81,7 @@ jQuery(function() {
 	    this.callback_clear();
 	        
 	    // Fragment headers
-	    var headers = Fragment.getHeaders(null);
+	    var headers = piggydb.widget.Fragment.getHeaders(null);
 	    var allCheckboxes = headers.find("input.fragment-checkbox");
 	    headers.removeClass(this.CLASS_FRAGMENT_SELECTED);
 	    allCheckboxes.removeAttr("checked");
@@ -101,7 +101,7 @@ jQuery(function() {
 	  },
 	  
 	  onFragmentChecked: function(checkbox, fragmentId) {
-	  	var fragment = new Fragment(checkbox);
+	  	var fragment = new piggydb.widget.Fragment(checkbox);
 	  	var title = fragment.mainTitleSpan().html();
 	  	
 	    if (checkbox.checked)
