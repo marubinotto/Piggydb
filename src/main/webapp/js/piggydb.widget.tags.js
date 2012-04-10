@@ -8,12 +8,12 @@ piggydb.namespace("piggydb.widget.tags", {
     return '<span class="' + domain.tagIconClass(tagName) + '">&nbsp;<\/span>';
   };
   
+  var _htmlTagNameLink = function(tag) {
+  	return '<a class="tag" href="tag.htm?id=' + tag.id + '">' + tag.name + '<\/a>';
+  };
+  
   var _htmlTag = function(tag) {
-    var html = [];
-    html.push(_htmlTagIcon(tag.name));
-    html.push(' <a class="tag" href="tag.htm?id=' + tag.id + '">');
-    html.push(tag.name + '<\/a>');
-    return html.join("");
+  	return _htmlTagIcon(tag.name) + " " + _htmlTagNameLink(tag);
   };
   
   var _TagTreeNode = function(tag, isLast) {
@@ -21,6 +21,7 @@ piggydb.namespace("piggydb.widget.tags", {
     this.isLast = isLast;
   };
   _TagTreeNode.prototype = {
+  		
 	  nodeType: function() {
 	    if (this.tag.hasChildren)
 		    return this.isLast ? "collapsedLastNode" : "collapsed";
@@ -74,6 +75,7 @@ piggydb.namespace("piggydb.widget.tags", {
     this.tagData = tagData;
   };
   module.TagView.prototype = {
+  		
 	  loading: function() {
 	    this.widget.html('<img src="images/load.gif" border="0" style="margin:5px"/>');
 	  }
@@ -87,6 +89,7 @@ piggydb.namespace("piggydb.widget.tags", {
   	module.TagView.call(this, widget, tagData);
   };
   module.TagCloud.prototype = jQuery.extend({
+  	
     render: function() {
       this.widget.attr("class", "content-box tag-cloud");
       this.loading();
@@ -106,7 +109,7 @@ piggydb.namespace("piggydb.widget.tags", {
     
     addTag: function(tag, containerDiv) {
       var html = ['<span class="tag" style="font-size: ' + tag.fontSize + 'px;">'];
-      html.push(_htmlTag(tag));
+      html.push(_htmlTagNameLink(tag));
       html.push("</span> <span> </span>");
       containerDiv.append(html.join(""));
     }
@@ -120,6 +123,7 @@ piggydb.namespace("piggydb.widget.tags", {
   	module.TagView.call(this, widget, tagData);
   };
   module.TagTree.prototype = jQuery.extend({
+  	
     render: function() {
       this.widget.attr("class", "content-box collapsable-tree");
       this.loading();
@@ -167,6 +171,7 @@ piggydb.namespace("piggydb.widget.tags", {
     this.messages = messages;
   };
   module.TagFlat.prototype = jQuery.extend({
+  	
     render: function() {
       this.widget.attr("class", "content-box tag-flat");
       this.loading();
