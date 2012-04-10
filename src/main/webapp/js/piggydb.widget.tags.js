@@ -74,12 +74,12 @@ piggydb.namespace("piggydb.widget.tags", {
     this.widget = widget;
     this.tagData = tagData;
   };
-  module.TagView.prototype = {
+  module.TagView.prototype = jQuery.extend({
   		
 	  loading: function() {
 	    this.widget.html('<img src="images/load.gif" border="0" style="margin:5px"/>');
 	  }
-	};
+  }, piggydb.widget.Widget.prototype);
   
   
   /**
@@ -165,10 +165,9 @@ piggydb.namespace("piggydb.widget.tags", {
   /**
    * TagFlat
    */
-  module.TagFlat = function(widget, tagData, messages) {
+  module.TagFlat = function(widget, tagData) {
   	module.TagView.call(this, widget, tagData);
     this.pageIndex = 0;
-    this.messages = messages;
   };
   module.TagFlat.prototype = jQuery.extend({
   	
@@ -218,14 +217,14 @@ piggydb.namespace("piggydb.widget.tags", {
       html.push('<tr>');
       html.push('<td class="previous" width="30%" align="left" valign="middle">');
       if (pageIndex > 0)
-        html.push('<a href="#">&lt; ' + this.messages["previous"] + '</a>');
+        html.push('<a href="#">&lt; ' + this.getMessage("previous") + '</a>');
       html.push('</td>');
       html.push('<td class="page-number" align="center" valign="middle">');
       html.push((pageIndex + 1) + " / " + pageCount);
       html.push('</td>');
       html.push('<td class="next" width="30%" align="right" valign="middle">');
       if (pageIndex < (pageCount - 1))
-        html.push('<a href="#">' + this.messages["next"] + ' &gt;</a>');
+        html.push('<a href="#">' + this.getMessage("next") + ' &gt;</a>');
       html.push('</td>');
       html.push('</tr>');
       html.push('</table>');
