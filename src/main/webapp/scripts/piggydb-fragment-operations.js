@@ -7,14 +7,14 @@ jQuery(function() {
   QuickEdit.init();
   
   // auto-complete
-  jQuery("input[name=tags]").autocomplete(constants["autocomplete-url"], {
+  jQuery("input[name=tags]").autocomplete(piggydb.server.autoCompleteUrl, {
     minChars: 1,
     selectFirst: true,
     multiple: true,
     multipleSeparator: ', ',
     scrollHeight: 300
   });
-  jQuery("input.single-tag").autocomplete(constants["autocomplete-url"], {
+  jQuery("input.single-tag").autocomplete(piggydb.server.autoCompleteUrl, {
     minChars: 1,
     selectFirst: true,
     multiple: false,

@@ -17,9 +17,6 @@ var messages = {
   "confirm-remove-bookmark": '$messages.get("confirm-remove-bookmark")',
   "help": '$messages.get("help")'
 };
-var constants = {
-  "autocomplete-url": '$context/command/complete-tag-name.htm'
-};
     
 
 ##
@@ -33,7 +30,7 @@ jQuery(function() {
 	jQuery.Autocompleter.defaults.formatItem = function(row) { 
     return escapeHtml(row[0]); 
   };
-  jQuery("#searchForm_keywords").autocomplete(constants["autocomplete-url"], {
+  jQuery("#searchForm_keywords").autocomplete(piggydb.server.autoCompleteUrl, {
     minChars: 1,
     selectFirst: true,
     multiple: false,

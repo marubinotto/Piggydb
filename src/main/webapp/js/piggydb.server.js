@@ -4,6 +4,8 @@ piggydb.namespace("piggydb.server", {
 	
   wikiHelpUrl: "$wikiHelpUrl",
 	
+  autoCompleteUrl: "$context/command/complete-tag-name.htm",
+	
   ajaxCommand: function(command, parameters) {
     jQuery.get("$context/command/" + command + ".htm", parameters);
   },
