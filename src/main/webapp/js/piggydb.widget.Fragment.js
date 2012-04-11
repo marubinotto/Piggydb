@@ -113,7 +113,7 @@ jQuery(function() {
 		
 		contentToggle: function() {
 			var toggle = this.header().find(".fragment-content-toggle a.tool-button");
-			return toggle.size() == 0 ? null : new ContentToggle(toggle);
+			return toggle.size() == 0 ? null : new piggydb.widget.ContentToggle(toggle);
 		},
 		
 		highlight: function() {

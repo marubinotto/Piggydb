@@ -66,6 +66,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		importBottomJs("js/piggydb-fragments.js", true);
 		importBottomJs("js/piggydb.widget.Fragment.js", true);
 		importBottomJs("js/piggydb.widget.QuickEdit.js", true);
+		importBottomJs("js/piggydb.widget.ContentToggle.js", true);
 
 		if (showsSelectedFragments()) setSelectedFragments();
 		setHighlightedFragment();

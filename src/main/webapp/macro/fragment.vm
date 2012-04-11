@@ -50,7 +50,7 @@
         //<![CDATA[
           jQuery(function() {
             jQuery("#children-content-toggle").click(function () {
-              ContentToggle.onAllContentToggleClick(this, jQuery("#children-tree"));
+              piggydb.widget.ContentToggle.onAllContentToggleClick(this, jQuery("#children-tree"));
             });
           });
         //]]>
@@ -532,7 +532,7 @@
 #if ($fragment.hasMoreThanHeadline())
 <span class="fragment-content-toggle">
   <a class="tool-button" href="#" style="vertical-align: middle;"
-    onclick="ContentToggle.onContentToggleClick(this, $fragment.id); return false;">
+    onclick="piggydb.widget.ContentToggle.onContentToggleClick(this, $fragment.id); return false;">
   <img src="$context/style/images/bullet-arrow-down.png" border="0" alt=""
     style="margin: -2px;"/></a>
 </span>
