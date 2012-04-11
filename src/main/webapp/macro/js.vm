@@ -45,7 +45,7 @@ jQuery(function() {
 
 #if ($user.isViewer())
 	if (typeof QuickEdit != 'undefined') 
-		QuickEdit.init = function(){ /* disabled */ };
+		piggydb.widget.QuickEdit.init = function(){ /* disabled */ };
 #end
 });
 

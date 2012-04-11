@@ -5,13 +5,13 @@
 <textarea name="content" class="fragment-content" rows="3" cols="20">$fragment.content</textarea>
 <div class="fragment-editor-buttons">
 	<button class="cancel-button" style="float: left; margin-bottom: 5px;"
-		onclick="QuickEdit.onCancel(this)">$messages.get("cancel")</button>
+		onclick="piggydb.widget.QuickEdit.onCancel(this)">$messages.get("cancel")</button>
 	<span style="float: right; margin-bottom: 5px;">
 		<span style="margin-right: 5px; font-size: 9pt;">
 			<input name="minorEdit" class="fragment-minorEdit" type="checkbox"
 				/>$messages.get("FragmentForm-minor-edit")
 		</span>
-		<button class="update-button" onclick="QuickEdit.onUpdate(this)">$messages.get("update")</button>
+		<button class="update-button" onclick="piggydb.widget.QuickEdit.onUpdate(this)">$messages.get("update")</button>
 	</span>
 </div>
 #end

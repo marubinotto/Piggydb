@@ -1,7 +1,7 @@
 (function(module) {
 	
 	var _messages = piggydb.server.messages;
-		
+	
 	var _markItUpSettings = {
     previewAutoRefresh: false,
     previewParserPath:  '', // path to your Wiki parser
@@ -27,11 +27,6 @@
 	
 	var _wikiHelp = new piggydb.widget.Facebox("facebox-wiki-help");
 	
-	var _onWikiHelpClick = function() {
-  	_wikiHelp.show(this.href);
-    return false;
-  };
-	
 	var _prepare = function(element) {
 		jQuery.updnWatermark.attachAll();
 		element.find("input.fragment-as-tag").button({
@@ -40,9 +35,8 @@
       },
       text: false
 	  });
-		element.find("textarea.fragment-content").markItUp(_markItUpSettings);
-		element.find(".markItUp .markItUpButton9 a").attr("href", piggydb.server.wikiHelpUrl)
-	  	.click(_onWikiHelpClick);
+		module.FragmentForm.addToolBar(element.find("textarea.fragment-content"));
+		module.FragmentForm.linkToWikiHelp(element.find(".markItUp .markItUpButton9 a"));
 	};
 	
 	var _open = function(element) {
@@ -62,6 +56,17 @@
 				jQuery("body").append(html);
 				_open(jQuery("#dialog-fragment-form"));
 			});
+		},
+		
+		addToolBar: function(textarea) {
+			textarea.markItUp(_markItUpSettings);
+		},
+		
+		linkToWikiHelp: function(a) {
+			a.attr("href", piggydb.server.wikiHelpUrl).click(function() {
+  	  	_wikiHelp.show(this.href);
+  	    return false;
+  	  });
 		}
 	};
 	
