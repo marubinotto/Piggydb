@@ -25,11 +25,11 @@
             jQuery("#reorder-switch button").click(function () {
               var button = jQuery(this);
               if (button.hasClass("selected")) {
-                FragmentTree.disableSortable();
+                piggydb.widget.FragmentTree.disableSortable();
                 button.removeClass("selected");
               }
               else {
-                FragmentTree.enableSortable($fragment.id);
+                piggydb.widget.FragmentTree.enableSortable($fragment.id);
                 button.addClass("selected");
               }
             });
@@ -524,7 +524,7 @@
 		#set ($contextParentId = "null")	
 	#end
   <a class="fragment-node-toggle" href="#"
-		onclick="FragmentTree.onNodeToggleClick(this, $fragment.id, $contextParentId); return false;">
+		onclick="piggydb.widget.FragmentTree.onNodeToggleClick(this, $fragment.id, $contextParentId); return false;">
   <img src="$context/images/node-plus.png" alt="+" border="0" 
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end
