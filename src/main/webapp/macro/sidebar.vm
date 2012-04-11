@@ -65,7 +65,7 @@
       <li class="$html.fragmentHeaderClass(${fragment.id}, $selectedFragments)">
 				#fragmentCaption($fragment true false)
       #if ($fragment.canRemoveTag($bookmarkTag, $user))
-        <a href="#" onclick="fragmentOps.removeBookmark('$fragment.id'); return false;">
+        <a href="#" onclick="piggydb.command.removeBookmark('$fragment.id'); return false;">
         <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
       #end
       </li>

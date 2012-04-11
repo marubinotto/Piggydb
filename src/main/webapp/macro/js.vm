@@ -4,22 +4,6 @@ piggydb.namespace.import("piggydb.util.*");
 
 
 ##
-## Constants
-##
-var messages = {
-#foreach ($messageKey in $messages.keySet())
-#if ($messageKey.startsWith("editor-"))
-  "$messageKey": '$messages.get($messageKey)', 
-#end
-#end
-  "confirm-delete-relation": '$messages.get("confirm-delete-relation")',
-  "confirm-remove-tag": '$messages.get("confirm-remove-tag")',
-  "confirm-remove-bookmark": '$messages.get("confirm-remove-bookmark")',
-  "help": '$messages.get("help")'
-};
-    
-
-##
 ## Initialization
 ##
 jQuery(function() {

@@ -174,7 +174,7 @@
 #if ($fragment.canAddTag($bkmkTagName, $user) && !$fragment.classification.isSubordinateOf($bkmkTagName))
   <a class="tool-button" href="#" 
     title="$messages.get("tag-as-bookmark")"
-    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_BOOKMARK'); return false;">
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_BOOKMARK'); return false;">
   <img src="$context/style/images/tag-bookmark.png" border="0" alt="$messages.get("bookmark")"/></a>
 #end
 
@@ -182,14 +182,14 @@
 #if ($fragment.canAddTag($hmTagName, $user) && !$fragment.classification.isSubordinateOf($hmTagName))
   <a class="tool-button" href="#" 
     title="$messages.get("tag-as-home")"
-    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_HOME'); return false;">
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_HOME'); return false;">
   <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
 #end
   
 #if ($fragment.canDelete($user) && !$fragment.isTrash())
   <a class="tool-button" href="#" 
     title="$messages.get("tag-as-trash")"
-    onclick="fragmentOps.addTag('$fragment.id', '$tagConstants.NAME_TRASH'); return false;">
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_TRASH'); return false;">
   <img src="$context/style/images/tag-trash.png" border="0" alt="$messages.get("trash")"/></a>
 #end
 
@@ -280,7 +280,7 @@
   #miniTagIcon($tag.name)
   <a class="tag" href="$resources.tagPath($tag.id)">$tag.name</a>
   #if ($fragment.id && $fragment.canRemoveTag($tag, $user))
-    <a href="#" onclick="fragmentOps.removeTag('$fragment.id', '$tag.name'); return false;">
+    <a href="#" onclick="piggydb.command.removeTag('$fragment.id', '$tag.name'); return false;">
     <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
   #end
 </span>
@@ -351,7 +351,7 @@
   
 #if ($relation.canDelete($user))
 <a href="#" title="$messages.get("delete-relation")" 
-  onclick="fragmentOps.deleteRelation(
+  onclick="piggydb.command.deleteRelation(
       '$relation.id', 
       jQuery(this).closest('$relationSelector'),
       #if ($containerSelector)
