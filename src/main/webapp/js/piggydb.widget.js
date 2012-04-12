@@ -10,6 +10,31 @@ piggydb.namespace("piggydb.widget", {
 });
 
 (function(module) {
+	
+	var _messages = piggydb.server.messages;
+	
+	module.showConfirmDialog = function(title, message, actionLabel, actionHandler) {
+	  var dialogContent = jQuery(jQuery("#tpl-dialog-confirm").html());
+	  dialogContent.attr("title", title);
+	  dialogContent.append(message);
+	  
+	  var buttons = {};
+	  buttons[actionLabel] = actionHandler;
+	  buttons[_messages["cancel"]] = function() {
+	    jQuery(this).dialog("close");
+	  };
+	  
+	  dialogContent.dialog({
+	    resizable: false,
+	    modal: true,
+	    width: 400,
+	    minHeight: 100,
+	    buttons: buttons
+	  });
+		dialogContent.closest(".ui-dialog").find(".ui-dialog-buttonset button").get(0).focus();
+		return dialogContent;
+	};
+	
 
 	/**
 	 *  The base class for HTML widgets
@@ -24,7 +49,7 @@ piggydb.namespace("piggydb.widget", {
 	  },
 	  
 	  getMessage: function(key) {
-	  	return piggydb.server.messages[key];
+	  	return _messages[key];
 	  }
 	};
 	

@@ -95,11 +95,11 @@ jQuery(document).ready(function() {
 //<![CDATA[
 jQuery(function() {
 #if ($view.viewType == "multicolumn")
-  makeFragmentsDroppable(
+  piggydb.widget.Fragment.makeFragmentsDroppable(
     "#$view.viewId .page-index-${fragments.pageIndex} .liquid-block-frame", 
     "liquid-block-drophover");
 #else
-  makeFragmentsDroppable(
+  piggydb.widget.Fragment.makeFragmentsDroppable(
     "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
     null);
 #end

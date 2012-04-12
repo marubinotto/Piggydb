@@ -5,6 +5,8 @@ jQuery(function() {
 
 (function(module) {
 	
+	var _messages = piggydb.server.messages;
+	
 	var _class = function(node) {
 		this.node = jQuery(node);
 		this.root = this.node.closest("table.fragment");
@@ -18,7 +20,7 @@ jQuery(function() {
 	    jQuery(this).find(".fragment-tools").eq(0).hide();
 	  });
 	  jQuery("a.img-link").live("click", _class.onImageClick);
-	  makeFragmentsDroppable("table.fragment", null);
+	  _class.makeFragmentsDroppable("table.fragment", null);
 	  makeSelectedFragmentsDroppable();
 	  makeRelationsDraggable("");
 	};
@@ -58,6 +60,76 @@ jQuery(function() {
 	  var headerClass = ".fragment-header";
 	  if (fragmentId != null) headerClass = headerClass + "-" + fragmentId;
 	  return jQuery(headerClass);
+	};
+	
+	_class.makeFragmentsDroppable = function(selector, hoverClass) {
+	  jQuery(selector).droppable({
+	  	
+	    accept: function(draggable) {
+	      if (!draggable.hasClass("droppable-to-fragment")) return false;
+	      
+	      // check if the relation can be created
+	      if (draggable.hasClass("relation-draggable")) {
+	        var from = draggable.find(".fragment-id").text();
+	        var to = jQuery(this).find(".fragment-id:first").text();
+	        if (from == to) return false;
+	      }
+	      
+	      return true;
+	    },
+	    
+	    hoverClass: hoverClass != null ? hoverClass : 'fragment-drophover',
+	    		
+	    greedy: true, 
+	    
+	    tolerance: 'intersect',
+	    
+	    drop: function(event, ui) {
+	      var targetId = jQuery(this).find(".fragment-id:first").text();
+	      
+	      // add a tag
+	      if (ui.draggable.hasClass("tag-palette-draggable")) {
+	        var tagId = ui.draggable.find(".tag .id").text();
+	        if (isNotBlank(tagId)) {
+	          var tags = jQuery("span.tags-placeholder-" + targetId);
+	          tags.empty().putLoadingIcon("margin: -2px; margin-left: 5px;");
+	          jQuery.get("html/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
+	            function(html) {
+	              tags.empty().append(jQuery(html).children("span.tags"));
+	              _class.highlight(targetId, null);
+	            });
+	        }
+	      }
+	      
+	      // create a relationship
+	      if (ui.draggable.hasClass("relation-draggable")) {
+	        var fromId = ui.draggable.find(".fragment-id").text();
+	        var fromTitle = ui.draggable.find(".fragment-title").text();
+	        var toTitle = jQuery(this).find(".fragment-tools .fragment-title:first").text();
+	        var message = jQuery(jQuery("#tpl-confirm-create-relation").html());
+					message.find(".from-id").text(fromId);
+					message.find(".from-title").text(fromTitle);
+					message.find(".to-id").text(targetId);
+					message.find(".to-title").text(toTitle);
+	        var dialog = piggydb.widget.showConfirmDialog(
+	        	_messages["create-relation"], 
+						message.html(), 
+						_messages["create"], 
+						function () {
+							var forward = jQuery(this).find("input.forward")[0].checked;
+							var backward = jQuery(this).find("input.backward")[0].checked;
+						
+	            var fm = document.forms['createRelationForm'];
+	            fm.fromId.value = fromId;
+	            fm.toId.value = targetId;
+							if (forward) fm.forward.value = "on";
+							if (backward) fm.backward.value = "on";
+	            fm.submit();
+	          }
+					);
+	      }
+	    }
+	  });
 	};
 	
 	_class.prototype = jQuery.extend({
