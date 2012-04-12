@@ -21,8 +21,8 @@ jQuery(function() {
 	  });
 	  jQuery("a.img-link").live("click", _class.onImageClick);
 	  _class.makeFragmentsDroppable("table.fragment", null);
+	  _class.makeRelationsDraggable("");
 	  makeSelectedFragmentsDroppable();
-	  makeRelationsDraggable("");
 	};
 	
 	_class.findInTheSameFragmentNode = function(node, selector) {
@@ -130,6 +130,17 @@ jQuery(function() {
 	      }
 	    }
 	  });
+	};
+	
+	_class.makeRelationsDraggable = function(selectorPrefix) {
+	  jQuery(selectorPrefix + ".fragment-tools .relation-draggable").draggable({ 
+	    revert: true,
+	    helper: 'clone',
+	    appendTo: 'body',
+	    opacity: 0.70,
+	    zIndex: 120,
+	    cursorAt: { bottom: 2, right: 0 }
+	  });  
 	};
 	
 	_class.prototype = jQuery.extend({

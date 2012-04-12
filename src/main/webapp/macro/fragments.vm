@@ -103,7 +103,8 @@ jQuery(function() {
     "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
     null);
 #end
-  makeRelationsDraggable("#$view.viewId .page-index-${fragments.pageIndex} ");
+  piggydb.widget.Fragment.makeRelationsDraggable(
+		"#$view.viewId .page-index-${fragments.pageIndex} ");
 });
 //]]>
 </script>

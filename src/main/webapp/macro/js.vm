@@ -33,6 +33,7 @@ jQuery(function() {
 	}
 	if (typeof piggydb.widget.Fragment != 'undefined') {
 		piggydb.widget.Fragment.makeFragmentsDroppable = function(selector, hoverClass) { /* disabled */ };
+		piggydb.widget.Fragment.makeRelationsDraggable = function(selectorPrefix) { /* disabled */ };
 	}
 #end
 });
@@ -41,19 +42,6 @@ jQuery(function() {
 ##
 ## Contextualized Functions
 ##
-
-function makeRelationsDraggable(selectorPrefix) {
-#if (!$user.isViewer())
-  jQuery(selectorPrefix + ".fragment-tools .relation-draggable").draggable({ 
-    revert: true,
-    helper: 'clone',
-    appendTo: 'body',
-    opacity: 0.70,
-    zIndex: 120,
-    cursorAt: { bottom: 2, right: 0 }
-  });  
-#end
-}
 
 function makeSelectedFragmentsDroppable() {
 #if (!$user.isViewer())
