@@ -60,6 +60,10 @@ table.form {
 	background: #eee;
 }
 
+.ui-dialog-buttonpane {
+	padding: 2px 8px 2px 1em !important;
+}
+
 .ui-dialog .ui-dialog-buttonset {
   font-size: 12px;
 }
@@ -313,9 +317,12 @@ span.fragment-as-tag .ui-button {
 	padding: 3px;
 }
 
+#dialog-fragment-form form {
+	height: 100%;
+}
+
 #dialog-fragment-form textarea.fragment-content {
   padding: 2px;
-  height: 200px;
   font-size: 10pt;
 }
 

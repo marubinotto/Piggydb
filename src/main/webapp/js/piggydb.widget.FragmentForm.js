@@ -3,6 +3,7 @@
 	var _messages = piggydb.server.messages;
 	
 	var _markItUpSettings = {
+		nameSpace: 'fragment-editor',
     previewAutoRefresh: false,
     previewParserPath:  '', // path to your Wiki parser
     onShiftEnter:   {keepDefault:false, replaceWith:'\n\n'},
@@ -41,11 +42,19 @@
 	
 	var _open = function(element) {
 		_prepare(element);
+		
+		var buttons = {};
+		buttons[_messages["cancel"]] = function() {
+	    jQuery(this).dialog("close");
+	  };
+	  
 		element.dialog({
 	    modal: false,
 	    width: 600,
-	    height: 400
+	    height: 400,
+	    buttons: buttons
 	  });
+		
 		element.find("textarea.fragment-content").get(0).focus();
 	};
 	
