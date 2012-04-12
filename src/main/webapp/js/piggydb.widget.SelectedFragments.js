@@ -4,12 +4,15 @@ jQuery(function() {
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "add", id: id}) },
     function (id) { piggydb.server.ajaxCommand("fragment-selection", {command: "remove", id: id}) },
     function () { piggydb.server.ajaxCommand("fragment-selection", {command: "clear"}) });
+	piggydb.widget.SelectedFragments.instance.makeDroppable();
 });
 
 
 (function(module) {
 	
-	module.SelectedFragments = function(
+	var _messages = piggydb.server.messages;
+	
+	var _class = function(
 	   id, 
 	   callback_add,
 	   callback_remove,
@@ -26,7 +29,54 @@ jQuery(function() {
 	  this.update();
 	};
 	
-	module.SelectedFragments.prototype = jQuery.extend({
+	_class.makeDroppable = function(element) {
+		element.droppable({
+	  	
+	    accept: ".droppable-to-fragment",
+	    
+	    hoverClass: "selected-fragments-drophover",
+	    
+	    tolerance: 'intersect',
+	    
+	    drop: function(event, ui) {
+	      // add a tag
+	      if (ui.draggable.hasClass("tag-palette-draggable")) {
+	        var tagId = ui.draggable.find("span.tag span.id").text();
+	        var tagName = ui.draggable.find("span.tag a.tag").text();
+	        var message = _messages["confirm-add-tags-to-selected"] +
+	          '<div class="detail">' + 
+	          '<span class="' + domain.miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
+	          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+	          _messages["selected-fragments"] + 
+	          "<\/div>";
+	        piggydb.widget.showConfirmDialog(_messages["add-tag"], message, _messages["add"], function () {
+	          var fm = document.forms['addTagsToSelectedForm'];
+	          fm.tagId.value = tagId;
+	          fm.submit();
+	        });
+	      }
+	      
+	      // add a relation
+	      if (ui.draggable.hasClass("relation-draggable")) {
+	        var fromId = ui.draggable.find(".fragment-id").text();
+	        var fromTitle = ui.draggable.find(".fragment-title").text();
+	        var message = _messages["confirm-create-relations-to-selected"] +
+	          '<div class="detail">' + 
+	          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
+	          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+	          _messages["selected-fragments"] + 
+	          "<\/div>";
+	        piggydb.widget.showConfirmDialog(_messages["create-relation"], message, _messages["create"], function () {
+	          var fm = document.forms['createRelationsToSelectedForm'];
+	          fm.fromId.value = fromId;
+	          fm.submit();
+	        });
+	      }
+	    }
+	  });
+	};
+	
+	_class.prototype = jQuery.extend({
 		
 	  CLASS_FRAGMENT_SELECTED: "selected-fragment",
 	  
@@ -108,7 +158,13 @@ jQuery(function() {
 	      this.add(fragmentId, title);
 	    else 
 	      this.remove(fragmentId);
-	  }			
+	  },
+	  
+	  makeDroppable: function() {
+	  	_class.makeDroppable(this.element);
+	  }
 	}, module.Widget.prototype);
+	
+	module.SelectedFragments = _class;
 	
 })(piggydb.widget);	

@@ -35,56 +35,11 @@ jQuery(function() {
 		piggydb.widget.Fragment.makeFragmentsDroppable = function(selector, hoverClass) { /* disabled */ };
 		piggydb.widget.Fragment.makeRelationsDraggable = function(selectorPrefix) { /* disabled */ };
 	}
+	if (typeof piggydb.widget.SelectedFragments != 'undefined') {
+		piggydb.widget.SelectedFragments.makeDroppable = function(element) { /* disabled */ };
+	}
 #end
 });
-
-
-##
-## Contextualized Functions
-##
-
-function makeSelectedFragmentsDroppable() {
-#if (!$user.isViewer())
-  jQuery("#facebox-selected-fragments").droppable({
-    accept: ".droppable-to-fragment",
-    hoverClass: "selected-fragments-drophover",
-    tolerance: 'intersect',
-    drop: function(event, ui) {
-      // add a tag
-      if (ui.draggable.hasClass("tag-palette-draggable")) {
-        var tagId = ui.draggable.find("span.tag span.id").text();
-        var tagName = ui.draggable.find("span.tag a.tag").text();
-        var message = "$messages.get("confirm-add-tags-to-selected")" +
-          '<div class="detail">' + 
-          '<span class="' + domain.miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
-          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
-          "$messages.get("selected-fragments")<\/div>";
-        showConfirmDialog("$messages.get("add-tag")", message, "$messages.get("add")", function () {
-          var fm = document.forms['addTagsToSelectedForm'];
-          fm.tagId.value = tagId;
-          fm.submit();
-        });
-      }
-      
-      // add a relation
-      if (ui.draggable.hasClass("relation-draggable")) {
-        var fromId = ui.draggable.find(".fragment-id").text();
-        var fromTitle = ui.draggable.find(".fragment-title").text();
-        var message = "$messages.get("confirm-create-relations-to-selected")" +
-          '<div class="detail">' + 
-          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
-          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
-          "$messages.get("selected-fragments")<\/div>";
-        showConfirmDialog("$messages.get("create-relation")", message, "$messages.get("create")", function () {
-          var fm = document.forms['createRelationsToSelectedForm'];
-          fm.fromId.value = fromId;
-          fm.submit();
-        });
-      }
-    }
-  });
-#end
-}
   
 #end
 

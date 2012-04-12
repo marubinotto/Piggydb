@@ -22,7 +22,6 @@ jQuery(function() {
 	  jQuery("a.img-link").live("click", _class.onImageClick);
 	  _class.makeFragmentsDroppable("table.fragment", null);
 	  _class.makeRelationsDraggable("");
-	  makeSelectedFragmentsDroppable();
 	};
 	
 	_class.findInTheSameFragmentNode = function(node, selector) {
