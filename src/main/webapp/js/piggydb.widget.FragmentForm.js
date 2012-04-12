@@ -36,7 +36,7 @@
       },
       text: false
 	  });
-		module.FragmentForm.addToolBar(element.find("textarea.fragment-content"));
+		module.FragmentForm.addToolBar(element.find("textarea.fragment-content"), false);
 		module.FragmentForm.linkToWikiHelp(element.find(".markItUp .markItUpButton9 a"));
 	};
 	
@@ -67,7 +67,8 @@
 			});
 		},
 		
-		addToolBar: function(textarea) {
+		addToolBar: function(textarea, resizeHandle) {
+			_markItUpSettings.resizeHandle = resizeHandle;
 			textarea.markItUp(_markItUpSettings);
 		},
 		

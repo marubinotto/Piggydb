@@ -16,7 +16,7 @@ jQuery(function() {
 	  	jQuery.updnWatermark.attachAll();
 		
 	  	var editor = editorDiv.find("textarea.fragment-content");
-	  	piggydb.widget.FragmentForm.addToolBar(editor);
+	  	piggydb.widget.FragmentForm.addToolBar(editor, true);
 	  	piggydb.widget.FragmentForm.linkToWikiHelp(editorDiv.find(".markItUp .markItUpButton9 a"));
 		
 	  	var height = Math.max(contentDivHeight, editor.height());
