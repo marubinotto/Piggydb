@@ -70,7 +70,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
 			addJsImportTo(imports, "js/vendor/updnWatermark/jquery.updnWatermark.js", true);
-			addJsImportTo(imports, "js/vendor/autocomplete/jquery.bgiframe.min.js", false);
+			addJsImportTo(imports, "js/vendor/autocomplete/jquery.bgiframe.min.js", true);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.ajaxQueue.js", false);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-modified.js", true);
 			addJsImportTo(imports, "js/vendor/markitup/jquery.markitup.pack.js", true);

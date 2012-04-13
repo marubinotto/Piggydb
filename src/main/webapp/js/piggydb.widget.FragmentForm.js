@@ -64,7 +64,7 @@
 	
 	var _adjustEditorHeight = function(element) {
 		var baseHeight = element.find("form").height() - element.find("div.title-div").height();
-		element.find("textarea.fragment-content").height(baseHeight - 40);
+		element.find("textarea.fragment-content").height(baseHeight - 45);
 	};
 	
 	module.FragmentForm = {
