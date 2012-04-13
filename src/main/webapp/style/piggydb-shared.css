@@ -338,7 +338,9 @@ span.fragment-as-tag .ui-button {
 }
 
 #dialog-fragment-form div.buttons button {
-	font-size: 12px;
+	font-size: 11px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 
 #dialog-fragment-form div.buttons button.cancel {
