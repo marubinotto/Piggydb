@@ -42,28 +42,28 @@
 	
 	var _open = function(element) {
 		_prepare(element);
-		
-		var buttons = {};
-		buttons[_messages["cancel"]] = function() {
-	    jQuery(this).dialog("close");
-	  };
 	  
 		element.dialog({
 	    modal: false,
 	    width: 600,
 	    height: 400,
-	    buttons: buttons,
 	    resize: function() {
 				_adjustEditorHeight(element);
 			}
 	  });
 		
-		element.find("textarea.fragment-content").get(0).focus();
+		element.find("button.cancel").click(function() {
+			element.dialog("close");
+		});
+		
 		_adjustEditorHeight(element);
+		element.find("textarea.fragment-content").get(0).focus();
 	};
 	
 	var _adjustEditorHeight = function(element) {
-		var baseHeight = element.find("form").height() - element.find("div.title-div").height();
+		var baseHeight = element.find("form").height() 
+			- element.find("div.title").height()
+			- element.find("div.buttons").height();
 		element.find("textarea.fragment-content").height(baseHeight - 45);
 	};
 	

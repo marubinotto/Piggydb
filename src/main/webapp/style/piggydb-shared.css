@@ -327,7 +327,7 @@ span.fragment-as-tag .ui-button {
 	height: 100%;
 }
 
-#dialog-fragment-form div.content-div {
+#dialog-fragment-form div.content {
 	padding: 3px;
 }
 
@@ -337,6 +337,13 @@ span.fragment-as-tag .ui-button {
   font-size: 10pt;
 }
 
+#dialog-fragment-form div.buttons button {
+	font-size: 12px;
+}
+
+#dialog-fragment-form div.buttons button.cancel {
+	margin-left: 1em;
+}
 
 
 
