@@ -52,10 +52,19 @@
 	    modal: false,
 	    width: 600,
 	    height: 400,
-	    buttons: buttons
+	    buttons: buttons,
+	    resize: function() {
+				_adjustEditorHeight(element);
+			}
 	  });
 		
 		element.find("textarea.fragment-content").get(0).focus();
+		_adjustEditorHeight(element);
+	};
+	
+	var _adjustEditorHeight = function(element) {
+		var baseHeight = element.find("form").height() - element.find("div.title-div").height();
+		element.find("textarea.fragment-content").height(baseHeight - 40);
 	};
 	
 	module.FragmentForm = {

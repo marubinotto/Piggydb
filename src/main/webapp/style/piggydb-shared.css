@@ -281,16 +281,8 @@ button.pulled span.label {
 
 
 /*
- * Fragment Form Dialog
+ * Fragment Form
  */
-
-#dialog-fragment-form {
-	background: #eee;
-	padding: 5px;
-	padding-right: 10px;
-	
-	font-family: Arial, Helvetica, "Sans Serif";
-}
 
 input.fragment-title {
   width: 100%;
@@ -313,22 +305,38 @@ span.fragment-as-tag .ui-button {
 	background-image: url(images/mini-tag.png) !important;
 }
 
-#dialog-fragment-form div.content-div {
-	padding: 3px;
+#facebox-wiki-help {
+	z-index: 1200;
+}
+
+
+
+/*
+ * Fragment Form Dialog
+ */
+
+#dialog-fragment-form {
+	background: #eee;
+	padding: 5px;
+	padding-right: 10px;
+	
+	font-family: Arial, Helvetica, "Sans Serif";
 }
 
 #dialog-fragment-form form {
 	height: 100%;
 }
 
+#dialog-fragment-form div.content-div {
+	padding: 3px;
+}
+
 #dialog-fragment-form textarea.fragment-content {
+	width: 100%;
   padding: 2px;
   font-size: 10pt;
 }
 
-#facebox-wiki-help {
-	z-index: 1200;
-}
 
 
 
