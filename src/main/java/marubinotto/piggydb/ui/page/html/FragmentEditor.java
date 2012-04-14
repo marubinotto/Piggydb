@@ -15,7 +15,7 @@ public class FragmentEditor extends AbstractSingleFragment {
 		
 		if (this.fragment != null) {
 			this.editorId = "fragment-editor-" + this.fragment.getId();
-			this.editorTitle = getMessage("create-new-fragment");
+			this.editorTitle = getMessage("edit-fragment");
 		}
 		else {
 			this.editorId = "fragment-editor-new";
