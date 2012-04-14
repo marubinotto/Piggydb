@@ -180,7 +180,7 @@
 	  	var outer = this;
 	  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
 	  		var page = jQuery(html);
-	  		outer.paletteDiv.find("ul.liquid-blocks").append(page);
+	  		outer.element.find("ul.liquid-blocks").append(page);
 	  		loadIcon.remove();
 	  		outer.arrangeFlat();
 	  		if (!page.filter("li:first").hasClass("last-page")) button.show();

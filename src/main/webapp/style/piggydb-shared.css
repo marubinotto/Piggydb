@@ -327,6 +327,10 @@ span.fragment-as-tag .ui-button {
 	height: 100%;
 }
 
+#dialog-fragment-form input {
+	font-family: Arial, Helvetica, "Sans Serif";
+}
+
 #dialog-fragment-form div.tags {
 	padding-top: 6px;
 	padding-bottom: 4px;
@@ -343,6 +347,11 @@ span.fragment-as-tag .ui-button {
 #dialog-fragment-form div.tags button.pulldown {
 	width: 23px;
 	height: 23px;
+}
+
+#dialog-fragment-form div.tags div.tag-palette {
+	min-width: 250px;
+	width: auto;
 }
 
 #dialog-fragment-form div.content {

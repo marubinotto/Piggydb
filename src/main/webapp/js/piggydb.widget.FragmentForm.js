@@ -75,9 +75,10 @@
 		    scrollHeight: 300
 		  });
 			
+			var outer = this;
 			var palette = new piggydb.widget.TagPalette(this.element.find("div.tag-palette"));
 			palette.onTagSelect = function(source, tagId, tagName, palette) {
-        var input = this.element.find("input[name='tags']");
+        var input = outer.element.find("input[name='tags']");
         var tags = jQuery.trim(input.val());
         if (tags == null || tags == "")
           tags = tagName;
