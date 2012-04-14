@@ -353,6 +353,11 @@ span.fragment-as-tag .ui-button {
 	width: auto;
 }
 
+.ui-draggable-dragging div.fragment-editor span.tag {
+  border-style: none;
+  padding: 0px;
+}
+
 .ui-dialog div.fragment-editor div.content {
 	padding: 3px;
 }
