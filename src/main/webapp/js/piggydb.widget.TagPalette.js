@@ -140,7 +140,7 @@
 	  },
 	  
 	  arrangeFlat: function() {
-	  	liquidBlocks(".tag-palette ", 80, this.element.width() - 30);
+	  	liquidBlocks(this.element, 80, this.element.width() - 30);
 	  },
 	  
 	  setCommonParams: function(params) {

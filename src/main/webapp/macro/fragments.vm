@@ -120,19 +120,19 @@ jQuery(function() {
 var OUTER_WIDTH = 305;
 var blockWidth = $view.columnWidth;
 
-function initLiquidBlocks(selectorPrefix, blockWidth) {
+function initLiquidBlocks(baseElement, blockWidth) {
   // Workaround for a browser bug where the container width 
   // won't be calculated correctly when first loading
-  liquidBlocks(selectorPrefix, blockWidth, jQuery("body").width() - OUTER_WIDTH);
-  liquidBlocks(selectorPrefix, blockWidth, null);
+  liquidBlocks(baseElement, blockWidth, jQuery("body").width() - OUTER_WIDTH);
+  liquidBlocks(baseElement, blockWidth, null);
 }
 
 jQuery(document).ready(function() {
   jQuery(window).resize(function () {
-    liquidBlocks("#$view.viewId ", blockWidth, null);
+    liquidBlocks(jQuery("#$view.viewId"), blockWidth, null);
   });
 
-  initLiquidBlocks("#$view.viewId ", blockWidth);
+  initLiquidBlocks(jQuery("#$view.viewId"), blockWidth);
 });
 //]]>
 </script>
@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
 <script type="text/javascript">
 //<![CDATA[
 jQuery(document).ready(function() {
-  initLiquidBlocks("#$view.viewId ", $view.columnWidth);
+  initLiquidBlocks(jQuery("#$view.viewId"), $view.columnWidth);
 });
 //]]>
 </script>
