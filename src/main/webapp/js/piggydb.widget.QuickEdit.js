@@ -5,9 +5,11 @@ jQuery(function() {
 
 (function(module) {
 	
+	var _editorSelector = "div.fragment-editor-quick";
+	
 	var _openEditor = function(id, contentDiv) {
 		var contentDivHeight = contentDiv.height();
-	  var editorDiv = contentDiv.siblings("div.fragment-editor-quick");
+	  var editorDiv = contentDiv.siblings(_editorSelector);
 	  contentDiv.empty().putLoadingIcon(); 
 	  jQuery.get("html/fragment-editor-quick.htm", {"id" : id}, function(html) {
 	  	contentDiv.empty();
@@ -75,7 +77,7 @@ jQuery(function() {
 
 		onCancel: function(button) {
 			var fragment = new piggydb.widget.Fragment(button);
-			var editorDiv = jQuery(button).closest("div.fragment-editor-quick");	
+			var editorDiv = jQuery(button).closest(_editorSelector);	
 			var contentDiv = editorDiv.siblings("div.fragment-content-text");
 			
 			editorDiv.empty();
@@ -96,7 +98,7 @@ jQuery(function() {
 			var fragment = new piggydb.widget.Fragment(button);
 			
 			var fragmentId = fragment.id();
-			var editorDiv = jQuery(button).closest("div.fragment-editor-quick");
+			var editorDiv = jQuery(button).closest(_editorSelector);
 			var contentDiv = editorDiv.siblings("div.fragment-content-text");
 			
 			var params = {
