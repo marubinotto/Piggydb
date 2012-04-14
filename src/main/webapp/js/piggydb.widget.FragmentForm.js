@@ -28,65 +28,76 @@
 	
 	var _wikiHelp = new piggydb.widget.Facebox("facebox-wiki-help");
 	
-	var _prepare = function(element) {
-		jQuery.updnWatermark.attachAll();
-		element.find("input.fragment-as-tag").button({
-      icons: {
-      	primary: "ui-icon-piggydb-tag"
-      },
-      text: false
-	  });
-		module.FragmentForm.addToolBar(element.find("textarea.fragment-content"), false);
-		module.FragmentForm.linkToWikiHelp(element.find(".markItUp .markItUpButton9 a"));
+	var _class = function(element) {
+		module.Widget.call(this, element);
+		this.textarea = this.element.find("textarea.fragment-content");
+		this.prepare();
 	};
 	
-	var _open = function(element) {
-		_prepare(element);
-	  
-		element.dialog({
-	    modal: false,
-	    width: 600,
-	    height: 400,
-	    resize: function() {
-				_adjustEditorHeight(element);
-			}
+	_class.addToolBar = function(textarea, resizeHandle) {
+		_markItUpSettings.resizeHandle = resizeHandle;
+		textarea.markItUp(_markItUpSettings);
+	};
+	
+	_class.linkToWikiHelp = function(a) {
+		a.attr("href", piggydb.server.wikiHelpUrl).click(function() {
+	  	_wikiHelp.show(this.href);
+	    return false;
 	  });
-		
-		element.find("button.cancel").click(function() {
-			element.dialog("close");
+	};
+	
+	_class.openToCreate = function() {
+		jQuery("#dialog-fragment-form").remove();
+		jQuery.get("html/fragment-editor.htm", function(html) {
+			jQuery("body").append(html);
+			var form = new _class(jQuery("#dialog-fragment-form"));
+			form.open();
 		});
+	};
+	
+	_class.prototype = jQuery.extend({
 		
-		_adjustEditorHeight(element);
-		element.find("textarea.fragment-content").get(0).focus();
-	};
-	
-	var _adjustEditorHeight = function(element) {
-		var baseHeight = element.find("form").height() 
-			- element.find("div.title").height()
-			- element.find("div.buttons").height();
-		element.find("textarea.fragment-content").height(baseHeight - 45);
-	};
-	
-	module.FragmentForm = {
-		openToCreate: function() {
-			jQuery("#dialog-fragment-form").remove();
-			jQuery.get("html/fragment-editor.htm", function(html) {
-				jQuery("body").append(html);
-				_open(jQuery("#dialog-fragment-form"));
+		prepare: function() {
+			jQuery.updnWatermark.attachAll();
+			this.element.find("input.fragment-as-tag").button({
+	      icons: {
+	      	primary: "ui-icon-piggydb-tag"
+	      },
+	      text: false
+		  });
+			_class.addToolBar(this.textarea, false);
+			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton9 a"));
+		},
+		
+		open: function() {
+			var outer = this;
+			
+			this.element.dialog({
+		    modal: false,
+		    width: 600,
+		    height: 400,
+		    resize: function() {
+		    	outer.adjustEditorHeight();
+				}
+		  });
+			
+			this.element.find("button.cancel").click(function() {
+				outer.element.dialog("close");
 			});
+			
+			this.adjustEditorHeight();
+			this.textarea.get(0).focus();
 		},
 		
-		addToolBar: function(textarea, resizeHandle) {
-			_markItUpSettings.resizeHandle = resizeHandle;
-			textarea.markItUp(_markItUpSettings);
-		},
-		
-		linkToWikiHelp: function(a) {
-			a.attr("href", piggydb.server.wikiHelpUrl).click(function() {
-  	  	_wikiHelp.show(this.href);
-  	    return false;
-  	  });
+		adjustEditorHeight: function() {
+			var baseHeight = this.element.find("form").height() 
+				- this.element.find("div.title").height()
+				- this.element.find("div.buttons").height();
+			this.textarea.height(baseHeight - 45);
 		}
-	};
+		
+	}, module.Widget.prototype);
 	
+	module.FragmentForm = _class;
+
 })(piggydb.widget);	
