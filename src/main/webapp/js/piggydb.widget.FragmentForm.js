@@ -3,7 +3,7 @@
 	var _messages = piggydb.server.messages;
 	
 	var _markItUpSettings = {
-		nameSpace: 'fragment-editor',
+		nameSpace: 'markItUp-root',
     previewAutoRefresh: false,
     previewParserPath:  '', // path to your Wiki parser
     onShiftEnter:   {keepDefault:false, replaceWith:'\n\n'},
@@ -47,10 +47,10 @@
 	};
 	
 	_class.openToCreate = function() {
-		jQuery("#dialog-fragment-form").remove();
+		jQuery("#fragment-editor-new").remove();
 		jQuery.get("html/fragment-editor.htm", function(html) {
 			jQuery("body").append(html);
-			var form = new _class(jQuery("#dialog-fragment-form"));
+			var form = new _class(jQuery("#fragment-editor-new"));
 			form.open();
 		});
 	};

@@ -312,65 +312,64 @@ span.fragment-as-tag .ui-button {
 
 
 /*
- * Fragment Form Dialog
+ * Fragment Editor Dialog
  */
 
-#dialog-fragment-form {
+.ui-dialog div.fragment-editor {
 	background: #eee;
 	padding: 5px;
 	padding-right: 10px;
-	
 	font-family: Arial, Helvetica, "Sans Serif";
 }
 
-#dialog-fragment-form form {
+.ui-dialog div.fragment-editor form {
 	height: 100%;
 }
 
-#dialog-fragment-form input {
+.ui-dialog div.fragment-editor input {
 	font-family: Arial, Helvetica, "Sans Serif";
 }
 
-#dialog-fragment-form div.tags {
+.ui-dialog div.fragment-editor div.tags {
 	padding-top: 6px;
 	padding-bottom: 4px;
 }
 
-#dialog-fragment-form div.tags input.fragment-tags {
+.ui-dialog div.fragment-editor div.tags input.fragment-tags {
 	width: 100%;
 }
 
-#dialog-fragment-form div.tags td.tags-pulldown {
+.ui-dialog div.fragment-editor div.tags td.tags-pulldown {
 	width: 25px;
 }
 
-#dialog-fragment-form div.tags button.pulldown {
+.ui-dialog div.fragment-editor div.tags button.pulldown {
 	width: 23px;
 	height: 23px;
 }
 
-#dialog-fragment-form div.tags div.tag-palette {
+.ui-dialog div.fragment-editor div.tags div.tag-palette {
 	min-width: 250px;
 	width: auto;
 }
 
-#dialog-fragment-form div.content {
+.ui-dialog div.fragment-editor div.content {
 	padding: 3px;
 }
 
-#dialog-fragment-form textarea.fragment-content {
+.ui-dialog div.fragment-editor textarea.fragment-content {
 	width: 100%;
   padding: 2px;
   font-size: 10pt;
 }
 
-#dialog-fragment-form div.buttons button {
+.ui-dialog div.fragment-editor div.buttons button {
 	font-size: 11px;
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
 
-#dialog-fragment-form div.buttons button.cancel {
+.ui-dialog div.fragment-editor div.buttons button.cancel {
 	margin-left: 1em;
 }
 

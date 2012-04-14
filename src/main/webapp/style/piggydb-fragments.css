@@ -489,12 +489,12 @@ td.minor-edit label {
  * Quick Edit
  */
 
-div.fragment-editor input.fragment-title {
+div.fragment-editor-quick input.fragment-title {
 	margin-top: 3px;
 	width: 100%;
 }
 
-div.fragment-editor div.error {
+div.fragment-editor-quick div.error {
 	margin: 5px;
 	padding: 3px;
 	border: 1px solid silver;
