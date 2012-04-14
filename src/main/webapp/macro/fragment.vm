@@ -166,7 +166,7 @@
 			onclick="return !piggydb.widget.QuickEdit.onEditButtonClick(this);" 
 		#end
 		href="$resources.fragmentPath($fragment.id)&amp;edit=true" target="_blank"
-    title="$messages.get("edit-fragment")">
+    title="$messages.get("edit-this-fragment")">
   <img src="$context/images/edit.png" border="0" alt="$messages.get("edit")"/></a>
 #end
 
