@@ -8,6 +8,7 @@
 	  this.viewType = "tree";
 	  this.sessionName = null;
 	  this.autoHeight = true;
+	  this.autoFlatWidth = false;
 	  
 	  this.onPaletteInit = null;
 	  this.onPaletteUpdate = null;
@@ -140,7 +141,8 @@
 	  },
 	  
 	  arrangeFlat: function() {
-	  	liquidBlocks(this.element, 80, this.element.width() - 30);
+	  	containerWidth = this.autoFlatWidth ? null : this.element.width() - 30;
+	  	liquidBlocks(this.element, 80, containerWidth);
 	  },
 	  
 	  setCommonParams: function(params) {

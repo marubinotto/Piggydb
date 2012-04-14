@@ -87,6 +87,7 @@
         input.val(tags);
         input.focus();
       };
+      palette.autoFlatWidth = true;
       palette.init(this.element.find("button.pulldown"));
 			
 			_class.addToolBar(this.textarea, false);
