@@ -327,6 +327,24 @@ span.fragment-as-tag .ui-button {
 	height: 100%;
 }
 
+#dialog-fragment-form div.tags {
+	padding-top: 6px;
+	padding-bottom: 4px;
+}
+
+#dialog-fragment-form div.tags input.fragment-tags {
+	width: 100%;
+}
+
+#dialog-fragment-form div.tags td.tags-pulldown {
+	width: 25px;
+}
+
+#dialog-fragment-form div.tags button.pulldown {
+	width: 23px;
+	height: 23px;
+}
+
 #dialog-fragment-form div.content {
 	padding: 3px;
 }

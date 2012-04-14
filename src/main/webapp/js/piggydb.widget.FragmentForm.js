@@ -75,7 +75,7 @@
 			this.element.dialog({
 		    modal: false,
 		    width: 600,
-		    height: 400,
+		    height: 450,
 		    resize: function() {
 		    	outer.adjustEditorHeight();
 				}
@@ -92,8 +92,9 @@
 		adjustEditorHeight: function() {
 			var baseHeight = this.element.find("form").height() 
 				- this.element.find("div.title").height()
+				- this.element.find("div.tags").height()
 				- this.element.find("div.buttons").height();
-			this.textarea.height(baseHeight - 45);
+			this.textarea.height(baseHeight - 55);
 		}
 		
 	}, module.Widget.prototype);

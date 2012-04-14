@@ -16,6 +16,26 @@
   	</tr>
   	</table>
   </div>
+	<div class="tags">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td class="tags-input">
+				<input class="fragment-tags watermarked" id="fragment-form-tags"
+					name="tags" title="$messages.get("FragmentForm-tags")" type="text">
+			</td>
+			<td class="tags-pulldown" align="left">
+				<button type="button" class="pulldown"><span class="label">&nbsp;</span></button>
+				<br/>
+				<div class="pulldown-box tag-palette" id="dialog-fragment-form-tag-palette"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding-top: 3px;">
+				<span style="font-size: 8pt;">$messages.get("FragmentForm-tags-help")</span>
+			</td>
+		</tr>
+		</table>
+	</div>
   <div class="content">
   	<textarea class="fragment-content" name="content" rows="3" cols="20" 
   		title="$messages.get("FragmentForm-content")"></textarea>
