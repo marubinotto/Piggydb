@@ -90,6 +90,7 @@
       palette.decideMaxHeight = function() {
       	return outer.textarea.height() + 50;
       };
+      palette.flatColumnWidth = 100;
       palette.autoFlatWidth = true;
       palette.init(this.element.find("button.pulldown"));
 			

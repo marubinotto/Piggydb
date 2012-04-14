@@ -9,6 +9,7 @@
 	  this.sessionName = null;
 	  this.autoHeight = true;
 	  this.autoFlatWidth = false;
+	  this.flatColumnWidth = 80;
 	  
 	  this.onPaletteInit = null;
 	  this.onPaletteUpdate = null;
@@ -142,7 +143,7 @@
 	  
 	  arrangeFlat: function() {
 	  	containerWidth = this.autoFlatWidth ? null : this.element.width() - 30;
-	  	liquidBlocks(this.element, 80, containerWidth);
+	  	liquidBlocks(this.element, this.flatColumnWidth, containerWidth);
 	  },
 	  
 	  setCommonParams: function(params) {
