@@ -35,6 +35,41 @@ piggydb.namespace("piggydb.widget", {
 		return dialogContent;
 	};
 	
+	module.setInputError = function(input, id, message, container) {
+		input = jQuery(input);
+		
+		input.addClass('error');
+		
+		input.qtip({
+			id: id,
+			content: message,
+			position: {
+				my: 'top left',
+				at: 'bottom',
+				container: container
+			},
+			show: {
+				event: 'focus'
+			},
+			hide: {
+				event: false
+			},
+			style: {
+				classes: 'ui-tooltip-red ui-tooltip-shadow ui-tooltip-rounded'
+			}
+		}).qtip('show');
+		
+		jQuery('#ui-tooltip-' + id)
+			.css({
+				"white-space": "nowrap",
+				"width": "auto",
+				"max-width": "none"
+			})
+			.click(function() {
+				input.qtip('hide');
+			});
+	};
+	
 
 	/**
 	 *  The base class for HTML widgets

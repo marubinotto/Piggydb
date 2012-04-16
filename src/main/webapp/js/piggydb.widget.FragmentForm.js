@@ -28,8 +28,9 @@
 	
 	var _wikiHelp = new piggydb.widget.Facebox("facebox-wiki-help");
 	
-	var _class = function(element) {
+	var _class = function(element, id) {
 		module.Widget.call(this, element);
+		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.prepare();
 	};
@@ -50,7 +51,7 @@
 		jQuery("#fragment-editor-new").remove();
 		jQuery.get("html/fragment-editor.htm", function(html) {
 			jQuery("body").append(html);
-			var form = new _class(jQuery("#fragment-editor-new"));
+			var form = new _class(jQuery("#fragment-editor-new"), "fragment-editor-new");
 			form.open();
 		});
 	};
@@ -116,6 +117,9 @@
 			
 			this.adjustEditorHeight();
 			this.textarea.get(0).focus();
+			
+			// test
+			this.setInputError("title", "You must enter the title if the fragment will be used as a tag.");
 		},
 		
 		adjustEditorHeight: function() {
@@ -124,6 +128,11 @@
 				- this.element.find("div.tags").height()
 				- this.element.find("div.buttons").height();
 			this.textarea.height(baseHeight - 55);
+		},
+		
+		setInputError: function(name, message) {
+			var input = jQuery(this.element.find("form")[0].elements[name]);
+			piggydb.widget.setInputError(input, this.id + "-" + name, message, this.element);
 		}
 		
 	}, module.Widget.prototype);
