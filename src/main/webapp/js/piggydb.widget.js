@@ -35,6 +35,39 @@ piggydb.namespace("piggydb.widget", {
 		return dialogContent;
 	};
 	
+	var _errorTipStyle = {
+		"white-space": "nowrap",
+		"width": "auto",
+		"max-width": "none"
+	};
+	
+	module.putErrorMessage = function(baseElement, id, message, container) {
+		baseElement.qtip({
+			id: id,
+			content: message,
+			position: {
+				my: 'left center',
+				at: 'right center',
+				container: container
+			},
+			hide: {
+				event: false
+			},
+			style: {
+				classes: 'ui-tooltip-red ui-tooltip-shadow ui-tooltip-rounded',
+				tip: {
+					corner: false
+				}
+			}
+		}).qtip('show');
+		
+		jQuery('#ui-tooltip-' + id).css(_errorTipStyle)
+	},
+	
+	module.clearErrorMessage = function(baseElement) {
+		baseElement.qtip('destroy');
+	},
+	
 	module.setInputError = function(input, id, message, container) {
 		input = jQuery(input);
 		
@@ -45,7 +78,7 @@ piggydb.namespace("piggydb.widget", {
 			content: message,
 			position: {
 				my: 'top left',
-				at: 'bottom',
+				at: 'bottom left',
 				container: container
 			},
 			show: {
@@ -60,11 +93,7 @@ piggydb.namespace("piggydb.widget", {
 		}).qtip('show');
 		
 		jQuery('#ui-tooltip-' + id)
-			.css({
-				"white-space": "nowrap",
-				"width": "auto",
-				"max-width": "none"
-			})
+			.css(_errorTipStyle)
 			.click(function() {
 				input.qtip('hide');
 			});

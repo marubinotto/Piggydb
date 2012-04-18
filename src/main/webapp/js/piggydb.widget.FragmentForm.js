@@ -32,6 +32,7 @@
 		module.Widget.call(this, element);
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
+		this.indicator = this.element.find("span.indicator");
 		this.prepare();
 	};
 	
@@ -119,10 +120,11 @@
 			this.textarea.get(0).focus();
 			
 			// test
+			this.setFormError("qTip utilises a special positioning system using corners.");
 			this.setInputError("title", "You must enter the title if the fragment will be used as a tag.");
 			this.setInputError("tags", "Tag name must be at least 2 characters.");
 			this.element.find("button.preview").click(function() {
-				outer.clearInputErrors();
+				outer.clearErrors();
 			});
 		},
 		
@@ -134,12 +136,17 @@
 			this.textarea.height(baseHeight - 55);
 		},
 		
+		setFormError: function(message) {
+			piggydb.widget.putErrorMessage(this.indicator, this.id, message, this.element);
+		},
+		
 		setInputError: function(name, message) {
 			var input = this.element.find("form :input[name='" + name + "']");
 			piggydb.widget.setInputError(input, this.id + "-" + name, message, this.element);
 		},
 		
-		clearInputErrors: function() {
+		clearErrors: function() {
+			piggydb.widget.clearErrorMessage(this.indicator);
 			this.element.find("form :input").each(function() {
 				piggydb.widget.clearInputError(this);
 			});
