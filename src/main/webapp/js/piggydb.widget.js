@@ -61,7 +61,9 @@ piggydb.namespace("piggydb.widget", {
 			}
 		}).qtip('show');
 		
-		jQuery('#ui-tooltip-' + id).css(_errorTipStyle)
+		jQuery('#ui-tooltip-' + id).css(_errorTipStyle);
+		
+		baseElement.qtip('reposition');
 	},
 	
 	module.clearErrorMessage = function(baseElement) {

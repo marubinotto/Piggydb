@@ -368,6 +368,15 @@ span.fragment-as-tag .ui-button {
   font-size: 10pt;
 }
 
+.ui-dialog div.fragment-editor div.buttons {
+	height: 30px;
+}
+
+.ui-dialog div.fragment-editor span.indicator {
+	line-height: 30px;
+	vertical-align: middle;
+}
+
 .ui-dialog div.fragment-editor div.buttons button {
 	font-size: 11px;
 	padding-top: 3px;
