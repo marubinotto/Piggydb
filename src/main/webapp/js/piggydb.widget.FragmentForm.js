@@ -120,6 +120,10 @@
 			
 			// test
 			this.setInputError("title", "You must enter the title if the fragment will be used as a tag.");
+			this.setInputError("tags", "Tag name must be at least 2 characters.");
+			this.element.find("button.preview").click(function() {
+				outer.clearInputErrors();
+			});
 		},
 		
 		adjustEditorHeight: function() {
@@ -131,8 +135,14 @@
 		},
 		
 		setInputError: function(name, message) {
-			var input = jQuery(this.element.find("form")[0].elements[name]);
+			var input = this.element.find("form :input[name='" + name + "']");
 			piggydb.widget.setInputError(input, this.id + "-" + name, message, this.element);
+		},
+		
+		clearInputErrors: function() {
+			this.element.find("form :input").each(function() {
+				piggydb.widget.clearInputError(this);
+			});
 		}
 		
 	}, module.Widget.prototype);

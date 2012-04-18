@@ -6,11 +6,11 @@
   		<td class="fragment-as-tag">
       	<span class="fragment-as-tag">
       		<input type="checkbox" name="asTag" id="${editorId}-asTag" class="fragment-as-tag"
-      			><label for="${editorId}-asTag">$messages.get("as-tag")</label>
+      			/><label for="${editorId}-asTag">$messages.get("as-tag")</label>
       	</span>
   		</td>
   		<td>
-      	<input type="text" name="title" value="" title="$messages.get("FragmentForm-title")" 
+      	<input type="text" name="title" title="$messages.get("FragmentForm-title")" 
       		maxlength="$titleMaxLength" class="fragment-title watermarked"/>
   		</td>
   	</tr>
@@ -21,7 +21,7 @@
 		<tr>
 			<td class="tags-input">
 				<input class="fragment-tags watermarked" id="${editorId}-tags"
-					name="tags" title="$messages.get("FragmentForm-tags")" type="text">
+					name="tags" title="$messages.get("FragmentForm-tags")" type="text"/>
 				<br/>
 				<div class="pulldown-box tag-palette"></div>
 			</td>

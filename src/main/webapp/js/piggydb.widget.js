@@ -70,6 +70,12 @@ piggydb.namespace("piggydb.widget", {
 			});
 	};
 	
+	module.clearInputError = function(input) {
+		input = jQuery(input);
+		input.removeClass('error');
+		input.qtip('destroy');
+	};
+	
 
 	/**
 	 *  The base class for HTML widgets
