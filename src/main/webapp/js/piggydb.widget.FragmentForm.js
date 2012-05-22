@@ -114,6 +114,10 @@
 				}
 		  });
 			
+			this.element.find("button.preview").click(function() {
+				outer.block();
+				// TODO
+			});
 			this.element.find("button.cancel").click(function() {
 				outer.element.dialog("close");
 			});
@@ -127,6 +131,19 @@
 			this.setInputError("tags", "Tag name must be at least 2 characters.");
 			this.element.find("button.preview").click(function() {
 				outer.clearErrors();
+			});
+		},
+		
+		block: function() {
+			this.element.block({ 
+				message: '<img src="images/load-large.gif" border="0"/>',
+				css: { 
+					border: '0px solid #aaa',
+					width: '30px',
+					padding: '15px',
+					fadeIn: 0,
+					fadeOut: 0
+				}
 			});
 		},
 		
