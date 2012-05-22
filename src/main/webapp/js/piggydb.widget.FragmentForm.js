@@ -137,12 +137,17 @@
 		block: function() {
 			this.element.block({ 
 				message: '<img src="images/load-large.gif" border="0"/>',
+				centerX: true,
+		    centerY: true, 
 				css: { 
 					border: '0px solid #aaa',
 					width: '30px',
 					padding: '15px',
 					fadeIn: 0,
 					fadeOut: 0
+				},
+				overlayCSS:  { 
+	      	opacity: 0.4 
 				}
 			});
 		},
