@@ -85,6 +85,21 @@ piggydb.namespace("piggydb.util", {
 	  button.siblings("button.selected").removeClass("selected");
 	  button.addClass("selected");
 	  return true;
+	},
+	
+	blockPageDuringAjaxRequest: function() {
+		jQuery(document).ajaxStop(jQuery.unblockUI); 
+		jQuery.blockUI({ 
+			message: '<img src="images/load-large.gif" border="0"/>',
+			css: { 
+				border: '0px solid #aaa',
+				width: '30px',
+				padding: '15px',
+				left: '45%',
+				fadeIn: 0,
+				fadeOut: 0
+			}
+		});
 	}
 });
 
