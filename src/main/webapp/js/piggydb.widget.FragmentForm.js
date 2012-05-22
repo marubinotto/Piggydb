@@ -49,6 +49,19 @@
 	};
 	
 	_class.openToCreate = function() {
+		jQuery(document).ajaxStop(jQuery.unblockUI); 
+		jQuery.blockUI({ 
+			message: '<img src="images/load-large.gif" border="0"/>',
+			css: { 
+				border: '0px solid #aaa',
+				width: '30px',
+				padding: '15px',
+				left: '45%',
+				fadeIn: 0,
+				fadeOut: 0
+			}
+		}); 
+
 		jQuery("#fragment-editor-new").remove();
 		jQuery.get("html/fragment-editor.htm", function(html) {
 			jQuery("body").append(html);

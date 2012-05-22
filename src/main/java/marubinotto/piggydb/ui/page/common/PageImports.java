@@ -68,6 +68,7 @@ public class PageImports {
 			StrBuilder imports = new StrBuilder();
 			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
 			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
+			addJsImportTo(imports, "js/vendor/jquery.blockUI.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
 			addJsImportTo(imports, "js/vendor/updnWatermark/jquery.updnWatermark.js", true);
