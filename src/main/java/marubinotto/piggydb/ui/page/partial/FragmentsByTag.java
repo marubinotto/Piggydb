@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import static marubinotto.util.CollectionUtils.set;
 import marubinotto.piggydb.model.MutableClassification;

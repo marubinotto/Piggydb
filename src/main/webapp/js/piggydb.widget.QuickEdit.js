@@ -11,7 +11,7 @@ jQuery(function() {
 		var contentDivHeight = contentDiv.height();
 	  var editorDiv = contentDiv.siblings(_editorSelector);
 	  contentDiv.empty().putLoadingIcon(); 
-	  jQuery.get("html/fragment-editor-quick.htm", {"id" : id}, function(html) {
+	  jQuery.get("partial/fragment-editor-quick.htm", {"id" : id}, function(html) {
 	  	contentDiv.empty();
 	  	editorDiv.html(html);
 	  	
@@ -82,7 +82,7 @@ jQuery(function() {
 			
 			editorDiv.empty();
 			contentDiv.empty().putLoadingIcon();
-			jQuery.get("html/fragment-body-row.htm", {"id": fragment.id()}, function(html) {
+			jQuery.get("partial/fragment-body-row.htm", {"id": fragment.id()}, function(html) {
 				if (isNotBlank(html)) {
 					var content = jQuery(html).find("div.fragment-content").html();
 					contentDiv.html(content);
@@ -111,7 +111,7 @@ jQuery(function() {
 			
 			editorDiv.hide();
 			var loadingIcon = contentDiv.empty().putLoadingIcon();
-			jQuery.post("html/update-fragment.htm", params, function(html) {
+			jQuery.post("partial/update-fragment.htm", params, function(html) {
 				html = jQuery(html);
 				
 				// error

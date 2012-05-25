@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;

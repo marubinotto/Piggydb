@@ -52,7 +52,7 @@
 		piggydb.util.blockPageDuringAjaxRequest();
 
 		jQuery("#fragment-editor-new").remove();
-		jQuery.get("html/fragment-editor.htm", function(html) {
+		jQuery.get("partial/fragment-editor.htm", function(html) {
 			jQuery("body").append(html);
 			var form = new _class(jQuery("#fragment-editor-new"), "fragment-editor-new");
 			form.open();

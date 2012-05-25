@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
 import marubinotto.piggydb.model.Fragment;

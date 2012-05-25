@@ -19,7 +19,7 @@
 	    var loadIcon = toggle.loading();
 	    toggle.setOpened();
 	    
-	    jQuery.get("html/fragment-body-row.htm", {"id" : id}, function(html) {
+	    jQuery.get("partial/fragment-body-row.htm", {"id" : id}, function(html) {
 	    	toggle.fragment.setBodyRow(html);
 	      loadIcon.remove();
 	      toggle.setDisabled(false);

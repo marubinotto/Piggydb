@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 public abstract class AbstractTagPalette extends AbstractHtmlFragment {
 

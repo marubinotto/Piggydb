@@ -19,7 +19,7 @@
 	      var loadIcon = jQuery(li).putLoadingIcon("margin:5px");
 	      var params = {"id" : id};
 	      if (contextParentId != null) params.contextParentId = contextParentId;
-	      jQuery.get("html/fragment-child-nodes.htm", params, function(childrenHtml) {
+	      jQuery.get("partial/fragment-child-nodes.htm", params, function(childrenHtml) {
 	        li.append(childrenHtml);
 	        loadIcon.remove();
 	        jQuery(toggle).deleteDisabledFlag();

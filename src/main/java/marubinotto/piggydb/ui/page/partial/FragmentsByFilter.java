@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.ui.page.FilterPage;

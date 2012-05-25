@@ -2,6 +2,8 @@ package marubinotto.piggydb.ui.page.html;
 
 import static org.junit.Assert.assertEquals;
 
+import marubinotto.piggydb.ui.page.partial.FragmentsView;
+
 import org.junit.Test;
 
 public class FragmentsViewTest {

@@ -92,7 +92,7 @@ jQuery(function() {
 	        if (isNotBlank(tagId)) {
 	          var tags = jQuery("span.tags-placeholder-" + targetId);
 	          tags.empty().putLoadingIcon("margin: -2px; margin-left: 5px;");
-	          jQuery.get("html/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
+	          jQuery.get("partial/add-tag.htm", {"fragmentId": targetId, "tagId": tagId}, 
 	            function(html) {
 	              tags.empty().append(jQuery(html).children("span.tags"));
 	              _class.highlight(targetId, null);

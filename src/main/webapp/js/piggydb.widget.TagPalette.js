@@ -115,7 +115,7 @@
 	  	this.setCommonParams(params);
 	  	params.enableBack = this.breadcrumbs.length > 0;
 	  	var outer = this;
-	  	jQuery.post("html/tag-palette-tree.htm", params, function(html) {
+	  	jQuery.post("partial/tag-palette-tree.htm", params, function(html) {
 	  		outer.updatePalette(html, init);
 	  	});
 	  },
@@ -125,7 +125,7 @@
 	  	this.setLoading(); 	
 	  	this.setCommonParams(params);
 	  	var outer = this;
-	  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
+	  	jQuery.post("partial/tag-palette-flat.htm", params, function(html) {
 	  		outer.updatePalette(html, init);
 	      outer.arrangeFlat();
 	  	});
@@ -136,7 +136,7 @@
 	  	var params = {};
 	  	this.setCommonParams(params);
 	  	var outer = this;
-	  	jQuery.post("html/tag-palette-cloud.htm", params, function(html) {
+	  	jQuery.post("partial/tag-palette-cloud.htm", params, function(html) {
 	  		outer.updatePalette(html, init);
 	  	});
 	  },
@@ -181,7 +181,7 @@
 	  	var params = {pi: ++this.flatIndex};
 	  	this.setCommonParams(params);
 	  	var outer = this;
-	  	jQuery.post("html/tag-palette-flat.htm", params, function(html) {
+	  	jQuery.post("partial/tag-palette-flat.htm", params, function(html) {
 	  		var page = jQuery(html);
 	  		outer.element.find("ul.liquid-blocks").append(page);
 	  		loadIcon.remove();

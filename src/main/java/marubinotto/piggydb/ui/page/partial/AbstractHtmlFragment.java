@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.common.AbstractMainUiHtml;
