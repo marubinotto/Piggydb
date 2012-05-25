@@ -5,7 +5,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRelation;
 
-public class FragmentChildNodes extends AbstractHtmlFragment {
+public class FragmentChildNodes extends AbstractPartial {
 
 	public Long id;
 	public Long contextParentId;

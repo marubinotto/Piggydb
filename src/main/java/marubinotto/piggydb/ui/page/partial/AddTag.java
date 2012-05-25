@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page.partial;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 
-public class AddTag extends AbstractHtmlFragment {
+public class AddTag extends AbstractPartial {
 	
 	public Long fragmentId;
 	public Long tagId;

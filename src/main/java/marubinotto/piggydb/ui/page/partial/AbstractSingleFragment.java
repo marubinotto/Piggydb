@@ -5,7 +5,7 @@ import marubinotto.piggydb.model.Fragment;
 /**
  * HTML Fragment based on a knowledge fragment without its relationships
  */
-public abstract class AbstractSingleFragment extends AbstractHtmlFragment {
+public abstract class AbstractSingleFragment extends AbstractPartial {
 
 	public Long id;
 	public Fragment fragment;

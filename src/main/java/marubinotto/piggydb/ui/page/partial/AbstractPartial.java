@@ -5,7 +5,7 @@ import marubinotto.piggydb.ui.page.common.AbstractMainUiHtml;
 import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.CodedException;
 
-public abstract class AbstractHtmlFragment extends AbstractMainUiHtml {
+public abstract class AbstractPartial extends AbstractMainUiHtml {
 	
 	public String error;
 	

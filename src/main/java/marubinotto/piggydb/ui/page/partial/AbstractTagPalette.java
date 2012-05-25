@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
-public abstract class AbstractTagPalette extends AbstractHtmlFragment {
+public abstract class AbstractTagPalette extends AbstractPartial {
 
 	public String jsPaletteRef;
 	public boolean enableClose = false;

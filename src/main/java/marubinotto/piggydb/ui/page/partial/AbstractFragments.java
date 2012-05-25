@@ -7,7 +7,7 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.util.paging.Page;
 
-public abstract class AbstractFragments extends AbstractHtmlFragment {
+public abstract class AbstractFragments extends AbstractPartial {
 
 	//
 	// Input
