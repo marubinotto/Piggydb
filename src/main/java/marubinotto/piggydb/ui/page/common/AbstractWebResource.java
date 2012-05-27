@@ -69,13 +69,17 @@ implements ApplicationContextAware, WebMessageSource {
 	public String getMessage(String name, Object arg, boolean escapeArg) {
 		return getMessage(name, new Object[]{arg}, escapeArg);
 	}
+	
+	public static Object[] escapeArgs(Object[] args) {
+		Object[] escaped = new Object[args.length];
+		for (int i = 0; i < args.length; i++) 
+			escaped[i] = WebUtils.escapeHtml(args[i]);
+		return escaped;
+	}
 
 	public String getMessage(String name, Object[] args, boolean escapeArgs) {
 		if (escapeArgs) {
-			Object[] escaped = new Object[args.length];
-			for (int i = 0; i < args.length; i++)
-				escaped[i] = WebUtils.escapeHtml(args[i]);
-			return super.getMessage(name, escaped);
+			return super.getMessage(name, escapeArgs(args));
 		}
 		else {
 			return super.getMessage(name, args);
@@ -83,8 +87,6 @@ implements ApplicationContextAware, WebMessageSource {
 	}
 	
 	public String getMessage(MessageCode messageCode, boolean escapeArgs) {
-		Assert.Arg.notNull(messageCode, "messageCode");
-		
 		if (messageCode.getArguments() == null) {
 			return getMessage(messageCode.getCode());
 		}

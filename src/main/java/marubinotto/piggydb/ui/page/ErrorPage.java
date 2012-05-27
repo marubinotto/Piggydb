@@ -2,11 +2,12 @@ package marubinotto.piggydb.ui.page;
 
 import java.net.SocketException;
 
+import marubinotto.piggydb.ui.page.common.AbstractWebResource;
 import marubinotto.piggydb.ui.page.common.Session;
 import marubinotto.piggydb.ui.page.common.TemplateUtils;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.util.Assert;
 import marubinotto.util.CodedException;
+import marubinotto.util.MessageCode;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
@@ -17,13 +18,24 @@ public class ErrorPage extends net.sf.click.util.ErrorPage {
 	private static Log logger = LogFactory.getLog(ErrorPage.class);
 
 	public TemplateUtils utils = TemplateUtils.INSTANCE;
+	
+	private String getMessage(MessageCode code) {
+		if (code.getArguments() == null) {
+			return getMessage(code.getCode());
+		}
+		else {
+			return getMessage(
+				code.getCode(), 
+				AbstractWebResource.escapeArgs(code.getArguments()));
+		}
+	}
 
 	@Override
 	public boolean onSecurityCheck() {
 		Throwable error = getError();
 		if (error instanceof CodedException) {
 			logger.debug(error.toString(), error);
-			String message = Utils.getMessage((CodedException)error, this);
+			String message = getMessage((CodedException)error);
 			redirectHomeWithMessage(message);
 			return false;
 		}

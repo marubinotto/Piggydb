@@ -53,6 +53,10 @@ public class CodedException extends RuntimeException implements MessageCode {
 			return this.code;
 		}
 	}
+	
+	public String getMessage(MessageSource source) {
+		return source.getMessage(this);
+	}
 
 	@Override
 	public boolean equals(Object object) {

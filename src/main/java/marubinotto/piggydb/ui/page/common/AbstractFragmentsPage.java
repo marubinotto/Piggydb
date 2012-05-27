@@ -193,7 +193,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			});
 		}
 		catch (CodedException e) {
-			setRedirectToThisPage(Utils.getMessage(e, this));
+			setRedirectToThisPage(getMessage(e));
 			return false;
 		}
 		catch (NoSuchEntityException e) {
