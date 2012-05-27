@@ -1,6 +1,7 @@
 package marubinotto.util.time;
 
 import static junit.framework.Assert.assertEquals;
+import marubinotto.util.MessageCode;
 import marubinotto.util.MessageSource;
 
 import org.junit.After;
@@ -31,6 +32,10 @@ public class DateTimeAsRelativeDescriptionTest {
 		}
 
 		public String getMessage(String code, Object[] args) {
+			throw new UnsupportedOperationException();
+		}
+
+		public String getMessage(MessageCode messageCode) {
 			throw new UnsupportedOperationException();
 		}
 	};

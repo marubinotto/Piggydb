@@ -10,6 +10,7 @@ import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.util.Assert;
+import marubinotto.util.MessageCode;
 import marubinotto.util.web.WebMessageSource;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Page;
@@ -60,6 +61,10 @@ implements ApplicationContextAware, WebMessageSource {
 	public String getMessage(String name, Object[] args) {
 		return getMessage(name, args, true);
 	}
+	
+	public String getMessage(MessageCode messageCode) {
+		return getMessage(messageCode, true);
+	}
 
 	public String getMessage(String name, Object arg, boolean escapeArg) {
 		return getMessage(name, new Object[]{arg}, escapeArg);
@@ -74,6 +79,17 @@ implements ApplicationContextAware, WebMessageSource {
 		}
 		else {
 			return super.getMessage(name, args);
+		}
+	}
+	
+	public String getMessage(MessageCode messageCode, boolean escapeArgs) {
+		Assert.Arg.notNull(messageCode, "messageCode");
+		
+		if (messageCode.getArguments() == null) {
+			return getMessage(messageCode.getCode());
+		}
+		else {
+			return getMessage(messageCode.getCode(), messageCode.getArguments(), escapeArgs);
 		}
 	}
 
