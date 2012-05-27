@@ -1,8 +1,8 @@
 package marubinotto.util.time;
 
 import static junit.framework.Assert.assertEquals;
-import marubinotto.util.MessageCode;
-import marubinotto.util.MessageSource;
+import marubinotto.util.message.MessageCode;
+import marubinotto.util.message.MessageSource;
 
 import org.junit.After;
 import org.junit.Before;

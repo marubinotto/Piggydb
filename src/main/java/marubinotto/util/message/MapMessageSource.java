@@ -1,7 +1,9 @@
-package marubinotto.util;
+package marubinotto.util.message;
 
 import java.text.MessageFormat;
 import java.util.Map;
+
+import marubinotto.util.Assert;
 
 public class MapMessageSource implements MessageSource {
 	

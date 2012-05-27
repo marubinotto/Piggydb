@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.partial;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 
 public class UpdateFragment extends AbstractSingleFragment {

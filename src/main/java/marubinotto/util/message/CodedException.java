@@ -1,4 +1,6 @@
-package marubinotto.util;
+package marubinotto.util.message;
+
+import marubinotto.util.Assert;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;

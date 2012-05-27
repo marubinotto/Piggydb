@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page;
 
-import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+import static marubinotto.util.message.CodedException.getCodedMessageOrThrow;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.web.WebUtils;

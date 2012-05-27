@@ -1,4 +1,5 @@
-package marubinotto.util;
+package marubinotto.util.message;
+
 
 public interface MessageSource {
 

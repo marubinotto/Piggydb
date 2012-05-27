@@ -1,6 +1,6 @@
 package marubinotto.piggydb.model.exception;
 
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 
 public class AuthorizationException extends CodedException {
 

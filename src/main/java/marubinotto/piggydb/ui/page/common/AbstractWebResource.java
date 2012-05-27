@@ -10,7 +10,7 @@ import marubinotto.piggydb.ui.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.util.Assert;
-import marubinotto.util.MessageCode;
+import marubinotto.util.message.MessageCode;
 import marubinotto.util.web.WebMessageSource;
 import marubinotto.util.web.WebUtils;
 import net.sf.click.Page;

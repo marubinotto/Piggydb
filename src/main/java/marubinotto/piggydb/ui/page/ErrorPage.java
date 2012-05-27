@@ -6,8 +6,8 @@ import marubinotto.piggydb.ui.page.common.AbstractWebResource;
 import marubinotto.piggydb.ui.page.common.Session;
 import marubinotto.piggydb.ui.page.common.TemplateUtils;
 import marubinotto.util.Assert;
-import marubinotto.util.CodedException;
-import marubinotto.util.MessageCode;
+import marubinotto.util.message.CodedException;
+import marubinotto.util.message.MessageCode;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;

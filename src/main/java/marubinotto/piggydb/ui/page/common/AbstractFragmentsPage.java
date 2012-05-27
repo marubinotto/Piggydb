@@ -18,7 +18,7 @@ import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.page.partial.AbstractFragments;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.Context;
 import net.sf.click.control.HiddenField;

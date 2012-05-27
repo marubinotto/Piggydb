@@ -9,7 +9,7 @@ import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 import net.sf.click.control.HiddenField;
 import net.sf.click.extras.tree.Tree;
 

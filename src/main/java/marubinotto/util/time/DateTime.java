@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import marubinotto.util.Assert;
-import marubinotto.util.MessageSource;
+import marubinotto.util.message.MessageSource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.time.FastDateFormat;

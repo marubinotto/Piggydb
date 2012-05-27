@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page;
 
-import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+import static marubinotto.util.message.CodedException.getCodedMessageOrThrow;
 
 import java.util.List;
 import java.util.Set;

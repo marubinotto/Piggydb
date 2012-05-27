@@ -1,7 +1,7 @@
 package marubinotto.util.web;
 
-import marubinotto.util.MessageCode;
-import marubinotto.util.MessageSource;
+import marubinotto.util.message.MessageCode;
+import marubinotto.util.message.MessageSource;
 
 /**
  * This interface adds an option for the arguments to be HTML-escaped.

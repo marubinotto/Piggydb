@@ -13,7 +13,7 @@ import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.ActionLink;
 import net.sf.click.control.Form;

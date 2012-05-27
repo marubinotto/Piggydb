@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.piggydb.ui.page.common.AbstractMainUiHtml;
-import marubinotto.util.CodedException;
+import marubinotto.util.message.CodedException;
 
 public abstract class AbstractPartial extends AbstractMainUiHtml {
 	

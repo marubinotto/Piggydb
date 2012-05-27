@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page.control.form;
 
-import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+import static marubinotto.util.message.CodedException.getCodedMessageOrThrow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
