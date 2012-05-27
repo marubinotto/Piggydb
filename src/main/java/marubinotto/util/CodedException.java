@@ -57,6 +57,19 @@ public class CodedException extends RuntimeException implements MessageCode {
 	public String getMessage(MessageSource source) {
 		return source.getMessage(this);
 	}
+	
+	public static String getCodedMessageOrThrow(Exception exception, MessageSource source) 
+	throws Exception {
+		Assert.Arg.notNull(exception, "exception");
+		Assert.Arg.notNull(source, "source");
+		
+		if (exception instanceof MessageCode) {
+			return source.getMessage((MessageCode)exception);
+		}
+		else {
+			throw exception;
+		}
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -235,7 +235,7 @@ public class FragmentForm extends Form {
 				emptyToNull(this.titleField.getValue()), user);
 		} 
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.titleField, getPage());
+			Utils.handleFieldError(e, this.titleField, this.messages);
 			return false;
 		}
 		
@@ -244,7 +244,7 @@ public class FragmentForm extends Form {
 			object.setAsTagByUser(this.asTagCheckbox.isChecked(), user);
 		}
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.asTagCheckbox, getPage());
+			Utils.handleFieldError(e, this.asTagCheckbox, this.messages);
 			return false;
 		}
 		
@@ -263,7 +263,7 @@ public class FragmentForm extends Form {
 					emptyToNull(this.contentField.getValue()), user);
 			} 
 			catch (Exception e) {
-				Utils.handleFieldError(e, this.contentField, getPage());
+				Utils.handleFieldError(e, this.contentField, this.messages);
 				return false;
 			}
 		}
@@ -274,7 +274,7 @@ public class FragmentForm extends Form {
 			object.updateTagsByUser(tagNames, tagRepository, user);
 		} 
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.tagsField, getPage());
+			Utils.handleFieldError(e, this.tagsField, this.messages);
 			return false;
 		}
 		
@@ -285,13 +285,13 @@ public class FragmentForm extends Form {
 			if (e instanceof InvalidTitleException ||
 					e instanceof InvalidTagNameException ||
 					e instanceof DuplicateException) {
-				Utils.handleFieldError(e, this.titleField, getPage());
+				Utils.handleFieldError(e, this.titleField, this.messages);
 			}
 			else if (e instanceof InvalidTaggingException) {
-				Utils.handleFieldError(e, this.tagsField, getPage());
+				Utils.handleFieldError(e, this.tagsField, this.messages);
 			}
 			else {
-				Utils.handleFormError(e, this, getPage());
+				Utils.handleFormError(e, this, this.messages);
 			}
 			return false;
 		}

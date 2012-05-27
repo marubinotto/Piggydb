@@ -400,7 +400,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			getDomain().addTagToFragments(fragments, tag, getUser());
 		}
 		catch (Exception e) {
-			setRedirectToThisPage(Utils.getCodedMessageOrThrow(e, this));
+			setRedirectToThisPage(CodedException.getCodedMessageOrThrow(e, this));
 			return false;
 		}
 
