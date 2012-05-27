@@ -8,12 +8,12 @@ import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
+import marubinotto.util.CodedException;
 import marubinotto.util.procedure.Procedure;
 import net.sf.click.control.ActionLink;
 import net.sf.click.control.Form;
@@ -244,7 +244,7 @@ public class FilterPage extends AbstractFragmentsPage {
 			});
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.filterNameForm, this);
+			this.filterNameForm.setError(CodedException.getCodedMessageOrThrow(e, this));
 			if (oldName != null) this.filter.setNameByUser(oldName, getUser());
 			return true;
 		}

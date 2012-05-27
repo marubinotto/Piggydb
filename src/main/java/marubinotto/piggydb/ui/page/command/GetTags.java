@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.ui.page.common.Utils;
 
 public class GetTags extends AbstractCommand {
 	
@@ -30,7 +29,7 @@ public class GetTags extends AbstractCommand {
 	private List<Tag> getResult() throws Exception {
 		if (this.parent != null) {
 			return getDomain().getTagRepository().findByParentTag(
-				this.parent, Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
+				this.parent, ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 		else if (this.child != null) {
 			Tag childTag = getDomain().getTagRepository().get(this.child);
@@ -40,7 +39,7 @@ public class GetTags extends AbstractCommand {
 			return parents;
 		}
 		else {
-			return getDomain().getTagRepository().getRootTags(Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			return getDomain().getTagRepository().getRootTags(ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 	}
 		

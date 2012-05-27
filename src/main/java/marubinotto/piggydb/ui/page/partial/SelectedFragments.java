@@ -1,7 +1,5 @@
 package marubinotto.piggydb.ui.page.partial;
 
-import marubinotto.piggydb.ui.page.common.Utils;
-
 public class SelectedFragments extends AbstractFragments {
 	
 	public final boolean fragmentBatchPage = true;
@@ -16,7 +14,7 @@ public class SelectedFragments extends AbstractFragments {
 		this.fragments = getSession().getSelectedFragments().
 			getFragments(
 				getDomain().getFragmentRepository(),
-				Utils.ALMOST_UNLIMITED_PAGE_SIZE, 
+				ALMOST_UNLIMITED_PAGE_SIZE, 
 				this.options.pageIndex, 
 				this.options.eagerFetching);
 	}

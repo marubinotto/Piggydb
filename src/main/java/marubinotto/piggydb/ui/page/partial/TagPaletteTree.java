@@ -8,7 +8,6 @@ import java.util.Set;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.ui.page.common.Utils;
 
 public class TagPaletteTree extends AbstractTagPalette {
 	
@@ -37,7 +36,7 @@ public class TagPaletteTree extends AbstractTagPalette {
 		if (this.parent != null) {
 			// this won't fetch the parent tags of results
 			return repository.findByParentTag(
-				this.parent, Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
+				this.parent, ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 		else if (this.child != null) {
 			List<Tag> parents = new ArrayList<Tag>();
@@ -47,7 +46,7 @@ public class TagPaletteTree extends AbstractTagPalette {
 			return parents;
 		}
 		else {
-			return repository.getRootTags(Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			return repository.getRootTags(ALMOST_UNLIMITED_PAGE_SIZE, 0);
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page.control.form;
 
+import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +17,6 @@ import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.InvalidTagNameException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.model.exception.InvalidTitleException;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentContentField;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
@@ -235,7 +236,7 @@ public class FragmentForm extends Form {
 				emptyToNull(this.titleField.getValue()), user);
 		} 
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.titleField, this.messages);
+			this.titleField.setError(getCodedMessageOrThrow(e, this.messages));
 			return false;
 		}
 		
@@ -244,7 +245,7 @@ public class FragmentForm extends Form {
 			object.setAsTagByUser(this.asTagCheckbox.isChecked(), user);
 		}
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.asTagCheckbox, this.messages);
+			this.asTagCheckbox.setError(getCodedMessageOrThrow(e, this.messages));
 			return false;
 		}
 		
@@ -263,7 +264,7 @@ public class FragmentForm extends Form {
 					emptyToNull(this.contentField.getValue()), user);
 			} 
 			catch (Exception e) {
-				Utils.handleFieldError(e, this.contentField, this.messages);
+				this.contentField.setError(getCodedMessageOrThrow(e, this.messages));
 				return false;
 			}
 		}
@@ -274,7 +275,7 @@ public class FragmentForm extends Form {
 			object.updateTagsByUser(tagNames, tagRepository, user);
 		} 
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.tagsField, this.messages);
+			this.tagsField.setError(getCodedMessageOrThrow(e, this.messages));
 			return false;
 		}
 		
@@ -285,13 +286,13 @@ public class FragmentForm extends Form {
 			if (e instanceof InvalidTitleException ||
 					e instanceof InvalidTagNameException ||
 					e instanceof DuplicateException) {
-				Utils.handleFieldError(e, this.titleField, this.messages);
+				this.titleField.setError(getCodedMessageOrThrow(e, this.messages));
 			}
 			else if (e instanceof InvalidTaggingException) {
-				Utils.handleFieldError(e, this.tagsField, this.messages);
+				this.tagsField.setError(getCodedMessageOrThrow(e, this.messages));
 			}
 			else {
-				Utils.handleFormError(e, this, this.messages);
+				setError(getCodedMessageOrThrow(e, this.messages));
 			}
 			return false;
 		}

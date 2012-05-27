@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page;
 
+import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +13,6 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
@@ -89,7 +90,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			getDomain().addTagToFragments(fragments, tag, getUser());
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.tagForm, this);
+			this.tagForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 
@@ -120,7 +121,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			getDomain().removeTagFromFragments(fragments, tagToRemove, getUser());
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.tagForm, this);
+			this.tagForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 
@@ -160,7 +161,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			});
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.parentForm, this);
+			this.parentForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 
@@ -211,7 +212,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 			});
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.parentForm, this);
+			this.parentForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 
@@ -239,7 +240,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 
 		// always eager fetching in order to get common tags & parents
 		Page<Fragment> fragments = getSession().getSelectedFragments().
-			getFragments(getDomain().getFragmentRepository(), Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
+			getFragments(getDomain().getFragmentRepository(), ALMOST_UNLIMITED_PAGE_SIZE, 0, true);
 		setCommonTags(fragments);
 		this.commonParents = ModelUtils.getCommonParents(fragments);
 

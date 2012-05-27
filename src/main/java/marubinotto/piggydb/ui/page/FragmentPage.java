@@ -4,12 +4,12 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
+import marubinotto.util.CodedException;
 import net.sf.click.control.HiddenField;
 import net.sf.click.extras.tree.Tree;
 
@@ -128,7 +128,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 			this.fragment.addTagByUser(tagName, tagRepository, getUser());
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.superTagForm, this);
+			this.superTagForm.setError(CodedException.getCodedMessageOrThrow(e, this));
 			return true;
 		}
 		getDomain().saveFragment(this.fragment, getUser());

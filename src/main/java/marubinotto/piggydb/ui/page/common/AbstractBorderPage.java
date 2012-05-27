@@ -130,7 +130,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
 	protected void setFilters() throws Exception {
 		this.filters = getDomain().getFilterRepository().getRecentChanges(
-			Utils.ALMOST_UNLIMITED_PAGE_SIZE, 0);
+			ALMOST_UNLIMITED_PAGE_SIZE, 0);
 	}
 
 	protected RecentlyViewed getRecentlyViewed() {

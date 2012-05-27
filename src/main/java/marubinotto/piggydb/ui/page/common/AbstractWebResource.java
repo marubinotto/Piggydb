@@ -28,6 +28,7 @@ public abstract class AbstractWebResource extends Page
 implements ApplicationContextAware, WebMessageSource {
 
 	public static final String CHAR_ENCODING = "UTF-8";
+	public static final int ALMOST_UNLIMITED_PAGE_SIZE = 1000000;
 
 	public PageUrl thisPageUrl;
 	public WebResourcePaths resources;

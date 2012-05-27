@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page;
 
+import static marubinotto.util.CodedException.getCodedMessageOrThrow;
+
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
@@ -9,12 +11,12 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.common.Utils;
 import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.util.Assert;
+import marubinotto.util.CodedException;
 import marubinotto.util.paging.Page;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.web.WebUtils;
@@ -184,7 +186,7 @@ public class TagPage extends AbstractFragmentsPage {
 			getDomain().saveTag(this.tag, getUser());
 		}
 		catch (Exception e) {
-			Utils.handleFieldError(e, this.tagNameField, this);
+			this.tagNameField.setError(CodedException.getCodedMessageOrThrow(e, this));
 			this.renameMode = true;
 			return true;
 		}
@@ -243,7 +245,7 @@ public class TagPage extends AbstractFragmentsPage {
 			this.tag.addTagByUser(tagName, getDomain().getTagRepository(), getUser());
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.superTagForm, this);
+			this.superTagForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 		getDomain().saveTag(this.tag, getUser());
@@ -303,7 +305,7 @@ public class TagPage extends AbstractFragmentsPage {
 			}
 		}
 		catch (Exception e) {
-			Utils.handleFormError(e, this.subTagForm, this);
+			this.subTagForm.setError(getCodedMessageOrThrow(e, this));
 			return true;
 		}
 
