@@ -2,12 +2,11 @@ package marubinotto.util;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.springframework.core.ErrorCoded;
 
 /**
  * marubinotto.util.CodedException
  */
-public class CodedException extends RuntimeException implements ErrorCoded {
+public class CodedException extends RuntimeException implements MessageCode {
 
 	private String errorCode;
 	private String[] fields;
@@ -38,11 +37,11 @@ public class CodedException extends RuntimeException implements ErrorCoded {
 		this.fields = fields;
 	}
 
-	public String getErrorCode() {
+	public String getCode() {
 		return this.errorCode;
 	}
 
-	public String[] getFields() {
+	public Object[] getArguments() {
 		return this.fields;
 	}
 

@@ -18,16 +18,16 @@ public class Utils {
 		Assert.Arg.notNull(codedException, "codedException");
 		Assert.Arg.notNull(messages, "messages");
 
-		if (codedException.getFields() == null) {
-			return messages.getMessage(codedException.getErrorCode());
+		if (codedException.getArguments() == null) {
+			return messages.getMessage(codedException.getCode());
 		}
 		else {
-			String[] fields = codedException.getFields();
+			Object[] arguments = codedException.getArguments();
 			if (!(messages instanceof WebMessageSource)) {
-				for (int i = 0; i < fields.length; i++)
-					fields[i] = WebUtils.escapeHtml(fields[i]);
+				for (int i = 0; i < arguments.length; i++)
+					arguments[i] = WebUtils.escapeHtml(arguments[i]);
 			}
-			return messages.getMessage(codedException.getErrorCode(), fields);
+			return messages.getMessage(codedException.getCode(), arguments);
 		}
 	}
 
