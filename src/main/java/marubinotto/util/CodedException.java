@@ -8,49 +8,49 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  */
 public class CodedException extends RuntimeException implements MessageCode {
 
-	private String errorCode;
-	private String[] fields;
+	private String code;
+	private String[] arguments;
 
-	public CodedException(String errorCode) {
-		this(errorCode, (String[])null);
+	public CodedException(String code) {
+		this(code, (String[])null);
 	}
 
-	public CodedException(String errorCode, String field) {
-		this(errorCode, new String[]{field});
+	public CodedException(String code, String argument) {
+		this(code, new String[]{argument});
 	}
 
-	public CodedException(String errorCode, String[] fields) {
-		this.errorCode = errorCode;
-		this.fields = fields;
+	public CodedException(String code, String[] arguments) {
+		this.code = code;
+		this.arguments = arguments;
 	}
 
-	public CodedException(String errorCode, Throwable cause) {
-		this(errorCode, (String[])null, cause);
+	public CodedException(String code, Throwable cause) {
+		this(code, (String[])null, cause);
 	}
 
-	public CodedException(String errorCode, String field, Throwable cause) {
-		this(errorCode, new String[]{field}, cause);
+	public CodedException(String code, String argument, Throwable cause) {
+		this(code, new String[]{argument}, cause);
 	}
 
-	public CodedException(String errorCode, String[] fields, Throwable cause) {
-		this.errorCode = errorCode;
-		this.fields = fields;
+	public CodedException(String code, String[] arguments, Throwable cause) {
+		this.code = code;
+		this.arguments = arguments;
 	}
 
 	public String getCode() {
-		return this.errorCode;
+		return this.code;
 	}
 
 	public Object[] getArguments() {
-		return this.fields;
+		return this.arguments;
 	}
 
 	public String getMessage() {
-		if (this.fields != null) {
-			return this.errorCode + " " + ArrayUtils.toString(this.fields);
+		if (this.arguments != null) {
+			return this.code + " " + ArrayUtils.toString(this.arguments);
 		}
 		else {
-			return this.errorCode;
+			return this.code;
 		}
 	}
 
@@ -62,8 +62,8 @@ public class CodedException extends RuntimeException implements MessageCode {
 
 		CodedException theOther = (CodedException)object;
 		return new EqualsBuilder()
-			.append(this.errorCode, theOther.errorCode)
-			.append(this.fields, theOther.fields)
+			.append(this.code, theOther.code)
+			.append(this.arguments, theOther.arguments)
 			.isEquals();
 	}
 }
