@@ -1,8 +1,6 @@
-package marubinotto.piggydb.ui.page.html;
+package marubinotto.piggydb.ui.page.partial;
 
 import static org.junit.Assert.assertEquals;
-
-import marubinotto.piggydb.ui.page.partial.FragmentsView;
 
 import org.junit.Test;
 
