@@ -3,14 +3,11 @@ package marubinotto.piggydb.ui.page.control.form;
 import static marubinotto.util.message.CodedException.getCodedMessageOrThrow;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.User;
 import marubinotto.piggydb.model.exception.DuplicateException;
@@ -132,7 +129,7 @@ public class FragmentForm extends Form {
 		this.asTagCheckbox.setChecked(fragment.isTag());
 		this.contentField.setValue(fragment.getContent());
 		if (!fragment.getClassification().isEmpty()) {
-			this.tagsField.setValue(toString(fragment.getClassification()));
+			this.tagsField.setValue(FragmentFormUtils.toTagsString(fragment.getClassification()));
 		}
 		
 		if (!fragment.canChangeTitle(user)) {
@@ -173,28 +170,7 @@ public class FragmentForm extends Form {
 		this.registerSubmit.setDisabled(true);
 		this.minorEditCheckbox.setDisabled(true);
 	}
-	
-	public static final char TAGS_SEPARATOR = ',';
-	
-	public static List<String> splitIntoTagNames(String tags) {
-		String[] rawEntries = StringUtils.split(tags, TAGS_SEPARATOR);
-		List<String> tagNames = new ArrayList<String>();
-		for (String entry : rawEntries) {
-			if (StringUtils.isBlank(entry)) continue;
-			tagNames.add(entry.trim());
-		}
-		return tagNames;
-	}
-	
-	public String toString(Classification classification) {
-		StringBuilder string = new StringBuilder();
-		for (Tag tag : classification) {
-			if (string.length() > 0) string.append(TAGS_SEPARATOR + " ");
-			string.append(tag.getName());
-		}
-		return string.toString();
-	}
-	
+		
 	private static final String TIMESTAMP_FORMAT = "yyyyMMddHHmmssS";
 	
 	public boolean checkIfBaseDataUpdatedByAnother(Fragment baseData) {
@@ -270,7 +246,7 @@ public class FragmentForm extends Form {
 		}
 		
 		// tags
-		List<String> tagNames = splitIntoTagNames(this.tagsField.getValue());
+		List<String> tagNames = FragmentFormUtils.splitTagsString(this.tagsField.getValue());
 		try {
 			object.updateTagsByUser(tagNames, tagRepository, user);
 		} 
