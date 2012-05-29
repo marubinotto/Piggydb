@@ -111,7 +111,7 @@ jQuery(function() {
 			
 			editorDiv.hide();
 			var loadingIcon = contentDiv.empty().putLoadingIcon();
-			jQuery.post("partial/update-fragment.htm", params, function(html) {
+			jQuery.post("partial/quick-update-fragment.htm", params, function(html) {
 				html = jQuery(html);
 				
 				// error

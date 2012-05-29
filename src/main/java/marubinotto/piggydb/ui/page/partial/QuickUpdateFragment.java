@@ -4,7 +4,7 @@ import static org.apache.commons.lang.StringUtils.trimToNull;
 import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 
-public class UpdateFragment extends AbstractSubmitFragmentForm {
+public class QuickUpdateFragment extends AbstractSubmitFragmentForm {
 
 	@Override 
 	protected void setModels() throws Exception {
