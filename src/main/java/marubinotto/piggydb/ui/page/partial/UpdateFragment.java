@@ -4,15 +4,7 @@ import static org.apache.commons.lang.StringUtils.trimToNull;
 import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 
-public class UpdateFragment extends AbstractSingleFragment {
-	
-	public String title;
-	public String content;
-	public String minorEdit;
-	
-	private boolean isMinorEdit() {
-		return this.minorEdit != null;
-	}
+public class UpdateFragment extends AbstractSubmitFragmentForm {
 
 	@Override 
 	protected void setModels() throws Exception {
