@@ -9,7 +9,11 @@ public abstract class AbstractSingleFragment extends AbstractPartial {
 
 	public Long id;
 	public Fragment fragment;
-	
+
+	protected Fragment getFragment() {
+		return this.fragment;
+	}
+
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();

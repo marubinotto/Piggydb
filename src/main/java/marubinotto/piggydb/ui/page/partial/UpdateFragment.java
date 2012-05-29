@@ -1,7 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
-import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.message.CodedException;
 import marubinotto.util.procedure.Procedure;
 
@@ -10,10 +9,6 @@ public class UpdateFragment extends AbstractSingleFragment {
 	public String title;
 	public String content;
 	public String minorEdit;
-	
-	private Fragment getFragment() {
-		return this.fragment;
-	}
 	
 	private boolean isMinorEdit() {
 		return this.minorEdit != null;
