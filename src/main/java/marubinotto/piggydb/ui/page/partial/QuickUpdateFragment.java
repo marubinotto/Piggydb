@@ -17,7 +17,7 @@ public class QuickUpdateFragment extends AbstractSubmitFragmentForm {
 		this.fragment.setTitleByUser(trimToNull(this.title), getUser());
 		this.fragment.setContentByUser(this.content, getUser());
 		
-		this.fragment.validateTagRole(getUser(), getDomain().getTagRepository());
+		this.fragment.validateAsTag(getUser(), getDomain().getTagRepository());
 		
 		getDomain().getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {

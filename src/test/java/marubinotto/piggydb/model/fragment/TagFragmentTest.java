@@ -43,21 +43,21 @@ public class TagFragmentTest {
 		}
 		
 		@Test
-		public void validateTagRole() throws Exception {
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+		public void validateAsTag() throws Exception {
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 		}
 		
 		@Test(expected = InvalidTitleException.class)
-		public void newTagFragmentShouldHaveTitle() throws Exception {
+		public void tagShouldHaveTitle() throws Exception {
 			this.object.setAsTagByUser(true, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 		}
 		
 		@Test(expected = InvalidTagNameException.class)
 		public void invalidTagName() throws Exception {
 			this.object.setTitleByUser("a", this.normalUser);
 			this.object.setAsTagByUser(true, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 		}
 		
 		@Test(expected = DuplicateException.class)
@@ -65,7 +65,7 @@ public class TagFragmentTest {
 			this.tagRepository.register(this.tagRepository.newInstance("test", this.normalUser));
 			this.object.setTitleByUser("test", this.normalUser);
 			this.object.setAsTagByUser(true, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 		}
 		
 		@Test(expected = InvalidTaggingException.class)
@@ -74,15 +74,15 @@ public class TagFragmentTest {
 			this.object.setTitleByUser("test", this.normalUser);
 			this.object.setAsTagByUser(true, this.normalUser);
 			this.object.addTagByUser("test", this.tagRepository, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 		}
 		
 		@Test
-		public void newTagRole() throws Exception {
+		public void validTag() throws Exception {
 			this.object.setTitleByUser("test", this.normalUser);
 			this.object.setAsTagByUser(true, this.normalUser);
 			this.object.addTagByUser("parent", this.tagRepository, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 			
 			Tag tag = this.object.asTag();		
 			assertEquals("test", tag.getName());
@@ -102,7 +102,7 @@ public class TagFragmentTest {
 			fragment.setTitleByUser("test", this.normalUser);
 			fragment.setAsTagByUser(true, this.normalUser);
 			fragment.addTagByUser("parent", this.tagRepository, this.normalUser);
-			fragment.validateTagRole(this.normalUser, this.tagRepository);
+			fragment.validateAsTag(this.normalUser, this.tagRepository);
 			
 			long id = this.fragmentRepository.register(fragment);
 			
@@ -129,13 +129,13 @@ public class TagFragmentTest {
 		}
 		
 		@Test
-		public void setTagRoleToFragment() throws Exception {
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+		public void validateAsTag() throws Exception {
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 			
-			Tag tagRole = this.object.asTag();
-			assertEquals(this.tag.getId(), tagRole.getId());
-			assertEquals("test", tagRole.getName());
-			assertEquals("(parent)", tagRole.getClassification().toString());
+			Tag tag = this.object.asTag();
+			assertEquals(this.tag.getId(), tag.getId());
+			assertEquals("test", tag.getName());
+			assertEquals("(parent)", tag.getClassification().toString());
 		}
 		
 		@Test
@@ -151,16 +151,16 @@ public class TagFragmentTest {
 		public void updateViaFragment() throws Exception {
 			this.object.setTitleByUser("test2", this.normalUser);
 			this.object.addTagByUser("parent2", this.tagRepository, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 			this.fragmentRepository.update(this.object);
 			
 			Fragment fragment = this.fragmentRepository.get(this.object.getId());
 			assertEquals("test2", fragment.getTitle());
 			
-			fragment.validateTagRole(this.normalUser, this.tagRepository);
-			Tag tagRole = fragment.asTag();
-			assertEquals("test2", tagRole.getName());
-			assertEquals("(parent, parent2)", tagRole.getClassification().toString());
+			fragment.validateAsTag(this.normalUser, this.tagRepository);
+			Tag tag = fragment.asTag();
+			assertEquals("test2", tag.getName());
+			assertEquals("(parent, parent2)", tag.getClassification().toString());
 		}
 		
 		@Test
@@ -173,16 +173,16 @@ public class TagFragmentTest {
 			assertEquals("test2", fragment.getTitle());
 			assertEquals("(parent, parent2)", fragment.getClassification().toString());
 			
-			fragment.validateTagRole(this.normalUser, this.tagRepository);
-			Tag tagRole = fragment.asTag();
-			assertEquals("test2", tagRole.getName());
-			assertEquals("(parent, parent2)", tagRole.getClassification().toString());
+			fragment.validateAsTag(this.normalUser, this.tagRepository);
+			Tag tag = fragment.asTag();
+			assertEquals("test2", tag.getName());
+			assertEquals("(parent, parent2)", tag.getClassification().toString());
 		}
 		
 		@Test
 		public void deleteTagRoleViaFragment() throws Exception {
 			this.object.setAsTagByUser(false, this.normalUser);
-			this.object.validateTagRole(this.normalUser, this.tagRepository);
+			this.object.validateAsTag(this.normalUser, this.tagRepository);
 			this.fragmentRepository.update(this.object);
 			
 			Fragment fragment = this.fragmentRepository.get(this.object.getId());

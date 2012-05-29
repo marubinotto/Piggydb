@@ -81,7 +81,7 @@ public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment 
 		if (hasErrors()) return;
 		
 		try {
-			this.fragment.validateTagRole(getUser(), getDomain().getTagRepository());
+			this.fragment.validateAsTag(getUser(), getDomain().getTagRepository());
 		}
 		catch (Exception e) {
 			if (e instanceof InvalidTitleException ||

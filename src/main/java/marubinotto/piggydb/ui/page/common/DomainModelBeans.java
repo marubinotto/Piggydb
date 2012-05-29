@@ -55,7 +55,7 @@ public class DomainModelBeans {
   }
 	
 	public void saveFragment(final Fragment fragment, User user) throws Exception {
-		fragment.validateTagRole(user, getTagRepository());
+		fragment.validateAsTag(user, getTagRepository());
 		getTransaction().execute(new Procedure() {
 			public Object execute(Object input) throws Exception {
 				getFragmentRepository().update(fragment);
@@ -100,7 +100,7 @@ public class DomainModelBeans {
 			public Object execute(Object input) throws Exception {
 				for (Fragment fragment : fragments) {
 					fragment.addTagByUser(tag, user);
-					fragment.validateTagRole(user, getTagRepository());
+					fragment.validateAsTag(user, getTagRepository());
 					getFragmentRepository().update(fragment);
 				}
 				return null;
@@ -117,7 +117,7 @@ public class DomainModelBeans {
 			public Object execute(Object input) throws Exception {
 				for (Fragment fragment : fragments) {
 					fragment.removeTagByUser(tagName, user);
-					fragment.validateTagRole(user, getTagRepository());
+					fragment.validateAsTag(user, getTagRepository());
 					getFragmentRepository().update(fragment);
 				}
 				return null;

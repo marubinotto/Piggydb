@@ -256,7 +256,7 @@ public class FragmentForm extends Form {
 		}
 		
 		try {
-			object.validateTagRole(user, tagRepository);
+			object.validateAsTag(user, tagRepository);
 		}
 		catch (Exception e) {
 			if (e instanceof InvalidTitleException ||

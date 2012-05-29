@@ -111,6 +111,6 @@ public interface Fragment extends Classifiable, Password {
 	
 	public void setAsTagByUser(boolean asTag, User user);
 
-	public void validateTagRole(User user, TagRepository tagRepository) 
+	public void validateAsTag(User user, TagRepository tagRepository) 
 	throws Exception;
 }
