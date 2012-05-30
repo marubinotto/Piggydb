@@ -30,6 +30,7 @@ public abstract class AbstractPartial extends AbstractMainUiHtml {
 		}
 		catch (Exception e) {
 			this.error = e.toString();
+			getLogger().error("Unexpected exception", e);
 		}
 		disableClientCaching();
 	}

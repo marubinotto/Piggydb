@@ -174,6 +174,12 @@ piggydb.namespace("piggydb.widget", {
 		  });
 	  },
 	  
+	  showHtml: function(html) {
+	  	this.init();
+	  	this.loading();
+	    this.reveal(html);
+	  },
+	  
 	  showImage: function(url) {
 	    this.init();  
 	    this.loading();

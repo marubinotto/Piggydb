@@ -13,6 +13,8 @@ public class FragmentFormUtils {
 	public static final char TAGS_SEPARATOR = ',';
 	
 	public static List<String> splitTagsString(String tags) {
+		if (tags == null) return new ArrayList<String>();
+		
 		String[] rawEntries = StringUtils.split(tags, TAGS_SEPARATOR);
 		List<String> tagNames = new ArrayList<String>();
 		for (String entry : rawEntries) {

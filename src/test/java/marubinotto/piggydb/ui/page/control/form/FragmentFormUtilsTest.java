@@ -14,6 +14,11 @@ public class FragmentFormUtilsTest {
 		private String execute(String input) throws Exception {
 			return FragmentFormUtils.splitTagsString(input).toString();
 		}
+		
+		@Test
+		public void nullString() throws Exception {
+			assertEquals("[]", execute(null));
+		}
 	
 		@Test
 		public void empty() throws Exception {

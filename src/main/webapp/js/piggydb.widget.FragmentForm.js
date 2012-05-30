@@ -28,6 +28,8 @@
 	
 	var _wikiHelp = new piggydb.widget.Facebox("facebox-wiki-help");
 	
+	var _previewBox = new piggydb.widget.Facebox("facebox-fragment-preview");
+	
 	var _class = function(element, id) {
 		module.Widget.call(this, element);
 		this.id = id;
@@ -116,22 +118,17 @@
 			
 			this.element.find("button.preview").click(function() {
 				outer.block();
-				// TODO
+				jQuery.post("partial/preview-fragment.htm", outer.serializeForm(), function(html) {
+					_previewBox.showHtml(html);
+					outer.unblock();
+				});
 			});
 			this.element.find("button.cancel").click(function() {
 				outer.element.dialog("close");
 			});
 			
 			this.adjustEditorHeight();
-			this.textarea.get(0).focus();
-			
-			// test
-			this.setFormError("qTip utilises a special positioning system using corners.");
-			this.setInputError("title", "You must enter the title if the fragment will be used as a tag.");
-			this.setInputError("tags", "Tag name must be at least 2 characters.");
-			this.element.find("button.preview").click(function() {
-				outer.clearErrors();
-			});
+			this.textarea.get(0).focus();	
 		},
 		
 		block: function() {
@@ -152,12 +149,20 @@
 			});
 		},
 		
+		unblock: function() {
+			this.element.unblock();
+		},
+		
 		adjustEditorHeight: function() {
 			var baseHeight = this.element.find("form").height() 
 				- this.element.find("div.title").height()
 				- this.element.find("div.tags").height()
 				- this.element.find("div.buttons").height();
 			this.textarea.height(baseHeight - 55);
+		},
+		
+		serializeForm: function() {
+			return this.element.find("form").serializeArray();
 		},
 		
 		setFormError: function(message) {

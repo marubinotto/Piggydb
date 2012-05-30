@@ -38,7 +38,8 @@ public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment 
 		return false;
 	}
 	
-	private static String emptyToNull(String value) {
+	public static String emptyToNull(String value) {
+		if (value == null) return null;
 		return value.equals("") ? null : value;
 	}
 	
