@@ -178,6 +178,9 @@ piggydb.namespace("piggydb.widget", {
 	  	this.init();
 	  	this.loading();
 	    this.reveal(html);
+	    this.content.css({
+	      'max-height': jQuery(window).height() - 120
+	    });
 	  },
 	  
 	  showImage: function(url) {

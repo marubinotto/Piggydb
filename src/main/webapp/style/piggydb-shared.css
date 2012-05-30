@@ -309,6 +309,17 @@ span.fragment-as-tag .ui-button {
 	z-index: 1200;
 }
 
+#facebox-fragment-preview {
+	z-index: 1200;
+}
+
+#facebox-fragment-preview div.content {
+	padding-top: 5px;
+	padding-right: 5px;
+	height: auto;
+	width: 600px;
+}
+
 
 
 /*
