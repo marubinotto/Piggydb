@@ -120,9 +120,13 @@
 		  });
 			
 			this.element.find("button.preview").click(function() {
+				outer.clearErrors();
 				outer.block();
 				jQuery.post("partial/preview-fragment.htm", outer.serializeForm(), function(html) {
-					_previewBox.showHtml(html);
+					if (outer.checkErrors(html))
+						_previewBox.close();
+					else
+						_previewBox.showHtml(html);
 					outer.unblock();
 				});
 			});
@@ -132,6 +136,20 @@
 			
 			this.adjustEditorHeight();
 			this.textarea.get(0).focus();	
+		},
+		
+		checkErrors: function(html) {
+			var errors = jQuery(html).children("div.errors");
+			if (errors.size() == 0) return false;
+			
+			var outer = this;
+			errors.find("span.global-error").each(function() {
+				outer.setFormError(jQuery(this).text());
+			})
+			errors.find("div.field-errors > span").each(function() {
+				outer.setInputError(jQuery(this).attr("class"), jQuery(this).text());
+			});
+			return true;
 		},
 		
 		block: function() {
