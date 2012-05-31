@@ -116,6 +116,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		return this.content;
 	}
 	
+	public final static int HEADLINE_MAX_LENGTH = 100;
+	
 	public String makeContentHeadline() {
 		String content = getContent();
 		if (StringUtils.isBlank(content)) return null;
@@ -127,8 +129,8 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		String headline = firstSentence;
 
 		// Trim to the max length
-		if (headline.length() > TITLE_MAX_LENGTH) {
-			headline = headline.substring(0, TITLE_MAX_LENGTH);
+		if (headline.length() > HEADLINE_MAX_LENGTH) {
+			headline = headline.substring(0, HEADLINE_MAX_LENGTH);
 		}
 
 		// trimmed to - the first line <or> the first sentence <or> the max length
