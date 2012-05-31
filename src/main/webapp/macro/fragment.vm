@@ -556,3 +556,24 @@
 #end
 
 
+
+#macro ( fragmentFormErrors ) 
+
+#if ($hasErrors)
+<div class="errors">
+#if ($error)
+	<span class="global-error">$error</span>
+#end
+#if (!$fieldErrors.isEmpty())
+	<div class="field-errors">
+	#foreach ($fieldName in $fieldErrors.keySet())
+		<span class="$fieldName">$fieldErrors.get($fieldName)</span>
+	#end
+	</div>
+#end
+</div>
+#end
+	
+#end
+
+

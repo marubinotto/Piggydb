@@ -8,6 +8,10 @@ public abstract class AbstractPartial extends AbstractMainUiHtml {
 	
 	public String error;
 	
+	public boolean hasErrors() {
+		return this.error != null;
+	}
+	
 	@Override
 	public void setRedirect(String location) {
 		if (location.startsWith(getContext().getPagePath(LoginPage.class)))
@@ -32,6 +36,7 @@ public abstract class AbstractPartial extends AbstractMainUiHtml {
 			this.error = e.toString();
 			getLogger().error("Unexpected exception", e);
 		}
+		addModel("hasErrors", hasErrors());
 		disableClientCaching();
 	}
 }
