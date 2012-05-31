@@ -1,6 +1,5 @@
 package marubinotto.util.message;
 
-
 public interface MessageSource {
 
 	public String getMessage(String code);

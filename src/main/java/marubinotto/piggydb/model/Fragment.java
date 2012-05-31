@@ -8,7 +8,7 @@ import org.apache.commons.fileupload.FileItem;
 
 public interface Fragment extends Classifiable, Password {
 	
-	public final static int TITLE_MAX_LENGTH = 100;
+	public final static int TITLE_MAX_LENGTH = 200;
 	
 	public Fragment copyForUpdate();
 	
