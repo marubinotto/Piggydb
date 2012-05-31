@@ -45,6 +45,8 @@ piggydb.namespace("piggydb.widget", {
 		var id = "global-message";
 		var closeButton = ' <a class="close" href="#"><img src="images/delete.gif" alt="x" border="0"/></a>';
 		var baseElement = jQuery("#title-banner td.icon img");
+		
+		baseElement.qtip('destroy');
 		baseElement.qtip({
 			id: id,
 			content: message + closeButton,
