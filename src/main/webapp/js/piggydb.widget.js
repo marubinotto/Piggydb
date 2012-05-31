@@ -35,7 +35,7 @@ piggydb.namespace("piggydb.widget", {
 		return dialogContent;
 	};
 	
-	var _errorTipStyle = {
+	var _tipStyle = {
 		"white-space": "nowrap",
 		"width": "auto",
 		"max-width": "none"
@@ -61,7 +61,7 @@ piggydb.namespace("piggydb.widget", {
 			}
 		}).qtip('show');
 		
-		jQuery('#ui-tooltip-' + id).css(_errorTipStyle);
+		jQuery('#ui-tooltip-' + id).css(_tipStyle);
 		
 		baseElement.qtip('reposition');
 	},
@@ -95,7 +95,7 @@ piggydb.namespace("piggydb.widget", {
 		}).qtip('show');
 		
 		jQuery('#ui-tooltip-' + id)
-			.css(_errorTipStyle)
+			.css(_tipStyle)
 			.click(function() {
 				input.qtip('hide');
 			});
