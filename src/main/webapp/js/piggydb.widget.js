@@ -225,6 +225,10 @@ piggydb.namespace("piggydb.widget", {
 	    this.element.find('.loading').remove();
 	    this.body.children().fadeIn('normal');
 		},
+		
+		close: function () {
+			this.element.fadeOut();
+		},
 	
 	  onCloseClick: function () {
 	    var element = jQuery(this).closest(".facebox");

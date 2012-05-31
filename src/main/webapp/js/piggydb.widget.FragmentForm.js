@@ -113,6 +113,9 @@
 		    height: 450,
 		    resize: function() {
 		    	outer.adjustEditorHeight();
+				},
+				close: function(event, ui) {
+					_previewBox.close();
 				}
 		  });
 			
