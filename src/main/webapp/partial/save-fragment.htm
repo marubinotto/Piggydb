@@ -3,5 +3,8 @@
 	#fragmentFormErrors()
 #else
 	<span class="success">$utils.raw($success)</span>
+	#if ($newId)
+		<span class="new-id">$newId</span>
+	#end
 #end
 </div>

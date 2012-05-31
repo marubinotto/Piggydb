@@ -139,8 +139,14 @@
 						outer.unblock();
 					}
 					else {
-						var message = jQuery(html).find("span.success").text();
-						piggydb.widget.putGlobalMessage(message);
+						jQuery(html).find("span.success").each(function() {
+							piggydb.widget.putGlobalMessage(jQuery(this).text());
+						});
+						jQuery(html).find("span.new-id").each(function() {
+							if (typeof fragmentsView_fragmentsByDate != "undefined") {
+								fragmentsView_fragmentsByDate.refresh(jQuery(this).text());
+							}
+						});
 						outer.close();
 					}
 				});

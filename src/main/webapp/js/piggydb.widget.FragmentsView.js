@@ -75,6 +75,14 @@
 	    });
 	  },
 	  
+	  refresh: function (highlight) {
+	  	if (highlight != null) {
+	  		this.highlight = highlight;
+	  		this.highlighted = false;
+	  	}
+	  	this.loadFirstSet();
+	  },
+	  
 		showMore: function (button) {
 	    jQuery(button).remove();
 	    var fragmentsContainer = this.rootDiv.find(".fragments-container");

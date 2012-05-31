@@ -6,6 +6,7 @@ import marubinotto.util.procedure.Procedure;
 public class SaveFragment extends AbstractSubmitFragmentForm {
 	
 	public String success;
+	public Long newId;
 
 	@Override 
 	protected void setModels() throws Exception {
@@ -19,7 +20,7 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 		if (hasErrors()) return;
 		
 		if (this.fragment.getId() == null) {
-			Long newId = (Long)getDomain().getTransaction().execute(new Procedure() {
+			this.newId = (Long)getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
 					FragmentRepository repository = getDomain().getFragmentRepository();
 					long newId = repository.register(getFragment());
@@ -27,7 +28,7 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 				}
 			});
 			this.success = getMessage("completed-register-fragment", 
-				this.html.linkToFragment(newId));
+				this.html.linkToFragment(this.newId));
 		}
 		else {
 			// TODO
