@@ -41,6 +41,27 @@ piggydb.namespace("piggydb.widget", {
 		"max-width": "none"
 	};
 	
+	module.putGlobalMessage = function(message) {
+		var id = "global-message";
+		
+		jQuery("#title-banner td.icon img").qtip({
+			id: id,
+			content: message,
+			position: {
+				my: 'top left',
+				at: 'bottom left'
+			},
+			hide: {
+				event: false
+			},
+			style: {
+				classes: 'ui-tooltip-plain ui-tooltip-shadow ui-tooltip-rounded'
+			}
+		}).qtip('show');
+		
+		jQuery('#ui-tooltip-' + id).css(_tipStyle).css("left", 15);
+	},
+	
 	module.putErrorMessage = function(baseElement, id, message, container) {
 		baseElement.qtip({
 			id: id,
