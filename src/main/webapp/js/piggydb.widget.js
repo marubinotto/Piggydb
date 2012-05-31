@@ -43,10 +43,11 @@ piggydb.namespace("piggydb.widget", {
 	
 	module.putGlobalMessage = function(message) {
 		var id = "global-message";
-		
-		jQuery("#title-banner td.icon img").qtip({
+		var closeButton = ' <a class="close" href="#"><img src="images/delete.gif" alt="x" border="0"/></a>';
+		var baseElement = jQuery("#title-banner td.icon img");
+		baseElement.qtip({
 			id: id,
-			content: message,
+			content: message + closeButton,
 			position: {
 				my: 'top left',
 				at: 'bottom left'
@@ -59,7 +60,14 @@ piggydb.namespace("piggydb.widget", {
 			}
 		}).qtip('show');
 		
-		jQuery('#ui-tooltip-' + id).css(_tipStyle).css("left", 15);
+		var tip = jQuery('#ui-tooltip-' + id);
+		tip.css(_tipStyle).css("left", 15);
+		tip.find("a.close")
+			.css("margin-left", 5)
+			.click(function() {
+				baseElement.qtip('destroy');
+				return false;
+			});
 	},
 	
 	module.putErrorMessage = function(baseElement, id, message, container) {
