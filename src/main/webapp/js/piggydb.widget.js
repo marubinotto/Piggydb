@@ -50,7 +50,8 @@ piggydb.namespace("piggydb.widget", {
 			content: message + closeButton,
 			position: {
 				my: 'top left',
-				at: 'bottom left'
+				at: 'bottom left',
+				container: jQuery("#title-banner")
 			},
 			hide: {
 				event: false
