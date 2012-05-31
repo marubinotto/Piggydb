@@ -130,12 +130,31 @@
 					outer.unblock();
 				});
 			});
+			this.element.find("button.register").click(function() {
+				outer.clearErrors();
+				outer.block();
+				jQuery.post("partial/save-fragment.htm", outer.serializeForm(), function(html) {
+					if (outer.checkErrors(html)) {
+						_previewBox.close();
+						outer.unblock();
+					}
+					else {
+						var message = jQuery(html).find("span.success").text();
+						alert(message);
+						outer.close();
+					}
+				});
+			});
 			this.element.find("button.cancel").click(function() {
-				outer.element.dialog("close");
+				outer.close();
 			});
 			
 			this.adjustEditorHeight();
 			this.textarea.get(0).focus();	
+		},
+		
+		close: function() {
+			this.element.dialog("close");	
 		},
 		
 		checkErrors: function(html) {
