@@ -1,6 +1,15 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev1 (2012-06-01) == #v6.0-dev1
+
+ * Added a new Fragment Editor
+   * available only via the global new fragment button in the main menu bar
+ * Rewrote all of the JavaScript code to be organized with namespace
+   * Reorganized the js/css imports with marubinotto.piggydb.ui.page.common.PageImports
+ * Narrowed the margin between the fragment nodes (to save space)
+ * Linked the title of the sidebar tag palette to tags.htm
+
 == Changes in version 5.1 (2011-11-10) == #v5.1
 
  * Added Two-way Relationship Creation and Display
