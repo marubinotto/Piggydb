@@ -57,7 +57,7 @@ public class PageImports {
 			addCssImportTo(imports, "style/piggydb-shared.css", true, "screen");
 			addCssImportTo(imports, "style/piggydb-wiki-help.css", true, null);
 			addCssImportTo(imports, "style/piggydb-print.css", true, "print");
-			
+			addCssImportTo(imports, "style/piggydb-fragments.css", true, null);	
 			DEFAULT_CSS_IMPORTS = imports.toString();
 		}
 		this.css.append(DEFAULT_CSS_IMPORTS);
