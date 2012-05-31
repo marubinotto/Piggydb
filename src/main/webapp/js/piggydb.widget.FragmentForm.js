@@ -140,7 +140,7 @@
 					}
 					else {
 						var message = jQuery(html).find("span.success").text();
-						alert(message);
+						piggydb.widget.putGlobalMessage(message);
 						outer.close();
 					}
 				});

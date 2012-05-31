@@ -2,6 +2,6 @@
 #if ($hasErrors)
 	#fragmentFormErrors()
 #else
-	<span class="success">$success</span>
+	<span class="success">$utils.raw($success)</span>
 #end
 </div>
