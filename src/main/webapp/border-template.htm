@@ -43,15 +43,6 @@
 ## Page Content
 <div id="page-content">
 #adTop()
-#if ($message)
-<div id="page-message">
-  <div class="message">
-    $utils.raw($message)
-    <a class="close-message" href="#" onclick="jQuery(this).closest('#page-message').hide('fast'); return false;">
-    <img src="$context/images/large-delete.gif" alt="X" border="0"/></a>
-  </div>
-</div>
-#end
 #parse($path)
 </div>
 

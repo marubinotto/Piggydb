@@ -11,6 +11,10 @@ jQuery(function() {
   setScrollTopTo('$session.scrollTopElement');
 #end
 
+#if ($message)
+	piggydb.widget.putGlobalMessage('$utils.raw($utils.escapeJs($message))');
+#end
+
   jQuery.Autocompleter.defaults.formatItem = function(row) { 
     return escapeHtml(row[0]); 
   };
