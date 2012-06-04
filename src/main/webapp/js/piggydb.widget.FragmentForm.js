@@ -152,8 +152,10 @@
 				jQuery.post("partial/preview-fragment.htm", outer.serializeForm(), function(html) {
 					if (outer.checkErrors(html))
 						_previewBox.close();
-					else
+					else {
 						_previewBox.showHtml(html);
+						prettyPrint();
+					}
 					outer.unblock();
 				});
 			});
