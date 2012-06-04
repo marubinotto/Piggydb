@@ -4,6 +4,9 @@
 #else
 	<div class="fragment-editor" id="$editorId" title="$editorTitle" style="display: none;">
   <form>
+		#if ($fragment.getId())
+			<input type="hidden" name="id" value="$fragment.getId()"/>
+		#end
     <div class="title">
     	<table border="0" cellpadding="0" cellspacing="0" width="100%">
     	<tr>
