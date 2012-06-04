@@ -9,7 +9,12 @@
     	<tr>
     		<td class="fragment-as-tag">
         	<span class="fragment-as-tag">
-        		<input type="checkbox" name="asTag" id="${editorId}-asTag" class="fragment-as-tag"
+        		<input 
+							type="checkbox" 
+							class="fragment-as-tag"
+							id="${editorId}-asTag" 
+							name="asTag" 
+							#if($fragment.isTag()) checked="checked" #end
         			/><label for="${editorId}-asTag">$messages.get("as-tag")</label>
         	</span>
     		</td>
@@ -29,8 +34,13 @@
   		<table border="0" cellpadding="0" cellspacing="0" width="100%">
   		<tr>
   			<td class="tags-input">
-  				<input class="fragment-tags watermarked" id="${editorId}-tags"
-  					name="tags" title="$messages.get("FragmentForm-tags")" type="text"/>
+  				<input 
+						type="text"
+						class="fragment-tags watermarked"
+						id="${editorId}-tags"
+  					name="tags" 
+						title="$messages.get("FragmentForm-tags")" 
+						#if($tags) value="$tags" #end/>
   				<br/>
   				<div class="pulldown-box tag-palette"></div>
   			</td>
@@ -47,7 +57,7 @@
   	</div>
     <div class="content">
     	<textarea class="fragment-content" name="content" rows="3" cols="20" 
-    		title="$messages.get("FragmentForm-content")"></textarea>
+    		title="$messages.get("FragmentForm-content")">$fragment.getContent()</textarea>
     </div>
   	<div class="buttons">
   		<span class="buttons">

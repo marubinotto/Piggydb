@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.ui.page.control.form.FragmentFormUtils;
 
 public class FragmentEditor extends AbstractSingleFragment {
 	
@@ -8,6 +9,8 @@ public class FragmentEditor extends AbstractSingleFragment {
 	public String editorTitle;
 
 	public int titleMaxLength = Fragment.TITLE_MAX_LENGTH;
+	
+	public String tags;
 	
 	@Override 
 	protected void setModels() throws Exception {
@@ -25,5 +28,7 @@ public class FragmentEditor extends AbstractSingleFragment {
 			this.editorId = "fragment-editor-new";
 			this.editorTitle = getMessage("create-new-fragment");
 		}
+		
+		this.tags = FragmentFormUtils.toTagsString(this.fragment.getClassification());
 	}
 }
