@@ -30,6 +30,15 @@
 	
 	var _previewBox = new piggydb.widget.Facebox("facebox-fragment-preview");
 	
+	var _checkOpenError = function(html) {
+		var error = jQuery(html).children("span.error");
+		if (error.size() > 0) {
+			piggydb.widget.putGlobalMessage(error.text());
+			return true;
+		}
+		return false;
+	};
+	
 	var _class = function(element, id) {
 		module.Widget.call(this, element);
 		this.id = id;
@@ -55,15 +64,27 @@
 
 		jQuery("#fragment-editor-new").remove();
 		jQuery.get("partial/fragment-editor.htm", function(html) {
-			var error = jQuery(html).children("span.error");
-			if (error.size() > 0) {
-				piggydb.widget.putGlobalMessage(error.text());
-				return;
+			if (!_checkOpenError(html)) {
+				jQuery("body").append(html);
+				var form = new _class(jQuery("#fragment-editor-new"), "fragment-editor-new");
+				form.open();
 			}
-			
-			jQuery("body").append(html);
-			var form = new _class(jQuery("#fragment-editor-new"), "fragment-editor-new");
-			form.open();
+		});
+	};
+	
+	_class.openToUpdate = function(button) {
+		var fragment = new piggydb.widget.Fragment(button);
+		
+		var editorId = "fragment-editor-" + fragment.id();
+		jQuery("#" + editorId).remove();
+		
+		piggydb.util.blockPageDuringAjaxRequest();
+		jQuery.get("partial/fragment-editor.htm", {id: fragment.id()}, function(html) {
+			if (!_checkOpenError(html)) {
+				jQuery("body").append(html);
+				var form = new _class(jQuery("#" + editorId), editorId);
+				form.open();
+			}
 		});
 	};
 	

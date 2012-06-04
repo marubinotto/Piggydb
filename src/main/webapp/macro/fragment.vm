@@ -163,7 +163,7 @@
 #if ($fragment.canChange($user))
   <a class="tool-button edit-fragment"
 		#if (!$fragment.isFile()) 
-			onclick="return !piggydb.widget.QuickEdit.onEditButtonClick(this);" 
+			onclick="piggydb.widget.FragmentForm.openToUpdate(this); return false;" 
 		#end
 		href="$resources.fragmentPath($fragment.id)&amp;edit=true" target="_blank"
     title="$messages.get("edit-this-fragment")">

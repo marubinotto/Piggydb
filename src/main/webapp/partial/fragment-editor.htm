@@ -1,6 +1,6 @@
 <div class="result">
 #if ($hasErrors)
-    <span class="error">$error</span>
+	<span class="error">$error</span>
 #else
 	<div class="fragment-editor" id="$editorId" title="$editorTitle" style="display: none;">
   <form>
@@ -14,8 +14,13 @@
         	</span>
     		</td>
     		<td>
-        	<input type="text" name="title" title="$messages.get("FragmentForm-title")" 
-        		maxlength="$titleMaxLength" class="fragment-title watermarked"/>
+        	<input 
+						type="text"
+						class="fragment-title watermarked"
+						name="title" 
+						title="$messages.get("FragmentForm-title")"
+						#if($fragment.getTitle()) value="$fragment.getTitle()" #end
+        		maxlength="$titleMaxLength"/>
     		</td>
     	</tr>
     	</table>
