@@ -66,6 +66,12 @@
   		<span class="buttons">
   			<button class="preview" type="button">$messages.get("preview")</button>
   			<button class="register" type="button">$messages.get("register")</button>
+				#if($isMinorEditAvailable)
+  				<span class="minor-edit">
+    				<input name="minorEdit" type="checkbox" id="${editorId}-minorEdit" 
+    					/><label for="${editorId}-minorEdit">$messages.get("FragmentForm-minor-edit")</label>
+  				</span>
+				#end
   			<button class="cancel" type="button">$messages.get("cancel")</button>
   		</span>
   		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>

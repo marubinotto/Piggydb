@@ -13,6 +13,14 @@ public abstract class AbstractSingleFragment extends AbstractPartial {
 	protected Fragment getFragment() {
 		return this.fragment;
 	}
+	
+	protected boolean isMinorEditAvailable() {
+		if (this.fragment == null || this.fragment.getId() == null) 
+			return false;
+		
+		return getUser().isOwner() || 
+			getUser().getName().equals(this.fragment.getLastUpdaterOrCreator());
+	}
 
 	@Override 
 	protected void setModels() throws Exception {

@@ -30,5 +30,7 @@ public class FragmentEditor extends AbstractSingleFragment {
 		}
 		
 		this.tags = FragmentFormUtils.toTagsString(this.fragment.getClassification());
+		
+		addModel("isMinorEditAvailable", isMinorEditAvailable());
 	}
 }

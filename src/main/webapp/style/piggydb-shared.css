@@ -398,6 +398,17 @@ span.fragment-as-tag .ui-button {
 	margin-left: 1em;
 }
 
+.ui-dialog div.fragment-editor div.buttons span.minor-edit {
+	padding: 0px;
+	margin-right: 5px;
+	font-size: 11px;
+}
+
+.ui-dialog div.fragment-editor div.buttons span.minor-edit input {
+	line-height: 30px;
+	vertical-align: middle;
+}
+
 
 
 /*
