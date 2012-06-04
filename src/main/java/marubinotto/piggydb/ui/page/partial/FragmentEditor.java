@@ -13,7 +13,11 @@ public class FragmentEditor extends AbstractSingleFragment {
 	protected void setModels() throws Exception {
 		super.setModels();
 		
-		if (this.fragment != null) {
+		if (this.fragment == null) {
+			this.fragment = getDomain().getFragmentRepository().newInstance(getUser());
+		}
+		
+		if (this.fragment.getId() != null) {
 			this.editorId = "fragment-editor-" + this.fragment.getId();
 			this.editorTitle = getMessage("edit-fragment");
 		}

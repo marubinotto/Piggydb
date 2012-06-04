@@ -55,6 +55,12 @@
 
 		jQuery("#fragment-editor-new").remove();
 		jQuery.get("partial/fragment-editor.htm", function(html) {
+			var error = jQuery(html).children("span.error");
+			if (error.size() > 0) {
+				piggydb.widget.putGlobalMessage(error.text());
+				return;
+			}
+			
 			jQuery("body").append(html);
 			var form = new _class(jQuery("#fragment-editor-new"), "fragment-editor-new");
 			form.open();
