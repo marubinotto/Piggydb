@@ -177,6 +177,15 @@ jQuery(function() {
 			return this.bodyRow().find("div.fragment-content-text");
 		},
 		
+		emptyTextContent: function() {
+			var contentDiv = this.textContentDiv();
+			if (contentDiv.size() > 0) {
+				_class.findInTheSameFragmentNode(
+					contentDiv, "span.fragment-content-toggle:first").remove();
+				contentDiv.closest("tr.fragment-body").remove();
+			}
+		},
+		
 		isFull: function() {
 			return this.root.hasClass("fragment-full");
 		},

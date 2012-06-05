@@ -26,12 +26,6 @@ jQuery(function() {
 	  });
 	};
 	
-	var _emptyContent = function(contentDiv) {
-		piggydb.widget.Fragment.findInTheSameFragmentNode(
-			contentDiv, "span.fragment-content-toggle:first").remove();
-  	contentDiv.closest("tr.fragment-body").remove();
-	};
-	
 	module.QuickEdit = {
 			
 		init: function() {
@@ -145,7 +139,7 @@ jQuery(function() {
 				  	prettyPrint();
 				  }
 				  else {
-				  	_emptyContent(contentDiv);
+				  	fragment.emptyTextContent();
 				  }
 			  	
 			  	// update info
