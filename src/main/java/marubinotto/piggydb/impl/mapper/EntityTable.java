@@ -144,11 +144,11 @@ public class EntityTable {
 		params.addAll(Arrays.asList(values));
 		params.add(entity.getId());
 		params.add(entity.getUpdateDatetime().toDate());
-		
+
 		int affected = jdbcTemplate.update(sql.toString(), params.toArray());
-        if (affected == 0) throw new BaseDataObsoleteException();
-        
-        entity.setUpdateDatetime(updateDateTime);
+		if (affected == 0) throw new BaseDataObsoleteException();
+
+		entity.setUpdateDatetime(updateDateTime);
 	}
 	
 	public void mapCommonColumns(ResultSet rs, String prefix, RawEntity entity) 
