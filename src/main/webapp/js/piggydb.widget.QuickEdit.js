@@ -112,8 +112,6 @@ jQuery(function() {
 			editorDiv.hide();
 			var loadingIcon = contentDiv.empty().putLoadingIcon();
 			jQuery.post("partial/quick-update-fragment.htm", params, function(html) {
-				html = jQuery(html);
-				
 				// error
 				var error = jQuery(html).children("span.error");
 				if (error.size() > 0) {
@@ -127,28 +125,33 @@ jQuery(function() {
 				// prepare to show the new content
 				editorDiv.empty().show();
 				
-				// new title
-				piggydb.widget.Fragment.syncTitles(
-					fragmentId, 
-					html.find("div.res-title span.title").html(),
-					html.find("div.res-title span.headline").html());
-		  	
-		  	fragment.shortTitleSpan().html(
-		  		html.find("div.res-title span.title-short").html());
-		  	
-		  	// new content
-		  	var newContent = html.find("div.res-content").html();
-		  	if (isNotBlank(newContent)) {
-		  		contentDiv.html(newContent);
-			  	prettyPrint();
-			  }
-			  else {
-			  	_emptyContent(contentDiv);
-			  }
-		  	
-		  	// update info
-		  	fragment.header().find("span.update-info").html(
-		  		html.find("div.res-update-info span.update-info").html());
+				// update the fragment properties
+				jQuery(html).children("div.fragment-properties").each(function() {
+					var properties = jQuery(this);
+					
+					// new title
+					piggydb.widget.Fragment.syncTitles(
+						fragmentId, 
+						properties.find("div.title span.title").html(),
+						properties.find("div.title span.headline").html());
+					
+					fragment.shortTitleSpan().html(
+						properties.find("div.title span.title-short").html());
+					
+					// new content
+			  	var newContent = properties.children("div.content").html();
+			  	if (isNotBlank(newContent)) {
+			  		contentDiv.html(newContent);
+				  	prettyPrint();
+				  }
+				  else {
+				  	_emptyContent(contentDiv);
+				  }
+			  	
+			  	// update info
+			  	fragment.header().find("span.update-info").html(
+			  		properties.find("div.update-info span.update-info").html());
+				});
 		  	
 		  	piggydb.widget.Fragment.highlight(fragmentId, null);
 			});
