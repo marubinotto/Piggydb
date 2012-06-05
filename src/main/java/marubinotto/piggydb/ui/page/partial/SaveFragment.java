@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.model.FragmentRepository;
+import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.util.procedure.Procedure;
 
 public class SaveFragment extends AbstractSubmitFragmentForm {
@@ -19,6 +20,7 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 		bindValues();
 		if (hasErrors()) return;
 		
+		// register
 		if (this.fragment.getId() == null) {
 			this.newId = (Long)getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
@@ -30,8 +32,21 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 			this.success = getMessage("completed-register-fragment", 
 				this.html.linkToFragment(this.newId));
 		}
+		// update
 		else {
-			// TODO
+			final boolean minorEdit = isMinorEditAvailable() && isMinorEdit();	
+			try {
+				getDomain().getTransaction().execute(new Procedure() {
+					public Object execute(Object input) throws Exception {
+						FragmentRepository repository = getDomain().getFragmentRepository();
+						repository.update(getFragment(), !minorEdit);
+						return null;
+					}
+				});
+			}
+			catch (BaseDataObsoleteException e) {
+				this.error = getMessage("FragmentForm-base-data-obsolete");
+			}
 		}
 	}
 }

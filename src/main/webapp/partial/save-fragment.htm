@@ -2,7 +2,9 @@
 #if ($hasErrors)
 	#fragmentFormErrors()
 #else
-	<span class="success">$utils.raw($success)</span>
+	#if ($success)
+		<span class="success">$utils.raw($success)</span>
+	#end
 	#if ($newId)
 		<span class="new-id">$newId</span>
 	#end
