@@ -34,7 +34,7 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 		}
 		// update
 		else {
-			final boolean minorEdit = isMinorEditAvailable() && isMinorEdit();	
+			final boolean minorEdit = isMinorEditAvailable() && isMinorEdit();
 			try {
 				getDomain().getTransaction().execute(new Procedure() {
 					public Object execute(Object input) throws Exception {

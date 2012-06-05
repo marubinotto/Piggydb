@@ -7,12 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
+import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.InvalidTagNameException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.piggydb.ui.page.control.form.FragmentFormUtils;
 import marubinotto.util.Assert;
+import marubinotto.util.time.DateTime;
 
 public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment {
 
@@ -21,6 +25,7 @@ public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment 
 	public String tags;
 	public String content;
 	public String minorEdit;
+	public String timestamp;
 	
 	public Map<String, String> fieldErrors = new HashMap<String, String>();
 	
@@ -30,6 +35,11 @@ public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment 
 
 	public boolean isMinorEdit() {
 		return this.minorEdit != null;
+	}
+	
+	public DateTime getOriginalTimestamp() {
+		if (StringUtils.isBlank(this.timestamp)) return null;
+		return new DateTime(Long.parseLong(this.timestamp));
 	}
 	
 	public boolean hasErrors() {
@@ -96,6 +106,12 @@ public abstract class AbstractSubmitFragmentForm extends AbstractSingleFragment 
 			else {
 				this.error = getCodedMessageOrThrow(e, this);
 			}
+		}
+		
+		// to enable optimistic lock
+		DateTime originalTimestamp = getOriginalTimestamp();
+		if (originalTimestamp != null && this.fragment instanceof RawEntity) {
+			((RawEntity)this.fragment).setUpdateDatetime(originalTimestamp);
 		}
 	}
 }

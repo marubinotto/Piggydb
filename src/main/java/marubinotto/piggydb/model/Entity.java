@@ -16,6 +16,11 @@ public interface Entity {
 	
 	public String getCreator();
 	
+	/**
+	 * the last timestamp when this entity was stored in the database.
+	 * 
+	 * @see marubinotto.piggydb.impl.mapper.EntityTable#update
+	 */
 	public DateTime getUpdateDatetime();
 	
 	public String getUpdater();
