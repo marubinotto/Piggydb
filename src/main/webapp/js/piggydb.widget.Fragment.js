@@ -214,7 +214,34 @@ jQuery(function() {
 		fullEditor: function() {
 			var editor = this.root.siblings(".fragment-form-panel");
 			return editor.size() > 0 ? editor : null;
-		}		
+		},
+		
+		update: function(propertiesHtml) {
+			var properties = jQuery(propertiesHtml);
+			
+			// new title
+			piggydb.widget.Fragment.syncTitles(
+				this.id(), 
+				properties.find("div.title span.title").html(),
+				properties.find("div.title span.headline").html());
+			
+			this.shortTitleSpan().html(
+				properties.find("div.title span.title-short").html());
+			
+			// new content
+	  	var newContent = properties.children("div.content").html();
+	  	if (isNotBlank(newContent)) {
+	  		this.textContentDiv().html(newContent);
+		  	prettyPrint();
+		  }
+		  else {
+		  	this.emptyTextContent();
+		  }
+	  	
+	  	// update info
+	  	this.header().find("span.update-info").html(
+	  		properties.find("div.update-info span.update-info").html());
+		}
 	}, module.Widget.prototype);
 	
 	module.Fragment = _class;

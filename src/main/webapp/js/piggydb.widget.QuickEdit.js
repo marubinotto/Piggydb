@@ -121,30 +121,7 @@ jQuery(function() {
 				
 				// update the fragment properties
 				jQuery(html).children("div.fragment-properties").each(function() {
-					var properties = jQuery(this);
-					
-					// new title
-					piggydb.widget.Fragment.syncTitles(
-						fragmentId, 
-						properties.find("div.title span.title").html(),
-						properties.find("div.title span.headline").html());
-					
-					fragment.shortTitleSpan().html(
-						properties.find("div.title span.title-short").html());
-					
-					// new content
-			  	var newContent = properties.children("div.content").html();
-			  	if (isNotBlank(newContent)) {
-			  		contentDiv.html(newContent);
-				  	prettyPrint();
-				  }
-				  else {
-				  	fragment.emptyTextContent();
-				  }
-			  	
-			  	// update info
-			  	fragment.header().find("span.update-info").html(
-			  		properties.find("div.update-info span.update-info").html());
+					fragment.update(jQuery(this));
 				});
 		  	
 		  	piggydb.widget.Fragment.highlight(fragmentId, null);
