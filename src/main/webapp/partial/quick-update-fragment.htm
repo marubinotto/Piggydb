@@ -2,20 +2,6 @@
 #if ($hasErrors)
 	<span class="error">$error</span>
 #else
-	<div class="fragment-properties">
-    <div class="title">
-    	<span class="title">$utils.blankToNbsp($fragment.title)</span>
-  		<span class="title-short">$utils.blankToNbsp($fragment.makeHeadline(15))</span>
-    	<span class="headline">$utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))</span>
-    </div>
-    <div class="content">
-    #if ($fragment.content && $fragment.content.trim() != "")
-    	#fragmentTextContent($fragment)
-    #end
-    </div>
-  	<div class="update-info">
-  		#fragmentUpdateInfo($fragment)
-  	</div>
-	</div>
+	#fragmentProperties($fragment)
 #end
 </div>
