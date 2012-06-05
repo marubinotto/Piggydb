@@ -1,8 +1,6 @@
 <div>
-#if ($error)
-	<div class="res-error">
-		<div class="error">$error</div>
-	</div>
+#if ($hasErrors)
+	<span class="error">$error</span>
 #else
   <div class="res-title">
   	<span class="title">$utils.blankToNbsp($fragment.title)</span>

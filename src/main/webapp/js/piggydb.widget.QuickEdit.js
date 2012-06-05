@@ -115,11 +115,11 @@ jQuery(function() {
 				html = jQuery(html);
 				
 				// error
-				var error = html.find("div.res-error");
+				var error = jQuery(html).children("span.error");
 				if (error.size() > 0) {
 					loadingIcon.remove();
 					editorDiv.find("div.error").remove();
-					editorDiv.prepend(error.html());
+					editorDiv.prepend(jQuery('<div class="error">').append(error.text()));	
 					editorDiv.show();
 					return;
 				}
