@@ -1,6 +1,6 @@
 <div class="result">
 #if ($hasErrors)
-	<span class="error">$error</span>
+	<span class="error">$utils.raw($error)</span>
 #else
 	<div class="fragment-editor" id="$editorId" title="$editorTitle" style="display: none;">
   <form>

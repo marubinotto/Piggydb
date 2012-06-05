@@ -30,7 +30,7 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 				}
 			});
 			this.success = getMessage("completed-register-fragment", 
-				this.html.linkToFragment(this.newId));
+				this.html.linkToFragment(this.newId), false);
 		}
 		// update
 		else {

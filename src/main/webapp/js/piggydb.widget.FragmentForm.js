@@ -60,7 +60,7 @@
 	var _checkOpenError = function(html) {
 		var error = jQuery(html).children("span.error");
 		if (error.size() > 0) {
-			piggydb.widget.putGlobalMessage(error.text());
+			piggydb.widget.putGlobalMessage(error.html());
 			return true;
 		}
 		return false;
@@ -175,7 +175,7 @@
 					}
 					else {
 						jQuery(html).find("span.success").each(function() {
-							piggydb.widget.putGlobalMessage(jQuery(this).text());
+							piggydb.widget.putGlobalMessage(jQuery(this).html());
 						});
 						jQuery(html).find("span.new-id").each(function() {
 							if (typeof fragmentsView_fragmentsByDate != "undefined") {
@@ -204,10 +204,10 @@
 			
 			var outer = this;
 			errors.find("span.global-error").each(function() {
-				outer.setFormError(jQuery(this).text());
+				outer.setFormError(jQuery(this).html());
 			})
 			errors.find("div.field-errors > span").each(function() {
-				outer.setInputError(jQuery(this).attr("class"), jQuery(this).text());
+				outer.setInputError(jQuery(this).attr("class"), jQuery(this).html());
 			});
 			return true;
 		},
