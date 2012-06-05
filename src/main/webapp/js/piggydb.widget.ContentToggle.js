@@ -84,6 +84,10 @@
 	  setClosed: function() {
 	    var img = this.buttonImg();
 	    img.attr("src", img.attr("src").replace(_class.OPENED, _class.CLOSED));
+	  },
+	  
+	  open: function() {
+	  	if (this.isClosed()) this.toggleButton.click();
 	  }
 	}, module.Widget.prototype);
 	

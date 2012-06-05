@@ -207,6 +207,11 @@ jQuery(function() {
 			return toggle.size() == 0 ? null : new piggydb.widget.ContentToggle(toggle);
 		},
 		
+		openContent: function() {
+			var toggle = this.contentToggle();
+			if (toggle != null) toggle.open();
+		},
+		
 		highlight: function() {
 			_class.highlight(this.id(), this.root);
 		},
