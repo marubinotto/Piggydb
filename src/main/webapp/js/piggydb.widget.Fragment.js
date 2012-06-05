@@ -220,7 +220,7 @@ jQuery(function() {
 			var properties = jQuery(propertiesHtml);
 			
 			// new title
-			piggydb.widget.Fragment.syncTitles(
+			_class.syncTitles(
 				this.id(), 
 				properties.find("div.title span.title").html(),
 				properties.find("div.title span.headline").html());
@@ -241,6 +241,13 @@ jQuery(function() {
 	  	// update info
 	  	this.header().find("span.update-info").html(
 	  		properties.find("div.update-info span.update-info").html());
+	  	
+	  	// tags
+	  	var outer = this;
+	  	properties.find("div.tags span.tags").each(function() {
+	  		jQuery("span.tags-placeholder-" + outer.id())
+	  			.empty().append(jQuery(this));
+	  	});
 		}
 	}, module.Widget.prototype);
 	

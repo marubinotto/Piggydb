@@ -47,6 +47,7 @@
 			if (!_checkOpenError(html)) {
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + editorId), editorId);
+				form.fragment = fragment;
 				form.open();
 			}
 		});
@@ -71,6 +72,7 @@
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.indicator = this.element.find("span.indicator");
+		this.fragment = null;		// target fragment widget to be updated
 		this.prepare();
 	};
 	
@@ -177,11 +179,19 @@
 						jQuery(html).find("span.success").each(function() {
 							piggydb.widget.putGlobalMessage(jQuery(this).html());
 						});
+						// created 
 						jQuery(html).find("span.new-id").each(function() {
 							if (typeof fragmentsView_fragmentsByDate != "undefined") {
 								fragmentsView_fragmentsByDate.refresh(jQuery(this).text());
 							}
 						});
+						// updated
+						if (outer.fragment != null) {
+							jQuery(html).children("div.fragment-properties").each(function() {
+								outer.fragment.update(jQuery(this));
+							});
+							piggydb.widget.Fragment.highlight(outer.fragment.id(), null);
+						}
 						outer.close();
 					}
 				});

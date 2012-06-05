@@ -578,7 +578,7 @@
 
 
 
-#macro ( fragmentProperties $fragment ) 
+#macro ( fragmentProperties $fragment $withTags ) 
 
 <div class="fragment-properties">
   <div class="title">
@@ -594,6 +594,11 @@
 	<div class="update-info">
 		#fragmentUpdateInfo($fragment)
 	</div>
+	#if ($withTags)
+		<div class="tags">
+			#fragmentTags($fragment $null)
+		</div>
+	#end
 </div>
 	
 #end
