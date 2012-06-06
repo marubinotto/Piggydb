@@ -1,0 +1,389 @@
+#macro( fragmentHeaderRow $fragment $contextTags )
+
+<tr>
+  <th class="header-cell" title="$fragment.title" valign="middle">
+    <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
+      #fragmentCaption($fragment false false)
+      #fragmentTags($fragment $contextTags)
+			#fragmentUpdateInfo($fragment)
+      #fragmentToolBar($fragment)
+    </div>
+  </th>
+</tr>
+
+#end
+
+
+
+#macro( fragmentCaption $fragment $useHeadline $withImageLink )
+
+<span class="fragment-caption">
+#if ($fragment.isTag())
+	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
+	#miniTagIcon($fragment.title)
+	<span class="title">$fragment.title</span></a>
+#else
+  $utils.raw($html.linkToFragment($fragment.id))
+	#if ($withImageLink) #imageLink($fragment) #end
+	<span class="title">
+	#if ($useHeadline)
+    $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
+	#else
+    $utils.blankToNbsp($fragment.title)
+	#end
+	</span>
+#end
+</span>
+
+#end
+
+
+
+#macro( fragmentToolBar $fragment )
+
+#set ($fragmentHeadline = false)
+#set ($fragmentHeadline = $fragment.makeHeadline(20))
+<span class="fragment-tools">
+  <span class="fragment-id" style="display: none;">$fragment.id</span>
+  #if ($fragmentHeadline)
+    <span class="fragment-title" style="display: none;">$fragmentHeadline</span>
+  #end
+
+#if (!$user.isViewer())
+  <span class="relation-draggable droppable-to-fragment">
+    <span class="add-relation" title="$messages.get("add-relation-by-dnd")">
+      <span class="relation-from">
+        #$fragment.id
+        #if ($fragmentHeadline) <span class="fragment-title">$fragmentHeadline</span> #end
+      </span>
+      <img src="$context/images/add-relation.png" border="0" alt=""/>
+      <span class="fragment-id" style="display: none;">$fragment.id</span>
+    </span>
+  </span>
+#end
+ 
+  <a class="tool-button" href="$context/document-view.htm?id=$fragment.id" target="_blank"
+    title="$messages.get("open-as-document")">
+  <img src="$context/images/document.png" border="0" alt="$messages.get("document")"/></a>
+
+#if ($fragment.canChange($user))
+  <a class="tool-button edit-fragment"
+		#if (!$fragment.isFile()) 
+			onclick="piggydb.widget.FragmentForm.openToUpdate(this); return false;" 
+		#end
+		href="$resources.fragmentPath($fragment.id)&amp;edit=true" target="_blank"
+    title="$messages.get("edit-this-fragment")">
+  <img src="$context/images/edit.png" border="0" alt="$messages.get("edit")"/></a>
+#end
+
+#set ($bkmkTagName = $tagConstants.NAME_BOOKMARK)
+#if ($fragment.canAddTag($bkmkTagName, $user) && !$fragment.classification.isSubordinateOf($bkmkTagName))
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-bookmark")"
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_BOOKMARK'); return false;">
+  <img src="$context/style/images/tag-bookmark.png" border="0" alt="$messages.get("bookmark")"/></a>
+#end
+
+#set ($hmTagName = $tagConstants.NAME_HOME)
+#if ($fragment.canAddTag($hmTagName, $user) && !$fragment.classification.isSubordinateOf($hmTagName))
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-home")"
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_HOME'); return false;">
+  <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
+#end
+  
+#if ($fragment.canDelete($user) && !$fragment.isTrash())
+  <a class="tool-button" href="#" 
+    title="$messages.get("tag-as-trash")"
+    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_TRASH'); return false;">
+  <img src="$context/style/images/tag-trash.png" border="0" alt="$messages.get("trash")"/></a>
+#end
+
+#if (!$user.isViewer())
+  <input type="checkbox" class="fragment-checkbox"
+    name="fragmentCheckbox" value="$fragment.id"
+    onclick="piggydb.widget.SelectedFragments.instance.onFragmentChecked(this, $fragment.id)"
+    #if (($selectedFragments && $selectedFragments.containsKey($fragment.id)) || $fragmentBatchPage) checked="checked" #end
+    />
+#end
+
+  <span class="pointer-down"><img src="$context/images/empty.png" border="0" width="0" height="0" alt=""/></span>
+  <span class="pointer-down-inner"><img src="$context/images/empty.png" border="0" width="0" height="0" alt=""/></span>
+</span>
+
+#end 
+
+
+
+#macro( fragmentBodyRow $fragment )
+
+#if ($fragment.isFile())
+<tr class="fragment-body">
+  <td class="fragment-body">
+    <div class="fragment-content">
+    #fragmentFileContent($fragment)
+    </div>
+  </td>
+</tr>
+#else
+#if ($fragment.content && $fragment.content.trim() != "")
+#fragmentBodyRowWithTextContent($fragment)
+#end
+#end
+
+#end
+
+
+
+#macro( fragmentBodyRowWithTextContent $fragment )
+	
+<tr class="fragment-body">
+	<td class="fragment-body">
+		<div class="fragment-editor-quick"></div>
+    <div class="fragment-content fragment-content-text">
+		#if ($fragment)
+			#fragmentTextContent($fragment)
+		#end
+    </div>
+	</td>
+</tr>
+
+#end
+
+
+
+#macro( fragmentTags $fragment $contextTags )
+
+<span class="tags-placeholder-${fragment.id}">
+#if ($fragment.classification.size() > 0)
+#set ($fragmentTags = $fragmentTagsPrototype.newInstance($fragment.classification, $contextTags))
+<span class="tags">
+#foreach ($tag in $fragmentTags.toShow)
+  #fragmentTag($tag $fragment)
+#end
+
+#if ($fragmentTags.toHide.size() > 0)
+<a class="show-hidden-tags" href="#" 
+	onclick="piggydb.widget.Fragment.onShowHiddenTags(this); return false;">...</a>
+<span class="hidden-tags" style="display: none;">
+  #foreach ($tag in $fragmentTags.toHide)
+    #fragmentTag($tag $fragment)
+  #end
+</span>
+#end
+</span>
+#end
+&nbsp;
+</span>
+
+#end
+
+
+
+#macro( fragmentTag $tag $fragment )
+
+<span class="tag">
+  #miniTagIcon($tag.name)
+  <a class="tag" href="$resources.tagPath($tag.id)">$tag.name</a>
+  #if ($fragment.id && $fragment.canRemoveTag($tag, $user))
+    <a href="#" onclick="piggydb.command.removeTag('$fragment.id', '$tag.name'); return false;">
+    <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+  #end
+</span>
+<span>&nbsp;</span> ## fix for the white-space bug on IE and Chrome
+
+#end
+
+
+
+#macro( fragmentUpdateInfo $fragment )
+
+<span class="update-info">
+<span class="entity-timestamp">
+  <span title="$fragment.updateDatetime.format("yyyy-MM-dd HH:mm")"
+    >$fragment.updateDatetime.getRelativeDescription($messageSource)</span>
+  (#if ($fragment.updater && $fragment.updater != $fragment.creator)<a 
+    class="user-name" href="$resources.userPath($fragment.updater)">$fragment.updater</a> / #end<a 
+    class="user-name" href="$resources.userPath($fragment.creator)">$fragment.creator</a>)
+</span>
+</span>
+
+#end
+
+
+#macro( fragmentTextContent $fragment )
+
+#if ($preformatted.evaluate($fragment))
+  $utils.raw($html.preformattedContent($fragment, $wikiParser, $user))
+#else
+  $utils.raw($wikiParser.parse($fragment.content, $fragment.id, $user, $resources))
+#end
+
+#end
+
+
+
+#macro( fragmentFileContent $fragment )
+
+<div class="file">
+#if ($fragment.isImageFile())
+  $utils.raw($html.fragmentImage($fragment.id))
+  <br />
+#else
+  $utils.raw($html.fileIcon($fragment.fileType))
+#end
+  $utils.raw($html.linkToFragmentFileWithSize($fragment))
+</div>
+
+#end
+
+
+
+#macro( fragmentContentForDoc $fragment )
+
+#if ($fragment.isFile())
+#fragmentFileContent($fragment)
+#else
+#if ($fragment.content && $fragment.content.trim() != "")
+#fragmentTextContent($fragment)
+#end
+#end
+
+#end
+
+
+
+#macro( deleteRelationButton $relation $relationSelector $containerSelector )
+  
+#if ($relation.canDelete($user))
+<a href="#" title="$messages.get("delete-relation")" 
+  onclick="piggydb.command.deleteRelation(
+      '$relation.id', 
+      jQuery(this).closest('$relationSelector'),
+      #if ($containerSelector)
+        jQuery(this).closest('$containerSelector')); 
+      #else
+        null); 
+      #end
+    return false;">
+<img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+#end
+
+#end
+
+
+
+#macro( fragmentParentsRow $fragment $contextRelation )
+
+#set ($parentRelations = $fragment.navigateToOneWayParents($contextRelation.id))
+#if (!$parentRelations.isEmpty())
+<tr valign="middle">
+  <td class="superfragment-links">
+  #foreach ($relation in $parentRelations)
+    <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
+        style="margin-right: 1em;">
+  		#fragmentCaption($relation.from true false)
+      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
+      #deleteRelationButton($relation "span.fragment-header" "tr")
+    </span>
+  #end
+  </td>
+</tr>
+#end
+
+#end
+
+
+
+#macro( fragmentChildrenRow $childRelations )
+
+#if ($childRelations.size() > 0)
+<tr valign="middle">
+  <td class="subfragment-links">
+  #foreach ($relation in $childRelations)
+    <span class="$html.fragmentHeaderClass(${relation.to.id}, $selectedFragments)" 
+        style="margin-right: 1em;">
+			#if ($relation.twoWay)
+				<img src="$context/images/arrow-top-to-right-two-way.png" border="0" alt=""/>
+			#else
+				<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+			#end
+			#fragmentCaption($relation.to true false)
+      #deleteRelationButton($relation "span.fragment-header" "tr")
+    </span>
+  #end
+  </td>
+</tr>
+#end
+
+#end
+
+
+
+#macro ( imageLink $fragment ) 
+
+#if ($fragment.isImageFile())
+  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)"
+    title="$messages.get("view-image")" style="vertical-align: middle;">
+  <img src="$context/images/image.png" border="0" alt="$messages.get("image")"/></a>
+#end
+
+#end
+
+
+
+#macro ( fragmentNodeCaption $fragment $contextRelation ) 
+
+#if ($contextRelation)
+<span style="margin-left: 0px; margin-right: 3px;">
+	#if ($contextRelation.twoWay)
+		<img src="$context/images/arrow-top-to-right-two-way.png" border="0" alt=""/>
+	#else
+		<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
+	#end
+  #deleteRelationButton($contextRelation "li.fragment-node" $null)
+</span>
+#end
+#if ($fragment.isNavigableToChildren($contextRelation))
+	#if ($contextRelation)
+		#set ($contextParentId = $contextRelation.from.id)
+	#else
+		#set ($contextParentId = "null")	
+	#end
+  <a class="fragment-node-toggle" href="#"
+		onclick="piggydb.widget.FragmentTree.onNodeToggleClick(this, $fragment.id, $contextParentId); return false;">
+  <img src="$context/images/node-plus.png" alt="+" border="0" 
+    style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
+#end
+#fragmentCaption($fragment true true)
+<span class="fragment-content-toggle"#if(!$fragment.hasMoreThanHeadline()) style="display: none;"#end>
+  <a class="tool-button" href="#" style="vertical-align: middle;"
+    onclick="piggydb.widget.ContentToggle.onContentToggleClick(this, $fragment.id); return false;">
+  <img src="$context/style/images/bullet-arrow-down.png" border="0" alt=""
+    style="margin: -2px;"/></a>
+</span>
+
+#end
+
+
+
+#macro ( fragmentFormErrors ) 
+
+#if ($hasErrors)
+<div class="errors">
+#if ($error)
+	<span class="global-error">$utils.raw($error)</span>
+#end
+#if (!$fieldErrors.isEmpty())
+	<div class="field-errors">
+	#foreach ($fieldName in $fieldErrors.keySet())
+		<span class="$fieldName">$utils.raw($fieldErrors.get($fieldName))</span>
+	#end
+	</div>
+#end
+</div>
+#end
+	
+#end
+
+
