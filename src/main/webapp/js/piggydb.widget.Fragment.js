@@ -55,6 +55,10 @@ jQuery(function() {
 		jQuery("table.fragment-full > tbody > tr > th.header-cell " + selector).html(title);
 	};
 	
+	_class.syncCaptions = function(id, caption) {
+		jQuery(".fragment-header-" + id + " span.fragment-caption").html(caption.html());
+	};
+	
 	_class.getHeaders = function(fragmentId) {
 	  var headerClass = ".fragment-header";
 	  if (fragmentId != null) headerClass = headerClass + "-" + fragmentId;
@@ -254,13 +258,12 @@ jQuery(function() {
 			var properties = jQuery(propertiesHtml);
 			
 			// caption
+			_class.syncCaptions(
+				this.id(), 
+				properties.find("div.prop-caption > div.default > span.fragment-caption"));
 			if (this.isCellCompact()) {
 				this.caption().html(properties.find(
 					"div.prop-caption > div.cell-compact > span.fragment-caption").html());
-			}
-			else {
-				this.caption().html(properties.find(
-					"div.prop-caption > div.default > span.fragment-caption").html());
 			}
 			
 			// title
