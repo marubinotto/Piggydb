@@ -177,6 +177,21 @@ jQuery(function() {
 			return this.bodyRow().find("div.fragment-content-text");
 		},
 		
+		setTextContent: function(content) {
+			var div = this.textContentDiv();
+			if (div.size() == 0 && this.isFull()) {	// the case of empty content
+				var emptyBodyRow = jQuery.trim(
+					jQuery("#tpl-fragment-body-row-with-empty-text tbody").html());
+				this.setBodyRow(emptyBodyRow);
+				div = this.textContentDiv();
+			}
+			if (div.size() == 0) return false;
+			
+			div.html(content);
+	  	prettyPrint();
+	  	return true;
+		},
+		
 		emptyTextContent: function() {
 			var contentToggle = this.contentToggle();
 			if (contentToggle != null) contentToggle.setClosed();
@@ -238,10 +253,10 @@ jQuery(function() {
 			// new content
 	  	var newContent = properties.children("div.content").html();
 	  	if (isNotBlank(newContent)) {
-	  		this.textContentDiv().html(newContent);
-	  		this.contentToggleContainer().show();
-		  	prettyPrint();
-		  	this.openContentIfClosed();
+	  		if (!this.setTextContent(newContent)) {
+	  			this.contentToggleContainer().show();
+			  	this.openContentIfClosed();
+	  		}
 		  }
 		  else {
 		  	this.emptyTextContent();
