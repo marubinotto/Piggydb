@@ -177,20 +177,20 @@
 #macro ( fragmentProperties $fragment ) 
 
 <div class="fragment-properties">
-  <div class="title">
+  <div class="prop-title">
   	<span class="title">$utils.blankToNbsp($fragment.title)</span>
 		<span class="title-short">$utils.blankToNbsp($fragment.makeHeadline(15))</span>
   	<span class="headline">$utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))</span>
   </div>
-  <div class="content">
+  <div class="prop-content">
   #if ($fragment.content && $fragment.content.trim() != "")
   	#fragmentTextContent($fragment)
   #end
   </div>
-	<div class="update-info">
+	<div class="prop-update-info">
 		#fragmentUpdateInfo($fragment)
 	</div>
-	<div class="tags">
+	<div class="prop-tags">
 		#fragmentTags($fragment $null)
 	</div>
 </div>

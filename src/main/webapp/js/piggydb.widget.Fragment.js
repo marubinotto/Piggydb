@@ -245,17 +245,17 @@ jQuery(function() {
 		update: function(propertiesHtml) {
 			var properties = jQuery(propertiesHtml);
 			
-			// new title
+			// title
 			_class.syncTitles(
 				this.id(), 
-				properties.find("div.title span.title").html(),
-				properties.find("div.title span.headline").html());
+				properties.find(".prop-title span.title").html(),
+				properties.find(".prop-title span.headline").html());
 			
 			this.shortTitleSpan().html(
-				properties.find("div.title span.title-short").html());
+				properties.find(".prop-title span.title-short").html());
 			
-			// new content
-	  	var newContent = properties.children("div.content").html();
+			// content
+	  	var newContent = properties.children(".prop-content").html();
 	  	if (isNotBlank(newContent)) {
 	  		if (!this.setTextContent(newContent)) {
 	  			this.contentToggleContainer().show();
@@ -268,10 +268,10 @@ jQuery(function() {
 	  	
 	  	// update info
 	  	this.header().find("span.update-info").html(
-	  		properties.find("div.update-info span.update-info").html());
+	  		properties.find(".prop-update-info span.update-info").html());
 	  	
 	  	// tags
-	  	var tags = properties.find("div.tags span.tags");
+	  	var tags = properties.find(".prop-tags span.tags");
 	  	var placeholder = this.tagsPlaceholder().empty();
 	  	if (tags.size() > 0) {
 	  		placeholder.append(tags);
