@@ -190,7 +190,6 @@
 							jQuery(html).children("div.fragment-properties").each(function() {
 								outer.fragment.update(jQuery(this));
 							});
-							outer.fragment.openContent();
 							piggydb.widget.Fragment.highlight(outer.fragment.id(), null);
 						}
 						outer.close();

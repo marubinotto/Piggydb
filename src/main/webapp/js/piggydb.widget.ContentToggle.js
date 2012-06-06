@@ -35,11 +35,11 @@
 	_class.onAllContentToggleClick = function(toggle, root) {
 		var toggle = new _class(toggle);
 	  if (toggle.isClosed()) {
-	  	root.find(".fragment-content-toggle img[src*='" + _class.CLOSED + "']").closest("a").click();
+	  	root.find(".fragment-content-toggle img[src*='" + _class.CLOSED + "']").closest("a:visible").click();
 	    toggle.setOpened();
 	  }
 	  else if (toggle.isOpened()) {
-	  	root.find(".fragment-content-toggle img[src*='" + _class.OPENED + "']").closest("a").click();
+	  	root.find(".fragment-content-toggle img[src*='" + _class.OPENED + "']").closest("a:visible").click();
 	    toggle.setClosed();
 	  }
 	};

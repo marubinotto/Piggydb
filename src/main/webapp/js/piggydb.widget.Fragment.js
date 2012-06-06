@@ -178,12 +178,10 @@ jQuery(function() {
 		},
 		
 		emptyTextContent: function() {
-			var contentDiv = this.textContentDiv();
-			if (contentDiv.size() > 0) {
-				_class.findInTheSameFragmentNode(
-					contentDiv, "span.fragment-content-toggle:first").remove();
-				contentDiv.closest("tr.fragment-body").remove();
-			}
+			var contentToggle = this.contentToggle();
+			if (contentToggle != null) contentToggle.setClosed();
+			this.contentToggleContainer().hide();
+			this.bodyRow().remove();
 		},
 		
 		isFull: function() {
@@ -202,12 +200,16 @@ jQuery(function() {
 			return this.header().find("a.edit-fragment").size() > 0;
 		},
 		
+		contentToggleContainer: function() {
+			return this.header().find("span.fragment-content-toggle");
+		},
+		
 		contentToggle: function() {
 			var toggle = this.header().find(".fragment-content-toggle a.tool-button");
 			return toggle.size() == 0 ? null : new piggydb.widget.ContentToggle(toggle);
 		},
 		
-		openContent: function() {
+		openContentIfClosed: function() {
 			var toggle = this.contentToggle();
 			if (toggle != null) toggle.open();
 		},
@@ -237,7 +239,9 @@ jQuery(function() {
 	  	var newContent = properties.children("div.content").html();
 	  	if (isNotBlank(newContent)) {
 	  		this.textContentDiv().html(newContent);
+	  		this.contentToggleContainer().show();
 		  	prettyPrint();
+		  	this.openContentIfClosed();
 		  }
 		  else {
 		  	this.emptyTextContent();

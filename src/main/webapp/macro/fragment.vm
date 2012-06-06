@@ -529,14 +529,12 @@
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end
 #fragmentCaption($fragment true true)
-#if ($fragment.hasMoreThanHeadline())
-<span class="fragment-content-toggle">
+<span class="fragment-content-toggle"#if(!$fragment.hasMoreThanHeadline()) style="display: none;"#end>
   <a class="tool-button" href="#" style="vertical-align: middle;"
     onclick="piggydb.widget.ContentToggle.onContentToggleClick(this, $fragment.id); return false;">
   <img src="$context/style/images/bullet-arrow-down.png" border="0" alt=""
     style="margin: -2px;"/></a>
 </span>
-#end
 
 #end
 
