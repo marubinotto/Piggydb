@@ -100,15 +100,7 @@
   <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
     #if ($compactColumn)
-			#if ($fragment.isTag())
-				#fragmentCaption($fragment false false)
-			#else
-        <span class="fragment-caption">
-          #imageLink($fragment)
-          <a class="title-link" href="$resources.fragmentPath($fragment.id)">
-          <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
-        </span>
-			#end
+			#fragmentCellCompactCaption($fragment)
     #else
       #fragmentCaption($fragment true true)
     #end

@@ -367,6 +367,22 @@
 
 
 
+#macro ( fragmentCellCompactCaption $fragment )
+
+#if ($fragment.isTag())
+	#fragmentCaption($fragment false false)
+#else
+  <span class="fragment-caption">
+    #imageLink($fragment)
+    <a class="title-link" href="$resources.fragmentPath($fragment.id)">
+    <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
+  </span>
+#end
+	
+#end
+
+
+
 #macro ( fragmentFormErrors ) 
 
 #if ($hasErrors)
