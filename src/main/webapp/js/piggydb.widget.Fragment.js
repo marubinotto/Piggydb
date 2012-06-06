@@ -152,6 +152,10 @@ jQuery(function() {
 			return this.root.find("div.fragment-header:first");
 		},
 		
+		caption: function() {
+			return this.header().find("span.fragment-caption");
+		},
+		
 		mainTitleSpan: function() {
 			return this.header().find("span.title");
 		},
@@ -211,6 +215,10 @@ jQuery(function() {
 			return this.root.hasClass("fragment-main");
 		},
 		
+		isCellCompact: function() {
+			return this.root.hasClass("fragment-cell-compact");
+		},
+		
 		isEditable: function() {
 			return this.header().find("a.edit-fragment").size() > 0;
 		},
@@ -245,17 +253,27 @@ jQuery(function() {
 		update: function(propertiesHtml) {
 			var properties = jQuery(propertiesHtml);
 			
+			// caption
+			if (this.isCellCompact()) {
+				this.caption().html(properties.find(
+					"div.prop-caption > div.cell-compact > span.fragment-caption").html());
+			}
+			else {
+				this.caption().html(properties.find(
+					"div.prop-caption > div.default > span.fragment-caption").html());
+			}
+			
 			// title
 			_class.syncTitles(
 				this.id(), 
-				properties.find(".prop-title span.title").html(),
-				properties.find(".prop-title span.headline").html());
+				properties.find("div.prop-title > span.title").html(),
+				properties.find("div.prop-title > span.headline").html());
 			
 			this.shortTitleSpan().html(
-				properties.find(".prop-title span.title-short").html());
+				properties.find("div.prop-title > span.title-short").html());
 			
 			// content
-	  	var newContent = properties.children(".prop-content").html();
+	  	var newContent = properties.children("div.prop-content").html();
 	  	if (isNotBlank(newContent)) {
 	  		if (!this.setTextContent(newContent)) {
 	  			this.contentToggleContainer().show();
@@ -268,10 +286,10 @@ jQuery(function() {
 	  	
 	  	// update info
 	  	this.header().find("span.update-info").html(
-	  		properties.find(".prop-update-info span.update-info").html());
+	  		properties.find("div.prop-update-info > span.update-info").html());
 	  	
 	  	// tags
-	  	var tags = properties.find(".prop-tags span.tags");
+	  	var tags = properties.find("div.prop-tags span.tags");
 	  	var placeholder = this.tagsPlaceholder().empty();
 	  	if (tags.size() > 0) {
 	  		placeholder.append(tags);

@@ -177,6 +177,14 @@
 #macro ( fragmentProperties $fragment ) 
 
 <div class="fragment-properties">
+	<div class="prop-caption">
+		<div class="default">
+			#fragmentCaption($fragment false false)
+		</div>
+		<div class="cell-compact">
+			#fragmentCellCompactCaption($fragment)
+		</div>
+	</div>
   <div class="prop-title">
   	<span class="title">$utils.blankToNbsp($fragment.title)</span>
 		<span class="title-short">$utils.blankToNbsp($fragment.makeHeadline(15))</span>
