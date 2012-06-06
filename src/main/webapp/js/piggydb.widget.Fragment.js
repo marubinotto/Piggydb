@@ -238,6 +238,10 @@ jQuery(function() {
 			return editor.size() > 0 ? editor : null;
 		},
 		
+		tagsPlaceholder: function() {
+			return jQuery("span.tags-placeholder-" + this.id());
+		},
+		
 		update: function(propertiesHtml) {
 			var properties = jQuery(propertiesHtml);
 			
@@ -267,11 +271,11 @@ jQuery(function() {
 	  		properties.find("div.update-info span.update-info").html());
 	  	
 	  	// tags
-	  	var outer = this;
-	  	properties.find("div.tags span.tags").each(function() {
-	  		jQuery("span.tags-placeholder-" + outer.id())
-	  			.empty().append(jQuery(this));
-	  	});
+	  	var tags = properties.find("div.tags span.tags");
+	  	var placeholder = this.tagsPlaceholder().empty();
+	  	if (tags.size() > 0) {
+	  		placeholder.append(tags);
+	  	}	
 		}
 	}, module.Widget.prototype);
 	
