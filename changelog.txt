@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev2 (2012-06-07) == #v6.0-dev2
+
+ * Made the new fragment editor available for updating fragments
+ * Updated the global message to use piggydb.widget.putGlobalMessage
+
 == Changes in version 6.0-dev1 (2012-06-01) == #v6.0-dev1
 
  * Added a new Fragment Editor
