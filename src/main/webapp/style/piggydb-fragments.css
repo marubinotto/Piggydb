@@ -45,6 +45,8 @@ span.fragment-caption a.tag-fragment-caption:hover span.title {
 
 .ui-draggable-dragging span.add-relation {
   border: solid 1px #ccc;
+  
+  border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   
@@ -79,9 +81,11 @@ span.fragment-caption a.tag-fragment-caption:hover span.title {
  */
 
 .fragment-header span.tags {
-  border: 1px solid #ccc; 
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  border: 1px solid #ccc;
+  
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
     
   margin: 0px;
   padding: 2px;
@@ -198,8 +202,11 @@ table.fragment .fragment-tools {
   padding: 3px 5px 3px 5px;
   
   border: 1px solid #aaa; 
+  
+  border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  
   background-color: #fff;
   
   white-space: nowrap;

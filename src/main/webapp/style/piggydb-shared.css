@@ -561,6 +561,8 @@ a.filter:hover {
 
 .ui-draggable-dragging span.tag {
   border: solid 1px #ccc;
+  
+  border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   

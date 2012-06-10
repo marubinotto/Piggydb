@@ -253,6 +253,7 @@ th.subsection-title {
   border: 1px solid #ccc;
   background-color: #ffffff;
   
+  border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   
