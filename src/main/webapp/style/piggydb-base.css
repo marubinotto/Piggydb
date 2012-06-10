@@ -175,10 +175,10 @@ div.message {
   right: 6px; 
 }
 
-div.message .fragment-title {
-	color: gray;
+div.ui-tooltip .fragment-title {
+	color: silver;
 	font-style: italic;
-	font-size: 9pt;
+	font-size: 90%;
 }
 
 #page-content {
