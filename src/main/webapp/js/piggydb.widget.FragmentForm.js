@@ -196,9 +196,6 @@
 					}
 				});
 			});
-			this.element.find("button.cancel").click(function() {
-				outer.close();
-			});
 			
 			this.adjustEditorHeight();
 			this.textarea.get(0).focus();	
