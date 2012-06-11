@@ -330,7 +330,7 @@ span.fragment-as-tag .ui-button {
 	background: #eee;
 	padding: 5px;
 	padding-right: 10px;
-	font-family: Arial, Helvetica, "Sans Serif";
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .ui-dialog div.fragment-editor form {
@@ -339,7 +339,7 @@ span.fragment-as-tag .ui-button {
 
 .ui-dialog div.fragment-editor input,
 .ui-dialog div.fragment-editor textarea {
-	font-family: Arial, Helvetica, "Sans Serif";
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .ui-dialog div.fragment-editor div.tags {
