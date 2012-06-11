@@ -337,7 +337,8 @@ span.fragment-as-tag .ui-button {
 	height: 100%;
 }
 
-.ui-dialog div.fragment-editor input {
+.ui-dialog div.fragment-editor input,
+.ui-dialog div.fragment-editor textarea {
 	font-family: Arial, Helvetica, "Sans Serif";
 }
 
