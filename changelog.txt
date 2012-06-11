@@ -1,6 +1,16 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev3 (2012-06-12) == #v6.0-dev3
+
+ * Updated the CSS
+   * replaced the obsolete -moz-border-radius with border-radius
+   * updated the global message style
+   * updated the font-family properties
+ * Updated the the executable file icon (courtesy of Johnny Lau)
+ * Fixed bugs
+   * updated to close the quick editor if opened when updating by the new editor
+
 == Changes in version 6.0-dev2 (2012-06-07) == #v6.0-dev2
 
  * Made the new fragment editor available for updating fragments
