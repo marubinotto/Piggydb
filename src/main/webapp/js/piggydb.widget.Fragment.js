@@ -187,7 +187,7 @@ jQuery(function() {
 		
 		setTextContent: function(content) {
 			var div = this.textContentDiv();
-			if (div.size() == 0 && this.isFull()) {	// the case of empty content
+			if (div.size() == 0 && this.isFull()) {
 				var emptyBodyRow = jQuery.trim(
 					jQuery("#tpl-fragment-body-row-with-empty-text tbody").html());
 				this.setBodyRow(emptyBodyRow);
@@ -195,6 +195,7 @@ jQuery(function() {
 			}
 			if (div.size() == 0) return false;
 			
+			this.closeQuickEditor();
 			div.html(content);
 	  	prettyPrint();
 	  	return true;
@@ -248,6 +249,14 @@ jQuery(function() {
 		fullEditor: function() {
 			var editor = this.root.siblings(".fragment-form-panel");
 			return editor.size() > 0 ? editor : null;
+		},
+		
+		quickEditor: function() {
+			return this.bodyRow().find("div.fragment-editor-quick");
+		},
+		
+		closeQuickEditor: function() {
+			this.quickEditor().empty();
 		},
 		
 		tagsPlaceholder: function() {
