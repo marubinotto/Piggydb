@@ -696,6 +696,10 @@ a.filter:hover {
  * Contents of Global Tools
  */
 
+#global-tools td.add-fragment a.tool-button {
+	margin-right: 5px;
+}
+
 #global-tools .keyword-search {
 }
 

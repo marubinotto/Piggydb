@@ -30,11 +30,19 @@
         <table class="nowrap-frame" border="0">
         <tr>
 				#if (!$user.isViewer())
+					## Add a fragment
 					<td class="add-fragment" nowrap="nowrap">
+						## Create a new text fragment
 						<a class="tool-button" href="#" title="$messages.get("create-new-fragment")"
 							onclick="piggydb.widget.FragmentForm.openToCreate(); return false;">
             <img src="$context/images/add-fragment.png" border="0" 
 							alt="$messages.get("create-new-fragment")"/></a>
+							
+						## Add a file as a fragment
+						<a class="tool-button" href="#" title="$messages.get("add-file")"
+							onclick="">
+            <img src="$context/images/add-file.png" border="0" 
+							alt="$messages.get("add-file")"/></a>
 					</td>
 					<td class="separator"></td>
 				#end
