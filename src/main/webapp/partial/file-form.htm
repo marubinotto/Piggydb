@@ -1,0 +1,19 @@
+<div class="result">
+#if ($hasErrors)
+	<span class="error">$utils.raw($error)</span>
+#else
+	<div class="file-form" id="file-form" title="$title" style="display: none;">
+	<form enctype="multipart/form-data">
+		<div class="content">
+			<input type="file" name="file"/>
+		</div>
+		<div class="buttons">
+  		<span class="buttons">
+  			<button class="register" type="button">$messages.get("register")</button>
+  		</span>
+  		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>
+  	</div>
+	</form>
+	</div>
+#end
+</div>
