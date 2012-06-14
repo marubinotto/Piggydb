@@ -32,7 +32,8 @@
 	
 	var _open = function(fragment) {
 		var editorId = fragment != null ? 
-			"fragment-editor-" + fragment.id() : "fragment-editor-new";
+			"fragment-editor-" + fragment.id() : 
+			"fragment-editor-new";
 			
 		if (_isOpen(editorId)) {
 			jQuery("#" + editorId).dialog("moveToTop");
