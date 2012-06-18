@@ -40,7 +40,7 @@
 							
 						## Add a file as a fragment
 						<a class="tool-button" href="#" title="$messages.get("add-file")"
-							onclick="">
+							onclick="piggydb.widget.FileForm.openToAdd(); return false;">
             <img src="$context/images/add-file.png" border="0" 
 							alt="$messages.get("add-file")"/></a>
 					</td>

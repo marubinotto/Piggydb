@@ -174,6 +174,14 @@ piggydb.namespace("piggydb.widget", {
 			return false;
 		}
 	};
+	module.FormDialog.checkOpenError = function(html) {
+		var error = jQuery(html).children("span.error");
+		if (error.size() > 0) {
+			module.putGlobalMessage(error.html());
+			return true;
+		}
+		return false;
+	};
 	module.FormDialog.prototype = jQuery.extend({
 	
 		close: function() {

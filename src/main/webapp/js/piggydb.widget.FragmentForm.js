@@ -42,22 +42,13 @@
 		var args = fragment != null ? {id: fragment.id()} : {};
 		piggydb.util.blockPageDuringAjaxRequest();
 		jQuery.get("partial/fragment-editor.htm", args, function(html) {
-			if (!_checkOpenError(html)) {
+			if (!module.FormDialog.checkOpenError(html)) {
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + editorId), editorId);
 				form.fragment = fragment;
 				form.open();
 			}
 		});
-	};
-	
-	var _checkOpenError = function(html) {
-		var error = jQuery(html).children("span.error");
-		if (error.size() > 0) {
-			piggydb.widget.putGlobalMessage(error.html());
-			return true;
-		}
-		return false;
 	};
 	
 	var _class = function(element, id) {

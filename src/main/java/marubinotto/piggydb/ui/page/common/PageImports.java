@@ -92,5 +92,6 @@ public class PageImports {
 		importBottomJs("js/piggydb.widget.SelectedFragments.js", true);
 		importBottomJs("js/piggydb.widget.TagPalette.js", true);
 		importBottomJs("js/piggydb.widget.FragmentForm.js", true);
+		importBottomJs("js/piggydb.widget.FileForm.js", true);
 	}
 }
