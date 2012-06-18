@@ -13,13 +13,17 @@ public class ServerContextJs extends AbstractTemplateWebResource {
 	}
 	
 	@Override
+	protected boolean needsAuthentication() {
+		return false;
+	}
+	
+	@Override
 	public void onInit() {
 		super.onInit();
 		
 		// to use the path defined in click.xml as the template for rendering
-		setForward((String) null);	
+		setForward((String)null);	
 	}
-	
 	
 	public String wikiHelpUrl;
 	
