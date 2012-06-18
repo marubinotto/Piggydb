@@ -161,6 +161,19 @@ piggydb.namespace("piggydb.widget", {
 	module.FormDialog = function(jQueryElement) {
 		module.Widget.call(this, jQueryElement);
 	};
+	module.FormDialog.isOpen = function(id) {
+		var element = jQuery("#" + id);
+		return element.size() > 0 ? element.dialog("isOpen") : false;
+	};
+	module.FormDialog.setFocusIfOpen = function(id) {
+		if (module.FormDialog.isOpen(id)) {
+			jQuery("#" + id).dialog("moveToTop");
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
 	module.FormDialog.prototype = jQuery.extend({
 	
 		close: function() {

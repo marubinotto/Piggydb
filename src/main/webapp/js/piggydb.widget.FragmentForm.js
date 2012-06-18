@@ -35,10 +35,7 @@
 			"fragment-editor-" + fragment.id() : 
 			"fragment-editor-new";
 			
-		if (_isOpen(editorId)) {
-			jQuery("#" + editorId).dialog("moveToTop");
-			return;
-		}
+		if (module.FormDialog.setFocusIfOpen(editorId)) return;
 
 		jQuery("#" + editorId).remove();
 		
@@ -52,11 +49,6 @@
 				form.open();
 			}
 		});
-	};
-	
-	var _isOpen = function(editorId) {
-		var editor = jQuery("#" + editorId);
-		return editor.size() > 0 ? editor.dialog("isOpen") : false;
 	};
 	
 	var _checkOpenError = function(html) {
