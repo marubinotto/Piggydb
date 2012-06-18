@@ -14,8 +14,10 @@ public abstract class AbstractPartial extends AbstractMainUiHtml {
 	
 	@Override
 	public void setRedirect(String location) {
-		if (location.startsWith(getContext().getPagePath(LoginPage.class)))
+		if (location.startsWith(getContext().getPagePath(LoginPage.class))) {
 			this.error = getMessage("session-expired");
+		}
+		addModel("hasErrors", hasErrors()); // for onRender won't be called
 	}
 	
 	@Override
@@ -36,6 +38,7 @@ public abstract class AbstractPartial extends AbstractMainUiHtml {
 			this.error = e.toString();
 			getLogger().error("Unexpected exception", e);
 		}
+		
 		addModel("hasErrors", hasErrors());
 		disableClientCaching();
 	}
