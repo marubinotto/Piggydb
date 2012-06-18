@@ -410,6 +410,11 @@ span.fragment-as-tag .ui-button {
 	vertical-align: middle;
 }
 
+.ui-dialog div.file-form input.file {
+	width: 100%;
+	font-size: 12px;
+}
+
 
 
 /*

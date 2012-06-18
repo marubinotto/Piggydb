@@ -27,7 +27,10 @@
 	_class.prototype = jQuery.extend({
 		
 		open: function() {
-			this.element.dialog();
+			this.element.dialog({
+				width: 600,
+				height: 100
+			});
 		}
 		
 	}, module.FormDialog.prototype);
