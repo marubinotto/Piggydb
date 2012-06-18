@@ -163,6 +163,66 @@ piggydb.namespace("piggydb.widget", {
 	};
 	module.FormDialog.prototype = jQuery.extend({
 	
+		close: function() {
+			this.element.dialog("close");	
+		},
+		
+		block: function() {
+			this.element.block({ 
+				message: '<img src="images/load-large.gif" border="0"/>',
+				centerX: true,
+		    centerY: true, 
+				css: { 
+					border: '0px solid #aaa',
+					width: '30px',
+					padding: '15px',
+					fadeIn: 0,
+					fadeOut: 0
+				},
+				overlayCSS:  { 
+	      	opacity: 0.4 
+				}
+			});
+		},
+		
+		unblock: function() {
+			this.element.unblock();
+		},
+		
+		serializeForm: function() {
+			return this.element.find("form").serializeArray();
+		},
+		
+		setFormError: function(message) {
+			piggydb.widget.putErrorMessage(this.indicator, this.id, message, this.element);
+		},
+		
+		setInputError: function(name, message) {
+			var input = this.element.find("form :input[name='" + name + "']");
+			piggydb.widget.setInputError(input, this.id + "-" + name, message, this.element);
+		},
+		
+		clearErrors: function() {
+			piggydb.widget.clearErrorMessage(this.indicator);
+			this.element.find("form :input").each(function() {
+				piggydb.widget.clearInputError(this);
+			});
+		},
+		
+		checkErrors: function(html) {
+			var errors = jQuery(html).children("div.errors");
+			if (errors.size() == 0) return false;
+			
+			var outer = this;
+			errors.find("span.global-error").each(function() {
+				outer.setFormError(jQuery(this).html());
+			})
+			errors.find("div.field-errors > span").each(function() {
+				outer.setInputError(jQuery(this).attr("class"), jQuery(this).html());
+			});
+			return true;
+		}
+	
 	}, module.Widget.prototype);
 	
 	
