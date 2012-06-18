@@ -158,6 +158,13 @@ piggydb.namespace("piggydb.widget", {
 	};
 	
 	
+	module.FormDialog = function(jQueryElement) {
+		module.Widget.call(this, jQueryElement);
+	};
+	module.FormDialog.prototype = jQuery.extend({
+	
+	}, module.Widget.prototype);
+	
 	
 	/**
 	 *  Facebox based on facebox (http://famspam.com/facebox)

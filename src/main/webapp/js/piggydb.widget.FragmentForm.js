@@ -69,7 +69,7 @@
 	};
 	
 	var _class = function(element, id) {
-		module.Widget.call(this, element);
+		module.FormDialog.call(this, element);
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.indicator = this.element.find("span.indicator");
@@ -270,7 +270,7 @@
 			});
 		}
 		
-	}, module.Widget.prototype);
+	}, module.FormDialog.prototype);
 	
 	module.FragmentForm = _class;
 
