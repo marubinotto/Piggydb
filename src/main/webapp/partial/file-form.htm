@@ -3,17 +3,20 @@
 	<span class="error">$utils.raw($error)</span>
 #else
 	<div class="fragment-editor file-form" id="file-form" title="$title" style="display: none;">
-	<form enctype="multipart/form-data">
-		<div class="content">
-			<input type="file" class="file" name="file" size="60"/>
-		</div>
-		<div class="buttons">
-  		<span class="buttons">
-  			<button class="register" type="button">$messages.get("register")</button>
-  		</span>
-  		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>
-  	</div>
-	</form>
+  	<form class="upload-file" enctype="multipart/form-data" target="upload-frame"
+			action="$context/partial/upload-file.htm">
+  		<div class="content">
+  			<input type="file" class="file" name="file" size="60"/>
+  		</div>
+			<div class="uploaded-file"></div>
+  		<div class="buttons">
+    		<span class="buttons">
+    			<button class="register" type="button">$messages.get("register")</button>
+    		</span>
+    		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>
+    	</div>
+  	</form>
+		<iframe name="upload-frame" style="position: absolute; top: -9999px"></iframe>
 	</div>
 #end
 </div>

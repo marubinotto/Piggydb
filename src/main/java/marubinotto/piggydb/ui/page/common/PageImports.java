@@ -63,10 +63,12 @@ public class PageImports {
 		this.css.append(DEFAULT_CSS_IMPORTS);
 	}
 	
+	public static final String JQUERY_PATH = "js/vendor/jquery-1.7.2.min.js";
+	
 	private void setDefaultHeadJs() {
 		if (DEFAULT_HEAD_JS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
-			addJsImportTo(imports, "js/vendor/jquery-1.7.2.min.js", false);
+			addJsImportTo(imports, JQUERY_PATH, false);
 			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
 			addJsImportTo(imports, "js/vendor/jquery.blockUI.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);

@@ -27,9 +27,20 @@
 	_class.prototype = jQuery.extend({
 		
 		open: function() {
+			var outer = this;
+			
+			var initialHeight = 80;
 			this.element.dialog({
 				width: 600,
-				height: 100
+				height: initialHeight
+			});
+		
+			this.element.find("div.buttons").hide();
+			
+			this.element.find("input.file").change(function() {
+				outer.element.dialog("option", "height", initialHeight + 15);
+				outer.element.find("div.uploaded-file").putLoadingIcon("margin: 5px 10px;");
+				outer.element.find("form.upload-file").submit();
 			});
 		}
 		
