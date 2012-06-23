@@ -415,6 +415,14 @@ span.fragment-as-tag .ui-button {
 	font-size: 12px;
 }
 
+.ui-dialog div.file-form div.uploaded-file div.file {
+	margin: 5px;
+}
+
+.ui-dialog div.file-form div.uploaded-file div.file img {
+	max-width: 560px;
+}
+
 
 
 /*

@@ -39,7 +39,7 @@
 			
 			this.element.find("input.file").change(function() {
 				outer.element.dialog("option", "height", initialHeight + 15);
-				outer.element.find("div.uploaded-file").putLoadingIcon("margin: 5px 10px;");
+				outer.element.find("div.uploaded-file").empty().putLoadingIcon("margin: 5px 10px;");
 				outer.element.find("form.upload-file").submit();
 			});
 		}

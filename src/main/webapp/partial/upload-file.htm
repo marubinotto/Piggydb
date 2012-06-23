@@ -4,11 +4,20 @@
 	<script type="text/javascript" src="$context/$jQueryPath"></script>
 	<script type="text/javascript">
 	jQuery(function() {
-		alert("$uploadedFilePath - $error");
+		var form = jQuery('#file-form', window.parent.document);
+		form.find("div.uploaded-file").html(jQuery('#uploaded-file').html());
 	});
 	</script>
 </head>
 <body>
 
+<div id="uploaded-file">
+  <div class="file">
+  #if ($isImageFile)
+		<img class="uploaded" src="${context}${uploadedFilePath}" border="0" alt=""/>
+	#end
+  </div>
+</div>
+		
 </body>
 </html>
