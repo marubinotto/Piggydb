@@ -3,8 +3,8 @@
 	<span class="error">$utils.raw($error)</span>
 #else
 	<div class="fragment-editor file-form" id="file-form" title="$title" style="display: none;">
-  	<form class="upload-file" enctype="multipart/form-data" target="upload-frame"
-			action="$context/partial/upload-file.htm">
+  	<form class="upload-file" method="post" enctype="multipart/form-data" 
+				target="upload-frame" action="$context/partial/upload-file.htm">
   		<div class="content">
   			<input type="file" class="file" name="file" size="60"/>
   		</div>

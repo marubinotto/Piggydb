@@ -327,14 +327,14 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		
 		this.fileSize = new Size(fileInput.getSize());
 	}
-	
-    public FileItem getFileInput() {
+
+	public FileItem getFileInput() {
 		return this.fileInput;
 	}
 
 	private static String getFileName(FileItem fileItem) {
-        return FilenameUtils.getName(fileItem.getName());
-    }
+		return FilenameUtils.getName(fileItem.getName());
+	}
 
 	public String getFileName() {
 		return this.fileName;
