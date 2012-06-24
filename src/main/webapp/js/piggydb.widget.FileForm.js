@@ -16,6 +16,8 @@
 		});
 	};
 	
+	var _initialHeight = 75;
+	
 	var _class = function(element) {
 		module.FormDialog.call(this, element);
 	};
@@ -29,19 +31,41 @@
 		open: function() {
 			var outer = this;
 			
-			var initialHeight = 80;
 			this.element.dialog({
 				width: 600,
-				height: initialHeight
+				height: _initialHeight
 			});
 		
-			this.element.find("div.buttons").hide();
+			this.buttonsDiv().hide();
 			
 			this.element.find("input.file").change(function() {
-				outer.element.dialog("option", "height", initialHeight + 15);
-				outer.element.find("div.uploaded-file").empty().putLoadingIcon("margin: 5px 10px;");
+				outer.setDialogHeight(_initialHeight + 15);
+				outer.previewDiv().empty().putLoadingIcon("margin: 5px 10px;");
 				outer.element.find("form.upload-file").submit();
 			});
+			this.element.find("div.onPreviewUpdate").click(function() {
+				outer.onPreviewUpdate();
+			});
+		},
+		
+		setDialogHeight: function(height) {
+			this.element.dialog("option", "height", height);
+		},
+		
+		buttonsDiv: function() {
+			return this.element.find("div.buttons");
+		},
+		
+		previewDiv: function() {
+			return this.element.find("div.preview");
+		},
+		
+		onPreviewUpdate: function() {
+			this.buttonsDiv().show();
+			this.setDialogHeight(
+				_initialHeight + 
+				this.previewDiv().height() +
+				this.buttonsDiv().height());
 		}
 		
 	}, module.FormDialog.prototype);

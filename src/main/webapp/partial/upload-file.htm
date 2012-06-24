@@ -5,7 +5,11 @@
 	<script type="text/javascript">
 	jQuery(function() {
 		var form = jQuery('#file-form', window.parent.document);
-		form.find("div.uploaded-file").html(jQuery('#uploaded-file').html());
+		var fileView = jQuery(jQuery('#uploaded-file').html());
+		fileView.find("img").load(function() {
+			form.find("div.onPreviewUpdate").click();
+		});
+		form.find("div.preview").empty().append(fileView);
 	});
 	</script>
 </head>
