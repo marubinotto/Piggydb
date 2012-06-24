@@ -318,14 +318,14 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		Assert.Arg.notNull(fileInput, "fileInput");
 		
 		this.fileInput = fileInput;
-		this.fileName = getFileName(fileInput);
-		
-		String extension = FilenameUtils.getExtension(this.fileName);
-		if (StringUtils.isNotBlank(extension)) {
-			this.fileType = extension.toLowerCase();
-		}
-		
+		this.fileName = getFileName(fileInput);		
+		this.fileType = getFileType(this.fileName);
 		this.fileSize = new Size(fileInput.getSize());
+	}
+	
+	public static String getFileType(String fileName) {
+		String extension = FilenameUtils.getExtension(fileName);
+		return StringUtils.isNotBlank(extension) ? extension.toLowerCase() : null;
 	}
 
 	public FileItem getFileInput() {

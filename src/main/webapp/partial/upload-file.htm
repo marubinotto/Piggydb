@@ -19,7 +19,12 @@
   <div class="file">
   #if ($isImageFile)
 		<img class="uploaded" src="${context}${uploadedFilePath}" border="0" alt=""/>
+		<br/>
+	#else
+		$utils.raw($html.fileIcon($fileType))
 	#end
+		<span class="file-name">$fileName</span>
+		<span class="file-size">($fileSize)</span>
   </div>
 </div>
 		

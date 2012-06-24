@@ -3,7 +3,9 @@ package marubinotto.piggydb.ui.page.partial;
 import java.io.File;
 import java.io.IOException;
 
+import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.ui.page.common.PageImports;
+import marubinotto.util.Size;
 import net.sf.click.util.ClickUtils;
 
 import org.apache.commons.fileupload.FileItem;
@@ -13,8 +15,11 @@ import org.apache.commons.io.FilenameUtils;
 public class UploadFile extends AbstractPartial {
 	
 	public String jQueryPath;
+	
 	public String fileName;
-	public String extension;
+	public String fileType;
+	public Size fileSize;
+	
 	public String uploadedFilePath;
 	public boolean isImageFile = false;
 
@@ -36,9 +41,11 @@ public class UploadFile extends AbstractPartial {
 		}
 		
 		this.fileName = FilenameUtils.getName(fileItem.getName());
-  	this.extension = FilenameUtils.getExtension(this.fileName);
+  	this.fileType = RawFragment.getFileType(this.fileName);
+  	this.fileSize = new Size(fileItem.getSize());
   	
-  	File file = createUploadFilePath("." + this.extension);
+  	String suffix = this.fileType != null ? ("." + this.fileType) : null;
+  	File file = createUploadFilePath(suffix);
   	fileItem.write(file);
   	
   	this.uploadedFilePath = "/" + UPLOAD_DIR_NAME + "/" + file.getName();
