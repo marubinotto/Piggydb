@@ -93,7 +93,7 @@ public class H2DbUpgradeTest {
 		isDatabaseFileFormatVersion1_1();
 		
 		File exportFilePath = this.object.getExportFilePath();
-		FileUtils.writeStringToFile(exportFilePath, "dummy", null);
+		FileUtils.writeStringToFile(exportFilePath, "dummy");
 		this.object.renameDatabaseFiles(exportFilePath);
 		
 		assertEquals(

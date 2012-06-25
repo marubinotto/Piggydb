@@ -36,7 +36,7 @@ public class FileSystemFixtureTest {
 		// Then
 		File expectedFile = new File(this.baseDirectory, "path/to/file");
 		assertTrue(expectedFile.isFile());
-		assertEquals("content", FileUtils.readFileToString(expectedFile, null));
+		assertEquals("content", FileUtils.readFileToString(expectedFile));
 	}
 
 	@Test

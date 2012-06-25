@@ -17,9 +17,11 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 			this.fragment = getDomain().getFragmentRepository().newInstance(getUser());
 		}
 		
-		bindValues();
-		if (hasErrors()) return;
-		
+		bindValues();	
+		if (!hasErrors()) saveFragment();
+	}
+	
+	protected void saveFragment() throws Exception {
 		// register
 		if (this.fragment.getId() == null) {
 			this.newId = (Long)getDomain().getTransaction().execute(new Procedure() {

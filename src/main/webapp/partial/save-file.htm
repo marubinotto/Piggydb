@@ -1,0 +1,12 @@
+<div class="result">
+#if ($hasErrors)
+	#fragmentFormErrors()
+#else
+	#if ($success)
+		<span class="success">$utils.raw($success)</span>
+	#end
+	#if ($newId)
+		<span class="new-id">$newId</span>
+	#end
+#end
+</div>
