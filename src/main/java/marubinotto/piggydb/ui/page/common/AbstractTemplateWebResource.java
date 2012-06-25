@@ -9,6 +9,7 @@ public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 	
 	private static final String MK_VERSION = "version";
 	private static final String MK_LANG = "lang";
+	private static final String MK_CAN_UPLOAD_FILE = "canUploadFile";
 	
 	public HtmlFragments html;
 
@@ -33,6 +34,7 @@ public abstract class AbstractTemplateWebResource extends AbstractWebResource {
 		
 		addModel(MK_VERSION, getWarSetting().getPiggydbVersion());
 		addModel(MK_LANG, getContext().getLocale().getLanguage());
+		addModel(MK_CAN_UPLOAD_FILE, canUploadFile());
 			
 		this.loop = new LoopTool();
 		this.wikiParser = (WikiParser)getBean("wikiParser");

@@ -6,6 +6,7 @@ import java.io.IOException;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.ui.page.common.PageImports;
 import marubinotto.util.Size;
+import marubinotto.util.message.CodedException;
 import net.sf.click.util.ClickUtils;
 
 import org.apache.commons.fileupload.FileItem;
@@ -26,6 +27,9 @@ public class UploadFile extends AbstractPartial {
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();
+		
+		if (!canUploadFile())
+			throw new CodedException("no-authority-for-page");
 		
 		if (!getContext().isMultipartRequest()) {
 			this.error = "Not a multipart content";

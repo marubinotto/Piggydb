@@ -74,4 +74,17 @@ public class WarSetting {
 	public void setDefaultFragmentsViewScale(Integer defaultFragmentsViewScale) {
 		this.defaultFragmentsViewScale = defaultFragmentsViewScale;
 	}
+	
+	
+	// allowsOnlyOwnerToUploadFile
+	
+	private boolean allowsOnlyOwnerToUploadFile = false;
+
+	public boolean isAllowsOnlyOwnerToUploadFile() {
+		return this.allowsOnlyOwnerToUploadFile;
+	}
+
+	public void setAllowsOnlyOwnerToUploadFile(boolean allowsOnlyOwnerToUploadFile) {
+		this.allowsOnlyOwnerToUploadFile = allowsOnlyOwnerToUploadFile;
+	}
 }

@@ -15,6 +15,7 @@
     <property name="userAgentAuthEnabled" value="${piggydb.enableUserAgentAuth}"/>
     <property name="entityChangeableOnlyForCreator" value="${piggydb.entity.changeableOnlyForCreator}"/>
     <property name="defaultFragmentsViewScale" value="${piggydb.fragmentsView.defaultScale}"/>
+    <property name="allowsOnlyOwnerToUploadFile" value="false"/>
   </bean>
   
   <bean id="marubinotto.piggydb.ui.page.RestorePage" 

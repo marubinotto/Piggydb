@@ -120,6 +120,11 @@ implements ApplicationContextAware, WebMessageSource {
 	protected final WarSetting getWarSetting() {
 		return (WarSetting)getBean("warSetting");
 	}
+	
+	protected boolean canUploadFile() {
+		return !getWarSetting().isAllowsOnlyOwnerToUploadFile() || 
+			(getUser() != null && getUser().isOwner());
+	}
 
 	//
 	// Access control

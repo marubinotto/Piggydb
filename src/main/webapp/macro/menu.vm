@@ -38,11 +38,13 @@
             <img src="$context/images/add-fragment.png" border="0" 
 							alt="$messages.get("create-new-fragment")"/></a>
 							
+					#if ($canUploadFile)
 						## Add a file as a fragment
 						<a class="tool-button" href="#" title="$messages.get("add-file")"
 							onclick="piggydb.widget.FileForm.openToAdd(); return false;">
             <img src="$context/images/add-file.png" border="0" 
 							alt="$messages.get("add-file")"/></a>
+					#end
 					</td>
 					<td class="separator"></td>
 				#end
