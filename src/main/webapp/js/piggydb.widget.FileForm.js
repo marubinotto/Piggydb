@@ -33,7 +33,10 @@
 			
 			this.element.dialog({
 				width: 600,
-				height: _initialHeight
+				height: _initialHeight,
+				close: function(event, ui) {
+					piggydb.widget.Fragment.imageViewer.close();
+				}
 			});
 		
 			this.buttonsDiv().hide();
@@ -66,6 +69,7 @@
 				_initialHeight + 
 				this.previewDiv().height() +
 				this.buttonsDiv().height());
+			piggydb.widget.Fragment.imageViewer.close();
 		}
 		
 	}, module.FormDialog.prototype);
