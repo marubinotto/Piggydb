@@ -18,7 +18,8 @@
 <div id="uploaded-file">
   <div class="file">
   #if ($isImageFile)
-		<img class="uploaded" src="${context}${uploadedFilePath}" border="0" alt=""/>
+		<a class="img-link" href="${context}${uploadedFilePath}">
+		<img class="uploaded" src="${context}${uploadedFilePath}" border="0" alt=""/></a>
 		<br/>
 	#else
 		$utils.raw($html.fileIcon($fileType))

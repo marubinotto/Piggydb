@@ -228,7 +228,7 @@ button.pulled span.label {
 /* Facebox Image Viewer */
 
 #facebox-image-viewer {
-  z-index: 85;
+  z-index: 1200;
 }
 
 #facebox-image-viewer .header {
