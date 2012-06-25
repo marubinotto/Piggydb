@@ -4,12 +4,17 @@
 	<script type="text/javascript" src="$context/$jQueryPath"></script>
 	<script type="text/javascript">
 	jQuery(function() {
+	#if ($hasErrors)
+		jQuery('#file-form div.preview', window.parent.document).empty();
+		alert("$error");
+	#else
 		var form = jQuery('#file-form', window.parent.document);
 		var fileView = jQuery(jQuery('#uploaded-file').html());
 		fileView.find("img").load(function() {
 			form.find("div.onPreviewUpdate").click();
 		});
 		form.find("div.preview").empty().append(fileView);
+	#end
 	});
 	</script>
 </head>

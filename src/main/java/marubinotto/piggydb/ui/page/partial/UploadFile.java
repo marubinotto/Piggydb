@@ -14,7 +14,7 @@ import org.apache.commons.io.FilenameUtils;
 
 public class UploadFile extends AbstractPartial {
 	
-	public String jQueryPath;
+	public final String jQueryPath = PageImports.JQUERY_PATH;
 	
 	public String fileName;
 	public String fileType;
@@ -26,8 +26,6 @@ public class UploadFile extends AbstractPartial {
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();
-		
-		this.jQueryPath = PageImports.JQUERY_PATH;
 		
 		if (!getContext().isMultipartRequest()) {
 			this.error = "Not a multipart content";
