@@ -11,7 +11,6 @@ import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
 import marubinotto.piggydb.ui.page.control.CalendarIndex;
-import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.Month;
@@ -51,20 +50,11 @@ public class HomePage extends AbstractFragmentsPage {
 	// Control
 	//
 
-	private FragmentFormPanel fragmentFormPanel;
-
 	@Override
 	public void onInit() {
 		super.onInit();
 
 		this.today = DateTime.getCurrentTime();
-		initControls();
-	}
-
-	private void initControls() {
-		this.fragmentFormPanel = createFragmentFormPanel();
-		this.fragmentFormPanel.setRedirectPathAfterRegistration(
-			getContext().getPagePath(HomePage.class));
 	}
 
 	//
