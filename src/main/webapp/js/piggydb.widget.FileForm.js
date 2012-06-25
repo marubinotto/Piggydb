@@ -20,6 +20,9 @@
 	
 	var _class = function(element) {
 		module.FormDialog.call(this, element);
+		this.id = _ID;
+		this.indicator = this.element.find("span.indicator");
+		this.fragment = null;		// target fragment widget to be updated
 	};
 	
 	_class.openToAdd = function() {
@@ -49,6 +52,21 @@
 			this.element.find("div.onPreviewUpdate").click(function() {
 				outer.onPreviewUpdate();
 			});
+			this.element.find("button.register").click(function() {
+				outer.clearErrors();
+				outer.block();
+				var values = outer.element.find("form.save-file").serializeArray();
+				jQuery.post("partial/save-file.htm", values, function(html) {
+					if (outer.checkErrors(html)) {
+						piggydb.widget.Fragment.imageViewer.close();
+						outer.unblock();
+					}
+					else {
+						piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
+						outer.close();
+					}
+				});
+			});
 		},
 		
 		setDialogHeight: function(height) {
@@ -68,7 +86,8 @@
 			this.setDialogHeight(
 				_initialHeight + 
 				this.previewDiv().height() +
-				this.buttonsDiv().height());
+				this.buttonsDiv().height() +
+				5);
 			piggydb.widget.Fragment.imageViewer.close();
 		}
 		

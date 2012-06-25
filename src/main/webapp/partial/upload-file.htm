@@ -9,6 +9,11 @@
 		alert("$error");
 	#else
 		var form = jQuery('#file-form', window.parent.document);
+		
+		form.find("form.save-file")
+			.find("input.fileName").val("$fileName").end()
+			.find("input.uploadedFilePath").val("$uploadedFilePath");
+		
 		var fileView = jQuery(jQuery('#uploaded-file').html());
 		fileView.find("img").load(function() {
 			form.find("div.onPreviewUpdate").click();

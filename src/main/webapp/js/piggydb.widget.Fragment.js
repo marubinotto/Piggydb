@@ -146,6 +146,25 @@ jQuery(function() {
 	  });  
 	};
 	
+	_class.onAjaxSaved = function(response, fragment) {
+		jQuery(response).find("span.success").each(function() {
+			piggydb.widget.putGlobalMessage(jQuery(this).html());
+		});
+		// created 
+		jQuery(response).find("span.new-id").each(function() {
+			if (typeof fragmentsView_fragmentsByDate != "undefined") {
+				fragmentsView_fragmentsByDate.refresh(jQuery(this).text());
+			}
+		});
+		// updated
+		if (fragment != null) {
+			jQuery(response).children("div.fragment-properties").each(function() {
+				fragment.update(jQuery(this));
+			});
+			_class.highlight(fragment.id(), null);
+		}
+	};
+	
 	_class.prototype = jQuery.extend({
 		
 		id: function() {

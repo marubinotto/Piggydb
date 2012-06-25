@@ -17,6 +17,12 @@
     		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>
     	</div>
   	</form>
+		<form class="save-file" style="position: absolute; top: -9999px">
+			<input type="hidden" name="id" value="$fragment.getId()"/>
+			<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
+			<input type="hidden" class="fileName" name="fileName"/>
+			<input type="hidden" class="uploadedFilePath" name="uploadedFilePath"/>
+		</form>
 		<iframe name="upload-frame" style="position: absolute; top: -9999px"></iframe>
 	</div>
 #end

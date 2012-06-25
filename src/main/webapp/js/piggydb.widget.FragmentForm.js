@@ -160,22 +160,7 @@
 						outer.unblock();
 					}
 					else {
-						jQuery(html).find("span.success").each(function() {
-							piggydb.widget.putGlobalMessage(jQuery(this).html());
-						});
-						// created 
-						jQuery(html).find("span.new-id").each(function() {
-							if (typeof fragmentsView_fragmentsByDate != "undefined") {
-								fragmentsView_fragmentsByDate.refresh(jQuery(this).text());
-							}
-						});
-						// updated
-						if (outer.fragment != null) {
-							jQuery(html).children("div.fragment-properties").each(function() {
-								outer.fragment.update(jQuery(this));
-							});
-							piggydb.widget.Fragment.highlight(outer.fragment.id(), null);
-						}
+						piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
 						outer.close();
 					}
 				});
