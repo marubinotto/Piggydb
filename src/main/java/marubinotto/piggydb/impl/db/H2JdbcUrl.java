@@ -132,7 +132,6 @@ public class H2JdbcUrl implements ServletContextAware {
 		return prepared;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void logUrl(String url) throws IOException {
 		logger.info("jdbcUrl: " + url);
 		if (this.logFile == null) return;

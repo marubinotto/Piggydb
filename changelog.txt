@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev4 (2012-06-26) == #v6.0-dev4
+
+ * Added a File Upload Dialog and a "Add a file" button to the main menu bar
+ * Added a SVG icon to the standalone package
+
 == Changes in version 6.0-dev3 (2012-06-12) == #v6.0-dev3
 
  * Updated the CSS
