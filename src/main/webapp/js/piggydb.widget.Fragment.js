@@ -19,7 +19,6 @@ jQuery(function() {
 	  jQuery("table.fragment").live('mouseleave', function() {
 	    jQuery(this).find(".fragment-tools").eq(0).hide();
 	  });
-	  jQuery("a.img-link").live("click", _class.onImageClick);
 	  _class.makeFragmentsDroppable("table.fragment", null);
 	  _class.makeRelationsDraggable("");
 	};
@@ -40,13 +39,6 @@ jQuery(function() {
 	_class.onShowHiddenTags = function(button) {
 	  jQuery(button).siblings(".hidden-tags").show();
 	  jQuery(button).hide();
-	};
-	
-	_class.imageViewer = new piggydb.widget.Facebox("facebox-image-viewer");
-	
-	_class.onImageClick = function() {
-		_class.imageViewer.showImage(this.href);
-	  return false;
 	};
 	
 	_class.syncTitles = function(id, title, headline) {

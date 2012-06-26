@@ -1,3 +1,11 @@
+jQuery(function() {
+	jQuery("a.img-link").live("click", function() {
+		piggydb.widget.imageViewer.showImage(this.href);
+	  return false;
+	});
+});
+
+
 piggydb.namespace("piggydb.widget", {
 	
 	instances: [],
@@ -8,6 +16,7 @@ piggydb.namespace("piggydb.widget", {
 		return "piggydb.widget.instances[" + index + "]";
 	}
 });
+
 
 (function(module) {
 	
@@ -359,6 +368,7 @@ piggydb.namespace("piggydb.widget", {
 		}		
 	}, module.Widget.prototype);
 	
+	module.imageViewer = new module.Facebox("facebox-image-viewer");
 	
 	
 	/**

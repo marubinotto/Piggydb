@@ -38,7 +38,7 @@
 				width: 600,
 				height: _initialHeight,
 				close: function(event, ui) {
-					piggydb.widget.Fragment.imageViewer.close();
+					piggydb.widget.imageViewer.close();
 				}
 			});
 		
@@ -58,7 +58,7 @@
 				var values = outer.element.find("form.save-file").serializeArray();
 				jQuery.post("partial/save-file.htm", values, function(html) {
 					if (outer.checkErrors(html)) {
-						piggydb.widget.Fragment.imageViewer.close();
+						piggydb.widget.imageViewer.close();
 						outer.unblock();
 					}
 					else {
@@ -88,7 +88,7 @@
 				this.previewDiv().height() +
 				this.buttonsDiv().height() +
 				5);
-			piggydb.widget.Fragment.imageViewer.close();
+			piggydb.widget.imageViewer.close();
 		}
 		
 	}, module.FormDialog.prototype);
