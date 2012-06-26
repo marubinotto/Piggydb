@@ -124,32 +124,30 @@ public class PiggydbServer {
 
 	static void initServer() throws IOException {
 		server = new Server();
-        SelectChannelConnector connector = new SelectChannelConnector();
-        connector.setPort(settings.getPort());
-        server.addConnector(connector);
+		SelectChannelConnector connector = new SelectChannelConnector();
+		connector.setPort(settings.getPort());
+		server.addConnector(connector);
 
 		File resourceBase = settings.getResourcePath(WEBAPP_DIR);
 		File descriptor = settings.getResourcePath(WEBAPP_DIR + "/WEB-INF/web.xml");
-		
-		if (!resourceBase.isDirectory()) 
-			throw new FileNotFoundException(resourceBase.getAbsolutePath());
-		if (!descriptor.isFile()) 
-			throw new FileNotFoundException(descriptor.getAbsolutePath());
-		
+
+		if (!resourceBase.isDirectory()) throw new FileNotFoundException(resourceBase.getAbsolutePath());
+		if (!descriptor.isFile()) throw new FileNotFoundException(descriptor.getAbsolutePath());
+
 		// Apply application.properties
 		File appSettingsSrc = settings.getResourcePath(APP_SETTINGS_FILE_NAME);
 		if (appSettingsSrc.isFile()) {
 			File appSettingsDest = settings.getResourcePath(APP_SETTINGS_FILE_PATH);
 			FileUtils.copyFile(appSettingsSrc, appSettingsDest);
 		}
-		
-		webapp = new WebAppContext();
-        webapp.setContextPath("/");
-        webapp.setResourceBase(resourceBase.getAbsolutePath());
-        webapp.setDescriptor(descriptor.getAbsolutePath());
-        webapp.setParentLoaderPriority(true);
 
-        server.setHandler(webapp);
+		webapp = new WebAppContext();
+		webapp.setContextPath("/");
+		webapp.setResourceBase(resourceBase.getAbsolutePath());
+		webapp.setDescriptor(descriptor.getAbsolutePath());
+		webapp.setParentLoaderPriority(true);
+
+		server.setHandler(webapp);
 	}
 	
 	static void ensureWebappAvailable() throws Throwable {
@@ -181,44 +179,45 @@ public class PiggydbServer {
 	static void setupTrayIcon() throws IOException, AWTException {
 		logger.debug("Loading the tray icon ...");
 		trayIcon = new TrayIcon(
-			ImageIO.read(PiggydbServer.class.getResourceAsStream("tray-icon.png")), SERVER_NAME);
+			ImageIO.read(PiggydbServer.class.getResourceAsStream("tray-icon.png")), 
+			SERVER_NAME);
 		// trayIcon.setImageAutoSize(true);
-		
+
 		PopupMenu menu = new PopupMenu();
-        menu.add(createMenuItem(messages.getString("home"), new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-            	try {
-            		launchBrowser();
-				} 
-            	catch (Exception e) {
+		menu.add(createMenuItem(messages.getString("home"), new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				try {
+					launchBrowser();
+				}
+				catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-            }
-        }));
-        menu.add(createMenuItem(messages.getString("info"), new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-            	trayIcon.displayMessage(
-            		SERVER_NAME, 
-            		"Piggydb server is running on port " + settings.getPort(), 
-            		TrayIcon.MessageType.INFO);
-            }
-        }));
-        menu.add(createMenuItem(messages.getString("shutdown"), new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-            	try {
+			}
+		}));
+		menu.add(createMenuItem(messages.getString("info"), new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				trayIcon.displayMessage(
+					SERVER_NAME, 
+					"Piggydb server is running on port " + settings.getPort(), 
+					TrayIcon.MessageType.INFO);
+			}
+		}));
+		menu.add(createMenuItem(messages.getString("shutdown"), new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				try {
 					server.stop();
-				} 
-            	catch (Exception e) {
+				}
+				catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-                System.exit(0);
-            }
-        }));
-        trayIcon.setPopupMenu(menu);
-        
-        logger.debug("Adding the icon to the system tray ...");
+				System.exit(0);
+			}
+		}));
+		trayIcon.setPopupMenu(menu);
+
+		logger.debug("Adding the icon to the system tray ...");
 		SystemTray.getSystemTray().add(trayIcon);
-		
+
 		logger.debug("Done setupTrayIcon()");
 	}
 	
