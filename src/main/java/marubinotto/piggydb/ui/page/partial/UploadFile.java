@@ -66,10 +66,9 @@ public class UploadFile extends AbstractPartial {
 	}
 	
 	private File createUploadFilePath(String fileType) throws IOException {
-		String fileName = 
-			getContext().getSession().getId() + "_" + System.currentTimeMillis() + 
-			(fileType != null ? ("." + fileType) : "");
-		
-		return new File(getUploadDir(), fileName);
+		return File.createTempFile(
+			getContext().getSession().getId() + "_",
+			(fileType != null ? ("." + fileType) : ""),
+			getUploadDir());
 	}
 }

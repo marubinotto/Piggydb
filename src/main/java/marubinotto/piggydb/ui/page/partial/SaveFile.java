@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
-import marubinotto.util.FileSystemUtils;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.UnhandledException;
@@ -32,8 +30,8 @@ public class SaveFile extends SaveFragment implements FileItem {
 		if (isBlank(this.uploadedFilePath))
 			throw new IllegalStateException("uploadedFilePath is null");
 		
-		String realPath = getContext().getServletContext()
-			.getRealPath(this.uploadedFilePath);
+		String realPath = 
+			getContext().getServletContext().getRealPath(this.uploadedFilePath);
 		return new File(realPath);
 	}
 
@@ -77,7 +75,7 @@ public class SaveFile extends SaveFragment implements FileItem {
 		try {
 			File uploadedFile = getUploadedFilePath();
 			byte[] content = FileUtils.readFileToByteArray(uploadedFile);
-			FileSystemUtils.forceDeleteIfExist(uploadedFile);
+			uploadedFile.delete();
 			return content;
 		}
 		catch (IOException e) {
@@ -107,13 +105,13 @@ public class SaveFile extends SaveFragment implements FileItem {
 
 	@Override
 	public void delete() {
-		throw new UnsupportedOperationException();
+		getUploadedFilePath().delete();
 	}
 
 	@Override
 	public void write(File file) throws Exception {
 		File uploadedFile = getUploadedFilePath();
 		FileUtils.copyFile(uploadedFile, file, true);
-		FileSystemUtils.forceDeleteIfExist(uploadedFile);
+		uploadedFile.delete();
 	}
 }
