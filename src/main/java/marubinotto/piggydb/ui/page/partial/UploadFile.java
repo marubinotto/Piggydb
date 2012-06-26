@@ -46,8 +46,7 @@ public class UploadFile extends AbstractPartial {
   	this.fileType = RawFragment.getFileType(this.fileName);
   	this.fileSize = new Size(fileItem.getSize());
   	
-  	String suffix = this.fileType != null ? ("." + this.fileType) : null;
-  	File file = createUploadFilePath(suffix);
+  	File file = createUploadFilePath(this.fileType);
   	fileItem.write(file);
   	
   	this.uploadedFilePath = "/" + UPLOAD_DIR_NAME + "/" + file.getName();
@@ -66,8 +65,11 @@ public class UploadFile extends AbstractPartial {
 		return dir;
 	}
 	
-	private File createUploadFilePath(String suffix) throws IOException {
-		String prefix = getContext().getSession().getId();
-		return File.createTempFile(prefix, suffix, getUploadDir());
+	private File createUploadFilePath(String fileType) throws IOException {
+		String fileName = 
+			getContext().getSession().getId() + "_" + System.currentTimeMillis() + 
+			(fileType != null ? ("." + fileType) : "");
+		
+		return new File(getUploadDir(), fileName);
 	}
 }
