@@ -423,7 +423,7 @@ span.fragment-as-tag .ui-button {
 	max-width: 560px;
 }
 
-.ui-dialog div.file-form div.preview div.file span.file-name {
+.ui-dialog div.file-form div.preview div.file .file-name {
 	font-size: 12px;
 }
 

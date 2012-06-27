@@ -68,7 +68,9 @@
 
 #if ($fragment.canChange($user))
   <a class="tool-button edit-fragment"
-		#if (!$fragment.isFile()) 
+		#if ($fragment.isFile()) 
+			onclick="piggydb.widget.FileForm.openToUpdate(this); return false;" 
+		#else
 			onclick="piggydb.widget.FragmentForm.openToUpdate(this); return false;" 
 		#end
 		href="$resources.fragmentPath($fragment.id)&amp;edit=true" target="_blank"

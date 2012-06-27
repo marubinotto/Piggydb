@@ -71,6 +71,7 @@ public class HtmlFragments {
 		Assert.Arg.notNull(fragment, "fragment");
 		return XmlStringBuilder.create("span")
 			.element("a")
+				.attribute("class", "file-name")
 				.attribute("href", this.webResources.fragmentFilePath(fragment.getId()))
 				.text(WebUtils.escapeHtml(fragment.getFileName())).end()
 			.text(" ")

@@ -2,15 +2,18 @@
 	
 	var _ID = "file-form";
 	
-	var _open = function() {
+	var _open = function(fragment) {
 		if (module.FormDialog.setFocusIfOpen(_ID)) return;
 		
 		jQuery("#" + _ID).remove();
+		
+		var args = fragment != null ? {id: fragment.id()} : {};
 		piggydb.util.blockPageDuringAjaxRequest();
-		jQuery.get("partial/file-form.htm", function(html) {
+		jQuery.get("partial/file-form.htm", args, function(html) {
 			if (!module.FormDialog.checkOpenError(html)) {
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + _ID));
+				form.fragment = fragment;
 				form.open();
 			}
 		});
@@ -29,7 +32,11 @@
 	};
 	
 	_class.openToAdd = function() {
-		_open();
+		_open(null);
+	};
+	
+	_class.openToUpdate = function(button) {
+		_open(new piggydb.widget.Fragment(button));
 	};
 	
 	_class.prototype = jQuery.extend({
@@ -67,6 +74,12 @@
 						outer.close();
 					}
 				});
+			});
+			this.element.find("div.preview img").load(function() {
+				outer.setDialogHeight(
+					_initialHeight + 
+					outer.previewDiv().height() +
+					5);
 			});
 		},
 		

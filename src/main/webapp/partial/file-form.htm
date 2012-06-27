@@ -8,7 +8,11 @@
   		<div class="content">
   			<input type="file" class="file" name="file" size="60"/>
   		</div>
-			<div class="preview"></div>
+			<div class="preview">
+			#if ($fragment.getId())
+				#fragmentFileContent($fragment)
+			#end
+			</div>
   		<div class="buttons">
     		<span class="buttons">
     			<button class="register" type="button">$messages.get("register")</button>
@@ -17,8 +21,10 @@
     	</div>
   	</form>
 		<form class="save-file" style="position: absolute; top: -9999px">
-			<input type="hidden" name="id" value="$fragment.getId()"/>
-			<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
+			#if ($fragment.getId())
+				<input type="hidden" name="id" value="$fragment.getId()"/>
+				<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
+			#end
 			<input type="hidden" class="fileName" name="fileName"/>
 			<input type="hidden" class="uploadedFilePath" name="uploadedFilePath"/>
 		</form>
