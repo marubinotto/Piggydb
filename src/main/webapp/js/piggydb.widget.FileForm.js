@@ -20,6 +20,9 @@
 	
 	var _class = function(element) {
 		module.FormDialog.call(this, element);
+		
+		window.fileForm = this;
+		
 		this.id = _ID;
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
@@ -39,6 +42,7 @@
 				height: _initialHeight,
 				close: function(event, ui) {
 					piggydb.widget.imageViewer.close();
+					window.fileForm = null;
 				}
 			});
 		
@@ -48,9 +52,6 @@
 				outer.setDialogHeight(_initialHeight + 15);
 				outer.previewDiv().empty().putLoadingIcon("margin: 5px 10px;");
 				outer.element.find("form.upload-file").submit();
-			});
-			this.element.find("div.onPreviewUpdate").click(function() {
-				outer.onPreviewUpdate();
 			});
 			this.element.find("button.register").click(function() {
 				outer.clearErrors();

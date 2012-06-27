@@ -16,7 +16,7 @@
 		
 		var fileView = jQuery(jQuery('#uploaded-file').html());
 		fileView.find("img").load(function() {
-			form.find("div.onPreviewUpdate").click();
+			window.parent.fileForm.onPreviewUpdate();
 		});
 		form.find("div.preview").empty().append(fileView);
 	#end
