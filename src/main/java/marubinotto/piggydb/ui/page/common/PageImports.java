@@ -47,8 +47,8 @@ public class PageImports {
 			addCssImportTo(imports, "js/vendor/updnWatermark/watermark.css", true, null);
 			addCssImportTo(imports, "js/vendor/jquery-ui-1.8.18/themes/base/jquery.ui.all.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
-			addCssImportTo(imports, "js/vendor/markitup/skins/simple/style.css", true, "screen");
-			addCssImportTo(imports, "js/vendor/markitup/sets/wiki/style.css", true, "screen");
+			addCssImportTo(imports, "js/vendor/markitup-1.1.12/skins/simple/style.css", false, "screen");
+			addCssImportTo(imports, "js/vendor/markitup-1.1.12/sets/wiki/style.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/qtip2/jquery.qtip.css", true, null);
 			addCssImportTo(imports, "style/curve/curve.css", true, "screen");
 			addCssImportTo(imports, "style/tree/tree.css", true, null);
@@ -77,7 +77,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.bgiframe.min.js", true);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.ajaxQueue.js", false);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-modified.js", true);
-			addJsImportTo(imports, "js/vendor/markitup/jquery.markitup.pack.js", true);
+			addJsImportTo(imports, "js/vendor/markitup-1.1.12/jquery.markitup.js", false);
 			addJsImportTo(imports, "js/vendor/qtip2/jquery.qtip.min.js", true);
 			addJsImportTo(imports, "js/piggydb.js", true);
 			addJsImportTo(imports, "js/piggydb.util.js", true);
