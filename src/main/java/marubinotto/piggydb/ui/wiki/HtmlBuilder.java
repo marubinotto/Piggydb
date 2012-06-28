@@ -184,7 +184,7 @@ public class HtmlBuilder implements DocumentBuilder {
 	private static String makeEmbeddedFragmentRecursively(ParseContext context, Fragment fragment) {
 		if (fragment.isFile()) {
 			if (fragment.isImageFile()) {
-				return context.getHtmlFragments().fragmentImage(fragment.getId());
+				return context.getHtmlFragments().fragmentImage(fragment);
 			}
 			else {
 				return context.getHtmlFragments().fileIcon(fragment.getFileType()) 

@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.util.Size;
+import marubinotto.util.time.DateTime;
 
 import org.junit.Test;
 
@@ -37,8 +38,12 @@ public class HtmlFragmentsTest {
 	
 	@Test
 	public void fragmentImage() throws Exception {
-		String result = this.object.fragmentImage(1);
-		assertTrue(result.contains("/context/command/get-file.htm?id=1"));
+		RawFragment fragment = new RawFragment();
+		fragment.setId(1L);
+		fragment.setUpdateDatetime(new DateTime(12345L));
+		
+		String result = this.object.fragmentImage(fragment);
+		assertTrue(result, result.contains("/context/command/get-file.htm?id=1&t=12345"));
 	}
 	
 	@Test

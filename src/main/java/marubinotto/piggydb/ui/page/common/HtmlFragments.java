@@ -38,8 +38,12 @@ public class HtmlFragments {
 			.toString();
 	}
 	
-	public String fragmentImage(long fragmentId) {
-		String imageUrl = this.webResources.fragmentFilePath(fragmentId);
+	public String fragmentImage(Fragment fragment) {
+		Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
+		
+		String imageUrl = this.webResources.fragmentFilePath(fragment.getId()) + 
+			"&t=" + fragment.getUpdateDatetime().getTime();
+		
 		return XmlStringBuilder.create("a")
 			.attribute("class", "img-link")
 			.attribute("href", imageUrl)

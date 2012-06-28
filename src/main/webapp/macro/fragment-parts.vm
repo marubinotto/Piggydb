@@ -229,7 +229,7 @@
 
 <div class="file">
 #if ($fragment.isImageFile())
-  $utils.raw($html.fragmentImage($fragment.id))
+  $utils.raw($html.fragmentImage($fragment))
   <br />
 #else
   $utils.raw($html.fileIcon($fragment.fileType))
