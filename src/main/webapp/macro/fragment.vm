@@ -190,10 +190,12 @@
 		<span class="title-short">$utils.blankToNbsp($fragment.makeHeadline(15))</span>
   	<span class="headline">$utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))</span>
   </div>
-  <div class="prop-content">
-  #if ($fragment.content && $fragment.content.trim() != "")
-  	#fragmentTextContent($fragment)
-  #end
+  <div class="prop-body-row">
+		<table border="0">
+		<tbody class="body-row-container">
+			#fragmentBodyRow($fragment)
+		</tbody>
+		</table>
   </div>
 	<div class="prop-update-info">
 		#fragmentUpdateInfo($fragment)

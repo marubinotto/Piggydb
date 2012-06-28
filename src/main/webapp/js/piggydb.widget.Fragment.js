@@ -187,6 +187,10 @@ jQuery(function() {
 			return this.headerRow().siblings("tr.fragment-body");
 		},
 		
+		hasBodyRow: function() {
+			return this.bodyRow().size() > 0;
+		},
+		
 		setBodyRow: function(rowHtml) {
 			this.bodyRow().remove();
 			this.headerRow().after(rowHtml);
@@ -194,22 +198,6 @@ jQuery(function() {
 		
 		textContentDiv: function() {
 			return this.bodyRow().find("div.fragment-content-text");
-		},
-		
-		setTextContent: function(content) {
-			var div = this.textContentDiv();
-			if (div.size() == 0 && this.isFull()) {
-				var emptyBodyRow = jQuery.trim(
-					jQuery("#tpl-fragment-body-row-with-empty-text tbody").html());
-				this.setBodyRow(emptyBodyRow);
-				div = this.textContentDiv();
-			}
-			if (div.size() == 0) return false;
-			
-			this.closeQuickEditor();
-			div.html(content);
-	  	prettyPrint();
-	  	return true;
 		},
 		
 		emptyTextContent: function() {
@@ -295,17 +283,21 @@ jQuery(function() {
 			this.shortTitleSpan().html(
 				properties.find("div.prop-title > span.title-short").html());
 			
-			// content
-	  	var newContent = properties.children("div.prop-content").html();
-	  	if (isNotBlank(newContent)) {
-	  		if (!this.setTextContent(newContent)) {
+			// body row
+	  	var bodyRow = properties.children("div.prop-body-row");
+	  	if (isNotBlank(bodyRow.find("div.fragment-content").html())) {
+	  		if (this.hasBodyRow() || this.isFull()) {
+	  			this.setBodyRow(bodyRow.find("tbody.body-row-container").html());
+	  			prettyPrint();
+		  	}
+	  		else {
 	  			this.contentToggleContainer().show();
 			  	this.openContentIfClosed();
 	  		}
-		  }
-		  else {
+	  	}
+	  	else {
 		  	this.emptyTextContent();
-		  }
+		  }		  
 	  	
 	  	// update info
 	  	this.header().find("span.update-info").html(
