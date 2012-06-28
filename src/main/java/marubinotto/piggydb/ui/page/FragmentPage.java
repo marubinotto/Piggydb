@@ -58,7 +58,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 	// Control
 	//
 
-	private FragmentFormPanel fragmentFormPanel;
 	private FragmentFormPanel subFragmentFormPanel;
 
 	@Override
@@ -70,13 +69,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 	}
 
 	private void initControls() {
-		// Fragment
-		this.fragmentFormPanel = createFragmentFormPanel();
-		this.fragmentFormPanel.setTitle(getMessage("FragmentPage-edit-this-fragment"));		
-		if (StringUtils.isNotBlank(getContext().getRequestParameter("edit"))) {
-			this.fragmentFormPanel.setActive(true);
-		}
-
 		// Super tag
 		this.superTagForm.setListenerForAdd("onAddSuperTagClick");
 		this.superTagForm.setListenerForDelete("onRemoveSuperTagClick");
@@ -93,9 +85,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 	// this.thisPageUrl needs the target model: this.fragment
 	private void applyTargetFragmentToControls() {
 		Assert.Property.requireNotNull(fragment, "fragment");
-
-		this.fragmentFormPanel.setBaseData(this.fragment);
-		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
 		
 		this.subFragmentFormPanel.setParentFragment(this.fragment);
 		this.subFragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
@@ -185,7 +174,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 		Assert.Property.requireNotNull(fragment, "fragment");
 
 		// For forms
-		this.fragmentFormPanel.fragmentForm.add(new HiddenField(PN_FRAGMENT_ID, this.fragment.getId()));
 		this.subFragmentFormPanel.fragmentForm.add(new HiddenField(PN_FRAGMENT_ID, this.fragment.getId()));
 		this.superTagForm.add(new HiddenField(PN_FRAGMENT_ID, this.fragment.getId()));
 

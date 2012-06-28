@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev5 (2012-06-29) == #v6.0-dev5
+
+ * Updated the "Edit this fragment" button to add on-the-spot editing for file fragments
+ * Fixed the problem that FileForm doesn't work properly in Safari
+ * Fixed the bug that a svg file is not displayed in a fragment view
+
 == Changes in version 6.0-dev4 (2012-06-26) == #v6.0-dev4
 
  * Added a File Upload Dialog and a "Add a file" button to the main menu bar
