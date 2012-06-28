@@ -360,6 +360,11 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		if (!isFile()) {
 			return null;
 		}
+		
+		// modification for the mime-type table
+		if (this.fileName.endsWith(".svg"))
+			return "image/svg+xml";
+		
 		return ClickUtils.getMimeType(this.fileName);
 	}
 	
