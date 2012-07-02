@@ -19,6 +19,7 @@
         closeWith: ']', placeHolder: _messages["editor-link-label"] },
       {name: _messages["editor-embed-another-fragment"], key: 'E',
         openWith: "fragment:[![" + _messages["editor-fragment-id"] + "]!]:embed "},
+      {name: _messages["editor-embed-file"]},
       {separator: '---------------' },
       {name: _messages["editor-quote"], openWith: '>', placeHolder: ''},
       {separator: '---------------' },
@@ -120,7 +121,10 @@
       palette.init(this.element.find("button.pulldown"));
 			
 			_class.addToolBar(this.textarea, false);
-			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton9 a"));
+			this.element.find(".markItUp .markItUpButton8 a").click(function() {
+				alert("hello");
+			});
+			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton10 a"));
 		},
 		
 		open: function() {

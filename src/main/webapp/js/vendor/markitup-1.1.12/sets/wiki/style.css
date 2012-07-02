@@ -25,11 +25,14 @@
 .markItUp .markItUpButton7 a {
   background-image:url(images/embed.png);
 }
-
 .markItUp .markItUpButton8 a {
-  background-image:url(images/quotes.png);
+  background-image:url(images/embed-file.png);
 }
 
 .markItUp .markItUpButton9 a {
+  background-image:url(images/quotes.png);
+}
+
+.markItUp .markItUpButton10 a {
   background-image:url(images/help.png);
 }
