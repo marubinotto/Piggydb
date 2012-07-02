@@ -3,8 +3,6 @@
 	var _ID = "file-form";
 	
 	var _open = function(fragment) {
-		if (module.FormDialog.setFocusIfOpen(_ID)) return;
-		
 		jQuery("#" + _ID).remove();
 		
 		var args = fragment != null ? {id: fragment.id()} : {};
