@@ -19,9 +19,9 @@
         closeWith: ']', placeHolder: _messages["editor-link-label"] },
       {name: _messages["editor-embed-another-fragment"], key: 'E',
         openWith: "fragment:[![" + _messages["editor-fragment-id"] + "]!]:embed "},
-      {name: _messages["editor-embed-file"]},
+      {name: _messages["editor-embed-file"], key: 'F'},
       {separator: '---------------' },
-      {name: _messages["editor-quote"], openWith: '>', placeHolder: ''},
+      {name: _messages["editor-quote"], key: 'Q', openWith: '>', placeHolder: ''},
       {separator: '---------------' },
       {name: _messages["help"]}
     ]
@@ -79,7 +79,7 @@
 				.keyup(saveTextRange)
 				.select(saveTextRange);
 		}
-		markItUpRoot.find(".markItUp .markItUpButton8 a").click(function() {
+		markItUpRoot.find(".markItUp li.markItUpButton8").mouseup(function() {
 			piggydb.widget.FileForm.openToEmbed(
 				function(responseHtml) {
 					var fragmentId = jQuery(responseHtml).children("span.new-id").text();

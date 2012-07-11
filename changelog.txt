@@ -1,6 +1,10 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev6 (2012-07-12) == #v6.0-dev6
+
+ * Added the "Embed a file" button to the fragment editor toolbar
+
 == Changes in version 6.0-dev5 (2012-06-29) == #v6.0-dev5
 
  * Updated the "Edit this fragment" button to add on-the-spot editing for file fragments
