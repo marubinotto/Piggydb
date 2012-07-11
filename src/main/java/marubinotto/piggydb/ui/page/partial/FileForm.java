@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import marubinotto.util.message.CodedException;
+
 public class FileForm extends AbstractSingleFragment {
 
 	public String title;
@@ -7,6 +9,9 @@ public class FileForm extends AbstractSingleFragment {
 	@Override 
 	protected void setModels() throws Exception {
 		super.setModels();
+		
+		if (!canUploadFile())
+			throw new CodedException("no-authority-for-page");
 		
 		if (this.fragment == null) {
 			this.fragment = getDomain().getFragmentRepository().newInstance(getUser());
