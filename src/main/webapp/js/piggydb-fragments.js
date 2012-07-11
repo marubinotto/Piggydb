@@ -28,7 +28,6 @@ var FragmentForm = {
 	init: function() {
 		jQuery('.content-type-switch input').click(FragmentForm.onContentTypeSwitch);
 		piggydb.widget.FragmentForm.addToolBar(jQuery("textarea.fragment-content"), true);
-		piggydb.widget.FragmentForm.linkToWikiHelp(jQuery(".markItUp .markItUpButton9 a"));
 	  jQuery("input[name=preview]").click(function () {
 	    this.form.contentFieldHeight.value = jQuery(this.form.content).height();
 	  });

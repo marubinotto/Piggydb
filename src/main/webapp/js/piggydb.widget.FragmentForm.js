@@ -65,13 +65,15 @@
 	_class.addToolBar = function(textarea, resizeHandle) {
 		_markItUpSettings.resizeHandle = resizeHandle;
 		textarea.markItUp(_markItUpSettings);
-	};
-	
-	_class.linkToWikiHelp = function(a) {
-		a.attr("href", piggydb.server.wikiHelpUrl).click(function() {
-	  	_wikiHelp.show(this.href);
-	    return false;
-	  });
+		
+		var markItUpRoot = textarea.closest("div.markItUp-root");
+		
+		markItUpRoot.find(".markItUp .markItUpButton10 a")
+			.attr("href", piggydb.server.wikiHelpUrl)
+			.click(function() {
+				_wikiHelp.show(this.href);
+				return false;
+			});
 	};
 	
 	_class.openToCreate = function() {
@@ -143,8 +145,6 @@
 						outer.textarea.insertAtCaret(embeddedCode, outer.textRange);
 					});
 			});
-			
-			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton10 a"));
 		},
 		
 		open: function() {
