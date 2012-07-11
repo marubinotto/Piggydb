@@ -72,7 +72,7 @@
 			var saveTextRange = function() {
 				jQuery.data(textarea, "range", document.selection.createRange());
 			};
-			this.textarea
+			textarea
 				.mousedown(saveTextRange)
 				.mouseup(saveTextRange)
 				.keydown(saveTextRange)
