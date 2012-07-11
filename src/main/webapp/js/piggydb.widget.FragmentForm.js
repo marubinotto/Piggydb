@@ -56,6 +56,7 @@
 		module.FormDialog.call(this, element);
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
+		this.textRange = null;	// saved caret position for IE
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
 		this.prepare();
@@ -121,14 +122,28 @@
       palette.init(this.element.find("button.pulldown"));
 			
 			_class.addToolBar(this.textarea, false);
+			
+			// "Embed a file" button
+			if (document.selection) {
+				var saveTextRange = function() {
+					outer.textRange = document.selection.createRange();
+				};
+				this.textarea
+					.mousedown(saveTextRange)
+					.mouseup(saveTextRange)
+					.keydown(saveTextRange)
+					.keyup(saveTextRange)
+					.select(saveTextRange);
+			}
 			this.element.find(".markItUp .markItUpButton8 a").click(function() {
 				piggydb.widget.FileForm.openToEmbed(
 					function(responseHtml) {
 						var fragmentId = jQuery(responseHtml).children("span.new-id").text();
 						var embeddedCode = "fragment:" + fragmentId + ":embed";
-						outer.textarea.val(embeddedCode);
+						outer.textarea.insertAtCaret(embeddedCode, outer.textRange);
 					});
 			});
+			
 			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton10 a"));
 		},
 		

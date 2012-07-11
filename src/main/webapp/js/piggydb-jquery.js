@@ -7,7 +7,25 @@
     if (style != null) html = html + ' style="' + style + '"';
     html = html + '/><\/span>';
     return $(html).appendTo(this);
-  }
+  };
+  
+  $.fn.insertAtCaret = function(text, textRange) {
+  	return this.each(function() {
+  		var textarea = this;
+	    textarea.focus();
+	    if (document.selection) {
+	      var range = textRange != null ? textRange : document.selection.createRange();
+	      range.text = text;
+	      range.select();
+	    } 
+	    else {
+	      var startPos = textarea.selectionStart;
+	      var newCaretPos = startPos + text.length;
+	      textarea.value = textarea.value.substr(0, startPos) + text + textarea.value.substr(startPos);
+	      textarea.setSelectionRange(newCaretPos, newCaretPos);
+	    }
+	  });
+	};
 })(jQuery);
 
 
@@ -46,13 +64,13 @@
         }, 
         {
           duration: 3000,
-          complete: function(){ 
+          complete: function() { 
             // workaround for a bug not to animate occasionally
             target.css("background-color", bgColor);
           }
         });
     });
-  }
+  };
 })(jQuery);
 
 
@@ -63,19 +81,19 @@
 (function($){
   var CLASS = "disabled";
   
-  $.fn.setDisabledFlag = function () {
+  $.fn.setDisabledFlag = function() {
     this.each(function() {
       if (!$(this).hasClass(CLASS)) $(this).addClass(CLASS);
     });
-  }
+  };
   
-  $.fn.deleteDisabledFlag = function () {
+  $.fn.deleteDisabledFlag = function() {
     this.removeClass(CLASS);
-  }
+  };
   
-  $.fn.hasDisabledFlag = function () {
+  $.fn.hasDisabledFlag = function() {
     if (this.size() == 0) return false;
     return this.eq(0).hasClass(CLASS);
-  }
+  };
 })(jQuery);
 
