@@ -56,7 +56,6 @@
 		module.FormDialog.call(this, element);
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
-		this.textRange = null;	// saved caret position for IE
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
 		this.prepare();
@@ -68,6 +67,28 @@
 		
 		var markItUpRoot = textarea.closest("div.markItUp-root");
 		
+		// Tool button: embed a file
+		if (document.selection) {
+			var saveTextRange = function() {
+				jQuery.data(textarea, "range", document.selection.createRange());
+			};
+			this.textarea
+				.mousedown(saveTextRange)
+				.mouseup(saveTextRange)
+				.keydown(saveTextRange)
+				.keyup(saveTextRange)
+				.select(saveTextRange);
+		}
+		markItUpRoot.find(".markItUp .markItUpButton8 a").click(function() {
+			piggydb.widget.FileForm.openToEmbed(
+				function(responseHtml) {
+					var fragmentId = jQuery(responseHtml).children("span.new-id").text();
+					var embeddedCode = "fragment:" + fragmentId + ":embed";
+					textarea.insertAtCaret(embeddedCode, jQuery.data(textarea, "range"));
+				});
+		});
+		
+		// Tool button: wiki help
 		markItUpRoot.find(".markItUp .markItUpButton10 a")
 			.attr("href", piggydb.server.wikiHelpUrl)
 			.click(function() {
@@ -124,27 +145,6 @@
       palette.init(this.element.find("button.pulldown"));
 			
 			_class.addToolBar(this.textarea, false);
-			
-			// "Embed a file" button
-			if (document.selection) {
-				var saveTextRange = function() {
-					outer.textRange = document.selection.createRange();
-				};
-				this.textarea
-					.mousedown(saveTextRange)
-					.mouseup(saveTextRange)
-					.keydown(saveTextRange)
-					.keyup(saveTextRange)
-					.select(saveTextRange);
-			}
-			this.element.find(".markItUp .markItUpButton8 a").click(function() {
-				piggydb.widget.FileForm.openToEmbed(
-					function(responseHtml) {
-						var fragmentId = jQuery(responseHtml).children("span.new-id").text();
-						var embeddedCode = "fragment:" + fragmentId + ":embed";
-						outer.textarea.insertAtCaret(embeddedCode, outer.textRange);
-					});
-			});
 		},
 		
 		open: function() {
