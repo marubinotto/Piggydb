@@ -123,7 +123,11 @@
 			_class.addToolBar(this.textarea, false);
 			this.element.find(".markItUp .markItUpButton8 a").click(function() {
 				piggydb.widget.FileForm.openToEmbed(
-					jQuery(this).closest("div.markItUp-root").find("textarea.fragment-content"));
+					function(responseHtml) {
+						var fragmentId = jQuery(responseHtml).children("span.new-id").text();
+						var embeddedCode = "fragment:" + fragmentId + ":embed";
+						outer.textarea.val(embeddedCode);
+					});
 			});
 			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton10 a"));
 		},

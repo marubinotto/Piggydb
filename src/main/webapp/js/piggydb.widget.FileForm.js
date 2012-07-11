@@ -2,7 +2,7 @@
 	
 	var _ID = "file-form";
 	
-	var _open = function(fragment, modal) {
+	var _open = function(fragment, modal, onRegistered) {
 		jQuery("#" + _ID).remove();
 		
 		var args = fragment != null ? {id: fragment.id()} : {};
@@ -13,6 +13,7 @@
 				var form = new _class(jQuery("#" + _ID));
 				form.fragment = fragment;
 				form.modal = modal;
+				form.onRegistered = onRegistered;
 				form.open();
 			}
 		});
@@ -29,18 +30,19 @@
 		this.modal = false;
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
+		this.onRegistered = null;
 	};
 	
 	_class.openToAdd = function() {
-		_open(null, false);
+		_open(null, false, null);
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open(new piggydb.widget.Fragment(button), false);
+		_open(new piggydb.widget.Fragment(button), false, null);
 	};
 	
-	_class.openToEmbed = function(textarea) {
-		_open(null, true);
+	_class.openToEmbed = function(onRegistered) {
+		_open(null, true, onRegistered);
 	};
 	
 	_class.prototype = jQuery.extend({
@@ -77,6 +79,8 @@
 					else {
 						piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
 						outer.close();
+						if (jQuery.isFunction(outer.onRegistered)) 
+							outer.onRegistered(html);
 					}
 				});
 			});
