@@ -122,7 +122,8 @@
 			
 			_class.addToolBar(this.textarea, false);
 			this.element.find(".markItUp .markItUpButton8 a").click(function() {
-				alert("hello");
+				piggydb.widget.FileForm.openToEmbed(
+					jQuery(this).closest("div.markItUp-root").find("textarea.fragment-content"));
 			});
 			_class.linkToWikiHelp(this.element.find(".markItUp .markItUpButton10 a"));
 		},
