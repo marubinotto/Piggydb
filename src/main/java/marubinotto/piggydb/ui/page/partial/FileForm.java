@@ -2,7 +2,7 @@ package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.util.message.CodedException;
 
-public class FileForm extends AbstractSingleFragment {
+public class FileForm extends AbstractFragmentForm {
 
 	public String title;
 	
@@ -12,10 +12,6 @@ public class FileForm extends AbstractSingleFragment {
 		
 		if (!canUploadFile())
 			throw new CodedException("no-authority-for-page");
-		
-		if (this.fragment == null) {
-			this.fragment = getDomain().getFragmentRepository().newInstance(getUser());
-		}
 		
 		if (this.fragment.getId() != null) {
 			this.title = getMessage("edit-fragment");
