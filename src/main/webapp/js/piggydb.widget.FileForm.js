@@ -19,7 +19,7 @@
 		});
 	};
 	
-	var _initialHeight = 75;
+	var _initialHeight = 150;
 	
 	var _class = function(element) {
 		module.FormDialog.call(this, element);
@@ -31,6 +31,8 @@
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
 		this.onSaved = null;
+		
+		this.prepareCommonInputs();
 	};
 	
 	_class.openToAdd = function() {

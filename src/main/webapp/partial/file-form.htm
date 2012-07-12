@@ -5,6 +5,7 @@
 	<div class="fragment-editor file-form" id="file-form" title="$title" style="display: none;">
   	<form class="upload-file" method="post" enctype="multipart/form-data" 
 				target="upload-frame" action="$context/partial/upload-file.htm">
+			#titleAndTagsInput("file-form" $fragment)
   		<div class="content">
   			<input type="file" class="file" name="file" size="60"/>
   		</div>
