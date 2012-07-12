@@ -8,57 +8,7 @@
 			<input type="hidden" name="id" value="$fragment.getId()"/>
 			<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
 		#end
-    <div class="title">
-    	<table border="0" cellpadding="0" cellspacing="0" width="100%">
-    	<tr>
-    		<td class="fragment-as-tag">
-        	<span class="fragment-as-tag">
-        		<input 
-							type="checkbox" 
-							class="fragment-as-tag"
-							id="${editorId}-asTag" 
-							name="asTag" 
-							#if($fragment.isTag()) checked="checked" #end
-        			/><label for="${editorId}-asTag">$messages.get("as-tag")</label>
-        	</span>
-    		</td>
-    		<td>
-        	<input 
-						type="text"
-						class="fragment-title watermarked"
-						name="title" 
-						title="$messages.get("FragmentForm-title")"
-						#if($fragment.getTitle()) value="$fragment.getTitle()" #end
-        		maxlength="$titleMaxLength"/>
-    		</td>
-    	</tr>
-    	</table>
-    </div>
-  	<div class="tags">
-  		<table border="0" cellpadding="0" cellspacing="0" width="100%">
-  		<tr>
-  			<td class="tags-input">
-  				<input 
-						type="text"
-						class="fragment-tags watermarked"
-						id="${editorId}-tags"
-  					name="tags" 
-						title="$messages.get("FragmentForm-tags")" 
-						#if($tags) value="$tags" #end/>
-  				<br/>
-  				<div class="pulldown-box tag-palette"></div>
-  			</td>
-  			<td class="tags-pulldown" align="left">
-  				<button type="button" class="pulldown"><span class="label">&nbsp;</span></button>
-  			</td>
-  		</tr>
-  		<tr>
-  			<td colspan="2" style="padding-top: 3px;">
-  				<span style="font-size: 8pt;">$messages.get("FragmentForm-tags-help")</span>
-  			</td>
-  		</tr>
-  		</table>
-  	</div>
+		#titleAndTagsInput($editorId $fragment)
     <div class="content">
     	<textarea class="fragment-content" name="content" rows="3" cols="20" 
     		title="$messages.get("FragmentForm-content")">$fragment.getContent()</textarea>
