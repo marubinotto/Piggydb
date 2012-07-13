@@ -53,6 +53,8 @@
 			var outer = this;
 			
 			this.element.dialog({
+				dialogClass: "dialog-file-form",
+				resizable: false,
 				width: 600,
 				height: _initialHeight,
 				modal: outer.modal,

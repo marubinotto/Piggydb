@@ -283,12 +283,10 @@ piggydb.namespace("piggydb.widget", {
         input.val(tags);
         input.focus();
       };
-      palette.decideMaxHeight = function() {
-      	return outer.textarea.height() + 50;
-      };
       palette.flatColumnWidth = 100;
       palette.autoFlatWidth = true;
-      palette.init(this.element.find("button.pulldown"));			
+      palette.init(this.element.find("button.pulldown"));
+      this.tagPalette = palette;
 		}
 	
 	}, module.Widget.prototype);

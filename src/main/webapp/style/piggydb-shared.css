@@ -410,6 +410,11 @@ span.fragment-as-tag .ui-button {
 	vertical-align: middle;
 }
 
+div.dialog-file-form,
+.ui-dialog div.file-form {
+	overflow: visible !important;
+}
+
 .ui-dialog div.file-form input.file {
 	width: 100%;
 	font-size: 12px;
