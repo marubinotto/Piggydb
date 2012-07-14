@@ -64,7 +64,8 @@
 				}
 			});
 		
-			this.buttonsDiv().hide();
+			if (this.fragment == null) 
+				this.buttonsDiv().hide();
 			
 			this.element.find("input.file").change(function() {
 				outer.setDialogHeight(_initialHeight + 15);
@@ -92,10 +93,7 @@
 				});
 			});
 			this.element.find("div.preview img").load(function() {
-				outer.setDialogHeight(
-					_initialHeight + 
-					outer.previewDiv().height() +
-					5);
+				outer.adjustHeight();
 			});
 		},
 		
@@ -111,13 +109,20 @@
 			return this.element.find("div.preview");
 		},
 		
-		onPreviewUpdate: function() {
-			this.buttonsDiv().show();
+		adjustHeight: function() {
+			var buttons = this.buttonsDiv();
+			var buttonsHeight = buttons.is(":visible") ? buttons.height() : 0;
+			
 			this.setDialogHeight(
 				_initialHeight + 
 				this.previewDiv().height() +
-				this.buttonsDiv().height() +
+				buttonsHeight +
 				5);
+		},
+		
+		onPreviewUpdate: function() {
+			this.buttonsDiv().show();
+			this.adjustHeight();
 			piggydb.widget.imageViewer.close();
 		}
 		
