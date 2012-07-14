@@ -69,12 +69,13 @@
 			this.element.find("input.file").change(function() {
 				outer.setDialogHeight(_initialHeight + 15);
 				outer.previewDiv().empty().putLoadingIcon("margin: 5px 10px;");
-				outer.element.find("form.upload-file").submit();
+				outer.element.find("form").submit();
 			});
 			this.element.find("button.register").click(function() {
 				outer.clearErrors();
 				outer.block();
-				var values = outer.element.find("form.save-file").serializeArray();
+				
+				var values = outer.element.find("form").serializeArray();
 				jQuery.post("partial/save-file.htm", values, function(html) {
 					if (outer.checkErrors(html)) {
 						piggydb.widget.imageViewer.close();

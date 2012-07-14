@@ -3,9 +3,11 @@
 	<span class="error">$utils.raw($error)</span>
 #else
 	<div class="fragment-editor file-form" id="file-form" title="$title" style="display: none;">
-  	<form class="upload-file" method="post" enctype="multipart/form-data" 
+  	<form method="post" enctype="multipart/form-data" 
 				target="upload-frame" action="$context/partial/upload-file.htm">
-			#titleAndTagsInput("file-form" $fragment)
+			<input type="hidden" class="fileName" name="fileName"/>
+			<input type="hidden" class="uploadedFilePath" name="uploadedFilePath"/>
+			#fragmentFormCommonInputs("file-form" $fragment)
   		<div class="content">
   			<input type="file" class="file" name="file" size="60"/>
   		</div>
@@ -21,14 +23,6 @@
     		<span class="indicator" style="margin-left: 10px;">&nbsp;</span>
     	</div>
   	</form>
-		<form class="save-file" style="position: absolute; top: -9999px">
-			#if ($fragment.getId())
-				<input type="hidden" name="id" value="$fragment.getId()"/>
-				<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
-			#end
-			<input type="hidden" class="fileName" name="fileName"/>
-			<input type="hidden" class="uploadedFilePath" name="uploadedFilePath"/>
-		</form>
 		<iframe name="upload-frame" style="position: absolute; top: -9999px"></iframe>
 	</div>
 #end

@@ -22,7 +22,7 @@ public class SaveFile extends SaveFragment implements FileItem {
 		if (isBlank(this.fileName))
 			throw new IllegalStateException("fileName is null");
 		
-		this.fragment.setTitleByUser(this.fileName, getUser());
+		super.bindValues();
 		this.fragment.setFileInput(this);
 	}
 	

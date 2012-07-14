@@ -4,11 +4,7 @@
 #else
 	<div class="fragment-editor" id="$editorId" title="$editorTitle" style="display: none;">
   <form>
-		#if ($fragment.getId())
-			<input type="hidden" name="id" value="$fragment.getId()"/>
-			<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
-		#end
-		#titleAndTagsInput($editorId $fragment)
+		#fragmentFormCommonInputs($editorId $fragment)
     <div class="content">
     	<textarea class="fragment-content" name="content" rows="3" cols="20" 
     		title="$messages.get("FragmentForm-content")">$fragment.getContent()</textarea>

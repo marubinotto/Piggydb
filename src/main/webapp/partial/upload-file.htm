@@ -10,7 +10,7 @@
 	#else
 		var form = jQuery('#file-form', window.parent.document);
 		
-		form.find("form.save-file")
+		form.find("form")
 			.find("input.fileName").val("$fileName").end()
 			.find("input.uploadedFilePath").val("$uploadedFilePath");
 		
