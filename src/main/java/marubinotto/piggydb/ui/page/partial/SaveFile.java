@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,11 +20,18 @@ public class SaveFile extends SaveFragment implements FileItem {
 	
 	@Override 
 	public void bindValues() throws Exception {
-		if (isBlank(this.fileName))
-			throw new IllegalStateException("fileName is null");
-		
 		super.bindValues();
-		this.fragment.setFileInput(this);
+		
+		// bind the uploaded file
+		if (this.fragment.getId() == null) {
+			if (isBlank(this.fileName))
+				throw new IllegalStateException("fileName is null");
+			this.fragment.setFileInput(this);
+		}
+		else {
+			if (isNotBlank(this.fileName))
+				this.fragment.setFileInput(this);
+		}
 	}
 	
 	private File getUploadedFilePath() {
