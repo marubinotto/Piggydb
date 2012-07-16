@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev7 (2012-07-17) == #v6.0-dev7
+
+ * Full-fledged File Upload Dialog
+   * Added the title and tags inputs
+
 == Changes in version 6.0-dev6 (2012-07-12) == #v6.0-dev6
 
  * Added the "Embed a file" button to the fragment editor toolbar
