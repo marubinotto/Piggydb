@@ -4,6 +4,7 @@ import marubinotto.util.message.CodedException;
 
 public class FileForm extends AbstractFragmentForm {
 
+	public String formId;
 	public String title;
 	
 	@Override 
@@ -13,6 +14,7 @@ public class FileForm extends AbstractFragmentForm {
 		if (!canUploadFile())
 			throw new CodedException("no-authority-for-page");
 		
+		this.formId = "file-form";
 		if (this.fragment.getId() != null) {
 			this.title = getMessage("edit-fragment");
 		}
