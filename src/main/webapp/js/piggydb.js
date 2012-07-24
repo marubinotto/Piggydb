@@ -52,7 +52,7 @@ piggydb.namespace = (function() {
 	// If not, the targeted namespace will be imported (ie. if com.test is imported, 
 	// the test object will now be global).
 	//
-	_namespace.import = function(identifier) {
+	_namespace.use = function(identifier) {
 		var identifiers = _toArray(identifier);
 		var to = arguments[1] || window; 
 		var parts, target, ns;

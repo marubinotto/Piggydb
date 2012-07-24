@@ -1,6 +1,6 @@
 #macro( parameterizedJs )
 	
-piggydb.namespace.import("piggydb.util.*");
+piggydb.namespace.use("piggydb.util.*");
 
 
 ##
