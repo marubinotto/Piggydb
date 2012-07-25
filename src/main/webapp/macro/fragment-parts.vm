@@ -24,7 +24,7 @@
 	<span class="title">$fragment.title</span></a>
 #else
   $utils.raw($html.linkToFragment($fragment.id))
-	#imageLink($fragment)
+	#fileIcon($fragment)
 	<span class="title">
 	#if ($useHeadline)
     $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
@@ -34,6 +34,22 @@
 	</span>
 #end
 </span>
+
+#end
+
+
+
+#macro ( fileIcon $fragment ) 
+
+#if ($fragment.isFile())
+#if ($fragment.isImageFile())
+  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)" title="$messages.get("view-image")">
+  <img class="image-icon" src="$context/images/image-mini.png" border="0" alt="$messages.get("image")"/></a>
+#else
+	<a href="$resources.fragmentFilePath($fragment.id)" title="$fragment.getFileName()">
+	<img class="file-icon" src="$context/images/file-mini.png" border="0" alt="$messages.get("file")"/></a>
+#end
+#end
 
 #end
 
@@ -322,16 +338,6 @@
 
 
 
-#macro ( imageLink $fragment ) 
-
-#if ($fragment.isImageFile())
-  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)" title="$messages.get("view-image")">
-  <img class="image-icon" src="$context/images/image-mini.png" border="0" alt="$messages.get("image")"/></a>
-#end
-
-#end
-
-
 
 #macro ( fragmentNodeCaption $fragment $contextRelation ) 
 
@@ -374,7 +380,7 @@
 	#fragmentCaption($fragment false)
 #else
   <span class="fragment-caption">
-    #imageLink($fragment)
+    #fileIcon($fragment)
     <a class="title-link" href="$resources.fragmentPath($fragment.id)">
     <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
   </span>

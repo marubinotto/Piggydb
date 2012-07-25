@@ -23,7 +23,8 @@ span.fragment-caption a.tag-fragment-caption:hover span.title {
   color: gray;
 }
 
-img.image-icon {
+span.fragment-caption img.image-icon,
+span.fragment-caption img.file-icon {
 	vertical-align: middle;
 	margin: 0px 2px;
 }
