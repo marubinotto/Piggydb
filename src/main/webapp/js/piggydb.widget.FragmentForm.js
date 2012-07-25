@@ -6,7 +6,7 @@
 		nameSpace: 'markItUp-root',
     previewAutoRefresh: false,
     previewParserPath:  '', // path to your Wiki parser
-    onShiftEnter:   {keepDefault:false, replaceWith:'\n\n'},
+    onShiftEnter:   {keepDefault: false, replaceWith: '~\n'},
     markupSet: [
       {name: _messages["editor-bold"], key: 'B', openWith: "'''", closeWith: "'''"}, 
       {name: _messages["editor-italic"], key: 'I', openWith: "''", closeWith: "''"}, 
