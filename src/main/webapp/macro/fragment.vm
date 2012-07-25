@@ -167,7 +167,7 @@
   <a class="remove" href="#" 
 		onclick="piggydb.widget.SelectedFragments.instance.remove('$fragmentId'); return false;">
     <img class="delete-button" src="$context/images/delete.gif" 
-      border="0" alt="$messages.get("delete")" style="padding-right: 5px;"/></a>
+      border="0" alt="$messages.get("remove")" style="padding-right: 5px;"/></a>
 </td></tr></table>
 
 #end
