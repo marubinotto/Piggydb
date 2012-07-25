@@ -41,7 +41,7 @@ $utils.raw($parentForm.endTag())
   <ul>
     #foreach ($fragment in $commonParents)
     <li class="$html.fragmentHeaderClass(${fragment.id}, $selectedFragments)">
-			#fragmentCaption($fragment true false)
+			#fragmentCaption($fragment true)
       <a href="#" onclick="removeParent('$fragment.id'); return false;">
       <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
     </li>

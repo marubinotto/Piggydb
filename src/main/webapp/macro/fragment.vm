@@ -102,7 +102,7 @@
     #if ($compactColumn)
 			#fragmentCellCompactCaption($fragment)
     #else
-      #fragmentCaption($fragment true true)
+      #fragmentCaption($fragment true)
     #end
       #fragmentToolBar($fragment)
     </div>
@@ -179,7 +179,7 @@
 <div class="fragment-properties">
 	<div class="prop-caption">
 		<div class="default">
-			#fragmentCaption($fragment false false)
+			#fragmentCaption($fragment false)
 		</div>
 		<div class="cell-compact">
 			#fragmentCellCompactCaption($fragment)

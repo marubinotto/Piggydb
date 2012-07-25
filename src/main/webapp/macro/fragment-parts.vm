@@ -3,7 +3,7 @@
 <tr>
   <th class="header-cell" title="$fragment.title" valign="middle">
     <div class="$html.fragmentHeaderClass($fragment.id, $selectedFragments)">
-      #fragmentCaption($fragment false false)
+      #fragmentCaption($fragment false)
       #fragmentTags($fragment $contextTags)
 			#fragmentUpdateInfo($fragment)
       #fragmentToolBar($fragment)
@@ -15,7 +15,7 @@
 
 
 
-#macro( fragmentCaption $fragment $useHeadline $withImageLink )
+#macro( fragmentCaption $fragment $useHeadline )
 
 <span class="fragment-caption">
 #if ($fragment.isTag())
@@ -24,7 +24,7 @@
 	<span class="title">$fragment.title</span></a>
 #else
   $utils.raw($html.linkToFragment($fragment.id))
-	#if ($withImageLink) #imageLink($fragment) #end
+	#imageLink($fragment)
 	<span class="title">
 	#if ($useHeadline)
     $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
@@ -284,7 +284,7 @@
   #foreach ($relation in $parentRelations)
     <span class="$html.fragmentHeaderClass(${relation.from.id}, $selectedFragments)" 
         style="margin-right: 1em;">
-  		#fragmentCaption($relation.from true false)
+  		#fragmentCaption($relation.from true)
       <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub>
       #deleteRelationButton($relation "span.fragment-header" "tr")
     </span>
@@ -310,7 +310,7 @@
 			#else
 				<img src="$context/images/arrow-top-to-right.gif" border="0" alt="&rarr;"/>
 			#end
-			#fragmentCaption($relation.to true false)
+			#fragmentCaption($relation.to true)
       #deleteRelationButton($relation "span.fragment-header" "tr")
     </span>
   #end
@@ -325,9 +325,8 @@
 #macro ( imageLink $fragment ) 
 
 #if ($fragment.isImageFile())
-  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)"
-    title="$messages.get("view-image")" style="vertical-align: middle;">
-  <img src="$context/images/image.png" border="0" alt="$messages.get("image")"/></a>
+  <a class="img-link" href="$resources.fragmentFilePath($fragment.id)" title="$messages.get("view-image")">
+  <img class="image-icon" src="$context/images/image-mini.png" border="0" alt="$messages.get("image")"/></a>
 #end
 
 #end
@@ -357,7 +356,7 @@
   <img src="$context/images/node-plus.png" alt="+" border="0" 
     style="margin: -2px; margin-left: 0px; margin-right: 3px;"/></a>
 #end
-#fragmentCaption($fragment true true)
+#fragmentCaption($fragment true)
 <span class="fragment-content-toggle"#if(!$fragment.hasMoreThanHeadline()) style="display: none;"#end>
   <a class="tool-button" href="#" style="vertical-align: middle;"
     onclick="piggydb.widget.ContentToggle.onContentToggleClick(this, $fragment.id); return false;">
@@ -372,7 +371,7 @@
 #macro ( fragmentCellCompactCaption $fragment )
 
 #if ($fragment.isTag())
-	#fragmentCaption($fragment false false)
+	#fragmentCaption($fragment false)
 #else
   <span class="fragment-caption">
     #imageLink($fragment)
