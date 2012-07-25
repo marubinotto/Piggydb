@@ -97,7 +97,7 @@ $utils.raw($superTagForm.endTag())
 	<td align="center" style="width: 20px;">
 	#if ($enableClose)
     <a class="close" href="#" onclick="${jsPaletteRef}.close(); return false;">
-    <img class="delete-button" src="$context/images/delete.gif" border="0" alt="x"/></a>
+    <img class="delete-button" src="$context/images/delete.gif" border="0" alt="$messages.get("close")"/></a>
 	#end
   </td>
 </tr>

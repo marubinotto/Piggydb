@@ -52,7 +52,8 @@ piggydb.namespace("piggydb.widget", {
 	
 	module.putGlobalMessage = function(message) {
 		var id = "global-message";
-		var closeButton = ' <a class="close" href="#"><img src="images/delete.gif" alt="x" border="0"/></a>';
+		var closeButton = ' <a class="close" href="#"><img src="images/delete.gif" alt="' + 
+			_messages["close"] + '" border="0"/></a>';
 		var baseElement = jQuery("#title-banner td.icon img");
 		
 		baseElement.qtip('destroy');
@@ -309,7 +310,7 @@ piggydb.namespace("piggydb.widget", {
 	          <td class="body"> \
 	           <div class="header"> \
 	             <a href="#" class="close"> \
-	             <img src="images/large-delete.gif" title="close" class="close_image" alt="X"/></a> \
+	             <img src="images/large-delete.gif" class="close_image" alt="' + _messages["close"] + '"/></a> \
 	           </div> \
 	           <div class="content"></div> \
 	          </td> \
