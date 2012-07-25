@@ -162,7 +162,7 @@
 			});
 			
 			this.adjustEditorHeight();
-			this.textarea.get(0).focus();	
+			// this.textarea.get(0).focus();	
 		},
 				
 		adjustEditorHeight: function() {
