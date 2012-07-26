@@ -31,7 +31,7 @@
 	
 	var _previewBox = new piggydb.widget.Facebox("facebox-fragment-preview");
 	
-	var _open = function(fragment) {
+	var _open = function(fragment, parentId) {
 		var editorId = fragment != null ? 
 			"fragment-editor-" + fragment.id() : 
 			"fragment-editor-new";
@@ -40,7 +40,10 @@
 
 		jQuery("#" + editorId).remove();
 		
-		var args = fragment != null ? {id: fragment.id()} : {};
+		var args = {};
+		if (fragment != null) args.id = fragment.id();
+		if (parentId != null) args.parentId = parentId;
+		
 		piggydb.util.blockPageDuringAjaxRequest();
 		jQuery.get("partial/fragment-editor.htm", args, function(html) {
 			if (!module.FormDialog.checkOpenError(html)) {
@@ -98,11 +101,11 @@
 	};
 	
 	_class.openToCreate = function() {
-		_open(null);
+		_open(null, null);
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open(new piggydb.widget.Fragment(button));
+		_open(new piggydb.widget.Fragment(button), null);
 	};
 	
 	_class.prototype = jQuery.extend({
