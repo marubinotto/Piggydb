@@ -14,6 +14,10 @@ public abstract class AbstractSingleFragment extends AbstractPartial {
 		return this.fragment;
 	}
 	
+	protected boolean fetchesRelations() {
+		return false;
+	}
+	
 	protected boolean isMinorEditAvailable() {
 		if (this.fragment == null || this.fragment.getId() == null) 
 			return false;
@@ -27,6 +31,7 @@ public abstract class AbstractSingleFragment extends AbstractPartial {
 		super.setModels();
 		
 		if (this.id == null) return;
-		this.fragment = getDomain().getFragmentRepository().get(this.id.longValue(), false);
+		this.fragment = getDomain().
+			getFragmentRepository().get(this.id.longValue(), fetchesRelations());
 	}
 }
