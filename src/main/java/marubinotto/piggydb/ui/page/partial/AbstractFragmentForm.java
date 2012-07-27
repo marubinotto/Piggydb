@@ -55,4 +55,13 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 	private static boolean isInheritedFromParent(Tag tag) {
 		return !tag.getName().startsWith("#");
 	}
+	
+	protected String getTitlePrefixByParent() {
+		if (this.parent == null) return "";
+		
+		String parentName = this.parent.isTag() ? 
+			"&quot;" + this.parent.getTitle() + "&quot;" : 
+			"#" + this.parent.getId();
+		return parentName + " &rArr; ";
+	}
 }
