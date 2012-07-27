@@ -9,7 +9,7 @@
   <td class="subfragments">
     #adFragment()
           
-		<div class="add-fragment">
+		<div class="new-sub-fragment-buttons">
       #newFragmentButtons(
   			"piggydb.widget.FragmentForm.openToAddChild(${fragment.getId()}); return false;"
   			"piggydb.widget.FileForm.openToAddChild(${fragment.getId()}); return false;")

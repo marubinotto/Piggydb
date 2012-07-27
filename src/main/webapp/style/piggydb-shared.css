@@ -718,13 +718,6 @@ a.filter:hover {
  * Contents of Global Tools
  */
 
-#global-tools td.add-fragment a.tool-button {
-	margin-right: 5px;
-}
-
-#global-tools .keyword-search {
-}
-
 #searchForm_keywords {
   margin: 0px;
   padding: 1px;
@@ -738,7 +731,8 @@ a.filter:hover {
   vertical-align: top;
 }
 
-#global-tools .tag-pulldown {
+#global-tools span.new-fragment-buttons a.tool-button {
+	margin-right: 5px;
 }
 
 #global-tools a.pulled img {

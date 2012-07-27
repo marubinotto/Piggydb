@@ -178,6 +178,7 @@ $utils.raw($field)
 
 #macro( newFragmentButtons $jsAddFragment $jsAddFile )
 	
+<span class="new-fragment-buttons">
 ## Create a new text fragment
 <a class="tool-button add-fragment" href="#" title="$messages.get("create-new-fragment")"
 	onclick="$jsAddFragment">
@@ -191,6 +192,7 @@ $utils.raw($field)
 <img src="$context/images/add-file.png" border="0" 
 	alt="$messages.get("add-file")"/></a>
 #end
+</span>
 	
 #end
 

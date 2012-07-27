@@ -31,7 +31,7 @@
         <tr>
 				#if (!$user.isViewer())
 					## Add a fragment
-					<td class="add-fragment" nowrap="nowrap">
+					<td nowrap="nowrap">
 						#newFragmentButtons(
 							"piggydb.widget.FragmentForm.openToCreate(); return false;"
 							"piggydb.widget.FileForm.openToAdd(); return false;")
