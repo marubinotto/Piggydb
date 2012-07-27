@@ -157,6 +157,13 @@ jQuery(function() {
 		}
 	};
 	
+	_class.reloadRootChildNodes = function(parentId) {
+		var div = jQuery("#children-tree").empty().putLoadingIcon("margin: 5px;");
+		jQuery.get("partial/fragment-root-child-nodes.htm", {id: parentId}, function(childrenHtml) {
+			div.html(childrenHtml);
+    });
+	};
+	
 	_class.prototype = jQuery.extend({
 		
 		id: function() {
