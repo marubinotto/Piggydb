@@ -128,11 +128,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.subTagForm.setListenerForAdd("onAddSubTagClick");
 		this.subTagForm.setListenerForDelete("onRemoveSubTagClick");
 		this.subTagForm.initialize();
-		
-		// Sub fragments
-		this.subFragmentFormPanel = createFragmentFormPanel("subFragmentFormPanel");
-		this.subFragmentFormPanel.setTitle(getMessage("FragmentPage-create-new-related-fragment"));
-		this.subFragmentFormPanel.setRestoresScrollTop(true);
 
 		// Fragments
 		this.fragmentFormPanel = createFragmentFormPanel();
@@ -147,11 +142,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.tagNameField.setValue(this.tag.getName());
 		
 		TagTree.restoreTagTree(this.superTags, this.tag, getUser());
-		
-		if (this.fragment != null) {
-			this.subFragmentFormPanel.setParentFragment(this.fragment);
-			this.subFragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
-		}
 		
 		this.fragmentFormPanel.addDefaultTag(this.tag);
 		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
@@ -332,11 +322,6 @@ public class TagPage extends AbstractFragmentsPage {
 	}
 	
 	
-	// Sub fragments
-	
-	private FragmentFormPanel subFragmentFormPanel;
-
-	
 	// Fragments
 
 	private FragmentFormPanel fragmentFormPanel;
@@ -404,7 +389,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.tagNameForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.superTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.subTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
-		this.subFragmentFormPanel.fragmentForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.fragmentFormPanel.fragmentForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.deleteTrashesForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 

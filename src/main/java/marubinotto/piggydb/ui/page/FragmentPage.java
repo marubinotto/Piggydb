@@ -4,7 +4,6 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
@@ -58,8 +57,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 	// Control
 	//
 
-	private FragmentFormPanel subFragmentFormPanel;
-
 	@Override
 	public void onInit() {
 		super.onInit();
@@ -75,19 +72,11 @@ public class FragmentPage extends AbstractFragmentsPage {
 		this.superTagForm.initialize();
 		this.superTags = new TagTree("superTags", this.resources, this.html);
 		addControl(this.superTags);
-
-		// Sub fragment
-		this.subFragmentFormPanel = createFragmentFormPanel("subFragmentFormPanel");
-		this.subFragmentFormPanel.setTitle(getMessage("FragmentPage-create-new-related-fragment"));
-		this.subFragmentFormPanel.setRestoresScrollTop(true);
 	}
 
 	// this.thisPageUrl needs the target model: this.fragment
 	private void applyTargetFragmentToControls() {
 		Assert.Property.requireNotNull(fragment, "fragment");
-		
-		this.subFragmentFormPanel.setParentFragment(this.fragment);
-		this.subFragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
 		
 		TagTree.restoreTagTree(this.superTags, this.fragment, getUser());
 	}
@@ -173,10 +162,7 @@ public class FragmentPage extends AbstractFragmentsPage {
 	private void embedCurrentStateInParameters() {
 		Assert.Property.requireNotNull(fragment, "fragment");
 
-		// For forms
-		this.subFragmentFormPanel.fragmentForm.add(new HiddenField(PN_FRAGMENT_ID, this.fragment.getId()));
 		this.superTagForm.add(new HiddenField(PN_FRAGMENT_ID, this.fragment.getId()));
-
 		addParameterToCommonForms(PN_FRAGMENT_ID, this.fragment.getId());
 	}
 }

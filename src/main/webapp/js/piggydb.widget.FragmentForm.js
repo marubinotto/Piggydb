@@ -108,6 +108,10 @@
 		_open(new piggydb.widget.Fragment(button), null);
 	};
 	
+	_class.openToAddChild = function(parentId) {
+		_open(null, parentId);
+	};
+	
 	_class.prototype = jQuery.extend({
 		
 		prepare: function() {
