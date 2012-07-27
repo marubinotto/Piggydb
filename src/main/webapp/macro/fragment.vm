@@ -68,14 +68,7 @@
 		#end
            
     <div id="children-tree" class="children">
-		#if ($fragment.hasChildren())
-      <ul class="fragment-tree sortable-children">
-      #foreach ($relation in $fragment.childRelations)
-        <li class="fragment-node" id="child_${relation.id}"
-          >#fragmentRootNode($relation.to $relation $fragment.classification $null) </li>
-      #end
-      </ul>
-		#end
+			#fragmentRootChildNodes($fragment)
     </div>
   
   </td>
