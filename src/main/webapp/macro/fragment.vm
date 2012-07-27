@@ -12,7 +12,7 @@
 		<div class="add-fragment">
       #newFragmentButtons(
   			"piggydb.widget.FragmentForm.openToAddChild(${fragment.getId()}); return false;"
-  			"piggydb.widget.FileForm.openToAdd(); return false;")
+  			"piggydb.widget.FileForm.openToAddChild(${fragment.getId()}); return false;")
 		</div>
 
   #if ($fragment.hasChildren())

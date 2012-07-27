@@ -2,10 +2,11 @@
 	
 	var _ID = "file-form";
 	
-	var _open = function(fragment, modal, onSaved) {
+	var _open = function(args, fragment, modal, onSaved) {
 		jQuery("#" + _ID).remove();
 		
-		var args = fragment != null ? {id: fragment.id()} : {};
+		if (fragment != null) args.id = fragment.id();
+		
 		piggydb.util.blockPageDuringAjaxRequest();
 		jQuery.get("partial/file-form.htm", args, function(html) {
 			if (!module.FormDialog.checkOpenError(html)) {
@@ -36,15 +37,19 @@
 	};
 	
 	_class.openToAdd = function() {
-		_open(null, false, null);
+		_open({}, null, false, null);
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open(new piggydb.widget.Fragment(button), false, null);
+		_open({}, new piggydb.widget.Fragment(button), false, null);
 	};
 	
 	_class.openToEmbed = function(onSaved) {
-		_open(null, true, onSaved);
+		_open({}, null, true, onSaved);
+	};
+	
+	_class.openToAddChild = function(parentId) {
+		_open({parentId: parentId}, null, false, null);
 	};
 	
 	_class.prototype = jQuery.extend({

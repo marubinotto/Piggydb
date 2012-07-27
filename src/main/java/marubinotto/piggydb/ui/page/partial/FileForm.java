@@ -19,7 +19,12 @@ public class FileForm extends AbstractFragmentForm {
 			this.title = getMessage("edit-fragment");
 		}
 		else {
-			this.title = getMessage("add-file");
+			if (this.parent != null) {
+				this.title = getTitlePrefixByParent() + getMessage("add-file");
+			}
+			else {
+				this.title = getMessage("add-file");
+			}
 		}
 	}
 }
