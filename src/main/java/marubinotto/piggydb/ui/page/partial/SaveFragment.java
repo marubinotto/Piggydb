@@ -6,8 +6,14 @@ import marubinotto.util.procedure.Procedure;
 
 public class SaveFragment extends AbstractSubmitFragmentForm {
 	
+	public Long parentId;
+	
 	public String success;
 	public Long newId;
+	
+	public Long getParentId() {
+		return this.parentId;
+	}
 
 	@Override 
 	protected void setModels() throws Exception {
@@ -28,6 +34,9 @@ public class SaveFragment extends AbstractSubmitFragmentForm {
 				public Object execute(Object input) throws Exception {
 					FragmentRepository repository = getDomain().getFragmentRepository();
 					long newId = repository.register(getFragment());
+					if (getParentId() != null) {
+						repository.createRelation(getParentId(), newId, getUser());
+					}
 					return newId;
 				}
 			});

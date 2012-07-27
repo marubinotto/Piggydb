@@ -7,11 +7,12 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.piggydb.ui.page.control.form.FragmentFormUtils;
+import marubinotto.util.message.CodedException;
 
 public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 	
 	public Long parentId;
-	protected Fragment parent;
+	public Fragment parent;
 
 	public int titleMaxLength = Fragment.TITLE_MAX_LENGTH;
 	public String tags;
@@ -26,6 +27,8 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		
 		if (this.parentId != null) {
 			this.parent = getDomain().getFragmentRepository().get(this.parentId, false);
+			if (this.parent == null)
+				throw new CodedException("no-such-fragment", this.parentId.toString());
 			inheritTagsFromParent();
 		}
 		

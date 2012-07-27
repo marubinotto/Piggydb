@@ -411,11 +411,14 @@
 
 
 
-#macro ( fragmentFormCommonInputs $formId $fragment )
+#macro ( fragmentFormCommonInputs $formId $fragment $parent )
 	
 #if ($fragment.getId())
 	<input type="hidden" name="id" value="$fragment.getId()"/>
 	<input type="hidden" name="timestamp" value="$fragment.getUpdateDatetime().getTime()"/>
+#end
+#if ($parent)
+	<input type="hidden" name="parentId" value="$parent.getId()"/>
 #end
 <div class="title">
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
