@@ -2,7 +2,7 @@
 	
 	var _ID = "file-form";
 	
-	var _open = function(args, fragment, modal, onSaved) {
+	var _open = function(args, fragment, modal, onCreated) {
 		jQuery("#" + _ID).remove();
 		
 		if (fragment != null) args.id = fragment.id();
@@ -14,7 +14,7 @@
 				var form = new _class(jQuery("#" + _ID));
 				form.fragment = fragment;
 				form.modal = modal;
-				form.onSaved = onSaved;
+				form.onCreated = onCreated;
 				form.open();
 			}
 		});
@@ -31,25 +31,29 @@
 		this.modal = false;
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
-		this.onSaved = null;
+		this.onCreated = null;
 		
 		this.prepareCommonInputs();
 	};
 	
 	_class.openToAdd = function() {
-		_open({}, null, false, null);
+		_open({}, null, false, function(newId) {
+			module.FormDialog.refreshFragmentsView(newId);
+		});
 	};
 	
 	_class.openToUpdate = function(button) {
 		_open({}, new piggydb.widget.Fragment(button), false, null);
 	};
 	
-	_class.openToEmbed = function(onSaved) {
-		_open({}, null, true, onSaved);
+	_class.openToEmbed = function(onCreated) {
+		_open({}, null, true, onCreated);
 	};
 	
 	_class.openToAddChild = function(parentId) {
-		_open({parentId: parentId}, null, false, null);
+		_open({parentId: parentId}, null, false, function(newId) {
+			piggydb.widget.Fragment.reloadRootChildNodes(parentId, newId);
+		});
 	};
 	
 	_class.prototype = jQuery.extend({
@@ -88,12 +92,7 @@
 						outer.unblock();
 					}
 					else {
-						outer.showSuccessMessage(html);
-						if (jQuery.isFunction(outer.onSaved)) 
-							outer.onSaved(html);
-						else
-							piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
-						
+						outer.processResponseOnSaved(html, outer.fragment);
 						outer.close();
 					}
 				});

@@ -192,6 +192,11 @@ piggydb.namespace("piggydb.widget", {
 		}
 		return false;
 	};
+	module.FormDialog.refreshFragmentsView = function(highlightId) {
+		if (typeof fragmentsView_fragmentsByDate != "undefined") {
+			fragmentsView_fragmentsByDate.refresh(highlightId);
+		}
+	};
 	module.FormDialog.prototype = jQuery.extend({
 	
 		close: function() {
@@ -290,12 +295,27 @@ piggydb.namespace("piggydb.widget", {
       this.tagPalette = palette;
 		},
 		
-		showSuccessMessage: function(response) {
+		processResponseOnSaved: function(response, fragment) {
+			var outer = this;
+			
+			// success message
 			jQuery(response).find("span.success").each(function() {
 				piggydb.widget.putGlobalMessage(jQuery(this).html());
 			});
+			
+			// created 
+			jQuery(response).find("span.new-id").each(function() {
+				if (jQuery.isFunction(outer.onCreated)) 
+					outer.onCreated(jQuery(this).text());
+			});
+			// updated
+			if (fragment != null) {
+				jQuery(response).children("div.fragment-properties").each(function() {
+					fragment.update(jQuery(this));
+				});
+				piggydb.widget.Fragment.highlight(fragment.id(), null);
+			}
 		}
-	
 	}, module.Widget.prototype);
 	
 	

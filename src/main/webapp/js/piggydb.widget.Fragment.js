@@ -138,26 +138,11 @@ jQuery(function() {
 	  });  
 	};
 	
-	_class.onAjaxSaved = function(response, fragment) {
-		// created 
-		jQuery(response).find("span.new-id").each(function() {
-			if (typeof fragmentsView_fragmentsByDate != "undefined") {
-				fragmentsView_fragmentsByDate.refresh(jQuery(this).text());
-			}
-		});
-		// updated
-		if (fragment != null) {
-			jQuery(response).children("div.fragment-properties").each(function() {
-				fragment.update(jQuery(this));
-			});
-			_class.highlight(fragment.id(), null);
-		}
-	};
-	
-	_class.reloadRootChildNodes = function(parentId) {
+	_class.reloadRootChildNodes = function(parentId, newId) {
 		var div = jQuery("#children-tree").empty().putLoadingIcon("margin: 5px;");
 		jQuery.get("partial/fragment-root-child-nodes.htm", {id: parentId}, function(childrenHtml) {
 			div.html(childrenHtml);
+			_class.highlight(newId, null);
     });
 	};
 	

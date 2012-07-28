@@ -31,7 +31,7 @@
 	
 	var _previewBox = new piggydb.widget.Facebox("facebox-fragment-preview");
 	
-	var _open = function(args, fragment) {
+	var _open = function(args, fragment, onCreated) {
 		var editorId = fragment != null ? 
 			"fragment-editor-" + fragment.id() : 
 			"fragment-editor-new";
@@ -48,6 +48,7 @@
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + editorId), editorId);
 				form.fragment = fragment;
+				form.onCreated = onCreated;
 				form.open();
 			}
 		});
@@ -59,6 +60,7 @@
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
+		this.onCreated = null;
 		this.prepare();
 	};
 	
@@ -82,9 +84,8 @@
 		}
 		markItUpRoot.find(".markItUp li.markItUpButton8").mouseup(function() {
 			piggydb.widget.FileForm.openToEmbed(
-				function(responseHtml) {
-					var fragmentId = jQuery(responseHtml).children("span.new-id").text();
-					var embeddedCode = "fragment:" + fragmentId + ":embed";
+				function(newId) {
+					var embeddedCode = "fragment:" + newId + ":embed";
 					textarea.insertAtCaret(embeddedCode, jQuery.data(textarea, "range"));
 				});
 		});
@@ -99,15 +100,19 @@
 	};
 	
 	_class.openToCreate = function() {
-		_open({}, null);
+		_open({}, null, function(newId) {
+			module.FormDialog.refreshFragmentsView(newId);
+		});
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open({}, new piggydb.widget.Fragment(button));
+		_open({}, new piggydb.widget.Fragment(button), null);
 	};
 	
 	_class.openToAddChild = function(parentId) {
-		_open({parentId: parentId}, null);
+		_open({parentId: parentId}, null, function(newId) {
+			piggydb.widget.Fragment.reloadRootChildNodes(parentId, newId);
+		});
 	};
 	
 	_class.prototype = jQuery.extend({
@@ -160,8 +165,7 @@
 						outer.unblock();
 					}
 					else {
-						outer.showSuccessMessage(html);
-						piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
+						outer.processResponseOnSaved(html, outer.fragment);
 						outer.close();
 					}
 				});
