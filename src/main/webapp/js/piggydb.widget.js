@@ -288,6 +288,12 @@ piggydb.namespace("piggydb.widget", {
       palette.autoFlatWidth = true;
       palette.init(this.element.find("button.pulldown"));
       this.tagPalette = palette;
+		},
+		
+		showSuccessMessage: function(response) {
+			jQuery(response).find("span.success").each(function() {
+				piggydb.widget.putGlobalMessage(jQuery(this).html());
+			});
 		}
 	
 	}, module.Widget.prototype);

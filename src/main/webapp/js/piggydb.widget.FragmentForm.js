@@ -160,6 +160,7 @@
 						outer.unblock();
 					}
 					else {
+						outer.showSuccessMessage(html);
 						piggydb.widget.Fragment.onAjaxSaved(html, outer.fragment);
 						outer.close();
 					}

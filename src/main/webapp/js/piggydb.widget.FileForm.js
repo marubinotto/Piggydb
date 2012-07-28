@@ -88,6 +88,7 @@
 						outer.unblock();
 					}
 					else {
+						outer.showSuccessMessage(html);
 						if (jQuery.isFunction(outer.onSaved)) 
 							outer.onSaved(html);
 						else
