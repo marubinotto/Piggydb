@@ -23,9 +23,9 @@ jQuery(function() {
 	  _class.makeRelationsDraggable("");
 	};
 	
-	_class.initForPartial = function(selectorPrefix) {
-		_class.makeFragmentsDroppable(selectorPrefix + "table.fragment", null);
-	  _class.makeRelationsDraggable(selectorPrefix);
+	_class.initForPartial = function(partialSelector) {
+		_class.makeFragmentsDroppable(partialSelector + " table.fragment", null);
+	  _class.makeRelationsDraggable(partialSelector + " ");
 	};
 	
 	_class.findInTheSameFragmentNode = function(node, selector) {
@@ -147,7 +147,7 @@ jQuery(function() {
 		var div = jQuery("#children-tree").empty().putLoadingIcon("margin: 5px;");
 		jQuery.get("partial/fragment-root-child-nodes.htm", {id: parentId}, function(childrenHtml) {
 			div.html(childrenHtml);
-			_class.initForPartial("#children-tree ");
+			_class.initForPartial("#children-tree");
 			_class.highlight(newId, null);
     });
 	};
