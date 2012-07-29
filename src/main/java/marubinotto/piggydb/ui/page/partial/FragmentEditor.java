@@ -11,13 +11,16 @@ public class FragmentEditor extends AbstractFragmentForm {
 		
 		if (this.fragment.getId() != null) {
 			this.editorId = "fragment-editor-" + this.fragment.getId();
-			this.editorTitle = getMessage("edit-fragment") + 
+			this.editorTitle = 
+				getMessage("edit-fragment") + 
 				" (#" + this.fragment.getId() + ")";
 		}
 		else {
 			this.editorId = "fragment-editor-new";
 			if (this.parent != null) {
-				this.editorTitle = getTitlePrefixByParent() + getMessage("create-new-related-fragment");
+				this.editorTitle = 
+					getTitlePrefixByParent() + 
+					getMessage("create-new-related-fragment");
 			}
 			else {
 				this.editorTitle = getMessage("create-new-fragment");
