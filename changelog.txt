@@ -1,6 +1,20 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev8 (2012-07-30) == #v6.0-dev8
+
+ * Switched the form of a child(related) fragment to the new editor
+ * Updated the editor to put a new line markup ("~") when Shift+Enter keys are pressed
+ * Added a fragment ID to the title of the editor for update
+ * Widened the keyword search input field
+ * Added a file icon to the captions of all file fragments except for image fragments
+ * Updated the caption of an image fragment to always have the image icon
+ * Fixed the bug that using a reserved word 'import' as a method name causes an error on IE 8
+ * Accessibility 
+   * Modified all the meaningless alt="x"
+   * Changed the word 'delete" to the more appropriate word 'remove'
+   * Removed the default focus on the content area from the fragment editor
+
 == Changes in version 6.0-dev7 (2012-07-17) == #v6.0-dev7
 
  * Full-fledged File Upload Dialog
