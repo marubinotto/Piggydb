@@ -6,6 +6,7 @@ jQuery(function() {
 });
 
 
+
 piggydb.namespace("piggydb.widget", {
 	
 	instances: [],
@@ -18,6 +19,10 @@ piggydb.namespace("piggydb.widget", {
 });
 
 
+
+/**
+ * Utilities
+ */
 (function(module) {
 	
 	var _messages = piggydb.server.messages;
@@ -149,14 +154,22 @@ piggydb.namespace("piggydb.widget", {
 		input.qtip('destroy');
 	};
 	
+})(piggydb.widget);
 
-	/**
-	 *  The base class for HTML widgets
-	 */
-	module.Widget = function(jQueryElement) {
+
+
+/**
+ * The base class for HTML widgets
+ */
+(function(module) {
+	
+	var _messages = piggydb.server.messages;
+	
+	var _class = function(jQueryElement) {
 		this.element = jQueryElement;
 	};
-	module.Widget.prototype = {
+		
+	_class.prototype = {
 			
 	  saveState: function(name, value) {
 	  	piggydb.server.putSessionValue(name, value);
@@ -166,44 +179,54 @@ piggydb.namespace("piggydb.widget", {
 	  	return _messages[key];
 	  }
 	};
+
+	module.Widget = _class;
 	
+})(piggydb.widget);
+
+
+
+/**
+ * Facebox based on facebox (http://famspam.com/facebox)
+ */
+(function(module) {
 	
-	/**
-	 *  Facebox based on facebox (http://famspam.com/facebox)
-	 */
-	module.Facebox = function(id) {
+	var _messages = piggydb.server.messages;
+	
+	var _class = function(id) {
 		module.Widget.call(this, jQuery('\
-	<div id="' + id + '" class="facebox"> \
-	  <div class="popup"> \
-	    <table> \
-	      <tbody> \
-	        <tr> \
-	          <td class="tl"/><td class="b"/><td class="tr"/> \
-	        </tr> \
-	        <tr> \
-	          <td class="b"/> \
-	          <td class="body"> \
-	           <div class="header"> \
-	             <a href="#" class="close"> \
-	             <img src="images/large-delete.gif" class="close_image" alt="' + _messages["close"] + '"/></a> \
-	           </div> \
-	           <div class="content"></div> \
-	          </td> \
-	          <td class="b"/> \
-	        </tr> \
-	        <tr> \
-	          <td class="bl"/><td class="b"/><td class="br"/> \
-	        </tr> \
-	      </tbody> \
-	    </table> \
-	  </div> \
-	</div>'));
+<div id="' + id + '" class="facebox"> \
+  <div class="popup"> \
+    <table> \
+      <tbody> \
+        <tr> \
+          <td class="tl"/><td class="b"/><td class="tr"/> \
+        </tr> \
+        <tr> \
+          <td class="b"/> \
+          <td class="body"> \
+           <div class="header"> \
+             <a href="#" class="close"> \
+             <img src="images/large-delete.gif" class="close_image" alt="' + _messages["close"] + '"/></a> \
+           </div> \
+           <div class="content"></div> \
+          </td> \
+          <td class="b"/> \
+        </tr> \
+        <tr> \
+          <td class="bl"/><td class="b"/><td class="br"/> \
+        </tr> \
+      </tbody> \
+    </table> \
+  </div> \
+</div>'));
 		
 	  this.id = id;
 	  this.body = this.element.find('.body');
 	  this.content = this.element.find('.content');
 	};
-	module.Facebox.prototype = jQuery.extend({
+	
+	_class.prototype = jQuery.extend({
 		
 	  show: function(url) {
 	    this.init();  
@@ -280,13 +303,20 @@ piggydb.namespace("piggydb.widget", {
 		}		
 	}, module.Widget.prototype);
 	
+	module.Facebox = _class;
+	
 	module.imageViewer = new module.Facebox("facebox-image-viewer");
+
+})(piggydb.widget);
+
+
+
+/**
+ * ShowHideToggle
+ */
+(function(module) {
 	
-	
-	/**
-	 *  ShowHideToggle
-	 */
-	module.ShowHideToggle = function(id, target) {
+	var _class = function(id, target) {
 		module.Widget.call(this, jQuery('#' + id));
 		
 	  this.id = id;
@@ -300,7 +330,8 @@ piggydb.namespace("piggydb.widget", {
 	    return false;
 	  });
 	};
-	module.ShowHideToggle.prototype = jQuery.extend({
+	
+	_class.prototype = jQuery.extend({
 		
 	  SHOW: "down",
 	  HIDE: "up",
@@ -322,12 +353,18 @@ piggydb.namespace("piggydb.widget", {
 	  }
 	}, module.Widget.prototype);
 
+	module.ShowHideToggle = _class;
 	
+})(piggydb.widget);
+
+
+
+/**
+ * SidebarEntry
+ */
+(function(module) {
 	
-	/**
-	 *  SidebarEntry
-	 */
-	module.SidebarEntry = function(id, toggleId) {
+	var _class = function(id, toggleId) {
 		module.Widget.call(this, jQuery('#' + id));
 		
 	  this.id = id;
@@ -338,11 +375,15 @@ piggydb.namespace("piggydb.widget", {
 	  if (!cls.instances) cls.instances = [];
 	  cls.instances[id] = this;
 	}
-	module.SidebarEntry.prototype = jQuery.extend({
+	
+	_class.prototype = jQuery.extend({
 		
 		isContentHidden: function() {
 	    return this.content.css("display") == "none";
 	  }
 	}, module.Widget.prototype);
+	
+	module.SidebarEntry = _class;
 
-})(piggydb.widget);	
+})(piggydb.widget);
+
