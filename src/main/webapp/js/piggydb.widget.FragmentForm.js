@@ -36,7 +36,7 @@
 			"fragment-editor-" + fragment.id() : 
 			"fragment-editor-new";
 			
-		if (module.FormDialog.setFocusIfOpen(editorId)) return;
+		if (module.FragmentFormBase.setFocusIfOpen(editorId)) return;
 
 		jQuery("#" + editorId).remove();
 		
@@ -44,7 +44,7 @@
 		
 		piggydb.util.blockPageDuringAjaxRequest();
 		jQuery.get("partial/fragment-editor.htm", args, function(html) {
-			if (!module.FormDialog.checkOpenError(html)) {
+			if (!module.FragmentFormBase.checkOpenError(html)) {
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + editorId), editorId);
 				form.fragment = fragment;
@@ -55,7 +55,7 @@
 	};
 	
 	var _class = function(element, id) {
-		module.FormDialog.call(this, element);
+		module.FragmentFormBase.call(this, element);
 		this.id = id;
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.indicator = this.element.find("span.indicator");
@@ -101,7 +101,7 @@
 	
 	_class.openToCreate = function() {
 		_open({}, null, function(newId) {
-			module.FormDialog.refreshFragmentsView(newId);
+			module.FragmentFormBase.refreshFragmentsView(newId);
 		});
 	};
 	
@@ -183,7 +183,7 @@
 			this.textarea.height(baseHeight - 55);
 		}
 		
-	}, module.FormDialog.prototype);
+	}, module.FragmentFormBase.prototype);
 	
 	module.FragmentForm = _class;
 

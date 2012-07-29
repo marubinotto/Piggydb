@@ -9,7 +9,7 @@
 		
 		piggydb.util.blockPageDuringAjaxRequest();
 		jQuery.get("partial/file-form.htm", args, function(html) {
-			if (!module.FormDialog.checkOpenError(html)) {
+			if (!module.FragmentFormBase.checkOpenError(html)) {
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + _ID));
 				form.fragment = fragment;
@@ -23,7 +23,7 @@
 	var _initialHeight = 150;
 	
 	var _class = function(element) {
-		module.FormDialog.call(this, element);
+		module.FragmentFormBase.call(this, element);
 		
 		window.fileForm = this;
 		
@@ -38,7 +38,7 @@
 	
 	_class.openToAdd = function() {
 		_open({}, null, false, function(newId) {
-			module.FormDialog.refreshFragmentsView(newId);
+			module.FragmentFormBase.refreshFragmentsView(newId);
 		});
 	};
 	
@@ -131,7 +131,7 @@
 			piggydb.widget.imageViewer.close();
 		}
 		
-	}, module.FormDialog.prototype);
+	}, module.FragmentFormBase.prototype);
 	
 	module.FileForm = _class;
 	
