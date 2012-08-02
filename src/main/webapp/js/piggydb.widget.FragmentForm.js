@@ -115,6 +115,12 @@
 		});
 	};
 	
+	_class.openToCreateWithTag = function(tagId) {
+		_open({tagId: tagId}, null, function(newId) {
+			piggydb.widget.FragmentsView.refreshViews(newId);
+		});
+	};
+	
 	_class.prototype = jQuery.extend({
 		
 		prepare: function() {

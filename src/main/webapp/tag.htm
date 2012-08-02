@@ -193,8 +193,8 @@ $utils.raw($subTagForm.endTag())
   #if ($tag.authorizes($user))
 		<div class="new-tagged-fragment-buttons">
       #newFragmentButtons(
-  			"piggydb.widget.FragmentForm.openToCreate(); return false;"
-  			"piggydb.widget.FileForm.openToCreate(); return false;")
+  			"piggydb.widget.FragmentForm.openToCreateWithTag(${tag.getId()}); return false;"
+  			"piggydb.widget.FileForm.openToCreateWithTag(${tag.getId()}); return false;")
 		</div>
   #end
 #end
