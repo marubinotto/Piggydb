@@ -2,8 +2,12 @@
 
 	var _MIN_SCALE = 0;
 	var _MAX_SCALE = 1000;
+	
+	var _instances = {};
 
 	var _class = function(id, fragmentsUrl, scale, orderBy, ascending) {
+		_instances[id] = this;
+		
 		this.id = id;
 		this.rootDiv = jQuery("#" + id);
 		this.fragmentsUrl = fragmentsUrl;
@@ -15,6 +19,12 @@
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.viewControl = this.rootDiv.find(".view-control");
 		this.pageIndex = 0;
+	};
+	
+	_class.refreshViews = function(highlightId) {
+		jQuery.each(_instances, function(id) {
+			this.refresh(highlightId);
+		});
 	};
 	
 	_class.prototype = jQuery.extend({

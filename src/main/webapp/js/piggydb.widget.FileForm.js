@@ -38,7 +38,7 @@
 	
 	_class.openToAdd = function() {
 		_open({}, null, false, function(newId) {
-			module.FragmentFormBase.refreshFragmentsView(newId);
+			piggydb.widget.FragmentsView.refreshViews(newId);
 		});
 	};
 	

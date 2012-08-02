@@ -28,12 +28,6 @@
 		return false;
 	};
 	
-	_class.refreshFragmentsView = function(highlightId) {
-		if (typeof fragmentsView_fragmentsByDate != "undefined") {
-			fragmentsView_fragmentsByDate.refresh(highlightId);
-		}
-	};
-	
 	_class.prototype = jQuery.extend({
 		
 		close: function() {
