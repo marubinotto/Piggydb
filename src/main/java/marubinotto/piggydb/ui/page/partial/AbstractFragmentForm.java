@@ -13,6 +13,8 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 	
 	public Long parentId;
 	public Fragment parent;
+	
+	public Long tagId;
 
 	public int titleMaxLength = Fragment.TITLE_MAX_LENGTH;
 	public String tags;
@@ -27,9 +29,21 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		
 		if (this.parentId != null) {
 			this.parent = getDomain().getFragmentRepository().get(this.parentId, false);
-			if (this.parent == null)
+			if (this.parent == null) {
 				throw new CodedException("no-such-fragment", this.parentId.toString());
-			inheritTagsFromParent();
+			}
+			for (Tag tag : this.parent.getClassification()) {
+				if (isInheritedFromParent(tag)) {
+					addDefaultTag(tag);
+				}
+			}
+		}
+		if (this.tagId != null) {
+			Tag tag = getDomain().getTagRepository().get(this.tagId);
+			if (tag == null) {
+				throw new CodedException("no-such-tag", this.tagId.toString());
+			}
+			addDefaultTag(tag);
 		}
 		
 		this.tags = FragmentFormUtils.toTagsString(this.fragment.getClassification());
@@ -37,21 +51,15 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		addModel("isMinorEditAvailable", isMinorEditAvailable());
 	}
 	
-	private void inheritTagsFromParent() {
-		if (this.parent == null) return;
-		
-		for (Tag tag : this.parent.getClassification()) {
-			if (isInheritedFromParent(tag)) {
-				try {
-					this.fragment.addTagByUser(tag, getUser());
-				}
-				catch (InvalidTaggingException e) {
-					throw new UnhandledException(e);
-				}
-				catch (AuthorizationException e) {
-					continue;		// don't include not-permitted tags
-				}
-			}
+	private void addDefaultTag(Tag tag) {
+		try {
+			this.fragment.addTagByUser(tag, getUser());
+		}
+		catch (InvalidTaggingException e) {
+			throw new UnhandledException(e);
+		}
+		catch (AuthorizationException e) {
+			// don't include not-permitted tags
 		}
 	}
 	

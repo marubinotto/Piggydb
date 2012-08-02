@@ -276,7 +276,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		getLogger().info("Adding a classification-tag: " + tagName + " to: " + this.filter.getId());
 		Tag tag = getDomain().getTagRepository().getByName(tagName);
 		if (tag == null) {
-			this.classificationForm.setError(getMessage("FilterPage-no-such-tag", tagName));
+			this.classificationForm.setError(getMessage("no-such-tag", tagName));
 			return true;
 		}
 		this.filter.addClassificationByUser(tag, getUser());
@@ -320,7 +320,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		getLogger().info("Adding a exclude-tag: " + tagName + " to: " + this.filter.getId());
 		Tag tag = getDomain().getTagRepository().getByName(tagName);
 		if (tag == null) {
-			this.excludeTagForm.setError(getMessage("FilterPage-no-such-tag", tagName));
+			this.excludeTagForm.setError(getMessage("no-such-tag", tagName));
 			return true;
 		}
 		this.filter.addExcludeByUser(tag, getUser());
