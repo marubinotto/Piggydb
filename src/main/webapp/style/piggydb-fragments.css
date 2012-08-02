@@ -376,6 +376,10 @@ td.fragment-body .fragment-content span.error-line {
  * Fragments View
  */
  
+.fragments div.new-fragment-buttons {
+	margin-bottom: 10px;
+}
+ 
 .fragments-view {
 	margin-bottom: 10px;
 }

@@ -191,7 +191,7 @@ $utils.raw($subTagForm.endTag())
   $utils.raw($deleteTrashesForm.endTag())
 #else
   #if ($tag.authorizes($user))
-		<div class="new-tagged-fragment-buttons">
+		<div class="new-fragment-buttons">
       #newFragmentButtons(
   			"piggydb.widget.FragmentForm.openToCreateWithTag(${tag.getId()}); return false;"
   			"piggydb.widget.FileForm.openToCreateWithTag(${tag.getId()}); return false;")
