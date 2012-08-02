@@ -11,7 +11,6 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
@@ -130,8 +129,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.subTagForm.initialize();
 
 		// Fragments
-		this.fragmentFormPanel = createFragmentFormPanel();
-		this.fragmentFormPanel.setRestoresScrollTop(true);
 		this.deleteTrashesForm.setListener(this, "onDeleteTrashes");
 	}
 
@@ -142,9 +139,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.tagNameField.setValue(this.tag.getName());
 		
 		TagTree.restoreTagTree(this.superTags, this.tag, getUser());
-		
-		this.fragmentFormPanel.addDefaultTag(this.tag);
-		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
 	}
 	
 
@@ -324,7 +318,6 @@ public class TagPage extends AbstractFragmentsPage {
 	
 	// Fragments
 
-	private FragmentFormPanel fragmentFormPanel;
 	public Form deleteTrashesForm = new Form();
 
 	public boolean onDeleteTrashes() throws Exception {
@@ -389,7 +382,6 @@ public class TagPage extends AbstractFragmentsPage {
 		this.tagNameForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.superTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.subTagForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
-		this.fragmentFormPanel.fragmentForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 		this.deleteTrashesForm.add(new HiddenField(PN_TAG_ID, this.tag.getId()));
 
 		addParameterToCommonForms(PN_TAG_ID, this.tag.getId());
