@@ -7,12 +7,14 @@
 #fragmentBodyRow($fragment)
 <tr>
   <td class="subfragments">
-    #adFragment()    
-		<div class="new-sub-fragment-buttons">
-      #newFragmentButtons(
-  			"piggydb.widget.FragmentForm.openToAddChild(${fragment.getId()}); return false;"
-  			"piggydb.widget.FileForm.openToAddChild(${fragment.getId()}); return false;")
-		</div>
+    #adFragment()
+		#if (!$user.isViewer())
+  		<div class="new-sub-fragment-buttons">
+        #newFragmentButtons(
+    			"piggydb.widget.FragmentForm.openToAddChild(${fragment.getId()}); return false;"
+    			"piggydb.widget.FileForm.openToAddChild(${fragment.getId()}); return false;")
+  		</div>
+		#end
     <div id="children-tree" class="children">
 			#fragmentRootChildNodes($fragment)
     </div>
