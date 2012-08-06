@@ -13,6 +13,7 @@ jQuery(function() {
 	};
 	
 	_class.init = function() {
+		prettyPrint();
 		jQuery("table.fragment").live('mouseenter', function() {
 	    jQuery(this).find(".fragment-tools").eq(0).show();
 	  });

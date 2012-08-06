@@ -15,8 +15,6 @@ jQuery(function() {
 	piggydb.widget.putGlobalMessage('$utils.raw($utils.escapeJs($message))');
 #end
 
-  prettyPrint();
-  jQuery.updnWatermark.attachAll();
 #if ($highlightedFragment)
   piggydb.widget.Fragment.highlight($highlightedFragment, null);
 #end

@@ -1,4 +1,6 @@
 jQuery(function() {
+	jQuery.updnWatermark.attachAll();
+	
 	jQuery("a.img-link").live("click", function() {
 		piggydb.widget.imageViewer.showImage(this.href);
 	  return false;
