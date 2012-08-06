@@ -15,8 +15,4 @@
 
   <mode value="development"/>
   
-  <controls>
-    <control classname="marubinotto.piggydb.ui.page.control.FragmentFormPanel"/>
-  </controls>
-  
 </click-app>

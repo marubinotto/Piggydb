@@ -1,7 +1,8 @@
 package marubinotto.piggydb.ui.page.common;
 
 import static marubinotto.util.CollectionUtils.set;
-import static org.apache.commons.lang.StringUtils.*;
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
-import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.page.partial.AbstractFragments;
@@ -121,21 +121,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		this.addTagForm.add(new HiddenField(name, value));
 		this.addTagsToSelectedForm.add(new HiddenField(name, value));
 		this.removeBookmarkForm.add(new HiddenField(name, value));
-	}
-
-	// FragmentFormPanel
-
-	protected FragmentFormPanel createFragmentFormPanel() {
-		return createFragmentFormPanel(null);
-	}
-
-	protected FragmentFormPanel createFragmentFormPanel(String name) {
-		FragmentFormPanel panel = (FragmentFormPanel) getBean("fragmentFormPanel");
-		panel.setName(name == null ? "fragmentFormPanel" : name);
-		panel.setPage(this);
-		panel.setUser(getUser());
-		addControl(panel);
-		return panel;
 	}
 
 	// Create a relation

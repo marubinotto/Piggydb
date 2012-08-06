@@ -30,14 +30,6 @@
   </bean>
   
   <bean id="htmlBuilder" class="marubinotto.piggydb.ui.wiki.HtmlBuilder"/>
-
-  <bean id="fragmentFormPanel" scope="prototype"
-      class="marubinotto.piggydb.ui.page.control.FragmentFormPanel">
-    <property name="transaction"><ref bean="transaction"/></property>
-    <property name="tagRepository"><ref bean="tagRepository"/></property>
-    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
-    <property name="allowsOnlyOwnerToUploadFile" value="false"/>
-  </bean>
   
 </beans>
 
