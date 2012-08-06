@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
@@ -161,16 +160,11 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 			return false;
 		}
 
-		final FragmentRepository repository = getDomain().getFragmentRepository();
 		try {
 			getDomain().getTransaction().execute(new Procedure() {
 				public Object execute(Object input) throws Exception {
-					// forward
-					if (isNotBlank(forward))
-						repository.createRelation(fromId, toId, getUser());
-					// backward
-					if (isNotBlank(backward))
-						repository.createRelation(toId, fromId, getUser());
+					if (isNotBlank(forward)) createRelation(fromId, toId);
+					if (isNotBlank(backward)) createRelation(toId, fromId);
 					return null;
 				}
 			});
@@ -203,6 +197,16 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 				this.html.fragmentInMessage(to)},
 			false));
 		return false;
+	}
+	
+	private void createRelation(long from, long to) 
+	throws NoSuchEntityException, Exception {
+		try {
+			getDomain().getFragmentRepository().createRelation(from, to, getUser());
+		}
+		catch (DuplicateException e) {
+			// Ignore duplication
+		}
 	}
 
 	// Create relations to the selected fragments
