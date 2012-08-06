@@ -2,10 +2,12 @@ package marubinotto.piggydb.ui.page.partial;
 
 import org.apache.commons.lang.UnhandledException;
 
+import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
+import marubinotto.piggydb.ui.page.FilterPage;
 import marubinotto.piggydb.ui.page.control.form.FragmentFormUtils;
 import marubinotto.util.message.CodedException;
 
@@ -15,6 +17,7 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 	public Fragment parent;
 	
 	public Long tagId;
+	public Long filterId;
 
 	public int titleMaxLength = Fragment.TITLE_MAX_LENGTH;
 	public String tags;
@@ -27,6 +30,7 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 			this.fragment = getDomain().getFragmentRepository().newInstance(getUser());
 		}
 		
+		// set default values
 		if (this.parentId != null) {
 			this.parent = getDomain().getFragmentRepository().get(this.parentId, false);
 			if (this.parent == null) {
@@ -45,10 +49,25 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 			}
 			addDefaultTag(tag);
 		}
+		if (this.filterId != null) {
+			Filter filter = getFilter(this.filterId);
+			if (filter != null) {
+				for (Tag tag : filter.getClassification()) addDefaultTag(tag);
+			}
+		}
 		
 		this.tags = FragmentFormUtils.toTagsString(this.fragment.getClassification());
 		
 		addModel("isMinorEditAvailable", isMinorEditAvailable());
+	}
+	
+	private Filter getFilter(Long filterId) throws Exception {
+		if (filterId == 0) {
+			return (Filter)getContext().getSessionAttribute(FilterPage.SK_NEW_FILTER);
+		}
+		else {
+			return getDomain().getFilterRepository().get(filterId);
+		}
 	}
 	
 	private void addDefaultTag(Tag tag) {
