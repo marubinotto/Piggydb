@@ -1,8 +1,18 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td class="fragments" valign="top">
-$utils.raw($fragmentFormPanel)
-
+#if (!$user.isViewer())
+	<div class="new-fragment-buttons">
+		#if ($filter.getId())
+			#set ($filterId = $filter.getId())
+		#else
+			#set ($filterId = 0)
+		#end
+    #newFragmentButtons(
+			"piggydb.widget.FragmentForm.openToCreateWithFilter($filterId); return false;"
+			"piggydb.widget.FileForm.openToCreateWithFilter($filterId); return false;")
+	</div>
+#end
 #fragmentsView("fragmentsByFilter" "$context/partial/fragments-by-filter.htm#if($filter.id)?id=$filter.id#end" "true")
 </td>
   

@@ -8,7 +8,6 @@ import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
-import marubinotto.piggydb.ui.page.control.FragmentFormPanel;
 import marubinotto.piggydb.ui.page.control.TagTree;
 import marubinotto.piggydb.ui.page.control.form.SingleTagForm;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
@@ -132,8 +131,6 @@ public class FilterPage extends AbstractFragmentsPage {
 	// Control
 	//
 
-	private FragmentFormPanel fragmentFormPanel;
-
 	@Override
 	public void onInit() {
 		super.onInit();
@@ -143,8 +140,6 @@ public class FilterPage extends AbstractFragmentsPage {
 	}
 
 	private void initControls() {
-		this.fragmentFormPanel = createFragmentFormPanel();
-
 		// Filter Name
 		this.filterNameField = new TextField("filterName");
 		this.filterNameField.setRequired(true);
@@ -175,9 +170,6 @@ public class FilterPage extends AbstractFragmentsPage {
 		if (this.filter.getName() != null) {
 			this.filterNameField.setValue(this.filter.getName());
 		}
-
-		this.fragmentFormPanel.setRedirectPathAfterRegistration(this.thisPageUrl.getPagePath());
-		this.fragmentFormPanel.addDefaultTags(this.filter.getClassification());
 
 		boolean canChange = this.filter.canChange(getUser());
 		TagTree.restoreTagTree(this.classificationTags, this.filter.getClassification(), canChange);
@@ -416,7 +408,6 @@ public class FilterPage extends AbstractFragmentsPage {
 
 		Long filterId = this.filter.getId();
 		if (filterId != null) {
-			this.fragmentFormPanel.fragmentForm.add(new HiddenField(PN_FILTER_ID, filterId));
 			this.filterNameForm.add(new HiddenField(PN_FILTER_ID, filterId));
 			this.classificationForm.add(new HiddenField(PN_FILTER_ID, filterId));
 			this.excludeTagForm.add(new HiddenField(PN_FILTER_ID, filterId));
