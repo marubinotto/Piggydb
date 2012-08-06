@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0-dev9 (2012-08-07) == #v6.0-dev9
+
+ * Switched the fragment form in the tag and filter page to the new editor
+ * Updated to ignore a duplication error when creating a relationship
+ * Updated to hide the New Fragment Buttons for anonymous users
+
 == Changes in version 6.0-dev8 (2012-07-30) == #v6.0-dev8
 
  * Switched the form of a child(related) fragment to the new editor
