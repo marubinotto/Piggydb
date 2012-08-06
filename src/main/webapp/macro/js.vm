@@ -15,22 +15,6 @@ jQuery(function() {
 	piggydb.widget.putGlobalMessage('$utils.raw($utils.escapeJs($message))');
 #end
 
-  jQuery.Autocompleter.defaults.formatItem = function(row) { 
-    return escapeHtml(row[0]); 
-  };
-  jQuery("#searchForm_keywords").autocomplete(piggydb.server.autoCompleteUrl, {
-    minChars: 1,
-    selectFirst: true,
-    multiple: false,
-    scrollHeight: 300
-  });
-  jQuery("input.single-tag").autocomplete(piggydb.server.autoCompleteUrl, {
-    minChars: 1,
-    selectFirst: true,
-    multiple: false,
-    scrollHeight: 300
-  });
-
   prettyPrint();
   jQuery.updnWatermark.attachAll();
 #if ($highlightedFragment)
