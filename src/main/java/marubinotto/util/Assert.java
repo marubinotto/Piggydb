@@ -12,7 +12,6 @@ public class Assert {
 	}
 
 	public static void require(boolean precondition, String description, Object actual) {
-
 		checkAssertion(precondition, description, actual, Type.PRECONDITION);
 	}
 

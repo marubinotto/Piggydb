@@ -58,7 +58,8 @@ public class CollectionUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <K, V> Map<K, V> makeMap(Collection<V> collection, String keyByOgnl) throws OgnlException {
+	public static <K, V> Map<K, V> makeMap(Collection<V> collection, String keyByOgnl) 
+	throws OgnlException {
 		Map<K, V> map = new LinkedHashMap<K, V>();
 		for (V value : collection) {
 			K key = (K)Ognl.getValue(keyByOgnl, value);
