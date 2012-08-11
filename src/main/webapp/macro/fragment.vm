@@ -1,6 +1,6 @@
 #macro( fragmentForPage $fragment )
 
-<table class="fragment fragment-full fragment-main multirow" 
+<table class="$html.fragmentTableClass($fragment) fragment-full fragment-main multirow" 
 	cellpadding="5" cellspacing="0" width="100%" border="0">
 #fragmentParentsRow($fragment $null)
 #fragmentHeaderRow($fragment $null)
@@ -28,7 +28,7 @@
 
 #macro( fragment $fragment $contextTags )
   
-<table class="fragment fragment-full multirow" 
+<table class="$html.fragmentTableClass($fragment) fragment-full multirow" 
 	cellpadding="5" cellspacing="0" width="100%" border="0">
 #fragmentParentsRow($fragment $null)
 #fragmentHeaderRow($fragment $contextTags)
@@ -42,7 +42,7 @@
 
 #macro ( fragmentCell $fragment $compactColumn ) 
   
-<table class="fragment fragment-cell #if ($compactColumn) fragment-cell-compact #end" 
+<table class="$html.fragmentTableClass($fragment) fragment-cell #if ($compactColumn) fragment-cell-compact #end" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
   <th class="header-cell" title="$fragment.title" valign="middle" style="padding-left: 5px;">
@@ -64,7 +64,7 @@
 
 #macro ( fragmentRootNode $fragment $contextRelation $contextTags $lightNode ) 
   
-<table class="fragment fragment-node fragment-root-node multirow" 
+<table class="$html.fragmentTableClass($fragment) fragment-node fragment-root-node multirow" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
 #if (!$lightNode)
 #fragmentParentsRow($fragment $contextRelation)
@@ -88,7 +88,7 @@
 
 #macro ( fragmentNode $fragment $contextRelation $contextTags )
   
-<table class="fragment fragment-node multirow" 
+<table class="$html.fragmentTableClass($fragment) fragment-node multirow" 
   cellpadding="0" cellspacing="0" width="100%" border="0">
 #fragmentParentsRow($fragment $contextRelation)
 <tr>

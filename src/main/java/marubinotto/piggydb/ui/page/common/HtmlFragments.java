@@ -144,6 +144,10 @@ public class HtmlFragments {
 			.toString();
 	}
 	
+	public String fragmentTableClass(Fragment fragment) {
+		return "fragment fragment-" + fragment.getId();
+	}
+	
 	public String fragmentHeaderClass(long fragmentId, Map<Long, String> selected) {
 		String c = "fragment-header fragment-header-" + fragmentId;
 		if (selected != null && selected.containsKey(fragmentId)) c = c + " selected-fragment";
