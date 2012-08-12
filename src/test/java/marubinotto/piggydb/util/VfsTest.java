@@ -18,6 +18,7 @@ public class VfsTest {
 		FileObject dir = fsManager.resolveFile(url.toExternalForm());
 		for (FileObject file : dir.getChildren()) {
 			System.out.println(file.getName().getBaseName());
+			System.out.println("  " + file.getType());
 		}
 	}
 }
