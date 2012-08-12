@@ -12,12 +12,11 @@ import org.apache.commons.vfs2.AllFileSelector;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
+import org.springframework.context.ApplicationContext;
 
 import marubinotto.util.Assert;
 
-// TODO private static deployWebappFiles(ServletContext)
-// TODO public static deployAll(ServletContext)
-// TODO init(ServletContext)
+// TODO init(ServletContext, ApplicationContext)
 // TODO user menu
 public abstract class Extension {
 	
@@ -38,6 +37,7 @@ public abstract class Extension {
 	throws IOException {
 		FileSystemManager fsManager = VFS.getManager();
 		FileObject webappDir = fsManager.resolveFile(servletContext.getRealPath("/"));
+		logger.info("Webapp dir: " + webappDir.getName());
 		
 		for (Enumeration<URL> dirUrls = getResources(WEBAPP_DIR); dirUrls.hasMoreElements();) {
 			FileObject extWebappDir = fsManager.resolveFile(dirUrls.nextElement().toExternalForm());
@@ -48,7 +48,10 @@ public abstract class Extension {
 		}
 	}
 	
-	public static void deployAll(ServletContext servletContext) throws IOException {
+	public static void deployAll(
+		ServletContext servletContext,
+		ApplicationContext appContext) 
+	throws IOException {
 		Assert.Arg.notNull(servletContext, "servletContext");
 		deployWebappFiles(servletContext);
 	}

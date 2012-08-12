@@ -1,9 +1,12 @@
 package marubinotto.piggydb.ui;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import marubinotto.piggydb.extension.Extension;
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.ui.util.ModifiedClickContext;
@@ -77,6 +80,14 @@ public class PiggydbServlet extends SpringClickServlet {
 			adjusterList.adjust();
 		}
 		catch (Exception e) {
+			throw new ServletException(e);
+		}
+		
+		// Deploy extensions
+		try {
+			Extension.deployAll(getServletContext(), this.applicationContext);
+		}
+		catch (IOException e) {
 			throw new ServletException(e);
 		}
 	}
