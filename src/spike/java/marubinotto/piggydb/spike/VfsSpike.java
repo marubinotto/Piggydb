@@ -1,4 +1,4 @@
-package marubinotto.piggydb.util;
+package marubinotto.piggydb.spike;
 
 import java.net.URL;
 
@@ -7,7 +7,7 @@ import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
 import org.junit.Test;
 
-public class VfsTest {
+public class VfsSpike {
 
 	@Test
 	public void vfsPackage() throws Exception {

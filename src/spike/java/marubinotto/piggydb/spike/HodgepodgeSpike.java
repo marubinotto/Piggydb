@@ -1,4 +1,4 @@
-package marubinotto.piggydb.util;
+package marubinotto.piggydb.spike;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +26,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.junit.Test;
 
-public class ExperimentalTest {
+public class HodgepodgeSpike {
 
 	private PatternCompiler compiler = new Perl5Compiler();
 	private PatternMatcher matcher = new Perl5Matcher();
