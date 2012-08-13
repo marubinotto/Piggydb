@@ -96,9 +96,14 @@
 					src="$context/style/images/bullet-arrow-down.png"/></a>
 				
 				<ul class="submenu">
-				#if ($user.isInternalUser())
-					<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
-				#end
+  				#if ($user.isInternalUser())
+  					<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
+					#end
+					#foreach ($item in $userMenu.items)
+						#if ($item.isAvailableTo($user))
+							<li><a href="$item.href">$item.label</a></li>
+						#end
+					#end
 					<li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
 				</ul>
       </li>

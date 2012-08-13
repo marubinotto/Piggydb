@@ -8,6 +8,7 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.ui.page.command.Logout;
+import marubinotto.piggydb.ui.page.control.UserMenu;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed.Entity;
 import marubinotto.util.paging.Page;
@@ -34,6 +35,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	//
 
 	public Menu rootMenu;
+	public UserMenu userMenu = UserMenu.getInstance();
 	public PageLink logoutLink = new PageLink(Logout.class);
 
 	@Override
