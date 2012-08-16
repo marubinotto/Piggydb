@@ -17,7 +17,7 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
 
 public class DefaultWikiParser extends WikiParser {
-	
+
 	protected DocumentBuilder documentBuilder;
 	protected boolean sectionEnabled = false;
 
@@ -36,32 +36,32 @@ public class DefaultWikiParser extends WikiParser {
 	public void doParse(String wikiText, ParseContext context) throws Exception {
 		BufferedReader reader = new BufferedReader(new StringReader(wikiText));
 		String line = null;
-        while ((line = reader.readLine()) != null) {
-        	try {
+		while ((line = reader.readLine()) != null) {
+			try {
 				processLine(line, context);
-			} 
-        	catch (StackOverflowError e) {
+			}
+			catch (StackOverflowError e) {
 				context.println(this.documentBuilder.processErrorLine(line));
 			}
-        }
-        this.documentBuilder.finish(context);
+		}
+		this.documentBuilder.finish(context);
 	}
-	
+
 	@Override
-	protected void doParsePreformattedText(String preformattedText, ParseContext context)
+	protected void doParsePreformattedText(String preformattedText, ParseContext context) 
 	throws Exception {
 		BufferedReader reader = new BufferedReader(new StringReader(preformattedText));
 		String line = null;
-        while ((line = reader.readLine()) != null) {
-        	try {
+		while ((line = reader.readLine()) != null) {
+			try {
 				context.println(processPreformattedLine(context, line));
-			} 
-        	catch (StackOverflowError e) {
-        		context.println(this.documentBuilder.processErrorLine(line));
 			}
-        }
+			catch (StackOverflowError e) {
+				context.println(this.documentBuilder.processErrorLine(line));
+			}
+		}
 	}
-	
+
 	public static final Pattern P_BLOCK_SEPARATOR = compile("^\\s*$");
 	public static final Pattern P_SECTION = compile("^(\\*{1,3})(.*)");
 	public static final Pattern P_HORIZONTAL_RULE = compile("^----$");
@@ -82,7 +82,7 @@ public class DefaultWikiParser extends WikiParser {
 		PatternMatcher matcher = context.getMatcher();
 		if (matcher.matches(line, P_BLOCK_SEPARATOR)) {
 			this.documentBuilder.breakBlocks(context);
-        }
+		}
 		else if (this.sectionEnabled && matcher.matches(line, P_SECTION)) {
 			MatchResult result = matcher.getMatch();
 			int level = result.group(1).length();
@@ -113,8 +113,8 @@ public class DefaultWikiParser extends WikiParser {
 		else if (matcher.matches(line, P_DEFINITION_LIST)) {
 			MatchResult result = matcher.getMatch();
 			String term = processInline(context, result.group(1));
-            String description = processInline(context, result.group(2));
-            this.documentBuilder.addDefinitionListEntry(context, term, description);
+			String description = processInline(context, result.group(2));
+			this.documentBuilder.addDefinitionListEntry(context, term, description);
 		}
 		else if (matcher.matches(line, P_PREFORMATTED_TEXT)) {
 			String content = processPreformattedLine(context, line);
@@ -137,46 +137,44 @@ public class DefaultWikiParser extends WikiParser {
 	public static final Pattern P_BOLD = compile("'''([^']+?)'''");
 	public static final Pattern P_ITALIC = compile("''([^']+?)''");
 	public static final Pattern P_DELETE = compile("__([^_]+?)__");
-	
-	public static final String PS_URL = "((http|https|ftp|file|fragment):([^\\x00-\\x20()<>\\x7F-\\xFF])*)";	
+
+	public static final String PS_URL = "((http|https|ftp|file|fragment):([^\\x00-\\x20()<>\\x7F-\\xFF])*)";
 	public static final Pattern P_URL = compile(PS_URL);
 	public static final String PS_LABELED_LINK = "\\[" + PS_URL + "\\ (.+?)\\]";
 	public static final Pattern P_LABELED_LINK = compile(PS_LABELED_LINK);
 	public static final String PS_FRAGMENT_REF = "(#\\d+)";
 	public static final String PS_BREAK = "~";
 
-	protected String processInline(final ParseContext context, String inline) 
-	throws Exception {
+	protected String processInline(final ParseContext context, String inline) throws Exception {
 		inline = this.documentBuilder.escape(inline);
-		
+
 		final PatternMatcher matcher = context.getMatcher();
-		
+
 		// Bold
 		inline = RegexUtils.substitute(matcher, P_BOLD, 1, new MatchProcessor() {
 			public String process(String match) {
 				return documentBuilder.processBold(context, match);
-			}			
+			}
 		}, inline);
-		
+
 		// Italic
 		inline = RegexUtils.substitute(matcher, P_ITALIC, 1, new MatchProcessor() {
 			public String process(String match) {
 				return documentBuilder.processItalic(context, match);
 			}
 		}, inline);
-		
+
 		// Delete
 		inline = RegexUtils.substitute(matcher, P_DELETE, 1, new MatchProcessor() {
 			public String process(String match) {
 				return documentBuilder.processDelete(context, match);
 			}
 		}, inline);
-		
-		// Link		
-		Pattern linkPattern = compile(
-			"(" + PS_URL + "|" + PS_LABELED_LINK + "|" + PS_FRAGMENT_REF + 
-				getAllTagNamesRegexAsAdditionalForm(context) + ")");
-		
+
+		// Link
+		Pattern linkPattern = compile("(" + PS_URL + "|" + PS_LABELED_LINK + 
+			"|" + PS_FRAGMENT_REF + getAllTagNamesRegexAsAdditionalForm(context) + ")");
+
 		inline = RegexUtils.substitute(matcher, linkPattern, 1, new MatchProcessor() {
 			public String process(String match) {
 				if (match.matches(PS_URL)) {
@@ -206,17 +204,17 @@ public class DefaultWikiParser extends WikiParser {
 				else {
 					return documentBuilder.processTagName(context, match);
 				}
-			}	
+			}
 		}, inline);
-		
+
 		// Break (low priority than URL, tag names)
 		if (inline.endsWith(PS_BREAK)) {
-			inline =  this.documentBuilder.appendBreak(StringUtils.chop(inline));
+			inline = this.documentBuilder.appendBreak(StringUtils.chop(inline));
 		}
 
 		return inline;
 	}
-	
+
 	protected String processPreformattedLine(final ParseContext context, String inline) 
 	throws Exception {
 		inline = this.documentBuilder.escape(inline);
@@ -227,12 +225,12 @@ public class DefaultWikiParser extends WikiParser {
 					return documentBuilder.processStandardUrl(context, match, true);
 				}
 				return match;
-			}	
+			}
 		}, inline);
 
 		return inline;
 	}
-	
+
 	private static String piggydbUrlToWebUrl(String url, ParseContext context) {
 		if (url.startsWith(FragmentUrl.PREFIX)) {
 			Long id = new FragmentUrl(url).getId();
@@ -240,12 +238,10 @@ public class DefaultWikiParser extends WikiParser {
 		}
 		return url;
 	}
-	
-	private String getAllTagNamesRegexAsAdditionalForm(ParseContext context) 
-	throws Exception {
+
+	private String getAllTagNamesRegexAsAdditionalForm(ParseContext context) throws Exception {
 		String tagNamesRegex = getAllTagNamesRegex(context);
-		return context.isAuthenticated() && tagNamesRegex != null ? 
-				("|" + tagNamesRegex) : "";
+		return context.isAuthenticated() && tagNamesRegex != null ? ("|" + tagNamesRegex) : "";
 	}
 
 	private String getAllTagNamesRegex(ParseContext context) throws Exception {
@@ -253,7 +249,7 @@ public class DefaultWikiParser extends WikiParser {
 		if (tagRepository.size() == 0) {
 			return null;
 		}
-		
+
 		StringBuffer regex = new StringBuffer();
 		regex.append("(");
 		boolean first = true;
@@ -264,9 +260,7 @@ public class DefaultWikiParser extends WikiParser {
 			else {
 				first = false;
 			}
-			regex.append(
-				RegexUtils.escapeRegex(
-					this.documentBuilder.escape(i.next())));
+			regex.append(RegexUtils.escapeRegex(this.documentBuilder.escape(i.next())));
 		}
 		regex.append(")");
 		// logger.debug("AllTagNamesRegex: " + regex);
