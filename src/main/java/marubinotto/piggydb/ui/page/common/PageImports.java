@@ -9,6 +9,7 @@ public class PageImports {
 	private HtmlFragments html;
 	
 	private static String DEFAULT_CSS_IMPORTS;
+	public static StrBuilder additionalCssImports = new StrBuilder(); 
 	private StrBuilder css = new StrBuilder();
 	
 	private static String DEFAULT_HEAD_JS_IMPORTS;
@@ -25,7 +26,7 @@ public class PageImports {
 	}
 	
 	public String getCss() {
-		return this.css.toString();
+		return this.css.toString() + additionalCssImports;
 	}
 	
 	private void setDefaultCss() {
