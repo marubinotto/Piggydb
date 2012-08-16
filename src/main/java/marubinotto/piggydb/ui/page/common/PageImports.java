@@ -9,7 +9,7 @@ public class PageImports {
 	private HtmlFragments html;
 	
 	private static String DEFAULT_CSS_IMPORTS;
-	public StrBuilder css = new StrBuilder();
+	private StrBuilder css = new StrBuilder();
 	
 	private static String DEFAULT_HEAD_JS_IMPORTS;
 	public StrBuilder headJs = new StrBuilder();
@@ -24,20 +24,8 @@ public class PageImports {
 		setDefaultBottomJs();
 	}
 	
-	public void importCss(String filePath, boolean versioning, String media) {
-		addCssImportTo(this.css, filePath, versioning, media);
-	}
-	
-	public void importBottomJs(String filePath, boolean versioning) {
-		addJsImportTo(this.bottomJs, filePath, versioning);
-	}
-	
-	private void addCssImportTo(StrBuilder imports, String filePath, boolean versioning, String media) {
-		imports.appendln(this.html.cssImport(filePath, versioning, media));
-	}
-	
-	private void addJsImportTo(StrBuilder imports, String filePath, boolean versioning) {
-		imports.appendln(this.html.jsImport(filePath, versioning));
+	public String getCss() {
+		return this.css.toString();
 	}
 	
 	private void setDefaultCss() {
@@ -97,5 +85,21 @@ public class PageImports {
 		importBottomJs("js/piggydb.widget.FragmentFormBase.js", true);
 		importBottomJs("js/piggydb.widget.FragmentForm.js", true);
 		importBottomJs("js/piggydb.widget.FileForm.js", true);
+	}
+	
+	private void addCssImportTo(StrBuilder imports, String filePath, boolean versioning, String media) {
+		imports.appendln(this.html.cssImport(filePath, versioning, media));
+	}
+	
+	private void addJsImportTo(StrBuilder imports, String filePath, boolean versioning) {
+		imports.appendln(this.html.jsImport(filePath, versioning));
+	}
+	
+	public void importCss(String filePath, boolean versioning, String media) {
+		addCssImportTo(this.css, filePath, versioning, media);
+	}
+	
+	public void importBottomJs(String filePath, boolean versioning) {
+		addJsImportTo(this.bottomJs, filePath, versioning);
 	}
 }
