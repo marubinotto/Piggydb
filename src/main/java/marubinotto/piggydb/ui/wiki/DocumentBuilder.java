@@ -57,6 +57,8 @@ public interface DocumentBuilder {
 	
 	// styles
 	
+	public String processSpan(ParseContext context, String chunk, String classes);
+	
 	public String processItalic(ParseContext context, String chunk);
 	
 	public String processBold(ParseContext context, String chunk);

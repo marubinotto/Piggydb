@@ -91,6 +91,10 @@ public class HtmlBuilder implements DocumentBuilder {
 	public String appendBreak(String line) {
 		return line + "<br/>";
 	}
+	
+	public String processSpan(ParseContext context, String chunk, String classes) {
+		return "<span class=\"" + classes + "\">" + chunk + "</span>";
+	}
 
 	public String processItalic(ParseContext context, String chunk) {
 		return "<i>" + chunk + "</i>";

@@ -134,6 +134,7 @@ public class DefaultWikiParser extends WikiParser {
 		}
 	}
 
+	// TODO public static final Pattern P_SPAN = compile("");
 	public static final Pattern P_BOLD = compile("'''([^']+?)'''");
 	public static final Pattern P_ITALIC = compile("''([^']+?)''");
 	public static final Pattern P_DELETE = compile("__([^_]+?)__");

@@ -57,7 +57,6 @@ public class RegexUtils {
 		private int group;
 
 		public MatchProcessorSubstitution(MatchProcessor processor, int group) {
-
 			Assert.Arg.notNull(processor, "processor");
 			this.processor = processor;
 			this.group = group;
