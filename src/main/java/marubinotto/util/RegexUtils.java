@@ -36,30 +36,28 @@ public class RegexUtils {
 	public static String substitute(
 		PatternMatcher matcher, 
 		Pattern pattern, 
-		int group, 
 		MatchProcessor processor, 
 		String input) {
+		
 		Assert.Arg.notNull(matcher, "matcher");
 		Assert.Arg.notNull(pattern, "pattern");
 		Assert.Arg.notNull(processor, "processor");
 		Assert.Arg.notNull(input, "input");
 
-		Substitution substitution = new MatchProcessorSubstitution(processor, group);
+		Substitution substitution = new MatchProcessorSubstitution(processor);
 		return Util.substitute(matcher, pattern, substitution, input, Util.SUBSTITUTE_ALL);
 	}
 
 	public static interface MatchProcessor {
-		public String process(String match);
+		public String process(MatchResult match);
 	}
 
 	static class MatchProcessorSubstitution implements Substitution {
 		private MatchProcessor processor;
-		private int group;
 
-		public MatchProcessorSubstitution(MatchProcessor processor, int group) {
+		public MatchProcessorSubstitution(MatchProcessor processor) {
 			Assert.Arg.notNull(processor, "processor");
 			this.processor = processor;
-			this.group = group;
 		}
 
 		public void appendSubstitution(
@@ -70,7 +68,7 @@ public class RegexUtils {
 			PatternMatcher matcher, 
 			Pattern pattern) {
 
-			buffer.append(this.processor.process(match.group(this.group)));
+			buffer.append(this.processor.process(match));
 		}
 	}
 

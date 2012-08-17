@@ -152,23 +152,23 @@ public class DefaultWikiParser extends WikiParser {
 		final PatternMatcher matcher = context.getMatcher();
 
 		// Bold
-		inline = RegexUtils.substitute(matcher, P_BOLD, 1, new MatchProcessor() {
-			public String process(String match) {
-				return documentBuilder.processBold(context, match);
+		inline = RegexUtils.substitute(matcher, P_BOLD, new MatchProcessor() {
+			public String process(MatchResult match) {
+				return documentBuilder.processBold(context, match.group(1));
 			}
 		}, inline);
 
 		// Italic
-		inline = RegexUtils.substitute(matcher, P_ITALIC, 1, new MatchProcessor() {
-			public String process(String match) {
-				return documentBuilder.processItalic(context, match);
+		inline = RegexUtils.substitute(matcher, P_ITALIC, new MatchProcessor() {
+			public String process(MatchResult match) {
+				return documentBuilder.processItalic(context, match.group(1));
 			}
 		}, inline);
 
 		// Delete
-		inline = RegexUtils.substitute(matcher, P_DELETE, 1, new MatchProcessor() {
-			public String process(String match) {
-				return documentBuilder.processDelete(context, match);
+		inline = RegexUtils.substitute(matcher, P_DELETE, new MatchProcessor() {
+			public String process(MatchResult match) {
+				return documentBuilder.processDelete(context, match.group(1));
 			}
 		}, inline);
 
@@ -176,34 +176,36 @@ public class DefaultWikiParser extends WikiParser {
 		Pattern linkPattern = compile("(" + PS_URL + "|" + PS_LABELED_LINK + 
 			"|" + PS_FRAGMENT_REF + getAllTagNamesRegexAsAdditionalForm(context) + ")");
 
-		inline = RegexUtils.substitute(matcher, linkPattern, 1, new MatchProcessor() {
-			public String process(String match) {
-				if (match.matches(PS_URL)) {
-					if (match.matches("^(http|https|ftp|file):.*$")) {
-						return documentBuilder.processStandardUrl(context, match, false);
+		inline = RegexUtils.substitute(matcher, linkPattern, new MatchProcessor() {
+			public String process(MatchResult match) {
+				String link = match.group(1);
+				
+				if (link.matches(PS_URL)) {
+					if (link.matches("^(http|https|ftp|file):.*$")) {
+						return documentBuilder.processStandardUrl(context, link, false);
 					}
-					else if (match.startsWith(FragmentUrl.PREFIX)) {
-						FragmentUrl fragmentUrl = new FragmentUrl(match);
+					else if (link.startsWith(FragmentUrl.PREFIX)) {
+						FragmentUrl fragmentUrl = new FragmentUrl(link);
 						return fragmentUrl.toMarkup(documentBuilder, context);
 					}
-					return match;
+					return link;
 				}
-				else if (matcher.matches(match, P_LABELED_LINK)) {
+				else if (matcher.matches(link, P_LABELED_LINK)) {
 					MatchResult result = matcher.getMatch();
 					String label = result.group(4);
 					String url = result.group(1);
 					if (StringUtils.isBlank(label)) {
-						return match;
+						return link;
 					}
 					url = piggydbUrlToWebUrl(url, context);
 					return documentBuilder.processLabeledLink(context, label, url);
 				}
-				else if (match.matches(PS_FRAGMENT_REF)) {
-					long id = Long.parseLong(match.substring(1));
-					return documentBuilder.processFragmentRef(context, match, id);
+				else if (link.matches(PS_FRAGMENT_REF)) {
+					long id = Long.parseLong(link.substring(1));
+					return documentBuilder.processFragmentRef(context, link, id);
 				}
 				else {
-					return documentBuilder.processTagName(context, match);
+					return documentBuilder.processTagName(context, link);
 				}
 			}
 		}, inline);
@@ -220,12 +222,13 @@ public class DefaultWikiParser extends WikiParser {
 	throws Exception {
 		inline = this.documentBuilder.escape(inline);
 
-		inline = RegexUtils.substitute(context.getMatcher(), P_URL, 1, new MatchProcessor() {
-			public String process(String match) {
-				if (match.matches("^(http|https|ftp|file):.*$")) {
-					return documentBuilder.processStandardUrl(context, match, true);
+		inline = RegexUtils.substitute(context.getMatcher(), P_URL, new MatchProcessor() {
+			public String process(MatchResult match) {
+				String url = match.group(1);
+				if (url.matches("^(http|https|ftp|file):.*$")) {
+					return documentBuilder.processStandardUrl(context, url, true);
 				}
-				return match;
+				return url;
 			}
 		}, inline);
 

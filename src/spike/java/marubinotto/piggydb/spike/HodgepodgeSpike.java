@@ -8,9 +8,6 @@ import java.net.URI;
 import java.text.BreakIterator;
 import java.util.StringTokenizer;
 
-import marubinotto.util.RegexUtils;
-import marubinotto.util.RegexUtils.MatchProcessor;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.lucene.analysis.Analyzer;
@@ -51,20 +48,6 @@ public class HodgepodgeSpike {
 		File file = new File("/my docs/file.txt");
 		System.out.println("toURI: " + file.toURI());
 		// System.out.println("toURL: " + file.toURL());
-	}
-
-	@Test
-	public void replaceClickMenuTitleByRegex() throws Exception {
-		final PatternMatcher matcher = new Perl5Matcher();
-		Pattern pattern = new Perl5Compiler().compile("(>.+<)");
-		String result = RegexUtils.substitute(matcher, pattern, 1, new MatchProcessor() {
-			public String process(String match) {
-				String title = match.substring(1, match.length() - 1);
-				return ">(" + title + ")<";
-			}
-
-		}, "<a href=\"/piggydb/new-tag.htm\">New Tag</a>");
-		System.out.println(result);
 	}
 
 	@Test

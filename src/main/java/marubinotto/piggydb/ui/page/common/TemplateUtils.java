@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
@@ -61,14 +62,17 @@ public class TemplateUtils {
 		if (item == null) {
 			return "";
 		}
-		return raw(RegexUtils.substitute(ThreadLocalCache.get(Perl5Matcher.class),
-			menuTitlePattern, 1, new MatchProcessor() {
-				public String process(String match) {
-					String title = match.substring(1, match.length() - 1);
+		return raw(RegexUtils.substitute(
+			ThreadLocalCache.get(Perl5Matcher.class),
+			menuTitlePattern, 
+			new MatchProcessor() {
+				public String process(MatchResult match) {
+					String matchStr = match.group(1);
+					String title = matchStr.substring(1, matchStr.length() - 1);
 					return ">" + messages.get(title) + "<";
 				}
-
-			}, item.toString()));
+			}, 
+			item.toString()));
 	}
 
 	public String sanitizeNewlines(Object src) throws IOException {
