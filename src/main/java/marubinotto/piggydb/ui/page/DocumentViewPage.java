@@ -6,6 +6,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
+import marubinotto.piggydb.ui.page.common.PageImports;
 
 public class DocumentViewPage extends AbstractTemplateWebResource {
 
@@ -62,10 +63,13 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
 	//
 
 	public Boolean publicOnly;
+	public String additionalCssImports;
 
 	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
+		
 		this.publicOnly = !isAuthenticated();
+		this.additionalCssImports = PageImports.additionalCssImports.toString();
 	}
 }
