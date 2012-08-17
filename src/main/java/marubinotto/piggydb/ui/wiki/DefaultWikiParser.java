@@ -134,7 +134,7 @@ public class DefaultWikiParser extends WikiParser {
 		}
 	}
 
-	// TODO public static final Pattern P_SPAN = compile("");
+	public static final Pattern P_SPAN = compile("\\{\\{\\[([A-Za-z0-9-_\\s]+?)\\](.+?)\\}\\}");
 	public static final Pattern P_BOLD = compile("'''([^']+?)'''");
 	public static final Pattern P_ITALIC = compile("''([^']+?)''");
 	public static final Pattern P_DELETE = compile("__([^_]+?)__");
@@ -150,6 +150,13 @@ public class DefaultWikiParser extends WikiParser {
 		inline = this.documentBuilder.escape(inline);
 
 		final PatternMatcher matcher = context.getMatcher();
+		
+		// Span
+		inline = RegexUtils.substitute(matcher, P_SPAN, new MatchProcessor() {
+			public String process(MatchResult match) {
+				return documentBuilder.processSpan(context, match.group(2), match.group(1));
+			}
+		}, inline);
 
 		// Bold
 		inline = RegexUtils.substitute(matcher, P_BOLD, new MatchProcessor() {
