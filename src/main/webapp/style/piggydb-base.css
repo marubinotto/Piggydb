@@ -96,6 +96,21 @@ table.fragment .header-cell {
 	background-color: #ddd;
 }
 
+#title-banner table td {
+	background-color: gray;
+}
+
+#page-menu #menu,
+#page-menu #menu .topitem,
+#page-menu #menu ul.submenu {
+	/* background-color: #88A33E; */
+}
+
+#page-menu #menu .topitem a, 
+#page-menu #menu .topitem a:visited {
+	/* border: 1px solid #88A33E; */
+}
+
 
 
 /*
@@ -127,7 +142,6 @@ table.fragment .header-cell {
 #title-banner table td {
   margin: 0px;
   padding: 0px;
-  background-color: gray;
 }
 
 #title-banner table td.icon {
