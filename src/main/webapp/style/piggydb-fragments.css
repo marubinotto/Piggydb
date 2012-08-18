@@ -171,10 +171,6 @@ table.fragment {
   border: 2px solid #FF9900 !important;
 }
 
-table.fragment td {
-  background-color: #ffffff;
-}
-
 table.fragment .header-cell {
 	padding: 0px;
   text-align: left;

@@ -96,6 +96,12 @@ table.fragment .header-cell {
 	background-color: #ddd;
 }
 
+table.fragment td,
+.content-box,
+.content-box li.leafLastNode {
+  background-color: #ffffff;
+}
+
 #title-banner table td {
 	background-color: gray;
 }
@@ -266,8 +272,6 @@ th.subsection-title {
 .content-box {
   padding-top: 10px;
   padding-bottom: 12px;
-
-  background-color: #ffffff;
   
   border-radius: 5px;
   -moz-border-radius: 5px;
