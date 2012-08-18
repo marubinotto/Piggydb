@@ -116,6 +116,13 @@ table.fragment td.subfragments #children-control td {
 	background-color: #f8f8f8;
 }
 
+table.fragment,
+table.fragment th, 
+table.fragment td,
+.content-box {
+  border: 1px solid #ccc;
+}
+
 
 
 /*
@@ -182,20 +189,6 @@ div.menustyle li {
 
 .topitem img {
   margin-right: 3px;
-}
-
-div.message {
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  padding: 5px;
-  background: #fff;
-  position: relative;
-}
-
-.close-message {
-  position: absolute; 
-  top: 6px;
-  right: 6px; 
 }
 
 div.ui-tooltip .fragment-title {
@@ -271,7 +264,6 @@ th.subsection-title {
   padding-top: 10px;
   padding-bottom: 12px;
 
-  border: 1px solid #ccc;
   background-color: #ffffff;
   
   border-radius: 5px;

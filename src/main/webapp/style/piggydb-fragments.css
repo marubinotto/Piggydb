@@ -163,18 +163,12 @@ span.fragment-caption img.file-icon {
 table.fragment {
   margin-bottom: 15px;
   border-collapse: collapse;
-  border: 1px solid #ccc;
 }
 
 .fragment-drophover,
 .liquid-block-drophover table.fragment,
 .selected-fragments-drophover div.content {
   border: 2px solid #FF9900 !important;
-}
-
-table.fragment th, 
-table.fragment td {
-  border: 1px solid #ccc;
 }
 
 table.fragment td {
