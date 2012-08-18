@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.0 (2012-08-19) == #v6.0
+
+ * Added Extension Mechanism (marubinotto.piggydb.extension)
+ * Fixed a JavaScript error (deleted an import of js/piggydb-fragments.js)
+
 == Changes in version 6.0-dev9 (2012-08-07) == #v6.0-dev9
 
  * Switched the fragment form in the tag and filter page to the new editor
