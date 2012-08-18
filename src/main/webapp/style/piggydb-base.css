@@ -111,6 +111,11 @@ table.fragment .header-cell {
 	/* border: 1px solid #88A33E; */
 }
 
+table.fragment td.subfragments,
+table.fragment td.subfragments #children-control td {
+	background-color: #f8f8f8;
+}
+
 
 
 /*
