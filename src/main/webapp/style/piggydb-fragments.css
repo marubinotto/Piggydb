@@ -97,7 +97,6 @@ span.fragment-caption img.file-icon {
   padding-left: 5px;
   padding-right: 5px;
   
-  background: #eee;
   font-weight: normal;
   font-size: 8pt;
   
@@ -184,10 +183,8 @@ table.fragment td {
 
 table.fragment .header-cell {
 	padding: 0px;
-	
   text-align: left;
   vertical-align: middle;
-  background-color: #ddd;
   font-size: 10pt;
 }
 

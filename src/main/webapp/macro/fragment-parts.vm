@@ -175,7 +175,7 @@
 <span class="tags-placeholder-${fragment.id}">
 #if ($fragment.classification.size() > 0)
 #set ($fragmentTags = $fragmentTagsPrototype.newInstance($fragment.classification, $contextTags))
-<span class="tags">
+<span class="tags bgcolor-base">
 #foreach ($tag in $fragmentTags.toShow)
   #fragmentTag($tag $fragment)
 #end

@@ -18,9 +18,7 @@ html, body {
 }
 
 body {
-  background: #eee;
   color: #000000;
-  
   font-size: 10pt;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -87,6 +85,20 @@ button[disabled] {
 
 
 /*
+ * Color
+ */
+
+.bgcolor-base {
+	background-color: #eee;
+}
+
+table.fragment .header-cell {
+	background-color: #ddd;
+}
+
+
+
+/*
  * Template Structure
  */
  
@@ -100,8 +112,6 @@ button[disabled] {
   height: 32px;
   
   z-index: 95;
-  
-  background: #eee;
 }
 
 #title-banner table {
@@ -145,8 +155,6 @@ button[disabled] {
   height: 32px;
   
   z-index: 95;
-  
-  background: #eee;
 }
 
 div.menustyle li {
@@ -155,11 +163,6 @@ div.menustyle li {
 
 .topitem img {
   margin-right: 3px;
-}
-
-#page-message {
-  padding-bottom: 3px;
-  background: #eee;
 }
 
 div.message {
@@ -185,8 +188,6 @@ div.ui-tooltip .fragment-title {
 #page-content {
 	padding: 10px;
   padding-top: 40px;
-  
-  background: #eee;
 }
 
 
