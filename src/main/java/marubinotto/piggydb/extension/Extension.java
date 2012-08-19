@@ -42,8 +42,9 @@ public abstract class Extension {
 		
 		for (Enumeration<URL> dirUrls = getResources(WEBAPP_DIR); dirUrls.hasMoreElements();) {
 			FileObject extWebappDir = fsManager.resolveFile(dirUrls.nextElement().toExternalForm());
+			logger.info("Extension webapp dir: " + extWebappDir.getName());
 			if (extWebappDir.getType().hasChildren()) {
-				logger.info("Deploying webapp files: " + extWebappDir.getName());
+				logger.info("  Deploying webapp files ... ");
 				webappDir.copyFrom(extWebappDir, new AllFileSelector());
 			}
 		}

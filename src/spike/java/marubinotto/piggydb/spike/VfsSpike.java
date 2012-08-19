@@ -29,8 +29,11 @@ public class VfsSpike {
 		FileObject tmpDir = fsManager.resolveFile(System.getProperty("java.io.tmpdir"));
 		System.out.println("tmpDir: " + tmpDir.getName());
 		
-		FileObject vfs2 = fsManager.resolveFile(
-			getClass().getResource("/org/apache/commons/vfs2").toExternalForm());
-		tmpDir.copyFrom(vfs2, new AllFileSelector());
+		String url = getClass().getResource("/org/apache/commons/vfs2").toExternalForm();
+		System.out.println("url1: " + url);
+		FileObject src = fsManager.resolveFile(url);
+		System.out.println("url2: " + src.getName());
+		
+		tmpDir.copyFrom(src, new AllFileSelector());
 	}
 }
