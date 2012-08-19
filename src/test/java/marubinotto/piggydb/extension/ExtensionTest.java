@@ -13,4 +13,9 @@ public class ExtensionTest {
 			System.out.println(files.nextElement());
 		}
 	}
+	
+	@Test
+	public void testClassLoader() throws Exception {
+		Extension.testClassLoader();
+	}
 }

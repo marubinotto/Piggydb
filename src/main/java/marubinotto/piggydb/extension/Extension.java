@@ -32,6 +32,23 @@ public abstract class Extension {
 		return Extension.class.getClassLoader().getResources(path);
 	}
 	
+	public static void testClassLoader() throws IOException {
+		logger.info("Testing the classloader: " + Extension.class.getClassLoader().getClass().getName());
+		checkResources("org/apache/commons");
+		checkResources(WEBAPP_DIR);
+	}
+	
+	private static void checkResources(String path) throws IOException {
+		logger.info("Checking the path: " + path);
+		Enumeration<URL> resources = getResources(path);
+		if (!resources.hasMoreElements()) {
+			logger.warn(" Couldn't get resources");
+		}
+		while (resources.hasMoreElements()) {
+			logger.info(" - " + resources.nextElement().toExternalForm());
+		}
+	}
+	
 	public static void deployWebappFiles(ServletContext servletContext) 
 	throws IOException {
 		Assert.Arg.notNull(servletContext, "servletContext");
