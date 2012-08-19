@@ -32,8 +32,10 @@ public abstract class Extension {
 		return Extension.class.getClassLoader().getResources(path);
 	}
 	
-	private static void deployWebappFiles(ServletContext servletContext) 
+	public static void deployWebappFiles(ServletContext servletContext) 
 	throws IOException {
+		Assert.Arg.notNull(servletContext, "servletContext");
+		
 		FileSystemManager fsManager = VFS.getManager();
 		FileObject webappDir = fsManager.resolveFile(servletContext.getRealPath("/"));
 		logger.info("Webapp dir: " + webappDir.getName());
@@ -47,14 +49,12 @@ public abstract class Extension {
 		}
 	}
 	
-	public static void deployAll(
+	public static void initAll(
 		ServletContext servletContext,
 		ApplicationContext appContext) 
 	throws IOException {
 		Assert.Arg.notNull(servletContext, "servletContext");
-		
-		// deploy webapp files
-		deployWebappFiles(servletContext);
+		Assert.Arg.notNull(appContext, "appContext");
 		
 		// initialize extensions
 		for (Enumeration<URL> files = allDefFiles(); files.hasMoreElements();) {

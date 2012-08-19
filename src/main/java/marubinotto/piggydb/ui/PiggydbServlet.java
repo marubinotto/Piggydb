@@ -29,11 +29,25 @@ public class PiggydbServlet extends SpringClickServlet {
 
 	@Override
 	public void init() throws ServletException {
-		super.init();
-		
 		log.info("ServerInfo: " + getServletContext().getServerInfo());
 		log.info("ContextName: " + getServletContext().getServletContextName());
 		// log.info("ContextPath: " + getServletContext().getContextPath());  // Servlet 2.5
+		
+		
+		// Deploy the resources of extensions
+		// 
+		// This should be done before init of Click in order for it to recognize the resources
+		try {
+			Extension.deployWebappFiles(getServletContext());
+		}
+		catch (IOException e) {
+			throw new ServletException(e);
+		}
+		
+		
+		// Initialize Click Framework
+		super.init();
+		
 		
 		// Suppress click logger
 		this.logger.setLevel(ClickLogger.ERROR_ID + 1);
@@ -83,9 +97,10 @@ public class PiggydbServlet extends SpringClickServlet {
 			throw new ServletException(e);
 		}
 		
-		// Deploy extensions
+		
+		// Initialize extensions
 		try {
-			Extension.deployAll(getServletContext(), this.applicationContext);
+			Extension.initAll(getServletContext(), this.applicationContext);
 		}
 		catch (IOException e) {
 			throw new ServletException(e);
