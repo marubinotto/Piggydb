@@ -15,7 +15,7 @@ public class ExtensionTest {
 	}
 	
 	@Test
-	public void testClassLoader() throws Exception {
-		Extension.testClassLoader();
+	public void testClassLoaderResources() throws Exception {
+		Extension.testClassLoaderResources();
 	}
 }

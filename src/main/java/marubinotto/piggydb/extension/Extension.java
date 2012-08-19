@@ -32,7 +32,7 @@ public abstract class Extension {
 		return Extension.class.getClassLoader().getResources(path);
 	}
 	
-	public static void testClassLoader() throws IOException {
+	public static void testClassLoaderResources() throws IOException {
 		logger.info("Testing the classloader: " + Extension.class.getClassLoader().getClass().getName());
 		checkResources("org/apache/commons");
 		checkResources("META-INF");

@@ -38,7 +38,7 @@ public class PiggydbServlet extends SpringClickServlet {
 		// 
 		// This should be done before init of Click in order for it to recognize the resources
 		try {
-			Extension.testClassLoader();
+			// Extension.testClassLoaderResources();
 			Extension.deployWebappFiles(getServletContext());
 		}
 		catch (IOException e) {
@@ -46,7 +46,7 @@ public class PiggydbServlet extends SpringClickServlet {
 		}
 		
 		
-		// Initialize Click Framework
+		// Initialize Click Framework and applicationContext
 		super.init();
 		
 		
