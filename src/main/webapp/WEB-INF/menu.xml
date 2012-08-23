@@ -7,10 +7,4 @@
     <menu label="menu-new-filter" path="filter.htm?new=true" roles="default"/>
   </menu>
   
-  <menu label="menu-system" path="home.htm" roles="owner" imageSrc="/images/system.png">
-    <menu label="menu-export" path="export.htm" roles="owner"/>
-    <menu label="menu-restore" path="restore.htm" roles="owner"/>
-    <menu label="menu-system-info" path="system-info.htm" roles="owner"/>
-  </menu>
-  
 </menu>

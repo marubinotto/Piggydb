@@ -99,6 +99,11 @@
   				#if ($user.isInternalUser())
   					<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
 					#end
+					#if ($user.isOwner())
+						<li><a href="$context/export.htm">$messages.get("menu-export")</a></li>
+						<li><a href="$context/restore.htm">$messages.get("menu-restore")</a></li>
+						<li><a href="$context/system-info.htm">$messages.get("menu-system-info")</a></li>
+					#end
 					#foreach ($item in $userMenu.items)
 						#if ($item.isAvailableTo($user))
 							<li><a href="$item.href">$item.label</a></li>
