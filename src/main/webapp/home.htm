@@ -39,7 +39,11 @@
 <td class="sidebar" align="left" valign="top">
 #adSidebarTop()
 
-#sidebarEntryHeader("sidebar-calendar" $messages.get("HomePage-calendar") "$context/images/date.png" $null)   
+#sidebarEntryHeader("sidebar-calendar" 
+	$messages.get("HomePage-calendar") 
+	"$context/images/date.png" 
+	$null
+	"")   
 $utils.raw($calendarIndex)
 #sidebarEntryFooter()
 

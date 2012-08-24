@@ -1,4 +1,4 @@
-#macro( sidebarEntryHeader $id $title $iconUrl $titleLinkUrl )
+#macro( sidebarEntryHeader $id $title $iconUrl $titleLinkUrl $toolsHtml )
 
 #set ($toggleId = "${id}-toggle")
 #set ($toggleState = $utils.getWithDefault($session, "state.$toggleId", "shown"))
@@ -19,6 +19,7 @@
       #if ($titleLinkUrl) </a> #end
 
       <span class="sidebar-tools">
+				$toolsHtml
         #verticalShowHideToggle($toggleId $toggleState)
       </span>
     </div>
@@ -56,8 +57,10 @@
 
 #if ($fragments && $fragments.size() > 0)
 #sidebarEntryHeader("sidebar-bookmark" 
-  $messages.get("bookmark") "$context/style/images/tag-bookmark.png" 
-  "$resources.tagPathByName($tagConstants.NAME_BOOKMARK)")
+  $messages.get("bookmark") 
+	"$context/style/images/tag-bookmark.png" 
+  "$resources.tagPathByName($tagConstants.NAME_BOOKMARK)" 
+	"")
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
   <div class="content-box simple-list sidebar-fragment-list">
@@ -90,7 +93,10 @@
 ## so the property will be set to "none" after the height is decided.
 ##
 #sidebarEntryHeader("sidebar-tag-palette" 
-	$messages.get("tag-palette") "$context/style/images/tag.png" "$context/tags.htm")
+	$messages.get("tag-palette") 
+	"$context/style/images/tag.png" 
+	"$context/tags.htm" 
+	"")
 #set ($paletteViewType = $utils.getUiState($session, "sidebar-tag-palette.viewType", "tree"))
 #set ($heightKey = "sidebar-tag-palette-height")
 #set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
@@ -155,7 +161,11 @@
 
 #macro( sidebarFilters $filters )
 
-#sidebarEntryHeader("sidebar-filters" $messages.get("filter") "$context/images/filter.png" "filter.htm")
+#sidebarEntryHeader("sidebar-filters" 
+	$messages.get("filter") 
+	"$context/images/filter.png" 
+	"filter.htm"
+	"")
 #if ($filters && $filters.size() > 0)
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
@@ -183,7 +193,11 @@
 #macro( sidebarRecentlyViewed $recentlyViewed )
 
 #if ($recentlyViewed && $recentlyViewed.size() > 0)
-#sidebarEntryHeader("sidebar-recently-viewed" $messages.get("recently-viewed") $null $null)
+#sidebarEntryHeader("sidebar-recently-viewed" 
+	$messages.get("recently-viewed") 
+	$null 
+	$null
+	"")
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
   <div class="content-box simple-list recently-viewed">
@@ -218,7 +232,11 @@
 #macro( sidebarRelatedTags $tags $baseTagId )
 
 #if ($tags && $tags.size() > 0)
-#sidebarEntryHeader("sidebar-related-tags" $messages.get("related-tags") "$context/images/new-tag.png" $null)
+#sidebarEntryHeader("sidebar-related-tags" 
+	$messages.get("related-tags") 
+	"$context/images/new-tag.png" 
+	$null
+	"")
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
   <div class="content-box simple-list related-tags">

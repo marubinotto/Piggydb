@@ -8,7 +8,10 @@
 #adSidebarTop()
 
 #sidebarEntryHeader("sidebar-fragment-tags" 
-  $messages.get("FragmentPage-classified-by") "$context/style/images/tag.png" $null)
+  $messages.get("FragmentPage-classified-by") 
+	"$context/style/images/tag.png" 
+	$null
+	"")
 #superTagForm($superTagForm $superTags $fragment.canChangeClassification($user))
 #sidebarEntryFooter()
 
