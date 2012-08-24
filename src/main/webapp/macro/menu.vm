@@ -6,6 +6,7 @@
 
 #if ($user)
 <div id="global-tools">
+	
 <table class="nowrap-frame" border="0">
 <tr>
 #if (!$user.isViewer())
@@ -30,7 +31,11 @@
             ><img src="$context/images/jump-to-tag.png" border="0" alt="$messages.get("jump-to-tag")"/></a>
     </form>
   </td>
-	
+</tr>
+</table>
+
+<table class="nowrap-frame" border="0" style="position: absolute; top: 5px; right: 0px;">
+<tr>
 	## Global Tag Pulldown
   <td class="separator"></td>
   <td class="tag-pulldown" nowrap="nowrap">
@@ -104,6 +109,7 @@
 #end
 </tr>
 </table>
+
 </div>
 #end
 

@@ -329,11 +329,10 @@ div.ui-tooltip .fragment-title {
  */
 
 #global-tools {
-  position: absolute; 
-  right: 0px; 
   margin-right: 0px;
   padding: 0px;
   padding-top: 5px;
+  padding-left: 10px;
 }
 
 #global-tools .nowrap-frame {
