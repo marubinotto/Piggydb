@@ -27,6 +27,8 @@
     #if ($filter.id)
       <img border="0" alt="Filter:" src="$context/images/filter.png" style="vertical-align: middle;"/>
       $filter.name
+			
+			## Filter tool buttons
       <span class="filter-tools">&nbsp;
       #if ($filter.canChange($user))
         ## Rename
@@ -46,12 +48,13 @@
         <img src="$context/images/delete.png" border="0" alt="$messages.get("delete")"/></a>
       #end
       </span>
+			
     #else
       <img border="0" alt="New Filter:" src="$context/images/new-filter.png" style="vertical-align:middle;"/>
       $messages.get("FilterPage-new-filter")
     #end
     </div>
-   </th>
+	</th>
 </tr>
 
 #if ($showFilterNameForm)
