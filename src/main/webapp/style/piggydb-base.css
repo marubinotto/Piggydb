@@ -106,15 +106,16 @@ table.fragment td,
 	background-color: gray;
 }
 
-#page-menu #menu,
-#page-menu #menu .topitem,
-#page-menu #menu ul.submenu {
-	/* background-color: #88A33E; */
+#menu,
+#menu .topitem,
+#menu ul.submenu {
+	color: #c0c0c0;
+	background: #c0c0c0; 
 }
 
-#page-menu #menu .topitem a, 
-#page-menu #menu .topitem a:visited {
-	/* border: 1px solid #88A33E; */
+#menu .topitem a, 
+#menu .topitem a:visited {
+	border: 1px solid #c0c0c0;
 }
 
 table.fragment td.subfragments,
@@ -210,6 +211,115 @@ div.ui-tooltip .fragment-title {
 #page-content {
 	padding: 10px;
   padding-top: 40px;
+}
+
+
+
+/*
+ * Menu
+ */
+
+#menuTable #menu {
+	font: 11px arial, helvetica, lucida-sans, sans-serif;
+	line-height: 15px; 
+	height: 28px; 
+	padding: 0; 
+	margin: 0;
+}
+
+#menu .menubar {
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+}
+
+#menu .topitem {
+	font-weight: normal;
+	float: left;
+	display: block;
+	margin-top: 1px;
+	margin-left: 0px;
+}
+
+#menu .topitem a, 
+#menu .topitem a:visited {
+	font-weight: normal;
+	color: #000; 
+	padding-left: 12px; 
+	padding-right: 12px; 
+	padding-top: 4px; 
+	padding-bottom: 4px; 
+	display: block; 
+	text-decoration: none; 
+	vertical-align: middle;
+}
+
+#menu .topitem a:hover {
+	font-weight: normal;
+	text-decoration: none;     
+	color: blue; 
+	border-top: 1px solid #f0f0f0; 
+	border-left: 1px solid #f0f0f0; 
+	border-bottom: 1px solid #707070; 
+	border-right: 1px solid #707070; 
+}
+
+#menu .selected {
+	font-weight: normal; 
+	background: #afaea9 repeat-x left; 
+}
+
+#menu img.link {
+	vertical-align: middle;
+}
+
+#menu ul.submenu {
+	list-style-type: none; 
+	position: absolute; 
+	margin: 0; 
+	padding: 0; 
+	display: none; 
+	width: 160px;  
+	z-index: 255;
+	border-top: 1px solid #f0f0f0; 
+}
+
+#menu ul.submenu li {
+	padding: 0; 
+	margin: 0; 
+	font-size: 11px;
+}
+
+#menu ul.submenu li a, .menustyle ul.submenu li a:visited {
+	vertical-align: middle;
+	padding: 3px 3px 0px 16px; 
+	color: #000; 
+	border: 1px solid #c0c0c0; 
+	text-decoration: none; 
+	margin: 0;
+}
+
+#menu ul.submenu li img {
+	vertical-align: middle;
+}
+
+#menu ul.submenu li a:hover {
+	vertical-align: middle;
+	text-decoration: none; 
+	background: #fff; 
+	color: #000; 
+	border: 1px solid #3699dd; 
+}
+
+#menu li:hover ul, .menustyle li.over ul {
+	margin: 0; 
+	padding: 4px; 
+	display: block; 
+	background: #c0c0c0;
+}
+
+#menu li>ul {
+	top: auto; left: auto;
 }
 
 

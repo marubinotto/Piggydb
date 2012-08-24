@@ -14,7 +14,6 @@ import marubinotto.piggydb.ui.page.model.RecentlyViewed.Entity;
 import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageUtils;
 import net.sf.click.control.PageLink;
-import net.sf.click.extras.control.Menu;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,14 +33,12 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	// Control
 	//
 
-	public Menu rootMenu;
 	public UserMenu userMenu = UserMenu.getInstance();
 	public PageLink logoutLink = new PageLink(Logout.class);
 
 	@Override
 	public void onInit() {
 		super.onInit();
-		this.rootMenu = Menu.getRootMenu(); // "rootMenu" is the default name
 	}
 
 	//

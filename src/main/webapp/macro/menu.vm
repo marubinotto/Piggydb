@@ -1,30 +1,8 @@
-#macro( mainMenu $rootMenu )
+#macro( mainMenu )
 
 <table id="menuTable" border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr><td>
 <div class="menustyle" id="menu" style="position: relative;">
-
-## Main menu
-<ul class="menubar" id="dmenu">      
-  #foreach ($topMenu in $rootMenu.children)
-    #if ($topMenu.isUserInRoles() || $topMenu.isUserInChildMenuRoles())
-      #if ($topMenu.children.empty)
-        <li class="topitem">$utils.renderMenuItem($topMenu, $messages)</li>
-      #else
-        <li class="topitem">$utils.renderMenuItem($topMenu, $messages)
-          <ul class="submenu"
-          #foreach ($subMenu in $topMenu.children)
-            #if ($subMenu.isUserInRoles())
-              ><li>$utils.renderMenuItem($subMenu, $messages)</li
-            #end
-          #end
-          ></ul>
-        </li>
-      #end
-    #end
-  #end
-  <li style="display: none;">&nbsp;</li> ## dummy for xhtml validity
-</ul>
 
 #if ($user)
 <div id="global-tools">
