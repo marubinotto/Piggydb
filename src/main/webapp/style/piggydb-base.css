@@ -260,6 +260,7 @@ table.section {
 }
 
 th.subsection-title {
+	color: gray;
   font-size: 10pt;
   border-bottom: 1px dashed #ccc;
   padding-bottom: 2px;
