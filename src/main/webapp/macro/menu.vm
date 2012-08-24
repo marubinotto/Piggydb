@@ -61,7 +61,7 @@
     //]]>
     </script>
     <a class="tool-button" id="global-tag-pulldown" href="#" title="$messages.get("tag-palette")">
-    <img src="$context/style/images/tag.png" border="0" alt="$messages.get("tag-palette")"/></a>
+    <img src="$context/images/tag-pulldown.png" border="0" alt="$messages.get("tag-palette")"/></a>
     <br/>
     <div class="pulldown-box tag-palette" id="global-tag-palette"></div>
   </td>
