@@ -154,8 +154,8 @@
 
 #macro( sidebarFilters $filters )
 
-#if ($filters && $filters.size() > 0)
 #sidebarEntryHeader("sidebar-filters" $messages.get("filter") "$context/images/filter.png" "filter.htm")
+#if ($filters && $filters.size() > 0)
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
   <div class="content-box simple-list recently-viewed">
@@ -172,8 +172,8 @@
   </div>
 </td></tr>
 </table>
-#sidebarEntryFooter()
 #end
+#sidebarEntryFooter()
 
 #end
 
