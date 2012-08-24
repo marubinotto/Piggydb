@@ -19,7 +19,7 @@
       #if ($titleLinkUrl) </a> #end
 
       <span class="sidebar-tools">
-				$toolsHtml
+				$utils.raw($toolsHtml)
         #verticalShowHideToggle($toggleId $toggleState)
       </span>
     </div>
@@ -165,7 +165,7 @@
 	$messages.get("filter") 
 	"$context/images/filter.png" 
 	"filter.htm"
-	"")
+	"#sidebarFiltersTools()")
 #if ($filters && $filters.size() > 0)
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td>
@@ -186,6 +186,15 @@
 #end
 #sidebarEntryFooter()
 
+#end
+
+
+
+#macro( sidebarFiltersTools )
+
+<a class="tool-button" href="$context/filter.htm?new=true" title="$messages.get("menu-new-filter")">
+<img src="$context/images/add-fragment.png" border="0" alt="$messages.get("menu-new-filter")"/></a>
+	
 #end
 
 
