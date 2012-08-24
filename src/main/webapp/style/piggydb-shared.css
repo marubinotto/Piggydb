@@ -725,14 +725,14 @@ a.filter:hover {
   border-left: solid 1px #777;
   border-bottom:solid 1px  #eaeaea;
   border-right: solid 1px #eaeaea;
-  width: 250px;
+  width: 200px;
   height: 14px;
   font-size: 11px;
   vertical-align: top;
 }
 
 #global-tools span.new-fragment-buttons a.tool-button {
-	/* margin-right: 5px; */
+	margin-right: 5px;
 }
 
 #global-tools a.pulled img {

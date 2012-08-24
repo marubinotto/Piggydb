@@ -16,9 +16,13 @@
 			"piggydb.widget.FragmentForm.openToCreate(); return false;"
 			"piggydb.widget.FileForm.openToAdd(); return false;")
 	</td>
-	<td class="separator"></td>
 #end
+	<td class="separator"></td>
+</tr>
+</table>
 
+<table class="nowrap-frame" border="0" style="position: absolute; top: 5px; right: 0px;">
+<tr>
 	## Keyword Search		
   <td class="keyword-search" nowrap="nowrap">
     <form id="search-form" action="$context/search.htm" method="get">
@@ -31,11 +35,7 @@
             ><img src="$context/images/jump-to-tag.png" border="0" alt="$messages.get("jump-to-tag")"/></a>
     </form>
   </td>
-</tr>
-</table>
 
-<table class="nowrap-frame" border="0" style="position: absolute; top: 5px; right: 0px;">
-<tr>
 	## Global Tag Pulldown
   <td class="separator"></td>
   <td class="tag-pulldown" nowrap="nowrap">
