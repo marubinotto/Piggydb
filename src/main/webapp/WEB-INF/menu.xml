@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <menu>
-
-  <menu label="menu-home" path="home.htm" roles="default" imageSrc="/style/images/tag-home.png"/>
   
   <menu label="menu-filter" path="filter.htm" roles="default" imageSrc="/images/filter.png">
     <menu label="menu-new-filter" path="filter.htm?new=true" roles="default"/>
