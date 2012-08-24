@@ -17,6 +17,7 @@
       #if ($iconUrl) <img border="0" alt="" src="$iconUrl" style="vertical-align:middle;"/> #end
       $title
       #if ($titleLinkUrl) </a> #end
+
       <span class="sidebar-tools">
         #verticalShowHideToggle($toggleId $toggleState)
       </span>
