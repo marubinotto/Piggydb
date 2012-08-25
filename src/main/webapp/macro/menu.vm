@@ -30,9 +30,9 @@
         class="tool-button" href="#" title="$messages.get("search")"
           onclick="jQuery('#search-form').submit();"><img src="$context/images/search.png" 
             border="0" alt="$messages.get("search")"/></a><a 
-        class="tool-button" href="#" title="$messages.get("jump-to-tag")"
+        class="tool-button" href="#" title="$messages.get("jump-to-fragment")"
           onclick="addHiddenValue(jQuery('#search-form'), 'jtt', 'true'); jQuery('#search-form').submit();"
-            ><img src="$context/images/jump-to-tag.png" border="0" alt="$messages.get("jump-to-tag")"/></a>
+            ><img src="$context/images/jump.png" border="0" alt="$messages.get("jump-to-fragment")"/></a>
     </form>
   </td>
 
