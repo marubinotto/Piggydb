@@ -26,15 +26,27 @@ public class SearchPage extends AbstractFragmentsPage {
 	public static final String PN_KEYWORDS = "keywords";
 
 	public String keywords;
-	public boolean jtt = false; // jump to tag
+	public boolean jump = false;
 
 	@Override
 	protected boolean onPreInit() throws Exception {
 		// Garbled parameters should be modified before createThisPageUrl
 		this.keywords = modifyIfGarbledByTomcat(this.keywords);
 
-		// Jump to tag
-		if (this.jtt && this.keywords != null) {
+		// Jump
+		if (this.jump && this.keywords != null) {
+			this.keywords = this.keywords.trim();
+			
+			// 1) keywords as a fragment ID
+			if (StringUtils.isNumeric(this.keywords)) {
+				long id = Long.parseLong(this.keywords);
+				if (getDomain().getFragmentRepository().containsId(id)) {
+					setRedirect(getContext().getPagePath(FragmentPage.class) + "?id=" + id);
+					return false;
+				}
+			}
+			
+			// 2) keywords as a tag name
 			Tag tag = getDomain().getTagRepository().getByName(this.keywords);
 			if (tag != null) {
 				setRedirect(getContext().getPagePath(TagPage.class) + "?id=" + tag.getId());
