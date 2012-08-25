@@ -75,6 +75,8 @@
 	        prettyPrint();
 	        if (outer.highlight != null && !outer.highlighted) {
 	        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
+	        	piggydb.widget.ContentToggle.clickContentToggle(outer.highlight);
+	        	
 	          // highlighing should be done only once 
 	        	// for example, when a user changes the scale in the same page,
 	          // highlighing should not be enabled.

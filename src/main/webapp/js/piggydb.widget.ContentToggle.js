@@ -44,6 +44,10 @@
 	  }
 	};
 	
+	_class.clickContentToggle = function(id) {
+		jQuery("div.fragment-header-" + id + " .fragment-content-toggle a:visible").click();	
+	};
+	
 	_class.prototype = jQuery.extend({
 		isDisabled: function() {
 			return this.toggleButton.hasDisabledFlag();
