@@ -150,6 +150,7 @@ jQuery(function() {
 			div.html(childrenHtml);
 			_class.initForPartial("#children-tree");
 			_class.highlight(newId, null);
+			piggydb.widget.ContentToggle.clickContentToggle(newId);
     });
 	};
 	
