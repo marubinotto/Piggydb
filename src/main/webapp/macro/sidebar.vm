@@ -163,7 +163,7 @@
 
 #sidebarEntryHeader("sidebar-filters" 
 	$messages.get("filter") 
-	"$context/images/filter.png" 
+	"$context/images/filters.png" 
 	"filter.htm"
 	"#sidebarFiltersTools()")
 #if ($filters && $filters.size() > 0)
