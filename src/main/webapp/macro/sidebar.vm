@@ -45,8 +45,8 @@
 #macro( commonSidebarEntries )
   
 #sidebarBookmark($bookmarkedFragments)
-#sidebarFilters($filters)
 #sidebarTagPalette()
+#sidebarFilters($filters)
 #sidebarRecentlyViewed($recentlyViewed)
 
 #end
