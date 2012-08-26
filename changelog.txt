@@ -1,6 +1,18 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.1 (2012-08-27) == #v6.1
+
+ * Cleaned up the main menu 
+   * Deleted the menu implemented with net.sf.click.extras.control.Menu
+     * Home => the title banner link
+     * New Filter => the tool button on sidebar entry 'Filter'
+     * System => the user menu
+   * Changed the tag pull-down icon
+ * Updated the Jump-to-tag button to a more general Jump button
+   * Jump to a fragment by its ID
+ * Updated to open the content of a just created fragment if it has a toggle
+
 == Changes in version 6.0 (2012-08-19) == #v6.0
 
  * Added Extension Mechanism (marubinotto.piggydb.extension)
