@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.tag;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.InvalidTagNameException;
 

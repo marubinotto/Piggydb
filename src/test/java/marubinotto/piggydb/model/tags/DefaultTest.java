@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 

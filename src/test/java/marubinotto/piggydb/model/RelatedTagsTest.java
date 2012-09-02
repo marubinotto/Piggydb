@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import static marubinotto.piggydb.fixture.EntityFixtures.tagWithId;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.impl.InMemoryDatabase;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFilter;
 
 import org.junit.Before;

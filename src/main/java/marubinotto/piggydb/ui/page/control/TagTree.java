@@ -7,7 +7,7 @@ import java.util.Random;
 import marubinotto.piggydb.model.Classifiable;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.common.HtmlFragments;
 import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 import marubinotto.util.Assert;

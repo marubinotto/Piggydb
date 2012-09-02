@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page.common;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Assert;

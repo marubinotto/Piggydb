@@ -3,7 +3,7 @@ package marubinotto.piggydb.model.authorization;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 

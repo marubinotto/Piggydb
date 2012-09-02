@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.exception.AuthorizationException;

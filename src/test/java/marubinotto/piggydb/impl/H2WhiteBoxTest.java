@@ -6,7 +6,7 @@ import static marubinotto.util.time.DateTime.date;
 import marubinotto.piggydb.fixture.table.AllTables;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
-import marubinotto.piggydb.model.OwnerAuth;
+import marubinotto.piggydb.model.auth.OwnerAuth;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package marubinotto.piggydb.ui.page;
 
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import net.sf.click.control.Checkbox;
 import net.sf.click.control.Form;

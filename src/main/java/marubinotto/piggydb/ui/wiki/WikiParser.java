@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 import marubinotto.util.Assert;
 

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;

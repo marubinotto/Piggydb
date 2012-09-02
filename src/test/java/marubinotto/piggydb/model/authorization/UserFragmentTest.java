@@ -7,7 +7,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.AuthorizationException;

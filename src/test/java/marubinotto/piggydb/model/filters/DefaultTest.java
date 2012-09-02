@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Test;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
 import marubinotto.piggydb.ui.wiki.HtmlBlock;

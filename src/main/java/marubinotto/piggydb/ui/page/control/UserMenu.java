@@ -3,7 +3,7 @@ package marubinotto.piggydb.ui.page.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.Assert;
 
 public class UserMenu {

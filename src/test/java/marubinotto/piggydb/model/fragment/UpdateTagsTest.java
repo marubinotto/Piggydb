@@ -12,7 +12,7 @@ import java.util.Set;
 
 import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 

@@ -12,7 +12,7 @@ import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawTag;
 
 import org.junit.Test;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Set;
 
+import marubinotto.piggydb.model.auth.User;
+
 public interface Tag extends Classifiable {
 	
 	public final static String PREFIX_SYSTEM_TAG = "#";

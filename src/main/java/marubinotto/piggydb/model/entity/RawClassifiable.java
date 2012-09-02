@@ -10,7 +10,7 @@ import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 import marubinotto.util.Assert;

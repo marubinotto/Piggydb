@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 

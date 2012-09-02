@@ -2,6 +2,7 @@ package marubinotto.piggydb.model;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.Assert;

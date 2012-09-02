@@ -6,7 +6,7 @@ import java.util.Stack;
 import marubinotto.piggydb.fixture.mock.WikiParserMock;
 import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 import marubinotto.piggydb.ui.wiki.HtmlBuilder;
 import marubinotto.piggydb.ui.wiki.ParseContext;

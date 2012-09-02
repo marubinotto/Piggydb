@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import java.util.Map;
 import java.util.Set;
 
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawEntity;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;

@@ -13,7 +13,7 @@ import marubinotto.piggydb.impl.InMemoryDatabase;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed.Entity;
 

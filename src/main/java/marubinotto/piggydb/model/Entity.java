@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import java.util.Comparator;
 import java.util.Map;
 
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.util.time.DateTime;
 

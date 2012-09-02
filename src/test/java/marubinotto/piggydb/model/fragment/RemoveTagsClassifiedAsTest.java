@@ -2,7 +2,7 @@ package marubinotto.piggydb.model.fragment;
 
 import static marubinotto.piggydb.model.Assert.assertClassificationEquals;
 import static marubinotto.util.CollectionUtils.map;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 

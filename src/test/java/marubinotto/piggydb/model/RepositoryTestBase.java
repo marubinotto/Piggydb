@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.enums.Role;
 
 import org.junit.Before;

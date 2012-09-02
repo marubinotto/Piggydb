@@ -1,5 +1,7 @@
 package marubinotto.piggydb.model;
 
+import marubinotto.piggydb.model.auth.User;
+
 public interface Filter extends Entity {
 	
 	public String getName();

@@ -10,7 +10,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Classifiable;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.exception.AuthorizationException;

@@ -2,7 +2,6 @@ package marubinotto.piggydb.ui.page.common;
 
 import java.util.List;
 
-import marubinotto.piggydb.model.Authentication;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.Fragment;
@@ -10,7 +9,8 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.GlobalSetting;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
-import marubinotto.piggydb.model.User;
+import marubinotto.piggydb.model.auth.Authentication;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.Assert;
 import marubinotto.util.procedure.Procedure;
 import marubinotto.util.procedure.Transaction;
