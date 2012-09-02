@@ -6,6 +6,7 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.model.enums.FragmentField;

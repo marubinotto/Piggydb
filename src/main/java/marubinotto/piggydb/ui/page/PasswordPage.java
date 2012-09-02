@@ -1,8 +1,8 @@
 package marubinotto.piggydb.ui.page;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.Password;
 import marubinotto.piggydb.model.auth.OwnerAuth;
+import marubinotto.piggydb.model.auth.Password;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;

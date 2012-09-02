@@ -1,9 +1,9 @@
 package marubinotto.piggydb.model.authorization;
 
-import marubinotto.piggydb.model.Entity;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.base.Entity;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 
 public class AuthErrors {

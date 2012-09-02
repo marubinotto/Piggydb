@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import marubinotto.piggydb.model.base.Entity;
 import marubinotto.util.Assert;
 
 public class ModelUtils {

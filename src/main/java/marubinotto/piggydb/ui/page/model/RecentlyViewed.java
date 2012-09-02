@@ -10,8 +10,8 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.Repository;
 import marubinotto.piggydb.model.TagRepository;
+import marubinotto.piggydb.model.base.Repository;
 import marubinotto.util.Assert;
 
 import org.apache.commons.lang.builder.EqualsBuilder;

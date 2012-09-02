@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import java.util.Collection;
 
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.base.Entity;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
 
 public interface Classifiable extends Entity {

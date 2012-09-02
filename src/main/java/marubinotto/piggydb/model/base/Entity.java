@@ -1,4 +1,4 @@
-package marubinotto.piggydb.model;
+package marubinotto.piggydb.model.base;
 
 import java.util.Comparator;
 import java.util.Map;

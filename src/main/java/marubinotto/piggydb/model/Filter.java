@@ -1,6 +1,7 @@
 package marubinotto.piggydb.model;
 
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.base.Entity;
 
 public interface Filter extends Entity {
 	

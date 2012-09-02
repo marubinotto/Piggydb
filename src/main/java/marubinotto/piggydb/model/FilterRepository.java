@@ -3,6 +3,7 @@ package marubinotto.piggydb.model;
 import java.util.List;
 
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;

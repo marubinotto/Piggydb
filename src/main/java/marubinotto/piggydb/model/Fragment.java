@@ -2,6 +2,7 @@ package marubinotto.piggydb.model;
 
 import java.util.List;
 
+import marubinotto.piggydb.model.auth.Password;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.util.Size;
 

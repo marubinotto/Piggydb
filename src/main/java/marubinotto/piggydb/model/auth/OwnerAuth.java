@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import marubinotto.piggydb.model.GlobalSetting;
-import marubinotto.piggydb.model.Password;
 import marubinotto.piggydb.model.enums.Role;
 import marubinotto.util.Assert;
 import marubinotto.util.PasswordDigest;
