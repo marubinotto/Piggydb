@@ -1,5 +1,7 @@
 package marubinotto.piggydb.model.base;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +26,9 @@ public interface Repository<E extends Entity> {
 	
 	public Map<Long, String> getNames(Set<Long> ids) throws Exception;
 	
+	public Query<E, Repository<E>> getQuery(Class<? extends Query<E, Repository<E>>> queryType)
+	throws Exception;
+	
 	
 	public static abstract class Base<E extends Entity, R extends RawEntity> 
 	implements Repository<E>, RawEntityFactory<R> {
@@ -38,5 +43,31 @@ public interface Repository<E extends Entity> {
 		}
 		
 		protected abstract void doDelete(E entity, User user) throws Exception;
+		
+		
+		// Query
+		
+		private List<Class<? extends Query<E, Repository<E>>>> queryImpls = 
+			new ArrayList<Class<? extends Query<E,Repository<E>>>>();
+		
+		public void registerQuery(Class<? extends Query<E, Repository<E>>> queryImpl) {
+			Assert.Arg.notNull(queryImpl, "queryImpl");
+			
+			this.queryImpls.add(queryImpl);
+		}
+		
+		public Query<E, Repository<E>> getQuery(Class<? extends Query<E, Repository<E>>> queryType) 
+		throws InstantiationException, IllegalAccessException {
+			Assert.Arg.notNull(queryType, "queryType");
+			
+			for (Class<? extends Query<E, Repository<E>>> impl : this.queryImpls) {
+				if (queryType.isAssignableFrom(impl)) {
+					Query<E, Repository<E>> query = impl.newInstance();
+					query.setRepository(this);
+					return query;
+				}
+			}
+			return null;
+		}
 	}
 }
