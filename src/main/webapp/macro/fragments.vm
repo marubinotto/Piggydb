@@ -207,52 +207,53 @@ jQuery(document).ready(function() {
 #macro( fragmentRootChildNodes $fragment )
 	
 #if ($fragment.hasChildren())
-
-<table id="children-control" border="0" cellpadding="0" cellspacing="0">
+#set ($divClass = "children-${fragment.id}")
+<div class="$divClass">
+	
+<table class="children-control" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td align="left" valign="middle">
     <span id="processing-children">&nbsp; </span> ## a place for loading icon
   </td>
   #if ($fragment.canChange($user))
-  <td align="right">
-    <script type="text/javascript">
-    //<![CDATA[
-      jQuery(function() {
-        jQuery("#reorder-switch button").click(function () {
-          var button = jQuery(this);
-          if (button.hasClass("selected")) {
-            piggydb.widget.FragmentTree.disableSortable();
-            button.removeClass("selected");
-          }
-          else {
-            piggydb.widget.FragmentTree.enableSortable($fragment.id);
-            button.addClass("selected");
-          }
+    <td align="right">
+      <script type="text/javascript">
+      //<![CDATA[
+        jQuery(function() {
+          jQuery("div.$divClass div.reorder-switch button").click(function () {
+            var button = jQuery(this);
+            if (button.hasClass("selected")) {
+              piggydb.widget.FragmentTree.disableSortable();
+              button.removeClass("selected");
+            }
+            else {
+              piggydb.widget.FragmentTree.enableSortable($fragment.id);
+              button.addClass("selected");
+            }
+          });
         });
-      });
-    //]]>
-    </script>
-    <div id="reorder-switch" class="select-switch" style="margin-left: 20px;">
-      <button type="button" name="reorder">
-        <img src="$context/images/sortable.png" alt="$messages.get("FragmentPage-reorder")" 
-          border="0" style="vertical-align: middle;"/> 
-        <span style="vertical-align: middle;">$messages.get("FragmentPage-reorder")</span>
-      </button>
-    </div>
-  </td>
+      //]]>
+      </script>
+      <div class="reorder-switch select-switch" style="margin-left: 20px;">
+        <button type="button" name="reorder">
+          <img src="$context/images/sortable.png" alt="$messages.get("FragmentPage-reorder")" 
+            border="0" style="vertical-align: middle;"/> 
+          <span style="vertical-align: middle;">$messages.get("FragmentPage-reorder")</span>
+        </button>
+      </div>
+    </td>
   #end
   <td width="30">
     <script type="text/javascript">
     //<![CDATA[
       jQuery(function() {
-        jQuery("#children-content-toggle").click(function () {
-          piggydb.widget.ContentToggle.onAllContentToggleClick(
-						this, jQuery("table.fragment-${fragment.id} div.children"));
+        jQuery("div.$divClass button.children-content-toggle").click(function () {
+          piggydb.widget.ContentToggle.onAllContentToggleClick(this, jQuery("div.$divClass"));
         });
       });
     //]]>
     </script>
-    <button type="button" id="children-content-toggle">
+    <button type="button" class="children-content-toggle">
       <img src="$context/style/images/bullet-arrow-down.png" border="0" alt="" style="margin: -2px;"/>
     </button>
   </td>
@@ -266,6 +267,7 @@ jQuery(document).ready(function() {
 #end
 </ul>
 	
+</div>
 #end
 	
 #end

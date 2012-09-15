@@ -119,7 +119,7 @@ table.fragment td,
 }
 
 table.fragment td.subfragments,
-table.fragment td.subfragments #children-control td {
+table.fragment td.subfragments table.children-control td {
 	background-color: #f8f8f8;
 }
 

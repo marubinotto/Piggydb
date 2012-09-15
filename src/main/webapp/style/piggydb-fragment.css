@@ -2,22 +2,22 @@
  * Sub-fragments
  */
 
-#children-control {
+table.children-control {
 	width: 100%;
 	margin-bottom: 3px;
 }
 
-#children-control td {
+table.children-control td {
   border: none;
 }
 
-#reorder-switch button {
+div.reorder-switch button {
 	height: 20px;
 	padding-left: 2px; 
 	padding-right: 4px;
 }
 
-#children-content-toggle {
+button.children-content-toggle {
 	height: 20px;
 	margin-left: 5px;
 }
