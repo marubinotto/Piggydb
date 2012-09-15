@@ -15,7 +15,7 @@
     			"piggydb.widget.FileForm.openToAddChild(${fragment.getId()}); return false;")
   		</div>
 		#end
-    <div id="children-tree" class="children">
+    <div class="children">
 			#fragmentRootChildNodes($fragment)
     </div>
   </td>

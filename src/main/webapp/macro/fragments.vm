@@ -246,7 +246,8 @@ jQuery(document).ready(function() {
     //<![CDATA[
       jQuery(function() {
         jQuery("#children-content-toggle").click(function () {
-          piggydb.widget.ContentToggle.onAllContentToggleClick(this, jQuery("#children-tree"));
+          piggydb.widget.ContentToggle.onAllContentToggleClick(
+						this, jQuery("table.fragment-${fragment.id} div.children"));
         });
       });
     //]]>

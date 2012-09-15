@@ -145,10 +145,11 @@ jQuery(function() {
 	};
 	
 	_class.reloadRootChildNodes = function(parentId, newId) {
-		var div = jQuery("#children-tree").empty().putLoadingIcon("margin: 5px;");
+		var selectorChildren = "table.fragment-" + parentId + " div.children";
+		var div = jQuery(selectorChildren).empty().putLoadingIcon("margin: 5px;");
 		jQuery.get("partial/fragment-root-child-nodes.htm", {id: parentId}, function(childrenHtml) {
 			div.html(childrenHtml);
-			_class.initForPartial("#children-tree");
+			_class.initForPartial(selectorChildren);
 			_class.highlight(newId, null);
 			piggydb.widget.ContentToggle.clickContentToggle(newId);
     });
