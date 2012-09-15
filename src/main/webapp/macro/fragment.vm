@@ -1,4 +1,4 @@
-#macro( fragmentForPage $fragment )
+#macro( fragmentTree $fragment )
 
 <table class="$html.fragmentTableClass($fragment) fragment-full fragment-main multirow" 
 	cellpadding="5" cellspacing="0" width="100%" border="0">
