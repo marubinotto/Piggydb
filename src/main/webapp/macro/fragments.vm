@@ -213,7 +213,7 @@ jQuery(document).ready(function() {
 <table class="children-control" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td align="left" valign="middle">
-    <span id="processing-children">&nbsp; </span> ## a place for loading icon
+    <span class="processing-children">&nbsp; </span> ## a place for loading icon
   </td>
   #if ($fragment.canChange($user))
     <td align="right">
@@ -223,7 +223,7 @@ jQuery(document).ready(function() {
           jQuery("div.$divClass div.reorder-switch button").click(function () {
             var button = jQuery(this);
             if (button.hasClass("selected")) {
-              piggydb.widget.FragmentTree.disableSortable();
+              piggydb.widget.FragmentTree.disableSortable($fragment.id);
               button.removeClass("selected");
             }
             else {

@@ -33,14 +33,15 @@
 	  },
 	  
 	  enableSortable: function(parentId) {
-	  	var sortableUl = jQuery(".sortable-children");
+	  	var container = jQuery("div.children-" + parentId);
+	  	var sortableUl = container.find(".sortable-children");
 	  	sortableUl.sortable({
 	      update: function(event, ui) {
 	        var children = jQuery(this);
 	        var childOrder = children.sortable('toArray');
 	        var processingIcon = jQuery(
 	          '<span><img src="images/load.gif" border="0"/><\/span>')
-	            .appendTo(jQuery("#processing-children"));
+	            .appendTo(container.find("span.processing-children"));
 	        jQuery.ajax({
 	          type: "POST",
 	          url: "command/update-child-relation-priorities.htm",
@@ -58,8 +59,8 @@
 	      .prepend('<img class="sortable-icon" src="images/sortable.png" border="0" alt=""/>');
 	  },
 	  
-	  disableSortable: function() {
-	  	var sortableUl = jQuery(".sortable-children");
+	  disableSortable: function(parentId) {
+	  	var sortableUl = jQuery("div.children-" + parentId + " .sortable-children");
 	  	sortableUl.sortable("destroy");
 	  	sortableUl.enableSelection();
 	  	sortableUl.find("table.fragment-root-node").css("cursor", "auto");
