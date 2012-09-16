@@ -1,4 +1,4 @@
-#macro( fragments $fragments $contextTags $pageIndexName )
+#macro( homeFragments $fragments $pageIndexName )
 
 #if ($fragments && $fragments.totalSize > 0)
 

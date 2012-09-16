@@ -29,7 +29,7 @@
   #verticalShowHideToggle("home-toggle" $toggleState)
 </div>
 <div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>
-#fragments($homeFragments $null "hpi")
+#homeFragments($homeFragments "hpi")
 </div>
 #end
 
