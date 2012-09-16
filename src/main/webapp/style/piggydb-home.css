@@ -47,7 +47,7 @@ span.link-to-today {
   border-bottom: 2px solid #ccc;
 }
 
-div.home-fragments table.fragment {
-  border: 2px solid #ecc;
+div.home-fragments > table.fragment {
+	border: 2px solid #ecc;
 }
 
