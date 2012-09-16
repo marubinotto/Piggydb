@@ -360,6 +360,32 @@ td.fragment-body .fragment-content span.error-line {
 
 
 /*
+ * Sub-fragments
+ */
+
+div.children table.children-control {
+	width: 100%;
+	margin-bottom: 3px;
+}
+
+div.children table.children-control td {
+  border: none;
+}
+
+div.children table.children-control div.reorder-switch button {
+	height: 20px;
+	padding-left: 2px; 
+	padding-right: 4px;
+}
+
+div.children table.children-control button.children-content-toggle {
+	height: 20px;
+	margin-left: 5px;
+}
+
+
+
+/*
  * Fragments View
  */
  

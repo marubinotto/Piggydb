@@ -7,7 +7,7 @@
 #end
 
 #foreach ($fragment in $fragments)
-  #fragment($fragment $contextTags)
+  #fragmentTree($fragment)
 #end
 
 #pagingNavigator($fragments $pageIndexName)

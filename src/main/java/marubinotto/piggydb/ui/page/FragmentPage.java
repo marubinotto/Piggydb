@@ -145,8 +145,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 		String fragmentTitle = this.fragment.makeHeadline();
 		this.htmlTitle = this.htmlTitle + HTML_TITLE_SEP + (fragmentTitle != null ? fragmentTitle : "");
 
-		importCss("style/piggydb-fragment.css", true, null);
-
 		getRecentlyViewed().add(
 			new RecentlyViewed.Entity(RecentlyViewed.TYPE_FRAGMENT, this.fragment.getId()));
 
