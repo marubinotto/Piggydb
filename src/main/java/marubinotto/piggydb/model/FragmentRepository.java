@@ -67,6 +67,8 @@ public interface FragmentRepository extends Repository<Fragment> {
 		boolean eagerFetching) 
 	throws Exception;
 	
+	public Page<Fragment> getHomeFragments(FragmentsOptions options) throws Exception;
+	
 	public Fragment getUserFragment(String userName) throws Exception;
 
 	public long createRelation(long from, long to, User user)

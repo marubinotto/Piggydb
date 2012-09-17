@@ -25,9 +25,22 @@ public class FragmentList<F extends Fragment> implements Iterable<F> {
 	}
 	
 	public FragmentList(F fragment) {
+		Assert.Arg.notNull(fragment, "fragment");
+		
 		List<F> fragments = new ArrayList<F>();
 		fragments.add(fragment);
 		setFragments(fragments);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <SF extends Fragment> FragmentList<SF> createByDownCast(List<Fragment> fragments) {
+		Assert.Arg.notNull(fragments, "fragments");
+		
+		List<SF> downCasted = new ArrayList<SF>();
+		for (Fragment fragment : fragments) {
+			downCasted.add((SF)fragment);
+		}
+		return new FragmentList<SF>(downCasted);
 	}
 	
 	private void setFragments(List<F> fragments) {

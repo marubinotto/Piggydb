@@ -4,8 +4,6 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
-import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
@@ -98,17 +96,8 @@ public class HomePage extends AbstractFragmentsPage {
 	}
 
 	private void setHomeFragments() throws Exception {
-		RawFilter filter = new RawFilter();
-
-		Tag homeTag = getDomain().getTagRepository().getByName(Tag.NAME_HOME);
-		if (homeTag == null) return;
-		filter.getClassification().addTag(homeTag);
-
-		Tag trashTag = getDomain().getTagRepository().getTrashTag();
-		if (trashTag != null) filter.getExcludes().addTag(trashTag);
-
 		this.homeFragments = getDomain().getFragmentRepository().
-			findByFilter(filter, new FragmentsOptions(this.homePageSize, this.hpi, true));
+			getHomeFragments(new FragmentsOptions(this.homePageSize, this.hpi, true));
 	}
 
 	private void setUserFragment() throws Exception {

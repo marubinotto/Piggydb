@@ -620,6 +620,30 @@ implements RawEntityFactory<RawFragment> {
 		return QueryUtils.getValuesForIds("fragment", "title", ids, this.jdbcTemplate);
 	}
 	
+	public Page<Fragment> getHomeFragments(FragmentsOptions options) throws Exception {
+		RawFilter filter = new RawFilter();
+
+		Tag homeTag = getTagRepository().getByName(Tag.NAME_HOME);
+		if (homeTag == null) return PageUtils.empty(options.pageSize);
+		filter.getClassification().addTag(homeTag);
+
+		Tag trashTag = getTagRepository().getTrashTag();
+		if (trashTag != null) filter.getExcludes().addTag(trashTag);
+		
+		options.eagerFetching = true;
+		Page<Fragment> homeFragments = findByFilter(filter, options);
+		
+		// additional dependencies
+		if (homeFragments.size() > 0) {
+			FragmentList<RawFragment> children = 
+				FragmentList.<RawFragment>createByDownCast(homeFragments).getChildren();
+			refreshClassifications(children.getFragments());
+			setParentsToEach(children);
+		}
+		
+		return homeFragments;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Fragment getUserFragment(String userName) throws Exception {
 		Assert.Arg.notNull(userName, "userName");
