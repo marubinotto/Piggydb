@@ -2,12 +2,13 @@ package marubinotto.piggydb.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import marubinotto.util.Assert;
 
-public class FragmentList<F extends Fragment> {
+public class FragmentList<F extends Fragment> implements Iterable<F> {
 	
 	private List<F> fragments;
 	
@@ -19,7 +20,19 @@ public class FragmentList<F extends Fragment> {
 		Assert.Arg.notNull(fragments, "fragments");
 		this.fragments = fragments;
 	}
+
+	public Iterator<F> iterator() {
+		return this.fragments.iterator();
+	}
 	
+	/*
+	public FragmentList<F> getAllChildren() {
+		
+	}
+	*/
+	
+	
+	// Map (ID => F) and duplicates
 	
 	private List<F>	duplicates;
 	

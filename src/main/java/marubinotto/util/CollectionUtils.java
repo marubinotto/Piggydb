@@ -75,4 +75,17 @@ public class CollectionUtils {
 	public static <E> List<E> covariantCast(List<? extends E> list) {
 		return (List<E>)list;
 	}
+	
+	public static String joinToString(Collection<?> collection, String delimiter) {
+		Assert.Arg.notNull(collection, "collection");
+		
+		if (delimiter == null) delimiter = "";
+		
+		StringBuilder sb = new StringBuilder();
+		for (Object object : collection) {
+			if (sb.length() > 0) sb.append(delimiter);
+			sb.append(object.toString());
+		}
+		return sb.toString();
+	}
 }

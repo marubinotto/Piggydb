@@ -857,10 +857,7 @@ implements RawEntityFactory<RawFragment> {
 		sql.append(" from fragment_relation, fragment");
 		sql.append(" where fragment_relation.from_id = fragment.fragment_id");
 		sql.append(" and fragment_relation.to_id in (");
-		for (int i = 0; i < fragmentIds.size(); i++) {
-			if (i > 0) sql.append(", ");
-			sql.append(fragmentIds.get(i));
-		}
+		sql.append(CollectionUtils.joinToString(fragmentIds, ", "));
 		sql.append(")");
 		appendConditionToExcludeTrash(sql, "fragment_relation.from_id");
 
@@ -891,10 +888,7 @@ implements RawEntityFactory<RawFragment> {
 		sql.append(" from fragment_relation, fragment");
 		sql.append(" where fragment_relation.to_id = fragment.fragment_id");
 		sql.append(" and fragment_relation.from_id in (");
-		for (int i = 0; i < fragmentIds.size(); i++) {
-			if (i > 0) sql.append(", ");
-			sql.append(fragmentIds.get(i));
-		}
+		sql.append(CollectionUtils.joinToString(fragmentIds, ", "));
 		sql.append(")");
 		appendConditionToExcludeTrash(sql, "fragment_relation.to_id");
 		

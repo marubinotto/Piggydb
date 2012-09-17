@@ -38,4 +38,13 @@ public class CollectionUtilsTest {
 		assertEquals("Daisuke", map.get(1).name);
 		assertEquals("Akane", map.get(2).name);
 	}
+	
+	@Test
+	public void joinToString() throws Exception {
+		assertEquals("123", 
+			CollectionUtils.joinToString(list(1, 2, 3), null));
+		
+		assertEquals("1, 2, 3", 
+			CollectionUtils.joinToString(list(1, 2, 3), ", "));
+	}
 }
