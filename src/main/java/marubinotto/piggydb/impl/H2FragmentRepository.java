@@ -818,18 +818,17 @@ implements RawEntityFactory<RawFragment> {
 		if (fragments.isEmpty()) return;
 		
 		FragmentList<RawFragment> fragments2 = new FragmentList<RawFragment>(fragments);
-		Map<Long, RawFragment> id2fragment = fragments2.toIdMap();
 		
 		// get & set children (without sorting)
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(id2fragment.keySet());
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments2.ids());
 		for (Long id : id2children.keySet()) {
-			id2fragment.get(id).setChildRelations(id2children.get(id));
+			fragments2.get(id).setChildRelations(id2children.get(id));
 		}
 		
 		// set children to the duplicates
 		for (RawFragment duplication : fragments2.getDuplicates()) {
 			duplication.setChildRelations(
-				id2fragment.get(duplication.getId()).getChildRelations());
+				fragments2.get(duplication.getId()).getChildRelations());
 		}
 	}
 
