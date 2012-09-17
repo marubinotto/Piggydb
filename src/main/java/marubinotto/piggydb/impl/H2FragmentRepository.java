@@ -639,6 +639,7 @@ implements RawEntityFactory<RawFragment> {
 				FragmentList.<RawFragment>createByDownCast(homeFragments).getChildren();
 			refreshClassifications(children.getFragments());
 			setParentsToEach(children);
+			for (RawFragment child : children) child.checkTwoWayRelations();
 		}
 		
 		return homeFragments;
