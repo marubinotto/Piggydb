@@ -776,11 +776,8 @@ implements RawEntityFactory<RawFragment> {
 			fragments2.get(id).setParentRelations(id2parents.get(id));
 		}
 		
-		// Children TODO
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments2.ids());		
-		for (Long id : id2children.keySet()) {
-			fragments2.get(id).setChildRelations(id2children.get(id));
-		}
+		// Children
+		setChildrenToEach(fragments2);
 		
 		// Grandchildren
 		setChildrenToEach(fragments2.getChildren());
@@ -790,19 +787,18 @@ implements RawEntityFactory<RawFragment> {
 			fragment.checkTwoWayRelations();
 	}
 	
-	// the given fragments may contain duplicates
 	private void setChildrenToEach(FragmentList<RawFragment> fragments) throws Exception {
 		Assert.Arg.notNull(fragments, "fragments");
 		
 		if (fragments.isEmpty()) return;
 		
-		// get & set children (without sorting)
+		// get & set (without sorting)
 		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments.ids());
 		for (Long id : id2children.keySet()) {
 			fragments.get(id).setChildRelations(id2children.get(id));
 		}
 		
-		// set children to the duplicates
+		// set to the duplicates
 		for (RawFragment duplication : fragments.getDuplicates()) {
 			duplication.setChildRelations(
 				fragments.get(duplication.getId()).getChildRelations());
