@@ -1,7 +1,8 @@
 package marubinotto.piggydb.impl;
 
-import static marubinotto.piggydb.model.ModelUtils.toIdMap;
-import static marubinotto.util.CollectionUtils.*;
+import static marubinotto.util.CollectionUtils.joinToString;
+import static marubinotto.util.CollectionUtils.list;
+import static marubinotto.util.CollectionUtils.set;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.sql.ResultSet;
@@ -154,8 +155,13 @@ implements RawEntityFactory<RawFragment> {
 		// relationships
 		if (fetchingRelations) {
 			setParentsTo(fragment);
-			Map<Long, RawFragment> id2child = setChildrenWithTagsTo(fragment);
-			setParentsAndChildrenWithGrandchildrenToEach(id2child);
+			
+			FragmentList<RawFragment> fragment2 = new FragmentList<RawFragment>(fragment);
+			setChildrenToEach(fragment2);
+			
+			FragmentList<RawFragment> children = fragment2.getChildren();
+			refreshClassifications(children.getFragments());
+			setParentsAndChildrenWithGrandchildrenToEach(children.getFragments());
 			fragment.checkTwoWayRelations();
 		}
 
@@ -292,7 +298,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
+			setParentsAndChildrenWithGrandchildrenToEach(results);
 		}
 		
 		return PageUtils.<Fragment>covariantCast(
@@ -334,7 +340,7 @@ implements RawEntityFactory<RawFragment> {
 
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
+			setParentsAndChildrenWithGrandchildrenToEach(results);
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -501,7 +507,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
+			setParentsAndChildrenWithGrandchildrenToEach(results);
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -544,7 +550,7 @@ implements RawEntityFactory<RawFragment> {
 
 		if (options.eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
+			setParentsAndChildrenWithGrandchildrenToEach(results);
 		}
 
 		final String queryAll = "select count(*)" + condition;
@@ -603,7 +609,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		if (eagerFetching) {
 			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(toIdMap(results));
+			setParentsAndChildrenWithGrandchildrenToEach(results);
 		}
 		
 		return CollectionUtils.<Fragment>covariantCast(results);
@@ -758,77 +764,48 @@ implements RawEntityFactory<RawFragment> {
 		fragment.setParentRelations(parents);
 	}
 	
-	private Map<Long, RawFragment> setChildrenWithTagsTo(RawFragment fragment) 
+	private void setParentsAndChildrenWithGrandchildrenToEach(List<RawFragment> fragments) 
 	throws Exception {
-		Map<Long, RawFragment> id2child = new HashMap<Long, RawFragment>();
-		
-		// Get the sorted children of the given fragment
-		List<FragmentRelation> children = 
-			getChildrenForEach(set(fragment.getId())).get(fragment.getId());
-		if (children == null) return id2child;
-		
-		// Fetch tags for the children
-		List<Fragment> childFragments = new ArrayList<Fragment>();
-		for (FragmentRelation relation : children) {
-			RawFragment child = (RawFragment)relation.to;
-			childFragments.add(child);
-			id2child.put(child.getId(), child);
-		}
-		refreshClassifications(childFragments);
-		
-		fragment.setChildRelations(children);
-		return id2child;
-	}
-	
-	// TODO make the arg simple
-	private void setParentsAndChildrenWithGrandchildrenToEach(Map<Long, RawFragment> id2fragment) 
-	throws Exception {
-		if (id2fragment.isEmpty()) return;
-		
-		// Parents
-		Map<Long, List<FragmentRelation>> id2parents = getParentsForEach(id2fragment.keySet());
-		for (Long id : id2parents.keySet()) {
-			id2fragment.get(id).setParentRelations(id2parents.get(id));
-		}
-		
-		// Children
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(id2fragment.keySet());		
-		List<RawFragment> allChildren = new ArrayList<RawFragment>();
-		for (Long id : id2children.keySet()) {
-			List<FragmentRelation> children = id2children.get(id);
-			id2fragment.get(id).setChildRelations(children);
-			
-			// Collect all children
-			for (FragmentRelation relation : children) 
-				allChildren.add((RawFragment)relation.to);
-		}
-		
-		// Grandchildren
-		setChildrenToEach(allChildren);
-		
-		// Check two-way relations
-		for (RawFragment fragment : id2fragment.values())
-			fragment.checkTwoWayRelations();
-	}
-	
-	// the given fragments may contain duplicates
-	private void setChildrenToEach(List<RawFragment> fragments) throws Exception {
-		Assert.Arg.notNull(fragments, "fragments");
-		
 		if (fragments.isEmpty()) return;
 		
 		FragmentList<RawFragment> fragments2 = new FragmentList<RawFragment>(fragments);
 		
-		// get & set children (without sorting)
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments2.ids());
+		// Parents
+		Map<Long, List<FragmentRelation>> id2parents = getParentsForEach(fragments2.ids());
+		for (Long id : id2parents.keySet()) {
+			fragments2.get(id).setParentRelations(id2parents.get(id));
+		}
+		
+		// Children TODO
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments2.ids());		
 		for (Long id : id2children.keySet()) {
 			fragments2.get(id).setChildRelations(id2children.get(id));
 		}
 		
+		// Grandchildren
+		setChildrenToEach(fragments2.getChildren());
+		
+		// Check two-way relations
+		for (RawFragment fragment : fragments2)
+			fragment.checkTwoWayRelations();
+	}
+	
+	// the given fragments may contain duplicates
+	private void setChildrenToEach(FragmentList<RawFragment> fragments) throws Exception {
+		Assert.Arg.notNull(fragments, "fragments");
+		
+		if (fragments.isEmpty()) return;
+		
+		// get & set children (without sorting)
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(fragments.ids());
+		for (Long id : id2children.keySet()) {
+			fragments.get(id).setChildRelations(id2children.get(id));
+		}
+		
 		// set children to the duplicates
-		for (RawFragment duplication : fragments2.getDuplicates()) {
+		for (RawFragment duplication : fragments.getDuplicates()) {
 			duplication.setChildRelations(
-				fragments2.get(duplication.getId()).getChildRelations());
+				fragments.get(duplication.getId()).getChildRelations());
 		}
 	}
 

@@ -24,6 +24,12 @@ public class FragmentList<F extends Fragment> implements Iterable<F> {
 		setFragments(fragments);
 	}
 	
+	public FragmentList(F fragment) {
+		List<F> fragments = new ArrayList<F>();
+		fragments.add(fragment);
+		setFragments(fragments);
+	}
+	
 	private void setFragments(List<F> fragments) {
 		Assert.Arg.notNull(fragments, "fragments");
 		
@@ -39,9 +45,17 @@ public class FragmentList<F extends Fragment> implements Iterable<F> {
 				this.id2fragment.put(fragment.getId(), fragment);
 		}
 	}
+	
+	public List<F> getFragments() {
+		return this.fragments;
+	}
 
 	public Iterator<F> iterator() {
 		return this.fragments.iterator();
+	}
+	
+	public boolean isEmpty() {
+		return this.fragments.isEmpty();
 	}
 	
 	public F get(Long id) {
@@ -57,12 +71,14 @@ public class FragmentList<F extends Fragment> implements Iterable<F> {
 		return this.duplicates;
 	}
 
-	
-	
-	
-	/*
-	public FragmentList<F> getAllChildren() {
-		
+	@SuppressWarnings("unchecked")
+	public FragmentList<F> getChildren() {
+		List<F> children = new ArrayList<F>();
+		for (F fragment : this) {
+			for (Fragment child : fragment.getChildren()) {
+				children.add((F)child);
+			}
+		}
+		return new FragmentList<F>(children);
 	}
-	*/
 }
