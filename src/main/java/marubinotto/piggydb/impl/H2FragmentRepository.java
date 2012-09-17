@@ -1,7 +1,7 @@
 package marubinotto.piggydb.impl;
 
 import static marubinotto.piggydb.model.ModelUtils.toIdMap;
-import static marubinotto.util.CollectionUtils.list;
+import static marubinotto.util.CollectionUtils.*;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.sql.ResultSet;
@@ -753,7 +753,7 @@ implements RawEntityFactory<RawFragment> {
 	
 	private void setParentsTo(RawFragment fragment) throws Exception {
 		List<FragmentRelation> parents = 
-			getParentsForEach(list(fragment.getId())).get(fragment.getId());
+			getParentsForEach(set(fragment.getId())).get(fragment.getId());
 		if (parents == null) return;		
 		fragment.setParentRelations(parents);
 	}
@@ -764,7 +764,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		// Get the sorted children of the given fragment
 		List<FragmentRelation> children = 
-			getChildrenForEach(list(fragment.getId())).get(fragment.getId());
+			getChildrenForEach(set(fragment.getId())).get(fragment.getId());
 		if (children == null) return id2child;
 		
 		// Fetch tags for the children
@@ -785,16 +785,14 @@ implements RawEntityFactory<RawFragment> {
 	throws Exception {
 		if (id2fragment.isEmpty()) return;
 		
-		List<Long> ids = new ArrayList<Long>(id2fragment.keySet());
-		
 		// Parents
-		Map<Long, List<FragmentRelation>> id2parents = getParentsForEach(ids);
+		Map<Long, List<FragmentRelation>> id2parents = getParentsForEach(id2fragment.keySet());
 		for (Long id : id2parents.keySet()) {
 			id2fragment.get(id).setParentRelations(id2parents.get(id));
 		}
 		
 		// Children
-		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(ids);		
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(id2fragment.keySet());		
 		List<RawFragment> allChildren = new ArrayList<RawFragment>();
 		for (Long id : id2children.keySet()) {
 			List<FragmentRelation> children = id2children.get(id);
@@ -823,8 +821,7 @@ implements RawEntityFactory<RawFragment> {
 		Map<Long, RawFragment> id2fragment = fragments2.toIdMap();
 		
 		// get & set children (without sorting)
-		Map<Long, List<FragmentRelation>> id2children = 
-			getChildrenForEach(new ArrayList<Long>(id2fragment.keySet()));
+		Map<Long, List<FragmentRelation>> id2children = getChildrenForEach(id2fragment.keySet());
 		for (Long id : id2children.keySet()) {
 			id2fragment.get(id).setChildRelations(id2children.get(id));
 		}
@@ -836,7 +833,7 @@ implements RawEntityFactory<RawFragment> {
 		}
 	}
 
-	private Map<Long, List<FragmentRelation>> getParentsForEach(List<Long> fragmentIds)
+	private Map<Long, List<FragmentRelation>> getParentsForEach(Set<Long> fragmentIds)
 	throws NoSuchEntityException, Exception {
 		Map<Long, List<FragmentRelation>> results = 
 			new HashMap<Long, List<FragmentRelation>>();
@@ -857,7 +854,7 @@ implements RawEntityFactory<RawFragment> {
 		sql.append(" from fragment_relation, fragment");
 		sql.append(" where fragment_relation.from_id = fragment.fragment_id");
 		sql.append(" and fragment_relation.to_id in (");
-		sql.append(CollectionUtils.joinToString(fragmentIds, ", "));
+		sql.append(joinToString(fragmentIds, ", "));
 		sql.append(")");
 		appendConditionToExcludeTrash(sql, "fragment_relation.from_id");
 
@@ -867,7 +864,7 @@ implements RawEntityFactory<RawFragment> {
 		return results;
 	}
 
-	private Map<Long, List<FragmentRelation>> getChildrenForEach(List<Long> fragmentIds)
+	private Map<Long, List<FragmentRelation>> getChildrenForEach(Set<Long> fragmentIds)
 	throws Exception {
 		Map<Long, List<FragmentRelation>> results = 
 			new HashMap<Long, List<FragmentRelation>>();
@@ -888,7 +885,7 @@ implements RawEntityFactory<RawFragment> {
 		sql.append(" from fragment_relation, fragment");
 		sql.append(" where fragment_relation.to_id = fragment.fragment_id");
 		sql.append(" and fragment_relation.from_id in (");
-		sql.append(CollectionUtils.joinToString(fragmentIds, ", "));
+		sql.append(joinToString(fragmentIds, ", "));
 		sql.append(")");
 		appendConditionToExcludeTrash(sql, "fragment_relation.to_id");
 		
