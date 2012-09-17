@@ -18,6 +18,7 @@ import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
@@ -779,6 +780,7 @@ implements RawEntityFactory<RawFragment> {
 		return id2child;
 	}
 	
+	// TODO make the arg simple
 	private void setParentsAndChildrenWithGrandchildrenToEach(Map<Long, RawFragment> id2fragment) 
 	throws Exception {
 		if (id2fragment.isEmpty()) return;
@@ -811,30 +813,24 @@ implements RawEntityFactory<RawFragment> {
 			fragment.checkTwoWayRelations();
 	}
 	
+	// the given fragments may contain duplicates
 	private void setChildrenToEach(List<RawFragment> fragments) throws Exception {
 		Assert.Arg.notNull(fragments, "fragments");
 		
 		if (fragments.isEmpty()) return;
 		
-		// list -> map & duplications, clear all classifications
-		Map<Long, RawFragment> id2fragment = new HashMap<Long, RawFragment>();
-		List<RawFragment> duplications = new ArrayList<RawFragment>();
-		for (RawFragment fragment : fragments) {
-			if (id2fragment.containsKey(fragment.getId())) 
-				duplications.add(fragment);
-			else 
-				id2fragment.put(fragment.getId(), fragment);
-		}
+		FragmentList<RawFragment> fragments2 = new FragmentList<RawFragment>(fragments);
+		Map<Long, RawFragment> id2fragment = fragments2.toIdMap();
 		
-		// get children (without sorting)
+		// get & set children (without sorting)
 		Map<Long, List<FragmentRelation>> id2children = 
 			getChildrenForEach(new ArrayList<Long>(id2fragment.keySet()));
 		for (Long id : id2children.keySet()) {
-			RawFragment fragment = id2fragment.get(id);
-			fragment.setChildRelations(id2children.get(id));
+			id2fragment.get(id).setChildRelations(id2children.get(id));
 		}
 		
-		for (RawFragment duplication : duplications) {
+		// set children to the duplicates
+		for (RawFragment duplication : fragments2.getDuplicates()) {
 			duplication.setChildRelations(
 				id2fragment.get(duplication.getId()).getChildRelations());
 		}
