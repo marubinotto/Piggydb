@@ -118,16 +118,26 @@ table.fragment td,
 	border: 1px solid #c0c0c0;
 }
 
-table.fragment td.subfragments,
-table.fragment td.subfragments table.children-control td {
-	background-color: #f8f8f8;
-}
-
 table.fragment,
 table.fragment th, 
 table.fragment td,
 .content-box {
   border: 1px solid #ccc;
+}
+
+table.fragment td.subfragments,
+table.fragment td.subfragments table.children-control td {
+	background-color: #f8f8f8;
+}
+
+table.fragment td.subfragments .header-cell {
+	background-color: #e9e9e9;
+}
+
+table.fragment td.subfragments table.fragment, 
+table.fragment td.subfragments table.fragment th,
+table.fragment td.subfragments table.fragment td {
+	border: 1px solid #ddd;
 }
 
 .section-title {
