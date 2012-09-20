@@ -125,6 +125,12 @@ table.fragment td,
   border: 1px solid #ccc;
 }
 
+table.fragment td.superfragment-links,
+table.fragment td.subfragment-links  {
+	background-color: #f8f8f8;
+	color: #666;
+}
+
 table.fragment td.subfragments,
 table.fragment td.subfragments table.children-control td {
 	background-color: #f8f8f8;
