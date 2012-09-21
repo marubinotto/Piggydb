@@ -408,4 +408,16 @@
       includes="${standalone.build.package.dir.name}/**"/>
   </target>
   
+	
+  <!--
+    Extensions Source Zip
+  -->
+  <target name="extensions-src">
+  	<zip 
+      zipfile="${build.dir}/extensions-src.zip" 
+      basedir="${basedir}"
+      includes="extensions/**"
+  		excludes="**/.*, **/.*/**"/>
+	</target>
+
 </project>
