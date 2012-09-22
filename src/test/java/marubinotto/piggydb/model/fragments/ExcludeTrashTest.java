@@ -13,6 +13,8 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.Month;
@@ -78,8 +80,9 @@ public class ExcludeTrashTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void getFragments() throws Exception {
-		Page<Fragment> results = this.object.getFragments(
-			new FragmentsOptions(5, 0, true));
+		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
+		query.setEagerFetching(true);
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		assertEquals(2, results.size());
 		assertEquals("Piggydb is fun", results.get(0).getTitle());

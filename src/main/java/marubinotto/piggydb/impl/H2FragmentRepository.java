@@ -774,7 +774,7 @@ implements RawEntityFactory<RawFragment> {
 			sql.append(" desc nulls first");
 	}
 
-	private void appendConditionToExcludeTrash(StringBuilder sql, String columnNameForId) 
+	public void appendConditionToExcludeTrash(StringBuilder sql, String columnNameForId) 
 	throws Exception {
 		List<Long> trashIds = selectIdsClassifiedAsTrash();
 		if (trashIds.isEmpty()) return;
@@ -800,7 +800,7 @@ implements RawEntityFactory<RawFragment> {
 		fragment.setParentRelations(parents);
 	}
 	
-	private void setParentsAndChildrenWithGrandchildrenToEach(List<RawFragment> fragments) 
+	public void setParentsAndChildrenWithGrandchildrenToEach(List<RawFragment> fragments) 
 	throws Exception {
 		if (fragments.isEmpty()) return;
 		
