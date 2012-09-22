@@ -26,7 +26,7 @@ public interface Repository<E extends Entity> {
 	
 	public Map<Long, String> getNames(Set<Long> ids) throws Exception;
 	
-	public Query<E, Repository<E>> getQuery(Class<? extends Query<E, Repository<E>>> queryType)
+	public Query<E> getQuery(Class<? extends Query<E>> queryType)
 	throws Exception;
 	
 	
@@ -47,22 +47,22 @@ public interface Repository<E extends Entity> {
 		
 		// Query
 		
-		private List<Class<? extends Query<E, Repository<E>>>> queryImpls = 
-			new ArrayList<Class<? extends Query<E,Repository<E>>>>();
+		private List<Class<? extends Query<E>>> queryImpls = 
+			new ArrayList<Class<? extends Query<E>>>();
 		
-		public void registerQuery(Class<? extends Query<E, Repository<E>>> queryImpl) {
+		public void registerQuery(Class<? extends Query<E>> queryImpl) {
 			Assert.Arg.notNull(queryImpl, "queryImpl");
 			
 			this.queryImpls.add(queryImpl);
 		}
 		
-		public Query<E, Repository<E>> getQuery(Class<? extends Query<E, Repository<E>>> queryType) 
+		public Query<E> getQuery(Class<? extends Query<E>> queryType) 
 		throws InstantiationException, IllegalAccessException {
 			Assert.Arg.notNull(queryType, "queryType");
 			
-			for (Class<? extends Query<E, Repository<E>>> impl : this.queryImpls) {
+			for (Class<? extends Query<E>> impl : this.queryImpls) {
 				if (queryType.isAssignableFrom(impl)) {
-					Query<E, Repository<E>> query = impl.newInstance();
+					Query<E> query = impl.newInstance();
 					query.setRepository(this);
 					return query;
 				}

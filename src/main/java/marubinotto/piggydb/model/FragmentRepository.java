@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFragment;
@@ -13,6 +12,7 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.Interval;
@@ -63,7 +63,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public List<Fragment> getByIds(
 		Collection<Long> fragmentIds, 
-		SortOption sortOption, 
+		FragmentsSortOption sortOption, 
 		boolean eagerFetching) 
 	throws Exception;
 	

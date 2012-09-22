@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 
@@ -59,8 +59,7 @@ public class DefaultTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void fragmentsShoudBeEmpty() throws Exception {
-		Page<Fragment> results = this.object.getFragments(
-			new FragmentsOptions(1, 0, false));
+		Page<Fragment> results = this.object.getQuery(FragmentsAllButTrash.class).getPage(1, 0);
 		assertTrue(results.isEmpty());
 	}
 	

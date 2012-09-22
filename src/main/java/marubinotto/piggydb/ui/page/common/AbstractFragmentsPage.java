@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.piggydb.ui.page.partial.AbstractFragments;
@@ -95,7 +95,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 	}
 
 	private void setFragmentsViewSortOption() {
-		SortOption defaultSortOption = SortOption.getDefault();
+		FragmentsSortOption defaultSortOption = FragmentsSortOption.getDefault();
 
 		this.fragmentsViewOrderBy = (Integer) getContext().getSessionAttribute(
 			AbstractFragments.SK_ORDERBY);
@@ -180,7 +180,7 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		// Get the node fragments for a result message
 		Map<Long, Fragment> fragments = ModelUtils.toIdMap(
 			getDomain().getFragmentRepository()
-				.getByIds(set(fromId, toId), SortOption.getDefault(), false));
+				.getByIds(set(fromId, toId), FragmentsSortOption.getDefault(), false));
 		Fragment from = fragments.get(fromId);
 		Fragment to = fragments.get(toId);
 		if (from == null || to == null) {

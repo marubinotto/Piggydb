@@ -4,15 +4,12 @@ import java.util.List;
 
 import marubinotto.util.paging.Page;
 
-public abstract class Query<E extends Entity, R extends Repository<E>> {
+public interface Query<E extends Entity> {
 
-	protected R repository;
-	
-	public void setRepository(R repository) {
-		this.repository = repository;
-	}
+	public void setRepository(Repository<E> repository);
 	
 	public abstract List<E> getAll() throws Exception;
 	
-	public abstract Page<E> getPage(int pageSize, int pageIndex);
+	public abstract Page<E> getPage(int pageSize, int pageIndex)
+	throws Exception;
 }

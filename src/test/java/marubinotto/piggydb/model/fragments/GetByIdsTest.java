@@ -8,7 +8,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,14 +33,14 @@ public class GetByIdsTest extends FragmentRepositoryTestBase {
 	@Test
 	public void noSuchId() throws Exception {
 		List<Fragment> fragments = 
-			this.object.getByIds(set(123L), SortOption.getDefault(), false);
+			this.object.getByIds(set(123L), FragmentsSortOption.getDefault(), false);
 		assertTrue(fragments.isEmpty());
 	}
 	
 	@Test
 	public void oneExisting() throws Exception {
 		List<Fragment> fragments = 
-			this.object.getByIds(set(this.id1), SortOption.getDefault(), false);
+			this.object.getByIds(set(this.id1), FragmentsSortOption.getDefault(), false);
 		
 		assertEquals(1, fragments.size());
 		assertEquals("title1", fragments.get(0).getTitle());
@@ -49,7 +49,7 @@ public class GetByIdsTest extends FragmentRepositoryTestBase {
 	@Test
 	public void oneExistingAndOneNonexisting() throws Exception {
 		List<Fragment> fragments = 
-			this.object.getByIds(set(this.id1, 123L), SortOption.getDefault(), false);
+			this.object.getByIds(set(this.id1, 123L), FragmentsSortOption.getDefault(), false);
 		
 		assertEquals(1, fragments.size());
 		assertEquals("title1", fragments.get(0).getTitle());

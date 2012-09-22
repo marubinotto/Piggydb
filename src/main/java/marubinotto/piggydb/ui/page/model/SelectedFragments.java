@@ -12,7 +12,7 @@ import java.util.Map;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.ModelUtils;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageImpl;
@@ -77,7 +77,7 @@ public class SelectedFragments implements Serializable, Iterable<Long> {
 		FragmentRepository repository,
 		boolean eagerFetching)
 	throws Exception {
-		return repository.getByIds(this.ids, SortOption.getDefault(), eagerFetching);
+		return repository.getByIds(this.ids, FragmentsSortOption.getDefault(), eagerFetching);
 	}
 	
 	public synchronized Page<Fragment> getFragments(
@@ -91,7 +91,7 @@ public class SelectedFragments implements Serializable, Iterable<Long> {
 		Page<Long> idsInPage = PageUtils.getPage(inReverseOrder(this.ids), pageSize, pageIndex);
 		
 		// getByIds doesn't preserve the elements' order
-		List<Fragment> fragments = repository.getByIds(idsInPage, SortOption.getDefault(), eagerFetching);
+		List<Fragment> fragments = repository.getByIds(idsInPage, FragmentsSortOption.getDefault(), eagerFetching);
 		List<Fragment> sorted = ModelUtils.getByIds(idsInPage, fragments);
 		
 		return new PageImpl<Fragment>(

@@ -9,11 +9,11 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Before;
@@ -100,7 +100,7 @@ public class TagHasBeenUpdatedTest extends FragmentRepositoryTestBase {
 	@Test
 	public void getByIds() throws Exception {
 		Fragment fragment = 
-			this.object.getByIds(set(this.id), SortOption.getDefault(), true).get(0);
+			this.object.getByIds(set(this.id), FragmentsSortOption.getDefault(), true).get(0);
 		checkTargetFragment(fragment);
 	}
 	

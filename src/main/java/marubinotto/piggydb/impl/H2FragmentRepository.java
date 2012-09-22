@@ -23,7 +23,6 @@ import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
-import marubinotto.piggydb.model.FragmentsOptions.SortOption;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.OwnerAuth;
@@ -35,6 +34,7 @@ import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
 import marubinotto.util.paging.Page;
@@ -100,6 +100,10 @@ implements RawEntityFactory<RawFragment> {
 		this.relationIdIncrementer = relationIdIncrementer;
 	}
 	
+	public FragmentRowMapper getFragmentRowMapper() {
+		return this.fragmentRowMapper;
+	}
+
 	public boolean containsId(Long id) throws Exception {
 		return this.jdbcTemplate.queryForInt(
 	    "select count(*) from fragment where fragment_id = ?", 
@@ -309,6 +313,11 @@ implements RawEntityFactory<RawFragment> {
 					}
 				}));
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<RawFragment> query(String sql) throws Exception {
+		return this.jdbcTemplate.query(sql.toString(), this.fragmentRowMapper);
+	}
 
 	@SuppressWarnings("unchecked")
 	public Page<Fragment> findByTime(
@@ -372,7 +381,7 @@ implements RawEntityFactory<RawFragment> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Long> getIdsByFilter(Filter filter, SortOption sortOption) throws Exception {
+	private List<Long> getIdsByFilter(Filter filter, FragmentsSortOption sortOption) throws Exception {
 		Assert.Arg.notNull(filter, "filter");
 		
 		StringBuilder sql  = new StringBuilder();
@@ -409,7 +418,7 @@ implements RawEntityFactory<RawFragment> {
 		});
 	}
 	
-	private static void appendFieldsForIdAndSort(StringBuilder sql, SortOption sortOption) {
+	private static void appendFieldsForIdAndSort(StringBuilder sql, FragmentsSortOption sortOption) {
 		// Fragment ID
 		sql.append("f.fragment_id");
 
@@ -429,7 +438,7 @@ implements RawEntityFactory<RawFragment> {
 	private static void appendSelectIdsByTagTree(
 		StringBuilder sql, 
 		Set<Long> tagTree, 
-		SortOption sortOption) {
+		FragmentsSortOption sortOption) {
 		
 		sql.append("select distinct ");
 		appendFieldsForIdAndSort(sql, sortOption);
@@ -566,7 +575,7 @@ implements RawEntityFactory<RawFragment> {
 	private static void appendSelectAll(
 		StringBuilder sql, 
 		FragmentRowMapper mapper, 
-		SortOption sortOption) {
+		FragmentsSortOption sortOption) {
 		
 		sql.append("select ");
 		sql.append(mapper.selectAll());
@@ -581,7 +590,7 @@ implements RawEntityFactory<RawFragment> {
 	@SuppressWarnings("unchecked")
 	public List<Fragment> getByIds(
 		Collection<Long> fragmentIds, 
-		SortOption sortOption, 
+		FragmentsSortOption sortOption, 
 		boolean eagerFetching) 
 	throws Exception {
 		StringBuilder sql  = new StringBuilder();
@@ -670,7 +679,7 @@ implements RawEntityFactory<RawFragment> {
 			});
 		if (ids.isEmpty()) return null;
 		
-		List<Fragment> fragments = getByIds(ids, SortOption.getDefault(), false);
+		List<Fragment> fragments = getByIds(ids, FragmentsSortOption.getDefault(), false);
 		return fragments.isEmpty() ? null : fragments.get(0);
 	}
 
@@ -731,7 +740,7 @@ implements RawEntityFactory<RawFragment> {
 	
 // Utilities
 
-	private List<Long> selectIdsClassifiedAsTrash() throws Exception {
+	public List<Long> selectIdsClassifiedAsTrash() throws Exception {
 		logger.debug("selectIdsClassifiedAsTrash ...");
 		
 		Tag trashTag = this.tagRepository.getTrashTag();
@@ -747,7 +756,7 @@ implements RawEntityFactory<RawFragment> {
 		QueryUtils.appendLimit(sql, options.pageSize, options.pageIndex);
 	}
 	
-	private static void appendSortOption(StringBuilder sql, SortOption sortOption, String columnPrefix) {
+	private static void appendSortOption(StringBuilder sql, FragmentsSortOption sortOption, String columnPrefix) {
 		if (sortOption == null) return;
 		
 		sql.append(" order by ");
