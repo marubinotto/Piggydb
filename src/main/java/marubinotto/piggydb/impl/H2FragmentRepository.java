@@ -17,6 +17,7 @@ import java.util.Set;
 
 import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
+import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
@@ -65,6 +66,7 @@ implements RawEntityFactory<RawFragment> {
 	private FragmentRowMapper fragmentRowMapper = new FragmentRowMapper(this, "fragment.");
 	
 	public H2FragmentRepository() {
+		registerQuery(H2FragmentsAllButTrash.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 

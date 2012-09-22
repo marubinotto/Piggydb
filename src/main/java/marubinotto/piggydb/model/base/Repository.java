@@ -1,7 +1,6 @@
 package marubinotto.piggydb.model.base;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,13 +46,13 @@ public interface Repository<E extends Entity> {
 		
 		// Query
 		
-		private List<Class<? extends Query<E>>> queryImpls = 
-			new ArrayList<Class<? extends Query<E>>>();
+		private LinkedList<Class<? extends Query<E>>> queryImpls = 
+			new LinkedList<Class<? extends Query<E>>>();
 		
 		public void registerQuery(Class<? extends Query<E>> queryImpl) {
 			Assert.Arg.notNull(queryImpl, "queryImpl");
 			
-			this.queryImpls.add(queryImpl);
+			this.queryImpls.addFirst(queryImpl);
 		}
 		
 		public Query<E> getQuery(Class<? extends Query<E>> queryType) 

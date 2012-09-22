@@ -3,7 +3,6 @@ package marubinotto.piggydb.impl;
 import javax.sql.DataSource;
 
 import marubinotto.piggydb.impl.db.DatabaseSchema;
-import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
 import marubinotto.piggydb.model.FileRepository;
 import marubinotto.util.RdbUtils;
 
@@ -60,7 +59,6 @@ public class InMemoryDatabase {
 	
 	public H2FragmentRepository getFragmentRepository() {
 		H2FragmentRepository repository = new H2FragmentRepository();
-		
 		repository.setJdbcTemplate(this.jdbcTemplate);
 		repository.setFragmentIdIncrementer(new H2SequenceMaxValueIncrementer(
 			this.dataSource, "seq_fragment_id"));
@@ -68,9 +66,6 @@ public class InMemoryDatabase {
 			this.dataSource, "seq_fragment_relation_id"));
 		repository.setTagRepository(getTagRepository());
 		repository.setFileRepository(this.fileRepository);
-	
-		repository.registerQuery(H2FragmentsAllButTrash.class);
-		
 		return repository;
 	}
 	
