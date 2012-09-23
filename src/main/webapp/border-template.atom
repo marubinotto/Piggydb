@@ -20,7 +20,7 @@
   <summary>[File] $utils.escapeXml($fragment.fileName)</summary>
   #if ($fragment.isImageFile())
     <content type="html">
-      $utils.escapeXml($html.fragmentImage($fragment.id))
+      $utils.escapeXml($html.fragmentImage($fragment))
     </content>
   #end
 #else
