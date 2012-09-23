@@ -38,8 +38,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	public void refreshClassifications(List<? extends Fragment> fragments) throws Exception;
 
 	public void deleteTrashes(User user) throws Exception;
-
-	public Page<Fragment> getFragments(FragmentsOptions options) throws Exception;
 	
 	public Set<Integer> getDaysOfMonth(FragmentField field, Month month) 
 	throws Exception;

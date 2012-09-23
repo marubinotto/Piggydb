@@ -4,22 +4,22 @@ import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Get fragments order by update date desc.
+ * Query: FragmentsAllButTrash
  */
-public class GetFragmentsTest extends FragmentRepositoryTestBase {
+public class FragmentsAllButTrashTest extends FragmentRepositoryTestBase {
 	
 	protected long id1;
 	protected long id2;
 	protected long id3;
 	
-	public GetFragmentsTest(RepositoryFactory<FragmentRepository> factory) {
+	public FragmentsAllButTrashTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 	
@@ -38,12 +38,15 @@ public class GetFragmentsTest extends FragmentRepositoryTestBase {
 		
 		setCurrentTimeForTest(null);
 	}
+	
+	private FragmentsAllButTrash getQuery() throws Exception {
+		return (FragmentsAllButTrash)this.object.getQuery(FragmentsAllButTrash.class);
+	}
 
 	@Test
 	public void orderByUpdateDateDesc() throws Exception {
 		// When
-		Page<Fragment> page = this.object.getFragments(
-			new FragmentsOptions(3, 0, false));
+		Page<Fragment> page = getQuery().getPage(3, 0);
 		
 		// Then
 		assertEquals(3, page.size());
@@ -54,8 +57,8 @@ public class GetFragmentsTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void pageIndexOutOfBounds() throws Exception {
-		this.object.getFragments(new FragmentsOptions(3, -1, false));
-		this.object.getFragments(new FragmentsOptions(3, 10, false));
+		getQuery().getPage(3, -1);
+		getQuery().getPage(3, 10);
 		// should not throw any exception
 	}
 	
@@ -68,8 +71,7 @@ public class GetFragmentsTest extends FragmentRepositoryTestBase {
 		this.object.update(fragment);
 		
 		// When
-		Page<Fragment> page = this.object.getFragments(
-			new FragmentsOptions(3, 0, false));
+		Page<Fragment> page = getQuery().getPage(3, 0);
 		
 		// Then
 		assertEquals(3, page.size());

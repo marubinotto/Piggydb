@@ -5,8 +5,10 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.GlobalSetting;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
+import marubinotto.util.paging.Page;
 import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.ClassUtils;
@@ -72,6 +74,19 @@ public abstract class AbstractAtom extends AbstractTemplateWebResource {
 		if (this.fragments != null && this.fragments.size() > 0) {
 			this.feedUpdated = this.fragments.get(0).getUpdateDatetime().formatAsISO8601();
 		}
+	}
+	
+	protected FragmentsQuery getQuery(Class<? extends FragmentsQuery> queryClass) 
+	throws Exception {
+		FragmentsQuery query = (FragmentsQuery)
+			getDomain().getFragmentRepository().getQuery(queryClass);
+		query.setEagerFetching(this.fragmentsOptions.eagerFetching);
+		query.setSortOption(this.fragmentsOptions.sortOption);
+		return query;
+	}
+	
+	protected Page<Fragment> getPage(FragmentsQuery query) throws Exception {
+		return query.getPage(this.fragmentsOptions.pageSize, this.fragmentsOptions.pageIndex);
 	}
 
 	public static final String PARAM_PREFIX_IN_ID = "-";

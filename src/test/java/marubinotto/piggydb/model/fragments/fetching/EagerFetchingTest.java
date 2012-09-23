@@ -13,6 +13,8 @@ import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.time.DateTime;
 
@@ -76,7 +78,10 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void getFragments() throws Exception {
-		Fragment target = this.object.getFragments(new FragmentsOptions(3, 0, true)).get(0);
+		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
+		query.setEagerFetching(true);
+		Fragment target = query.getPage(3, 0).get(0);
+		
 		checkEagerFetching(target);
 	}
 	

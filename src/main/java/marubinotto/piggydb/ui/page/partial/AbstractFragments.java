@@ -5,6 +5,7 @@ import org.apache.commons.lang.ObjectUtils;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentsOptions;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.util.paging.Page;
 
 public abstract class AbstractFragments extends AbstractPartial {
@@ -77,6 +78,19 @@ public abstract class AbstractFragments extends AbstractPartial {
 		}
 
 		saveStateToSession();
+	}
+	
+	protected FragmentsQuery getQuery(Class<? extends FragmentsQuery> queryClass) 
+	throws Exception {
+		FragmentsQuery query = (FragmentsQuery)
+			getDomain().getFragmentRepository().getQuery(queryClass);
+		query.setEagerFetching(this.options.eagerFetching);
+		query.setSortOption(this.options.sortOption);
+		return query;
+	}
+	
+	protected Page<Fragment> getPage(FragmentsQuery query) throws Exception {
+		return query.getPage(this.options.pageSize, this.options.pageIndex);
 	}
 
 	protected abstract void setFragments() throws Exception;

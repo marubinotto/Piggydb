@@ -12,6 +12,8 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.Month;
 
@@ -66,10 +68,16 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		assertEquals("c", fragments.get(2).getTitle());
 	}
 	
+	private Page<Fragment> queryAll(FragmentsOptions options) throws Exception {
+		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
+		query.setSortOption(options.sortOption);
+		return query.getPage(options.pageSize, options.pageIndex);
+	}
+	
 	@Test
-	public void getFragments() throws Exception {
-		checkDefaultOrder(this.object.getFragments(this.defaultOptions));
-		checkOrderByTitleAsc(this.object.getFragments(this.orderByTitleAsc));
+	public void all() throws Exception {
+		checkDefaultOrder(queryAll(this.defaultOptions));
+		checkOrderByTitleAsc(queryAll(this.orderByTitleAsc));
 	}
 	
 	@Test
@@ -142,7 +150,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	public void nullsLastIfAscending() throws Exception {
 		this.object.register(newFragment());
 		
-		Page<Fragment> fragments = this.object.getFragments(this.orderByTitleAsc);
+		Page<Fragment> fragments = queryAll(this.orderByTitleAsc);
 		
 		assertEquals("a", fragments.get(0).getTitle());
 		assertEquals("b", fragments.get(1).getTitle());
@@ -155,7 +163,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragment());
 		
 		this.orderByTitleAsc.sortOption.ascending = false;
-		Page<Fragment> fragments = this.object.getFragments(this.orderByTitleAsc);
+		Page<Fragment> fragments = queryAll(this.orderByTitleAsc);
 		
 		assertEquals(null, fragments.get(0).getTitle());	
 		assertEquals("c", fragments.get(1).getTitle());
@@ -167,7 +175,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	public void ignoreCaseOfTitle() throws Exception {
 		this.object.register(newFragmentWithTitle("B2"));
 		
-		Page<Fragment> fragments = this.object.getFragments(this.orderByTitleAsc);
+		Page<Fragment> fragments = queryAll(this.orderByTitleAsc);
 		
 		assertEquals("a", fragments.get(0).getTitle());
 		assertEquals("b", fragments.get(1).getTitle());

@@ -8,6 +8,8 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,8 +67,10 @@ public class ChildrenOrderTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void getFragments() throws Exception {
-		Fragment fragment = this.object.getFragments(
-			new FragmentsOptions(5, 0, true)).get(4); 	// the least recent
+		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
+		query.setEagerFetching(true);
+		Fragment fragment = query.getPage(5, 0).get(4); 	// the least recent
+		
 		checkChildrenOrder(fragment);
 	}
 	

@@ -1,6 +1,8 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
 
 public class FragmentsByDate extends AbstractFragments {
@@ -17,7 +19,8 @@ public class FragmentsByDate extends AbstractFragments {
 				this.options);
 		}
 		else {
-			this.fragments = getDomain().getFragmentRepository().getFragments(this.options);
+			FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
+			this.fragments = getPage(query);
 		}
 	}
 }

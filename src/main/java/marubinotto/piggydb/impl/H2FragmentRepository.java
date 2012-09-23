@@ -288,33 +288,6 @@ implements RawEntityFactory<RawFragment> {
 				new Integer(month.getYear()), new Integer(month.getMonth())},
 				Integer.class));
 	}
-
-	@SuppressWarnings("unchecked")
-	public Page<Fragment> getFragments(FragmentsOptions options) throws Exception {
-		Assert.Arg.notNull(options, "options");
-		
-		StringBuilder sql = new StringBuilder();
-		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
-		sql.append(" from fragment where 0 = 0");
-		appendConditionToExcludeTrash(sql, "fragment.fragment_id");
-		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
-        
-		List<RawFragment> results = 
-			this.jdbcTemplate.query(sql.toString(), this.fragmentRowMapper);
-		
-		if (options.eagerFetching) {
-			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(results);
-		}
-		
-		return PageUtils.<Fragment>covariantCast(
-			PageUtils.toPage(results, options.pageSize, options.pageIndex, 
-				new PageUtils.TotalCounter() {
-					public long getTotalSize() throws Exception {
-						return size();
-					}
-				}));
-	}
 	
 	@SuppressWarnings("unchecked")
 	public List<RawFragment> query(String sql) throws Exception {
