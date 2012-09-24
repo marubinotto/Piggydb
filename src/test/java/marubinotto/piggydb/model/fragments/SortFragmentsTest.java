@@ -13,6 +13,7 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.Month;
@@ -81,14 +82,15 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByTime() throws Exception {
-		Month month = new Month(2008, 1);
-		checkDefaultOrder(
-			this.object.findByTime(
-				month, FragmentField.CREATION_DATETIME, this.defaultOptions));
-		checkOrderByTitleAsc(
-			this.object.findByTime(
-				month, FragmentField.CREATION_DATETIME, this.orderByTitleAsc));
+	public void fragmentsByTime() throws Exception {
+		FragmentsByTime query = (FragmentsByTime)this.object.getQuery(FragmentsByTime.class);
+		query.setCriteria(new Month(2008, 1), FragmentField.CREATION_DATETIME);
+			
+		query.setSortOption(this.defaultOptions.sortOption);
+		checkDefaultOrder(query.getPage(5, 0));
+		
+		query.setSortOption(this.orderByTitleAsc.sortOption);
+		checkOrderByTitleAsc(query.getPage(5, 0));
 	}
 	
 	@Test

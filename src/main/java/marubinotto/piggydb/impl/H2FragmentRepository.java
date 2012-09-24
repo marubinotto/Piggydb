@@ -18,6 +18,7 @@ import java.util.Set;
 import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
+import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
@@ -41,7 +42,6 @@ import marubinotto.util.CollectionUtils;
 import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageImpl;
 import marubinotto.util.paging.PageUtils;
-import marubinotto.util.time.Interval;
 import marubinotto.util.time.Month;
 
 import org.apache.commons.lang.StringUtils;
@@ -67,6 +67,7 @@ implements RawEntityFactory<RawFragment> {
 	
 	public H2FragmentRepository() {
 		registerQuery(H2FragmentsAllButTrash.class);
+		registerQuery(H2FragmentsByTime.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 
@@ -89,7 +90,7 @@ implements RawEntityFactory<RawFragment> {
 	}
 
 	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
+		return this.jdbcTemplate;
 	}
 
 	public void setFragmentIdIncrementer(
@@ -290,51 +291,8 @@ implements RawEntityFactory<RawFragment> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<RawFragment> query(String sql) throws Exception {
-		return this.jdbcTemplate.query(sql.toString(), this.fragmentRowMapper);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Page<Fragment> findByTime(
-		Interval interval, 
-		FragmentField field,
-		FragmentsOptions options) 
-	throws Exception {
-		Assert.Arg.notNull(interval, "interval");
-		Assert.Arg.notNull(field, "field");
-		Assert.Arg.notNull(options, "options");
-
-		StringBuilder sql = new StringBuilder();
-		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
-
-		StringBuilder condition = new StringBuilder();
-		condition.append(" from fragment where");
-		condition.append(" (" + field.getName() + " between ? and ?)");
-		appendConditionToExcludeTrash(condition, "fragment.fragment_id");
-
-		sql.append(condition);
-		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
-
-		final Object[] params = new Object[] { 
-			interval.getStartInstant().toDate(),
-			interval.getEndInstant().toDate() 
-		};
-		List<RawFragment> results = this.jdbcTemplate.query(sql.toString(), params,
-				this.fragmentRowMapper);
-
-		if (options.eagerFetching) {
-			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(results);
-		}
-
-		final String queryAll = "select count(*)" + condition;
-		return PageUtils.<Fragment> covariantCast(PageUtils.toPage(results,
-			options.pageSize, options.pageIndex, new PageUtils.TotalCounter() {
-				public long getTotalSize() throws Exception {
-					return (Long) getJdbcTemplate().queryForObject(queryAll, params,
-						Long.class);
-				}
-			}));
+	public List<RawFragment> query(String sql,  Object[] args) throws Exception {
+		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
 
 	public Page<Fragment> findByFilter(Filter filter, FragmentsOptions options) 

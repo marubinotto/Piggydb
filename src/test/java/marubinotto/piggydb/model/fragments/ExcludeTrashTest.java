@@ -14,7 +14,7 @@ import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
-import marubinotto.piggydb.model.query.FragmentsQuery;
+import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.Month;
@@ -79,8 +79,9 @@ public class ExcludeTrashTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void getFragments() throws Exception {
-		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
+	public void fragmentsAllButTrash() throws Exception {
+		FragmentsAllButTrash query = (FragmentsAllButTrash)
+			this.object.getQuery(FragmentsAllButTrash.class);
 		query.setEagerFetching(true);
 		Page<Fragment> results = query.getPage(5, 0);
 		
@@ -91,16 +92,16 @@ public class ExcludeTrashTest extends FragmentRepositoryTestBase {
 		relationsShouldNotContainTrashes(results.get(1));
 	}
 	
-	private Page<Fragment> findByDate(DateTime date) throws Exception {
-		return this.object.findByTime(
-			date.toDayInterval(), 
-			FragmentField.CREATION_DATETIME, 
-			new FragmentsOptions(5, 0, true));
+	private Page<Fragment> fragmentsByTime(DateTime date) throws Exception {
+		FragmentsByTime query = (FragmentsByTime)this.object.getQuery(FragmentsByTime.class);
+		query.setCriteria(date.toDayInterval(), FragmentField.CREATION_DATETIME);
+		query.setEagerFetching(true);
+		return query.getPage(5, 0);
 	}
 	
 	@Test
-	public void findByDay20080101() throws Exception {
-		Page<Fragment> results = findByDate(new DateTime(2008, 1, 1));
+	public void fragmentsOnDay20080101() throws Exception {
+		Page<Fragment> results = fragmentsByTime(new DateTime(2008, 1, 1));
 		
 		assertEquals(1, results.size());
 		assertEquals("No tags", results.get(0).getTitle());
@@ -108,23 +109,23 @@ public class ExcludeTrashTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByDay20080102() throws Exception {
-		Page<Fragment> results = findByDate(new DateTime(2008, 1, 2));
+	public void fragmentsOnDay20080102() throws Exception {
+		Page<Fragment> results = fragmentsByTime(new DateTime(2008, 1, 2));
 		
 		assertEquals(1, results.size());
 		assertEquals("Piggydb is fun", results.get(0).getTitle());
 	}
 	
 	@Test
-	public void findByDay20080103() throws Exception {
-		Page<Fragment> results = findByDate(new DateTime(2008, 1, 3));
+	public void fragmentsOnDay20080103() throws Exception {
+		Page<Fragment> results = fragmentsByTime(new DateTime(2008, 1, 3));
 		
 		assertEquals(0, results.size());
 	}
 	
 	@Test
-	public void findByDay20080104() throws Exception {
-		Page<Fragment> results = findByDate(new DateTime(2008, 1, 4));
+	public void fragmentsOnDay20080104() throws Exception {
+		Page<Fragment> results = fragmentsByTime(new DateTime(2008, 1, 4));
 		
 		assertEquals(0, results.size());
 	}

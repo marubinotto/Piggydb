@@ -14,6 +14,7 @@ import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.time.DateTime;
@@ -77,20 +78,25 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void getFragments() throws Exception {
+	public void fragmentsAllButTrash() throws Exception {
 		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
 		query.setEagerFetching(true);
+		
 		Fragment target = query.getPage(3, 0).get(0);
 		
 		checkEagerFetching(target);
 	}
 	
 	@Test
-	public void findByTime() throws Exception {
-		Fragment target = this.object.findByTime(
+	public void fragmentsByTime() throws Exception {
+		FragmentsByTime query = (FragmentsByTime)this.object.getQuery(FragmentsByTime.class);
+		query.setCriteria(
 			new DateTime(2010, 1, 3).toDayInterval(),
-			FragmentField.CREATION_DATETIME,
-			new FragmentsOptions(2, 0, true)).get(0);
+			FragmentField.CREATION_DATETIME);
+		query.setEagerFetching(true);
+		
+		Fragment target = query.getPage(2, 0).get(0);
+		
 		checkEagerFetching(target);
 	}
 	

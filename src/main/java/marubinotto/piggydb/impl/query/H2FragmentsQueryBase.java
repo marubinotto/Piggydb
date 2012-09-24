@@ -2,7 +2,10 @@ package marubinotto.piggydb.impl.query;
 
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.impl.QueryUtils;
@@ -32,6 +35,10 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	public H2FragmentRepository getRepository() {
 		return this.repository;
 	}
+	
+	public JdbcTemplate getJdbcTemplate() {
+		return getRepository().getJdbcTemplate();
+	}
 
 	public FragmentRowMapper getRowMapper() {
 		return getRepository().getFragmentRowMapper();
@@ -53,27 +60,32 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		}
 	}
 	
-	protected abstract StringBuilder buildSql() throws Exception;
+	protected abstract void buildSql(StringBuilder sql, List<Object> args) throws Exception;
 	
 	protected abstract PageUtils.TotalCounter getTotalCounter();
 	
 	public final List<Fragment> getAll() throws Exception {
-		StringBuilder sql = buildSql();
-		appendSortOption(sql, getRepository().getFragmentRowMapper().getColumnPrefix());
+		StringBuilder sql = new StringBuilder();
+		List<Object> args = new ArrayList<Object>();
+		buildSql(sql, args);
 		
-		List<RawFragment> results = getRepository().query(sql.toString());
+		appendSortOption(sql, getRowMapper().getColumnPrefix());
+		
+		List<RawFragment> results = getRepository().query(sql.toString(), args.toArray());
 		eagerFetch(results);
 		return CollectionUtils.<Fragment>covariantCast(results);
 	}
 	
 	public final Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {
-		StringBuilder sql = buildSql();
-		appendSortOption(sql, getRepository().getFragmentRowMapper().getColumnPrefix());
+		StringBuilder sql = new StringBuilder();
+		List<Object> args = new ArrayList<Object>();
+		buildSql(sql, args);
+		
+		appendSortOption(sql, getRowMapper().getColumnPrefix());
 		QueryUtils.appendLimit(sql, pageSize, pageIndex);
 		
-		List<RawFragment> results = getRepository().query(sql.toString());
+		List<RawFragment> results = getRepository().query(sql.toString(), args.toArray());
 		eagerFetch(results);
-		
 		return PageUtils.<Fragment>covariantCast(
 			PageUtils.toPage(results, pageSize, pageIndex, getTotalCounter()));
 	}
