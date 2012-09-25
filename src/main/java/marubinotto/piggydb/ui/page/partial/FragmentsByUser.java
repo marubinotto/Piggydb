@@ -8,7 +8,12 @@ public class FragmentsByUser extends AbstractFragments {
 	protected void setFragments() throws Exception {
 		if (this.name == null) return;
 		
-		this.name = modifyIfGarbledByTomcat(this.name);		
-		this.fragments = getDomain().getFragmentRepository().findByUser(this.name, this.options);
+		this.name = modifyIfGarbledByTomcat(this.name);
+		
+		marubinotto.piggydb.model.query.FragmentsByUser query = 
+			(marubinotto.piggydb.model.query.FragmentsByUser)getQuery(
+				marubinotto.piggydb.model.query.FragmentsByUser.class);
+		query.setUserName(this.name);
+		this.fragments = getPage(query);
 	}
 }

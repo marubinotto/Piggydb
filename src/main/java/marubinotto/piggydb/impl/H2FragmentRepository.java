@@ -19,6 +19,7 @@ import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
+import marubinotto.piggydb.impl.query.H2FragmentsByUser;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
@@ -27,7 +28,6 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
-import marubinotto.piggydb.model.auth.OwnerAuth;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawClassifiable;
 import marubinotto.piggydb.model.entity.RawEntityFactory;
@@ -68,6 +68,7 @@ implements RawEntityFactory<RawFragment> {
 	public H2FragmentRepository() {
 		registerQuery(H2FragmentsAllButTrash.class);
 		registerQuery(H2FragmentsByTime.class);
+		registerQuery(H2FragmentsByUser.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 
@@ -461,48 +462,6 @@ implements RawEntityFactory<RawFragment> {
 							queryAll, new Object[]{keywords}, Long.class);
 					}
 				}));
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Page<Fragment> findByUser(
-		final String userName,
-		FragmentsOptions options) 
-	throws Exception {
-		Assert.Arg.notNull(userName, "userName");
-		Assert.Arg.notNull(options, "options");
-
-		StringBuilder sql = new StringBuilder();
-		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
-
-		StringBuilder condition = new StringBuilder();
-		condition.append(" from fragment");
-		condition.append(" where (creator = ? or updater = ?");
-		if (userName.equals(OwnerAuth.USER_NAME_OWNER)) {
-			condition.append(" or creator is null");
-			condition.append(" or (creation_datetime <> update_datetime and updater is null)");
-		}
-		condition.append(")");
-		appendConditionToExcludeTrash(condition, "fragment.fragment_id");
-
-		sql.append(condition);
-		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
-
-		List<RawFragment> results = this.jdbcTemplate.query(
-			sql.toString(), new Object[]{userName, userName}, this.fragmentRowMapper);
-
-		if (options.eagerFetching) {
-			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(results);
-		}
-
-		final String queryAll = "select count(*)" + condition;
-		return PageUtils.<Fragment> covariantCast(PageUtils.toPage(results,
-			options.pageSize, options.pageIndex, new PageUtils.TotalCounter() {
-				public long getTotalSize() throws Exception {
-					return (Long) getJdbcTemplate().queryForObject(queryAll,
-							new Object[]{userName, userName}, Long.class);
-				}
-			}));
 	}
 	
 	private static void appendSelectAll(

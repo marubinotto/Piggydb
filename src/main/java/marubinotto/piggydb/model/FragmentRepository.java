@@ -49,9 +49,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	public Page<Fragment> findByKeywords(String keywords, FragmentsOptions options)
 	throws Exception;
 	
-	public Page<Fragment> findByUser(String userName, FragmentsOptions options)
-	throws Exception;
-	
 	public List<Fragment> getByIds(
 		Collection<Long> fragmentIds, 
 		FragmentsSortOption sortOption, 

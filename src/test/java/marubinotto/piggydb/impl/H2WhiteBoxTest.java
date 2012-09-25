@@ -5,8 +5,8 @@ import static junit.framework.Assert.assertTrue;
 import static marubinotto.util.time.DateTime.date;
 import marubinotto.piggydb.fixture.table.AllTables;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.auth.OwnerAuth;
+import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;
@@ -24,15 +24,21 @@ public class H2WhiteBoxTest {
 		this.tables = new AllTables(this.database.getDataSource());
 		this.fragmentRepository = this.database.getFragmentRepository();
 	}
+	
+	private Page<Fragment> findByOwner() throws Exception {
+		FragmentsByUser query = (FragmentsByUser)
+			this.fragmentRepository.getQuery(FragmentsByUser.class);
+		query.setUserName(OwnerAuth.USER_NAME_OWNER);
+		return query.getPage(5, 0);
+	}
 
 	@Test
 	public void nullCreatorShouldBeRegardedAsOwner() throws Exception {
 		this.tables.fragment.cleanInsert(new Object[][]{
 			{"fragment_id", "creation_datetime", "creator", "update_datetime", "updater"}, 
 			{"1", date(2009, 1, 1), null, date(2009, 1, 1), null}});
-
-		Page<Fragment> results = this.fragmentRepository.findByUser(
-			OwnerAuth.USER_NAME_OWNER, new FragmentsOptions(5, 0, false));
+		
+		Page<Fragment> results = findByOwner();
 
 		assertEquals(1, results.size());
 		assertEquals(1, results.get(0).getId().intValue());
@@ -45,8 +51,7 @@ public class H2WhiteBoxTest {
 				{"fragment_id", "creation_datetime", "creator", "update_datetime", "updater"},
 				{"1", date(2009, 1, 1), "someone", date(2009, 1, 2), null}});
 
-		Page<Fragment> results = this.fragmentRepository.findByUser(
-			OwnerAuth.USER_NAME_OWNER, new FragmentsOptions(5, 0, false));
+		Page<Fragment> results = findByOwner();
 
 		assertEquals(1, results.size());
 		assertEquals(1, results.get(0).getId().intValue());
@@ -59,8 +64,7 @@ public class H2WhiteBoxTest {
 				{"fragment_id", "creation_datetime", "creator", "update_datetime", "updater"},
 				{"1", date(2009, 1, 1), "someone", date(2009, 1, 1), null}});
 
-		Page<Fragment> results = this.fragmentRepository.findByUser(
-			OwnerAuth.USER_NAME_OWNER, new FragmentsOptions(5, 0, false));
+		Page<Fragment> results = findByOwner();
 
 		assertTrue(results.isEmpty());
 	}

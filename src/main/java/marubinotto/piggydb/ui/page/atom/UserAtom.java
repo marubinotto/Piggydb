@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page.atom;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 import org.apache.commons.codec.net.URLCodec;
@@ -29,6 +30,9 @@ public class UserAtom extends AbstractAtom {
 	@Override
 	protected List<Fragment> getFragments() throws Exception {
 		if (this.name == null) return null;
-		return getDomain().getFragmentRepository().findByUser(this.name, this.fragmentsOptions);
+		
+		FragmentsByUser query = (FragmentsByUser)getQuery(FragmentsByUser.class);
+		query.setUserName(this.name);
+		return getPage(query);
 	}
 }

@@ -15,6 +15,7 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsByTime;
+import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.time.DateTime;
@@ -108,9 +109,13 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByUser() throws Exception {
-		Fragment target = this.object.findByUser(
-			getPlainUser().getName(), new FragmentsOptions(3, 0, true)).get(0);
+	public void fragmentsByUser() throws Exception {
+		FragmentsByUser query = (FragmentsByUser)this.object.getQuery(FragmentsByUser.class);
+		query.setUserName(getPlainUser().getName());
+		query.setEagerFetching(true);
+		
+		Fragment target = query.getPage(3, 0).get(0);
+		
 		checkEagerFetching(target);
 	}
 	

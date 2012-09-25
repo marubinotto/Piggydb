@@ -5,17 +5,17 @@ import static junit.framework.Assert.assertTrue;
 import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class FindByUserTest extends FragmentRepositoryTestBase {
+public class FragmentsByUserTest extends FragmentRepositoryTestBase {
 
-	public FindByUserTest(RepositoryFactory<FragmentRepository> factory) {
+	public FragmentsByUserTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 	
@@ -43,17 +43,24 @@ public class FindByUserTest extends FragmentRepositoryTestBase {
 		setCurrentTimeForTest(null);
 	}
 	
+	private FragmentsByUser getQuery() throws Exception {
+		return (FragmentsByUser)this.object.getQuery(FragmentsByUser.class);
+	}
+	
 	@Test
 	public void noSuchUser() throws Exception {
-		Page<Fragment> results = this.object.findByUser(
-			"no-such-user", new FragmentsOptions(5, 0, false));
+		FragmentsByUser query = getQuery();
+		query.setUserName("no-such-user");
+		Page<Fragment> results = query.getPage(5, 0);
+		
 		assertTrue(results.isEmpty());
 	}
 	
 	@Test
 	public void asCreator() throws Exception {
-		Page<Fragment> results = this.object.findByUser(
-			"creator", new FragmentsOptions(5, 0, false));
+		FragmentsByUser query = getQuery();
+		query.setUserName("creator");
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		assertEquals(1, results.size());
 		assertEquals(this.id1, results.get(0).getId());
@@ -61,8 +68,9 @@ public class FindByUserTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void asUpdater() throws Exception {
-		Page<Fragment> results = this.object.findByUser(
-			"updater", new FragmentsOptions(5, 0, false));
+		FragmentsByUser query = getQuery();
+		query.setUserName("updater");
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		assertEquals(1, results.size());
 		assertEquals(this.id2, results.get(0).getId());
@@ -70,8 +78,9 @@ public class FindByUserTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void asBothCreatorAndUpdater() throws Exception {
-		Page<Fragment> results = this.object.findByUser(
-			"creator-and-updater", new FragmentsOptions(5, 0, false));
+		FragmentsByUser query = getQuery();
+		query.setUserName("creator-and-updater");
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		assertEquals(2, results.size());
 		assertEquals(this.id2, results.get(0).getId());
@@ -87,8 +96,9 @@ public class FindByUserTest extends FragmentRepositoryTestBase {
 		this.object.update(forUpdate);
 		
 		// When
-		Page<Fragment> results = this.object.findByUser(
-			"creator", new FragmentsOptions(5, 0, false));
+		FragmentsByUser query = getQuery();
+		query.setUserName("creator");
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		// Then
 		assertTrue(results.isEmpty());
