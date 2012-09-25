@@ -14,7 +14,7 @@ extends H2FragmentsQueryBase implements FragmentsByUser {
 		this.userName = userName;
 	}
 	
-	protected void buildSelectFromWhereSql(StringBuilder sql, List<Object> args) 
+	protected void appendFromWhere(StringBuilder sql, List<Object> args) 
 	throws Exception {
 		Assert.Property.requireNotNull(userName, "userName");
 		

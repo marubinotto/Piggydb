@@ -18,14 +18,12 @@ extends H2FragmentsQueryBase implements FragmentsByTime {
 		this.field = field;
 	}
 	
-	protected void buildSelectFromWhereSql(StringBuilder sql, List<Object> args) 
+	protected void appendFromWhere(StringBuilder sql, List<Object> args) 
 	throws Exception {
 		Assert.Property.requireNotNull(interval, "interval");
 		Assert.Property.requireNotNull(field, "field");
-		
-		appendSelectAll(sql);
 
-		sql.append(" from fragment where");
+		sql.append("from fragment where");
 		sql.append(" (" + this.field.getName() + " between ? and ?)");
 		getRepository().appendConditionToExcludeTrash(sql, "fragment.fragment_id");
 		
