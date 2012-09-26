@@ -18,6 +18,7 @@ import java.util.Set;
 import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
+import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
 import marubinotto.piggydb.model.Filter;
@@ -44,7 +45,6 @@ import marubinotto.util.paging.PageImpl;
 import marubinotto.util.paging.PageUtils;
 import marubinotto.util.time.Month;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -69,6 +69,7 @@ implements RawEntityFactory<RawFragment> {
 		registerQuery(H2FragmentsAllButTrash.class);
 		registerQuery(H2FragmentsByTime.class);
 		registerQuery(H2FragmentsByUser.class);
+		registerQuery(H2FragmentsByKeywords.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 
@@ -429,40 +430,6 @@ implements RawEntityFactory<RawFragment> {
 			}
 		});
 	}
-
-	@SuppressWarnings("unchecked")
-	public Page<Fragment> findByKeywords(final String keywords, FragmentsOptions options)
-	throws Exception {
-		if (StringUtils.isBlank(keywords)) return PageUtils.empty(options.pageSize);
-		
-		StringBuilder sql  = new StringBuilder();
-		appendSelectAll(sql, this.fragmentRowMapper, options.sortOption);
-		
-		StringBuilder condition = new StringBuilder();
-		condition.append(" from FT_SEARCH_DATA(?, 0, 0) ft, fragment");
-		condition.append(" where ft.TABLE ='FRAGMENT' and fragment.fragment_id = ft.KEYS[0]");
-		
-		sql.append(condition);
-		appendOptions(sql, options, this.fragmentRowMapper.getColumnPrefix());
-        
-		List<RawFragment> results = this.jdbcTemplate.query(
-			sql.toString(), new Object[]{keywords}, this.fragmentRowMapper);
-		
-		if (options.eagerFetching) {
-			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(results);
-		}
-
-		final String queryAll = "select count(*)" + condition;
-		return PageUtils.<Fragment>covariantCast(
-			PageUtils.toPage(results, options.pageSize, options.pageIndex, 
-				new PageUtils.TotalCounter() {
-					public long getTotalSize() throws Exception {
-						return (Long)getJdbcTemplate().queryForObject(
-							queryAll, new Object[]{keywords}, Long.class);
-					}
-				}));
-	}
 	
 	private static void appendSelectAll(
 		StringBuilder sql, 
@@ -641,11 +608,6 @@ implements RawEntityFactory<RawFragment> {
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(trashTag);
 		return getIdsByFilter(filter, null);
-	}
-	
-	private static void appendOptions(StringBuilder sql, FragmentsOptions options, String columnPrefix) {
-		appendSortOption(sql, options.sortOption, columnPrefix);
-		QueryUtils.appendLimit(sql, options.pageSize, options.pageIndex);
 	}
 	
 	private static void appendSortOption(StringBuilder sql, FragmentsSortOption sortOption, String columnPrefix) {

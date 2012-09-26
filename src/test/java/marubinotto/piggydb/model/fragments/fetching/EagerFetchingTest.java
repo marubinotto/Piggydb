@@ -14,6 +14,7 @@ import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByKeywords;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -120,10 +121,14 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByKeywords() throws Exception {
+	public void fragmentsByKeywords() throws Exception {
 		if (this.object instanceof H2FragmentRepository) {
-			Fragment target = this.object.findByKeywords(
-				"target", new FragmentsOptions(3, 0, true)).get(0);
+			FragmentsByKeywords query = (FragmentsByKeywords)this.object.getQuery(FragmentsByKeywords.class);
+			query.setKeywords("target");
+			query.setEagerFetching(true);
+			
+			Fragment target = query.getPage(3, 0).get(0);
+			
 			checkEagerFetching(target);
 		}
 	}

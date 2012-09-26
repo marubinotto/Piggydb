@@ -46,9 +46,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public RelatedTags getRelatedTags(Filter filter) throws Exception;
 	
-	public Page<Fragment> findByKeywords(String keywords, FragmentsOptions options)
-	throws Exception;
-	
 	public List<Fragment> getByIds(
 		Collection<Long> fragmentIds, 
 		FragmentsSortOption sortOption, 

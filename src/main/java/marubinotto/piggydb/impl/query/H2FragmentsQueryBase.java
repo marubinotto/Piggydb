@@ -83,7 +83,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		this.sql.append(" " + this.fromWhere);
 	}
 	
-	public final List<Fragment> getAll() throws Exception {
+	public List<Fragment> getAll() throws Exception {
 		buildSelectFromWhere();
 		appendSortOption(this.sql, getRowMapper().getColumnPrefix());
 		
@@ -94,7 +94,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		return CollectionUtils.<Fragment>covariantCast(results);
 	}
 	
-	public final Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {
+	public Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {
 		buildSelectFromWhere();
 		appendSortOption(this.sql, getRowMapper().getColumnPrefix());
 		appendLimit(this.sql, pageSize, pageIndex);

@@ -26,7 +26,10 @@ public class FragmentsByKeywords extends AbstractFragments {
 			this.keywordRegx = "(" + keywordRegx.toString() + ")";
 		}
 		
-		this.fragments = getDomain().getFragmentRepository().
-			findByKeywords(this.keywords, this.options);
+		marubinotto.piggydb.model.query.FragmentsByKeywords query = 
+			(marubinotto.piggydb.model.query.FragmentsByKeywords)getQuery(
+				marubinotto.piggydb.model.query.FragmentsByKeywords.class);
+		query.setKeywords(this.keywords);
+		this.fragments = getPage(query);
 	}
 }

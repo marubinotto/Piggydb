@@ -6,19 +6,19 @@ import marubinotto.piggydb.fixture.mock.FileItemMock;
 import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
+import marubinotto.piggydb.model.query.FragmentsByKeywords;
 import marubinotto.util.paging.Page;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class FindByKeywordsTest extends FragmentRepositoryTestBase {
+public class FragmentsByKeywordsTest extends FragmentRepositoryTestBase {
 	
 	protected Long id1;
 	protected Long id2;
 	protected Long id3;
 	
-	public FindByKeywordsTest(RepositoryFactory<FragmentRepository> factory) {
+	public FragmentsByKeywordsTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 
@@ -41,24 +41,34 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 		this.id3 = this.object.register(fileFragment);
 	}
 	
+	private FragmentsByKeywords getQuery() throws Exception {
+		return (FragmentsByKeywords)this.object.getQuery(FragmentsByKeywords.class);
+	}
+	
 	@Test
 	public void nullKeyword() throws Exception {
-		Page<Fragment> page = this.object.findByKeywords(
-			null, new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords(null);
+		Page<Fragment> page = query.getPage(5, 0);
+		
 		assertEquals(0, page.size());
 	}
 	
 	@Test
 	public void blankKeyword() throws Exception {
-		Page<Fragment> page = this.object.findByKeywords(
-			"  ", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("  ");
+		Page<Fragment> page = query.getPage(5, 0);
+		
 		assertEquals(0, page.size());
 	}
 	
 	@Test
 	public void zeroHit() throws Exception {
-		Page<Fragment> page = this.object.findByKeywords(
-			"hogehoge", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("hogehoge");
+		Page<Fragment> page = query.getPage(5, 0);
+		
 		assertEquals(0, page.size());
 	}
 	
@@ -66,8 +76,9 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 	public void title() throws Exception {
 		if (!needsToBeTested()) return;
 		
-		Page<Fragment> page = this.object.findByKeywords(
-			"creation", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("creation");
+		Page<Fragment> page = query.getPage(5, 0);
 		
 		assertEquals(1, page.size());
 		assertEquals(this.id1, page.get(0).getId());
@@ -77,8 +88,9 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 	public void content() throws Exception {
 		if (!needsToBeTested()) return;
 		
-		Page<Fragment> page = this.object.findByKeywords(
-			"application", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("application");
+		Page<Fragment> page = query.getPage(5, 0);
 		
 		assertEquals(1, page.size());
 		assertEquals(this.id2, page.get(0).getId());
@@ -88,8 +100,9 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 	public void titleAndContent() throws Exception {
 		if (!needsToBeTested()) return;
 		
-		Page<Fragment> page = this.object.findByKeywords(
-			"knowledge", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("knowledge");
+		Page<Fragment> page = query.getPage(5, 0);
 		
 		assertEquals(2, page.size());
 		assertEquals(this.id2, page.get(0).getId());
@@ -99,9 +112,10 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 	@Test
 	public void fileName() throws Exception {
 		if (!needsToBeTested()) return;
-		
-		Page<Fragment> page = this.object.findByKeywords(
-			"akane", new FragmentsOptions(5, 0, false));
+				
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("akane");
+		Page<Fragment> page = query.getPage(5, 0);
 		
 		assertEquals(1, page.size());
 		assertEquals(this.id3, page.get(0).getId());
@@ -111,8 +125,9 @@ public class FindByKeywordsTest extends FragmentRepositoryTestBase {
 	public void fileExtension() throws Exception {
 		if (!needsToBeTested()) return;
 		
-		Page<Fragment> page = this.object.findByKeywords(
-			"png", new FragmentsOptions(5, 0, false));
+		FragmentsByKeywords query = getQuery();
+		query.setKeywords("png");
+		Page<Fragment> page = query.getPage(5, 0);
 		
 		assertEquals(1, page.size());
 		assertEquals(this.id3, page.get(0).getId());

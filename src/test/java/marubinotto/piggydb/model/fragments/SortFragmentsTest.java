@@ -13,6 +13,7 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByKeywords;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -76,6 +77,14 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		return query.getPage(options.pageSize, options.pageIndex);
 	}
 	
+	private void assertSortingWorks(FragmentsQuery query) throws Exception {
+		query.setSortOption(this.defaultOptions.sortOption);
+		checkDefaultOrder(query.getPage(5, 0));
+		
+		query.setSortOption(this.orderByTitleAsc.sortOption);
+		checkOrderByTitleAsc(query.getPage(5, 0));
+	}
+	
 	@Test
 	public void all() throws Exception {
 		checkDefaultOrder(queryAll(this.defaultOptions));
@@ -87,11 +96,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		FragmentsByTime query = (FragmentsByTime)this.object.getQuery(FragmentsByTime.class);
 		query.setCriteria(new Month(2008, 1), FragmentField.CREATION_DATETIME);
 			
-		query.setSortOption(this.defaultOptions.sortOption);
-		checkDefaultOrder(query.getPage(5, 0));
-		
-		query.setSortOption(this.orderByTitleAsc.sortOption);
-		checkOrderByTitleAsc(query.getPage(5, 0));
+		assertSortingWorks(query);
 	}
 	
 	@Test
@@ -122,10 +127,12 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByKeywords() throws Exception {
+	public void fragmentsByKeywords() throws Exception {
 		if (this.object instanceof H2FragmentRepository) {
-			checkDefaultOrder(this.object.findByKeywords("hello", this.defaultOptions));
-			checkOrderByTitleAsc(this.object.findByKeywords("hello", this.orderByTitleAsc));
+			FragmentsByKeywords query = (FragmentsByKeywords)this.object.getQuery(FragmentsByKeywords.class);
+			query.setKeywords("hello");
+			
+			assertSortingWorks(query);
 		}
 	}
 	
@@ -134,11 +141,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		FragmentsByUser query = (FragmentsByUser)this.object.getQuery(FragmentsByUser.class);
 		query.setUserName(getPlainUser().getName());
 		
-		query.setSortOption(this.defaultOptions.sortOption);
-		checkDefaultOrder(query.getPage(5, 0));
-		
-		query.setSortOption(this.orderByTitleAsc.sortOption);
-		checkOrderByTitleAsc(query.getPage(5, 0));
+		assertSortingWorks(query);
 	}
 	
 	@Test
