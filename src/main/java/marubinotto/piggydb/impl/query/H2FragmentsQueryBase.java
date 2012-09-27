@@ -50,14 +50,22 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		this.sortOption = sortOption;
 	}
 	
-	// -----
+	public FragmentsSortOption getSortOption() {
+		return this.sortOption;
+	}
 	
+	// -----
+
 	private boolean eagerFetching = false;
 	
 	public void setEagerFetching(boolean eagerFetching) {
 		this.eagerFetching = eagerFetching;
 	}
 	
+	public boolean isEagerFetching() {
+		return this.eagerFetching;
+	}
+
 	private void eagerFetch(List<RawFragment> fragments) throws Exception {
 		if (this.eagerFetching) {
 			getRepository().refreshClassifications(fragments);
@@ -122,7 +130,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	protected abstract void appendFromWhere(StringBuilder sql, List<Object> args) 
 	throws Exception;
 	
-	private void appendSortOption(StringBuilder sql, String columnPrefix) {
+	protected void appendSortOption(StringBuilder sql, String columnPrefix) {
 		if (this.sortOption == null) return;
 		
 		sql.append(" order by ");
@@ -138,7 +146,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 			sql.append(" desc nulls first");
 	}
 	
-	private static String normalizedStringColumnForSort(String columnName, String prefix) {
+	protected static String normalizedStringColumnForSort(String columnName, String prefix) {
 		return "UPPER(" + prefix + columnName + ") as ns_" + columnName;
 	}
 	
