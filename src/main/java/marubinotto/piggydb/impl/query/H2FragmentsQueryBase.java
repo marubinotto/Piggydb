@@ -118,7 +118,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	protected void appendSelect(StringBuilder sql) {
 		sql.append("select ");
 		sql.append(getRowMapper().selectAll());
-		if (this.sortOption != null && this.sortOption.orderBy.isString()) {
+		if (this.sortOption.orderBy.isString()) {
 			sql.append(", ");
 			sql.append(
 				normalizedStringColumnForSort(
@@ -131,8 +131,6 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	throws Exception;
 	
 	protected void appendSortOption(StringBuilder sql, String columnPrefix) {
-		if (this.sortOption == null) return;
-		
 		sql.append(" order by ");
 
 		if (this.sortOption.orderBy.isString())
