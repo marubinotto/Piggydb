@@ -14,7 +14,6 @@ import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
-import marubinotto.util.paging.Page;
 import marubinotto.util.time.Month;
 
 public interface FragmentRepository extends Repository<Fragment> {
@@ -48,8 +47,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 		FragmentsSortOption sortOption, 
 		boolean eagerFetching) 
 	throws Exception;
-	
-	public Page<Fragment> getHomeFragments(FragmentsOptions options) throws Exception;
 	
 	public Fragment getUserFragment(String userName) throws Exception;
 

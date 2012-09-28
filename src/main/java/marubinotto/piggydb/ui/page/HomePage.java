@@ -3,8 +3,9 @@ package marubinotto.piggydb.ui.page;
 import java.util.Set;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentsOptions;
+import marubinotto.piggydb.model.base.Query;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.query.FragmentsOfHome;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
@@ -96,8 +97,8 @@ public class HomePage extends AbstractFragmentsPage {
 	}
 
 	private void setHomeFragments() throws Exception {
-		this.homeFragments = getDomain().getFragmentRepository().
-			getHomeFragments(new FragmentsOptions(this.homePageSize, this.hpi, true));
+		Query<Fragment> query = getDomain().getFragmentRepository().getQuery(FragmentsOfHome.class);
+		this.homeFragments = query.getPage(this.homePageSize, this.hpi);
 	}
 
 	private void setUserFragment() throws Exception {

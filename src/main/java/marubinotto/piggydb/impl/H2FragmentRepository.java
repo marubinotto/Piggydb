@@ -22,12 +22,12 @@ import marubinotto.piggydb.impl.query.H2FragmentsByFilter;
 import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
+import marubinotto.piggydb.impl.query.H2FragmentsOfHome;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
@@ -42,7 +42,6 @@ import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
 import marubinotto.util.paging.Page;
-import marubinotto.util.paging.PageImpl;
 import marubinotto.util.paging.PageUtils;
 import marubinotto.util.time.Month;
 
@@ -72,6 +71,7 @@ implements RawEntityFactory<RawFragment> {
 		registerQuery(H2FragmentsByUser.class);
 		registerQuery(H2FragmentsByKeywords.class);
 		registerQuery(H2FragmentsByFilter.class);
+		registerQuery(H2FragmentsOfHome.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 
@@ -298,24 +298,6 @@ implements RawEntityFactory<RawFragment> {
 	public List<RawFragment> query(String sql,  Object[] args) throws Exception {
 		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
-
-	public Page<Fragment> findByFilter(Filter filter, FragmentsOptions options) 
-	throws Exception {
-		Assert.Arg.notNull(filter, "filter");
-		Assert.Arg.notNull(options, "options");
-
-		// Get all IDs by the filter, sorted by the option
-		List<Long> selectedIds = getIdsByFilter(filter, options.sortOption);
-		if (selectedIds.isEmpty()) return PageUtils.empty(options.pageSize);
-
-		// Get ONLY the fragments in the page, which is why the IDs needs to be sorted
-		Page<Long> pagedIds = PageUtils.getPage(selectedIds, options.pageSize, options.pageIndex);
-		return new PageImpl<Fragment>(
-			getByIds(pagedIds, options.sortOption, options.eagerFetching), 
-			pagedIds.getPageSize(), 
-			pagedIds.getPageIndex(), 
-			selectedIds.size());
-	}
 	
 	@SuppressWarnings("unchecked")
 	private List<Long> getIdsByFilter(Filter filter, FragmentsSortOption sortOption) throws Exception {
@@ -490,31 +472,6 @@ implements RawEntityFactory<RawFragment> {
 		return QueryUtils.getValuesForIds("fragment", "title", ids, this.jdbcTemplate);
 	}
 	
-	public Page<Fragment> getHomeFragments(FragmentsOptions options) throws Exception {
-		RawFilter filter = new RawFilter();
-
-		Tag homeTag = getTagRepository().getByName(Tag.NAME_HOME);
-		if (homeTag == null) return PageUtils.empty(options.pageSize);
-		filter.getClassification().addTag(homeTag);
-
-		Tag trashTag = getTagRepository().getTrashTag();
-		if (trashTag != null) filter.getExcludes().addTag(trashTag);
-		
-		options.eagerFetching = true;
-		Page<Fragment> homeFragments = findByFilter(filter, options);
-		
-		// additional dependencies
-		if (homeFragments.size() > 0) {
-			FragmentList<RawFragment> children = 
-				FragmentList.<RawFragment>createByDownCast(homeFragments).getChildren();
-			refreshClassifications(children.getFragments());
-			setParentsToEach(children);
-			for (RawFragment child : children) child.checkTwoWayRelations();
-		}
-		
-		return homeFragments;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public Fragment getUserFragment(String userName) throws Exception {
 		Assert.Arg.notNull(userName, "userName");
@@ -666,7 +623,7 @@ implements RawEntityFactory<RawFragment> {
 			fragment.checkTwoWayRelations();
 	}
 	
-	private void setParentsToEach(FragmentList<RawFragment> fragments) throws Exception {
+	public void setParentsToEach(FragmentList<RawFragment> fragments) throws Exception {
 		Assert.Arg.notNull(fragments, "fragments");
 		
 		if (fragments.isEmpty()) return;
@@ -684,7 +641,7 @@ implements RawEntityFactory<RawFragment> {
 		}
 	}
 	
-	private void setChildrenToEach(FragmentList<RawFragment> fragments) throws Exception {
+	public void setChildrenToEach(FragmentList<RawFragment> fragments) throws Exception {
 		Assert.Arg.notNull(fragments, "fragments");
 		
 		if (fragments.isEmpty()) return;
