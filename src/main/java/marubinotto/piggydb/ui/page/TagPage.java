@@ -9,6 +9,7 @@ import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.TagTree;
@@ -363,7 +364,11 @@ public class TagPage extends AbstractFragmentsPage {
 	private void setRelatedTags() throws Exception {
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(this.tag);
-		RelatedTags relatedTags = getDomain().getFragmentRepository().getRelatedTags(filter);
+		
+		FragmentsByFilter query = (FragmentsByFilter)
+			getDomain().getFragmentRepository().getQuery(FragmentsByFilter.class);
+		query.setFilter(filter);
+		RelatedTags relatedTags = query.getRelatedTags();
 		this.relatedTags = relatedTags.orderByCount(getDomain().getTagRepository());
 	}
 

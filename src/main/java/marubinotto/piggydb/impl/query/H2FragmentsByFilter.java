@@ -8,6 +8,7 @@ import java.util.Set;
 import marubinotto.piggydb.impl.QueryUtils;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.util.Assert;
@@ -49,6 +50,47 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 			pagedIds.getPageSize(), 
 			pagedIds.getPageIndex(), 
 			filteredIds.size());
+	}
+	
+	public RelatedTags getRelatedTags() throws Exception {
+		Assert.Property.requireNotNull(filter, "filter");
+		
+		RelatedTags relatedTags = new RelatedTags();
+		relatedTags.setFilter(this.filter);
+		
+		List<Long> filteredIds = getFilteredIds();
+		if (filteredIds.isEmpty()) return relatedTags;
+		
+		List<Page<Long>> pages = 
+			PageUtils.splitToPages(filteredIds, COLLECT_RELATED_TAGS_AT_ONCE);
+		for (Page<Long> ids : pages) collectRelatedTags(ids, relatedTags);
+		
+		return relatedTags;
+	}
+	
+	private static final int COLLECT_RELATED_TAGS_AT_ONCE = 1000;
+	
+	private void collectRelatedTags(List<Long> fragmentIds, final RelatedTags relatedTags) {
+		if (fragmentIds.isEmpty()) return;
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("select tag_id, count(tag_id) from tagging");
+		sql.append(" where target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
+		sql.append(" and target_id in (");
+		for (int i = 0; i < fragmentIds.size(); i++) {
+			if (i > 0) sql.append(", ");
+			sql.append(fragmentIds.get(i));
+		}
+		sql.append(")");
+		sql.append(" group by tag_id");
+
+		logger.debug("collectRelatedTags: " + sql.toString());
+		getJdbcTemplate().query(sql.toString(), new RowMapper() {
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				relatedTags.add(rs.getLong(1), rs.getInt(2));
+				return null;
+			}
+		});
 	}
 	
 	@SuppressWarnings("unchecked")

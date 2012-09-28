@@ -5,6 +5,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.RelatedTags.RelatedTag;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
@@ -392,7 +393,10 @@ public class FilterPage extends AbstractFragmentsPage {
 	private void setRelatedTags() throws Exception {
 		if (this.filter.getClassification().isEmpty()) return;
 
-		RelatedTags relatedTags = getDomain().getFragmentRepository().getRelatedTags(this.filter);
+		FragmentsByFilter query = (FragmentsByFilter)
+			getDomain().getFragmentRepository().getQuery(FragmentsByFilter.class);
+		query.setFilter(this.filter);
+		RelatedTags relatedTags = query.getRelatedTags();
 		this.relatedTags = relatedTags.orderByCount(getDomain().getTagRepository());
 	}
 

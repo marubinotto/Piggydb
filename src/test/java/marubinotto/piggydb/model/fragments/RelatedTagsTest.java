@@ -5,6 +5,7 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +40,10 @@ public class RelatedTagsTest extends FragmentRepositoryTestBase {
 		RawFilter filter = new RawFilter();
 		for (String tagName : tagNames) 
 			filter.getClassification().addTag(storedTag(tagName));
-		return this.object.getRelatedTags(filter);
+		
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		query.setFilter(filter);
+		return query.getRelatedTags();
 	}
 	
 	@Test

@@ -28,7 +28,6 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.RelatedTags;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawClassifiable;
@@ -41,8 +40,6 @@ import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.CollectionUtils;
-import marubinotto.util.paging.Page;
-import marubinotto.util.paging.PageUtils;
 import marubinotto.util.time.Month;
 
 import org.apache.commons.logging.Log;
@@ -299,6 +296,7 @@ implements RawEntityFactory<RawFragment> {
 		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
 	
+	// TODO
 	@SuppressWarnings("unchecked")
 	private List<Long> getIdsByFilter(Filter filter, FragmentsSortOption sortOption) throws Exception {
 		Assert.Arg.notNull(filter, "filter");
@@ -371,49 +369,7 @@ implements RawEntityFactory<RawFragment> {
 			sql.append(tagId);
 		}
 		sql.append(")");
-	}
-	
-	public RelatedTags getRelatedTags(Filter filter) throws Exception {
-		Assert.Arg.notNull(filter, "filter");
-		
-		RelatedTags relatedTags = new RelatedTags();
-		relatedTags.setFilter(filter);
-		
-		List<Long> selectedIds = getIdsByFilter(filter, null);
-		if (selectedIds.isEmpty()) return relatedTags;
-
-		List<Page<Long>> pages = 
-			PageUtils.splitToPages(selectedIds, COLLECT_RELATED_TAGS_AT_ONCE);
-		for (Page<Long> ids : pages) collectRelatedTags(ids, relatedTags);
-		
-		return relatedTags;
-	}
-	
-	private static final int COLLECT_RELATED_TAGS_AT_ONCE = 1000;
-	
-	private void collectRelatedTags(List<Long> fragmentIds,
-		final RelatedTags relatedTags) {
-		if (fragmentIds.isEmpty()) return;
-
-		StringBuilder sql = new StringBuilder();
-		sql.append("select tag_id, count(tag_id) from tagging");
-		sql.append(" where target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
-		sql.append(" and target_id in (");
-		for (int i = 0; i < fragmentIds.size(); i++) {
-			if (i > 0) sql.append(", ");
-			sql.append(fragmentIds.get(i));
-		}
-		sql.append(")");
-		sql.append(" group by tag_id");
-
-		logger.debug("collectRelatedTags: " + sql.toString());
-		this.jdbcTemplate.query(sql.toString(), new RowMapper() {
-			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-				relatedTags.add(rs.getLong(1), rs.getInt(2));
-				return null;
-			}
-		});
-	}
+	}	
 	
 	private static void appendSelectAll(
 		StringBuilder sql, 
