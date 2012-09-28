@@ -36,11 +36,11 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 	}
 	
 	public List<Fragment> getAll() throws Exception {
-		return getRepository().getByIds(getFilteredIds(), getSortOption(), isEagerFetching());
+		return getRepository().getByIds(getFilteredIds(true), getSortOption(), isEagerFetching());
 	}
 	
 	public Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {
-		List<Long> filteredIds = getFilteredIds();	
+		List<Long> filteredIds = getFilteredIds(true);	
 		if (filteredIds.isEmpty()) return PageUtils.empty(pageSize);
 		
 		// Get ONLY the fragments in the page, which is why the IDs needs to be sorted
@@ -58,7 +58,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		RelatedTags relatedTags = new RelatedTags();
 		relatedTags.setFilter(this.filter);
 		
-		List<Long> filteredIds = getFilteredIds();
+		List<Long> filteredIds = getFilteredIds(false);
 		if (filteredIds.isEmpty()) return relatedTags;
 		
 		List<Page<Long>> pages = 
@@ -94,7 +94,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Long> getFilteredIds() throws Exception {
+	public List<Long> getFilteredIds(boolean sort) throws Exception {
 		Assert.Property.requireNotNull(filter, "filter");
 		
 		StringBuilder sql  = new StringBuilder();
@@ -123,7 +123,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		}
 		
 		// Order
-		appendSortOption(sql, "f.");
+		if (sort) appendSortOption(sql, "f.");
 
 		logger.debug("selectIdsByFilter: " + sql);
 		return getJdbcTemplate().query(sql.toString(), new RowMapper() {
