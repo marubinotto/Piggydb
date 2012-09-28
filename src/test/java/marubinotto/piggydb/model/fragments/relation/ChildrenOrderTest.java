@@ -5,10 +5,10 @@ import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 
 import org.junit.Before;
@@ -66,7 +66,7 @@ public class ChildrenOrderTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void getFragments() throws Exception {
+	public void fragmentsAllButTrash() throws Exception {
 		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
 		query.setEagerFetching(true);
 		Fragment fragment = query.getPage(5, 0).get(4); 	// the least recent
@@ -75,11 +75,15 @@ public class ChildrenOrderTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByFilter() throws Exception {
+	public void fragmentsByFilter() throws Exception {
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		query.setEagerFetching(true);
+		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("parent"));	
-		Fragment fragment = 
-			this.object.findByFilter(filter, new FragmentsOptions(5, 0, true)).get(0);
+		filter.getClassification().addTag(storedTag("parent"));
+		query.setFilter(filter);
+		
+		Fragment fragment = query.getPage(5, 0).get(0);
 		
 		checkChildrenOrder(fragment);
 	}

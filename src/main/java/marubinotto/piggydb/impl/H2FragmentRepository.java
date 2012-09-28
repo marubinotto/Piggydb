@@ -18,6 +18,7 @@ import java.util.Set;
 import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
+import marubinotto.piggydb.impl.query.H2FragmentsByFilter;
 import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
@@ -70,6 +71,7 @@ implements RawEntityFactory<RawFragment> {
 		registerQuery(H2FragmentsByTime.class);
 		registerQuery(H2FragmentsByUser.class);
 		registerQuery(H2FragmentsByKeywords.class);
+		registerQuery(H2FragmentsByFilter.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 

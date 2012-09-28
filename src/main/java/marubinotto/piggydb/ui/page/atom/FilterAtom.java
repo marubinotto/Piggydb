@@ -4,6 +4,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 public class FilterAtom extends AbstractAtom {
@@ -30,6 +31,9 @@ public class FilterAtom extends AbstractAtom {
 	@Override
 	protected List<Fragment> getFragments() throws Exception {
 		if (this.filter == null) return null;
-		return getDomain().getFragmentRepository().findByFilter(this.filter, this.fragmentsOptions);
+		
+		FragmentsByFilter query = (FragmentsByFilter)getQuery(FragmentsByFilter.class);
+		query.setFilter(this.filter);
+		return getPage(query);
 	}
 }

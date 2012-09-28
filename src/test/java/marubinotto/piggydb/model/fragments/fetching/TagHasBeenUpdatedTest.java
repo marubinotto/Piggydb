@@ -7,13 +7,13 @@ import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
 import static org.junit.Assert.assertEquals;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -92,11 +92,16 @@ public class TagHasBeenUpdatedTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByFilter() throws Exception {
+	public void fragmentsByFilter() throws Exception {
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		query.setEagerFetching(true);
+		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("renamed"));
-		Fragment fragment = this.object.findByFilter(
-			filter, new FragmentsOptions(3, 0, true)).get(0);
+		query.setFilter(filter);
+		
+		Fragment fragment = query.getPage(3, 0).get(0);
+		
 		checkTargetFragment(fragment);
 	}
 	

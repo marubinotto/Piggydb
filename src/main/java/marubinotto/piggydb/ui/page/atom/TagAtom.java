@@ -5,6 +5,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.ui.page.common.AbstractBorderPage;
 
 public class TagAtom extends AbstractAtom {
@@ -34,6 +35,9 @@ public class TagAtom extends AbstractAtom {
 		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(this.tag);
-		return getDomain().getFragmentRepository().findByFilter(filter, this.fragmentsOptions);
+		
+		FragmentsByFilter query = (FragmentsByFilter)getQuery(FragmentsByFilter.class);
+		query.setFilter(filter);
+		return getPage(query);
 	}
 }

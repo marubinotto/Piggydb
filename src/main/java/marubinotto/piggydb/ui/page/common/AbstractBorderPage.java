@@ -1,12 +1,13 @@
 package marubinotto.piggydb.ui.page.common;
 
+import java.util.List;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.ui.page.command.Logout;
 import marubinotto.piggydb.ui.page.control.UserMenu;
 import marubinotto.piggydb.ui.page.model.RecentlyViewed;
@@ -57,7 +58,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 	
 	public PageImports appPageImports;
 
-	public Page<Fragment> bookmarkedFragments = EMPTY_FRAGMENTS;
+	public List<Fragment> bookmarkedFragments = EMPTY_FRAGMENTS;
 	public Tag bookmarkTag;
 
 	public Page<Filter> filters;
@@ -122,9 +123,11 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
 		Tag trashTag = getDomain().getTagRepository().getTrashTag();
 		if (trashTag != null) filter.getExcludes().addTag(trashTag);
-
-		this.bookmarkedFragments = getDomain().getFragmentRepository().findByFilter(
-			filter, new FragmentsOptions(BOOKMARK_SIZE, 0, false));
+		
+		FragmentsByFilter query = (FragmentsByFilter)
+			getDomain().getFragmentRepository().getQuery(FragmentsByFilter.class);
+		query.setFilter(filter);
+		this.bookmarkedFragments = query.getAll();
 	}
 
 	protected void setFilters() throws Exception {

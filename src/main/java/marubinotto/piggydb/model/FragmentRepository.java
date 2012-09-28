@@ -40,9 +40,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public Set<Integer> getDaysOfMonth(FragmentField field, Month month) 
 	throws Exception;
-
-	public Page<Fragment> findByFilter(Filter filter, FragmentsOptions options) 
-	throws Exception;
 	
 	public RelatedTags getRelatedTags(Filter filter) throws Exception;
 	

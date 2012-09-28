@@ -3,29 +3,35 @@ package marubinotto.piggydb.model.fragments;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.paging.Page;
 
-public class FindByFilterTest extends FragmentRepositoryTestBase {
+import org.junit.Test;
 
-	public FindByFilterTest(RepositoryFactory<FragmentRepository> factory) {
+public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
+
+	public FragmentsByFilterTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 	
-	private static final FragmentsOptions OPTIONS = new FragmentsOptions(10, 0, false);
+	private FragmentsByFilter getQuery() throws Exception {
+		return (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+	}
 	
 	@Test
 	public void empty() throws Exception {
 		this.object.register(newFragmentWithTitle("Daisuke"));
-		Page<Fragment> result = this.object.findByFilter(new RawFilter(), OPTIONS);
+		
+		FragmentsByFilter query = getQuery();
+		query.setFilter(new RawFilter());
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(1, result.size());
 		assertEquals("Daisuke", result.get(0).getTitle());
 	}
@@ -34,10 +40,14 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 	public void oneTag() throws Exception {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "male"));
 		
+		FragmentsByFilter query = getQuery();
+		
 		// found
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("male"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(1, result.size());
 		assertEquals("Daisuke", result.get(0).getTitle());
 		
@@ -45,7 +55,9 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.getTagRepository().register(newTag("female"));
 		filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("female"));
-		result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		result = query.getPage(10, 0);
+		
 		assertEquals(0, result.size());
 	}
 	
@@ -54,12 +66,16 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "tokyo", "male"));
 		this.object.register(newFragmentWithTitleAndTags("Akane", "tokyo", "female"));
 		this.object.register(newFragmentWithTitleAndTags("Chieko", "chiba", "female"));
-		OPTIONS.setSortOption(FragmentField.FRAGMENT_ID, true);
+		
+		FragmentsByFilter query = getQuery();
+		query.setSortOption(new FragmentsSortOption(FragmentField.FRAGMENT_ID, true));
 		
 		// one tag
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tokyo"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(2, result.size());
 		assertEquals("Daisuke", result.get(0).getTitle());
 		assertEquals("Akane", result.get(1).getTitle());
@@ -68,7 +84,9 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tokyo"));
 		filter.getClassification().addTag(storedTag("female"));
-		result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		result = query.getPage(10, 0);
+		
 		assertEquals(1, result.size());
 		assertEquals("Akane", result.get(0).getTitle());
 	}
@@ -78,9 +96,13 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "male"));
 		this.object.register(newFragmentWithTitleAndTags("Akane", "female"));
 		
+		FragmentsByFilter query = getQuery();
+		
 		RawFilter filter = new RawFilter();
 		filter.getExcludes().addTag(storedTag("male"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(1, result.size());
 		assertEquals("Akane", result.get(0).getTitle());
 	}
@@ -91,10 +113,14 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitleAndTags("Akane", "tokyo", "female"));
 		this.object.register(newFragmentWithTitleAndTags("Chieko", "chiba", "female"));
 		
+		FragmentsByFilter query = getQuery();
+		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tokyo"));
 		filter.getExcludes().addTag(storedTag("male"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(1, result.size());
 		assertEquals("Akane", result.get(0).getTitle());
 	}
@@ -105,11 +131,15 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitleAndTags("Animal Planet", "animal"));
 		this.object.register(newFragmentWithTitleAndTags("Puss in Boots", "cat"));
 		this.object.register(newFragmentWithTitleAndTags("Cherry Blossom", "plant"));
-		OPTIONS.setSortOption(FragmentField.FRAGMENT_ID, true);
+		
+		FragmentsByFilter query = getQuery();
+		query.setSortOption(new FragmentsSortOption(FragmentField.FRAGMENT_ID, true));
 		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("animal"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
+		
 		assertEquals(2, result.size());
 		assertEquals("Animal Planet", result.get(0).getTitle());
 		assertEquals("Puss in Boots", result.get(1).getTitle());
@@ -121,13 +151,14 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitle("Akane"));
 		this.object.register(newFragmentWithTitle("Chieko"));
 		
+		FragmentsByFilter query = getQuery();
+		query.setSortOption(new FragmentsSortOption(FragmentField.FRAGMENT_ID, true));
+		
 		RawFilter filter = new RawFilter();
-		FragmentsOptions options = new FragmentsOptions();
-		options.setSortOption(FragmentField.FRAGMENT_ID, true);
+		query.setFilter(filter);
 		
 		// page1
-		options.setPagingOption(1, 0);
-		Page<Fragment> page1 = this.object.findByFilter(filter, options);
+		Page<Fragment> page1 = query.getPage(1, 0);
 		assertEquals(1, page1.size());
 		assertEquals(3, page1.getTotalSize());
 		assertTrue(page1.isFirstPage());
@@ -135,8 +166,7 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		assertEquals("Daisuke", page1.get(0).getTitle());
 		
 		// page2
-		options.setPagingOption(1, 1);
-		Page<Fragment> page2 = this.object.findByFilter(filter, options);
+		Page<Fragment> page2 = query.getPage(1, 1);
 		assertEquals(1, page2.size());
 		assertEquals(3, page2.getTotalSize());
 		assertFalse(page2.isFirstPage());
@@ -144,8 +174,7 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		assertEquals("Akane", page2.get(0).getTitle());
 		
 		// page3
-		options.setPagingOption(1, 2);
-		Page<Fragment> page3 = this.object.findByFilter(filter, options);
+		Page<Fragment> page3 = query.getPage(1, 3);
 		assertEquals(1, page3.size());
 		assertEquals(3, page3.getTotalSize());
 		assertFalse(page3.isFirstPage());
@@ -160,9 +189,12 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		tagRepository.register(newTagWithTags("cc", "aa"));		
 		this.object.register(newFragmentWithTitleAndTags("title", "bb", "cc"));
 		
+		FragmentsByFilter query = getQuery();
+		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("aa"));
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
 		
 		assertEquals(1, result.getTotalSize());
 		assertEquals(1, result.size());
@@ -175,12 +207,15 @@ public class FindByFilterTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "tokyo", "male"));
 		this.object.register(newFragmentWithTitleAndTags("Anne", "tokyo", "female"));
 		this.object.register(newFragmentWithTitleAndTags("Akane", "tokyo", "female"));
+		
+		FragmentsByFilter query = getQuery();
+		query.setSortOption(new FragmentsSortOption(FragmentField.TITLE, true));
 	
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tokyo"));
 		filter.getExcludes().addTag(storedTag("male"));
-		OPTIONS.setSortOption(FragmentField.TITLE, true);
-		Page<Fragment> result = this.object.findByFilter(filter, OPTIONS);
+		query.setFilter(filter);
+		Page<Fragment> result = query.getPage(10, 0);
 		
 		assertEquals(2, result.size());
 		assertEquals("Akane", result.get(0).getTitle());

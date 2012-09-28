@@ -13,10 +13,12 @@ import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.model.query.FragmentsByKeywords;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.Month;
 
@@ -100,30 +102,29 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByFilter() throws Exception {
+	public void fragmentsByFilter() throws Exception {
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tag"));
+		query.setFilter(filter);
 		
-		checkDefaultOrder(this.object.findByFilter(filter, this.defaultOptions));
-		checkOrderByTitleAsc(this.object.findByFilter(filter, this.orderByTitleAsc));
+		assertSortingWorks(query);
 	}
 	
 	@Test
-	public void findByFilterWithPaging() throws Exception {
+	public void fragmentsByFilterWithPaging() throws Exception {
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(storedTag("tag"));
+		query.setFilter(filter);
 		
-		FragmentsOptions options = new FragmentsOptions();
-		options.setSortOption(FragmentField.TITLE, true);
+		query.setSortOption(new FragmentsSortOption(FragmentField.TITLE, true));
 		
-		options.setPagingOption(1, 0);
-		assertEquals("a", this.object.findByFilter(filter, options).get(0).getTitle());
-		
-		options.setPagingOption(1, 1);
-		assertEquals("b", this.object.findByFilter(filter, options).get(0).getTitle());
-		
-		options.setPagingOption(1, 2);
-		assertEquals("c", this.object.findByFilter(filter, options).get(0).getTitle());
+		assertEquals("a", query.getPage(1, 0).get(0).getTitle());	
+		assertEquals("b", query.getPage(1, 1).get(0).getTitle());
+		assertEquals("c", query.getPage(1, 2).get(0).getTitle());
 	}
 	
 	@Test

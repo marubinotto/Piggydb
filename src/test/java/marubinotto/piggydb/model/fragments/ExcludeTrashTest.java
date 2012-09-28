@@ -8,12 +8,12 @@ import java.util.Set;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
+import marubinotto.piggydb.model.query.FragmentsByFilter;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
@@ -131,9 +131,12 @@ public class ExcludeTrashTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void findByEmptyFilter() throws Exception {
-		Page<Fragment> results = 
-			this.object.findByFilter(new RawFilter(), new FragmentsOptions(5, 0, true));
+	public void fragmentsByEmptyFilter() throws Exception {
+		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		query.setFilter(new RawFilter());
+		query.setEagerFetching(true);
+		
+		Page<Fragment> results = query.getPage(5, 0);
 		
 		assertEquals(4, results.size());
 		assertEquals("A kind of trash", results.get(0).getTitle());

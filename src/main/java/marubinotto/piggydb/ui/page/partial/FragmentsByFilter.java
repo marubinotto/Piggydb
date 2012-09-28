@@ -18,6 +18,11 @@ public class FragmentsByFilter extends AbstractFragments {
 		if (this.filter == null) return;
 		
 		this.contextTags = this.filter.getClassification();
-		this.fragments = getDomain().getFragmentRepository().findByFilter(this.filter, this.options);
+		
+		marubinotto.piggydb.model.query.FragmentsByFilter query = 
+			(marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
+				marubinotto.piggydb.model.query.FragmentsByFilter.class);
+		query.setFilter(this.filter);
+		this.fragments = getPage(query);
 	}
 }
