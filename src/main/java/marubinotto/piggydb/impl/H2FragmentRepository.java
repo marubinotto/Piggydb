@@ -23,7 +23,6 @@ import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
 import marubinotto.piggydb.impl.query.H2FragmentsOfHome;
-import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
@@ -295,46 +294,7 @@ implements RawEntityFactory<RawFragment> {
 	public List<RawFragment> query(String sql,  Object[] args) throws Exception {
 		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
-	
-	// TODO
-	@SuppressWarnings("unchecked")
-	private List<Long> getIdsByFilter(Filter filter, FragmentsSortOption sortOption) throws Exception {
-		Assert.Arg.notNull(filter, "filter");
 		
-		StringBuilder sql  = new StringBuilder();
-        
-		// Classifications
-		List<Set<Long>> expandedTags = filter.getClassification().expandEach(this.tagRepository);
-		if (expandedTags.size() > 0) {
-			for (Set<Long> tagTree : expandedTags) {
-				if (sql.length() > 0) sql.append(" intersect ");
-				appendSelectIdsByTagTree(sql, tagTree, sortOption);
-			}
-		}
-		else {
-			sql.append("select ");
-			appendFieldsForIdAndSort(sql, sortOption);
-			sql.append(" from fragment as f");
-		}
-       
-		// Excludes
-		Set<Long> excludes = filter.getExcludes().expandAll(this.tagRepository);
-		if (excludes.size() > 0) {
-			sql.append(" minus ");
-			appendSelectIdsByTagTree(sql, excludes, sortOption);
-		}
-		
-		// Order
-		appendSortOption(sql, sortOption, "f.");
-
-		logger.debug("selectIdsByFilter: " + sql);
-		return this.jdbcTemplate.query(sql.toString(), new RowMapper() {
-			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getLong(1);
-			}
-		});
-	}
-	
 	private static void appendFieldsForIdAndSort(StringBuilder sql, FragmentsSortOption sortOption) {
 		// Fragment ID
 		sql.append("f.fragment_id");
@@ -428,6 +388,7 @@ implements RawEntityFactory<RawFragment> {
 		return QueryUtils.getValuesForIds("fragment", "title", ids, this.jdbcTemplate);
 	}
 	
+	// TODO
 	@SuppressWarnings("unchecked")
 	public Fragment getUserFragment(String userName) throws Exception {
 		Assert.Arg.notNull(userName, "userName");
@@ -514,15 +475,16 @@ implements RawEntityFactory<RawFragment> {
 	
 // Utilities
 
-	public List<Long> selectIdsClassifiedAsTrash() throws Exception {
-		logger.debug("selectIdsClassifiedAsTrash ...");
-		
+	private List<Long> selectIdsClassifiedAsTrash() throws Exception {
 		Tag trashTag = this.tagRepository.getTrashTag();
 		if (trashTag == null) return new ArrayList<Long>();
 		
 		RawFilter filter = new RawFilter();
 		filter.getClassification().addTag(trashTag);
-		return getIdsByFilter(filter, null);
+		
+		H2FragmentsByFilter query = (H2FragmentsByFilter)getQuery(H2FragmentsByFilter.class);
+		query.setFilter(filter);
+		return query.getFilteredIds(false);
 	}
 	
 	private static void appendSortOption(StringBuilder sql, FragmentsSortOption sortOption, String columnPrefix) {
