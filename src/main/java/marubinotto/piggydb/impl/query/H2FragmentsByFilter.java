@@ -102,30 +102,30 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		TagRepository tagRepository = getRepository().getTagRepository();
         
 		// Classifications
-		List<Set<Long>> expandedTags = filter.getClassification().expandEach(tagRepository);
+		List<Set<Long>> expandedTags = this.filter.getClassification().expandEach(tagRepository);
 		if (expandedTags.size() > 0) {
 			for (Set<Long> tagTree : expandedTags) {
 				if (sql.length() > 0) sql.append(" intersect ");
-				appendSelectIdsByTagTree(sql, tagTree);
+				appendSelectIdsByTagTree(sql, tagTree, sort);
 			}
 		}
 		else {
 			sql.append("select ");
-			appendFieldsForIdAndSort(sql);
+			appendFieldsForIdAndSort(sql, sort);
 			sql.append(" from fragment as f");
 		}
        
 		// Excludes
-		Set<Long> excludes = filter.getExcludes().expandAll(tagRepository);
+		Set<Long> excludes = this.filter.getExcludes().expandAll(tagRepository);
 		if (excludes.size() > 0) {
 			sql.append(" minus ");
-			appendSelectIdsByTagTree(sql, excludes);
+			appendSelectIdsByTagTree(sql, excludes, sort);
 		}
 		
 		// Order
 		if (sort) appendSortOption(sql, "f.");
 
-		logger.debug("selectIdsByFilter: " + sql);
+		logger.debug("getFilteredIds: " + sql);
 		return getJdbcTemplate().query(sql.toString(), new RowMapper() {
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				return rs.getLong(1);
@@ -133,20 +133,22 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		});
 	}
 	
-	private void appendFieldsForIdAndSort(StringBuilder sql) {
+	private void appendFieldsForIdAndSort(StringBuilder sql, boolean sort) {
 		// Fragment ID
 		sql.append("f.fragment_id");
 
 		// Column for Sort
-		if (getSortOption().orderBy.isString()) 
-			sql.append(", " + normalizedStringColumnForSort(getSortOption().orderBy.getName(), "f."));
-		else
-			sql.append(", f." + getSortOption().orderBy.getName());
+		if (sort) {
+			if (getSortOption().orderBy.isString()) 
+				sql.append(", " + normalizedStringColumnForSort(getSortOption().orderBy.getName(), "f."));
+			else
+				sql.append(", f." + getSortOption().orderBy.getName());
+		}
 	}
 
-	private void appendSelectIdsByTagTree(StringBuilder sql, Set<Long> tagTree) {		
+	private void appendSelectIdsByTagTree(StringBuilder sql, Set<Long> tagTree, boolean sort) {		
 		sql.append("select distinct ");
-		appendFieldsForIdAndSort(sql);
+		appendFieldsForIdAndSort(sql, sort);
     sql.append(" from fragment as f, tagging as t");
     sql.append(" where f.fragment_id = t.target_id");
     sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
