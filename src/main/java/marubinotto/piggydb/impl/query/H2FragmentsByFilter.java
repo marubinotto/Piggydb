@@ -142,7 +142,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		// Column for Sort
 		if (sort) {
 			if (getSortOption().orderBy.isString()) 
-				sql.append(", " + normalizedStringColumnForSort(getSortOption().orderBy.getName(), "f."));
+				sql.append(", " + ignoreCaseForSort(getSortOption().orderBy.getName(), "f."));
 			else
 				sql.append(", f." + getSortOption().orderBy.getName());
 		}

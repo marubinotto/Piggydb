@@ -149,10 +149,8 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		sql.append(getRowMapper().selectAll());
 		if (this.sortOption.orderBy.isString()) {
 			sql.append(", ");
-			sql.append(
-				normalizedStringColumnForSort(
-					this.sortOption.orderBy.getName(), 
-					getRowMapper().getColumnPrefix()));
+			sql.append(ignoreCaseForSort(
+				this.sortOption.orderBy.getName(), getRowMapper().getColumnPrefix()));
 		}
 	}
 	
@@ -173,7 +171,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 			sql.append(" desc nulls first");
 	}
 	
-	protected static String normalizedStringColumnForSort(String columnName, String prefix) {
+	protected static String ignoreCaseForSort(String columnName, String prefix) {
 		return "UPPER(" + prefix + columnName + ") as ns_" + columnName;
 	}
 	
