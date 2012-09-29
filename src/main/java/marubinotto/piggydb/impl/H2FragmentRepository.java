@@ -346,6 +346,7 @@ implements RawEntityFactory<RawFragment> {
 		}
 	}
 
+	// TODO
 	@SuppressWarnings("unchecked")
 	public List<Fragment> getByIds(
 		Collection<Long> fragmentIds, 
