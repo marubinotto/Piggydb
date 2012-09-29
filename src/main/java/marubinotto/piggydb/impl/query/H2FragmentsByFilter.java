@@ -20,7 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.RowMapper;
 
-public class H2FragmentsByFilter 
+public final class H2FragmentsByFilter 
 extends H2FragmentsQueryBase implements FragmentsByFilter {
 	
 	private static Log logger = LogFactory.getLog(H2FragmentsByFilter.class);

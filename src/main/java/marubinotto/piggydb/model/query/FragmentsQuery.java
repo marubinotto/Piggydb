@@ -8,4 +8,6 @@ public interface FragmentsQuery extends Query<Fragment> {
 	public void setSortOption(FragmentsSortOption sortOption);
 	
 	public void setEagerFetching(boolean eagerFetching);
+	
+	public void setEagerFetchingMore(boolean eagerFetchingMore);
 }

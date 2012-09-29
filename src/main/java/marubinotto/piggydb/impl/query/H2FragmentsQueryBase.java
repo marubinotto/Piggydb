@@ -9,6 +9,7 @@ import java.util.List;
 import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -41,6 +42,15 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		return getRepository().getFragmentRowMapper();
 	}
 	
+	protected FragmentsQuery getDelegateeQuery(Class<? extends FragmentsQuery> queryType) 
+	throws Exception {
+		FragmentsQuery query = (FragmentsQuery)getRepository().getQuery(queryType);
+		query.setSortOption(getSortOption());
+		query.setEagerFetching(isEagerFetching());
+		query.setEagerFetchingMore(isEagerFetchingMore());
+		return query;
+	}
+	
 	// -----
 	
 	private FragmentsSortOption sortOption = new FragmentsSortOption();
@@ -57,19 +67,38 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	// -----
 
 	private boolean eagerFetching = false;
+	private boolean eagerFetchingMore = false;
 	
 	public void setEagerFetching(boolean eagerFetching) {
 		this.eagerFetching = eagerFetching;
+	}
+	
+	public void setEagerFetchingMore(boolean eagerFetchingMore) {
+		this.eagerFetchingMore = eagerFetchingMore;
 	}
 	
 	public boolean isEagerFetching() {
 		return this.eagerFetching;
 	}
 
+	public boolean isEagerFetchingMore() {
+		return this.eagerFetchingMore;
+	}
+
 	private void eagerFetch(List<RawFragment> fragments) throws Exception {
+		if (fragments.isEmpty()) return;
+		
 		if (this.eagerFetching) {
 			getRepository().refreshClassifications(fragments);
 			getRepository().setParentsAndChildrenWithGrandchildrenToEach(fragments);
+			
+			if (this.eagerFetchingMore) {
+				FragmentList<RawFragment> children = 
+					new FragmentList<RawFragment>(fragments).getChildren();
+				getRepository().refreshClassifications(children.getFragments());
+				getRepository().setParentsToEach(children);
+				for (RawFragment child : children) child.checkTwoWayRelations();
+			}
 		}
 	}
 	
