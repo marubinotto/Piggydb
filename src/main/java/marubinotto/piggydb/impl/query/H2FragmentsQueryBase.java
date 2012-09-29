@@ -1,12 +1,15 @@
 package marubinotto.piggydb.impl.query;
 
 import static marubinotto.piggydb.impl.QueryUtils.appendLimit;
+import static marubinotto.util.CollectionUtils.joinToString;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import marubinotto.piggydb.impl.H2FragmentRepository;
+import marubinotto.piggydb.impl.QueryUtils;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
@@ -183,5 +186,25 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 				return (Long)getJdbcTemplate().queryForObject(countSql, args, Long.class);
 			}
 		};
+	}
+	
+	protected void appendSqlToSelectFragmentIdsTaggedWithAnyOf(
+		StringBuilder sql, Set<Long> tagIds, boolean sort) {
+		
+		sql.append("select distinct f.fragment_id");
+		if (sort) appendFieldForSort(sql, "f.");
+    sql.append(" from fragment as f, tagging as t");
+    sql.append(" where f.fragment_id = t.target_id");
+    sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
+		sql.append(" and t.tag_id in (");
+		sql.append(joinToString(tagIds, ", "));
+		sql.append(")");
+	}
+	
+	protected void appendFieldForSort(StringBuilder sql, String prefix) {
+		if (getSortOption().orderBy.isString()) 
+			sql.append(", " + ignoreCaseForSort(getSortOption().orderBy.getName(), prefix));
+		else
+			sql.append(", " + prefix + getSortOption().orderBy.getName());
 	}
 }

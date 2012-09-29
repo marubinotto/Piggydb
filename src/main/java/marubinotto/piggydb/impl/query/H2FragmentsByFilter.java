@@ -1,7 +1,5 @@
 package marubinotto.piggydb.impl.query;
 
-import static marubinotto.util.CollectionUtils.joinToString;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -112,8 +110,8 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 			}
 		}
 		else {
-			sql.append("select ");
-			appendFieldsForIdAndSort(sql, sort);
+			sql.append("select f.fragment_id");
+			if (sort) appendFieldForSort(sql, "f.");
 			sql.append(" from fragment as f");
 		}
        
@@ -133,31 +131,5 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 				return rs.getLong(1);
 			}
 		});
-	}
-	
-	private void appendFieldsForIdAndSort(StringBuilder sql, boolean sort) {
-		// Fragment ID
-		sql.append("f.fragment_id");
-
-		// Column for Sort
-		if (sort) {
-			if (getSortOption().orderBy.isString()) 
-				sql.append(", " + ignoreCaseForSort(getSortOption().orderBy.getName(), "f."));
-			else
-				sql.append(", f." + getSortOption().orderBy.getName());
-		}
-	}
-
-	private void appendSqlToSelectFragmentIdsTaggedWithAnyOf(
-		StringBuilder sql, Set<Long> tagIds, boolean sort) {
-		
-		sql.append("select distinct ");
-		appendFieldsForIdAndSort(sql, sort);
-    sql.append(" from fragment as f, tagging as t");
-    sql.append(" where f.fragment_id = t.target_id");
-    sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
-		sql.append(" and t.tag_id in (");
-		sql.append(joinToString(tagIds, ", "));
-		sql.append(")");
 	}
 }
