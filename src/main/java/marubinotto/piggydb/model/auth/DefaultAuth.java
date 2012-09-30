@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.enums.Role;
+import marubinotto.piggydb.model.query.FragmentsOfUser;
 import marubinotto.util.Assert;
 
 public class DefaultAuth {
@@ -23,7 +24,10 @@ public class DefaultAuth {
 		Assert.Arg.notNull(password, "password");
 		Assert.Property.requireNotNull(fragmentRepository, "fragmentRepository");
 
-		Fragment fragment = this.fragmentRepository.getUserFragment(user.getName());
+		FragmentsOfUser query = (FragmentsOfUser)
+			this.fragmentRepository.getQuery(FragmentsOfUser.class);
+		query.setUserName(user.getName());
+		Fragment fragment = query.getUserFragment();
 		if (fragment == null) {
 			logger.info("Not an internal user: " + user);
 			return false;

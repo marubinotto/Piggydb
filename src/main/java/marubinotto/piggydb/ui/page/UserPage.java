@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page;
 import java.io.UnsupportedEncodingException;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.query.FragmentsOfUser;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 
@@ -60,8 +61,11 @@ public class UserPage extends AbstractFragmentsPage {
 
 	private void setUserFragment() throws Exception {
 		if (this.name == null) return;
-
-		Fragment lightFragment = getDomain().getFragmentRepository().getUserFragment(this.name);
+		
+		FragmentsOfUser query = (FragmentsOfUser)
+			getDomain().getFragmentRepository().getQuery(FragmentsOfUser.class);
+		query.setUserName(this.name);
+		Fragment lightFragment = query.getUserFragment();
 		if (lightFragment != null) {
 			this.userFragment = getDomain().getFragmentRepository().get(lightFragment.getId());
 		}

@@ -5,8 +5,6 @@ import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,6 +21,7 @@ import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
 import marubinotto.piggydb.impl.query.H2FragmentsOfHome;
+import marubinotto.piggydb.impl.query.H2FragmentsOfUser;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
@@ -45,7 +44,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
 public class H2FragmentRepository extends FragmentRepository.Base 
@@ -62,12 +60,13 @@ implements RawEntityFactory<RawFragment> {
 	private FragmentRowMapper fragmentRowMapper = new FragmentRowMapper(this, "fragment.");
 	
 	public H2FragmentRepository() {
-		registerQuery(H2FragmentsAllButTrash.class);
 		registerQuery(H2FragmentsByTime.class);
 		registerQuery(H2FragmentsByUser.class);
 		registerQuery(H2FragmentsByKeywords.class);
-		registerQuery(H2FragmentsByFilter.class);
 		registerQuery(H2FragmentsOfHome.class);
+		registerQuery(H2FragmentsOfUser.class);
+		registerQuery(H2FragmentsByFilter.class);
+		registerQuery(H2FragmentsAllButTrash.class);
 	}
 	
 	public RawEntityFactory<FragmentRelation> relationFactory = 
@@ -294,42 +293,10 @@ implements RawEntityFactory<RawFragment> {
 	public List<RawFragment> query(String sql,  Object[] args) throws Exception {
 		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
-		
-	private static void appendFieldsForIdAndSort(StringBuilder sql, FragmentsSortOption sortOption) {
-		// Fragment ID
-		sql.append("f.fragment_id");
-
-		// Column for Sort
-		if (sortOption != null) {
-			if (sortOption.orderBy.isString()) 
-				sql.append(", " + normalizedStringColumnForSort(sortOption.orderBy.getName(), "f."));
-			else
-				sql.append(", f." + sortOption.orderBy.getName());
-		}
-	}
 	
 	private static String normalizedStringColumnForSort(String columnName, String prefix) {
 		return "UPPER(" + prefix + columnName + ") as ns_" + columnName;
 	}
-
-	private static void appendSelectIdsByTagTree(
-		StringBuilder sql, 
-		Set<Long> tagTree, 
-		FragmentsSortOption sortOption) {
-		
-		sql.append("select distinct ");
-		appendFieldsForIdAndSort(sql, sortOption);
-    sql.append(" from fragment as f, tagging as t");
-    sql.append(" where f.fragment_id = t.target_id");
-    sql.append(" and t.target_type = " + QueryUtils.TAGGING_TARGET_FRAGMENT);
-		sql.append(" and t.tag_id in (");
-		boolean first = true;
-		for (Long tagId : tagTree) {
-			if (first) first = false; else sql.append(", ");
-			sql.append(tagId);
-		}
-		sql.append(")");
-	}	
 	
 	private static void appendSelectAll(
 		StringBuilder sql, 
@@ -387,36 +354,6 @@ implements RawEntityFactory<RawFragment> {
 	public Map<Long, String> getNames(Set<Long> ids) throws Exception {
 		Assert.Arg.notNull(ids, "ids");
 		return QueryUtils.getValuesForIds("fragment", "title", ids, this.jdbcTemplate);
-	}
-	
-	// TODO
-	@SuppressWarnings("unchecked")
-	public Fragment getUserFragment(String userName) throws Exception {
-		Assert.Arg.notNull(userName, "userName");
-		
-		Tag userTag = getTagRepository().getByName(Tag.NAME_USER);
-		if (userTag == null) return null;
-
-		StringBuilder sql  = new StringBuilder();
-		appendSelectIdsByTagTree(sql, userTag.expandToIdsOfSubtree(getTagRepository()), null);
-		sql.append(" and f.title = ?");
-		
-		Tag trashTag = this.tagRepository.getTrashTag();
-		if (trashTag != null) {
-			sql.append(" minus ");
-			appendSelectIdsByTagTree(sql, trashTag.expandToIdsOfSubtree(getTagRepository()), null);
-		}
-
-		List<Long> ids = (List<Long>)this.jdbcTemplate.query(
-			sql.toString(), new Object[]{userName}, new RowMapper() {
-				public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-					return rs.getLong(1);
-				}
-			});
-		if (ids.isEmpty()) return null;
-		
-		List<Fragment> fragments = getByIds(ids, FragmentsSortOption.getDefault(), false);
-		return fragments.isEmpty() ? null : fragments.get(0);
 	}
 
 	@Override

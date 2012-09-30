@@ -7,12 +7,13 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
+import marubinotto.piggydb.model.query.FragmentsOfUser;
 
 import org.junit.Test;
 
-public class GetUserFragmentTest extends FragmentRepositoryTestBase {
+public class FragmentsOfUserTest extends FragmentRepositoryTestBase {
 
-	public GetUserFragmentTest(RepositoryFactory<FragmentRepository> factory) {
+	public FragmentsOfUserTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 
@@ -24,9 +25,15 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		return fragment;
 	}
 	
+	private FragmentsOfUser getQuery(String userName) throws Exception {
+		FragmentsOfUser query = (FragmentsOfUser)this.object.getQuery(FragmentsOfUser.class);
+		query.setUserName(userName);
+		return query;
+	}
+	
 	@Test
 	public void empty() throws Exception {
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		assertNull(fragment);
 	}
 
@@ -36,7 +43,7 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		Long id = this.object.register(newUserFragment("marubinotto"));
 		
 		// When
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		
 		// Then
 		assertEquals(id, fragment.getId());
@@ -49,7 +56,7 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragmentWithTitle("marubinotto"));
 		
 		// When
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		
 		// Then
 		assertNull(fragment);
@@ -63,7 +70,7 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		this.object.register(newFragment);
 		
 		// When
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		
 		// Then
 		assertNull(fragment);
@@ -75,7 +82,7 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		this.object.register(newUserFragment("akane"));
 		
 		// When
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		
 		// Then
 		assertNull(fragment);
@@ -91,7 +98,7 @@ public class GetUserFragmentTest extends FragmentRepositoryTestBase {
 		Long idOfNewOne = this.object.register(newUserFragment("marubinotto"));
 		
 		// When
-		Fragment fragment = this.object.getUserFragment("marubinotto");
+		Fragment fragment = getQuery("marubinotto").getUserFragment();
 		
 		// Then
 		assertEquals(idOfNewOne, fragment.getId());
