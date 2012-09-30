@@ -1,6 +1,5 @@
 package marubinotto.piggydb.model;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.BaseDataObsoleteException;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.time.Month;
 
@@ -38,12 +36,6 @@ public interface FragmentRepository extends Repository<Fragment> {
 	public void deleteTrashes(User user) throws Exception;
 	
 	public Set<Integer> getDaysOfMonth(FragmentField field, Month month) 
-	throws Exception;
-	
-	public List<Fragment> getByIds(
-		Collection<Long> fragmentIds, 
-		FragmentsSortOption sortOption, 
-		boolean eagerFetching) 
 	throws Exception;
 
 	public long createRelation(long from, long to, User user)

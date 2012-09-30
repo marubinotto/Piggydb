@@ -5,6 +5,7 @@ import static marubinotto.util.CollectionUtils.joinToString;
 import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
@@ -53,6 +55,14 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		query.setEagerFetchingMore(isEagerFetchingMore());
 		return query;
 	}
+	
+	protected List<Fragment> getByIds(Collection<Long> fragmentIds) throws Exception {
+		Assert.Arg.notNull(fragmentIds, "fragmentIds");
+		FragmentsByIds query = (FragmentsByIds)getDelegateeQuery(FragmentsByIds.class);
+		query.setIds(fragmentIds);
+		return query.getAll();
+	}
+	
 	
 	// -----
 	

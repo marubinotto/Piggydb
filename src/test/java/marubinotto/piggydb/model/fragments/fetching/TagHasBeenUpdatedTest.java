@@ -14,10 +14,10 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.fragments.FragmentRepositoryTestBase;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsByFilter;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
 import marubinotto.piggydb.model.query.FragmentsQuery;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.time.DateTime;
 
 import org.junit.Before;
@@ -117,9 +117,13 @@ public class TagHasBeenUpdatedTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void getByIds() throws Exception {
-		Fragment fragment = 
-			this.object.getByIds(set(this.id), FragmentsSortOption.getDefault(), true).get(0);
+	public void fragmentsByIds() throws Exception {
+		FragmentsByIds query = (FragmentsByIds)this.object.getQuery(FragmentsByIds.class);
+		query.setIds(set(this.id));
+		query.setEagerFetching(true);
+		
+		Fragment fragment = query.getAll().get(0);
+		
 		checkTargetFragment(fragment);
 	}
 	

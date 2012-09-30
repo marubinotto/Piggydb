@@ -5,15 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.core.RowMapper;
-
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
 import marubinotto.piggydb.model.query.FragmentsOfUser;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
+
+import org.springframework.jdbc.core.RowMapper;
 
 public class H2FragmentsOfUser 
 extends H2FragmentsQueryBase implements FragmentsOfUser {
@@ -58,7 +57,7 @@ extends H2FragmentsQueryBase implements FragmentsOfUser {
 			});
 		if (ids.isEmpty()) return new ArrayList<Fragment>();
 		
-		return getRepository().getByIds(ids, FragmentsSortOption.getDefault(), false);
+		return getByIds(ids);
 	}
 	
 	public Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {

@@ -14,6 +14,7 @@ import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsByFilter;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 import marubinotto.piggydb.model.query.FragmentsByKeywords;
 import marubinotto.piggydb.model.query.FragmentsByTime;
 import marubinotto.piggydb.model.query.FragmentsByUser;
@@ -146,13 +147,11 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
-	public void getByIds() throws Exception {
-		checkDefaultOrder(
-			this.object.getByIds(
-				set(this.id1, this.id2, this.id3), this.defaultOptions.sortOption, false));
-		checkOrderByTitleAsc(
-			this.object.getByIds(
-				set(this.id1, this.id2, this.id3), this.orderByTitleAsc.sortOption, false));
+	public void fragmentsByIds() throws Exception {
+		FragmentsByIds query = (FragmentsByIds)this.object.getQuery(FragmentsByIds.class);
+		query.setIds(set(this.id1, this.id2, this.id3));
+		
+		assertSortingWorks(query);
 	}
 	
 	@Test

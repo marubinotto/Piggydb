@@ -8,17 +8,17 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class GetByIdsTest extends FragmentRepositoryTestBase {
+public class FragmentsByIdsTest extends FragmentRepositoryTestBase {
 
 	protected long id1;
 	protected long id2;
 	
-	public GetByIdsTest(RepositoryFactory<FragmentRepository> factory) {
+	public FragmentsByIdsTest(RepositoryFactory<FragmentRepository> factory) {
 		super(factory);
 	}
 
@@ -30,17 +30,24 @@ public class GetByIdsTest extends FragmentRepositoryTestBase {
 		this.id2 = this.object.register(newFragmentWithTitle("title2"));
 	}
 	
+	private FragmentsByIds getQuery() throws Exception {
+		return (FragmentsByIds)this.object.getQuery(FragmentsByIds.class);
+	}
+	
 	@Test
 	public void noSuchId() throws Exception {
-		List<Fragment> fragments = 
-			this.object.getByIds(set(123L), FragmentsSortOption.getDefault(), false);
+		FragmentsByIds query = getQuery();
+		query.setIds(set(123L));
+		List<Fragment> fragments = query.getAll();
+		
 		assertTrue(fragments.isEmpty());
 	}
 	
 	@Test
 	public void oneExisting() throws Exception {
-		List<Fragment> fragments = 
-			this.object.getByIds(set(this.id1), FragmentsSortOption.getDefault(), false);
+		FragmentsByIds query = getQuery();
+		query.setIds(set(this.id1));
+		List<Fragment> fragments = query.getAll();
 		
 		assertEquals(1, fragments.size());
 		assertEquals("title1", fragments.get(0).getTitle());
@@ -48,8 +55,9 @@ public class GetByIdsTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void oneExistingAndOneNonexisting() throws Exception {
-		List<Fragment> fragments = 
-			this.object.getByIds(set(this.id1, 123L), FragmentsSortOption.getDefault(), false);
+		FragmentsByIds query = getQuery();
+		query.setIds(set(this.id1, 123L));
+		List<Fragment> fragments = query.getAll();
 		
 		assertEquals(1, fragments.size());
 		assertEquals("title1", fragments.get(0).getTitle());

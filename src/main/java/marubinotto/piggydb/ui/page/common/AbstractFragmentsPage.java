@@ -13,6 +13,7 @@ import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.piggydb.ui.page.control.form.PublicFieldForm;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
@@ -178,9 +179,10 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 		}
 
 		// Get the node fragments for a result message
-		Map<Long, Fragment> fragments = ModelUtils.toIdMap(
-			getDomain().getFragmentRepository()
-				.getByIds(set(fromId, toId), FragmentsSortOption.getDefault(), false));
+		FragmentsByIds query = (FragmentsByIds)
+			getDomain().getFragmentRepository().getQuery(FragmentsByIds.class);
+		query.setIds(set(fromId, toId));	
+		Map<Long, Fragment> fragments = ModelUtils.toIdMap(query.getAll());
 		Fragment from = fragments.get(fromId);
 		Fragment to = fragments.get(toId);
 		if (from == null || to == null) {

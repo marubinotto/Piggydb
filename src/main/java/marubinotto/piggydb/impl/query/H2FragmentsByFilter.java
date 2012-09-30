@@ -36,7 +36,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 	}
 	
 	public List<Fragment> getAll() throws Exception {
-		return getRepository().getByIds(getFilteredIds(true), getSortOption(), isEagerFetching());
+		return getByIds(getFilteredIds(true));
 	}
 	
 	public Page<Fragment> getPage(int pageSize, int pageIndex) throws Exception {
@@ -46,7 +46,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		// Get ONLY the fragments in the page, which is why the IDs needs to be sorted
 		Page<Long> pagedIds = PageUtils.getPage(filteredIds, pageSize, pageIndex);
 		return new PageImpl<Fragment>(
-			getRepository().getByIds(pagedIds, getSortOption(), isEagerFetching()), 
+			getByIds(pagedIds), 
 			pagedIds.getPageSize(), 
 			pagedIds.getPageIndex(), 
 			filteredIds.size());

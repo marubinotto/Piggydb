@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page.model;
 import static marubinotto.util.CollectionUtils.inReverseOrder;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -12,7 +13,7 @@ import java.util.Map;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.ModelUtils;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
+import marubinotto.piggydb.model.query.FragmentsByIds;
 import marubinotto.util.Assert;
 import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageImpl;
@@ -77,7 +78,18 @@ public class SelectedFragments implements Serializable, Iterable<Long> {
 		FragmentRepository repository,
 		boolean eagerFetching)
 	throws Exception {
-		return repository.getByIds(this.ids, FragmentsSortOption.getDefault(), eagerFetching);
+		return getFragmentsByIds(repository, this.ids, eagerFetching);
+	}
+	
+	private static List<Fragment> getFragmentsByIds(
+		FragmentRepository repository,
+		Collection<Long> ids,
+		boolean eagerFetching) 
+	throws Exception {
+		FragmentsByIds query = (FragmentsByIds)repository.getQuery(FragmentsByIds.class);
+		query.setIds(ids);
+		query.setEagerFetching(eagerFetching);
+		return query.getAll();
 	}
 	
 	public synchronized Page<Fragment> getFragments(
@@ -91,7 +103,7 @@ public class SelectedFragments implements Serializable, Iterable<Long> {
 		Page<Long> idsInPage = PageUtils.getPage(inReverseOrder(this.ids), pageSize, pageIndex);
 		
 		// getByIds doesn't preserve the elements' order
-		List<Fragment> fragments = repository.getByIds(idsInPage, FragmentsSortOption.getDefault(), eagerFetching);
+		List<Fragment> fragments = getFragmentsByIds(repository, idsInPage, eagerFetching);
 		List<Fragment> sorted = ModelUtils.getByIds(idsInPage, fragments);
 		
 		return new PageImpl<Fragment>(

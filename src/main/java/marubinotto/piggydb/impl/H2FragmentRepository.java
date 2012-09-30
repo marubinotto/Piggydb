@@ -3,10 +3,8 @@ package marubinotto.piggydb.impl;
 import static marubinotto.util.CollectionUtils.joinToString;
 import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.CollectionUtils.set;
-import static org.apache.commons.lang.ObjectUtils.defaultIfNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +15,7 @@ import marubinotto.piggydb.impl.mapper.FragmentRelationRowMapper;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.impl.query.H2FragmentsAllButTrash;
 import marubinotto.piggydb.impl.query.H2FragmentsByFilter;
+import marubinotto.piggydb.impl.query.H2FragmentsByIds;
 import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
@@ -35,9 +34,7 @@ import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
-import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.Assert;
-import marubinotto.util.CollectionUtils;
 import marubinotto.util.time.Month;
 
 import org.apache.commons.logging.Log;
@@ -63,6 +60,7 @@ implements RawEntityFactory<RawFragment> {
 		registerQuery(H2FragmentsByTime.class);
 		registerQuery(H2FragmentsByUser.class);
 		registerQuery(H2FragmentsByKeywords.class);
+		registerQuery(H2FragmentsByIds.class);
 		registerQuery(H2FragmentsOfHome.class);
 		registerQuery(H2FragmentsOfUser.class);
 		registerQuery(H2FragmentsByFilter.class);
@@ -294,63 +292,6 @@ implements RawEntityFactory<RawFragment> {
 		return this.jdbcTemplate.query(sql.toString(), args, this.fragmentRowMapper);
 	}
 	
-	private static String normalizedStringColumnForSort(String columnName, String prefix) {
-		return "UPPER(" + prefix + columnName + ") as ns_" + columnName;
-	}
-	
-	private static void appendSelectAll(
-		StringBuilder sql, 
-		FragmentRowMapper mapper, 
-		FragmentsSortOption sortOption) {
-		
-		sql.append("select ");
-		sql.append(mapper.selectAll());
-		if (sortOption != null && sortOption.orderBy.isString()) {
-			sql.append(", ");
-			sql.append(normalizedStringColumnForSort(
-				sortOption.orderBy.getName(), 
-				mapper.getColumnPrefix()));
-		}
-	}
-
-	// TODO
-	@SuppressWarnings("unchecked")
-	public List<Fragment> getByIds(
-		Collection<Long> fragmentIds, 
-		FragmentsSortOption sortOption, 
-		boolean eagerFetching) 
-	throws Exception {
-		StringBuilder sql  = new StringBuilder();
-		
-		// select
-		appendSelectAll(sql, this.fragmentRowMapper, sortOption);
-		
-		// from
-		sql.append(" from fragment");
-		
-		// where
-		sql.append(" where fragment_id in (");
-		boolean first = true;
-		for (Long fragmentId : fragmentIds) {
-			if (first) first = false; else sql.append(", ");
-			sql.append(fragmentId);
-		}
-		sql.append(")");
-		
-		// order by
-		appendSortOption(sql, sortOption, this.fragmentRowMapper.getColumnPrefix());
-		
-		List<RawFragment> results = 
-			this.jdbcTemplate.query(sql.toString(), this.fragmentRowMapper);
-		
-		if (eagerFetching) {
-			refreshClassifications(results);
-			setParentsAndChildrenWithGrandchildrenToEach(results);
-		}
-		
-		return CollectionUtils.<Fragment>covariantCast(results);
-	}
-	
 	public Map<Long, String> getNames(Set<Long> ids) throws Exception {
 		Assert.Arg.notNull(ids, "ids");
 		return QueryUtils.getValuesForIds("fragment", "title", ids, this.jdbcTemplate);
@@ -423,22 +364,6 @@ implements RawEntityFactory<RawFragment> {
 		H2FragmentsByFilter query = (H2FragmentsByFilter)getQuery(H2FragmentsByFilter.class);
 		query.setFilter(filter);
 		return query.getFilteredIds(false);
-	}
-	
-	private static void appendSortOption(StringBuilder sql, FragmentsSortOption sortOption, String columnPrefix) {
-		if (sortOption == null) return;
-		
-		sql.append(" order by ");
-
-		if (sortOption.orderBy.isString())
-			sql.append("ns_" + sortOption.orderBy.getName());
-		else
-			sql.append(defaultIfNull(columnPrefix, "") + sortOption.orderBy.getName());
-		
-		if (sortOption.ascending)
-			sql.append(" nulls last");
-		else
-			sql.append(" desc nulls first");
 	}
 
 	public void appendConditionToExcludeTrash(StringBuilder sql, String columnNameForId) 
