@@ -7,7 +7,7 @@
 #end
 
 #foreach ($fragment in $fragments)
-  #fragmentTree($fragment)
+  #fragmentFullFledged($fragment)
 #end
 
 #pagingNavigator($fragments $pageIndexName)
@@ -185,7 +185,7 @@ jQuery(document).ready(function() {
   #if ($view.viewType == "detail")
     #fragment($fragment $contextTags)
   #else
-  	#fragmentTree($fragment)
+  	#fragmentFullFledged($fragment)
   #end
 </div>
 #end
