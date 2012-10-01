@@ -68,7 +68,7 @@ public class WarSetting {
 	private Integer defaultFragmentsViewScale;
 
 	public Integer getDefaultFragmentsViewScale() {
-		return this.defaultFragmentsViewScale != null ? this.defaultFragmentsViewScale : 500;
+		return this.defaultFragmentsViewScale != null ? this.defaultFragmentsViewScale : 1000;
 	}
 
 	public void setDefaultFragmentsViewScale(Integer defaultFragmentsViewScale) {

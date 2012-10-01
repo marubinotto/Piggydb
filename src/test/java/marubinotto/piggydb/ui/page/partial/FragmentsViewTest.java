@@ -61,12 +61,23 @@ public class FragmentsViewTest {
 	}
 	
 	@Test
+	public void scale_900() throws Exception {
+		this.object.setScale(900);
+		
+		assertEquals(900, this.object.getScale());
+		
+		assertEquals("detail", this.object.viewType);
+		assertEquals(10, this.object.getPageSize());
+		assertEquals(true, this.object.needsEagerFetching());
+	}
+	
+	@Test
 	public void scale_1000() throws Exception {
 		this.object.setScale(1000);
 		
 		assertEquals(1000, this.object.getScale());
 		
-		assertEquals("detail", this.object.viewType);
+		assertEquals("full", this.object.viewType);
 		assertEquals(10, this.object.getPageSize());
 		assertEquals(true, this.object.needsEagerFetching());
 	}

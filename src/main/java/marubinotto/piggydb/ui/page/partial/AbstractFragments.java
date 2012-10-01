@@ -80,8 +80,9 @@ public abstract class AbstractFragments extends AbstractPartial {
 	throws Exception {
 		FragmentsQuery query = (FragmentsQuery)
 			getDomain().getFragmentRepository().getQuery(queryClass);
-		query.setEagerFetching(this.view.needsEagerFetching());
 		query.setSortOption(this.sortOption);
+		query.setEagerFetching(this.view.needsEagerFetching());
+		query.setEagerFetchingMore(this.view.needsEagerFetchingMore());
 		return query;
 	}
 	

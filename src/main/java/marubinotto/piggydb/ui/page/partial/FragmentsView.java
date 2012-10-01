@@ -15,9 +15,10 @@ public class FragmentsView {
 	private static final String TYPE_MULTICOLUMN = "multicolumn";
 	private static final String TYPE_TREE = "tree";
 	private static final String TYPE_DETAIL = "detail";
+	private static final String TYPE_FULL = "full";
 	
 	// Range of scale for each view
-	// (0) - multicolumn - (400) - tree - (800) - detail - (1000)
+	// (0) - multicolumn - (400) - tree - (800) - detail - (950) - full - (1000)
 	
 	// Multi-column
 
@@ -42,6 +43,10 @@ public class FragmentsView {
 
 	private static final int MIN_SCALE_FOR_DETAIL = 800;
 	
+	// Full
+	
+	private static final int MIN_SCALE_FOR_FULL = 950;
+	
 	public FragmentsView(String viewId) {
 		this.viewId = viewId;
 	}
@@ -58,8 +63,11 @@ public class FragmentsView {
 				this.compactColumn = true;
 			}
 		}
-		else if (this.scale >= MIN_SCALE_FOR_DETAIL) { 
-			this.viewType = TYPE_DETAIL;
+		else if (this.scale >= MIN_SCALE_FOR_DETAIL) {
+			if (this.scale >= MIN_SCALE_FOR_FULL)
+				this.viewType = TYPE_FULL;
+			else 
+				this.viewType = TYPE_DETAIL;
 		}
 		else {
 			this.viewType = TYPE_TREE;
@@ -85,5 +93,9 @@ public class FragmentsView {
 	
 	public boolean needsEagerFetching() {
 		return !this.viewType.equals(TYPE_MULTICOLUMN);
+	}
+	
+	public boolean needsEagerFetchingMore() {
+		return this.viewType.equals(TYPE_FULL);
 	}
 }

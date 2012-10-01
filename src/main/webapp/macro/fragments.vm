@@ -175,18 +175,22 @@ jQuery(document).ready(function() {
 #if ($firstSet)</ul>#end
 
 ##
-## detail
+## detail / full
 ##
-#elseif ($view.viewType == "detail")
+#elseif ($view.viewType == "detail" || $view.viewType == "full")
   
 #if ($firstSet)<div class="fragments-container">#end
 #foreach ($fragment in $fragments)
 <div class="page-index-${fragments.pageIndex}">
+#if ($view.viewType == "detail")
   #fragment($fragment $contextTags)
+#else
+	#fragmentTree($fragment)
+#end
 </div>
 #end
 #if ($firstSet)</div>#end
-
+	
 #end  ## for each $view.viewType
 
 ##
