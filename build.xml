@@ -231,11 +231,22 @@
   <target name="war-tt" depends="prepare-demo">
     <antcall target="_enable-anonymous"/>
     <antcall target="_set-default-scale-to-detail"/>
-    <antcall target="_add-ad-top"/>
-    <antcall target="_add-ad-sidebar-bottom"/>
     
     <build-war 
       warfile="${build.dir}/tt-${build.war.file.name}" 
+      wardir="${build.war.dir}"/>
+  </target>
+  
+	  
+  <!--
+    WAR for Piggydb Knowledge Example
+  -->
+  <target name="war-example" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    
+    <build-war 
+      warfile="${build.dir}/example-${build.war.file.name}" 
       wardir="${build.war.dir}"/>
   </target>
 
