@@ -1,12 +1,12 @@
 package marubinotto.piggydb.ui.page.partial;
 
-import org.apache.commons.lang.ObjectUtils;
-
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentsOptions;
 import marubinotto.piggydb.model.query.FragmentsQuery;
+import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.util.paging.Page;
+
+import org.apache.commons.lang.ObjectUtils;
 
 public abstract class AbstractFragments extends AbstractPartial {
 
@@ -56,18 +56,12 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public boolean firstSet = true;
 	public boolean lastSet = false;
 
-	protected FragmentsOptions options = new FragmentsOptions();
-
 	@Override
 	protected void setModels() throws Exception {
 		super.setModels();
 
 		this.view = new FragmentsView(this.viewId);
 		this.view.setScale(this.scale);
-
-		this.options.setPagingOption(this.view.getPageSize(), this.pi);
-		this.options.eagerFetching = this.view.needsEagerFetching();
-		this.options.setSortOption(this.orderBy, this.ascending);
 
 		setSelectedFragments();
 		setFragments();
@@ -84,13 +78,13 @@ public abstract class AbstractFragments extends AbstractPartial {
 	throws Exception {
 		FragmentsQuery query = (FragmentsQuery)
 			getDomain().getFragmentRepository().getQuery(queryClass);
-		query.setEagerFetching(this.options.eagerFetching);
-		query.setSortOption(this.options.sortOption);
+		query.setEagerFetching(this.view.needsEagerFetching());
+		query.setSortOption(new FragmentsSortOption(this.orderBy, this.ascending));
 		return query;
 	}
 	
 	protected Page<Fragment> getPage(FragmentsQuery query) throws Exception {
-		return query.getPage(this.options.pageSize, this.options.pageIndex);
+		return query.getPage(this.view.getPageSize(), this.pi);
 	}
 
 	protected abstract void setFragments() throws Exception;

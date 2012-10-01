@@ -14,8 +14,7 @@ public class SelectedFragments extends AbstractFragments {
 		this.fragments = getSession().getSelectedFragments().
 			getFragments(
 				getDomain().getFragmentRepository(),
-				ALMOST_UNLIMITED_PAGE_SIZE, 
-				this.options.pageIndex, 
-				this.options.eagerFetching);
+				ALMOST_UNLIMITED_PAGE_SIZE, 0, 
+				this.view.needsEagerFetching());
 	}
 }
