@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.3 (2012-10-01) == #v6.3
+
+ * Updated the Fragments View slider to have a new level of zoom: full-fledged
+ * Improved the color scheme a little bit
+ * Fixed the code syntax highlighting bug in the Document View 
+
 == Changes in version 6.2 (2012-09-17) == #v6.2
 
  * Updated the home fragments in the home page to be expandable trees
