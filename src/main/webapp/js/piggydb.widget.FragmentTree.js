@@ -32,8 +32,20 @@
 	    }
 	  },
 	  
-	  enableSortable: function(parentId) {
-	  	var container = jQuery("div.children-" + parentId);
+	  onReorderSwitchClick: function (button, parentId) {
+      var button = jQuery(button);
+      if (button.hasClass("selected")) {
+      	module.FragmentTree.disableSortable(button);
+        button.removeClass("selected");
+      }
+      else {
+      	module.FragmentTree.enableSortable(button, parentId);
+        button.addClass("selected");
+      }
+    },
+	  
+	  enableSortable: function(button, parentId) {
+	  	var container = jQuery(button).closest("div.children");
 	  	var sortableUl = container.find(".sortable-children");
 	  	sortableUl.sortable({
 	      update: function(event, ui) {
@@ -59,8 +71,9 @@
 	      .prepend('<img class="sortable-icon" src="images/sortable.png" border="0" alt=""/>');
 	  },
 	  
-	  disableSortable: function(parentId) {
-	  	var sortableUl = jQuery("div.children-" + parentId + " .sortable-children");
+	  disableSortable: function(button) {
+	  	var container = jQuery(button).closest("div.children");
+	  	var sortableUl = container.find("ul.sortable-children");
 	  	sortableUl.sortable("destroy");
 	  	sortableUl.enableSelection();
 	  	sortableUl.find("table.fragment-root-node").css("cursor", "auto");

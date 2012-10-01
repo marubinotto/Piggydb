@@ -211,9 +211,6 @@ jQuery(document).ready(function() {
 #macro( fragmentRootChildNodes $fragment )
 	
 #if ($fragment.hasChildren())
-#set ($divClass = "children-${fragment.id}")
-<div class="$divClass">
-	
 <table class="children-control" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td align="left" valign="middle">
@@ -221,25 +218,9 @@ jQuery(document).ready(function() {
   </td>
   #if ($fragment.canChange($user))
     <td align="right">
-      <script type="text/javascript">
-      //<![CDATA[
-        jQuery(function() {
-          jQuery("div.$divClass div.reorder-switch button").click(function () {
-            var button = jQuery(this);
-            if (button.hasClass("selected")) {
-              piggydb.widget.FragmentTree.disableSortable($fragment.id);
-              button.removeClass("selected");
-            }
-            else {
-              piggydb.widget.FragmentTree.enableSortable($fragment.id);
-              button.addClass("selected");
-            }
-          });
-        });
-      //]]>
-      </script>
       <div class="reorder-switch select-switch" style="margin-left: 20px;">
-        <button type="button" name="reorder">
+        <button type="button" name="reorder" 
+						onclick="piggydb.widget.FragmentTree.onReorderSwitchClick(this, $fragment.id);">
           <img src="$context/images/sortable.png" alt="$messages.get("FragmentPage-reorder")" 
             border="0" style="vertical-align: middle;"/> 
           <span style="vertical-align: middle;">$messages.get("FragmentPage-reorder")</span>
@@ -248,16 +229,8 @@ jQuery(document).ready(function() {
     </td>
   #end
   <td width="30">
-    <script type="text/javascript">
-    //<![CDATA[
-      jQuery(function() {
-        jQuery("div.$divClass button.children-content-toggle").click(function () {
-          piggydb.widget.ContentToggle.onAllContentToggleClick(this, jQuery("div.$divClass"));
-        });
-      });
-    //]]>
-    </script>
-    <button type="button" class="children-content-toggle">
+    <button type="button" class="children-content-toggle"
+				onclick="piggydb.widget.ContentToggle.onAllContentToggleClick(this, jQuery(this).closest('div.children'));">
       <img src="$context/style/images/bullet-arrow-down.png" border="0" alt="" style="margin: -2px;"/>
     </button>
   </td>
@@ -270,8 +243,6 @@ jQuery(document).ready(function() {
     >#fragmentRootNode($relation.to $relation $fragment.classification $null) </li>
 #end
 </ul>
-	
-</div>
 #end
 	
 #end
