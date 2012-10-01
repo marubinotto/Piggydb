@@ -20,6 +20,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 
 	public Integer orderBy;
 	public Boolean ascending;
+	private FragmentsSortOption sortOption;
 
 	public int pi = 0;
 
@@ -42,6 +43,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 		if (this.ascending == null) {
 			this.ascending = (Boolean)getContext().getSessionAttribute(SK_ASCENDING);
 		}
+		this.sortOption = new FragmentsSortOption(this.orderBy, this.ascending);
 	}
 
 	//
@@ -79,7 +81,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 		FragmentsQuery query = (FragmentsQuery)
 			getDomain().getFragmentRepository().getQuery(queryClass);
 		query.setEagerFetching(this.view.needsEagerFetching());
-		query.setSortOption(new FragmentsSortOption(this.orderBy, this.ascending));
+		query.setSortOption(this.sortOption);
 		return query;
 	}
 	
