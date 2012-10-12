@@ -1,7 +1,32 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td class="fragments" valign="top">
-
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+    jQuery("#page-fragments").css("display", "table");
+		jQuery("#page-fragments > div").css("display", "table-cell");
+		jQuery("#page-fragments-main").css({
+			"width": 500,
+			"border-right": "2px dotted #ccc"
+		});
+		jQuery("#page-fragments-sub").css("padding-left", 5);
+		
+		jQuery("#page-fragments-main-resizable")
+			.css({
+				"padding-right": 5
+			})
+			.resizable({
+				handles: "e"
+    	});
+  });
+//]]>
+</script>
+<div id="page-fragments">
+	
+<div id="page-fragments-main">
+<div id="page-fragments-main-resizable">
+	
 ## user fragment
 #if ($userFragment)
 <div class="fragment-group-control">
@@ -33,7 +58,14 @@
 </div>
 #end
 
+</div>
+</div>
+
+<div id="page-fragments-sub">
 #fragmentsView("fragmentsByDate" "$context/partial/fragments-by-date.htm#if($date)?date=$date#end" "true")
+</div>
+
+</div>
 </td>
   
 <td class="sidebar" align="left" valign="top">
