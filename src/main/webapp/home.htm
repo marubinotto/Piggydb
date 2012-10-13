@@ -3,22 +3,52 @@
 <td class="fragments" valign="top">
 <script type="text/javascript">
 //<![CDATA[
-  jQuery(function() {
-    jQuery("#page-fragments").css("display", "table");
-		jQuery("#page-fragments > div").css("display", "table-cell");
+	var vertical = true;
+
+	function setVerticalLayout() {
+		if (vertical) return; else vertical = true;
+	
+		jQuery("#page-fragments").css("display", "block");
+		jQuery("#page-fragments > div").css("display", "block");
 		jQuery("#page-fragments-main").css({
-			"width": 500,
-			"border-right": "2px dotted #ccc"
+			"border-right-style": "none",
+			"width": "auto"
 		});
-		jQuery("#page-fragments-sub").css("padding-left", 5);
+		jQuery("#page-fragments-main-resizable").resizable("destroy");
+	}
+
+	function setHorizontalLayout() {
+		if (vertical) vertical = false; else return;
 		
+		jQuery("#page-fragments").css("display", "table");
+		jQuery("#page-fragments > div").css("display", "table-cell");
+		jQuery("#page-fragments-main").css("border-right", "2px dotted #ccc");
 		jQuery("#page-fragments-main-resizable")
 			.css({
-				"padding-right": 5
+				"padding-right": 8
 			})
 			.resizable({
 				handles: "e"
     	});
+		jQuery("#page-fragments-sub").css("padding-left", 8);
+			
+		jQuery("#page-fragments-main").width(500);
+	}
+	
+	function updateLayout() {
+		if (jQuery("#page-fragments").width() < 800) {
+			setVerticalLayout();
+		}
+		else {
+			setHorizontalLayout();
+		}
+	}
+
+  jQuery(function() {
+		updateLayout();
+    jQuery(window).resize(function() {
+			updateLayout();
+		});
   });
 //]]>
 </script>
