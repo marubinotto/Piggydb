@@ -21,6 +21,7 @@
 		if (vertical) vertical = false; else return;
 		
 		jQuery("#page-fragments").css("display", "table");
+		jQuery("#page-fragments").css("table-layout", "fixed");
 		jQuery("#page-fragments > div").css("display", "table-cell");
 		jQuery("#page-fragments-main").css("border-right", "2px dotted #ccc");
 		jQuery("#page-fragments-main-resizable")
@@ -32,11 +33,11 @@
     	});
 		jQuery("#page-fragments-sub").css("padding-left", 8);
 			
-		jQuery("#page-fragments-main").width(500);
+		jQuery("#page-fragments-main").width(450);
 	}
 	
 	function updateLayout() {
-		if (jQuery("#page-fragments").width() < 800) {
+		if (jQuery("#page-fragments").width() < 900) {
 			setVerticalLayout();
 		}
 		else {
