@@ -29,7 +29,11 @@
 				"padding-right": 8
 			})
 			.resizable({
-				handles: "e"
+				handles: "e",
+				resize: function(event, ui) {
+					var width = ui.element.width();
+					jQuery("#page-fragments-main").width(width + 8);
+				}
     	});
 		jQuery("#page-fragments-sub").css("padding-left", 8);
 			
