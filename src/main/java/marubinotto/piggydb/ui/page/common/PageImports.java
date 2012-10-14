@@ -80,6 +80,7 @@ public class PageImports {
 	private void setDefaultBottomJs() {
 		importBottomJs("js/piggydb.command.js", true);
 		importBottomJs("js/piggydb.widget.js", true);
+		importBottomJs("js/piggydb.widget.SmartLayout.js", true);
 		importBottomJs("js/piggydb.widget.SelectedFragments.js", true);
 		importBottomJs("js/piggydb.widget.TagPalette.js", true);
 		importBottomJs("js/piggydb.widget.Fragment.js", true);
