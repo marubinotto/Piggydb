@@ -120,7 +120,7 @@ public class HtmlBuilder implements DocumentBuilder {
 			return makeEmbeddedYoutubeHtml(youtubeId);
 		}
 		else {
-			return "<a href=\"" + url + "\">" + url + "</a>";
+			return "<a class=\"url-link\" href=\"" + url + "\">" + url + "</a>";
 		}
 	}
 

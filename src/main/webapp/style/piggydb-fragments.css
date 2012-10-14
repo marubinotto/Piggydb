@@ -258,6 +258,11 @@ td.fragment-body {
   padding-right: 7px;
 }
 
+td.fragment-body .fragment-content a.url-link {
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
 td.fragment-body .fragment-content a.tag {
   color: gray;
   text-decoration: none;
