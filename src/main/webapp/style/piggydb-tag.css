@@ -27,7 +27,7 @@ div.tag-fragment {
 }
 
 div.fragments {
-	border-top: 2px solid #ccc;
+	/* border-top: 2px solid #ccc; */
 	margin-top: 10px;
 	padding-top: 10px;
 }
