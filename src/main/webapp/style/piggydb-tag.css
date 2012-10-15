@@ -24,11 +24,6 @@
 
 div.tag-fragment {
 	margin-top: 10px;
-}
-
-div.fragments {
-	/* border-top: 2px solid #ccc; */
-	margin-top: 10px;
-	padding-top: 10px;
+	margin-bottom: 20px;
 }
 
