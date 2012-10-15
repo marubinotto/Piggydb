@@ -3,6 +3,15 @@
 <td class="fragments" valign="top">
 <div id="page-fragments">
 	
+## main pane (start)
+#if ($userFragment || $homeFragments.totalSize > 0)
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+    piggydb.widget.SmartLayout.init();
+  });
+//]]>
+</script>
 <div id="page-fragments-main">
 <div id="page-fragments-main-resizable">
 	
@@ -39,6 +48,8 @@
 
 </div>
 </div>
+#end
+## main pane (end)
 
 <div id="page-fragments-sub">
 #fragmentsView("fragmentsByDate" "$context/partial/fragments-by-date.htm#if($date)?date=$date#end" "true")

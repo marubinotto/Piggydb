@@ -1,7 +1,3 @@
-jQuery(function() {
-	piggydb.widget.SmartLayout.init();
-});
-
 (function(module) {
 	
 	var _MIN_HORIZONTAL_WIDTH = 900;
@@ -56,7 +52,8 @@ jQuery(function() {
 		
 		_container.css({
 			"display": "table",
-			"table-layout": "fixed"
+			"table-layout": "fixed",
+			"border-spacing": 0
 		});
 		_container.children("div").css("display", "table-cell");
 		_mainPane.css("border-right", "2px dotted #ccc");
