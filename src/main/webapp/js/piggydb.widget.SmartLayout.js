@@ -4,6 +4,9 @@ jQuery(function() {
 
 (function(module) {
 	
+	var _MIN_HORIZONTAL_WIDTH = 900;
+	var _DEFAULT_MAIN_PANE_WIDTH = 450;
+	
 	var _container = jQuery("#page-fragments");
 	var _mainPane = jQuery("#page-fragments-main");
 	var _mainPaneResizable = jQuery("#page-fragments-main-resizable");
@@ -21,7 +24,7 @@ jQuery(function() {
 	};
 	
 	_object.updateLayout = function() {
-		if (_container.width() < 900) {
+		if (_container.width() < _MIN_HORIZONTAL_WIDTH) {
 			_object.setVerticalLayout();
 		}
 		else {
@@ -49,6 +52,8 @@ jQuery(function() {
 	_object.setHorizontalLayout = function() {
 		if (_object.vertical) _object.vertical = false; else return;
 		
+		var paddingToSplitter = 8;
+		
 		_container.css({
 			"display": "table",
 			"table-layout": "fixed"
@@ -56,17 +61,17 @@ jQuery(function() {
 		_container.children("div").css("display", "table-cell");
 		_mainPane.css("border-right", "2px dotted #ccc");
 		_mainPaneResizable
-			.css("padding-right", 8)
+			.css("padding-right", paddingToSplitter)
 			.resizable({
 				handles: "e",
 				resize: function(event, ui) {
 					var width = ui.element.width();
-					_mainPane.width(width + 8);
+					_mainPane.width(width + paddingToSplitter);
 				}
     	});
-		_subPane.css("padding-left", 8);
+		_subPane.css("padding-left", paddingToSplitter);
 			
-		_mainPane.width(450);
+		_mainPane.width(_DEFAULT_MAIN_PANE_WIDTH);
 	};
 	
 	module.SmartLayout = _object;
