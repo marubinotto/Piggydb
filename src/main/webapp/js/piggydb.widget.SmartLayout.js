@@ -1,7 +1,7 @@
 (function(module) {
 	
-	var _MIN_HORIZONTAL_WIDTH = 900;
-	var _DEFAULT_MAIN_PANE_WIDTH = 450;
+	var _MIN_HORIZONTAL_WIDTH = 950;
+	var _DEFAULT_MAIN_PANE_WIDTH = 500;
 	
 	var _container = jQuery("#page-fragments");
 	var _mainPane = jQuery("#page-fragments-main");
