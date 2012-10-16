@@ -73,6 +73,8 @@
 			.css("padding-right", paddingToSplitter)
 			.resizable({
 				handles: "e",
+				containment: _container,
+				minWidth: 150,
 				resize: function(event, ui) {
 					var width = ui.element.width();
 					_mainPane.width(width + paddingToSplitter);
