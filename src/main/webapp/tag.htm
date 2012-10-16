@@ -158,13 +158,7 @@ $utils.raw($subTagForm.endTag())
 ##
 #if ($fragment)
 ## enable smart layout if the tag-fragment exists
-<script type="text/javascript">
-//<![CDATA[
-  jQuery(function() {
-    piggydb.widget.SmartLayout.init();
-  });
-//]]>
-</script>
+#initSmartLayoutJs()
 <div class="tag-fragment">
 #if ($edit)
 <script type="text/javascript">

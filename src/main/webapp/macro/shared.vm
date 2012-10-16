@@ -200,4 +200,19 @@ $utils.raw($field)
 
 
 
+#macro( initSmartLayoutJs )
+
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(function() {
+		piggydb.widget.SmartLayout.mainPaneWidth = $utils.getWithDefault($session, "state.main-pane-width", "null");
+    piggydb.widget.SmartLayout.init();
+  });
+//]]>
+</script>
+
+#end
+
+
+
 

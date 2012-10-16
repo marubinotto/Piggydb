@@ -5,13 +5,7 @@
 	
 ## main pane (start)
 #if ($userFragment || $homeFragments.totalSize > 0)
-<script type="text/javascript">
-//<![CDATA[
-  jQuery(function() {
-    piggydb.widget.SmartLayout.init();
-  });
-//]]>
-</script>
+#initSmartLayoutJs()
 <div id="page-fragments-main">
 <div id="page-fragments-main-resizable">
 	

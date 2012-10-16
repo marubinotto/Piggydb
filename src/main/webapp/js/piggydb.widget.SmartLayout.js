@@ -2,6 +2,7 @@
 	
 	var _MIN_HORIZONTAL_WIDTH = 950;
 	var _DEFAULT_MAIN_PANE_WIDTH = 500;
+	var _KEY_MAIN_PANE_WIDTH = "state.main-pane-width";
 	
 	var _container = jQuery("#page-fragments");
 	var _mainPane = jQuery("#page-fragments-main");
@@ -11,6 +12,17 @@
 	var _object = {}
 	
 	_object.vertical = true;
+	
+	_object.mainPaneWidth = null;
+	
+	_object.getMainPaneWidth = function() {
+		if (_object.mainPaneWidth) {
+			return _object.mainPaneWidth;
+		}
+		else {
+			return _DEFAULT_MAIN_PANE_WIDTH;
+		}
+	};
 	
 	_object.init = function() {
 		_object.updateLayout();
@@ -63,11 +75,14 @@
 				resize: function(event, ui) {
 					var width = ui.element.width();
 					_mainPane.width(width + paddingToSplitter);
+				},
+				stop: function(event, ui) {
+					piggydb.server.putSessionValue(_KEY_MAIN_PANE_WIDTH, _mainPane.width());
 				}
     	});
 		_subPane.css("padding-left", paddingToSplitter);
 			
-		_mainPane.width(_DEFAULT_MAIN_PANE_WIDTH);
+		_mainPane.width(_object.getMainPaneWidth());
 	};
 	
 	module.SmartLayout = _object;
