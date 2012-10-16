@@ -27,3 +27,6 @@ div.tag-fragment {
 	margin-bottom: 20px;
 }
 
+div.tag-fragment > table.fragment {
+	border: 2px solid #cec;
+}
