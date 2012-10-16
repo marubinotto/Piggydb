@@ -87,7 +87,8 @@
 					_mainPane.width(width + paddingToSplitter);
 				},
 				stop: function(event, ui) {
-					piggydb.server.putSessionValue(_KEY_MAIN_PANE_WIDTH, _mainPane.width());
+					_object.mainPaneWidth = _mainPane.width();
+					piggydb.server.putSessionValue(_KEY_MAIN_PANE_WIDTH, _object.mainPaneWidth);
 				}
     	});
 		_subPane.css("padding-left", paddingToSplitter);
