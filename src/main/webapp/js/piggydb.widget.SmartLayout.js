@@ -52,8 +52,7 @@
 		
 		_container.css({
 			"display": "table",
-			"table-layout": "fixed",
-			"border-spacing": 0
+			"table-layout": "fixed"
 		});
 		_container.children("div").css("display", "table-cell");
 		_mainPane.css("border-right", "2px dotted #ccc");

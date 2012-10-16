@@ -236,9 +236,12 @@ div.ui-tooltip .fragment-title {
 
 #page-fragments {
 	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0px;
 }
 
 #page-fragments-main {
+	margin: 0px;
 	padding: 0px;
 }
 
