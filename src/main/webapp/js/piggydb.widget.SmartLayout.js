@@ -65,12 +65,19 @@
 		
 		_container.css({
 			"display": "table",
-			"table-layout": "fixed"
+			"table-layout": "fixed",
+			"height": "100%"
 		});
 		_container.children("div").css("display", "table-cell");
-		_mainPane.css("border-right", "2px dotted #ccc");
+		_mainPane.css({
+			"height": "100%",
+			"border-right": "2px dotted #ccc"
+		});
 		_mainPaneResizable
-			.css("padding-right", paddingToSplitter)
+			.css({
+				"height": "100%",
+				"padding-right": paddingToSplitter
+			})
 			.resizable({
 				handles: "e",
 				containment: _container,
