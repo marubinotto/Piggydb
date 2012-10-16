@@ -52,6 +52,7 @@
 		_mainPaneResizable.resizable("destroy");
 		_mainPaneResizable.css({
 			"width": "auto",
+			"height": "auto",
 			"padding-right": 0
 		});
 		_subPane.css("padding-left", 0);
