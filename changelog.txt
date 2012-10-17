@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.4 (2012-10-17) == #v6.4
+
+ * Added Smart Layout
+   * Switching automatically between vertical and horizontal view according to the window size
+
 == Changes in version 6.3 (2012-10-01) == #v6.3
 
  * Updated the Fragments View slider to have a new level of zoom: full-fledged
