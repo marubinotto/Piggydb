@@ -21,6 +21,7 @@
 #macro ( fragmentsView $id $fragmentsUrl $sortable )
   
 <div id="$id" class="fragments-view">
+	
 <script type="text/javascript">
 //<![CDATA[
 var fragmentsView_$id;
@@ -35,14 +36,17 @@ jQuery(document).ready(function() {
 });
 //]]>
 </script>
-<div class="fragments-view-label">
+
+<div class="view-header" style="display: none;">
+## label
+<div class="view-label">
 	<span class="label">
-		<span class="title">All</span>: 
+		<span class="title">All</span>:
 		<span class="count">1,000 fragments</span>
 	</span>
 </div>
-<table class="view-control" width="100%" 
-  cellpadding="0" cellspacing="0" border="0" style="display: none;">
+## control
+<table class="view-control" width="100%" cellpadding="0" cellspacing="0" border="0" >
 <tr>
   <td align="left" width="18" nowrap="nowrap">
     <img src="$context/images/zoom.png?$version" border="0" alt="" style="margin: -2px;"/>
@@ -86,7 +90,10 @@ jQuery(document).ready(function() {
   #end
 </tr>
 </table>
+</div>
+
 <div class="view-content"></div>
+
 </div>
 
 #end

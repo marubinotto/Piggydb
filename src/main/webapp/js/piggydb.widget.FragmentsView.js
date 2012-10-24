@@ -16,8 +16,8 @@
 		this.ascending = ascending;
 		this.highlight = null;
 		this.highlighted = false;
+		this.headerDiv = this.rootDiv.find("div.view-header");
 		this.contentDiv = this.rootDiv.find("div.view-content");
-		this.viewControl = this.rootDiv.find(".view-control");
 		this.pageIndex = 0;
 	};
 	
@@ -71,7 +71,7 @@
 	    jQuery.get(this.fragmentsUrl, this.createParameters(), function(html) {
 	      if (jQuery.trim(html) != "") {
 	      	outer.contentDiv.append(html);
-	      	outer.viewControl.show();
+	      	outer.headerDiv.show();
 	        prettyPrint();
 	        if (outer.highlight != null && !outer.highlighted) {
 	        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
