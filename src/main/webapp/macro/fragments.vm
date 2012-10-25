@@ -107,7 +107,8 @@ jQuery(document).ready(function() {
 <script type="text/javascript">
 //<![CDATA[
 jQuery(function() {
-	jQuery("#$view.viewId div.view-label span.count").text('$fragments.totalSize $messages.get("items")');
+	jQuery("#$view.viewId div.view-label span.count").text(
+		'$format.decimal($fragments.totalSize) $messages.get("items")');
 
 #if ($view.viewType == "multicolumn")
   piggydb.widget.Fragment.makeFragmentsDroppable(
