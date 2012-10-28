@@ -17,10 +17,12 @@ public class FragmentsByDate extends AbstractFragments {
 			FragmentsByTime query = (FragmentsByTime)getQuery(FragmentsByTime.class);
 			query.setCriteria(calendarFocus.toInterval(), FragmentField.UPDATE_DATETIME);
 			this.fragments = getPage(query);
+			this.label = this.date; // TODO
 		}
 		else {
 			FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
 			this.fragments = getPage(query);
+			this.label = getMessage("all");
 		}
 	}
 }
