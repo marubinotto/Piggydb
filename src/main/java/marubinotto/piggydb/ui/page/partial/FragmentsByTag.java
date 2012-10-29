@@ -26,5 +26,9 @@ public class FragmentsByTag extends AbstractFragments {
 				marubinotto.piggydb.model.query.FragmentsByFilter.class);
 		query.setFilter(filter);
 		this.fragments = getPage(query);
+		
+		this.label = 
+			"<span class=\"" + this.html.miniTagIconClass(tag.getName()) + "\">&nbsp;</span> " + 
+			tag.getName();
 	}
 }

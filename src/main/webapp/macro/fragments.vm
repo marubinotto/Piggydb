@@ -108,7 +108,7 @@ jQuery(document).ready(function() {
 //<![CDATA[
 jQuery(function() {
 	var label = jQuery("#$view.viewId div.view-label");
-	label.find("span.title").text("$utils.raw($label)");
+	label.find("span.title").html('$utils.raw($label)');
 	label.find("span.count").text('$format.decimal($fragments.totalSize) $messages.get("items")');
 
 #if ($view.viewType == "multicolumn")
