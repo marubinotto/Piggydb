@@ -13,12 +13,20 @@ public class CalendarFocus {
 			public Interval toInterval(DateTime dateTime) {
 				return dateTime.toMonth();
 			}
+			@Override
+			public String format(Interval interval) {
+				return interval.getStartInstant().format("yyyy/MM");
+			}
 		};
 
 		public static final Type DAY = new Type("day") {
 			@Override
 			public Interval toInterval(DateTime dateTime) {
 				return dateTime.toDayInterval();
+			}
+			@Override
+			public String format(Interval interval) {
+				return interval.getStartInstant().format("yyyy/MM/dd");
 			}
 		};
 
@@ -27,12 +35,13 @@ public class CalendarFocus {
 		}
 
 		public abstract Interval toInterval(DateTime dateTime);
+		public abstract String format(Interval interval);
 	}
 
 	private Interval interval;
 	private Type type;
 
-	public CalendarFocus() {
+	private CalendarFocus() {
 	}
 
 	public static final String FORMAT_MONTH = "yyyyMM";
@@ -72,5 +81,10 @@ public class CalendarFocus {
 
 	public Interval toInterval() {
 		return this.interval;
+	}
+	
+	@Override
+	public String toString() {
+		return this.type.format(this.interval);
 	}
 }
