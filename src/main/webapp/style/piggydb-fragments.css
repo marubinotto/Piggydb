@@ -403,7 +403,10 @@ div.children table.children-control button.children-content-toggle {
 }
 
 .fragments-view div.view-label {
+	margin-top: 5px;
 	margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 9pt;
 }
 
 .fragments-view div.view-label span.label {
@@ -418,17 +421,26 @@ div.children table.children-control button.children-content-toggle {
   padding: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  
-  font-weight: normal;
-  font-size: 9pt;
-  
-  line-height: 170%;	
+  vertical-align: middle;
 }
 
 .fragments-view div.view-label span.label span.count {
 	color: #999;
 	font-size: 8pt;
 	margin-left: 5px;
+}
+
+.fragments-view div.view-label span.new-fragment-buttons {
+	margin: 0px;
+	margin-left: 5px;
+	
+	padding: 2px;
+  vertical-align: middle;
+}
+
+.fragments-view div.view-label span.new-fragment-buttons img {
+	vertical-align: middle;
+	margin-top: -3px;
 }
  
 .fragments-view .view-control {

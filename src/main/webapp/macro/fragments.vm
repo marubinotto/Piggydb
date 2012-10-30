@@ -44,6 +44,9 @@ jQuery(document).ready(function() {
 		<span class="title">All</span>:
 		<span class="count"></span>
 	</span>
+	#newFragmentButtons(
+		"piggydb.widget.FragmentForm.openToCreate(); return false;"
+		"piggydb.widget.FileForm.openToAdd(); return false;")
 </div>
 ## control
 <table class="view-control" width="100%" cellpadding="0" cellspacing="0" border="0" >
