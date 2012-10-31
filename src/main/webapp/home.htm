@@ -46,7 +46,12 @@
 ## main pane (end)
 
 <div id="page-fragments-sub">
-#fragmentsView("fragmentsByDate" "$context/partial/fragments-by-date.htm#if($date)?date=$date#end" "true")
+#fragmentsView(
+	"fragmentsByDate" 
+	"$context/partial/fragments-by-date.htm#if($date)?date=$date#end" 
+	"true"
+	"piggydb.widget.FragmentForm.openToCreate(); return false;"
+	"piggydb.widget.FileForm.openToAdd(); return false;")
 </div>
 
 </div>

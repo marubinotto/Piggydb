@@ -202,16 +202,18 @@ $utils.raw($subTagForm.endTag())
   $utils.raw($deleteTrashesForm.startTag())
   $utils.raw($deleteTrashesForm.endTag())
 #else
-  #if (!$user.isViewer() && $tag.authorizes($user))
-		<div class="new-fragment-buttons">
-      #newFragmentButtons(
-  			"piggydb.widget.FragmentForm.openToCreateWithTag(${tag.getId()}); return false;"
-  			"piggydb.widget.FileForm.openToCreateWithTag(${tag.getId()}); return false;")
-		</div>
+	#if (!$user.isViewer() && $tag.authorizes($user))
+  	#set ($jsAddFragment = "piggydb.widget.FragmentForm.openToCreateWithTag(${tag.getId()}); return false;")
+  	#set ($jsAddFile = "piggydb.widget.FileForm.openToCreateWithTag(${tag.getId()}); return false;")
   #end
 #end
 
-#fragmentsView("fragmentsByTag" "$context/partial/fragments-by-tag.htm?id=$tag.id" "true")
+#fragmentsView(
+	"fragmentsByTag" 
+	"$context/partial/fragments-by-tag.htm?id=$tag.id" 
+	"true"
+	$jsAddFragment
+	$jsAddFile)
 </div>
 </div>
 
