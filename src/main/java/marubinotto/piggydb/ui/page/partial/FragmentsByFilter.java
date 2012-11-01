@@ -11,10 +11,18 @@ public class FragmentsByFilter extends AbstractFragments {
 	
 	@Override 
 	protected void setFragments() throws Exception {
-		if (this.id != null)
+		this.label = this.html.filterIconMini();
+		
+		if (this.id != null) {
 			this.filter = getDomain().getFilterRepository().get(this.id);
-		else
+			if (this.filter != null)
+				this.label = this.label + " " + this.filter.getName();
+		}
+		else {
 			this.filter = (Filter)getContext().getSessionAttribute(FilterPage.SK_NEW_FILTER);
+			this.label = this.label + " " + getMessage("FilterPage-new-filter");
+		}
+		
 		if (this.filter == null) return;
 		
 		this.contextTags = this.filter.getClassification();

@@ -220,8 +220,8 @@
         #elseif ($entry.key.type == 2)
           #miniTagIcon($entry.value)
           <a class="tag" href="$resources.tagPath(${entry.key.id})">$entry.value</a>
-        #elseif ($entry.key.type == 3)  
-          <img border="0" src="$context/images/mini-filter.png" style="vertical-align:middle;" alt=""/>
+        #elseif ($entry.key.type == 3)
+					$utils.raw($html.filterIconMini())
           <a class="filter" href="$context/filter.htm?id=${entry.key.id}">$entry.value</a>
         #end
         </td></tr></table>

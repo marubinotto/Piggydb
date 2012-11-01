@@ -1,19 +1,24 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td class="fragments" valign="top">
+	
 #if (!$user.isViewer())
-	<div class="new-fragment-buttons">
-		#if ($filter.getId())
-			#set ($filterId = $filter.getId())
-		#else
-			#set ($filterId = 0)
-		#end
-    #newFragmentButtons(
-			"piggydb.widget.FragmentForm.openToCreateWithFilter($filterId); return false;"
-			"piggydb.widget.FileForm.openToCreateWithFilter($filterId); return false;")
-	</div>
+	#if ($filter.getId())
+		#set ($filterId = $filter.getId())
+	#else
+		#set ($filterId = 0)
+	#end
+	#set ($jsAddFragment = "piggydb.widget.FragmentForm.openToCreateWithFilter($filterId); return false;")
+	#set ($jsAddFile = "piggydb.widget.FileForm.openToCreateWithFilter($filterId); return false;")
 #end
-#fragmentsView("fragmentsByFilter" "$context/partial/fragments-by-filter.htm#if($filter.id)?id=$filter.id#end" "true")
+
+#fragmentsView(
+	"fragmentsByFilter" 
+	"$context/partial/fragments-by-filter.htm#if($filter.id)?id=$filter.id#end" 
+	"true"
+	$jsAddFragment
+	$jsAddFile)
+	
 </td>
   
 <td class="sidebar" align="left" valign="top">
@@ -50,7 +55,7 @@
       </span>
 			
     #else
-      <img border="0" alt="New Filter:" src="$context/images/new-filter.png" style="vertical-align:middle;"/>
+      <img border="0" alt="New Filter:" src="$context/images/new-filter.png" style="vertical-align: middle;"/>
       $messages.get("FilterPage-new-filter")
     #end
     </div>
