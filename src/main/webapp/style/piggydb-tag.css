@@ -30,3 +30,7 @@ div.tag-fragment {
 div.tag-fragment > table.fragment {
 	border: 2px solid #cec;
 }
+
+#page-fragments-main {
+	margin-bottom: 30px;
+}
