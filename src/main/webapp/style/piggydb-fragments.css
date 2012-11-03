@@ -411,14 +411,13 @@ div.children table.children-control button.children-content-toggle {
 
 .fragments-view div.view-label span.label {
   border: 1px solid #ccc;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
+  border-radius: 5px 0px 0px 0px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
   
   background-color: #fafafa;
     
   margin: 0px;
-  padding: 2px;
+  padding: 3px;
   padding-left: 10px;
   padding-right: 10px;
   vertical-align: middle;
