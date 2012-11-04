@@ -852,6 +852,18 @@ ul.liquid-blocks div.liquid-block {
 
 
 /*
+ * Icons
+ */
+
+span.search-icon-mini {
+  background: url(../images/search-mini.png) 0 50% no-repeat;
+  padding-left: 7px;
+  padding-right: 2px;
+}
+
+
+
+/*
  * Others
  */
  

@@ -27,7 +27,7 @@ public class FragmentsByKeywords extends AbstractFragments {
 			this.keywordRegx = "(" + keywordRegx.toString() + ")";
 			
 			// fragments label
-			this.label = "";
+			this.label = "<span class=\"search-icon-mini\">&nbsp;</span> ";
 			for (String keyword : PiggydbUtils.splitToKeywords(this.keywords)) {
 				this.label += "\"" + keyword + "\" ";
 			}
