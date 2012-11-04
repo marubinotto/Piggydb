@@ -65,11 +65,9 @@ public class HtmlFragments {
 	}
 	
 	public String filterIconMini() {
-		return XmlStringBuilder.create("img")	
-		.attribute("src", this.webResources.contextPath() + "/images/mini-filter.png")
-		.attribute("border", "0")
-		.attribute("style", "vertical-align: middle;")
-		.attribute("alt", "Filter")
+		return XmlStringBuilder.create("span")	
+		.attribute("class", "filter-icon-mini")
+		.text("&nbsp;")
 		.toString();
 	}
 	

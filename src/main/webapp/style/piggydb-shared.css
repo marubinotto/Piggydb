@@ -861,6 +861,12 @@ span.search-icon-mini {
   padding-right: 2px;
 }
 
+span.filter-icon-mini {
+  background: url(../images/mini-filter.png) 0 50% no-repeat;
+  padding-left: 7px;
+  padding-right: 2px;
+}
+
 
 
 /*
