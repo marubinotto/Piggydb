@@ -22,3 +22,7 @@ span.highlight {
   margin-right: 5px;
   white-space: nowrap;
 }
+
+div.fragments-view {
+	margin-top: 20px;
+}

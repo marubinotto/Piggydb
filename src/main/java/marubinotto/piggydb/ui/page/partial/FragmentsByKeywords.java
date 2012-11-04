@@ -16,6 +16,7 @@ public class FragmentsByKeywords extends AbstractFragments {
 		this.keywords = modifyIfGarbledByTomcat(this.keywords);
 		
 		if (StringUtils.isNotBlank(this.keywords)) {
+			// regex to match the keyword
 			StringBuilder keywordRegx = new StringBuilder();
 			for (String word : PiggydbUtils.splitToKeywords(this.keywords)) {
 				if (keywordRegx.length() > 0) keywordRegx.append("|");
@@ -24,6 +25,13 @@ public class FragmentsByKeywords extends AbstractFragments {
 				keywordRegx.append(word);
 			}
 			this.keywordRegx = "(" + keywordRegx.toString() + ")";
+			
+			// fragments label
+			this.label = "";
+			for (String keyword : PiggydbUtils.splitToKeywords(this.keywords)) {
+				this.label += "\"" + keyword + "\" ";
+			}
+			this.label.trim();
 		}
 		
 		marubinotto.piggydb.model.query.FragmentsByKeywords query = 

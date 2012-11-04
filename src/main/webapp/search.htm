@@ -26,7 +26,12 @@
 </div>
 #end
 
-#fragmentsView("fragmentsByKeywords" "$context/partial/fragments-by-keywords.htm?keywords=$!utils.urlEncode($keywords)" "true")
+#fragmentsView(
+	"fragmentsByKeywords" 
+	"$context/partial/fragments-by-keywords.htm?keywords=$!utils.urlEncode($keywords)" 
+	"true"
+	$null
+	$null)
 </td>
 
 <td class="sidebar" align="left" valign="top">
