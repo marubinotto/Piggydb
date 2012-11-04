@@ -15,5 +15,9 @@ public class FragmentsByUser extends AbstractFragments {
 				marubinotto.piggydb.model.query.FragmentsByUser.class);
 		query.setUserName(this.name);
 		this.fragments = getPage(query);
+		
+		this.label = 
+			"<span class=\"miniTagIcon miniTagIcon-user\">&nbsp;</span> " + 
+			this.name;
 	}
 }
