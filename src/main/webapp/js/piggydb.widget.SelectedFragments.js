@@ -46,7 +46,7 @@ jQuery(function() {
 	        var message = _messages["confirm-add-tags-to-selected"] +
 	          '<div class="detail">' + 
 	          '<span class="' + domain.miniTagIconClass(tagName) + '">&nbsp;<\/span> ' + escapeHtml(tagName) + 
-	          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+	          '<img class="arrow" src="images/arrow-right.gif" alt="&rarr;"/>' + 
 	          _messages["selected-fragments"] + 
 	          "<\/div>";
 	        piggydb.widget.showConfirmDialog(_messages["add-tag"], message, _messages["add"], function () {
@@ -63,7 +63,7 @@ jQuery(function() {
 	        var message = _messages["confirm-create-relations-to-selected"] +
 	          '<div class="detail">' + 
 	          "<strong>#" + fromId + "<\/strong> " + escapeHtml(fromTitle) + 
-	          '<img class="arrow" src="$context/images/arrow-right.gif" alt="&rarr;"/>' + 
+	          '<img class="arrow" src="images/arrow-right.gif" alt="&rarr;"/>' + 
 	          _messages["selected-fragments"] + 
 	          "<\/div>";
 	        piggydb.widget.showConfirmDialog(_messages["create-relation"], message, _messages["create"], function () {
