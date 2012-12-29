@@ -26,7 +26,7 @@
 //<![CDATA[
 var fragmentsView_$id;
 
-jQuery(document).ready(function() {
+jQuery(function() {
 	fragmentsView_$id = new piggydb.widget.FragmentsView(
 		"$id", "$fragmentsUrl", $fragmentsViewScale, $fragmentsViewOrderBy, $fragmentsViewAscending);
 #if ($highlightedFragment)
