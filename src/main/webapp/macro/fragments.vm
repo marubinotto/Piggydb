@@ -63,7 +63,8 @@ jQuery(function() {
     <table cellpadding="0" cellspacing="0" border="0">
     <tr>
 			<td valign="middle" style="padding-right: 10px;">
-				<a class="tool-button" href="#" title="$messages.get("shuffle")">
+				<a class="tool-button" href="#" title="$messages.get("shuffle")"
+					onclick="fragmentsView_${id}.refresh(null); return false;">
 				<img src="$context/images/shuffle.png" border="0" alt="$messages.get("shuffle")" style="padding: 2px;"/></a>
 			</td>
       <td valign="middle">
