@@ -221,7 +221,7 @@ jQuery(document).ready(function() {
 ##
 ## "Show More" Button
 ##
-#if (!$lastSet)
+#if (!$lastSet && !$shuffle)
 <button type="button" class="show-more" onclick="fragmentsView_${view.viewId}.showMore(this);">
   <img src="$context/images/resultset-next.png" border="0"/>
 </button>
