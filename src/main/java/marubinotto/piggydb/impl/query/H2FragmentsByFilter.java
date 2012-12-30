@@ -1,7 +1,10 @@
 package marubinotto.piggydb.impl.query;
 
+import static marubinotto.util.CollectionUtils.pickRandomly;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -43,8 +46,16 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		List<Long> filteredIds = getFilteredIds(true);	
 		if (filteredIds.isEmpty()) return PageUtils.empty(pageSize);
 		
-		// Get ONLY the fragments in the page, which is why the IDs needs to be sorted
-		Page<Long> pagedIds = PageUtils.getPage(filteredIds, pageSize, pageIndex);
+		Page<Long> pagedIds = null;
+		if (getSortOption().shuffle) {
+			List<Long> picked = pickRandomly(filteredIds, new ArrayList<Long>(), pageSize);
+			pagedIds = new PageImpl<Long>(picked, pageSize, pageIndex, filteredIds.size());
+		}
+		else {
+			// Get ONLY the fragments in the page, which is why the IDs needs to be sorted
+			pagedIds = PageUtils.getPage(filteredIds, pageSize, pageIndex);
+		}
+		
 		return new PageImpl<Fragment>(
 			getByIds(pagedIds), 
 			pagedIds.getPageSize(), 
@@ -123,7 +134,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		}
 		
 		// Order
-		if (sort) appendSortOption(sql, "f.");
+		if (sort && !getSortOption().shuffle) appendSortOption(sql, "f.");
 
 		logger.debug("getFilteredIds: " + sql);
 		return getJdbcTemplate().query(sql.toString(), new RowMapper() {

@@ -3,7 +3,9 @@ package marubinotto.util;
 import static junit.framework.Assert.assertEquals;
 import static marubinotto.util.CollectionUtils.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -46,5 +48,18 @@ public class CollectionUtilsTest {
 		
 		assertEquals("1, 2, 3", 
 			CollectionUtils.joinToString(list(1, 2, 3), ", "));
+	}
+	
+	@Test
+	public void pickRandomly() throws Exception {
+		List<Integer> results = CollectionUtils.pickRandomly(
+			list(1, 2, 3, 4, 5), new ArrayList<Integer>(), 3);
+		System.out.println("pickRandomly1: " + results);
+		assertEquals(3, results.size());
+		
+		results = CollectionUtils.pickRandomly(
+			list(1, 2, 3, 4, 5), new ArrayList<Integer>(), 10);
+		System.out.println("pickRandomly2: " + results);
+		assertEquals(5, results.size());
 	}
 }

@@ -9,7 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ognl.Ognl;
 import ognl.OgnlException;
@@ -87,5 +89,21 @@ public class CollectionUtils {
 			sb.append(object.toString());
 		}
 		return sb.toString();
+	}
+	
+	
+	public static <E> List<E> pickRandomly(List<E> from, List<E> to, int howMany) {
+		Assert.Arg.notNull(from, "from");
+		Assert.Arg.notNull(to, "to");
+		
+		howMany = Math.min(howMany, from.size());
+		TreeSet<Integer> pickedIndexes = new TreeSet<Integer>();
+		Random random = new Random();
+		for (int i = 0; i < howMany; i++) {
+			int picked = Utils.getRandomWithExclusion(random, howMany, pickedIndexes);
+			pickedIndexes.add(picked);
+			to.add(from.get(picked));
+		}
+		return to;
 	}
 }
