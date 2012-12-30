@@ -81,7 +81,7 @@ public class DefaultWikiParserTest {
 		StrBuilder expect = new StrBuilder();
 		expect.appendln(HtmlBlock.Paragraph.OPEN);
 		expect.appendln(
-			"<a href=\"http://marubinotto.net\">http://marubinotto.net</a>" +
+			"<a class=\"url-link\" href=\"http://marubinotto.net\">http://marubinotto.net</a>" +
 			"  <a class=\"img-link\" href=\"http://marubinotto.net/image.png\">" +
 			"<img src=\"http://marubinotto.net/image.png\" alt=\"http://marubinotto.net/image.png\"/></a>");
 		expect.appendln(HtmlBlock.Paragraph.CLOSE);

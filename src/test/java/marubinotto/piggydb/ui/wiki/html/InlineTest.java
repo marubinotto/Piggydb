@@ -24,7 +24,7 @@ public class InlineTest extends HtmlBuilderTestBase {
 		String url = "http://marubinotto.net";
 		String result = this.object.processStandardUrl(this.context, url, false);
 		assertEquals(
-			String.format("<a href=\"%s\">%s</a>", url, url),
+			String.format("<a class=\"url-link\" href=\"%s\">%s</a>", url, url),
 			result);
 	}
 	
