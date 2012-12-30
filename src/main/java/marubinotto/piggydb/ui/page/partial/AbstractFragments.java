@@ -20,6 +20,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 
 	public Integer orderBy;
 	public Boolean ascending;
+	public Boolean shuffle;
 	private FragmentsSortOption sortOption;
 
 	public int pi = 0;
@@ -32,6 +33,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public void onInit() {
 		super.onInit();
 
+		// restore the session values
 		if (this.scale == null) {
 			this.scale = (Integer)ObjectUtils.defaultIfNull(
 				getContext().getSessionAttribute(SK_SCALE), 
@@ -43,7 +45,12 @@ public abstract class AbstractFragments extends AbstractPartial {
 		if (this.ascending == null) {
 			this.ascending = (Boolean)getContext().getSessionAttribute(SK_ASCENDING);
 		}
+		
+		// create a sortOption
 		this.sortOption = new FragmentsSortOption(this.orderBy, this.ascending);
+		if (this.shuffle != null) {
+			this.sortOption.shuffle = this.shuffle;
+		}
 	}
 
 	//

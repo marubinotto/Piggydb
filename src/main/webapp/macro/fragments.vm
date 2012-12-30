@@ -64,7 +64,7 @@ jQuery(function() {
     <tr>
 			<td valign="middle" style="padding-right: 10px;">
 				<a class="tool-button" href="#" title="$messages.get("shuffle")"
-					onclick="fragmentsView_${id}.refresh(null); return false;">
+					onclick="fragmentsView_${id}.shuffle(); return false;">
 				<img src="$context/images/shuffle.png" border="0" alt="$messages.get("shuffle")" style="padding: 2px;"/></a>
 			</td>
       <td valign="middle">

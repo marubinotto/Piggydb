@@ -160,7 +160,9 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	protected void appendSelect(StringBuilder sql) {
 		sql.append("select ");
 		sql.append(getRowMapper().selectAll());
-		if (this.sortOption.orderBy.isString()) {
+		
+		// append a field to sort by a string field with case ignored
+		if (this.sortOption.orderBy.isString() && !this.sortOption.shuffle) {
 			sql.append(", ");
 			sql.append(ignoreCaseForSort(
 				this.sortOption.orderBy.getName(), getRowMapper().getColumnPrefix()));
@@ -172,12 +174,21 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	
 	protected void appendSortOption(StringBuilder sql, String columnPrefix) {
 		sql.append(" order by ");
+		
+		// shuffle
+		if (this.sortOption.shuffle) {
+			sql.append("rand()");
+			return;
+		}
 
+		// sort field: [default] the column name with the prefix
+		//             [string column] the alias name for upper-cased value in the select
 		if (this.sortOption.orderBy.isString())
 			sql.append("ns_" + this.sortOption.orderBy.getName());
 		else
 			sql.append(defaultIfNull(columnPrefix, "") + this.sortOption.orderBy.getName());
 		
+		// asc/desc
 		if (this.sortOption.ascending)
 			sql.append(" nulls last");
 		else

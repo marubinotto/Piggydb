@@ -63,12 +63,17 @@
 	    };
 	  },
 	  
-	  loadFirstSet: function () {
+	  loadFirstSet: function (shuffle) {
 	  	this.pageIndex = 0;
+	  	
+	  	var params = this.createParameters();
+	  	if (shuffle) params.shuffle = true;
+	  	
 	    this.contentDiv.empty();
 	    var loadIcon = this.contentDiv.putLoadingIcon("margin: 5px;");
+	    
 	    var outer = this;
-	    jQuery.get(this.fragmentsUrl, this.createParameters(), function(html) {
+	    jQuery.get(this.fragmentsUrl, params, function(html) {
 	      if (jQuery.trim(html) != "") {
 	      	outer.contentDiv.append(html);
 	      	outer.headerDiv.show();
@@ -93,6 +98,10 @@
 	  		this.highlighted = false;
 	  	}
 	  	this.loadFirstSet();
+	  },
+	  
+	  shuffle: function () {
+	  	this.loadFirstSet(true);
 	  },
 	  
 		showMore: function (button) {

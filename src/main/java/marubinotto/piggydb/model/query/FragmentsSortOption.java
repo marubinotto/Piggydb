@@ -15,6 +15,7 @@ public class FragmentsSortOption implements Serializable {
 	
 	public FragmentField orderBy = FragmentField.UPDATE_DATETIME;
 	public boolean ascending = false;
+	public boolean shuffle = false;
 	
 	public FragmentsSortOption() {
 	}
@@ -40,7 +41,10 @@ public class FragmentsSortOption implements Serializable {
 	
 	public void sort(List<? extends Fragment> fragments) {
 		Assert.Arg.notNull(fragments, "fragments");
-		Collections.sort(fragments, getComparator());
+		if (this.shuffle) 
+			Collections.shuffle(fragments);
+		else
+			Collections.sort(fragments, getComparator());
 	}
 	
 	@SuppressWarnings("rawtypes")
