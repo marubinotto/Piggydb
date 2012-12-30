@@ -1,6 +1,10 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.6 (2012-12-30) == #v6.6
+
+ * Fragment Shuffle in Fragments View
+
 == Changes in version 6.5 (2012-12-15) == #v6.5
 
  * Added a description label with results count to Fragments View
