@@ -84,7 +84,7 @@ public class DefaultTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void homeFragment() throws Exception {
-		Fragment home = this.object.getHome(getOwner());
+		Fragment home = this.object.getHome(false, getOwner());
 		
 		assertNotNull(home);
 		assertEquals(0, home.getId().longValue());

@@ -21,7 +21,7 @@
 #end
 
 ## home fragments
-#if ($homeFragments.totalSize > 0)
+#if ($homeFragments.size() > 0)
 <div class="fragment-group-control">
   #set ($toggleState = $utils.getWithDefault($session, "state.home-toggle", "shown"))
   <script type="text/javascript">
@@ -36,7 +36,9 @@
   #verticalShowHideToggle("home-toggle" $toggleState)
 </div>
 <div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>
-#homeFragments($homeFragments "hpi")
+  #foreach ($fragment in $homeFragments)
+    #fragmentFullFledged($fragment)
+  #end
 </div>
 #end
 

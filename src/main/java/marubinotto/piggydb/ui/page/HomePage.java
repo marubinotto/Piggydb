@@ -1,16 +1,14 @@
 package marubinotto.piggydb.ui.page;
 
+import java.util.List;
 import java.util.Set;
 
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.base.Query;
 import marubinotto.piggydb.model.enums.FragmentField;
-import marubinotto.piggydb.model.query.FragmentsOfHome;
 import marubinotto.piggydb.ui.page.common.AbstractFragmentsPage;
 import marubinotto.piggydb.ui.page.common.PageUrl;
 import marubinotto.piggydb.ui.page.control.CalendarFocus;
 import marubinotto.piggydb.ui.page.control.CalendarIndex;
-import marubinotto.util.paging.Page;
 import marubinotto.util.time.DateTime;
 import marubinotto.util.time.Month;
 import marubinotto.util.time.TimeVisitors;
@@ -26,7 +24,6 @@ public class HomePage extends AbstractFragmentsPage {
 	@Override
 	protected PageUrl createThisPageUrl() {
 		PageUrl pageUrl = super.createThisPageUrl();
-		pageUrl.parameters.put(PN_HOME_PAGE_INDEX, this.hpi);
 		if (this.date != null) {
 			pageUrl.parameters.put(PN_DATE, this.date);
 		}
@@ -38,12 +35,7 @@ public class HomePage extends AbstractFragmentsPage {
 	//
 
 	public static final String PN_DATE = "date";
-	public static final String PN_HOME_PAGE_INDEX = "hpi";
-
 	public String date;
-
-	public int hpi = 0; // Page index for home fragments
-	private int homePageSize = 10;
 
 	//
 	// Control
@@ -62,7 +54,7 @@ public class HomePage extends AbstractFragmentsPage {
 
 	public DateTime today;
 	public String calendarIndex;
-	public Page<Fragment> homeFragments = EMPTY_FRAGMENTS;
+	public List<Fragment> homeFragments = EMPTY_FRAGMENTS;
 	public Fragment userFragment;
 
 	@Override
@@ -97,8 +89,7 @@ public class HomePage extends AbstractFragmentsPage {
 	}
 
 	private void setHomeFragments() throws Exception {
-		Query<Fragment> query = getDomain().getFragmentRepository().getQuery(FragmentsOfHome.class);
-		this.homeFragments = query.getPage(this.homePageSize, this.hpi);
+		this.homeFragments = getDomain().getFragmentRepository().getFragmentsAtHome(getUser());
 	}
 
 	private void setUserFragment() throws Exception {
@@ -114,7 +105,6 @@ public class HomePage extends AbstractFragmentsPage {
 	}
 
 	private void embedCurrentStateInParameters() {
-		addParameterToCommonForms(PN_HOME_PAGE_INDEX, this.hpi);
 		if (this.date != null) {
 			addParameterToCommonForms(PN_DATE, this.date);
 		}

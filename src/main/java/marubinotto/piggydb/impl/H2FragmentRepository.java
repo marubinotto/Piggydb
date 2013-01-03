@@ -35,6 +35,7 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.util.Assert;
+import marubinotto.util.CollectionUtils;
 import marubinotto.util.time.Month;
 
 import org.apache.commons.logging.Log;
@@ -144,7 +145,7 @@ implements RawEntityFactory<RawFragment> {
 			"select count(*) from fragment", Long.class);
 	}
 
-	public Fragment get(long id, boolean fetchingRelations) throws Exception {
+	public Fragment get(long id, boolean fetchRelations) throws Exception {
 		logger.debug("get: " + id);
 		
 		// entity
@@ -157,7 +158,7 @@ implements RawEntityFactory<RawFragment> {
 		refreshClassifications(list(fragment));
 		
 		// relationships
-		if (fetchingRelations) {
+		if (fetchRelations) {
 			setParentsTo(fragment);
 			
 			FragmentList<RawFragment> fragment2 = new FragmentList<RawFragment>(fragment);
@@ -180,6 +181,22 @@ implements RawEntityFactory<RawFragment> {
 		catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+	
+	public List<Fragment> getFragmentsAtHome(User user) throws Exception {
+		Assert.Arg.notNull(user, "user");
+		
+		FragmentList<RawFragment> home = 
+			new FragmentList<RawFragment>((RawFragment)getHome(true, user));
+		
+		FragmentList<RawFragment> children = home.getChildren();
+		if (!children.isEmpty()) {
+			refreshClassifications(children.getFragments());
+			setParentsToEach(children);
+			for (RawFragment child : children) child.checkTwoWayRelations();
+		}
+		
+		return CollectionUtils.<Fragment>covariantCast(children.getFragments());
 	}
 
 	public void updateFragment(Fragment fragment, boolean updateTimestamp) 

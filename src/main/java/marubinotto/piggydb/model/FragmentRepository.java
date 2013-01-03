@@ -27,9 +27,11 @@ public interface FragmentRepository extends Repository<Fragment> {
 	
 	public boolean containsId(Long id) throws Exception;
 	
-	public Fragment get(long id, boolean fetchingRelations) throws Exception;
+	public Fragment get(long id, boolean fetchRelations) throws Exception;
 	
-	public Fragment getHome(User user) throws Exception;
+	public Fragment getHome(boolean fetchRelations, User user) throws Exception;
+	
+	public List<Fragment> getFragmentsAtHome(User user) throws Exception;
 	
 	public void setFileRepository(FileRepository fileRepository);
 	
@@ -94,10 +96,10 @@ public interface FragmentRepository extends Repository<Fragment> {
 		
 		public static final long HOME_ID = 0L;
 		
-		public Fragment getHome(User user) throws Exception {
+		public Fragment getHome(boolean fetchRelations, User user) throws Exception {
 			Assert.Arg.notNull(user, "user");
 			
-			RawFragment home = (RawFragment)get(HOME_ID);
+			RawFragment home = (RawFragment)get(HOME_ID, fetchRelations);
 			if (home == null) {
 				home = newInstance(user);
 				home.setId(HOME_ID);
