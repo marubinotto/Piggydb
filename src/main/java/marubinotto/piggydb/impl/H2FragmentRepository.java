@@ -119,10 +119,10 @@ implements RawEntityFactory<RawFragment> {
 		
 		((RawFragment)fragment).setId(this.fragmentIdIncrementer.nextLongValue());
 		
-		// Tag role
-		updateTagRole((RawFragment)fragment);
+		// Save the tag side
+		saveTagSide((RawFragment)fragment);
 		
-		// Fragment
+		// Insert the fragment
 		FragmentRowMapper.insert((RawFragment)fragment, this.jdbcTemplate);
 		QueryUtils.registerTaggings(
 			fragment, 

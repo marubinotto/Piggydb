@@ -104,7 +104,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 			if (!containsId(fragment.getId())) return false;
 			if (fragment.getUpdateDatetime() == null) throw new BaseDataObsoleteException();
 			
-			updateTagRole((RawFragment)fragment);
+			saveTagSide((RawFragment)fragment);
 			updateFragment(fragment, updateTimestamp);
 			return true;
 		}
@@ -112,7 +112,7 @@ public interface FragmentRepository extends Repository<Fragment> {
 		public abstract void updateFragment(Fragment fragment, boolean updateTimestamp) 
 		throws Exception;
 		
-		protected void updateTagRole(RawFragment fragment) throws Exception {
+		protected void saveTagSide(RawFragment fragment) throws Exception {
 			Assert.Arg.notNull(fragment.getId(), "fragment.getId()");
 			
 			if (fragment.isTag()) {
