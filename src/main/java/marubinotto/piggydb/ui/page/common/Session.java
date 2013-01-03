@@ -197,7 +197,7 @@ public class Session {
 	
 	// Session persistence
 
-	private static final int PERSISTED_SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 1 week
+	private static final int PERSISTED_SESSION_MAX_AGE = 60 * 60 * 24 * 7 * 2; // 2 weeks
 	private static final String COOKIE_NAME_SESSION_ID = "JSESSIONID";
 
 	private void storeSession(HttpSession session) {
