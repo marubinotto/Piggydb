@@ -113,11 +113,11 @@ implements RawEntityFactory<RawFragment> {
 	public long register(Fragment fragment) throws Exception {
 		Assert.Arg.notNull(fragment, "fragment");
 		Assert.require(fragment instanceof RawFragment, "fragment instanceof RawFragment");
-		Assert.require(fragment.getId() == null, "fragment.getId() == null");	
 		Assert.Property.requireNotNull(fragmentIdIncrementer, "fragmentIdIncrementer");
 		Assert.Property.requireNotNull(fileRepository, "fileRepository");
 		
-		((RawFragment)fragment).setId(this.fragmentIdIncrementer.nextLongValue());
+		if (fragment.getId() == null)
+			((RawFragment)fragment).setId(this.fragmentIdIncrementer.nextLongValue());
 		
 		// Save the tag side
 		saveTagSide((RawFragment)fragment);

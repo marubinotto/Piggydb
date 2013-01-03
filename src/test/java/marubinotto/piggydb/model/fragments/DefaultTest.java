@@ -1,9 +1,7 @@
 package marubinotto.piggydb.model.fragments;
 
 import static marubinotto.util.time.DateTime.setCurrentTimeForTest;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.auth.User;
@@ -82,5 +80,14 @@ public class DefaultTest extends FragmentRepositoryTestBase {
 		assertEquals("title", retrieved.getTitle());
 		assertEquals("content", retrieved.getContent());
 		assertEquals(0, retrieved.getClassification().size());
+	}
+	
+	@Test
+	public void homeFragment() throws Exception {
+		Fragment home = this.object.getHome(getOwner());
+		
+		assertNotNull(home);
+		assertEquals(0, home.getId().longValue());
+		assertEquals(1, this.object.size());
 	}
 }
