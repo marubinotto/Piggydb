@@ -296,6 +296,7 @@ implements RawEntityFactory<RawFragment> {
 		sql.append(" from fragment");
 		sql.append(" where extract(YEAR from " + field.getName() + ") = ?");
 		sql.append(" and extract(MONTH from " + field.getName() + ") = ?");
+		appendConditionToExcludeSpecialFragments(sql);
 		appendConditionToExcludeTrash(sql, "fragment.fragment_id");
 
 		return new HashSet<Integer>(
@@ -397,6 +398,10 @@ implements RawEntityFactory<RawFragment> {
 			sql.append(fragmentId);
 		}
 		sql.append(")");
+	}
+	
+	public void appendConditionToExcludeSpecialFragments(StringBuilder sql) {
+		sql.append(" and fragment.fragment_id > 0");
 	}
 	
 	

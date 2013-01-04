@@ -79,4 +79,11 @@ public class FragmentsAllButTrashTest extends FragmentRepositoryTestBase {
 		assertEquals(this.id3, page.get(1).getId().longValue());
 		assertEquals(this.id2, page.get(2).getId().longValue());
 	}
+	
+	@Test
+	public void shouldExcludeHome() throws Exception {
+		this.object.getHome(false, getOwner());
+		Page<Fragment> page = getQuery().getPage(5, 0);
+		assertEquals(3, page.size());
+	}
 }

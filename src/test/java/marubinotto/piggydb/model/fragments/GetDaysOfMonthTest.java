@@ -25,6 +25,7 @@ public class GetDaysOfMonthTest extends FragmentRepositoryTestBase {
 		super.given();
 		
 		// Register
+		
 		setCurrentTimeForTest(2008, 1, 1);
 		long id1 = this.object.register(newFragment());
 		
@@ -33,6 +34,9 @@ public class GetDaysOfMonthTest extends FragmentRepositoryTestBase {
 		
 		setCurrentTimeForTest(2008, 2, 24);
 		long id3 = this.object.register(newFragment());
+		
+		setCurrentTimeForTest(2008, 3, 1);
+		this.object.getHome(false, getOwner());
 		
 		// Update
 		

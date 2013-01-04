@@ -129,10 +129,11 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		
 		StringBuilder fromWhere = new StringBuilder();
 		appendFromWhere(fromWhere, this.sqlArgs);
+		getRepository().appendConditionToExcludeSpecialFragments(fromWhere);
 		this.fromWhere = fromWhere.toString();
 		this.sql.append(" " + this.fromWhere);
 	}
-	
+		
 	public List<Fragment> getAll() throws Exception {
 		buildSelectFromWhere();
 		appendSortOption(this.sql, getRowMapper().getColumnPrefix());
