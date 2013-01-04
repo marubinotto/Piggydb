@@ -4,7 +4,7 @@
 <div id="page-fragments">
 	
 ## main pane (start)
-#if ($userFragment || $homeFragments.totalSize > 0)
+#if ($userFragment || $homeFragments.size() > 0)
 #initSmartLayoutJs()
 <div id="page-fragments-main">
 <div id="page-fragments-main-resizable">
