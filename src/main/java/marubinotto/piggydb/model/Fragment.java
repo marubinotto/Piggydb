@@ -63,6 +63,13 @@ public interface Fragment extends Classifiable, Password {
 	
 	
 	//
+	// Special
+	//
+	
+	public boolean isHome();
+	
+	
+	//
 	// Tagged
 	//
 	

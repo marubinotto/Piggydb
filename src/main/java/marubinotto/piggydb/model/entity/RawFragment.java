@@ -219,6 +219,15 @@ public class RawFragment extends RawClassifiable implements Fragment {
 		buffer.append(")");
 		stack.pop();
 	}
+	
+	
+	//
+	// Special
+	//
+	
+	public boolean isHome() {
+		return getId() != null ? getId().equals(Fragment.ID_HOME) : false;
+	}
 
 	
 	//

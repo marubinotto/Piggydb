@@ -18,20 +18,27 @@
 #macro( fragmentCaption $fragment $useHeadline )
 
 <span class="fragment-caption">
-#if ($fragment.isTag())
-	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
-	#miniTagIcon($fragment.title)
-	<span class="title">$fragment.title</span></a>
+#if ($fragment.isHome())
+  <a href="$resources.homeFragmentPath()">
+  <img class="home-icon" src="$context/style/images/mini-tag-home.png" border="0"
+    title="$messages.get("home")" alt="$messages.get("home")"
+    style="margin-bottom: -2px;"/></a>
 #else
-  $utils.raw($html.linkToFragment($fragment.id))
-	#fileIcon($fragment)
-	<span class="title">
-	#if ($useHeadline)
-    $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
-	#else
-    $utils.blankToNbsp($fragment.title)
-	#end
-	</span>
+  #if ($fragment.isTag())
+  	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
+  	#miniTagIcon($fragment.title)
+  	<span class="title">$fragment.title</span></a>
+  #else
+    $utils.raw($html.linkToFragment($fragment.id))
+  	#fileIcon($fragment)
+  	<span class="title">
+  	#if ($useHeadline)
+      $utils.blankToNbsp($utils.raw($html.fragmentHeadline($fragment)))
+  	#else
+      $utils.blankToNbsp($fragment.title)
+  	#end
+  	</span>
+  #end
 #end
 </span>
 
