@@ -31,8 +31,9 @@
     });
   //]]>
   </script>
+  <a href="$resources.homeFragmentPath()">
   <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
-    title="$messages.get("home")" alt="$messages.get("home")"/>
+    title="$messages.get("home")" alt="$messages.get("home")"/></a>
   #verticalShowHideToggle("home-toggle" $toggleState)
 </div>
 <div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>

@@ -10,6 +10,7 @@ import org.apache.commons.fileupload.FileItem;
 
 public interface Fragment extends Classifiable, Password {
 	
+	public final static long ID_HOME = 0L;
 	public final static int TITLE_MAX_LENGTH = 150;
 	
 	public Fragment copyForUpdate();

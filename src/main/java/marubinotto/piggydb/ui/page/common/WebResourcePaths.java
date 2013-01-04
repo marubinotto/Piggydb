@@ -35,6 +35,10 @@ public class WebResourcePaths {
 		if (versioning) path = path + "?" + this.piggydbVersion;
 		return path;
 	}
+	
+	public String homeFragmentPath() {
+		return this.contextPath + "/fragment.htm";
+	}
 
 	public String fragmentPath(Long id) {
 		return this.contextPath + "/fragment.htm?id=" + id;

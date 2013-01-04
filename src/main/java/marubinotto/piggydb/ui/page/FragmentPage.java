@@ -39,9 +39,10 @@ public class FragmentPage extends AbstractFragmentsPage {
 
 	@Override
 	protected boolean onPreInit() throws Exception {
-		this.fragment = this.id != null ? 
-			getDomain().getFragmentRepository().get(this.id) : null;
+		// display home by default
+		if (this.id == null) this.id = Fragment.ID_HOME;
 		
+		this.fragment = getDomain().getFragmentRepository().get(this.id);
 		if (this.fragment == null && !getContext().isAjaxRequest()) {
 			if (this.id != null)
 				setRedirectWithMessage(HomePage.class, getMessage("no-such-fragment", this.id));

@@ -94,15 +94,14 @@ public interface FragmentRepository extends Repository<Fragment> {
 			return get(id, true);
 		}
 		
-		public static final long HOME_ID = 0L;
 		
 		public Fragment getHome(boolean fetchRelations, User user) throws Exception {
 			Assert.Arg.notNull(user, "user");
 			
-			RawFragment home = (RawFragment)get(HOME_ID, fetchRelations);
+			RawFragment home = (RawFragment)get(Fragment.ID_HOME, fetchRelations);
 			if (home == null) {
 				home = newInstance(user);
-				home.setId(HOME_ID);
+				home.setId(Fragment.ID_HOME);
 				register(home);
 			}
 			return home;
