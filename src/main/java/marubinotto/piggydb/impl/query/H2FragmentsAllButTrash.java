@@ -10,6 +10,7 @@ extends H2FragmentsQueryBase implements FragmentsAllButTrash {
 	protected void appendFromWhere(StringBuilder sql, List<Object> args) 
 	throws Exception {
 		sql.append("from fragment where 0 = 0");
+		getRepository().appendConditionToExcludeSpecialFragments(sql);
 		getRepository().appendConditionToExcludeTrash(sql, "fragment.fragment_id");
 	}
 }

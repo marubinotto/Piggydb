@@ -25,6 +25,7 @@ extends H2FragmentsQueryBase implements FragmentsByTime {
 
 		sql.append("from fragment where");
 		sql.append(" (" + this.field.getName() + " between ? and ?)");
+		getRepository().appendConditionToExcludeSpecialFragments(sql);
 		getRepository().appendConditionToExcludeTrash(sql, "fragment.fragment_id");
 		
 		args.add(this.interval.getStartInstant().toDate());

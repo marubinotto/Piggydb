@@ -31,6 +31,7 @@ public class FragmentsByTimeTest extends FragmentRepositoryTestBase {
 		// Register
 		
 		setCurrentTimeForTest(2008, 1, 1);
+		this.object.getHome(false, getOwner());
 		this.id1  = this.object.register(newFragmentWithTitle("title1"));
 		
 		setCurrentTimeForTest(2008, 1, 2, 10, 0, 0);
