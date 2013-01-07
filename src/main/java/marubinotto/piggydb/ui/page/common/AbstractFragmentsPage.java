@@ -134,7 +134,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
     public HiddenField forward = new HiddenField("forward", String.class);
     public HiddenField backward = new HiddenField("backward", String.class);
   }
-
   public CreateRelationForm createRelationForm = new CreateRelationForm(this, "onCreateRelation");
 
   public final boolean onCreateRelation() throws Exception {
@@ -219,7 +218,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
     public HiddenField fromId = new HiddenField("fromId", Long.class);
   }
-
   public CreateRelationsToSelectedForm createRelationsToSelectedForm = 
     new CreateRelationsToSelectedForm(this, "onCreateRelationsToSelected");
 
@@ -282,7 +280,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
     public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
     public HiddenField tagName = new HiddenField("tagName", String.class);
   }
-
   public RemoveTagForm removeTagForm = new RemoveTagForm(this, "onRemoveTag");
 
   public final boolean onRemoveTag() throws Exception {
@@ -320,7 +317,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
     public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
     public HiddenField tagName = new HiddenField("tagName", String.class);
   }
-
   public AddTagForm addTagForm = new AddTagForm(this, "onAddTag");
 
   public final boolean onAddTag() throws Exception {
@@ -369,7 +365,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
     public HiddenField tagId = new HiddenField("tagId", Long.class);
   }
-
   public AddTagsToSelectedForm addTagsToSelectedForm = new AddTagsToSelectedForm(this, "onAddTagsToSelected");
 
   public final boolean onAddTagsToSelected() throws Exception {
@@ -415,7 +410,6 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
     public HiddenField fragmentId = new HiddenField("fragmentId", Long.class);
   }
-
   public RemoveBookmarkForm removeBookmarkForm = new RemoveBookmarkForm(this, "onRemoveBookmark");
 
   public final boolean onRemoveBookmark() throws Exception {
