@@ -18,20 +18,19 @@ public class PublicFieldForm extends Form {
 
   @Override
   public void onInit() {
-    registerPublicControls();
+    try {
+      registerPublicControls();
+    }
+    catch (Exception e) {
+      throw new UnhandledException(e);
+    }
     super.onInit();
   }
 
-  private void registerPublicControls() {
+  private void registerPublicControls() 
+  throws IllegalArgumentException, IllegalAccessException {
     for (java.lang.reflect.Field publicField : getClass().getFields()) {
-      Object fieldValue = null;
-      try {
-        fieldValue = publicField.get(this);
-      }
-      catch (Exception e) {
-        throw new UnhandledException(e);
-      }
-
+      Object fieldValue = publicField.get(this);
       if (fieldValue == null || !(fieldValue instanceof Field)) {
         continue;
       }
