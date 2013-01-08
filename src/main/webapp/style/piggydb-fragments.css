@@ -29,6 +29,10 @@ span.fragment-caption img.file-icon {
 	margin: 0px 2px;
 }
 
+img.home-icon {
+	margin-bottom: -2px;
+}
+
 
 /*
  * Fragment Tools

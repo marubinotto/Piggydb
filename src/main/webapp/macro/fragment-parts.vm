@@ -21,8 +21,7 @@
 #if ($fragment.isHome())
   <a href="$resources.homeFragmentPath()">
   <img class="home-icon" src="$context/style/images/mini-tag-home.png" border="0"
-    title="$messages.get("home")" alt="$messages.get("home")"
-    style="margin-bottom: -2px;"/></a>
+    title="$messages.get("home")" alt="$messages.get("home")"/></a>
 #else
   #if ($fragment.isTag())
   	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">

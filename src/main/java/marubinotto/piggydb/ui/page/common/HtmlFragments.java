@@ -66,16 +66,31 @@ public class HtmlFragments {
   
   public String filterIconMini() {
     return XmlStringBuilder.create("span")  
-    .attribute("class", "filter-icon-mini")
-    .text("&nbsp;")
-    .toString();
+      .attribute("class", "filter-icon-mini")
+      .text("&nbsp;")
+      .toString();
   }
   
   public String linkToFragment(long fragmentId) {
-    return XmlStringBuilder.create("a")
-      .attribute("href", this.webResources.fragmentPath(fragmentId))
-      .text("#" + fragmentId)
-      .toString();
+    if (fragmentId == Fragment.ID_HOME) {
+      return XmlStringBuilder.create("a")
+        .attribute("href", this.webResources.homeFragmentPath())
+        .element("img")
+          .attribute("class", "home-icon")
+          .attribute("src", this.webResources.contextPath() + "/style/images/mini-tag-home.png")
+        .toString();
+    }
+    else {
+      return XmlStringBuilder.create("a")
+        .attribute("href", this.webResources.fragmentPath(fragmentId))
+        .text("#" + fragmentId)
+        .toString();
+    }
+  }
+  
+  public String linkToFragment(Fragment fragment) {
+    // TODO
+    throw new UnsupportedOperationException();
   }
   
   public String linkToFragmentFileWithSize(Fragment fragment) {
