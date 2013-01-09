@@ -108,11 +108,10 @@
   <img src="$context/style/images/tag-bookmark.png" border="0" alt="$messages.get("bookmark")"/></a>
 #end
 
-#set ($hmTagName = $tagConstants.NAME_HOME)
-#if ($fragment.canAddTag($hmTagName, $user) && !$fragment.classification.isSubordinateOf($hmTagName))
+#if (!$user.isViewer())
   <a class="tool-button" href="#" 
     title="$messages.get("tag-as-home")"
-    onclick="piggydb.command.addTag('$fragment.id', '$tagConstants.NAME_HOME'); return false;">
+    onclick="piggydb.command.putAtHome('$fragment.id'); return false;">
   <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
 #end
   

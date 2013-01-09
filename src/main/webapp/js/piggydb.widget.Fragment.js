@@ -12,6 +12,8 @@ jQuery(function() {
 		this.root = this.node.closest("table.fragment");
 	};
 	
+	_class.ID_HOME = "0";
+	
 	_class.init = function() {
 		prettyPrint();
 		jQuery("table.fragment").live('mouseenter', function() {
@@ -138,7 +140,7 @@ jQuery(function() {
 	};
 	
 	var _toIcon = function(fragmentId) {
-		if (fragmentId == 0)
+		if (fragmentId == _class.ID_HOME)
 			return '<img class="home-icon" src="style/images/mini-tag-home.png" border="0" alt=""/>';
 		else
 			return "#" + fragmentId;

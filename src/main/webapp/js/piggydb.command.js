@@ -42,6 +42,14 @@ piggydb.namespace("piggydb.command", (function() {
     fm.fragmentId.value = fragmentId;
     fm.submit();
   };
+  
+  _commands.putAtHome = function(fragmentId) {
+  	var fm = document.forms['createRelationForm'];
+    fm.fromId.value = piggydb.widget.Fragment.ID_HOME;
+    fm.toId.value = fragmentId;
+    fm.forward.value = "on";
+    fm.submit();
+  };
 	
 	return _commands;
 })());
