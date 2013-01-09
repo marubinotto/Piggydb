@@ -107,14 +107,9 @@ jQuery(function() {
 	        var fromId = ui.draggable.find(".fragment-id").text();
 	        var fromTitle = ui.draggable.find(".fragment-title").text();
 	        var toTitle = jQuery(this).find(".fragment-tools .fragment-title:first").text();
-	        var message = jQuery(jQuery("#tpl-confirm-create-relation").html());
-					message.find(".from-id").text(fromId);
-					message.find(".from-title").text(fromTitle);
-					message.find(".to-id").text(targetId);
-					message.find(".to-title").text(toTitle);
 	        var dialog = piggydb.widget.showConfirmDialog(
 	        	_messages["create-relation"], 
-						message.html(), 
+	        	_createRelationConfirmHtml(fromId, fromTitle, targetId, toTitle), 
 						_messages["create"], 
 						function () {
 							var forward = jQuery(this).find("input.forward")[0].checked;
@@ -131,6 +126,15 @@ jQuery(function() {
 	      }
 	    }
 	  });
+	};
+	
+	var _createRelationConfirmHtml = function(fromId, fromTitle, toId, toTitle) {
+		var html = jQuery(jQuery("#tpl-confirm-create-relation").html());
+		html.find(".from-id").text("#" + fromId);
+		html.find(".from-title").text(fromTitle);
+		html.find(".to-id").text("#" + toId);
+		html.find(".to-title").text(toTitle);
+		return html;
 	};
 	
 	_class.makeRelationsDraggable = function(selectorPrefix) {

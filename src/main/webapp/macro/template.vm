@@ -19,7 +19,7 @@
   	$messages.get("confirm-create-relation")
 		<div class="detail">
 			<div class="from">
-				<strong>#<span class="from-id">&nbsp;</span></strong>
+				<strong><span class="from-id">&nbsp;</span></strong>
 				<span class="from-title">&nbsp;</span>
 			</div>
 			<div class="two-way-relation">
@@ -33,7 +33,7 @@
 				</label>
 			</div>
 			<div class="to">
-				<strong>#<span class="to-id">&nbsp;</span></strong>
+				<strong><span class="to-id">&nbsp;</span></strong>
 				<span class="to-title">&nbsp;</span>
 			</div>
 		</div>
