@@ -75,8 +75,13 @@
   <span class="relation-draggable droppable-to-fragment">
     <span class="add-relation" title="$messages.get("add-relation-by-dnd")">
       <span class="relation-from">
+      #if ($fragment.isHome())
+        <img class="home-icon" src="$context/style/images/mini-tag-home.png" border="0"
+          alt="$messages.get("home")"/></a>
+      #else
         #$fragment.id
         #if ($fragmentHeadline) <span class="fragment-title">$fragmentHeadline</span> #end
+      #end
       </span>
       <img src="$context/images/add-relation.png" border="0" alt=""/>
       <span class="fragment-id" style="display: none;">$fragment.id</span>
