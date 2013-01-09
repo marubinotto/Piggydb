@@ -33,6 +33,10 @@ img.home-icon {
 	margin-bottom: -2px;
 }
 
+div.confirm-create-relation img.home-icon {
+	margin: 2px 5px;
+}
+
 
 /*
  * Fragment Tools

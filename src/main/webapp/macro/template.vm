@@ -17,7 +17,7 @@
 <div id="tpl-confirm-create-relation">
 	<div>
   	$messages.get("confirm-create-relation")
-		<div class="detail">
+		<div class="detail confirm-create-relation">
 			<div class="from">
 				<strong><span class="from-id">&nbsp;</span></strong>
 				<span class="from-title">&nbsp;</span>

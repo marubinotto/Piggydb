@@ -130,12 +130,19 @@ jQuery(function() {
 	
 	var _createRelationConfirmHtml = function(fromId, fromTitle, toId, toTitle) {
 		var html = jQuery(jQuery("#tpl-confirm-create-relation").html());
-		html.find(".from-id").text("#" + fromId);
+		html.find(".from-id").html(_toIcon(fromId));
 		html.find(".from-title").text(fromTitle);
-		html.find(".to-id").text("#" + toId);
+		html.find(".to-id").html(_toIcon(toId));
 		html.find(".to-title").text(toTitle);
 		return html;
 	};
+	
+	var _toIcon = function(fragmentId) {
+		if (fragmentId == 0)
+			return '<img class="home-icon" src="style/images/mini-tag-home.png" border="0" alt=""/>';
+		else
+			return "#" + fragmentId;
+	}
 	
 	_class.makeRelationsDraggable = function(selectorPrefix) {
 	  jQuery(selectorPrefix + ".fragment-tools .relation-draggable").draggable({ 
