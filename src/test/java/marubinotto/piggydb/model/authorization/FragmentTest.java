@@ -38,6 +38,14 @@ public class FragmentTest extends AuthorizationTestBase {
 		assertFalse(this.object.canChange(getViewer()));
 	}
 	
+	@Test
+  public void anyoneCanNotChangeHomeFragment() throws Exception {
+    this.object.setId(Fragment.ID_HOME);
+    assertFalse(this.object.canChange(getOwner()));
+    assertFalse(this.object.canChange(new User("another")));
+    assertFalse(this.object.canChange(getViewer()));
+  }
+	
 	
 	// Can delete
 	
@@ -57,7 +65,7 @@ public class FragmentTest extends AuthorizationTestBase {
 	}
 	
 	@Test
-	public void homeFragmentCanNotBeDeletedEvenByOwner() throws Exception {
+	public void anyoneCanNotDeleteHomeFragment() throws Exception {
 	  this.object.setId(Fragment.ID_HOME);
 	  assertFalse(this.object.canDelete(getOwner()));
 	  assertFalse(this.object.canDelete(new User("another")));
