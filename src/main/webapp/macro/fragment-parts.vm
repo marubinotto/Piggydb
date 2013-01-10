@@ -115,7 +115,7 @@
 
 #if (!$user.isViewer() && !$fragment.isHome())
   <a class="tool-button" href="#" 
-    title="$messages.get("tag-as-home")"
+    title="$messages.get("add-to-home")"
     onclick="piggydb.command.putAtHome('$fragment.id'); return false;">
   <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
 #end
