@@ -301,6 +301,9 @@ public class RawFragment extends RawClassifiable implements Fragment {
   @Override
   public void ensureCanDelete(User user) throws AuthorizationException {
     super.ensureCanDelete(user);
+    if (isHome()) {
+      throwNoAuthToDeleteFragment();
+    }
     if (isUserFragment()) {
       if (!user.isOwner()) throwNoAuthToDeleteFragment();
     }

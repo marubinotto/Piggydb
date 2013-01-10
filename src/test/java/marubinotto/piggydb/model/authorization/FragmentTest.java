@@ -2,6 +2,7 @@ package marubinotto.piggydb.model.authorization;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
@@ -51,9 +52,18 @@ public class FragmentTest extends AuthorizationTestBase {
 	}
 	
 	@Test
-	public void viewerCannotDelete() throws Exception {
+	public void viewerCanNotDelete() throws Exception {
 		assertFalse(this.object.canDelete(getViewer()));
 	}
+	
+	@Test
+	public void homeFragmentCanNotBeDeletedEvenByOwner() throws Exception {
+	  this.object.setId(Fragment.ID_HOME);
+	  assertFalse(this.object.canDelete(getOwner()));
+	  assertFalse(this.object.canDelete(new User("another")));
+	  assertFalse(this.object.canDelete(getViewer()));
+	}
+	
 		
 	
 	// Add #trash tag
