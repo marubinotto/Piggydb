@@ -127,7 +127,7 @@
   <img src="$context/style/images/tag-trash.png" border="0" alt="$messages.get("trash")"/></a>
 #end
 
-#if (!$user.isViewer())
+#if (!$user.isViewer() && !$fragment.isHome())
   <input type="checkbox" class="fragment-checkbox"
     name="fragmentCheckbox" value="$fragment.id"
     onclick="piggydb.widget.SelectedFragments.instance.onFragmentChecked(this, $fragment.id)"
