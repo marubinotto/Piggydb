@@ -473,14 +473,6 @@ span.miniTagIcon-trash {
   background: url(images/mini-tag-trash.png?1) 0 50% no-repeat;
 }
 
-span.tagIcon-home {
-  background: url(images/tag-home.png) 0 50% no-repeat;
-}
-
-span.miniTagIcon-home {
-  background: url(images/mini-tag-home.png) 0 50% no-repeat;
-}
-
 span.tagIcon-bookmark {
   background: url(images/tag-bookmark.png) 0 50% no-repeat;
 }
