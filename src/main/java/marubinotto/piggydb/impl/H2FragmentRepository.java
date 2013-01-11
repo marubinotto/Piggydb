@@ -19,7 +19,6 @@ import marubinotto.piggydb.impl.query.H2FragmentsByIds;
 import marubinotto.piggydb.impl.query.H2FragmentsByKeywords;
 import marubinotto.piggydb.impl.query.H2FragmentsByTime;
 import marubinotto.piggydb.impl.query.H2FragmentsByUser;
-import marubinotto.piggydb.impl.query.H2FragmentsOfHome;
 import marubinotto.piggydb.impl.query.H2FragmentsOfUser;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentList;
@@ -62,7 +61,6 @@ implements RawEntityFactory<RawFragment> {
 		registerQuery(H2FragmentsByUser.class);
 		registerQuery(H2FragmentsByKeywords.class);
 		registerQuery(H2FragmentsByIds.class);
-		registerQuery(H2FragmentsOfHome.class);
 		registerQuery(H2FragmentsOfUser.class);
 		registerQuery(H2FragmentsByFilter.class);
 		registerQuery(H2FragmentsAllButTrash.class);
