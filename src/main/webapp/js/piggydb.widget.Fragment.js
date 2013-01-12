@@ -1,5 +1,8 @@
 jQuery(function() {
   piggydb.widget.Fragment.init();
+  jQuery(".fragment-node th.header-cell").live("click", function(event) {
+  	piggydb.widget.Fragment.onNodeHeaderClick(this, event);
+  });
 });
 
 
@@ -166,6 +169,17 @@ jQuery(function() {
       _class.highlight(newId, null);
       piggydb.widget.ContentToggle.clickContentToggle(newId);
     });
+  };
+  
+  _class.onNodeHeaderClick = function(header, event) {
+  	var clickable = jQuery(event.target).closest("a");
+  	if (clickable.size() > 0) return;
+
+  	var toggle = jQuery(header).find(".fragment-content-toggle a:visible");
+  	if (toggle.size() > 0) {
+  		var fragment = new _class(header);
+  		piggydb.widget.ContentToggle.onContentToggleClick(toggle, fragment.id());
+  	}
   };
   
   _class.prototype = jQuery.extend({
