@@ -688,6 +688,10 @@ table.fragment-node th {
   padding: 5px;
 }
 
+table.fragment-node .header-cell {
+	cursor: pointer;
+}
+
 table.fragment-node .header-cell .fragment-header {
   padding-left: 0px;
   font-size: 12px;
