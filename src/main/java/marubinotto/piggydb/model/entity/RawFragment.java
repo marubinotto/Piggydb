@@ -277,9 +277,6 @@ public class RawFragment extends RawClassifiable implements Fragment {
     if (user.isViewer()) {
       throwNoAuthToChangeFragmentError();
     }
-    if (isHome()) {
-      throwNoAuthToChangeFragmentError();
-    }
     if (isUserFragment()) {
       if (!user.isOwner() && !user.getName().equals(getTitle()))
         throwNoAuthToChangeFragmentError();
@@ -304,6 +301,9 @@ public class RawFragment extends RawClassifiable implements Fragment {
   @Override
   public void ensureCanDelete(User user) throws AuthorizationException {
     super.ensureCanDelete(user);
+    if (isHome()) {
+      throwNoAuthToDeleteFragment();
+    }
     if (isUserFragment()) {
       if (!user.isOwner()) throwNoAuthToDeleteFragment();
     }
