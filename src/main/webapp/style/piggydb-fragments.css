@@ -692,6 +692,11 @@ table.fragment-node .header-cell {
 	cursor: pointer;
 }
 
+table.fragment-node-movable,
+table.fragment-node-movable .header-cell {
+	cursor: move;
+}
+
 table.fragment-node .header-cell .fragment-header {
   padding-left: 0px;
   font-size: 12px;

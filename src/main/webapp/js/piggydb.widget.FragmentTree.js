@@ -66,7 +66,7 @@
         }
       });
       sortableUl.disableSelection();
-      sortableUl.find("table.fragment-root-node").css("cursor", "move");
+      sortableUl.find("table.fragment-root-node").toggleClass("fragment-node-movable", true);
       sortableUl.find(".fragment-root-node .root-header-cell .fragment-header")
         .prepend('<img class="sortable-icon" src="images/sortable.png" border="0" alt=""/>');
     },
@@ -76,7 +76,7 @@
       var sortableUl = container.find("ul.sortable-children");
       sortableUl.sortable("destroy");
       sortableUl.enableSelection();
-      sortableUl.find("table.fragment-root-node").css("cursor", "auto");
+      sortableUl.find("table.fragment-root-node").toggleClass("fragment-node-movable", false);
       sortableUl.find(".fragment-root-node .sortable-icon").remove();
     }    
   };
