@@ -285,6 +285,9 @@ public class RawFragment extends RawClassifiable implements Fragment {
   
   protected void ensureCanChangeTitle(User user) throws AuthorizationException {
     ensureCanChange(user);
+    if (isHome()) {
+      throwNoAuthToChangeFragmentError();
+    }
     if (isUserFragment()) {
       if (!user.isOwner()) throwNoAuthToChangeFragmentError();
     }

@@ -39,6 +39,22 @@ public class FragmentTest extends AuthorizationTestBase {
 	}
 	
 	
+	// Can change title
+	
+	@Test
+	public void canChangeTitle() throws Exception {
+	  assertTrue(this.object.canChangeTitle(getPlainUser()));
+	}
+	
+	@Test
+	public void anyoneCanNotChangeTitleOfHomeFragment() throws Exception {
+	  this.object.setId(Fragment.ID_HOME);
+    assertFalse(this.object.canChangeTitle(getOwner()));
+    assertFalse(this.object.canChangeTitle(new User("another")));
+    assertFalse(this.object.canChangeTitle(getViewer()));
+	}
+	
+	
 	// Can delete
 	
 	@Test
