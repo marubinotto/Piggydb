@@ -1,6 +1,15 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.7 (2013-01-13) == #v6.7
+
+ * Home Fragment
+   * the old #home tag has been replaced with this feature
+   * allows to reorder the fragments at the home
+   * allows to put tag-fragments at the home without any side-effects
+ * Fixed http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/34
+ * Updated the "remember me" feature to store a session for two weeks
+
 == Changes in version 6.6 (2012-12-30) == #v6.6
 
  * Fragment Shuffle in Fragments View
