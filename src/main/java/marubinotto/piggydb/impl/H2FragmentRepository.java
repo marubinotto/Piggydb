@@ -184,10 +184,11 @@ implements RawEntityFactory<RawFragment> {
 	public List<Fragment> getFragmentsAtHome(User user) throws Exception {
 		Assert.Arg.notNull(user, "user");
 		
-		FragmentList<RawFragment> home = 
-			new FragmentList<RawFragment>((RawFragment)getHome(true, user));
+		RawFragment home = (RawFragment)getHome(true, user);
+		if (home == null) return new ArrayList<Fragment>();
 		
-		FragmentList<RawFragment> children = home.getChildren();
+		FragmentList<RawFragment> homeAsList = new FragmentList<RawFragment>(home);
+		FragmentList<RawFragment> children = homeAsList.getChildren();
 		if (!children.isEmpty()) {
 			refreshClassifications(children.getFragments());
 			setParentsToEach(children);

@@ -39,7 +39,6 @@ public class FragmentPage extends AbstractFragmentsPage {
 
 	@Override
 	protected boolean onPreInit() throws Exception {
-		// display home by default
 		if (this.id == null) this.id = Fragment.ID_HOME;
 		
 		this.fragment = getDomain().getFragmentRepository().get(this.id);
