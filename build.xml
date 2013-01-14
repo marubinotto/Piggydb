@@ -301,6 +301,25 @@
     Demo war files ==================================================================
   -->
 	
+	<target name="all-demo-wars">
+		<mkdir dir="${demo-wars.dir}"/>
+		
+    <antcall target="clean"/><antcall target="war-jp"/>
+    <copy file="${build.dir}/ROOT.war" todir="${demo-wars.dir}" overwrite="true"/>
+    
+    <antcall target="clean"/><antcall target="war-sandbox"/>
+    <copy file="${build.dir}/sandbox.war" todir="${demo-wars.dir}" overwrite="true"/>
+      
+    <antcall target="clean"/><antcall target="war-en"/>
+    <copy file="${build.dir}/en.war" todir="${demo-wars.dir}" overwrite="true"/>
+      
+    <antcall target="clean"/><antcall target="war-tt"/>
+    <copy file="${build.dir}/tt.war" todir="${demo-wars.dir}" overwrite="true"/>
+    
+		<antcall target="clean"/><antcall target="war-example"/>
+	  <copy file="${build.dir}/example.war" todir="${demo-wars.dir}" overwrite="true"/>
+	</target>
+	
   <!--
     Prepare demo WAR
   -->
