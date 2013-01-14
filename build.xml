@@ -148,110 +148,6 @@
 
   
   <!--
-    Prepare demo WAR
-  -->
-  <target name="prepare-demo" depends="build-war-dir">
-    <!-- analytics code -->
-    <replace file="${build.war.dir}/border-template.htm">
-      <replacetoken>##TRACKING_CODE</replacetoken>
-      <replacevalue><![CDATA[
-      	<script type="text/javascript">
-      	  var _gaq = _gaq || [];
-      	  _gaq.push(['_setAccount', 'UA-5415340-11']);
-      	  _gaq.push(['_trackPageview']);
-
-      	  (function() {
-      	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      	  })();
-      	</script>
-      ]]></replacevalue>
-    </replace>
-  </target>
-
-  
-  <!--
-    WAR for http://piggydb.jp/
-  -->
-  <target name="war-jp" depends="prepare-demo">
-  	<replace file="${build.war.dir}/border-template.htm">
-      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
-      <replacevalue><![CDATA[
-      	<script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
-      	<script type='text/javascript' charset='utf-8'><!--
-      	tfb.account = 'piggydb_ja';
-      	tfb.label = 'follow-me';
-      	tfb.color = '#00aeef';
-      	tfb.side = 'r';
-      	tfb.top = 250;
-      	tfb.showbadge();
-      	--></script>
-      ]]></replacevalue>
-    </replace>
-  	
-    <antcall target="_enable-anonymous"/>
-    <antcall target="_set-default-scale-to-detail"/>
-    <antcall target="_enable-strict-edit-auth"/>
-    <antcall target="_enable-guest"/>
-
-    <build-war 
-      warfile="${build.dir}/jp-${build.war.file.name}" 
-      wardir="${build.war.dir}"/> 
-  </target>
-
-  
-  <!--
-    WAR for http://piggydb.jp/sandbox
-  -->
-  <target name="war-sandbox" depends="prepare-demo">
-    <antcall target="_enable-guest"/>
-    
-    <build-war 
-      warfile="${build.dir}/sandbox-${build.war.file.name}" 
-      wardir="${build.war.dir}"/> 
-  </target>
-
-  
-  <!--
-    WAR for Piggydb Documents
-  -->
-  <target name="war-en" depends="prepare-demo">
-    <antcall target="_enable-anonymous"/>
-    
-    <build-war 
-      warfile="${build.dir}/en-${build.war.file.name}" 
-      wardir="${build.war.dir}"/>
-  </target>
-  
-	  
-  <!--
-    WAR for Table Tennis Videos
-  -->
-  <target name="war-tt" depends="prepare-demo">
-    <antcall target="_enable-anonymous"/>
-    <antcall target="_set-default-scale-to-detail"/>
-    
-    <build-war 
-      warfile="${build.dir}/tt-${build.war.file.name}" 
-      wardir="${build.war.dir}"/>
-  </target>
-  
-	  
-  <!--
-    WAR for Piggydb Knowledge Example
-  -->
-  <target name="war-example" depends="prepare-demo">
-    <antcall target="_enable-anonymous"/>
-    <antcall target="_set-default-scale-to-detail"/>
-    
-    <build-war 
-      warfile="${build.dir}/example-${build.war.file.name}" 
-      wardir="${build.war.dir}"/>
-  </target>
-  
-  
-  <!--
     All-in-one package
   -->
   <target name="all-in-one" depends="war">
@@ -277,10 +173,9 @@
       basedir="${build.all-in-one.dir}"/>
   </target>
   
-  
 
   <!--
-    Piggydb Standalone Package
+    Piggydb Standalone Package ===========================================================
   -->
   
   <path id="libs-standalone">
@@ -400,5 +295,113 @@
       includes="extensions/**"
   		excludes="**/.*, **/.*/**"/>
 	</target>
+
+	
+  <!--
+    Demo war files ==================================================================
+  -->
+	
+  <!--
+    Prepare demo WAR
+  -->
+  <target name="prepare-demo" depends="build-war-dir">
+    <!-- analytics code -->
+    <replace file="${build.war.dir}/border-template.htm">
+      <replacetoken>##TRACKING_CODE</replacetoken>
+      <replacevalue><![CDATA[
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-5415340-11']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+      ]]></replacevalue>
+    </replace>
+  </target>
+
+  
+  <!--
+    WAR for http://piggydb.jp/
+  -->
+  <target name="war-jp" depends="prepare-demo">
+    <replace file="${build.war.dir}/border-template.htm">
+      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
+      <replacevalue><![CDATA[
+        <script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
+        <script type='text/javascript' charset='utf-8'><!--
+        tfb.account = 'piggydb_ja';
+        tfb.label = 'follow-me';
+        tfb.color = '#00aeef';
+        tfb.side = 'r';
+        tfb.top = 250;
+        tfb.showbadge();
+        --></script>
+      ]]></replacevalue>
+    </replace>
+    
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    <antcall target="_enable-strict-edit-auth"/>
+    <antcall target="_enable-guest"/>
+
+    <build-war 
+      warfile="${build.dir}/ROOT.war" 
+      wardir="${build.war.dir}"/> 
+  </target>
+
+  
+  <!--
+    WAR for http://piggydb.jp/sandbox
+  -->
+  <target name="war-sandbox" depends="prepare-demo">
+    <antcall target="_enable-guest"/>
+    
+    <build-war 
+      warfile="${build.dir}/sandbox.war" 
+      wardir="${build.war.dir}"/> 
+  </target>
+
+  
+  <!--
+    WAR for Piggydb Documents
+  -->
+  <target name="war-en" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    
+    <build-war 
+      warfile="${build.dir}/en.war" 
+      wardir="${build.war.dir}"/>
+  </target>
+  
+    
+  <!--
+    WAR for Table Tennis Videos
+  -->
+  <target name="war-tt" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    
+    <build-war 
+      warfile="${build.dir}/tt.war" 
+      wardir="${build.war.dir}"/>
+  </target>
+  
+    
+  <!--
+    WAR for Piggydb Knowledge Example
+  -->
+  <target name="war-example" depends="prepare-demo">
+    <antcall target="_enable-anonymous"/>
+    <antcall target="_set-default-scale-to-detail"/>
+    
+    <build-war 
+      warfile="${build.dir}/example.war" 
+      wardir="${build.war.dir}"/>
+  </target>
 
 </project>
