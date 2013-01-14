@@ -249,36 +249,6 @@
       warfile="${build.dir}/example-${build.war.file.name}" 
       wardir="${build.war.dir}"/>
   </target>
-
-  
-  <!--
-    WAR for eigobuta
-  -->
-  <target name="war-eigobuta" depends="prepare-demo">
-    <replace file="${build.war.dir}/border-template.htm">
-      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
-      <replacevalue><![CDATA[
-        <script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
-        <script type='text/javascript' charset='utf-8'><!--
-        tfb.account = 'eigobuta';
-        tfb.label = 'follow-me';
-        tfb.color = '#00aeef';
-        tfb.side = 'r';
-        tfb.top = 35;
-        tfb.showbadge();
-        --></script>
-      ]]></replacevalue>
-    </replace>
-
-  	<antcall target="_enable-anonymous"/>
-  	<antcall target="_set-default-scale-to-detail"/>
-    <antcall target="_add-ad-top"/>
-    <antcall target="_add-ad-sidebar-bottom"/>
-    
-    <build-war 
-      warfile="${build.dir}/eigobuta-${build.war.file.name}" 
-      wardir="${build.war.dir}"/>
-  </target>
   
   
   <!--
