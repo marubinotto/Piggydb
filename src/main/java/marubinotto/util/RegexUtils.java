@@ -17,76 +17,76 @@ import org.apache.oro.text.regex.Util;
 
 public class RegexUtils {
 
-	private static PatternCompiler compiler = new Perl5Compiler();
+  private static PatternCompiler compiler = new Perl5Compiler();
 
-	public static Pattern compile(String pattern) {
-		synchronized (RegexUtils.class) {
-			try {
-				return compiler.compile(pattern);
-			}
-			catch (MalformedPatternException e) {
-				throw new UnhandledException(e);
-			}
-		}
-	}
+  public static Pattern compile(String pattern) {
+    synchronized (RegexUtils.class) {
+      try {
+        return compiler.compile(pattern);
+      }
+      catch (MalformedPatternException e) {
+        throw new UnhandledException(e);
+      }
+    }
+  }
 
-	/**
-	 * s/pattern/substitution/ge
-	 */
-	public static String substitute(
-		PatternMatcher matcher, 
-		Pattern pattern, 
-		MatchProcessor processor, 
-		String input) {
-		
-		Assert.Arg.notNull(matcher, "matcher");
-		Assert.Arg.notNull(pattern, "pattern");
-		Assert.Arg.notNull(processor, "processor");
-		Assert.Arg.notNull(input, "input");
+  /**
+   * s/pattern/substitution/ge
+   */
+  public static String substitute(
+    PatternMatcher matcher, 
+    Pattern pattern, 
+    MatchProcessor processor, 
+    String input) {
 
-		Substitution substitution = new MatchProcessorSubstitution(processor);
-		return Util.substitute(matcher, pattern, substitution, input, Util.SUBSTITUTE_ALL);
-	}
+    Assert.Arg.notNull(matcher, "matcher");
+    Assert.Arg.notNull(pattern, "pattern");
+    Assert.Arg.notNull(processor, "processor");
+    Assert.Arg.notNull(input, "input");
 
-	public static interface MatchProcessor {
-		public String process(MatchResult match);
-	}
+    Substitution substitution = new MatchProcessorSubstitution(processor);
+    return Util.substitute(matcher, pattern, substitution, input, Util.SUBSTITUTE_ALL);
+  }
 
-	static class MatchProcessorSubstitution implements Substitution {
-		private MatchProcessor processor;
+  public static interface MatchProcessor {
+    public String process(MatchResult match);
+  }
 
-		public MatchProcessorSubstitution(MatchProcessor processor) {
-			Assert.Arg.notNull(processor, "processor");
-			this.processor = processor;
-		}
+  static class MatchProcessorSubstitution implements Substitution {
+    private MatchProcessor processor;
 
-		public void appendSubstitution(
-			StringBuffer buffer, 
-			MatchResult match, 
-			int substitutionCount, 
-			PatternMatcherInput originalInput,
-			PatternMatcher matcher, 
-			Pattern pattern) {
+    public MatchProcessorSubstitution(MatchProcessor processor) {
+      Assert.Arg.notNull(processor, "processor");
+      this.processor = processor;
+    }
 
-			buffer.append(this.processor.process(match));
-		}
-	}
+    public void appendSubstitution(
+      StringBuffer buffer, 
+      MatchResult match, 
+      int substitutionCount, 
+      PatternMatcherInput originalInput,
+      PatternMatcher matcher, 
+      Pattern pattern) {
 
-	private static final Set<Character> METACHARS = 
-		set('\\', '+', '-', '?', '*', '.', '[', ']', '(', ')', '{', '}', '^', '$', '|');
+      buffer.append(this.processor.process(match));
+    }
+  }
 
-	public static String escapeRegex(String pattern) {
-		if (pattern == null) {
-			return pattern;
-		}
-		StringBuffer escaped = new StringBuffer();
-		for (int i = 0; i < pattern.length(); i++) {
-			char character = pattern.charAt(i);
-			if (METACHARS.contains(character)) {
-				escaped.append("\\");
-			}
-			escaped.append(character);
-		}
-		return escaped.toString();
-	}
+  private static final Set<Character> METACHARS = 
+    set('\\', '+', '-', '?', '*', '.', '[', ']', '(', ')', '{', '}', '^', '$', '|');
+
+  public static String escapeRegex(String pattern) {
+    if (pattern == null) {
+      return pattern;
+    }
+    StringBuffer escaped = new StringBuffer();
+    for (int i = 0; i < pattern.length(); i++) {
+      char character = pattern.charAt(i);
+      if (METACHARS.contains(character)) {
+        escaped.append("\\");
+      }
+      escaped.append(character);
+    }
+    return escaped.toString();
+  }
 }
