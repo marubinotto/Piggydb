@@ -96,12 +96,13 @@ public class H2DbUpgradeTest {
     this.object.renameDatabaseFiles(exportFilePath);
     
     assertEquals(
-      "{piggydb.1.log.db.v1_1," +
-      "piggydb.data.db.v1_1," +
-      "piggydb.dump.xml," +    // must not be targeted
-      "piggydb.index.db.v1_1," +
-      "piggydb.trace.db.v1_1}", 
-      ArrayUtils.toString(this.databaseDir.list()));
+      set(
+        "piggydb.1.log.db.v1_1",
+        "piggydb.data.db.v1_1",
+        "piggydb.dump.xml",
+        "piggydb.index.db.v1_1",
+        "piggydb.trace.db.v1_1"),
+      set(this.databaseDir.list()));
   }
   
   @Test
