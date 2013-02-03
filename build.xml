@@ -83,8 +83,8 @@
       classes="${build.test-classes.dir}"/>
 
     <mkdir dir="${build.test-results.dir}"/>
-    <junit printsummary="yes" haltonfailure="yes" showoutput="on">
-      <formatter type="xml"/>
+    <junit printsummary="yes" haltonfailure="yes">
+    	<formatter type="brief" usefile="false"/>
       <classpath>
         <path refid="classpath-build-test"/>
         <pathelement location="${build.test-classes.dir}"/>
