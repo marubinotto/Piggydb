@@ -1,6 +1,8 @@
 Piggydb
 =======
 
+[![Build Status](https://travis-ci.org/marubinotto/Piggydb.png)](https://travis-ci.org/marubinotto/Piggydb)
+
 Piggydb is a Web notebook application that provides you with a platform 
 to build your knowledge personally or collaboratively. 
 
