@@ -56,7 +56,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 		this.object.createRelation(this.targetId, this.childId, getPlainUser());
 	}
 	
-	private void checkEagerFetching(Fragment target) throws Exception {
+	private void assertEagerFetched(Fragment target) throws Exception {
 		// attributes
 		assertEquals(this.targetId, target.getId());
 		assertEquals("target", target.getTitle());
@@ -79,71 +79,61 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 		assertEquals("child", child.getTitle());
 	}
 	
+	private FragmentsQuery createQuery(Class<? extends FragmentsQuery> queryType) 
+	throws Exception {
+	  FragmentsQuery query = (FragmentsQuery)this.object.getQuery(queryType);
+	  query.setEagerFetching(true);
+	  return query;
+	}
+	
 	@Test
 	public void fragmentsAllButTrash() throws Exception {
-		FragmentsQuery query = (FragmentsQuery)this.object.getQuery(FragmentsAllButTrash.class);
-		query.setEagerFetching(true);
+		FragmentsQuery query = createQuery(FragmentsAllButTrash.class);
 		
-		Fragment target = query.getPage(3, 0).get(0);
-		
-		checkEagerFetching(target);
+		assertEagerFetched(query.getPage(1, 0).get(0));
 	}
 	
 	@Test
 	public void fragmentsByTime() throws Exception {
-		FragmentsByTime query = (FragmentsByTime)this.object.getQuery(FragmentsByTime.class);
+		FragmentsByTime query = (FragmentsByTime)createQuery(FragmentsByTime.class);
 		query.setCriteria(
 			new DateTime(2010, 1, 3).toDayInterval(),
 			FragmentField.CREATION_DATETIME);
-		query.setEagerFetching(true);
 		
-		Fragment target = query.getPage(2, 0).get(0);
-		
-		checkEagerFetching(target);
+		assertEagerFetched(query.getPage(1, 0).get(0));
 	}
 	
 	@Test
 	public void fragmentsByFilter() throws Exception {
-		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
+		FragmentsByFilter query = (FragmentsByFilter)createQuery(FragmentsByFilter.class);
 		query.setFilter(new RawFilter());
-		query.setEagerFetching(true);
-		Fragment target = query.getPage(3, 0).get(0);
 		
-		checkEagerFetching(target);
+		assertEagerFetched(query.getPage(1, 0).get(0));
 	}
 	
 	@Test
 	public void fragmentsByUser() throws Exception {
-		FragmentsByUser query = (FragmentsByUser)this.object.getQuery(FragmentsByUser.class);
+		FragmentsByUser query = (FragmentsByUser)createQuery(FragmentsByUser.class);
 		query.setUserName(getPlainUser().getName());
-		query.setEagerFetching(true);
 		
-		Fragment target = query.getPage(3, 0).get(0);
-		
-		checkEagerFetching(target);
+		assertEagerFetched(query.getPage(1, 0).get(0));
 	}
 	
 	@Test
 	public void fragmentsByKeywords() throws Exception {
 		if (this.object instanceof H2FragmentRepository) {
-			FragmentsByKeywords query = (FragmentsByKeywords)this.object.getQuery(FragmentsByKeywords.class);
+			FragmentsByKeywords query = (FragmentsByKeywords)createQuery(FragmentsByKeywords.class);
 			query.setKeywords("target");
-			query.setEagerFetching(true);
 			
-			Fragment target = query.getPage(3, 0).get(0);
-			
-			checkEagerFetching(target);
+			assertEagerFetched(query.getPage(1, 0).get(0));
 		}
 	}
 	
 	@Test
 	public void fragmentsByIds() throws Exception {
-		FragmentsByIds query = (FragmentsByIds)this.object.getQuery(FragmentsByIds.class);
+		FragmentsByIds query = (FragmentsByIds)createQuery(FragmentsByIds.class);
 		query.setIds(set(this.targetId));
-		query.setEagerFetching(true);
 		
-		Fragment target = query.getAll().get(0);
-		
-		checkEagerFetching(target);
+		assertEagerFetched(query.getAll().get(0));
 	}
 }
