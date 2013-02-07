@@ -187,14 +187,8 @@ implements RawEntityFactory<RawFragment> {
 		RawFragment home = (RawFragment)getHome(true, user);
 		if (home == null) return new ArrayList<Fragment>();
 		
-		FragmentList<RawFragment> homeAsList = new FragmentList<RawFragment>(home);
-		FragmentList<RawFragment> children = homeAsList.getChildren();
-		if (!children.isEmpty()) {
-			refreshClassifications(children.getFragments());
-			setParentsToEach(children);
-			for (RawFragment child : children) child.checkTwoWayRelations();
-		}
-		
+		FragmentList<RawFragment> children = new FragmentList<RawFragment>(home).getChildren();
+		fetchRelations(children.getFragments(), true, true);
 		return CollectionUtils.<Fragment>covariantCast(children.getFragments());
 	}
 
