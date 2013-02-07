@@ -79,9 +79,10 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 		assertEquals("child", child.getTitle());
 	}
 	
-	private FragmentsQuery createQuery(Class<? extends FragmentsQuery> queryType) 
+	@SuppressWarnings("unchecked")
+  private <Q extends FragmentsQuery> Q createQuery(Class<Q> queryType) 
 	throws Exception {
-	  FragmentsQuery query = (FragmentsQuery)this.object.getQuery(queryType);
+	  Q query = (Q)this.object.getQuery(queryType);
 	  query.setEagerFetching(true);
 	  return query;
 	}
@@ -95,7 +96,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void fragmentsByTime() throws Exception {
-		FragmentsByTime query = (FragmentsByTime)createQuery(FragmentsByTime.class);
+		FragmentsByTime query = createQuery(FragmentsByTime.class);
 		query.setCriteria(
 			new DateTime(2010, 1, 3).toDayInterval(),
 			FragmentField.CREATION_DATETIME);
@@ -105,7 +106,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void fragmentsByFilter() throws Exception {
-		FragmentsByFilter query = (FragmentsByFilter)createQuery(FragmentsByFilter.class);
+		FragmentsByFilter query = createQuery(FragmentsByFilter.class);
 		query.setFilter(new RawFilter());
 		
 		assertEagerFetched(query.getPage(1, 0).get(0));
@@ -113,7 +114,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void fragmentsByUser() throws Exception {
-		FragmentsByUser query = (FragmentsByUser)createQuery(FragmentsByUser.class);
+		FragmentsByUser query = createQuery(FragmentsByUser.class);
 		query.setUserName(getPlainUser().getName());
 		
 		assertEagerFetched(query.getPage(1, 0).get(0));
@@ -122,7 +123,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	@Test
 	public void fragmentsByKeywords() throws Exception {
 		if (this.object instanceof H2FragmentRepository) {
-			FragmentsByKeywords query = (FragmentsByKeywords)createQuery(FragmentsByKeywords.class);
+			FragmentsByKeywords query = createQuery(FragmentsByKeywords.class);
 			query.setKeywords("target");
 			
 			assertEagerFetched(query.getPage(1, 0).get(0));
@@ -131,7 +132,7 @@ public class EagerFetchingTest extends FragmentRepositoryTestBase {
 	
 	@Test
 	public void fragmentsByIds() throws Exception {
-		FragmentsByIds query = (FragmentsByIds)createQuery(FragmentsByIds.class);
+		FragmentsByIds query = createQuery(FragmentsByIds.class);
 		query.setIds(set(this.targetId));
 		
 		assertEagerFetched(query.getAll().get(0));
