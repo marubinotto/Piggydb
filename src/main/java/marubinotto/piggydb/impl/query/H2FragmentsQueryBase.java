@@ -13,7 +13,6 @@ import marubinotto.piggydb.impl.H2FragmentRepository;
 import marubinotto.piggydb.impl.QueryUtils;
 import marubinotto.piggydb.impl.mapper.FragmentRowMapper;
 import marubinotto.piggydb.model.Fragment;
-import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.base.Repository;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.query.FragmentsByIds;
@@ -99,20 +98,7 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	}
 
 	private void eagerFetch(List<RawFragment> fragments) throws Exception {
-		if (fragments.isEmpty()) return;
-		
-		if (this.eagerFetching) {
-			getRepository().refreshClassifications(fragments);
-			getRepository().setParentsAndChildrenWithGrandchildrenToEach(fragments);
-			
-			if (this.eagerFetchingMore) {
-				FragmentList<RawFragment> children = 
-					new FragmentList<RawFragment>(fragments).getChildren();
-				getRepository().refreshClassifications(children.getFragments());
-				getRepository().setParentsToEach(children);
-				for (RawFragment child : children) child.checkTwoWayRelations();
-			}
-		}
+	  getRepository().fetchRelations(fragments, this.eagerFetching, this.eagerFetchingMore);
 	}
 	
 	// -----

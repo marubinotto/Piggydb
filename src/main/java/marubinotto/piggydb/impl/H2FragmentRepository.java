@@ -406,6 +406,24 @@ implements RawEntityFactory<RawFragment> {
 	
 // Resolve relations
 	
+	public void fetchRelations(List<RawFragment> fragments, boolean level1, boolean level2) 
+	throws Exception {
+	  if (fragments.isEmpty()) return;
+    
+    if (level1) {
+      refreshClassifications(fragments);
+      setParentsAndChildrenWithGrandchildrenToEach(fragments);
+      
+      if (level2) {
+        FragmentList<RawFragment> children = 
+          new FragmentList<RawFragment>(fragments).getChildren();
+        refreshClassifications(children.getFragments());
+        setParentsToEach(children);
+        for (RawFragment child : children) child.checkTwoWayRelations();
+      }
+    }
+	}
+	
 	private void setParentsTo(RawFragment fragment) throws Exception {
 		List<FragmentRelation> parents = 
 			getParentsForEach(set(fragment.getId())).get(fragment.getId());
