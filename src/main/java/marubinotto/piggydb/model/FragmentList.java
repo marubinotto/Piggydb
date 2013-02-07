@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import marubinotto.util.Assert;
+import marubinotto.util.CollectionUtils;
 
 public class FragmentList<F extends Fragment> implements Iterable<F> {
 	
@@ -61,6 +62,10 @@ public class FragmentList<F extends Fragment> implements Iterable<F> {
 	
 	public List<F> getFragments() {
 		return this.fragments;
+	}
+	
+	public List<Fragment> covariantCast() {
+	  return CollectionUtils.<Fragment>covariantCast(this.fragments);
 	}
 
 	public Iterator<F> iterator() {

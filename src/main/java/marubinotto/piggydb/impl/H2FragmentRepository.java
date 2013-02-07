@@ -189,7 +189,7 @@ implements RawEntityFactory<RawFragment> {
 		
 		FragmentList<RawFragment> children = new FragmentList<RawFragment>(home).getChildren();
 		fetchRelations(children.getFragments(), true, true);
-		return CollectionUtils.<Fragment>covariantCast(children.getFragments());
+		return children.covariantCast();
 	}
 
 	public void updateFragment(Fragment fragment, boolean updateTimestamp) 
