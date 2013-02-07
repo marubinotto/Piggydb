@@ -34,7 +34,6 @@ import marubinotto.piggydb.model.enums.FragmentField;
 import marubinotto.piggydb.model.exception.DuplicateException;
 import marubinotto.piggydb.model.exception.NoSuchEntityException;
 import marubinotto.util.Assert;
-import marubinotto.util.CollectionUtils;
 import marubinotto.util.time.Month;
 
 import org.apache.commons.logging.Log;
@@ -187,7 +186,7 @@ implements RawEntityFactory<RawFragment> {
 		RawFragment home = (RawFragment)getHome(true, user);
 		if (home == null) return new ArrayList<Fragment>();
 		
-		FragmentList<RawFragment> children = new FragmentList<RawFragment>(home).getChildren();
+		FragmentList<RawFragment> children = home.getRawChildren();
 		fetchRelations(children.getFragments(), true, true);
 		return children.covariantCast();
 	}

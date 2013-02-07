@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Stack;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentList;
 import marubinotto.piggydb.model.FragmentRelation;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.TagRepository;
@@ -540,6 +541,10 @@ public class RawFragment extends RawClassifiable implements Fragment {
     for (FragmentRelation childRelation : getChildRelations()) 
       children.add(childRelation.to);
     return children;
+  }
+  
+  public FragmentList<RawFragment> getRawChildren() {
+    return new FragmentList<RawFragment>(this).getChildren();
   }
   
   public void addChild(Fragment fragment) {
