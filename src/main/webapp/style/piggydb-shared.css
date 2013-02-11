@@ -20,20 +20,31 @@ div.sl-container div.sl-pane {
 }
 
 div.sl-container-horizontal {
-	display: table;
-	table-layout: fixed;
 	height: 100%;
 }
 
 div.sl-container-horizontal div.sl-pane {
-	display: table-cell;
 	height: 100%;
 	padding-left: 5px;
 	padding-right: 5px;
+	
+	float: left;
+	width: 450px;
+	
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 div.sl-container-horizontal div.sl-pane div.sl-pane-inner {
-	height: 100%;
+	padding-right: 5px;
+}
+
+#page-content-inner {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 45px;
 }
 
 

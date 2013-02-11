@@ -41,7 +41,7 @@
 		if (!_object.vertical) {
 			_object.vertical = true;
 			_container.toggleClass("sl-container-horizontal", false);
-			// jQuery("body").css("overflow", "auto");
+			jQuery("body").css("overflow", "auto");
 		}
 	};
 	
@@ -49,7 +49,7 @@
 		if (_object.vertical) {
 			_object.vertical = false
 			_container.toggleClass("sl-container-horizontal", true);
-			// jQuery("body").css("overflow", "hidden");
+			jQuery("body").css("overflow", "hidden");
 		}
 	};
 	

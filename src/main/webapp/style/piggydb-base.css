@@ -231,11 +231,13 @@ div.ui-tooltip .fragment-title {
 
 #page-content {
 	position: relative;
+	height: 100%;
 	padding: 10px;
   padding-top: 40px;
 }
 
 #main {
+	height: 100%;
 	margin-right: 255px;
 }
 
@@ -243,7 +245,7 @@ div.ui-tooltip .fragment-title {
   width: 250px;
   
   position: absolute;
-  top: 40px;
+  top: 0;
   right: 10px;
 }
 
