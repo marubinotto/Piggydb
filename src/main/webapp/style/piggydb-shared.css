@@ -4,6 +4,41 @@
  * Styles for the components shared within multiple pages.
  */
 
+/*
+ * Smart Layout
+ */
+
+div.sl-container {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+div.sl-container div.sl-pane {
+  margin: 0;
+  padding: 0;
+}
+
+div.sl-container-horizontal {
+	display: table;
+	table-layout: fixed;
+	height: 100%;
+}
+
+div.sl-container-horizontal div.sl-pane {
+	display: table-cell;
+	height: 100%;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+/*
+div.sl-container-horizontal div.sl-pane div.sl-pane-inner {
+	height: 100%;
+  overflow-y: scroll;
+}
+*/
+
 
 
 /*

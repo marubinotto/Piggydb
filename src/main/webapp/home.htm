@@ -1,61 +1,59 @@
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
 <td class="fragments" valign="top">
-<div id="page-fragments">
+<div class="sl-container">
 	
-## main pane (start)
-#if ($userFragment || $homeFragments.size() > 0)
-#initSmartLayoutJs()
-<div id="page-fragments-main">
-<div id="page-fragments-main-resizable">
-	
-## user fragment
-#if ($userFragment)
-<div class="fragment-group-control">
-  <img class="home-icon" src="$context/style/images/tag-user.png" border="0"
-    title="$messages.get("user-home")" alt="$messages.get("user-home")"/>
-</div>
-<div class="user-fragment">
-	#fragmentFullFledged($userFragment)
-</div>
-#end
-
-## home fragments
-#if ($homeFragments.size() > 0)
-<div class="fragment-group-control">
-  #set ($toggleState = $utils.getWithDefault($session, "state.home-toggle", "shown"))
-  <script type="text/javascript">
-  //<![CDATA[
-    jQuery(function() {
-      new piggydb.widget.ShowHideToggle("home-toggle", jQuery(".home-fragments"));
-    });
-  //]]>
-  </script>
-  <a href="$resources.homeFragmentPath()">
-  <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
-    title="$messages.get("home")" alt="$messages.get("home")"/></a>
-  #verticalShowHideToggle("home-toggle" $toggleState)
-</div>
-<div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>
-  #foreach ($fragment in $homeFragments)
-    #fragmentFullFledged($fragment)
+  #if ($userFragment || $homeFragments.size() > 0)
+  #initSmartLayoutJs()
+  <div class="sl-pane">
+  <div class="sl-pane-inner">
+    ## user fragment
+    #if ($userFragment)
+    <div class="fragment-group-control">
+      <img class="home-icon" src="$context/style/images/tag-user.png" border="0"
+        title="$messages.get("user-home")" alt="$messages.get("user-home")"/>
+    </div>
+    <div class="user-fragment">
+    	#fragmentFullFledged($userFragment)
+    </div>
+    #end
+    
+    ## home fragments
+    #if ($homeFragments.size() > 0)
+    <div class="fragment-group-control">
+      #set ($toggleState = $utils.getWithDefault($session, "state.home-toggle", "shown"))
+      <script type="text/javascript">
+      //<![CDATA[
+        jQuery(function() {
+          new piggydb.widget.ShowHideToggle("home-toggle", jQuery(".home-fragments"));
+        });
+      //]]>
+      </script>
+      <a href="$resources.homeFragmentPath()">
+      <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
+        title="$messages.get("home")" alt="$messages.get("home")"/></a>
+      #verticalShowHideToggle("home-toggle" $toggleState)
+    </div>
+    <div class="home-fragments"#if($toggleState == "hidden") style="display: none;"#end>
+      #foreach ($fragment in $homeFragments)
+        #fragmentFullFledged($fragment)
+      #end
+    </div>
+    #end
+  </div>
+  </div>
   #end
-</div>
-#end
-
-</div>
-</div>
-#end
-## main pane (end)
-
-<div id="page-fragments-sub">
-#fragmentsView(
-	"fragmentsByDate" 
-	"$context/partial/fragments-by-date.htm#if($date)?date=$date#end" 
-	"true"
-	"piggydb.widget.FragmentForm.openToCreate(); return false;"
-	"piggydb.widget.FileForm.openToAdd(); return false;")
-</div>
+  
+  <div class="sl-pane">
+  <div class="sl-pane-inner">
+    #fragmentsView(
+    	"fragmentsByDate" 
+    	"$context/partial/fragments-by-date.htm#if($date)?date=$date#end" 
+    	"true"
+    	"piggydb.widget.FragmentForm.openToCreate(); return false;"
+    	"piggydb.widget.FileForm.openToAdd(); return false;")
+  </div>
+  </div>
 
 </div>
 </td>
