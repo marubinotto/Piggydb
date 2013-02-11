@@ -230,8 +230,21 @@ div.ui-tooltip .fragment-title {
 }
 
 #page-content {
+	position: relative;
 	padding: 10px;
   padding-top: 40px;
+}
+
+#main {
+	margin-right: 255px;
+}
+
+#sidebar {
+  width: 250px;
+  
+  position: absolute;
+  top: 40px;
+  right: 10px;
 }
 
 
@@ -456,6 +469,7 @@ table.sidebar-entry .sidebar-title .sidebar-tools {
 .sidebar div.content-box {
   width: 240px;
 }
+
 
 
 /* Other */
