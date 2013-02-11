@@ -19,11 +19,27 @@ div.sl-container div.sl-pane {
   padding: 0;
 }
 
-div.sl-container-horizontal {
+div.sl-horizontal #page-content-inner {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+}
+
+div.sl-horizontal #sidebar {
+	height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 0;
+  padding-right: 25px;
+}
+
+div.sl-horizontal div.sl-container {
 	height: 100%;
 }
 
-div.sl-container-horizontal div.sl-pane {
+div.sl-horizontal div.sl-pane {
 	height: 100%;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -35,16 +51,8 @@ div.sl-container-horizontal div.sl-pane {
 	overflow-y: scroll;
 }
 
-div.sl-container-horizontal div.sl-pane div.sl-pane-inner {
+div.sl-horizontal div.sl-pane div.sl-pane-inner {
 	padding-right: 5px;
-}
-
-#page-content-inner {
-	position: absolute;
-	top: 40px;
-	left: 0;
-	right: 0;
-	bottom: 45px;
 }
 
 

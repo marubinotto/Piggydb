@@ -242,6 +242,7 @@ div.ui-tooltip .fragment-title {
 }
 
 #sidebar {
+	padding-top: 40px;
   width: 250px;
   
   position: absolute;

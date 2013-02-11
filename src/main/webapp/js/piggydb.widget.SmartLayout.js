@@ -1,25 +1,14 @@
 (function(module) {
 	
 	var _MIN_HORIZONTAL_WIDTH = 950;
-	var _DEFAULT_MAIN_PANE_WIDTH = 500;
 	
+	var _pageContent = jQuery("#page-content");
 	var _container = jQuery("div.sl-container");
 	var _pane = jQuery("div.sl-pane");
 	
 	var _object = {}
 	
 	_object.vertical = true;
-	
-	_object.mainPaneWidth = null;
-	
-	_object.getMainPaneWidth = function() {
-		if (_object.mainPaneWidth) {
-			return _object.mainPaneWidth;
-		}
-		else {
-			return _DEFAULT_MAIN_PANE_WIDTH;
-		}
-	};
 	
 	_object.init = function() {
 		_object.updateLayout();
@@ -40,17 +29,19 @@
 	_object.setVerticalLayout = function() {
 		if (!_object.vertical) {
 			_object.vertical = true;
-			_container.toggleClass("sl-container-horizontal", false);
+			_pageContent.toggleClass("sl-horizontal", false);
 			jQuery("body").css("overflow", "auto");
+			_pane.css("width", "auto");
 		}
 	};
 	
 	_object.setHorizontalLayout = function() {
 		if (_object.vertical) {
 			_object.vertical = false
-			_container.toggleClass("sl-container-horizontal", true);
+			_pageContent.toggleClass("sl-horizontal", true);
 			jQuery("body").css("overflow", "hidden");
 		}
+		_pane.css("width", (_container.width() / 2) - 25);
 	};
 	
 	module.SmartLayout = _object;
