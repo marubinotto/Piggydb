@@ -24,7 +24,7 @@ div.sl-horizontal #page-content-inner {
   top: 40px;
   left: 0;
   right: 0;
-  bottom: 45px;
+  bottom: 48px;
 }
 
 div.sl-horizontal #sidebar {
@@ -49,10 +49,6 @@ div.sl-horizontal div.sl-pane {
 	
 	overflow-x: hidden;
 	overflow-y: scroll;
-}
-
-div.sl-horizontal div.sl-pane div.sl-pane-inner {
-	padding-right: 5px;
 }
 
 

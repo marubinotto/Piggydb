@@ -6,7 +6,6 @@
     #if ($userFragment || $homeFragments.size() > 0)
     #initSmartLayoutJs()
     <div class="sl-pane">
-    <div class="sl-pane-inner">
       ## user fragment
       #if ($userFragment)
       <div class="fragment-group-control">
@@ -41,18 +40,15 @@
       </div>
       #end
     </div>
-    </div>
     #end
     
     <div class="sl-pane">
-    <div class="sl-pane-inner">
       #fragmentsView(
       	"fragmentsByDate" 
       	"$context/partial/fragments-by-date.htm#if($date)?date=$date#end" 
       	"true"
       	"piggydb.widget.FragmentForm.openToCreate(); return false;"
       	"piggydb.widget.FileForm.openToAdd(); return false;")
-    </div>
     </div>
   
   </div>
