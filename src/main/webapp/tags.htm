@@ -1,10 +1,3 @@
-<table cellpadding="0" cellspacing="0" width="100%" border="0">
-<tr>
-<td valign="top">
-
-##
-## Tag View
-##
 #if ($tagCount > 0)
 <table class="section" cellpadding="5" cellspacing="0" width="100%" border="0">
 <tr>
@@ -21,59 +14,52 @@
 </tr>
 <tr>
   <td>
-  
-<script type="text/javascript">
-//<![CDATA[
-  var currentView = "tree";
-  var tagViews;
-  
-  var tagData = {
-    rootTags: function(callback) {
-      piggydb.server.getJSON("get-tags", null, callback);
-    },
+    <script type="text/javascript">
+    //<![CDATA[
+      var currentView = "tree";
+      var tagViews;
+      
+      var tagData = {
+        rootTags: function(callback) {
+          piggydb.server.getJSON("get-tags", null, callback);
+        },
+        
+        children: function(id, callback) {
+          piggydb.server.getJSON("get-tags", {"parent" : id}, callback);
+        },
+        
+        tagsByPopularity: function(callback) {
+          piggydb.server.getJSON("get-popular-tags", null, callback);
+        },
+        
+        allTags: function(pageIndex, callback) {
+          piggydb.server.getJSON("get-all-tags", {"pi" : pageIndex}, callback);
+        }
+      };
+      
+      function switchView(button, name) {
+    		if (!clickSelectSwitch(button)) return;
+        tagViews[name].render();
+        currentView = name;
+      }
     
-    children: function(id, callback) {
-      piggydb.server.getJSON("get-tags", {"parent" : id}, callback);
-    },
-    
-    tagsByPopularity: function(callback) {
-      piggydb.server.getJSON("get-popular-tags", null, callback);
-    },
-    
-    allTags: function(pageIndex, callback) {
-      piggydb.server.getJSON("get-all-tags", {"pi" : pageIndex}, callback);
-    }
-  };
-  
-  function switchView(button, name) {
-		if (!clickSelectSwitch(button)) return;
-    tagViews[name].render();
-    currentView = name;
-  }
-
-  jQuery(document).ready(function() {
-    tagTree = new piggydb.widget.tags.TagTree(jQuery("#tag-view"), tagData);
-    tagCloud = new piggydb.widget.tags.TagCloud(jQuery("#tag-view"), tagData);
-    tagFlat = new piggydb.widget.tags.TagFlat(jQuery("#tag-view"), tagData);
-    tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};    
-    tagViews[currentView].render();
-  });
-//]]>
-</script>
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr><td>
-  <div id="tag-view" style="width: 100%;"></div>
-</td></tr>
-</table>
-
+      jQuery(document).ready(function() {
+        tagTree = new piggydb.widget.tags.TagTree(jQuery("#tag-view"), tagData);
+        tagCloud = new piggydb.widget.tags.TagCloud(jQuery("#tag-view"), tagData);
+        tagFlat = new piggydb.widget.tags.TagFlat(jQuery("#tag-view"), tagData);
+        tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};    
+        tagViews[currentView].render();
+      });
+    //]]>
+    </script>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td>
+      <div id="tag-view" style="width: 100%;"></div>
+    </td></tr>
+    </table>
   </td>
 </tr>
 </table>
 #end
-## End Tag View
 
-</td>
-</tr>
-</table>
-## End Content
 
