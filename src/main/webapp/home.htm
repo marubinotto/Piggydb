@@ -2,7 +2,6 @@
   
 <div id="main">
   <div class="sl-container">
-  	
     #if ($userFragment || $homeFragments.size() > 0)
     #initSmartLayoutJs()
     <div class="sl-pane">
@@ -50,12 +49,10 @@
       	"piggydb.widget.FragmentForm.openToCreate(); return false;"
       	"piggydb.widget.FileForm.openToAdd(); return false;")
     </div>
-  
   </div>
 </div>
 
 <div id="sidebar">
-
   #sidebarEntryHeader("sidebar-calendar" 
   	$messages.get("HomePage-calendar") 
   	"$context/images/date.png" 
@@ -65,7 +62,6 @@
   #sidebarEntryFooter()
   
   #commonSidebarEntries()
-
 </div>
 
 </div>

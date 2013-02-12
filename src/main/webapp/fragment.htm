@@ -1,23 +1,19 @@
-<table cellpadding="0" cellspacing="0" width="100%" border="0">
-<tr>
-<td class="fragments" valign="top">
-#fragmentFullFledged($fragment)
-</td>
+<div id="page-content-inner">
+
+<div id="main">
+  #fragmentFullFledged($fragment)
+</div>
   
-<td class="sidebar" align="left" valign="top">
-#adSidebarTop()
+<div id="sidebar">
+  #sidebarEntryHeader("sidebar-fragment-tags" 
+    $messages.get("FragmentPage-classified-by") 
+  	"$context/style/images/tag.png" 
+  	$null
+  	"")
+  #superTagForm($superTagForm $superTags $fragment.canChangeClassification($user))
+  #sidebarEntryFooter()
+  
+  #commonSidebarEntries() 
+</div>
 
-#sidebarEntryHeader("sidebar-fragment-tags" 
-  $messages.get("FragmentPage-classified-by") 
-	"$context/style/images/tag.png" 
-	$null
-	"")
-#superTagForm($superTagForm $superTags $fragment.canChangeClassification($user))
-#sidebarEntryFooter()
-
-#commonSidebarEntries()
- 
-#adSidebarBottom()
-</td>
-</tr>
-</table>
+</div>
