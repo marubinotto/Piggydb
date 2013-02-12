@@ -1,85 +1,81 @@
-<table cellpadding="0" cellspacing="0" width="100%" border="0">
-<tr>
-<td class="fragments" valign="top">
-
-#fragmentsView(
-	"selectedFragments" 
-	"$context/partial/selected-fragments.htm" 
-	$null
-	$null
-	$null)
-	
-</td>
-
-<td class="sidebar" align="left" valign="top">
-
-##
-## Tag
-##
-#sidebarEntryHeader("sidebar-common-tags" 
-	$messages.get("tag") 
-	"$context/style/images/tag.png" 
-	$null
-	"")
-#superTagForm($tagForm $commonTags "true")
-#sidebarEntryFooter()
-
-##
-## Parent Fragment
-##
-#sidebarEntryHeader("sidebar-common-parents" 
-  $messages.get("FragmentBatchPage-parent") 
-	"$context/style/images/fragment.png" 
-	$null
-	"")
-## Parent Form
-$utils.raw($parentForm.startTag())
-<table class="fields" border="0" cellpadding="0" cellspacing="0"
-  style="margin-top:5px; margin-bottom:5px;">
-#formErrorsRow($parentForm)
-<tr><td>
-  <table border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td nowrap="nowrap">$utils.raw($parentForm.fields.title)</td>
-    <td style="padding-left: 2px;">$utils.raw($parentForm.fields.createParent) </td>
-  </tr>
-  </table>
-</td></tr>
-</table>
-$utils.raw($parentForm.endTag())
-
-## Common Parents
-#if ($commonParents && $commonParents.size() > 0)
-<div class="content-box simple-list sidebar-fragment-list">
-  <ul>
-    #foreach ($fragment in $commonParents)
-    <li class="$html.fragmentHeaderClass(${fragment.id}, $selectedFragments)">
-			#fragmentCaption($fragment true)
-      <a href="#" onclick="removeParent('$fragment.id'); return false;">
-      <img class="delete-button" src="$context/images/delete.gif" border="0" alt="$messages.get("remove")"/></a>
-    </li>
-    #end
-  </ul>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-  function removeParent(parentId) {
-    if (!window.confirm('$messages.get("FragmentBatchPage-confirm-remove-parent"): #' + parentId)) 
-      return false;
+<div id="page-content-inner">
   
-    var fm = document.forms['removeParentForm'];
-    fm.parentToRemove.value = parentId;
-    fm.submit();
-  }
-//]]>
-</script>
-$utils.raw($removeParentForm.startTag())
-$utils.raw($removeParentForm.endTag())
-#end
-#sidebarEntryFooter()
+<div id="main">
+  #fragmentsView(
+  	"selectedFragments" 
+  	"$context/partial/selected-fragments.htm" 
+  	$null
+  	$null
+  	$null)
+</div>
 
-#commonSidebarEntries()
+<div id="sidebar">
+  ##
+  ## Tag
+  ##
+  #sidebarEntryHeader("sidebar-common-tags" 
+  	$messages.get("tag") 
+  	"$context/style/images/tag.png" 
+  	$null
+  	"")
+  #superTagForm($tagForm $commonTags "true")
+  #sidebarEntryFooter()
+  
+  ##
+  ## Parent Fragment
+  ##
+  #sidebarEntryHeader("sidebar-common-parents" 
+    $messages.get("FragmentBatchPage-parent") 
+  	"$context/style/images/fragment.png" 
+  	$null
+  	"")
+  ## Parent Form
+  $utils.raw($parentForm.startTag())
+  <table class="fields" border="0" cellpadding="0" cellspacing="0"
+    style="margin-top:5px; margin-bottom:5px;">
+  #formErrorsRow($parentForm)
+  <tr><td>
+    <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td nowrap="nowrap">$utils.raw($parentForm.fields.title)</td>
+      <td style="padding-left: 2px;">$utils.raw($parentForm.fields.createParent) </td>
+    </tr>
+    </table>
+  </td></tr>
+  </table>
+  $utils.raw($parentForm.endTag())
+  
+  ## Common Parents
+  #if ($commonParents && $commonParents.size() > 0)
+  <div class="content-box simple-list sidebar-fragment-list">
+    <ul>
+      #foreach ($fragment in $commonParents)
+      <li class="$html.fragmentHeaderClass(${fragment.id}, $selectedFragments)">
+  			#fragmentCaption($fragment true)
+        <a href="#" onclick="removeParent('$fragment.id'); return false;">
+        <img class="delete-button" src="$context/images/delete.gif" border="0" alt="$messages.get("remove")"/></a>
+      </li>
+      #end
+    </ul>
+  </div>
+  <script type="text/javascript">
+  //<![CDATA[
+    function removeParent(parentId) {
+      if (!window.confirm('$messages.get("FragmentBatchPage-confirm-remove-parent"): #' + parentId)) 
+        return false;
+    
+      var fm = document.forms['removeParentForm'];
+      fm.parentToRemove.value = parentId;
+      fm.submit();
+    }
+  //]]>
+  </script>
+  $utils.raw($removeParentForm.startTag())
+  $utils.raw($removeParentForm.endTag())
+  #end
+  #sidebarEntryFooter()
+  
+  #commonSidebarEntries()
+</div>
 
-</td>
-</tr>
-</table>
+</div>
