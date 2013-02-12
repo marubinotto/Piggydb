@@ -19,6 +19,10 @@ div.sl-container div.sl-pane {
   padding: 0;
 }
 
+div.sl-horizontal {
+	height: 100%;
+}
+
 div.sl-horizontal #page-content-inner {
   position: absolute;
   top: 40px;
