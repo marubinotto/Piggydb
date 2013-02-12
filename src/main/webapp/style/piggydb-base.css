@@ -463,8 +463,8 @@ table.sidebar-entry .sidebar-title .sidebar-tools {
   right: 0px;
 }
 
-.sidebar div.treestyle,
-.sidebar div.content-box {
+#sidebar div.treestyle,
+#sidebar div.content-box {
   width: 240px;
 }
 
