@@ -6,61 +6,54 @@
 </tr>
 <tr>
   <td>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr><td>
-<div class="content-box simple-list">
-  
-## Database Title
-<h2>$messages.get("SystemInfoPage-database-title")</h2>
-<div class="info-list">
-$utils.raw($databaseTitleForm.startTag())
-  #formErrors($databaseTitleForm)
-  $utils.raw($databaseTitleForm.fields.title)<span style="margin-left: 1px;"
-    >$utils.raw($databaseTitleForm.fields.update)</span>
-$utils.raw($databaseTitleForm.endTag())
-</div>
-
-## Settings
-<h2>$messages.get("SystemInfoPage-settings")</h2>
-<div class="info-list">
-<ul>
-  <li>$messages.get("SystemInfoPage-database-path"): <span class="value">$settings.databasePath</span></li>
-  <li>$messages.get("SystemInfoPage-anonymous-access"): <span class="value">$settings.anonymousAccess</span></li>
-  <li>$messages.get("SystemInfoPage-entity-changeable-only-for-creator"): 
-    <span class="value">$settings.entityChangeableOnlyForCreator</span></li>
-</ul>
-</div>
-
-## Database Statistics
-<h2>$messages.get("SystemInfoPage-database-statistics")</h2>
-<div class="info-list">
-<ul>
-  <li>$messages.get("SystemInfoPage-fragments"): 
-    <span class="value">$format.decimal($databaseStatistics.fragments)</span></li>
-  <li>$messages.get("SystemInfoPage-relations"): 
-    <span class="value">$format.decimal($databaseStatistics.relations)</span></li>
-  <li>$messages.get("SystemInfoPage-tags"): 
-    <span class="value">$format.decimal($databaseStatistics.tags)</span></li>
-  <li>$messages.get("SystemInfoPage-taggings"): 
-    <span class="value">$format.decimal($databaseStatistics.taggings)</span></li>
-  <li>$messages.get("SystemInfoPage-filters"): 
-    <span class="value">$format.decimal($databaseStatistics.filters)</span></li>
-</ul>
-</div>
-
-
-## Debug Info
-<h2>Debug Info</h2>
-<div class="info-list">
-<textarea readonly="readonly" cols="80" rows="10"
-	style="width: 90%;">$debugInfo</textarea>
-</div>
-
-</div>
-</td></tr>
-</table>
-
+    <div class="content-box simple-list">
+      
+      ## Database Title
+      <h2>$messages.get("SystemInfoPage-database-title")</h2>
+      <div class="info-list">
+        $utils.raw($databaseTitleForm.startTag())
+          #formErrors($databaseTitleForm)
+          $utils.raw($databaseTitleForm.fields.title)<span style="margin-left: 1px;"
+            >$utils.raw($databaseTitleForm.fields.update)</span>
+        $utils.raw($databaseTitleForm.endTag())
+      </div>
+      
+      ## Settings
+      <h2>$messages.get("SystemInfoPage-settings")</h2>
+      <div class="info-list">
+        <ul>
+          <li>$messages.get("SystemInfoPage-database-path"): <span class="value">$settings.databasePath</span></li>
+          <li>$messages.get("SystemInfoPage-anonymous-access"): <span class="value">$settings.anonymousAccess</span></li>
+          <li>$messages.get("SystemInfoPage-entity-changeable-only-for-creator"): 
+            <span class="value">$settings.entityChangeableOnlyForCreator</span></li>
+        </ul>
+      </div>
+      
+      ## Database Statistics
+      <h2>$messages.get("SystemInfoPage-database-statistics")</h2>
+      <div class="info-list">
+        <ul>
+          <li>$messages.get("SystemInfoPage-fragments"): 
+            <span class="value">$format.decimal($databaseStatistics.fragments)</span></li>
+          <li>$messages.get("SystemInfoPage-relations"): 
+            <span class="value">$format.decimal($databaseStatistics.relations)</span></li>
+          <li>$messages.get("SystemInfoPage-tags"): 
+            <span class="value">$format.decimal($databaseStatistics.tags)</span></li>
+          <li>$messages.get("SystemInfoPage-taggings"): 
+            <span class="value">$format.decimal($databaseStatistics.taggings)</span></li>
+          <li>$messages.get("SystemInfoPage-filters"): 
+            <span class="value">$format.decimal($databaseStatistics.filters)</span></li>
+        </ul>
+      </div>
+      
+      ## Debug Info
+      <h2>Debug Info</h2>
+      <div class="info-list">
+        <textarea readonly="readonly" cols="80" rows="10"
+        	style="width: 90%;">$debugInfo</textarea>
+      </div>
+    
+    </div>
   </td>
 </tr>
 </table>
