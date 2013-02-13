@@ -1,7 +1,20 @@
 <div id="page-content-inner">
 
 <div id="main">
-  #fragmentFullFledged($fragment)
+  #initSmartLayoutJs()
+  <div class="sl-container">
+    <div class="sl-pane" style="margin-bottom: 30px;">
+      #fragmentFullFledged($fragment)
+    </div>
+    <div class="sl-pane">
+      #fragmentsView(
+        "fragmentsByDate" 
+        "$context/partial/fragments-by-date.htm" 
+        "true"
+        "piggydb.widget.FragmentForm.openToCreate(); return false;"
+        "piggydb.widget.FileForm.openToAdd(); return false;")
+    </div>
+  </div>
 </div>
   
 <div id="sidebar">
