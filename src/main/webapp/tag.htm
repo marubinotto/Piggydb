@@ -1,6 +1,7 @@
 <div id="page-content-inner">
 
 <div id="main">
+  #initSmartLayoutJs()
   <div class="sl-container">
     <div class="sl-pane">   
       ##
@@ -153,17 +154,15 @@
       ## Tag-Fragment
       ##
       #if ($fragment)
-        ## enable smart layout if the tag-fragment exists
-        #initSmartLayoutJs()
         <div class="tag-fragment">
         #if ($edit)
-        <script type="text/javascript">
-        //<![CDATA[
-          jQuery(function() { 
-        		jQuery("div.tag-fragment a.edit-fragment:first").click();
-        	});
-        //]]>
-        </script>
+          <script type="text/javascript">
+          //<![CDATA[
+            jQuery(function() { 
+          		jQuery("div.tag-fragment a.edit-fragment:first").click();
+          	});
+          //]]>
+          </script>
         #end
         #fragmentFullFledged($fragment)
         </div>
