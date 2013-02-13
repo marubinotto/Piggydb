@@ -1,22 +1,31 @@
 <div id="page-content-inner">
   
 <div id="main">
-  #if ($userFragment)
-    <div class="fragment-group-control">
-      <img class="home-icon" src="$context/style/images/tag-user.png" border="0"
-        title="$messages.get("user-home")" alt="$messages.get("user-home")"/>
+  <div class="sl-container">
+    #if ($userFragment)
+      #initSmartLayoutJs()
+      <div class="sl-pane" style="margin-bottom: 35px;">
+        <div id="main-user-fragment">
+          <div class="fragment-group-control" style="height: 18px;">
+            <img class="home-icon" src="$context/style/images/tag-user.png" border="0"
+              title="$messages.get("user-home")" alt="$messages.get("user-home")"/>
+          </div>
+          <div class="user-fragment" style="margin-bottom: 25px;">
+            #fragment($userFragment $null)
+          </div>
+        </div>
+      </div>
+    #end
+    
+    <div class="sl-pane">
+      #fragmentsView(
+      	"fragmentsByUser" 
+      	"$context/partial/fragments-by-user.htm?name=$!utils.urlEncode($name)" 
+      	"true"
+      	$null
+      	$null)
     </div>
-    <div class="user-fragment" style="margin-bottom: 25px;">
-    #fragment($userFragment $null)
-    </div>
-  #end
-  
-  #fragmentsView(
-  	"fragmentsByUser" 
-  	"$context/partial/fragments-by-user.htm?name=$!utils.urlEncode($name)" 
-  	"true"
-  	$null
-  	$null)
+  </div>
 </div>
   
 <div id="sidebar">
