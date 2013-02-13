@@ -1,40 +1,34 @@
-<table cellpadding="0" cellspacing="0" width="100%" border="0">
-<tr>
-<td class="fragments" valign="top">
-
-<form id="largeSearch" name="largeSearch" action="$context/search.htm" method="get">
-<input id="largeSearch_keywords" type="text" name="keywords" value="$keywords"
-	/><button id="largeSearch-submit" type="submit" title="$messages.get("search")">
-		<img src="$context/images/search.png" border="0" alt="$messages.get("search")"/>
-	</button>
-</form>
-
-#if ($tags.totalSize > 0)
-<div class="content-box tags-by-keywords">
-#foreach ($tag in $tags)
-  <span class="tag">
-    #tagIcon($tag.name)
-    <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
-  </span>
-#end
+<div id="page-content-inner">
+  
+<div id="main">
+  <form id="largeSearch" name="largeSearch" action="$context/search.htm" method="get">
+  <input id="largeSearch_keywords" type="text" name="keywords" value="$keywords"
+  	/><button id="largeSearch-submit" type="submit" title="$messages.get("search")">
+  		<img src="$context/images/search.png" border="0" alt="$messages.get("search")"/>
+  	</button>
+  </form>
+  
+  #if ($tags.totalSize > 0)
+    <div class="content-box tags-by-keywords">
+    #foreach ($tag in $tags)
+      <span class="tag">
+        #tagIcon($tag.name)
+        <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
+      </span>
+    #end
+    </div>
+  #end
+  
+  #fragmentsView(
+  	"fragmentsByKeywords" 
+  	"$context/partial/fragments-by-keywords.htm?keywords=$!utils.urlEncode($keywords)" 
+  	"true"
+  	$null
+  	$null)
 </div>
-#end
 
-#fragmentsView(
-	"fragmentsByKeywords" 
-	"$context/partial/fragments-by-keywords.htm?keywords=$!utils.urlEncode($keywords)" 
-	"true"
-	$null
-	$null)
+<div id="sidebar">
+  #commonSidebarEntries()
+</div>
 
-</td>
-
-<td class="sidebar" align="left" valign="top">
-#adSidebarTop()
-
-#commonSidebarEntries()
-
-#adSidebarBottom()
-</td>
-</tr>
-</table>
+</div>
