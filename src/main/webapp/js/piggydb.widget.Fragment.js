@@ -172,7 +172,7 @@ jQuery(function() {
   };
   
   _class.onNodeHeaderClick = function(header, event) {
-  	var clickable = jQuery(event.target).closest("a");
+  	var clickable = jQuery(event.target).closest("a,:input");
   	if (clickable.size() > 0) return;
 
   	var toggle = jQuery(header).find(".fragment-content-toggle a:visible");
