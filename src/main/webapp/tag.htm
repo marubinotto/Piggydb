@@ -154,17 +154,17 @@
       ## Tag-Fragment
       ##
       #if ($fragment)
-        <div class="tag-fragment">
-        #if ($edit)
-          <script type="text/javascript">
-          //<![CDATA[
-            jQuery(function() { 
-          		jQuery("div.tag-fragment a.edit-fragment:first").click();
-          	});
-          //]]>
-          </script>
-        #end
-        #fragmentFullFledged($fragment)
+        <div class="tag-fragment" style="margin-bottom: 35px;">
+          #if ($edit)
+            <script type="text/javascript">
+            //<![CDATA[
+              jQuery(function() { 
+            		jQuery("div.tag-fragment a.edit-fragment:first").click();
+            	});
+            //]]>
+            </script>
+          #end
+          #fragmentFullFledged($fragment)
         </div>
       #end
       
