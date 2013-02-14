@@ -1,6 +1,14 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.8 (2013-02-14) == #v6.8
+
+ * Improved horizontal view of Smart Layout
+   * each column has its own scroll bar
+ * Fixed fetching of home sub-fragment relations (to be more eager)
+ * Fixed http://piggydb.lighthouseapp.com/projects/61149-piggydb/tickets/42 
+ * Updated the js to keep from toggling the content when clicking on the selection checkbox
+
 == Changes in version 6.7 (2013-01-13) == #v6.7
 
  * Home Fragment
