@@ -29,13 +29,12 @@
   </ul>
 </div>
 
+#set ($emptyTitle = $utils.raw("&nbsp;&nbsp;&nbsp;"))
 #foreach ($childRel in $fragment.getChildRelations($publicOnly))
 <div class="section">
   <h2 id="r${childRel.id}">
-    <a class="title-link" href="#r${childRel.id}">$childRel.to.title</a>
-    <a title="Link to this fragment" class="anchor" 
-      href="$context/document-view.htm?id=$childRel.to.id">
-    <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
+    <a class="title-link" href="$context/document-view.htm?id=$childRel.to.id">
+      $utils.defaultIfNull($childRel.to.title, $emptyTitle)</a>
   </h2> 
 
   #fragmentContentForDoc($childRel.to)
@@ -43,16 +42,12 @@
   #foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
   <div class="subsection">
     <h3 id="r${grandchildRel.id}">
-      <a class="title-link" href="#r${grandchildRel.id}">$grandchildRel.to.title</a>
-      #if ($grandchildRel.to.hasChildren($publicOnly)) 
-        <a title="Link to this fragment" class="anchor has-children" 
-          href="$context/document-view.htm?id=$grandchildRel.to.id">
-        <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/></a>
-      #else
-        <a title="Link to this fragment" class="anchor" 
-          href="$context/document-view.htm?id=$grandchildRel.to.id">
-        <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
-      #end
+      <a class="title-link" href="$context/document-view.htm?id=$grandchildRel.to.id">
+        $utils.defaultIfNull($grandchildRel.to.title, $emptyTitle)
+        #if ($grandchildRel.to.hasChildren($publicOnly)) 
+          <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/>
+        #end
+      </a>
     </h3> 
 
   #fragmentContentForDoc($grandchildRel.to)

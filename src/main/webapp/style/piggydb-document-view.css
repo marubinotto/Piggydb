@@ -108,9 +108,6 @@ h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
 .arrow-button {
   vertical-align: bottom;
 }
-img.arrow-button:hover {
-  background-color: #656f71;
-}
 
 div.toc {
 	margin-left: 10px;
@@ -120,6 +117,10 @@ div.toc {
 
 span.fragment-headline {
 	font-style: italic;
+}
+
+div.subsection {
+	margin-left: 10px;
 }
 
 
