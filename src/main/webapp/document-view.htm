@@ -16,37 +16,47 @@
 
 #fragmentContentForDoc($fragment)
 
+<div class="toc">
+  <ul>
+  #foreach ($childRel in $fragment.getChildRelations($publicOnly))
+    <li>
+      <a href="#r${childRel.id}">$childRel.to.title</a>
+    </li>
+  #end
+  </ul>
+</div>
+
 #foreach ($childRel in $fragment.getChildRelations($publicOnly))
 <div class="section">
-#if ($childRel.to.title) 
-  <h2 id="r${childRel.id}">
-    <a class="title-link" href="#r${childRel.id}">$childRel.to.title</a>
-    <a title="Link to this fragment" class="anchor" 
-      href="$context/document-view.htm?id=$childRel.to.id">
-    <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
-  </h2> 
-#end
-#fragmentContentForDoc($childRel.to)
-
-#foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
-<div class="subsection">
-#if ($grandchildRel.to.title) 
-  <h3 id="r${grandchildRel.id}">
-    <a class="title-link" href="#r${grandchildRel.id}">$grandchildRel.to.title</a>
-    #if ($grandchildRel.to.hasChildren($publicOnly)) 
-      <a title="Link to this fragment" class="anchor has-children" 
-        href="$context/document-view.htm?id=$grandchildRel.to.id">
-      <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/></a>
-    #else
+  #if ($childRel.to.title) 
+    <h2 id="r${childRel.id}">
+      <a class="title-link" href="#r${childRel.id}">$childRel.to.title</a>
       <a title="Link to this fragment" class="anchor" 
-        href="$context/document-view.htm?id=$grandchildRel.to.id">
+        href="$context/document-view.htm?id=$childRel.to.id">
       <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
-    #end
-  </h3> 
-#end
-#fragmentContentForDoc($grandchildRel.to)
-</div>
-#end    ## foreach grandchildren
+    </h2> 
+  #end
+  #fragmentContentForDoc($childRel.to)
+  
+  #foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
+  <div class="subsection">
+  #if ($grandchildRel.to.title) 
+    <h3 id="r${grandchildRel.id}">
+      <a class="title-link" href="#r${grandchildRel.id}">$grandchildRel.to.title</a>
+      #if ($grandchildRel.to.hasChildren($publicOnly)) 
+        <a title="Link to this fragment" class="anchor has-children" 
+          href="$context/document-view.htm?id=$grandchildRel.to.id">
+        <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/></a>
+      #else
+        <a title="Link to this fragment" class="anchor" 
+          href="$context/document-view.htm?id=$grandchildRel.to.id">
+        <img class="arrow-button" src="$context/images/arrow-right.gif" alt="&rarr;"/></a>
+      #end
+    </h3> 
+  #end
+  #fragmentContentForDoc($grandchildRel.to)
+  </div>
+  #end    ## foreach grandchildren
 
 </div>
 #end    ## foreach children

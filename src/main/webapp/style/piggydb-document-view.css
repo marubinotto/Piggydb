@@ -112,3 +112,9 @@ img.arrow-button:hover {
   background-color: #656f71;
 }
 
+div.toc {
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
