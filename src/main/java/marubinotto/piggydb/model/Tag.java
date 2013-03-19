@@ -11,7 +11,6 @@ public interface Tag extends Classifiable {
 	public final static String PREFIX_SYSTEM_TAG = "#";
 	
 	public final static String NAME_TRASH = PREFIX_SYSTEM_TAG + "trash";
-	public final static String NAME_HOME = PREFIX_SYSTEM_TAG + "home";
 	public final static String NAME_BOOKMARK = PREFIX_SYSTEM_TAG + "bookmark";
 	public final static String NAME_PUBLIC = PREFIX_SYSTEM_TAG + "public";
 	public final static String NAME_USER = PREFIX_SYSTEM_TAG + "user";

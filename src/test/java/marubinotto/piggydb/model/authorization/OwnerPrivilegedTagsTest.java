@@ -40,7 +40,6 @@ public class OwnerPrivilegedTagsTest extends AuthorizationTestBase {
 		List<Object[]> tagNames = new ArrayList<Object[]>();
 		tagNames.add(new Object[]{Tag.NAME_USER});
 		tagNames.add(new Object[]{Tag.NAME_PUBLIC});
-		tagNames.add(new Object[]{Tag.NAME_HOME});
 		tagNames.add(new Object[]{Tag.NAME_BOOKMARK});
 		return tagNames;
 	}

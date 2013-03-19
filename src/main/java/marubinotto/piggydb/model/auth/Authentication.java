@@ -59,12 +59,14 @@ public class Authentication {
 	}
 
 	public User authenticateAsAnonymous() {
-		if (!this.enableAnonymous) return null;
-
-		User user = new User(ANONYMOUS);
-		user.setAnonymous(true);
-		user.addRole(Role.DEFAULT);
-		user.addRole(Role.VIEWER);
-		return user;
+		return this.enableAnonymous ? createAnonymousUser() : null;
+	}
+	
+	public static User createAnonymousUser() {
+	  User user = new User(ANONYMOUS);
+    user.setAnonymous(true);
+    user.addRole(Role.DEFAULT);
+    user.addRole(Role.VIEWER);
+    return user;
 	}
 }

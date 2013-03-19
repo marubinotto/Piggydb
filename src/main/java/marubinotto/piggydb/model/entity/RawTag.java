@@ -163,7 +163,6 @@ public class RawTag extends RawClassifiable implements Tag {
 		}
 		if (tag.isClassifiedAs(Tag.NAME_USER) || 
 			tag.isClassifiedAs(Tag.NAME_PUBLIC) ||
-			tag.isClassifiedAs(Tag.NAME_HOME) ||
 			tag.isClassifiedAs(Tag.NAME_BOOKMARK)) {
 			if (!user.isOwner())
 				throw new AuthorizationException(CODE_NO_AUTH_FOR_TAG, tag.getName());
