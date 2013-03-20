@@ -19,6 +19,14 @@ body {
 	border-bottom: 1px solid #ddd;
 }
 
+#parents img.home-icon {
+  margin: 0;
+}
+
+#parents sub img {
+  margin: 0;
+}
+
 #parents ul {
 	list-style: none;
 	margin-left: 5px;
@@ -152,5 +160,4 @@ span.fragment-headline {
 div.subsection {
 	margin-left: 10px;
 }
-
 

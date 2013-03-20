@@ -19,10 +19,18 @@
 
 <div id="parents">
   <ul>
+  #foreach ($parent in $parents)
     <li>
-      <a href="">test 
-      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub></a>
+      <a class="title-link" href="$context/document-view.htm?id=$parent.id">
+      #if ($parent.isHome())
+        <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
+          title="$messages.get("home")" alt="$messages.get("home")"/>
+      #else
+        $utils.defaultIfNull($parent.title, $emptyTitle)       
+      #end
+        <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub></a>
     </li>
+  #end
   </ul>
 </div>
 

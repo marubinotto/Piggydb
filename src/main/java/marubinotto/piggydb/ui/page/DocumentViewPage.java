@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
 import marubinotto.piggydb.ui.page.common.PageImports;
+import marubinotto.util.Assert;
 
 public class DocumentViewPage extends AbstractTemplateWebResource {
 
@@ -63,6 +65,7 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
 
   public Boolean publicOnly;
   public String additionalCssImports;
+  public List<Fragment> parents;
 
   @Override
   protected void setModels() throws Exception {
@@ -70,5 +73,25 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
     
     this.publicOnly = !isAuthenticated();
     this.additionalCssImports = PageImports.additionalCssImports.toString();
+    
+    if (this.publicOnly)
+      this.parents = getPublicParents(this.fragment, getDomain().getFragmentRepository());
+    else
+      this.parents = this.fragment.getParents();
+  }
+  
+  public static List<Fragment> getPublicParents(Fragment fragment, FragmentRepository repository) 
+  throws Exception {
+    Assert.Arg.notNull(fragment, "fragment");
+    Assert.Arg.notNull(repository, "repository");
+    
+    List<Fragment> parents = fragment.getParents();
+    repository.refreshClassifications(parents);
+    
+    List<Fragment> publicParents = new ArrayList<Fragment>();
+    for (Fragment parent : parents) {
+      if (parent.isPublic()) publicParents.add(parent);
+    }
+    return publicParents;
   }
 }
