@@ -15,56 +15,71 @@
   <script type="text/javascript" src="$context/js/vendor/prettify/prettify.js?$version"></script>
 </head>
 <body onload="prettyPrint()">
-#if ($fragment.title) <h1>$fragment.title</h1> #end
+#set ($emptyTitle = $utils.raw("—"))
 
-#fragmentContentForDoc($fragment)
-
-<div class="toc">
+<div id="parents">
   <ul>
-  #foreach ($childRel in $fragment.getChildRelations($publicOnly))
     <li>
-      <a href="#r${childRel.id}">
-        $utils.blankToNbsp($utils.raw($html.fragmentHeadline($childRel.to)))
-      </a>
+      <a href="">test 
+      <sub><img src="$context/images/arrow-in.gif" border="0" alt="-"/></sub></a>
     </li>
-  #end
   </ul>
 </div>
 
-#set ($emptyTitle = $utils.raw("—"))
-#foreach ($childRel in $fragment.getChildRelations($publicOnly))
-<div class="section">
-  <h2 id="r${childRel.id}">
-    <a class="title-link" href="$context/document-view.htm?id=$childRel.to.id">
-      $utils.defaultIfNull($childRel.to.title, $emptyTitle)</a>
-  </h2> 
-
-  #fragmentContentForDoc($childRel.to)
+<div id="main">
+  #if ($fragment.title) <h1>$fragment.title</h1> #end
   
-  #foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
-  <div class="subsection">
-    <h3 id="r${grandchildRel.id}">
-      <a class="title-link" href="$context/document-view.htm?id=$grandchildRel.to.id">
-        $utils.defaultIfNull($grandchildRel.to.title, $emptyTitle)
-        #if ($grandchildRel.to.hasChildren($publicOnly)) 
-          <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/>
-        #end
-      </a>
-    </h3> 
-
-  #fragmentContentForDoc($grandchildRel.to)
+  #fragmentContentForDoc($fragment)
+  
+  <div class="toc">
+    <ul>
+    #foreach ($childRel in $fragment.getChildRelations($publicOnly))
+      <li>
+        <a href="#r${childRel.id}">
+          $utils.blankToNbsp($utils.raw($html.fragmentHeadline($childRel.to)))
+        </a>
+      </li>
+    #end
+    </ul>
   </div>
-  #end    ## foreach grandchildren
-
+   
+  #foreach ($childRel in $fragment.getChildRelations($publicOnly))
+  <div class="section">
+    <h2 id="r${childRel.id}">
+      <a class="title-link" href="$context/document-view.htm?id=$childRel.to.id">
+        $utils.defaultIfNull($childRel.to.title, $emptyTitle)</a>
+    </h2> 
+  
+    #fragmentContentForDoc($childRel.to)
+    
+    #foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
+    <div class="subsection">
+      <h3 id="r${grandchildRel.id}">
+        <a class="title-link" href="$context/document-view.htm?id=$grandchildRel.to.id">
+          $utils.defaultIfNull($grandchildRel.to.title, $emptyTitle)
+          #if ($grandchildRel.to.hasChildren($publicOnly)) 
+            <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/>
+          #end
+        </a>
+      </h3> 
+  
+    #fragmentContentForDoc($grandchildRel.to)
+    </div>
+    #end    ## foreach grandchildren
+  
+  </div>
+  #end    ## foreach children
+    
 </div>
-#end    ## foreach children
 
 #else   ## fragment is null
+
   <title>&nbsp;</title>
   <link rel="shortcut icon" href="$context/images/favicon.ico" type="image/vnd.microsoft.icon"/>
 </head>
 <body>
 
 #end
+
 </body>
 </html>

@@ -10,66 +10,65 @@ import marubinotto.piggydb.ui.page.common.PageImports;
 
 public class DocumentViewPage extends AbstractTemplateWebResource {
 
-	@Override
-	protected boolean needsAuthentication() {
-		return false;
-	}
+  @Override
+  protected boolean needsAuthentication() {
+    return false;
+  }
 
-	//
-	// Input
-	//
+  //
+  // Input
+  //
 
-	public Long id;
-	public Fragment fragment;
+  public Long id;
+  public Fragment fragment;
 
-	@Override
-	protected boolean onPreInit() throws Exception {
-		if (this.id == null) {
-			getLogger().info("Missing parameter: id");
-			return true;
-		}
+  @Override
+  protected boolean onPreInit() throws Exception {
+    if (this.id == null) {
+      getLogger().info("Missing parameter: id");
+      return true;
+    }
 
-		this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
-		if (this.fragment == null) {
-			getLogger().info("Missing fragment: #" + this.id);
-			return true;
-		}
+    this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
+    if (this.fragment == null) {
+      getLogger().info("Missing fragment: #" + this.id);
+      return true;
+    }
 
-		if (!isAuthenticated() && !this.fragment.isPublic()) {
-			getLogger().info("Forbidden: #" + this.id);
-			setRedirectToLogin();
-			return false;
-		}
+    if (!isAuthenticated() && !this.fragment.isPublic()) {
+      getLogger().info("Forbidden: #" + this.id);
+      setRedirectToLogin();
+      return false;
+    }
 
-		fetchTagsAdditionally(this.fragment);
+    fetchTagsAdditionally(this.fragment);
 
-		return true;
-	}
+    return true;
+  }
 
-	private void fetchTagsAdditionally(Fragment fragment) throws Exception {
-		List<Fragment> tagNotFetched = new ArrayList<Fragment>();
+  private void fetchTagsAdditionally(Fragment fragment) throws Exception {
+    List<Fragment> tagNotFetched = new ArrayList<Fragment>();
 
-		// Grandchildren
-		tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(fragment
-			.getChildren()));
-		// Great-grandchildren
-		tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(tagNotFetched));
+    // Grandchildren
+    tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(fragment.getChildren()));
+    // Great-grandchildren
+    tagNotFetched.addAll(ModelUtils.collectChildrenOfEach(tagNotFetched));
 
-		getDomain().getFragmentRepository().refreshClassifications(tagNotFetched);
-	}
+    getDomain().getFragmentRepository().refreshClassifications(tagNotFetched);
+  }
 
-	//
-	// Model
-	//
+  //
+  // Model
+  //
 
-	public Boolean publicOnly;
-	public String additionalCssImports;
+  public Boolean publicOnly;
+  public String additionalCssImports;
 
-	@Override
-	protected void setModels() throws Exception {
-		super.setModels();
-		
-		this.publicOnly = !isAuthenticated();
-		this.additionalCssImports = PageImports.additionalCssImports.toString();
-	}
+  @Override
+  protected void setModels() throws Exception {
+    super.setModels();
+    
+    this.publicOnly = !isAuthenticated();
+    this.additionalCssImports = PageImports.additionalCssImports.toString();
+  }
 }
