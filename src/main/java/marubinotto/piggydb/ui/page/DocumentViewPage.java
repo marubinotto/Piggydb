@@ -26,11 +26,8 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
 
   @Override
   protected boolean onPreInit() throws Exception {
-    if (this.id == null) {
-      getLogger().info("Missing parameter: id");
-      return true;
-    }
-
+    if (this.id == null) this.id = Fragment.ID_HOME;
+    
     this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
     if (this.fragment == null) {
       getLogger().info("Missing fragment: #" + this.id);
@@ -74,10 +71,12 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
     this.publicOnly = !isAuthenticated();
     this.additionalCssImports = PageImports.additionalCssImports.toString();
     
-    if (this.publicOnly)
-      this.parents = getPublicParents(this.fragment, getDomain().getFragmentRepository());
-    else
-      this.parents = this.fragment.getParents();
+    if (this.fragment != null) {
+      if (this.publicOnly)
+        this.parents = getPublicParents(this.fragment, getDomain().getFragmentRepository());
+      else
+        this.parents = this.fragment.getParents();
+    }
   }
   
   public static List<Fragment> getPublicParents(Fragment fragment, FragmentRepository repository) 
