@@ -139,6 +139,10 @@ div.file {
 	text-decoration: underline;
 }
 
+#parents .title-link {
+  color: #666666;
+}
+
 .anchor:link, .anchor:visited {
 	visibility: hidden;
   border: none;
