@@ -18,6 +18,10 @@
 #set ($emptyTitle = $utils.raw("—"))
 
 <div id="parents">
+  #if ($fragment.isHome())
+    <span class="home-icon">&nbsp;</span>
+    <span class="database-title">$databaseTitle</span>
+  #end
   <ul>
   #foreach ($parent in $parents)
     <li>

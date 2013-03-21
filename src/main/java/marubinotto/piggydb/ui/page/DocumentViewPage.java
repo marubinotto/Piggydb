@@ -62,6 +62,7 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
 
   public Boolean publicOnly;
   public String additionalCssImports;
+  public String databaseTitle;
   public List<Fragment> parents;
 
   @Override
@@ -72,6 +73,9 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
     this.additionalCssImports = PageImports.additionalCssImports.toString();
     
     if (this.fragment != null) {
+      if (this.fragment.isHome()) {
+        this.databaseTitle = getDomain().getGlobalSetting().getDatabaseTitle();
+      }
       if (this.publicOnly)
         this.parents = getPublicParents(this.fragment, getDomain().getFragmentRepository());
       else

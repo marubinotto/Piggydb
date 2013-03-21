@@ -19,6 +19,17 @@ body {
 	border-bottom: 1px solid #ddd;
 }
 
+#parents span.home-icon {
+	background: url(images/tag-home.png) 0 50% no-repeat;
+  padding-left: 10px;
+  padding-right: 2px;
+  margin-left: 5px;
+}
+
+#parents span.database-title {
+	margin-left: 5px;
+}
+
 #parents img.home-icon {
   margin: 0;
 }
