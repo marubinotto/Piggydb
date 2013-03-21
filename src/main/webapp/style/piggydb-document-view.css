@@ -153,6 +153,17 @@ div.toc {
 	margin-bottom: 25px;
 }
 
+div.toc ul {
+  list-style: none;
+  margin-left: 5px;
+}
+
+div.toc span.marker {
+	background: url(../images/arrow-right.gif) 0 50% no-repeat;
+	padding-left: 8px;
+  padding-right: 2px;
+}
+
 span.fragment-headline {
 	font-style: italic;
 }
