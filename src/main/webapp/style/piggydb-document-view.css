@@ -12,7 +12,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-#parents {
+#header {
 	position: relative;
 	margin: 0;
 	padding: 5px;
@@ -20,31 +20,31 @@ body {
 	border-bottom: 1px solid #ddd;
 }
 
-#parents span.home-icon {
+#header span.home-icon {
 	background: url(images/tag-home.png) 0 50% no-repeat;
   padding-left: 10px;
   padding-right: 2px;
   margin-left: 5px;
 }
 
-#parents span.database-title {
+#header span.database-title {
 	margin-left: 5px;
 }
 
-#parents img.home-icon {
+#header img.home-icon {
   margin: 0;
 }
 
-#parents sub img {
+#header sub img {
   margin: 0;
 }
 
-#parents ul {
+#header ul {
 	list-style: none;
 	margin-left: 5px;
 }
 
-#parents span.to-home {
+#header span.to-home {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -144,7 +144,7 @@ div.file {
 	text-decoration: underline;
 }
 
-#parents .title-link {
+#header .title-link {
   color: #666666;
 }
 
