@@ -267,6 +267,10 @@ td.fragment-body {
   padding-right: 7px;
 }
 
+td.fragment-body .fragment-content {
+	line-height: 1.5;
+}
+
 td.fragment-body .fragment-content a.url-link {
 	word-break: break-all;
 	word-wrap: break-word;
