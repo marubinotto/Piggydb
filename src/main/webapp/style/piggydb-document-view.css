@@ -166,17 +166,12 @@ div.toc {
 	margin-left: 10px;
 	margin-top: 20px;
 	margin-bottom: 25px;
+	padding-left: 20px;
 }
 
 div.toc ul {
-  list-style: none;
-  margin-left: 5px;
-}
-
-div.toc span.marker {
-	background: url(../images/arrow-right.gif) 0 50% no-repeat;
-	padding-left: 8px;
-  padding-right: 2px;
+  list-style-image: url(../images/arrow-right.gif);
+  margin-left: 0;
 }
 
 span.fragment-headline {
@@ -186,4 +181,10 @@ span.fragment-headline {
 div.subsection {
 	margin-left: 10px;
 }
+
+a.url-link {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
 

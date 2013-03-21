@@ -7,9 +7,13 @@ body {
 }
 
 div.toc {
-  margin-left: 5px;
+  padding-left: 15px;
 }
 
 div.subsection {
   margin-left: 5px;
+}
+
+ul.level1, ol.level1 {
+  margin-left: 25px;
 }

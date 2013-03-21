@@ -47,7 +47,6 @@
     <ul>
     #foreach ($childRel in $fragment.getChildRelations($publicOnly))
       <li>
-        <span class="marker">&nbsp;</span>
         <a href="#r${childRel.id}">
           $utils.blankToNbsp($utils.raw($html.fragmentHeadline($childRel.to)))
         </a>
