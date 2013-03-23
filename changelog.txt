@@ -1,6 +1,14 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.9 (2013-03-23) == #v6.9
+
+ * Updated Document View
+   * added a navigation to the parents and home
+   * added support for smart phones and tablets
+ * Updated the public home feature to support the home fragment 
+ * Changed the default setting: disabled UserAgentAuth
+
 == Changes in version 6.8 (2013-02-14) == #v6.8
 
  * Improved horizontal view of Smart Layout
