@@ -15,22 +15,20 @@ import org.apache.commons.logging.LogFactory;
 
 public class CustomizedSecurityFilter implements Filter {
 
-    private static Log logger = LogFactory.getLog(CustomizedSecurityFilter.class);
+  private static Log logger = LogFactory.getLog(CustomizedSecurityFilter.class);
 
-    public void init(FilterConfig config) throws ServletException {
-    }
+  public void init(FilterConfig config) throws ServletException {
+  }
 
-    public void doFilter(
-        ServletRequest request,
-        ServletResponse response,
-        FilterChain chain)
-    throws IOException, ServletException {
-        logger.debug("doFilter");
-        chain.doFilter(
-            new CustomizedSecurityRequestWrapper((HttpServletRequest)request),
-            response);
-    }
+  public void doFilter(
+    ServletRequest request, 
+    ServletResponse response, 
+    FilterChain chain) 
+  throws IOException, ServletException {
+    logger.debug("doFilter");
+    chain.doFilter(new CustomizedSecurityRequestWrapper((HttpServletRequest)request), response);
+  }
 
-    public void destroy() {
-    }
+  public void destroy() {
+  }
 }
