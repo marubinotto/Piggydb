@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui;
 
+import static java.lang.Long.parseLong;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.apache.commons.lang.StringUtils.removeStart;
 
 import java.io.IOException;
@@ -12,7 +14,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,13 +33,15 @@ public class DocumentViewUrlFilter implements Filter {
   throws IOException, ServletException {
     // Get the request path
     HttpServletRequest httpRequest = (HttpServletRequest)request;
-    String path = removeStart(httpRequest.getRequestURI(), httpRequest.getContextPath() + PATH_PREFIX);
+    String path = removeStart(
+      httpRequest.getRequestURI(), 
+      httpRequest.getContextPath() + PATH_PREFIX);
     logger.info("path: " + path);
     
     // Get the fragment ID from the path
     Long fragmentId;
     try {
-      fragmentId = StringUtils.isNotBlank(path) ? Long.parseLong(path) : 0L;
+      fragmentId = isNotBlank(path) ? parseLong(path) : 0L;
     }
     catch (NumberFormatException e) {
       logger.info("invalid path: " + path);
