@@ -44,6 +44,12 @@ public class WebResourcePaths {
 		return this.contextPath + "/fragment.htm?id=" + id;
 	}
 	
+	public String docViewPath(Long id) {
+	  String path = this.contextPath + "/d/";
+	  if (id != null && id > 0) path += id;
+	  return path;
+	}
+	
 	public String tagPath(Long id) {
 		return this.contextPath + "/tag.htm?id=" + id;
 	}
