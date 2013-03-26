@@ -26,7 +26,7 @@
     <ul>
     #foreach ($parent in $parents)
       <li>
-        <a class="title-link" href="$context/document-view.htm?id=$parent.id">
+        <a class="title-link" href="$resources.docViewPath($parent.id)">
         #if ($parent.isHome())
           <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
             title="$messages.get("home")" alt="$messages.get("home")"/>
@@ -46,7 +46,7 @@
       #if ($publicOnly)
         href="$context/public/">
       #else
-        href="$context/document-view.htm">
+        href="$resources.docViewPath()">
       #end
       <img class="home-icon" src="$context/style/images/tag-home.png" border="0"
           title="$messages.get("home")" alt="$messages.get("home")"/></a>
@@ -74,7 +74,7 @@
   #foreach ($childRel in $fragment.getChildRelations($publicOnly))
   <div class="section">
     <h2 id="r${childRel.id}">
-      <a class="title-link" href="$context/document-view.htm?id=$childRel.to.id">
+      <a class="title-link" href="$resources.docViewPath($childRel.to.id)">
         $utils.defaultIfNull($childRel.to.title, $emptyTitle)</a>
     </h2> 
   
@@ -83,7 +83,7 @@
     #foreach ($grandchildRel in $childRel.to.getChildRelations($publicOnly))
     <div class="subsection">
       <h3 id="r${grandchildRel.id}">
-        <a class="title-link" href="$context/document-view.htm?id=$grandchildRel.to.id">
+        <a class="title-link" href="$resources.docViewPath($grandchildRel.to.id)">
           $utils.defaultIfNull($grandchildRel.to.title, $emptyTitle)
           #if ($grandchildRel.to.hasChildren($publicOnly)) 
             <img class="arrow-button" src="$context/images/arrow-with-children.gif" alt="&rarr; ..."/>
