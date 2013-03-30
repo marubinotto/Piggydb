@@ -149,6 +149,14 @@ public class HtmlBuilder implements DocumentBuilder {
 	protected String fragmentUrl(Long id, ParseContext context) {
 	  return context.getWebResources().fragmentPath(id);
 	}
+	
+	public String fragmentUrnToWebUrl(String url, ParseContext context) {
+    if (url.startsWith(FragmentUrl.PREFIX)) {
+      Long id = new FragmentUrl(url).getId();
+      if (id != null) return context.getWebResources().fragmentPath(id);
+    }
+    return url;
+  }
 
 	public String makeLinkToFragment(ParseContext context, Long fragmentId, String label) {
 		return "<a href=\"" + fragmentUrl(fragmentId, context) + "\">" + label + "</a>";

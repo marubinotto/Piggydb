@@ -204,7 +204,7 @@ public class DefaultWikiParser extends WikiParser {
 					if (StringUtils.isBlank(label)) {
 						return link;
 					}
-					url = piggydbUrlToWebUrl(url, context);
+					url = documentBuilder.fragmentUrnToWebUrl(url, context);
 					return documentBuilder.processLabeledLink(context, label, url);
 				}
 				else if (link.matches(PS_FRAGMENT_REF)) {
@@ -240,14 +240,6 @@ public class DefaultWikiParser extends WikiParser {
 		}, inline);
 
 		return inline;
-	}
-
-	private static String piggydbUrlToWebUrl(String url, ParseContext context) {
-		if (url.startsWith(FragmentUrl.PREFIX)) {
-			Long id = new FragmentUrl(url).getId();
-			if (id != null) return context.getWebResources().fragmentPath(id);
-		}
-		return url;
 	}
 
 	private String getAllTagNamesRegexAsAdditionalForm(ParseContext context) throws Exception {
