@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page.common;
 
+import static marubinotto.piggydb.ui.page.common.AbstractWebResource.CHAR_ENCODING;
 import static marubinotto.util.CollectionUtils.set;
 
 import java.io.UnsupportedEncodingException;
@@ -45,13 +46,23 @@ public class WebResourcePaths {
 	}
 	
 	public String docViewPath() {
-	  return docViewPath(null);
+	  return docViewPath((Long)null);
 	}
 	
 	public String docViewPath(Long id) {
 	  String path = this.contextPath + "/d/";
 	  if (id != null && id > 0) path += id;
 	  return path;
+	}
+	
+	public String docViewPath(String name) {
+	  URLCodec codec = new URLCodec();
+	  try {
+      return this.contextPath + "/d/" + codec.encode(name, CHAR_ENCODING);
+    }
+    catch (UnsupportedEncodingException e) {
+      throw new UnhandledException(e);
+    }
 	}
 	
 	public String tagPath(Long id) {
@@ -61,7 +72,7 @@ public class WebResourcePaths {
 	public String tagPathByName(String name) {
 		URLCodec codec = new URLCodec();
 		try {
-			return this.contextPath + "/tag.htm?name=" + codec.encode(name, AbstractWebResource.CHAR_ENCODING);
+			return this.contextPath + "/tag.htm?name=" + codec.encode(name, CHAR_ENCODING);
 		}
 		catch (UnsupportedEncodingException e) {
 			throw new UnhandledException(e);
@@ -83,7 +94,7 @@ public class WebResourcePaths {
 	public String userPath(String name) {
 		URLCodec codec = new URLCodec();
 		try {
-			return this.contextPath + "/user.htm?name=" + codec.encode(name, AbstractWebResource.CHAR_ENCODING);
+			return this.contextPath + "/user.htm?name=" + codec.encode(name, CHAR_ENCODING);
 		} 
 		catch (UnsupportedEncodingException e) {
 			throw new UnhandledException(e);

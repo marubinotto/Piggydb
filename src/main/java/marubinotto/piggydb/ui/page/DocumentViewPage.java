@@ -6,6 +6,7 @@ import java.util.List;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.ModelUtils;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
 import marubinotto.piggydb.ui.page.common.PageImports;
 import marubinotto.piggydb.ui.wiki.WikiParser;
@@ -23,15 +24,27 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
   //
 
   public Long id;
+  public String name;
+  
   public Fragment fragment;
 
   @Override
   protected boolean onPreInit() throws Exception {
-    if (this.id == null) this.id = Fragment.ID_HOME;
+    if (this.id == null && this.name == null) {
+      this.id = Fragment.ID_HOME;
+    }
     
-    this.fragment = getDomain().getFragmentRepository().get(this.id.longValue());
+    FragmentRepository repository = getDomain().getFragmentRepository();
+    if (this.id != null) {
+      this.fragment = repository.get(this.id.longValue());
+    }
+    else if (this.name != null) {
+      Tag tag = getDomain().getTagRepository().getByName(this.name);
+      if (tag != null) this.fragment = repository.asFragment(tag);
+    }
+    
     if (this.fragment == null) {
-      getLogger().info("Missing fragment: #" + this.id);
+      getLogger().info("Missing fragment: id:" + this.id + " name:" + this.name);
       return true;
     }
 

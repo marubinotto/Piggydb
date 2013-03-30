@@ -38,20 +38,14 @@ public class DocumentViewUrlFilter implements Filter {
       httpRequest.getContextPath() + PATH_PREFIX);
     logger.info("path: " + path);
     
-    // Get the fragment ID from the path
-    Long fragmentId;
+    String docViewPath = "/document-view.htm";  
     try {
-      fragmentId = isNotBlank(path) ? parseLong(path) : 0L;
+      Long fragmentId = isNotBlank(path) ? parseLong(path) : 0L;
+      if (fragmentId > 0) docViewPath += "?id=" + fragmentId;
     }
     catch (NumberFormatException e) {
-      logger.info("invalid path: " + path);
-      return;
+      docViewPath += "?name=" + path;
     }
-    logger.info("fragmentId: " + fragmentId);
-
-    // Dispatch to its Document View
-    String docViewPath = "/document-view.htm";
-    if (fragmentId > 0) docViewPath += "?id=" + fragmentId;
     httpRequest.getRequestDispatcher(docViewPath).forward(request, response);
   }
 
