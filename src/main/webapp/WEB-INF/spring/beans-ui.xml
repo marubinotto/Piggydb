@@ -27,9 +27,15 @@
     <property name="documentBuilder"><ref bean="htmlBuilder"/></property>
     <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
     <property name="tagRepository"><ref bean="tagRepository"/></property>
-  </bean>
-  
+  </bean> 
   <bean id="htmlBuilder" class="marubinotto.piggydb.ui.wiki.HtmlBuilder"/>
+  
+  <bean id="documentViewWikiParser" class="marubinotto.piggydb.ui.wiki.DefaultWikiParser">
+    <property name="documentBuilder"><ref bean="documentViewBuilder"/></property>
+    <property name="fragmentRepository"><ref bean="fragmentRepository"/></property>
+    <property name="tagRepository"><ref bean="tagRepository"/></property>
+  </bean> 
+  <bean id="documentViewBuilder" class="marubinotto.piggydb.ui.wiki.DocumentViewBuilder"/>
   
 </beans>
 

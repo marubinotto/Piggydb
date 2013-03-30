@@ -8,6 +8,7 @@ import marubinotto.piggydb.model.FragmentRepository;
 import marubinotto.piggydb.model.ModelUtils;
 import marubinotto.piggydb.ui.page.common.AbstractTemplateWebResource;
 import marubinotto.piggydb.ui.page.common.PageImports;
+import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Assert;
 
 public class DocumentViewPage extends AbstractTemplateWebResource {
@@ -71,6 +72,7 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
     
     this.publicOnly = !isAuthenticated();
     this.additionalCssImports = PageImports.additionalCssImports.toString();
+    this.wikiParser = (WikiParser)getBean("documentViewWikiParser");
     
     if (this.fragment != null) {
       if (this.fragment.isHome()) {
