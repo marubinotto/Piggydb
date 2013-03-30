@@ -191,9 +191,9 @@ public class DefaultWikiParser extends WikiParser {
 					if (link.matches("^(http|https|ftp|file):.*$")) {
 						return documentBuilder.processStandardUrl(context, link, false);
 					}
-					else if (link.startsWith(FragmentUrl.PREFIX)) {
-						FragmentUrl fragmentUrl = new FragmentUrl(link);
-						return fragmentUrl.toMarkup(documentBuilder, context);
+					else if (link.startsWith(FragmentUrn.PREFIX)) {
+						FragmentUrn fragmentUrn = new FragmentUrn(link);
+						return fragmentUrn.toMarkup(documentBuilder, context);
 					}
 					return link;
 				}

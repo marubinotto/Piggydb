@@ -9,33 +9,33 @@ import org.apache.commons.logging.LogFactory;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.Assert;
 
-public class FragmentUrl {
+public class FragmentUrn {
 	
-	private static Log logger = LogFactory.getLog(FragmentUrl.class);
+	private static Log logger = LogFactory.getLog(FragmentUrn.class);
 
 	public static final String PREFIX = "fragment:";
 	public static final String CMD_TITLE = "title";
 	public static final String CMD_DETAIL = "detail";
 	public static final String CMD_EMBED = "embed";
 
-	private String url;
+	private String urn;
 	
 	private Long id;
 	private String command;
 	
-	public FragmentUrl(String url) {
-		Assert.Arg.notNull(url, "url");
+	public FragmentUrn(String urn) {
+		Assert.Arg.notNull(urn, "urn");
 		Assert.require(
-			url.startsWith(PREFIX), 
-			"Fragment url should start with: " + PREFIX + 
-				" (actual " + url + ")");
+			urn.startsWith(PREFIX), 
+			"Fragment urn should start with: " + PREFIX + 
+				" (actual " + urn + ")");
 		
-		this.url = url;
-		processUrl();
+		this.urn = urn;
+		processUrn();
 	}
 	
-	public String getUrl() {
-		return this.url;
+	public String getUrn() {
+		return this.urn;
 	}
 
 	public Long getId() {
@@ -47,10 +47,10 @@ public class FragmentUrl {
 	}
 
 	public String toMarkup(DocumentBuilder documentBuilder, ParseContext context) {
-		if (getId() == null) return getUrl();
+		if (getId() == null) return getUrn();
 		
 		if (getCommand() == null) {
-			return documentBuilder.makeLinkToFragment(context, getId(), getUrl());
+			return documentBuilder.makeLinkToFragment(context, getId(), getUrn());
 		}
 		
 		Fragment fragment = null;
@@ -60,10 +60,10 @@ public class FragmentUrl {
 		catch (Exception e) {
 			throw new UnhandledException(e);
 		}
-		if (fragment == null) return getUrl();
+		if (fragment == null) return getUrn();
 		
 		// authentication
-		if (!context.isAuthenticated() && !fragment.isPublic()) return getUrl();
+		if (!context.isAuthenticated() && !fragment.isPublic()) return getUrn();
 		
 		// commands
 		if (getCommand().equals(CMD_TITLE)) {
@@ -77,20 +77,20 @@ public class FragmentUrl {
 		}
 		else if (getCommand().equals(CMD_EMBED)) {
 			String embedded = documentBuilder.makeEmbeddedFragment(context, fragment);
-			return embedded != null ? embedded : getUrl();
+			return embedded != null ? embedded : getUrn();
 		}
-		return getUrl();
+		return getUrn();
 	}
 
 // Internal
 	
-	private void processUrl() {
-		String urlBody = this.url.substring(PREFIX.length()); // ex. "1:title"
-		String[] parts = StringUtils.split(urlBody, ':');
+	private void processUrn() {
+		String urnBody = this.urn.substring(PREFIX.length()); // ex. "1:title"
+		String[] parts = StringUtils.split(urnBody, ':');
 		
 		// ID
 		if (parts.length == 0 || !NumberUtils.isDigits(parts[0])) {
-			logger.debug("Missing ID: " + this.url);
+			logger.debug("Missing ID: " + this.urn);
 			return;
 		}
 		this.id = Long.parseLong(parts[0]);

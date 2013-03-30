@@ -9,8 +9,8 @@ public class DocumentViewBuilder extends HtmlBuilder {
   
   @Override
   public String fragmentUrnToWebUrl(String url, ParseContext context) {
-    if (url.startsWith(FragmentUrl.PREFIX)) {
-      Long id = new FragmentUrl(url).getId();
+    if (url.startsWith(FragmentUrn.PREFIX)) {
+      Long id = new FragmentUrn(url).getId();
       if (id != null) return context.getWebResources().docViewPath(id);
     }
     return url;

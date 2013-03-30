@@ -17,14 +17,14 @@ import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
 import marubinotto.piggydb.model.entity.RawTag;
 import marubinotto.piggydb.ui.wiki.DocumentBuilder;
-import marubinotto.piggydb.ui.wiki.FragmentUrl;
+import marubinotto.piggydb.ui.wiki.FragmentUrn;
 import marubinotto.piggydb.ui.wiki.ParseContext;
 
 import org.easymock.Capture;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FragmentUrlTest {
+public class FragmentUrnTest {
 
 	private DocumentBuilder builder = createMock(DocumentBuilder.class);
 	
@@ -53,21 +53,21 @@ public class FragmentUrlTest {
 	
 	@Test
 	public void missingId() throws Exception {
-		FragmentUrl fragmentUrl = new FragmentUrl("fragment:");		
-		assertEquals("fragment:", fragmentUrl.toMarkup(this.builder, this.context));
+		FragmentUrn fragmentUrn = new FragmentUrn("fragment:");		
+		assertEquals("fragment:", fragmentUrn.toMarkup(this.builder, this.context));
 	}
 	
 	@Test
 	public void invalidId() throws Exception {
-		FragmentUrl fragmentUrl = new FragmentUrl("fragment:xxx");
-		assertEquals("fragment:xxx", fragmentUrl.toMarkup(this.builder, this.context));
+		FragmentUrn fragmentUrn = new FragmentUrn("fragment:xxx");
+		assertEquals("fragment:xxx", fragmentUrn.toMarkup(this.builder, this.context));
 	}
 	
-	private String execute(String url) throws Exception {
+	private String execute(String urn) throws Exception {
 		replay(this.builder);
 		
-		FragmentUrl fragmentUrl = new FragmentUrl(url);
-		String result = fragmentUrl.toMarkup(this.builder, this.context);
+		FragmentUrn fragmentUrn = new FragmentUrn(urn);
+		String result = fragmentUrn.toMarkup(this.builder, this.context);
 		
 		verify(this.builder);
 		return result;
@@ -75,73 +75,73 @@ public class FragmentUrlTest {
 	
 	@Test
 	public void putLinkToFragment() throws Exception {
-		String url = "fragment:999";
+		String urn = "fragment:999";
 
 		expect(
-			this.builder.makeLinkToFragment(this.context, 999L, url))
+			this.builder.makeLinkToFragment(this.context, 999L, urn))
 				.andReturn("return-by-builder");
 
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 	}
 	
 	@Test
 	public void putLinkToFragmentWithTitle() throws Exception {
-		String url = "fragment:" + this.id1 + ":title";
+		String urn = "fragment:" + this.id1 + ":title";
 		
 		expect(
 			this.builder.makeLinkToFragment(this.context, this.id1, "private"))
 				.andReturn("return-by-builder");
 
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 	}
 		
 	@Test
 	public void putLinkToFragmentWithNullTitle() throws Exception {
-		String url = "fragment:" + this.id2 + ":title";
+		String urn = "fragment:" + this.id2 + ":title";
 		
 		expect(
 			this.builder.makeLinkToFragment(this.context, this.id2, "[No title]"))
 				.andReturn("return-by-builder");
 
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 	}
 	
 	@Test
 	public void putLinkToFragmentWithDetail() throws Exception {
-		String url = "fragment:" + this.id1 + ":detail";
+		String urn = "fragment:" + this.id1 + ":detail";
 		
 		Capture<Fragment> arg = new Capture<Fragment>();
 		expect(
 			this.builder.makeLinkToFragmentWithDetail(eq(this.context), capture(arg)))
 				.andReturn("return-by-builder");
 
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 		assertEquals(this.id1, arg.getValue().getId());
 	}
 	
 	@Test
 	public void embedFragment() throws Exception {
-		String url = "fragment:" + this.id1 + ":embed";
+		String urn = "fragment:" + this.id1 + ":embed";
 		
 		Capture<Fragment> arg = new Capture<Fragment>();
 		expect(
 			this.builder.makeEmbeddedFragment(eq(this.context), capture(arg)))
 				.andReturn("return-by-builder");
 		
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 		assertEquals(this.id1, arg.getValue().getId());
 	}
 	
 	@Test
 	public void embedFragmentReturnsNull() throws Exception {
-		String url = "fragment:" + this.id1 + ":embed";
+		String urn = "fragment:" + this.id1 + ":embed";
 		
 		Capture<Fragment> arg = new Capture<Fragment>();
 		expect(
 			this.builder.makeEmbeddedFragment(eq(this.context), capture(arg)))
 				.andReturn(null);
 		
-		assertEquals(url, execute(url));
+		assertEquals(urn, execute(urn));
 	}
 	
 	private void initContextWithoutAuth() {
@@ -155,22 +155,22 @@ public class FragmentUrlTest {
 	@Test
 	public void embedPrivateFragmentWithoutAuth() throws Exception {
 		initContextWithoutAuth();
-		String url = "fragment:" + this.id1 + ":embed";
+		String urn = "fragment:" + this.id1 + ":embed";
 		
-		assertEquals(url, execute(url));
+		assertEquals(urn, execute(urn));
 	}
 	
 	@Test
 	public void embedPublicFragmentWithoutAuth() throws Exception {
 		initContextWithoutAuth();
-		String url = "fragment:" + this.id3 + ":embed";
+		String urn = "fragment:" + this.id3 + ":embed";
 		
 		Capture<Fragment> arg = new Capture<Fragment>();
 		expect(
 			this.builder.makeEmbeddedFragment(eq(this.context), capture(arg)))
 				.andReturn("return-by-builder");
 		
-		assertEquals("return-by-builder", execute(url));
+		assertEquals("return-by-builder", execute(urn));
 		assertEquals(this.id3, arg.getValue().getId());
 	}
 }
