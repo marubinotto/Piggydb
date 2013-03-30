@@ -76,6 +76,7 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
 
   public Boolean publicOnly;
   public String additionalCssImports;
+  public String htmlTitle;
   public String databaseTitle;
   public List<Fragment> parents;
 
@@ -88,9 +89,15 @@ public class DocumentViewPage extends AbstractTemplateWebResource {
     this.wikiParser = (WikiParser)getBean("documentViewWikiParser");
     
     if (this.fragment != null) {
+      // titles
       if (this.fragment.isHome()) {
         this.databaseTitle = getDomain().getGlobalSetting().getDatabaseTitle();
+        this.htmlTitle = this.databaseTitle;
       }
+      else {
+        this.htmlTitle = this.fragment.getTitle();
+      }
+      // parents
       if (this.publicOnly)
         this.parents = getPublicParents(this.fragment, getDomain().getFragmentRepository());
       else
