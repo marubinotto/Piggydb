@@ -23,7 +23,15 @@
 
 <table class="nowrap-frame" border="0" style="position: absolute; top: 5px; right: 0px;">
 <tr>
-	## Keyword Search		
+  ## Document View
+  <td class="document-view" nowrap="nowrap">
+    <a class="tool-button" href="$resources.docViewPath()" 
+      title="$messages.get("open-as-document")" target="_blank">
+    <img src="$context/images/document.png" border="0" alt="$messages.get("document")"/></a>
+  </td>
+  
+  ## Keyword Search
+  <td class="separator"></td>
   <td class="keyword-search" nowrap="nowrap">
     <form id="search-form" action="$context/search.htm" method="get">
       <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/><a 
