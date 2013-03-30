@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.10 (2013-03-31) == #v6.10
+
+ * Added short-form URL for Document View (/d/<ID or tag name>)
+ * Updated the internal links in Document View to link to a Document View page
+ * Added a Document View button to the global header bar
+ * Added Korean translation (thanks @clockoon!) 
+
 == Changes in version 6.9 (2013-03-23) == #v6.9
 
  * Updated Document View
