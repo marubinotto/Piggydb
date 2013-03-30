@@ -145,14 +145,17 @@ public class HtmlBuilder implements DocumentBuilder {
 		html.append("</object>");
 		return html.toString();
 	}
+	
+	protected String fragmentUrl(Long id, ParseContext context) {
+	  return context.getWebResources().fragmentPath(id);
+	}
 
 	public String makeLinkToFragment(ParseContext context, Long fragmentId, String label) {
-		String url = context.getWebResources().fragmentPath(fragmentId);
-		return "<a href=\"" + url + "\">" + label + "</a>";
+		return "<a href=\"" + fragmentUrl(fragmentId, context) + "\">" + label + "</a>";
 	}
 
 	public String makeLinkToFragmentWithDetail(ParseContext context, Fragment fragment) {
-		String url = context.getWebResources().fragmentPath(fragment.getId());
+		String url = fragmentUrl(fragment.getId(), context);
 		return "<a href=\"" + url + "\">#" + fragment.getId() + "</a> " + 
 			(StringUtils.isNotBlank(fragment.getTitle()) ? fragment.getTitle() : "");
 	}
@@ -210,8 +213,7 @@ public class HtmlBuilder implements DocumentBuilder {
 	}
 
 	public String processFragmentRef(ParseContext context, String label, long id) {
-		String url = context.getWebResources().fragmentPath(id);
-		return "<a href=\"" + url + "\">" + label + "</a>";
+		return "<a href=\"" + fragmentUrl(id, context) + "\">" + label + "</a>";
 	}
 
 	public String processTagName(ParseContext context, String tagName) {
