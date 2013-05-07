@@ -728,7 +728,7 @@ a.filter:hover {
 	padding-left: 3px;
 	padding-top: 3px;
 	
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto;
   overflow-x: hidden;
   overflow-y: auto;
