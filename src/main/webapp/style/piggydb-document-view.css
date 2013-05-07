@@ -68,6 +68,13 @@ h3 {
 	font-size: 1.2em;
 }
 
+a[href^="http:"]:after,
+a[href^="https:"]:after {
+  content: url(images/external-link.png);
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
 a.tag:link {
   color: gray;
   text-decoration: none;

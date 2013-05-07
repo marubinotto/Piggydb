@@ -271,6 +271,13 @@ td.fragment-body .fragment-content {
 	line-height: 1.5;
 }
 
+td.fragment-body .fragment-content a[href^="http:"]:after,
+td.fragment-body .fragment-content a[href^="https:"]:after {
+  content: url(images/external-link.png);
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
 td.fragment-body .fragment-content a.url-link {
 	word-break: break-all;
 	word-wrap: break-word;
