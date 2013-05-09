@@ -17,9 +17,9 @@ jQuery(function() {
 //]]>
 </script>
 
-<div class="view-header" style="display: none;">
+<div class="view-header">
   ## label
-  <div class="view-label">
+  <div class="view-label" style="display: none;">
   	<span class="label">
   		<span class="title">All</span>:
   		<span class="count"></span>
@@ -30,7 +30,7 @@ jQuery(function() {
   </div>
   
   ## control
-  <table class="view-control" width="100%" cellpadding="0" cellspacing="0" border="0" >
+  <table class="view-control" width="100%" cellpadding="0" cellspacing="0" border="0" style="display: none;">
   <tr>
     <td align="left" width="18" nowrap="nowrap">
       <img src="$context/images/zoom.png?$version" border="0" alt="" style="margin: -2px;"/>
@@ -90,15 +90,24 @@ jQuery(function() {
 
 
 #macro ( fragmentsViewContent $view $fragments $contextTags $firstSet $lastSet )
-
-#if ($fragments && $fragments.size() > 0)
-  
+ 
 <script type="text/javascript">
 //<![CDATA[
 jQuery(function() {
 	var label = jQuery("#$view.viewId div.view-label");
 	label.find("span.title").html('$utils.raw($label)');
 	label.find("span.count").text('$format.decimal($fragments.totalSize) $messages.get("items")');
+  label.show();
+});
+//]]>
+</script>
+
+#if ($fragments && $fragments.size() > 0)
+  
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function() {
+  jQuery("#$view.viewId table.view-control").show();  
 
 #if ($view.viewType == "multicolumn")
   piggydb.widget.Fragment.makeFragmentsDroppable(
@@ -110,7 +119,7 @@ jQuery(function() {
     null);
 #end
   piggydb.widget.Fragment.makeRelationsDraggable(
-		"#$view.viewId .page-index-${fragments.pageIndex} ");
+    "#$view.viewId .page-index-${fragments.pageIndex} ");
 });
 //]]>
 </script>
@@ -121,50 +130,50 @@ jQuery(function() {
 #if ($view.viewType == "multicolumn")
 
 #if ($firstSet)
-<script type="text/javascript">
-//<![CDATA[
-var OUTER_WIDTH = 305;
-var blockWidth = $view.columnWidth;
-
-function initLiquidBlocks(baseElement, blockWidth) {
-  // Workaround for a browser bug where the container width 
-  // won't be calculated correctly when first loading
-  liquidBlocks(baseElement, blockWidth, jQuery("body").width() - OUTER_WIDTH);
-  liquidBlocks(baseElement, blockWidth, null);
-}
-
-jQuery(document).ready(function() {
-  jQuery(window).resize(function () {
-    liquidBlocks(jQuery("#$view.viewId"), blockWidth, null);
+  <script type="text/javascript">
+  //<![CDATA[
+  var OUTER_WIDTH = 305;
+  var blockWidth = $view.columnWidth;
+  
+  function initLiquidBlocks(baseElement, blockWidth) {
+    // Workaround for a browser bug where the container width 
+    // won't be calculated correctly when first loading
+    liquidBlocks(baseElement, blockWidth, jQuery("body").width() - OUTER_WIDTH);
+    liquidBlocks(baseElement, blockWidth, null);
+  }
+  
+  jQuery(document).ready(function() {
+    jQuery(window).resize(function () {
+      liquidBlocks(jQuery("#$view.viewId"), blockWidth, null);
+    });
+  
+    initLiquidBlocks(jQuery("#$view.viewId"), blockWidth);
   });
-
-  initLiquidBlocks(jQuery("#$view.viewId"), blockWidth);
-});
-//]]>
-</script>
-<ul class="liquid-blocks fragments-container">
+  //]]>
+  </script>
+  <ul class="liquid-blocks fragments-container">
 #end
 #foreach ($fragment in $fragments)
-<li class="liquid-block page-index-${fragments.pageIndex}">
-  <div class="liquid-block-frame" style="position: relative;"> ## the base of the toolbar 
-    <div class="liquid-block">
-      #fragmentCell($fragment $view.compactColumn)
+  <li class="liquid-block page-index-${fragments.pageIndex}">
+    <div class="liquid-block-frame" style="position: relative;"> ## the base of the toolbar 
+      <div class="liquid-block">
+        #fragmentCell($fragment $view.compactColumn)
+      </div>
     </div>
-  </div>
-</li>
+  </li>
 #end
 #if ($firstSet)
-</ul>
-<div style="clear: both;"/>
+  </ul>
+  <div style="clear: both;"/>
 #end
 #if (!$firstSet)
-<script type="text/javascript">
-//<![CDATA[
-jQuery(document).ready(function() {
-  initLiquidBlocks(jQuery("#$view.viewId"), $view.columnWidth);
-});
-//]]>
-</script>
+  <script type="text/javascript">
+  //<![CDATA[
+  jQuery(document).ready(function() {
+    initLiquidBlocks(jQuery("#$view.viewId"), $view.columnWidth);
+  });
+  //]]>
+  </script>
 #end
 
 ##
@@ -174,9 +183,9 @@ jQuery(document).ready(function() {
   
 #if ($firstSet)<ul class="fragment-tree fragments-container">#end
 #foreach ($fragment in $fragments)
-<li class="fragment-node fragment-root-node page-index-${fragments.pageIndex}"
-  >#fragmentRootNode($fragment $null $contextTags $view.lightNode) 
-</li>
+  <li class="fragment-node fragment-root-node page-index-${fragments.pageIndex}"
+    >#fragmentRootNode($fragment $null $contextTags $view.lightNode) 
+  </li>
 #end
 #if ($firstSet)</ul>#end
 
@@ -187,13 +196,13 @@ jQuery(document).ready(function() {
   
 #if ($firstSet)<div class="fragments-container">#end
 #foreach ($fragment in $fragments)
-<div class="page-index-${fragments.pageIndex}">
-  #if ($view.viewType == "detail")
-    #fragment($fragment $contextTags)
-  #else
-  	#fragmentFullFledged($fragment)
-  #end
-</div>
+  <div class="page-index-${fragments.pageIndex}">
+    #if ($view.viewType == "detail")
+      #fragment($fragment $contextTags)
+    #else
+    	#fragmentFullFledged($fragment)
+    #end
+  </div>
 #end
 #if ($firstSet)</div>#end
 	

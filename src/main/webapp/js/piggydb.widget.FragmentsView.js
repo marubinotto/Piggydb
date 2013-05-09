@@ -76,7 +76,6 @@
 	    jQuery.get(this.fragmentsUrl, params, function(html) {
 	      if (jQuery.trim(html) != "") {
 	      	outer.contentDiv.append(html);
-	      	outer.headerDiv.show();
 	        prettyPrint();
 	        if (outer.highlight != null && !outer.highlighted) {
 	        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
