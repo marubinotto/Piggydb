@@ -421,14 +421,14 @@ div.children table.children-control button.children-content-toggle {
 	margin-bottom: 10px;
 }
 
-.fragments-view div.view-label {
+.fragments-view div.view-header {
 	margin-top: 5px;
 	margin-bottom: 15px;
   font-weight: normal;
   font-size: 9pt;
 }
 
-.fragments-view div.view-label span.label {
+.fragments-view div.view-header span.label {
   border: 1px solid #ccc;
   border-radius: 5px 0px 0px 0px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
@@ -442,13 +442,13 @@ div.children table.children-control button.children-content-toggle {
   vertical-align: middle;
 }
 
-.fragments-view div.view-label span.label span.count {
+.fragments-view div.view-header span.label span.count {
 	color: #999;
 	font-size: 8pt;
 	margin-left: 5px;
 }
 
-.fragments-view div.view-label span.new-fragment-buttons {
+.fragments-view div.view-header span.new-fragment-buttons {
 	margin: 0px;
 	margin-left: 5px;
 	
@@ -456,7 +456,7 @@ div.children table.children-control button.children-content-toggle {
   vertical-align: middle;
 }
 
-.fragments-view div.view-label span.new-fragment-buttons img {
+.fragments-view div.view-header span.new-fragment-buttons img {
 	vertical-align: middle;
 	margin-top: -3px;
 }
