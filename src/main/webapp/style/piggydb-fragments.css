@@ -460,6 +460,16 @@ div.children table.children-control button.children-content-toggle {
 	vertical-align: middle;
 	margin-top: -3px;
 }
+
+.fragments-view div.view-header span.toggle {
+	padding-left: 5px;
+}
+
+.fragments-view div.view-header span.toggle img {
+	vertical-align: middle;
+	margin-right: -5px;
+	padding-bottom: 2px;
+}
  
 .fragments-view .view-control {
   margin: 0px;

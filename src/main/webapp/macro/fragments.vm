@@ -22,6 +22,9 @@ jQuery(function() {
 	<span class="label">
 		<span class="title">All</span>:
 		<span class="count"></span>
+    <span class="toggle">
+      <img border="0" alt="" src="$context/style/images/bullet-arrow-down.png"/>
+    </span>
 	</span>
 	#if ($jsAddFragment)
   	#newFragmentButtons($jsAddFragment $jsAddFile)
