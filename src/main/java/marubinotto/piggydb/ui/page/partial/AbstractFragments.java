@@ -58,9 +58,11 @@ public abstract class AbstractFragments extends AbstractPartial {
 	//
 
 	public FragmentsView view;
+	
+	public String label;
+	public boolean hideHeader = false;
 
 	public Page<Fragment> fragments;
-	public String label;
 	public Classification contextTags;
 
 	public boolean firstSet = true;

@@ -90,6 +90,7 @@ jQuery(function() {
 
 #macro ( fragmentsViewContent $view $fragments $contextTags $firstSet $lastSet )
  
+#if (!$hideHeader)
 <script type="text/javascript">
 //<![CDATA[
 jQuery(function() {
@@ -100,6 +101,7 @@ jQuery(function() {
 });
 //]]>
 </script>
+#end
 
 #if ($fragments && $fragments.size() > 0)
   
