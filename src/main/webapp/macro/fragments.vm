@@ -28,7 +28,11 @@ jQuery(function() {
 	</span>
 	#if ($jsAddFragment)
   	#newFragmentButtons($jsAddFragment $jsAddFile)
-	#end
+  #end
+  
+  <div class="fragments-criteria">
+    hogehoge
+  </div>
 </div>
 
 ## control

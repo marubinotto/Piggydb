@@ -436,10 +436,20 @@ div.children table.children-control button.children-content-toggle {
   background-color: #fafafa;
     
   margin: 0px;
-  padding: 3px;
+  padding: 4px;
   padding-left: 10px;
   padding-right: 10px;
   vertical-align: middle;
+  
+  border-bottom-style: none;
+}
+
+.fragments-view div.view-header div.fragments-criteria {
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;	
+  background-color: #fff;
+  padding: 10px;
+  font-size: 13px;
 }
 
 .fragments-view div.view-header span.label span.count {
