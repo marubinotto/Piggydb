@@ -480,6 +480,15 @@ div.children table.children-control button.children-content-toggle {
 	margin-right: -5px;
 	padding-bottom: 2px;
 }
+
+.fragments-view div.view-header input.fragments-search {
+	width: 350px;
+	background: url(../images/search.png) no-repeat 3px 50%;
+	padding: 3px;
+	padding-left: 20px;
+	font-size: 13px;
+	height: auto;
+}
  
 .fragments-view .view-control {
   margin: 0px;

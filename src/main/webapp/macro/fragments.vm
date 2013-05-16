@@ -31,7 +31,9 @@ jQuery(function() {
   #end
   
   <div class="fragments-criteria">
-    hogehoge
+    <div>
+      <input class="fragments-search" type="text"/>
+    </div>
   </div>
 </div>
 
