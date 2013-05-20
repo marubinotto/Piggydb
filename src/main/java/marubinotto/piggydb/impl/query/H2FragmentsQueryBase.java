@@ -46,24 +46,8 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		return getRepository().getFragmentRowMapper();
 	}
 	
-	protected FragmentsQuery getDelegateeQuery(Class<? extends FragmentsQuery> queryType) 
-	throws Exception {
-		FragmentsQuery query = (FragmentsQuery)getRepository().getQuery(queryType);
-		query.setSortOption(getSortOption());
-		query.setEagerFetching(isEagerFetching());
-		query.setEagerFetchingMore(isEagerFetchingMore());
-		return query;
-	}
 	
-	protected List<Fragment> getByIds(Collection<Long> fragmentIds) throws Exception {
-		Assert.Arg.notNull(fragmentIds, "fragmentIds");
-		FragmentsByIds query = (FragmentsByIds)getDelegateeQuery(FragmentsByIds.class);
-		query.setIds(fragmentIds);
-		return query.getAll();
-	}
-	
-	
-	// -----
+	// ----- Sort option
 	
 	private FragmentsSortOption sortOption = new FragmentsSortOption();
 	
@@ -76,7 +60,8 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 		return this.sortOption;
 	}
 	
-	// -----
+	
+	// ----- Eager fetching
 
 	private boolean eagerFetching = false;
 	private boolean eagerFetchingMore = false;
@@ -101,7 +86,8 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 	  getRepository().fetchRelations(fragments, this.eagerFetching, this.eagerFetchingMore);
 	}
 	
-	// -----
+	
+	// ----- Main logic
 	
 	private StringBuilder sql;
 	private List<Object> sqlArgs;
@@ -194,6 +180,25 @@ public abstract class H2FragmentsQueryBase implements FragmentsQuery {
 			}
 		};
 	}
+	
+	
+	// ----- Utilities
+  
+  protected FragmentsQuery getDelegateeQuery(Class<? extends FragmentsQuery> queryType) 
+  throws Exception {
+    FragmentsQuery query = (FragmentsQuery)getRepository().getQuery(queryType);
+    query.setSortOption(getSortOption());
+    query.setEagerFetching(isEagerFetching());
+    query.setEagerFetchingMore(isEagerFetchingMore());
+    return query;
+  }
+  
+  protected List<Fragment> getByIds(Collection<Long> fragmentIds) throws Exception {
+    Assert.Arg.notNull(fragmentIds, "fragmentIds");
+    FragmentsByIds query = (FragmentsByIds)getDelegateeQuery(FragmentsByIds.class);
+    query.setIds(fragmentIds);
+    return query.getAll();
+  }
 	
 	protected void appendSqlToSelectFragmentIdsTaggedWithAnyOf(
 		StringBuilder sql, Set<Long> tagIds, boolean sort) {
