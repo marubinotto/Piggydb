@@ -33,6 +33,9 @@ public class FragmentsByKeywords extends AbstractFragments {
 			}
 			this.label.trim();
 		}
+		else {
+		  this.label = getMessage("all");
+		}
 		
 		marubinotto.piggydb.model.query.FragmentsByKeywords query = 
 			(marubinotto.piggydb.model.query.FragmentsByKeywords)getQuery(

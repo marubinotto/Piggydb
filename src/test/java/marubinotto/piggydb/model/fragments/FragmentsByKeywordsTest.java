@@ -36,6 +36,7 @@ public class FragmentsByKeywordsTest extends FragmentRepositoryTestBase {
 			getPlainUser());
 		this.id2 = this.object.register(fragment);
 		
+		setCurrentTimeForTest(2009, 7, 3);
 		Fragment fileFragment = this.object.newInstance(getPlainUser());
 		fileFragment.setFileInput(new FileItemMock("file", "/path/to/akane.png", new byte[0]));
 		this.id3 = this.object.register(fileFragment);
@@ -45,13 +46,20 @@ public class FragmentsByKeywordsTest extends FragmentRepositoryTestBase {
 		return (FragmentsByKeywords)this.object.getQuery(FragmentsByKeywords.class);
 	}
 	
+	private void assertItContainsAll(Page<Fragment> page) {
+	  assertEquals(3, page.size());
+    assertEquals(this.id3, page.get(0).getId());
+    assertEquals(this.id2, page.get(1).getId());
+    assertEquals(this.id1, page.get(2).getId());
+	}
+	
 	@Test
 	public void nullKeyword() throws Exception {
 		FragmentsByKeywords query = getQuery();
 		query.setKeywords(null);
 		Page<Fragment> page = query.getPage(5, 0);
 		
-		assertEquals(0, page.size());
+		assertItContainsAll(page);
 	}
 	
 	@Test
@@ -60,7 +68,7 @@ public class FragmentsByKeywordsTest extends FragmentRepositoryTestBase {
 		query.setKeywords("  ");
 		Page<Fragment> page = query.getPage(5, 0);
 		
-		assertEquals(0, page.size());
+		assertItContainsAll(page);
 	}
 	
 	@Test
