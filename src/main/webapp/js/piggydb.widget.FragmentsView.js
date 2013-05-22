@@ -19,6 +19,7 @@
 		this.headerDiv = this.rootDiv.find("div.view-header");
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.pageIndex = 0;
+		this.keywords = null;
 	};
 	
 	_class.refreshViews = function(highlightId) {
@@ -50,32 +51,42 @@
 	      outer.ascending = (button.attr("name") == "ascending");
 	      outer.loadFirstSet();
 	    });
+	    this.rootDiv.find("input.fragments-search").keyup(function() {
+	    	outer.keywords = jQuery(this).val();
+	    	outer.loadFirstSet({lazyDisplay: true});
+	    });
 	    
 	    this.loadFirstSet();
 	  },
 
 	  createParameters: function () {
-	    return {
-	      "viewId": this.id, 
-	      "scale": this.scale, 
-	      "orderBy": this.orderBy,
-	      "ascending": this.ascending
+	  	var params = {
+	      viewId: this.id, 
+	      scale: this.scale, 
+	      orderBy: this.orderBy,
+	      ascending: this.ascending
 	    };
+	  	if (this.keywords) params.keywords = this.keywords;
+	  	return params;
 	  },
 	  
-	  loadFirstSet: function (shuffle) {
+	  loadFirstSet: function (options) {
+	  	if (!options) options = {};
 	  	this.pageIndex = 0;
 	  	
 	  	var params = this.createParameters();
-	  	if (shuffle) params.shuffle = true;
+	  	if (options.shuffle) params.shuffle = true;
 	  	
-	    this.contentDiv.empty();
-	    var loadIcon = this.contentDiv.putLoadingIcon("margin: 5px;");
+	  	var loadIcon = null;
+	  	if (!options.lazyDisplay) {
+	  		this.contentDiv.empty();
+	    	loadIcon = this.contentDiv.putLoadingIcon("margin: 5px;");
+	  	}
 	    
 	    var outer = this;
 	    jQuery.get(this.fragmentsUrl, params, function(html) {
 	      if (jQuery.trim(html) != "") {
-	      	outer.contentDiv.append(html);
+	      	outer.contentDiv.html(html);
 	        prettyPrint();
 	        if (outer.highlight != null && !outer.highlighted) {
 	        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
@@ -87,7 +98,7 @@
 	          outer.highlighted = true;
 	        }
 	      }
-	      loadIcon.remove();
+	      if (!options.lazyDisplay) loadIcon.remove();
 	    });
 	  },
 	  
@@ -100,7 +111,7 @@
 	  },
 	  
 	  shuffle: function () {
-	  	this.loadFirstSet(true);
+	  	this.loadFirstSet({shuffle: true});
 	  },
 	  
 		showMore: function (button) {

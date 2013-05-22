@@ -4,6 +4,7 @@ import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
+import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.paging.Page;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -106,5 +107,13 @@ public abstract class AbstractFragments extends AbstractPartial {
 		if (this.scale != null) getContext().setSessionAttribute(SK_SCALE, this.scale);
 		if (this.orderBy != null) getContext().setSessionAttribute(SK_ORDERBY, this.orderBy);
 		if (this.ascending != null) getContext().setSessionAttribute(SK_ASCENDING, this.ascending);
+	}
+	
+	protected static String makeKeywordSearchLabel(String keywords) {
+	  String label = "<span class=\"search-icon-mini\">&nbsp;</span> ";
+    for (String keyword : PiggydbUtils.splitToKeywords(keywords)) {
+      label += "\"" + keyword + "\" ";
+    }
+    return label.trim();
 	}
 }

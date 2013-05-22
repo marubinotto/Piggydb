@@ -1,10 +1,10 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.RegexUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 
 public class FragmentsByKeywords extends AbstractFragments {
 	
@@ -15,7 +15,7 @@ public class FragmentsByKeywords extends AbstractFragments {
 	protected void setFragments() throws Exception {
 		this.keywords = modifyIfGarbledByTomcat(this.keywords);
 		
-		if (StringUtils.isNotBlank(this.keywords)) {
+		if (isNotBlank(this.keywords)) {
 			// regex to match the keyword
 			StringBuilder keywordRegx = new StringBuilder();
 			for (String word : PiggydbUtils.splitToKeywords(this.keywords)) {
@@ -27,11 +27,7 @@ public class FragmentsByKeywords extends AbstractFragments {
 			this.keywordRegx = "(" + keywordRegx.toString() + ")";
 			
 			// fragments label
-			this.label = "<span class=\"search-icon-mini\">&nbsp;</span> ";
-			for (String keyword : PiggydbUtils.splitToKeywords(this.keywords)) {
-				this.label += "\"" + keyword + "\" ";
-			}
-			this.label.trim();
+			this.label = makeKeywordSearchLabel(this.keywords);
 		}
 		else {
 		  this.label = getMessage("all");
