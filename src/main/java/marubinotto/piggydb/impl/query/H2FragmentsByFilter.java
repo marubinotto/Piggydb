@@ -19,6 +19,7 @@ import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageImpl;
 import marubinotto.util.paging.PageUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,6 +34,12 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 	public void setFilter(Filter filter) {
 		this.filter = filter;
 	}
+	
+	private String keywords;
+  
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
 	
 	protected void appendFromWhere(StringBuilder sql, List<Object> args) throws Exception {
 		// Do nothing
@@ -109,6 +116,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		Assert.Property.requireNotNull(filter, "filter");
 		
 		StringBuilder sql  = new StringBuilder();
+		List<Object> args = new ArrayList<Object>();
 		
 		TagRepository tagRepository = getRepository().getTagRepository();
         
@@ -125,6 +133,16 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 			if (sort) appendFieldForSort(sql, "f.");
 			sql.append(" from fragment as f");
 		}
+		
+		// Keywords
+		if (StringUtils.isNotBlank(this.keywords)) {
+		  sql.append(" intersect");
+		  sql.append(" select f.fragment_id");
+      if (sort) appendFieldForSort(sql, "f.");
+      sql.append(" from fragment as f, FT_SEARCH_DATA(?, 0, 0) as ft");
+      sql.append(" where ft.TABLE ='FRAGMENT' and f.fragment_id = ft.KEYS[0]");
+      args.add(this.keywords);
+		}
        
 		// Excludes
 		Set<Long> excludes = this.filter.getExcludes().expandAll(tagRepository);
@@ -137,7 +155,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		if (sort && !getSortOption().shuffle) appendSortOption(sql, "f.");
 
 		logger.debug("getFilteredIds: " + sql);
-		return getJdbcTemplate().query(sql.toString(), new RowMapper() {
+		return getJdbcTemplate().query(sql.toString(), args.toArray(), new RowMapper() {
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				return rs.getLong(1);
 			}

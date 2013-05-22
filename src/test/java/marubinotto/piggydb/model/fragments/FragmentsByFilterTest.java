@@ -62,6 +62,50 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 	}
 	
 	@Test
+	public void oneKeyword() throws Exception {
+	  this.object.register(newFragmentWithTitle("hello world"));
+	  
+	  FragmentsByFilter query = getQuery();
+	  query.setFilter(new RawFilter());
+	  
+	  // found
+	  query.setKeywords("world");
+	  Page<Fragment> result = query.getPage(10, 0);
+    
+    assertEquals(1, result.size());
+    assertEquals("hello world", result.get(0).getTitle());
+    
+    // not found
+    query.setKeywords("foo");
+    result = query.getPage(10, 0);
+    
+    assertEquals(0, result.size());
+	}
+	
+	@Test
+  public void oneTagAndKeyword() throws Exception {
+	  this.object.register(newFragmentWithTitleAndTags("Hierarchical tagging", "note-taking"));
+    
+    FragmentsByFilter query = getQuery();
+    
+    // found
+    RawFilter filter = new RawFilter();
+    filter.getClassification().addTag(storedTag("note-taking"));
+    query.setFilter(filter);
+    query.setKeywords("tagging");
+    Page<Fragment> result = query.getPage(10, 0);
+    
+    assertEquals(1, result.size());
+    assertEquals("Hierarchical tagging", result.get(0).getTitle());
+    
+    // not found
+    query.setKeywords("foo");
+    result = query.getPage(10, 0);
+    
+    assertEquals(0, result.size());
+	}
+	
+	@Test
 	public void twoTags() throws Exception {
 		this.object.register(newFragmentWithTitleAndTags("Daisuke", "tokyo", "male"));
 		this.object.register(newFragmentWithTitleAndTags("Akane", "tokyo", "female"));
