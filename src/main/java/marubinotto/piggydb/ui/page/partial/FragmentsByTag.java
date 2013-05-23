@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import static marubinotto.util.CollectionUtils.set;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
@@ -25,10 +26,17 @@ public class FragmentsByTag extends AbstractFragments {
 			(marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
 				marubinotto.piggydb.model.query.FragmentsByFilter.class);
 		query.setFilter(filter);
+		if (isNotBlank(this.query)) {
+		  query.setKeywords(this.query);
+		}
+		
 		this.fragments = getPage(query);
 		
-		this.label = 
-			"<span class=\"" + this.html.miniTagIconClass(tag.getName()) + "\">&nbsp;</span> " + 
-			tag.getName();
+		this.label = "<span class=\"" + this.html.miniTagIconClass(tag.getName()) + 
+		  "\">&nbsp;</span> " + tag.getName();
+		if (isNotBlank(this.query)) {
+		  this.label += " + ";
+		  this.label += makeKeywordSearchLabel(this.query);
+		}
 	}
 }

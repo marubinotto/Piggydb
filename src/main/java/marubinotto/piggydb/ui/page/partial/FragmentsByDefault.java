@@ -9,7 +9,6 @@ public class FragmentsByDefault extends AbstractFragments {
 
 	@Override 
 	protected void setFragments() throws Exception {
-	  this.queryable = true;
 		FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
 
 		if (isNotBlank(this.query)) {
