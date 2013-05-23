@@ -15,7 +15,7 @@ public class FragmentsByTag extends AbstractFragments {
 		if (this.id == null) return;
 		
 		Tag tag = getDomain().getTagRepository().get(this.id.longValue());
-		if (tag == null) return;
+		if (tag == null) return;		
 		
 		this.contextTags = new MutableClassification(set(tag));
 		
@@ -29,14 +29,10 @@ public class FragmentsByTag extends AbstractFragments {
 		if (isNotBlank(this.query)) {
 		  query.setKeywords(this.query);
 		}
-		
 		this.fragments = getPage(query);
 		
 		this.label = "<span class=\"" + this.html.miniTagIconClass(tag.getName()) + 
-		  "\">&nbsp;</span> " + tag.getName();
-		if (isNotBlank(this.query)) {
-		  this.label += " + ";
-		  this.label += makeKeywordSearchLabel(this.query);
-		}
+      "\">&nbsp;</span> " + tag.getName();
+		appendKeywordSearchLabel();
 	}
 }

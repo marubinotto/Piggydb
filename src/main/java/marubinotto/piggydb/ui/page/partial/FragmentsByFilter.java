@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.ui.page.FilterPage;
 
@@ -31,6 +32,11 @@ public class FragmentsByFilter extends AbstractFragments {
 			(marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
 				marubinotto.piggydb.model.query.FragmentsByFilter.class);
 		query.setFilter(this.filter);
+		if (isNotBlank(this.query)) {
+      query.setKeywords(this.query);
+    }
 		this.fragments = getPage(query);
+		
+		appendKeywordSearchLabel();
 	}
 }

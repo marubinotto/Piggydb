@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -117,5 +118,12 @@ public abstract class AbstractFragments extends AbstractPartial {
       label += "\"" + keyword + "\" ";
     }
     return label.trim();
+	}
+	
+	protected void appendKeywordSearchLabel() {
+	  if (isNotBlank(this.query)) {
+      this.label += " + ";
+      this.label += makeKeywordSearchLabel(this.query);
+    }
 	}
 }
