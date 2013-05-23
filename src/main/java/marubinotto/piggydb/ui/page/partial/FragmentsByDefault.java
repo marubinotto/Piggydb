@@ -5,21 +5,20 @@ import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 
 public class FragmentsByDefault extends AbstractFragments {
-  
-  public String keywords;
 
 	@Override 
 	protected void setFragments() throws Exception {
+	  this.queryable = true;
 		FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
 
-		if (isNotBlank(this.keywords)) {
+		if (isNotBlank(this.query)) {
 		  marubinotto.piggydb.model.query.FragmentsByKeywords queryByKeywords = 
 	      (marubinotto.piggydb.model.query.FragmentsByKeywords)getQuery(
 	        marubinotto.piggydb.model.query.FragmentsByKeywords.class);
-		  queryByKeywords.setKeywords(this.keywords);
+		  queryByKeywords.setKeywords(this.query);
 		  query = queryByKeywords;
 		  
-		  this.label = makeKeywordSearchLabel(this.keywords);
+		  this.label = makeKeywordSearchLabel(this.query);
 		}
 		else {
 		  this.label = getMessage("all");

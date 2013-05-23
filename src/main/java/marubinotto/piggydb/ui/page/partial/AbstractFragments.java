@@ -29,6 +29,9 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public static final String SK_SCALE = "fragmentsViewScale";
 	public static final String SK_ORDERBY = "fragmentsViewOrderBy";
 	public static final String SK_ASCENDING = "fragmentsViewAscending";
+	
+	public boolean queryable = false;
+	public String query;
 
 	@Override
 	public void onInit() {

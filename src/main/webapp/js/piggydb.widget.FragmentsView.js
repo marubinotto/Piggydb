@@ -19,7 +19,7 @@
 		this.headerDiv = this.rootDiv.find("div.view-header");
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.pageIndex = 0;
-		this.keywords = null;
+		this.query = null;
 	};
 	
 	_class.refreshViews = function(highlightId) {
@@ -52,7 +52,7 @@
 	      outer.loadFirstSet();
 	    });
 	    this.rootDiv.find("input.fragments-search").keyup(function() {
-	    	outer.keywords = jQuery(this).val();
+	    	outer.query = jQuery(this).val();
 	    	outer.loadFirstSet({lazyDisplay: true});
 	    });
 	    
@@ -66,7 +66,7 @@
 	      orderBy: this.orderBy,
 	      ascending: this.ascending
 	    };
-	  	if (this.keywords) params.keywords = this.keywords;
+	  	if (this.query) params.query = this.query;
 	  	return params;
 	  },
 	  
