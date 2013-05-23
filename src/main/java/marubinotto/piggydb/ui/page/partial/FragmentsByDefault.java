@@ -1,5 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsQuery;
@@ -25,7 +26,7 @@ public class FragmentsByDefault extends AbstractFragments {
 		}
 		
 		this.fragments = getPage(query);
-		if (this.fragments.getTotalSize() == 0) 
+		if (this.fragments.getTotalSize() == 0 && isBlank(this.query)) 
 		  this.hideHeader = true;
 	}
 }
