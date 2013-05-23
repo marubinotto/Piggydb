@@ -19,6 +19,7 @@ public class FragmentsByDefault extends AbstractFragments {
 		  query = queryByKeywords;
 		  
 		  this.label = makeKeywordSearchLabel(this.query);
+		  setKeywordRegex(this.query);
 		}
 		else {
 		  this.label = getMessage("all");

@@ -130,6 +130,11 @@ jQuery(function() {
 #end
   piggydb.widget.Fragment.makeRelationsDraggable(
     "#$view.viewId .page-index-${fragments.pageIndex} ");
+    
+#if ($keywordRegex)
+  jQuery('.tags-by-keywords, #$view.viewId .fragment-caption .title, #$view.viewId .fragment-content').
+    highlightRegex(new RegExp('$utils.raw($keywordRegex)', 'ig'));
+#end
 });
 //]]>
 </script>

@@ -6,9 +6,11 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.piggydb.util.PiggydbUtils;
+import marubinotto.util.RegexUtils;
 import marubinotto.util.paging.Page;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 public abstract class AbstractFragments extends AbstractPartial {
 
@@ -71,6 +73,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 
 	public boolean firstSet = true;
 	public boolean lastSet = false;
+	
+	public String keywordRegex;
 
 	@Override
 	protected void setModels() throws Exception {
@@ -88,6 +92,17 @@ public abstract class AbstractFragments extends AbstractPartial {
 		}
 
 		saveStateToSession();
+	}
+	
+	protected void setKeywordRegex(String keywords) {
+	  StringBuilder keywordRegex = new StringBuilder();
+    for (String word : PiggydbUtils.splitToKeywords(keywords)) {
+      if (keywordRegex.length() > 0) keywordRegex.append("|");
+      word = StringEscapeUtils.escapeJavaScript(word);
+      word = RegexUtils.escapeRegex(word);
+      keywordRegex.append(word);
+    }
+    this.keywordRegex = "(" + keywordRegex.toString() + ")";
 	}
 	
 	protected FragmentsQuery getQuery(Class<? extends FragmentsQuery> queryClass) 

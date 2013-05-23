@@ -949,4 +949,9 @@ div.user-fragment table.fragment {
   text-decoration: underline;
 }
 
+span.highlight {
+  background-color: #FFCC66;
+}
+
+
 

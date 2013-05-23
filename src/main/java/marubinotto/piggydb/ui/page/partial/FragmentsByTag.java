@@ -28,6 +28,7 @@ public class FragmentsByTag extends AbstractFragments {
 		query.setFilter(filter);
 		if (isNotBlank(this.query)) {
 		  query.setKeywords(this.query);
+		  setKeywordRegex(this.query);
 		}
 		this.fragments = getPage(query);
 		
