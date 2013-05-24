@@ -1,4 +1,4 @@
-#macro ( fragmentsView $id $fragmentsUrl $sortable $jsAddFragment $jsAddFile )
+#macro ( fragmentsView $id $fragmentsUrl $sortable $queryable $jsAddFragment $jsAddFile )
   
 <div id="$id" class="fragments-view">
 	
@@ -9,6 +9,9 @@ var fragmentsView_$id;
 jQuery(function() {
 	fragmentsView_$id = new piggydb.widget.FragmentsView(
 		"$id", "$fragmentsUrl", $fragmentsViewScale, $fragmentsViewOrderBy, $fragmentsViewAscending);
+#if ($queryable)
+  fragmentsView_${id}.queryable = true;
+#end
 #if ($highlightedFragment)
 	fragmentsView_${id}.highlight = $highlightedFragment;
 #end
@@ -22,7 +25,7 @@ jQuery(function() {
 	<span class="label">
 		<span class="title">All</span>:
 		<span class="count"></span>
-    <span class="toggle">
+    <span class="toggle" style="display: none;">
       <img border="0" alt="" src="$context/style/images/bullet-arrow-down.png"/>
     </span>
 	</span>

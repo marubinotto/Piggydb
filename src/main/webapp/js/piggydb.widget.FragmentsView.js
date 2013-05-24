@@ -19,7 +19,7 @@
 		this.headerDiv = this.rootDiv.find("div.view-header");
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.pageIndex = 0;
-		this.queryable = true;
+		this.queryable = false;
 		this.query = null;
 	};
 	
@@ -54,6 +54,7 @@
 	    });
 	    
 	    if (this.queryable) {
+	    	this.headerDiv.find("span.label span.toggle").show();
 		    this.headerDiv.find("span.label")
 		    	.css("cursor", "pointer")
 		    	.click(function() {
