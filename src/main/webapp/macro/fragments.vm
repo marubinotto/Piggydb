@@ -30,7 +30,7 @@ jQuery(function() {
   	#newFragmentButtons($jsAddFragment $jsAddFile)
   #end
   
-  <div class="fragments-criteria">
+  <div class="fragments-criteria" style="display: none;">
     <div>
       <input class="fragments-search" type="text"/>
     </div>
