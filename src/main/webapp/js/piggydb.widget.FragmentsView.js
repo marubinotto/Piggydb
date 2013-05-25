@@ -102,7 +102,7 @@
 	  	}
 	    
 	    var outer = this;
-	    jQuery.get(this.fragmentsUrl, params, function(html) {
+	    jQuery.post(this.fragmentsUrl, params, function(html) {
 	      if (jQuery.trim(html) != "") {
 	      	outer.contentDiv.html(html);
 	        prettyPrint();
