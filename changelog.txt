@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.11 (2013-05-25) == #v6.11
+
+ * Added an incremental keyword-search feature to the fragments view
+ * Added an icon next to external links in fragment contents
+ * Removed the calendar from the home page
+
 == Changes in version 6.10 (2013-03-31) == #v6.10
 
  * Added short-form URL for Document View (/d/<ID or tag name>)
