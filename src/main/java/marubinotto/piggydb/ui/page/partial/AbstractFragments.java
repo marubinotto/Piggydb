@@ -57,6 +57,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 		if (this.shuffle != null) {
 			this.sortOption.shuffle = this.shuffle;
 		}
+		
+		if (isNotBlank(this.query)) {
+		  this.query = modifyIfGarbledByTomcat(this.query);
+		}
 	}
 
 	//
