@@ -139,7 +139,6 @@ public class HtmlFragments {
   throws Exception {
     Assert.Arg.notNull(fragment, "fragment");
     Assert.Arg.notNull(wikiParser, "wikiParser");
-    Assert.Arg.notNull(user, "user");
     
     XmlStringBuilder builder = XmlStringBuilder.create("pre");
     

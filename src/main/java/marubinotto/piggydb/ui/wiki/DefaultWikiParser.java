@@ -18,7 +18,7 @@ import org.apache.oro.text.regex.PatternMatcher;
 
 public class DefaultWikiParser extends WikiParser {
 
-	protected DocumentBuilder documentBuilder;
+	protected DocumentBuilder documentBuilder = new HtmlBuilder();
 	protected boolean sectionEnabled = false;
 
 	public DefaultWikiParser() {

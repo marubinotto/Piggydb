@@ -2,7 +2,12 @@ package marubinotto.piggydb.ui.page.common;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import marubinotto.piggydb.impl.InMemoryDatabase;
+import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.entity.RawFragment;
+import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
+import marubinotto.piggydb.ui.wiki.WikiParser;
 import marubinotto.util.Size;
 import marubinotto.util.time.DateTime;
 
@@ -76,5 +81,27 @@ public class HtmlFragmentsTest {
     assertTrue(result.contains("/context/command/get-file.htm?id=1"));
     assertTrue(result.contains("file.txt"));
     assertTrue(result.contains("(976.56 KByte)"));
+  }
+  
+  @Test
+  public void preformattedContent() throws Exception {
+    User user = new User();
+    
+    InMemoryDatabase database = new InMemoryDatabase();
+    WikiParser wikiParser = new DefaultWikiParser();
+    wikiParser.setFragmentRepository(database.getFragmentRepository());
+    wikiParser.setTagRepository(database.getTagRepository());
+    
+    Fragment fragment = database.getFragmentRepository().newInstance(user);
+    fragment.setContentByUser("1 + 1 = 2", user);
+    
+    // with a user
+    String result = this.object.preformattedContent(fragment, wikiParser, user);
+    String expected = "<pre class=\"pre-fragment\">1 + 1 = 2\n</pre>";
+    assertEquals(expected, result);
+    
+    // without a user
+    result = this.object.preformattedContent(fragment, wikiParser, null);
+    assertEquals(expected, result);
   }
 }
