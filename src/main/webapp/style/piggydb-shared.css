@@ -588,6 +588,8 @@ a.filter:hover {
 
 .tag-palette td.tag {
   text-align: left;
+  font-size: 13px;
+  line-height: 17px;
 }
 
 .tag-palette td.tag div.tag-container {
@@ -796,10 +798,6 @@ a.filter:hover {
 
 #global-tools .tag-palette {
   right: 15px;
-}
-
-#global-tools .tag-palette table td {
-  line-height: normal;
 }
 
 #global-tools .login-user ul.menubar {
