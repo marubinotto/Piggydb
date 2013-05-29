@@ -24,7 +24,7 @@ jQuery(function() {
 		piggydb.widget.QuickEdit.init = function() { /* disabled */ };
 	}
 	if (typeof piggydb.widget.Fragment != 'undefined') {
-		piggydb.widget.Fragment.makeFragmentsDroppable = function(selector, hoverClass) { /* disabled */ };
+		piggydb.widget.Fragment.makeFragmentsDroppable = function(selector, hoverClass, activeClass) { /* disabled */ };
 		piggydb.widget.Fragment.makeRelationsDraggable = function(selectorPrefix) { /* disabled */ };
 	}
 	if (typeof piggydb.widget.SelectedFragments != 'undefined') {

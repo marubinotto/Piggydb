@@ -25,12 +25,12 @@ jQuery(function() {
     jQuery("table.fragment").live('mouseleave', function() {
       jQuery(this).find(".fragment-tools").eq(0).hide();
     });
-    _class.makeFragmentsDroppable("table.fragment", null);
+    _class.makeFragmentsDroppable("table.fragment", null, null);
     _class.makeRelationsDraggable("");
   };
   
   _class.initForPartial = function(partialSelector) {
-    _class.makeFragmentsDroppable(partialSelector + " table.fragment", null);
+    _class.makeFragmentsDroppable(partialSelector + " table.fragment", null, null);
     _class.makeRelationsDraggable(partialSelector + " ");
   };
   
@@ -68,7 +68,7 @@ jQuery(function() {
     return jQuery(headerClass);
   };
   
-  _class.makeFragmentsDroppable = function(selector, hoverClass) {
+  _class.makeFragmentsDroppable = function(selector, hoverClass, activeClass) {
     jQuery(selector).droppable({
       
       accept: function(draggable) {
@@ -85,6 +85,8 @@ jQuery(function() {
       },
       
       hoverClass: hoverClass != null ? hoverClass : 'fragment-drophover',
+      		
+      activeClass: activeClass != null ? activeClass : 'fragment-droppable',
           
       greedy: true, 
       

@@ -36,6 +36,8 @@ jQuery(function() {
 	    
 	    hoverClass: "selected-fragments-drophover",
 	    
+	    activeClass: 'selected-fragments-droppable',
+	    
 	    tolerance: 'intersect',
 	    
 	    drop: function(event, ui) {

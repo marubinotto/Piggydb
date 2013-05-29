@@ -125,11 +125,11 @@ jQuery(function() {
 #if ($view.viewType == "multicolumn")
   piggydb.widget.Fragment.makeFragmentsDroppable(
     "#$view.viewId .page-index-${fragments.pageIndex} .liquid-block-frame", 
-    "liquid-block-drophover");
+    "liquid-block-drophover", "liquid-block-droppable");
 #else
   piggydb.widget.Fragment.makeFragmentsDroppable(
     "#$view.viewId .page-index-${fragments.pageIndex} table.fragment", 
-    null);
+    null, null);
 #end
   piggydb.widget.Fragment.makeRelationsDraggable(
     "#$view.viewId .page-index-${fragments.pageIndex} ");
