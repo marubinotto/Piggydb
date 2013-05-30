@@ -197,6 +197,7 @@ table.fragment .header-cell {
 table.fragment .header-cell .fragment-header {
   position: relative;
   padding: 5px;
+  line-height: 150%;
 }
 
 table.fragment .fragment-tools {
