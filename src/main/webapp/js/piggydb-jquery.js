@@ -53,20 +53,28 @@
     return color;
   }
   
-  $.fn.fadingHighlight = function (highlightColor) {
+  $.fn.fadingHighlight = function (highlightColor, duration) {
+    if (!highlightColor) highlightColor = "#ffcc66";  // default color
+    if (!duration) duration = 3000;
     this.each(function() {
-      var bgColor = getBackgroundColor($(this));
-      $(this).css("background-color", highlightColor);
-      
       var target = $(this);
-      $(this).animate({ 
-          backgroundColor: bgColor
-        }, 
+
+      // support for tables
+      var tagName = this.tagName.toLowerCase();
+      if (tagName === "table" || tagName === "tr") {
+        target = $(this).find("td");
+      }
+
+      var originalColor = getBackgroundColor(target);
+      target.css("background-color", highlightColor);
+
+      target.animate({
+          backgroundColor: originalColor
+        },
         {
-          duration: 3000,
-          complete: function() { 
-            // workaround for a bug not to animate occasionally
-            target.css("background-color", bgColor);
+          duration: duration,
+          complete: function() {
+            target.css("background-color", "");
           }
         });
     });
