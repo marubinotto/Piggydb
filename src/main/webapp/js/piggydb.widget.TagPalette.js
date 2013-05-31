@@ -61,7 +61,10 @@
 	  },
 	  
 	  refresh: function() {
-	  	if (this.element.is(":visible")) this.open();
+	  	if (this.element.is(":visible")) {
+	  		this.breadcrumbs = [];  
+		    this.switchView(this.viewType, false);
+	  	}
 	  },
 	  
 	  switchView: function(name, init) {
