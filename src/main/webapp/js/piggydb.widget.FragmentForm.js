@@ -31,7 +31,7 @@
 	
 	var _previewBox = new piggydb.widget.Facebox("facebox-fragment-preview");
 	
-	var _open = function(args, fragment, onCreated) {
+	var _open = function(args, fragment, onSaved) {
 		var editorId = fragment != null ? 
 			"fragment-editor-" + fragment.id() : 
 			"fragment-editor-new";
@@ -48,7 +48,7 @@
 				jQuery("body").append(html);
 				var form = new _class(jQuery("#" + editorId), editorId);
 				form.fragment = fragment;
-				form.onCreated = onCreated;
+				form.onSaved = onSaved;
 				form.open();
 			}
 		});
@@ -60,7 +60,7 @@
 		this.textarea = this.element.find("textarea.fragment-content");
 		this.indicator = this.element.find("span.indicator");
 		this.fragment = null;		// target fragment widget to be updated
-		this.onCreated = null;
+		this.onSaved = null;
 		this.prepare();
 	};
 	
@@ -102,28 +102,34 @@
 	_class.openToCreate = function() {
 		_open({}, null, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open({}, new piggydb.widget.Fragment(button), null);
+		_open({}, new piggydb.widget.Fragment(button), function(id) {
+			piggydb.widget.TagPalette.refreshAll();
+		});
 	};
 	
 	_class.openToAddChild = function(parentId) {
 		_open({parentId: parentId}, null, function(newId) {
 			piggydb.widget.Fragment.reloadRootChildNodes(parentId, newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToCreateWithTag = function(tagId) {
 		_open({tagId: tagId}, null, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToCreateWithFilter = function(filterId) {
 		_open({filterId: filterId}, null, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	

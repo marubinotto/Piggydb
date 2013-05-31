@@ -134,17 +134,19 @@
 				piggydb.widget.putGlobalMessage(jQuery(this).html());
 			});
 			
-			// created 
-			jQuery(response).find("span.new-id").each(function() {
-				if (jQuery.isFunction(outer.onCreated)) 
-					outer.onCreated(jQuery(this).text());
-			});
 			// updated
 			if (fragment != null) {
 				jQuery(response).children("div.fragment-properties").each(function() {
 					fragment.update(jQuery(this));
 				});
 				piggydb.widget.Fragment.highlight(fragment.id(), null);
+				if (jQuery.isFunction(outer.onSaved)) outer.onSaved(fragment.id());
+			}
+			// created 
+			else {
+				jQuery(response).find("span.new-id").each(function() {
+					if (jQuery.isFunction(outer.onSaved)) outer.onSaved(jQuery(this).text());
+				});
 			}
 		}		
 	}, module.Widget.prototype);

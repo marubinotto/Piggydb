@@ -1,8 +1,11 @@
 (function(module) {
 	
-	module.TagPalette = function(paletteDiv) {
+	var _instances = [];
+	
+	var _class = function(paletteDiv) {
 		module.Widget.call(this, paletteDiv);
 		
+		_instances.push(this);
 	  this.ref = piggydb.widget.getGlobalIdentifier(this);
 	  
 	  this.viewType = "tree";
@@ -19,9 +22,9 @@
 	  this.flatIndex = 0;
 	};
 	
-	module.TagPalette.CLASS_OPENED = "pulled";
+	_class.CLASS_OPENED = "pulled";
 	
-	module.TagPalette.DRAGGABLE_SETTINGS = { 
+	_class.DRAGGABLE_SETTINGS = { 
 	  revert: true,
 	  helper: 'clone',
 	  appendTo: 'body',
@@ -29,7 +32,13 @@
 	  zIndex: 120
 	};
 	
-	module.TagPalette.prototype = jQuery.extend({
+	_class.refreshAll = function() {
+		jQuery.each(_instances, function() {
+			this.refresh();
+		});
+	};
+	
+	_class.prototype = jQuery.extend({
 		
 		init: function(toggleButton) {
 			if (toggleButton != null) {
@@ -51,6 +60,10 @@
 	    this.switchView(this.viewType, true);
 	  },
 	  
+	  refresh: function() {
+	  	if (this.element.is(":visible")) this.open();
+	  },
+	  
 	  switchView: function(name, init) {
 	  	if (name == "flat")
 	  		this.updatePaletteFlat({}, init);
@@ -66,17 +79,17 @@
 	  },
 	  
 	  onToggleButtonClick: function() {
-	    if (this.toggleButton.hasClass(module.TagPalette.CLASS_OPENED)) {
+	    if (this.toggleButton.hasClass(_class.CLASS_OPENED)) {
 	      this.close();
 	    } 
 	    else {
-	      this.toggleButton.addClass(module.TagPalette.CLASS_OPENED);
+	      this.toggleButton.addClass(_class.CLASS_OPENED);
 	      this.open();
 	    }
 	  },
 	  
 	  close: function() {
-	    this.toggleButton.removeClass(module.TagPalette.CLASS_OPENED);
+	    this.toggleButton.removeClass(_class.CLASS_OPENED);
 	    this.element.hide();
 	  },
 	  
@@ -192,5 +205,7 @@
 	  }		
 		
 	}, module.Widget.prototype);
+	
+	module.TagPalette = _class;
 	
 })(piggydb.widget);	
