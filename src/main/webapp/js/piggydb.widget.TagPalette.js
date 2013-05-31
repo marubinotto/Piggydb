@@ -65,6 +65,7 @@
 	  },
 	  
 	  switchView: function(name, init) {
+	  	this.viewType = name;
 	  	if (name == "flat")
 	  		this.updatePaletteFlat({}, init);
 	  	else if (name == "cloud")
