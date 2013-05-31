@@ -39,11 +39,14 @@
 	_class.openToAdd = function() {
 		_open({}, null, false, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToUpdate = function(button) {
-		_open({}, new piggydb.widget.Fragment(button), false, null);
+		_open({}, new piggydb.widget.Fragment(button), false, function(id) {
+			piggydb.widget.TagPalette.refreshAll();
+		});
 	};
 	
 	_class.openToEmbed = function(onSaved) {
@@ -53,18 +56,21 @@
 	_class.openToAddChild = function(parentId) {
 		_open({parentId: parentId}, null, false, function(newId) {
 			piggydb.widget.Fragment.reloadRootChildNodes(parentId, newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToCreateWithTag = function(tagId) {
 		_open({tagId: tagId}, null, false, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
 	_class.openToCreateWithFilter = function(filterId) {
 		_open({filterId: filterId}, null, false, function(newId) {
 			piggydb.widget.FragmentsView.refreshViews(newId);
+			piggydb.widget.TagPalette.refreshAll();
 		});
 	};
 	
