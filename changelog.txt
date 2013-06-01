@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.12 (2013-06-01) == #v6.12
+
+ * Updated the fragments view search to accept a fragment reference (#<number>)
+ * TagPalette will be refreshed after a fragment is created/updated
+ * Droppable elements are highlighted during dragging a draggable
+ * Fixed a bug: https://twitter.com/ratthing/status/338838821644951552
+
 == Changes in version 6.11 (2013-05-25) == #v6.11
 
  * Added an incremental keyword-search feature to the fragments view

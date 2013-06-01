@@ -11,3 +11,10 @@
   margin-right: 10px;
   margin-bottom: 20px; 
 }
+
+.about a[href^="http:"]:after,
+.about a[href^="https:"]:after {
+  content: url(images/external-link.png);
+  vertical-align: middle;
+  margin: 0 2px;
+}
