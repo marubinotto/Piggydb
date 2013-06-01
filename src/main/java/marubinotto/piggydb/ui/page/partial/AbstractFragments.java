@@ -1,13 +1,17 @@
 package marubinotto.piggydb.ui.page.partial;
 
+import static marubinotto.util.CollectionUtils.list;
+import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
+import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
 import marubinotto.piggydb.util.PiggydbUtils;
 import marubinotto.util.RegexUtils;
 import marubinotto.util.paging.Page;
+import marubinotto.util.paging.PageUtils;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -88,7 +92,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 		this.view.setScale(this.scale);
 
 		setSelectedFragments();
-		setFragments();
+		preprocessQuery();
+		if (this.fragments == null) setFragments();
 
 		if (this.fragments != null) {
 			this.firstSet = (this.pi == 0);
@@ -96,6 +101,20 @@ public abstract class AbstractFragments extends AbstractPartial {
 		}
 
 		saveStateToSession();
+	}
+	
+	private void preprocessQuery() throws Exception {
+	  if (isBlank(this.query)) return;
+	  
+	  // query == "#<number>"
+	  if (this.query.matches(DefaultWikiParser.PS_FRAGMENT_REF)) {
+	    long id = Long.parseLong(this.query.substring(1));
+	    Fragment fragment = getDomain().getFragmentRepository().get(id);
+	    this.fragments = fragment != null ?
+	      PageUtils.getPage(list(fragment), this.view.getPageSize(), this.pi) :
+	      PageUtils.<Fragment>empty(this.view.getPageSize());
+	    this.label = this.query;
+	  }
 	}
 	
 	protected void setKeywordRegex(String keywords) {
