@@ -68,10 +68,17 @@
 		    			icon.attr("src").replace("down", "up") : 
 		    			icon.attr("src").replace("up", "down"))
 		    	});
-		    this.headerDiv.find("input.fragments-search").keyup(function() {
-		    	outer.query = jQuery(this).val();
-		    	outer.loadFirstSet({lazyDisplay: true});
-		    });
+		    this.headerDiv.find("input.fragments-search")
+			    .keyup(function() {
+			    	outer.query = jQuery(this).val();
+			    	outer.loadFirstSet({lazyDisplay: true});
+			    })
+			    .autocomplete(piggydb.server.autoCompleteUrl, {
+			      minChars: 1,
+			      selectFirst: true,
+			      multiple: false,
+			      scrollHeight: 300
+			    });
 	    }
 	    
 	    this.loadFirstSet();
