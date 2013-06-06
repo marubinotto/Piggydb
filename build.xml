@@ -325,7 +325,10 @@
   -->
   <target name="prepare-demo" depends="build-war-dir">
     <!-- analytics code -->
-    <replace file="${build.war.dir}/border-template.htm">
+    <replace dir="${build.war.dir}">
+    	<include name="border-template.htm"/>
+    	<include name="document-view.htm"/>
+    	
       <replacetoken>##TRACKING_CODE</replacetoken>
       <replacevalue><![CDATA[
         <script type="text/javascript">
