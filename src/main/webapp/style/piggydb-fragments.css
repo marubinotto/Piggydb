@@ -495,6 +495,11 @@ div.children table.children-control button.children-content-toggle {
 	font-size: 13px;
 	height: auto;
 }
+
+.fragments-view div.view-header div.fragments-criteria .tool-button img {
+	padding: 3px;
+	vertical-align: -7px;
+}
  
 .fragments-view .view-control {
   margin: 0px;

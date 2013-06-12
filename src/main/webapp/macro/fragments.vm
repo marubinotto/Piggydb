@@ -36,6 +36,12 @@ jQuery(function() {
   <div class="fragments-criteria" style="display: none;">
     <div>
       <input class="fragments-search" type="text"/>
+      <a class="tool-button" href="#" title=""
+          onclick="return false;">
+        <img src="$context/images/tag-plus.png" border="0" alt=""/></a>
+      <a class="tool-button" href="#" title=""
+          onclick="return false;">
+        <img src="$context/images/tag-minus.png" border="0" alt=""/></a>
     </div>
   </div>
 </div>
