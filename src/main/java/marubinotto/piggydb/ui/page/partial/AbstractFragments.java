@@ -83,6 +83,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public boolean lastSet = false;
 	
 	public String keywordRegex;
+	
+	public boolean queryIsTagName = false;
 
 	@Override
 	protected void setModels() throws Exception {
@@ -115,6 +117,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	      PageUtils.<Fragment>empty(this.view.getPageSize());
 	    this.label = this.query;
 	  }
+	  
+	  this.queryIsTagName = getDomain().getTagRepository().containsName(this.query);
 	}
 	
 	protected void setKeywordRegex(String keywords) {
