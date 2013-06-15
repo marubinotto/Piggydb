@@ -124,7 +124,9 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		List<Set<Long>> expandedTags = this.filter.getClassification().expandEach(tagRepository);
 		if (expandedTags.size() > 0) {
 			for (Set<Long> tagTree : expandedTags) {
-				if (sql.length() > 0) sql.append(" intersect ");
+				if (sql.length() > 0) {
+				  sql.append(" intersect ");
+				}
 				appendSqlToSelectFragmentIdsTaggedWithAnyOf(sql, tagTree, sort);
 			}
 		}
