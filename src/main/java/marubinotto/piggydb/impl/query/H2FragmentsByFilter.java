@@ -125,7 +125,7 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		if (expandedTags.size() > 0) {
 			for (Set<Long> tagTree : expandedTags) {
 				if (sql.length() > 0) {
-				  sql.append(" intersect ");
+				  sql.append(this.filter.isAnd() ? " intersect " : " union ");
 				}
 				appendSqlToSelectFragmentIdsTaggedWithAnyOf(sql, tagTree, sort);
 			}

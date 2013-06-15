@@ -133,6 +133,16 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		
 		assertEquals(1, result.size());
 		assertEquals("Akane", result.get(0).getTitle());
+		
+		// two tags (or)
+		filter.setAnd(false);
+		query.setFilter(filter);
+    result = query.getPage(10, 0);
+    
+    assertEquals(3, result.size());
+    assertEquals("Daisuke", result.get(0).getTitle());
+    assertEquals("Akane", result.get(1).getTitle());
+    assertEquals("Chieko", result.get(2).getTitle());
 	}
 	
 	@Test

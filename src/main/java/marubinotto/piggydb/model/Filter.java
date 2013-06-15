@@ -15,6 +15,10 @@ public interface Filter extends Entity {
 	
 	public void removeIncludeByUser(String tagName, User user);
 	
+	public boolean isAnd();
+	
+	public void setAndByUser(boolean and, User user);
+	
 	public Classification getExcludes();
 	
 	public void addExcludeByUser(Tag tag, User user);

@@ -13,8 +13,8 @@ import org.apache.commons.lang.UnhandledException;
 public class RawFilter extends RawEntity implements Filter {
 	
 	private String name; 
-
 	private MutableClassification includes = new MutableClassification();
+	private boolean and = true;
 	private MutableClassification excludes = new MutableClassification();
 	
 	public RawFilter() {
@@ -74,6 +74,23 @@ public class RawFilter extends RawEntity implements Filter {
 		this.includes.removeTag(tagName);
 		onPropertyChange(user);
 	}
+	
+	public boolean isAnd() {
+	  return this.and;
+	}
+	
+	public void setAnd(boolean and) {
+	  this.and = and;
+	}
+  
+  public void setAndByUser(boolean and, User user) {
+    Assert.Arg.notNull(user, "user");
+    
+    ensureCanChange(user);
+    
+    this.and = and;
+    onPropertyChange(user);
+  }
 
 	public MutableClassification getExcludes() {
 		return this.excludes;
