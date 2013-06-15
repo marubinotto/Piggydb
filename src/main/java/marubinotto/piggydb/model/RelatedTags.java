@@ -60,7 +60,7 @@ public class RelatedTags {
 	}
 
 	public void add(long id, int count) {
-		if (this.filter.getClassification().containsTagId(id) || 
+		if (this.filter.getIncludes().containsTagId(id) || 
 			this.filter.getExcludes().containsTagId(id)) {
 			return;
 		}

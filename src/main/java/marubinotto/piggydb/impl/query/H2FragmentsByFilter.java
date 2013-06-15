@@ -120,8 +120,8 @@ extends H2FragmentsQueryBase implements FragmentsByFilter {
 		
 		TagRepository tagRepository = getRepository().getTagRepository();
         
-		// Classifications
-		List<Set<Long>> expandedTags = this.filter.getClassification().expandEach(tagRepository);
+		// Includes
+		List<Set<Long>> expandedTags = this.filter.getIncludes().expandEach(tagRepository);
 		if (expandedTags.size() > 0) {
 			for (Set<Long> tagTree : expandedTags) {
 				if (sql.length() > 0) {

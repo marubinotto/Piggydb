@@ -44,7 +44,7 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		User user = new User("daisuke");
 		Filter filter = this.object.newInstance(user);
 		filter.setNameByUser("filter-name", user);
-		filter.addClassificationByUser(tagRepository.getByName("tag"), user);
+		filter.addIncludeByUser(tagRepository.getByName("tag"), user);
 		filter.addExcludeByUser(tagRepository.getByName("trash"), user);
 		
 		this.id = this.object.register(filter);
@@ -66,8 +66,8 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		assertEquals("daisuke", filter.getCreator());
 		assertNull(filter.getUpdater());
 		
-		assertEquals(1, filter.getClassification().size());
-		assertTrue(filter.getClassification().containsTagName("tag"));
+		assertEquals(1, filter.getIncludes().size());
+		assertTrue(filter.getIncludes().containsTagName("tag"));
 		
 		assertEquals(1, filter.getExcludes().size());
 		assertTrue(filter.getExcludes().containsTagName("trash"));
@@ -83,8 +83,8 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		assertEquals(this.registerDateTime, filter.getCreationDatetime());
 		assertEquals(this.registerDateTime, filter.getUpdateDatetime());
 		
-		assertEquals(1, filter.getClassification().size());
-		assertTrue(filter.getClassification().containsTagName("tag"));
+		assertEquals(1, filter.getIncludes().size());
+		assertTrue(filter.getIncludes().containsTagName("tag"));
 		
 		assertEquals(1, filter.getExcludes().size());
 		assertTrue(filter.getExcludes().containsTagName("trash"));
@@ -169,8 +169,8 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		Filter filter = this.object.get(this.id);
 		
 		// Then
-		assertEquals(1, filter.getClassification().size());
-		assertTrue(filter.getClassification().containsTagName("updated-tag"));
+		assertEquals(1, filter.getIncludes().size());
+		assertTrue(filter.getIncludes().containsTagName("updated-tag"));
 	}
 	
 	@Test(expected=DuplicateException.class)

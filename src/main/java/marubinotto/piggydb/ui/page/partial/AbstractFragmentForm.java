@@ -52,7 +52,7 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		if (this.filterId != null) {
 			Filter filter = getFilter(this.filterId);
 			if (filter != null) {
-				for (Tag tag : filter.getClassification()) addDefaultTag(tag);
+				for (Tag tag : filter.getIncludes()) addDefaultTag(tag);
 			}
 		}
 		

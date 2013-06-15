@@ -28,7 +28,7 @@ public class QueryUtils {
 
 	public static final Byte TAGGING_TARGET_TAG = 1;
 	public static final Byte TAGGING_TARGET_FRAGMENT = 2;
-	public static final Byte TAGGING_TARGET_FILTER_CLASSIFICATION = 3;
+	public static final Byte TAGGING_TARGET_FILTER_INCLUDES = 3;
 	public static final Byte TAGGING_TARGET_FILTER_EXCLUDES = 4;
 
 	public static void appendLimit(StringBuilder sql, int pageSize, int pageIndex) {

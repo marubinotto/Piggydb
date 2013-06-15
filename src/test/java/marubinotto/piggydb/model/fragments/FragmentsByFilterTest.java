@@ -44,7 +44,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		
 		// found
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("male"));
+		filter.getIncludes().addTag(storedTag("male"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);
 		
@@ -54,7 +54,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		// not found
 		this.object.getTagRepository().register(newTag("female"));
 		filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("female"));
+		filter.getIncludes().addTag(storedTag("female"));
 		query.setFilter(filter);
 		result = query.getPage(10, 0);
 		
@@ -90,7 +90,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
     
     // found
     RawFilter filter = new RawFilter();
-    filter.getClassification().addTag(storedTag("note-taking"));
+    filter.getIncludes().addTag(storedTag("note-taking"));
     query.setFilter(filter);
     query.setKeywords("tagging");
     Page<Fragment> result = query.getPage(10, 0);
@@ -116,7 +116,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		
 		// one tag
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tokyo"));
+		filter.getIncludes().addTag(storedTag("tokyo"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);
 		
@@ -126,8 +126,8 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		
 		// two tags
 		filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tokyo"));
-		filter.getClassification().addTag(storedTag("female"));
+		filter.getIncludes().addTag(storedTag("tokyo"));
+		filter.getIncludes().addTag(storedTag("female"));
 		query.setFilter(filter);
 		result = query.getPage(10, 0);
 		
@@ -160,7 +160,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		FragmentsByFilter query = getQuery();
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tokyo"));
+		filter.getIncludes().addTag(storedTag("tokyo"));
 		filter.getExcludes().addTag(storedTag("male"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);
@@ -180,7 +180,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		query.setSortOption(new FragmentsSortOption(FragmentField.FRAGMENT_ID, true));
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("animal"));
+		filter.getIncludes().addTag(storedTag("animal"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);
 		
@@ -236,7 +236,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		FragmentsByFilter query = getQuery();
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("aa"));
+		filter.getIncludes().addTag(storedTag("aa"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);
 		
@@ -256,7 +256,7 @@ public class FragmentsByFilterTest extends FragmentRepositoryTestBase {
 		query.setSortOption(new FragmentsSortOption(FragmentField.TITLE, true));
 	
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tokyo"));
+		filter.getIncludes().addTag(storedTag("tokyo"));
 		filter.getExcludes().addTag(storedTag("male"));
 		query.setFilter(filter);
 		Page<Fragment> result = query.getPage(10, 0);

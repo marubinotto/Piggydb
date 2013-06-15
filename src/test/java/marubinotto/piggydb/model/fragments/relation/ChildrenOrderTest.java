@@ -80,7 +80,7 @@ public class ChildrenOrderTest extends FragmentRepositoryTestBase {
 		query.setEagerFetching(true);
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("parent"));
+		filter.getIncludes().addTag(storedTag("parent"));
 		query.setFilter(filter);
 		
 		Fragment fragment = query.getPage(5, 0).get(0);

@@ -39,7 +39,7 @@ public class RelatedTagsTest extends FragmentRepositoryTestBase {
 	private RelatedTags execute(String ... tagNames) throws Exception {
 		RawFilter filter = new RawFilter();
 		for (String tagName : tagNames) 
-			filter.getClassification().addTag(storedTag(tagName));
+			filter.getIncludes().addTag(storedTag(tagName));
 		
 		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
 		query.setFilter(filter);

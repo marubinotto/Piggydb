@@ -9,11 +9,11 @@ public interface Filter extends Entity {
 	
 	public void setNameByUser(String name, User user);
 	
-	public Classification getClassification();
+	public Classification getIncludes();
 	
-	public void addClassificationByUser(Tag tag, User user);
+	public void addIncludeByUser(Tag tag, User user);
 	
-	public void removeClassificationByUser(String tagName, User user);
+	public void removeIncludeByUser(String tagName, User user);
 	
 	public Classification getExcludes();
 	

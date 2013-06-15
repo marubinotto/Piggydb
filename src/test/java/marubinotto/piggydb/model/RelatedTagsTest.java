@@ -99,7 +99,7 @@ public class RelatedTagsTest {
 	
 	@Test
 	public void shouldExcludeTagsInCondition_classification() throws Exception {
-		this.filter.getClassification().addTag(tagWithId("foo", 1));
+		this.filter.getIncludes().addTag(tagWithId("foo", 1));
 
 		this.object.add(1, 1);
 		this.object.add(2, 1);

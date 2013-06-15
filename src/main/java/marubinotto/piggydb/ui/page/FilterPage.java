@@ -113,7 +113,7 @@ public class FilterPage extends AbstractFragmentsPage {
 			if (tagIds != null) {
 				for (String tagId : tagIds) {
 					Tag tag = getDomain().getTagRepository().get(Long.parseLong(tagId));
-					if (tag != null) this.filter.addClassificationByUser(tag, getUser());
+					if (tag != null) this.filter.addIncludeByUser(tag, getUser());
 				}
 			}
 			if (exTagIds != null) {
@@ -150,12 +150,12 @@ public class FilterPage extends AbstractFragmentsPage {
 		this.filterNameForm.add(new Submit("saveFilter",
 			getMessage("FilterPage-save"), this, "onSaveFilterClick"));
 
-		// Classification
-		this.classificationForm.setListenerForAdd("onAddClassificationTagClick");
-		this.classificationForm.setListenerForDelete("onDeleteClassificationTagClick");
-		this.classificationForm.initialize();
-		this.classificationTags = new TagTree("classificationTags", this.resources, this.html);
-		addControl(this.classificationTags);
+		// Includes
+		this.includeTagForm.setListenerForAdd("onAddIncludeTagClick");
+		this.includeTagForm.setListenerForDelete("onDeleteIncludeTagClick");
+		this.includeTagForm.initialize();
+		this.includeTags = new TagTree("includeTags", this.resources, this.html);
+		addControl(this.includeTags);
 
 		// Excludes
 		this.excludeTagForm.setListenerForAdd("onAddExcludeTagClick");
@@ -173,7 +173,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		}
 
 		boolean canChange = this.filter.canChange(getUser());
-		TagTree.restoreTagTree(this.classificationTags, this.filter.getClassification(), canChange);
+		TagTree.restoreTagTree(this.includeTags, this.filter.getIncludes(), canChange);
 		TagTree.restoreTagTree(this.excludeTags, this.filter.getExcludes(), canChange);
 	}
 
@@ -253,26 +253,26 @@ public class FilterPage extends AbstractFragmentsPage {
 		return false;
 	}
 
-	// Classification
+	// Includes
 
-	public SingleTagForm classificationForm = new SingleTagForm(this);
-	private Tree classificationTags;
+	public SingleTagForm includeTagForm = new SingleTagForm(this);
+	private Tree includeTags;
 
-	public boolean onAddClassificationTagClick() throws Exception {
+	public boolean onAddIncludeTagClick() throws Exception {
 		Assert.Property.requireNotNull(filter, "filter");
 
-		String tagName = this.classificationForm.tagField.getValue();
+		String tagName = this.includeTagForm.tagField.getValue();
 		if (StringUtils.isBlank(tagName)) {
 			return true;
 		}
 
-		getLogger().info("Adding a classification-tag: " + tagName + " to: " + this.filter.getId());
+		getLogger().info("Adding an include-tag: " + tagName + " to: " + this.filter.getId());
 		Tag tag = getDomain().getTagRepository().getByName(tagName);
 		if (tag == null) {
-			this.classificationForm.setError(getMessage("no-such-tag", tagName));
+			this.includeTagForm.setError(getMessage("no-such-tag", tagName));
 			return true;
 		}
-		this.filter.addClassificationByUser(tag, getUser());
+		this.filter.addIncludeByUser(tag, getUser());
 
 		onFilterChange();
 
@@ -280,16 +280,16 @@ public class FilterPage extends AbstractFragmentsPage {
 		return false;
 	}
 
-	public boolean onDeleteClassificationTagClick() throws Exception {
+	public boolean onDeleteIncludeTagClick() throws Exception {
 		Assert.Property.requireNotNull(filter, "filter");
 
-		String tagToDelete = this.classificationForm.tagToDeleteField.getValue();
+		String tagToDelete = this.includeTagForm.tagToDeleteField.getValue();
 		if (StringUtils.isBlank(tagToDelete)) {
 			return true;
 		}
 
-		getLogger().info("Deleting a classification-tag: " + tagToDelete + " from: " + this.filter.getId());
-		this.filter.removeClassificationByUser(tagToDelete, getUser());
+		getLogger().info("Deleting an include-tag: " + tagToDelete + " from: " + this.filter.getId());
+		this.filter.removeIncludeByUser(tagToDelete, getUser());
 
 		onFilterChange();
 
@@ -391,7 +391,7 @@ public class FilterPage extends AbstractFragmentsPage {
 	}
 
 	private void setRelatedTags() throws Exception {
-		if (this.filter.getClassification().isEmpty()) return;
+		if (this.filter.getIncludes().isEmpty()) return;
 
 		FragmentsByFilter query = (FragmentsByFilter)
 			getDomain().getFragmentRepository().getQuery(FragmentsByFilter.class);
@@ -413,7 +413,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		Long filterId = this.filter.getId();
 		if (filterId != null) {
 			this.filterNameForm.add(new HiddenField(PN_FILTER_ID, filterId));
-			this.classificationForm.add(new HiddenField(PN_FILTER_ID, filterId));
+			this.includeTagForm.add(new HiddenField(PN_FILTER_ID, filterId));
 			this.excludeTagForm.add(new HiddenField(PN_FILTER_ID, filterId));
 			addParameterToCommonForms(PN_FILTER_ID, filterId);
 			this.renameLink.getParameters().put(PN_FILTER_ID, filterId);

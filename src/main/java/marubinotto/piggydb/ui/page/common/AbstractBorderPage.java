@@ -119,7 +119,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 		if (this.bookmarkTag == null) return;
 
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(this.bookmarkTag);
+		filter.getIncludes().addTag(this.bookmarkTag);
 
 		Tag trashTag = getDomain().getTagRepository().getTrashTag();
 		if (trashTag != null) filter.getExcludes().addTag(trashTag);

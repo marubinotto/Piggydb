@@ -97,7 +97,7 @@ public class TagHasBeenUpdatedTest extends FragmentRepositoryTestBase {
 		query.setEagerFetching(true);
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("renamed"));
+		filter.getIncludes().addTag(storedTag("renamed"));
 		query.setFilter(filter);
 		
 		Fragment fragment = query.getPage(3, 0).get(0);

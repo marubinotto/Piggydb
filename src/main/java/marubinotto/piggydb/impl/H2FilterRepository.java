@@ -67,8 +67,8 @@ implements RawEntityFactory<RawFilter> {
 		((RawFilter) filter).setId(new Long(this.filterIdIncrementer
 			.nextLongValue()));
 		FilterRowMapper.insert((RawFilter) filter, this.jdbcTemplate);
-		QueryUtils.registerTaggings(filter.getClassification(), filter.getId(),
-			QueryUtils.TAGGING_TARGET_FILTER_CLASSIFICATION, this.jdbcTemplate,
+		QueryUtils.registerTaggings(filter.getIncludes(), filter.getId(),
+			QueryUtils.TAGGING_TARGET_FILTER_INCLUDES, this.jdbcTemplate,
 			this.tagRepository);
 		QueryUtils.registerTaggings(filter.getExcludes(), filter.getId(),
 			QueryUtils.TAGGING_TARGET_FILTER_EXCLUDES, this.jdbcTemplate,
@@ -110,10 +110,10 @@ implements RawEntityFactory<RawFilter> {
 	}
 
 	private void setTags(RawFilter filter) throws Exception {
-		// Classification
+		// Includes
 		Map<Long, RawTag> id2class = QueryUtils.setOnlyParentTags(
-			filter.getClassification(), filter.getId(),
-			QueryUtils.TAGGING_TARGET_FILTER_CLASSIFICATION, this.jdbcTemplate,
+			filter.getIncludes(), filter.getId(),
+			QueryUtils.TAGGING_TARGET_FILTER_INCLUDES, this.jdbcTemplate,
 			getTagRepository());
 		if (id2class.size() > 0) {
 			QueryUtils.setTagsRecursively(id2class, QueryUtils.TAGGING_TARGET_TAG,
@@ -184,8 +184,8 @@ implements RawEntityFactory<RawFilter> {
 
 		// Do update
 		FilterRowMapper.update((RawFilter) filter, this.jdbcTemplate);
-		QueryUtils.updateTaggings(filter.getClassification(), filter.getId(),
-			QueryUtils.TAGGING_TARGET_FILTER_CLASSIFICATION, this.jdbcTemplate,
+		QueryUtils.updateTaggings(filter.getIncludes(), filter.getId(),
+			QueryUtils.TAGGING_TARGET_FILTER_INCLUDES, this.jdbcTemplate,
 			this.tagRepository);
 		QueryUtils.updateTaggings(filter.getExcludes(), filter.getId(),
 			QueryUtils.TAGGING_TARGET_FILTER_EXCLUDES, this.jdbcTemplate,
@@ -234,7 +234,7 @@ implements RawEntityFactory<RawFilter> {
 		this.jdbcTemplate.update(
 			"delete from tagging where target_id = ? and target_type in (?, ?)",
 			new Object[]{filter.getId(),
-				QueryUtils.TAGGING_TARGET_FILTER_CLASSIFICATION,
+				QueryUtils.TAGGING_TARGET_FILTER_INCLUDES,
 				QueryUtils.TAGGING_TARGET_FILTER_EXCLUDES});
 
 		// Delete the fragment

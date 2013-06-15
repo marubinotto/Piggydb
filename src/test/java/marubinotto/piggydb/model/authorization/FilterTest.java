@@ -45,7 +45,7 @@ public class FilterTest extends AuthorizationTestBase {
 		RawTag tag = new RawTag("tag");
 		tag.setId(1L);
 		
-		this.object.addClassificationByUser(tag, getViewer());
+		this.object.addIncludeByUser(tag, getViewer());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class FilterTest extends AuthorizationTestBase {
 		tag.setId(1L);
 		
 		try {
-			this.object.addClassificationByUser(tag, getViewer());
+			this.object.addIncludeByUser(tag, getViewer());
 			fail();
 		} 
 		catch (AuthorizationException e) {

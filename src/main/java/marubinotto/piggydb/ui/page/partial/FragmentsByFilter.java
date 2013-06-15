@@ -26,7 +26,7 @@ public class FragmentsByFilter extends AbstractFragments {
 		
 		if (this.filter == null) return;
 		
-		this.contextTags = this.filter.getClassification();
+		this.contextTags = this.filter.getIncludes();
 		
 		marubinotto.piggydb.model.query.FragmentsByFilter query = 
 			(marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(

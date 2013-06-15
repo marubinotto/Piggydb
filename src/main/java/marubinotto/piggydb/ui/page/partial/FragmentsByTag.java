@@ -20,7 +20,7 @@ public class FragmentsByTag extends AbstractFragments {
 		this.contextTags = new MutableClassification(set(tag));
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(tag);
+		filter.getIncludes().addTag(tag);
 		
 		marubinotto.piggydb.model.query.FragmentsByFilter query = 
 			(marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(

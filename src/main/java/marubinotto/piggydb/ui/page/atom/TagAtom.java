@@ -34,7 +34,7 @@ public class TagAtom extends AbstractAtom {
 		if (this.tag == null) return null;
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(this.tag);
+		filter.getIncludes().addTag(this.tag);
 		
 		FragmentsByFilter query = (FragmentsByFilter)getQuery(FragmentsByFilter.class);
 		query.setFilter(filter);

@@ -369,7 +369,7 @@ implements RawEntityFactory<RawFragment> {
 		if (trashTag == null) return new ArrayList<Long>();
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(trashTag);
+		filter.getIncludes().addTag(trashTag);
 		
 		H2FragmentsByFilter query = (H2FragmentsByFilter)getQuery(H2FragmentsByFilter.class);
 		query.setFilter(filter);

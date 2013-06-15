@@ -14,7 +14,7 @@ public class RawFilter extends RawEntity implements Filter {
 	
 	private String name; 
 
-	private MutableClassification classification = new MutableClassification();
+	private MutableClassification includes = new MutableClassification();
 	private MutableClassification excludes = new MutableClassification();
 	
 	public RawFilter() {
@@ -45,11 +45,11 @@ public class RawFilter extends RawEntity implements Filter {
 		onPropertyChange(user);
 	}
 
-	public MutableClassification getClassification() {
-		return this.classification;
+	public MutableClassification getIncludes() {
+		return this.includes;
 	}
 	
-	public void addClassificationByUser(Tag tag, User user) {
+	public void addIncludeByUser(Tag tag, User user) {
 		Assert.Arg.notNull(tag, "tag");
 		Assert.Arg.notNull(tag.getId(), "tag.getId()");
 		Assert.Arg.notNull(user, "user");
@@ -57,7 +57,7 @@ public class RawFilter extends RawEntity implements Filter {
 		ensureCanChange(user);
 		
 		try {
-			this.classification.addTag(tag);
+			this.includes.addTag(tag);
 		} 
 		catch (InvalidTaggingException e) {
 			throw new UnhandledException(e);
@@ -65,13 +65,13 @@ public class RawFilter extends RawEntity implements Filter {
 		onPropertyChange(user);
 	}
 	
-	public void removeClassificationByUser(String tagName, User user) {
+	public void removeIncludeByUser(String tagName, User user) {
 		Assert.Arg.notNull(tagName, "tagName");
 		Assert.Arg.notNull(user, "user");
 		
 		ensureCanChange(user);
 		
-		this.classification.removeTag(tagName);
+		this.includes.removeTag(tagName);
 		onPropertyChange(user);
 	}
 
@@ -106,7 +106,7 @@ public class RawFilter extends RawEntity implements Filter {
 	}
 	
 	public boolean isEmpty() {
-		return this.classification.isEmpty() && this.excludes.isEmpty();
+		return this.includes.isEmpty() && this.excludes.isEmpty();
 	}
 	
 	

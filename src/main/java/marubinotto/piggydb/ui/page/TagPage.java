@@ -363,7 +363,7 @@ public class TagPage extends AbstractFragmentsPage {
 
 	private void setRelatedTags() throws Exception {
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(this.tag);
+		filter.getIncludes().addTag(this.tag);
 		
 		FragmentsByFilter query = (FragmentsByFilter)
 			getDomain().getFragmentRepository().getQuery(FragmentsByFilter.class);

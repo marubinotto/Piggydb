@@ -107,7 +107,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tag"));
+		filter.getIncludes().addTag(storedTag("tag"));
 		query.setFilter(filter);
 		
 		assertSortingWorks(query);
@@ -118,7 +118,7 @@ public class SortFragmentsTest extends FragmentRepositoryTestBase {
 		FragmentsByFilter query = (FragmentsByFilter)this.object.getQuery(FragmentsByFilter.class);
 		
 		RawFilter filter = new RawFilter();
-		filter.getClassification().addTag(storedTag("tag"));
+		filter.getIncludes().addTag(storedTag("tag"));
 		query.setFilter(filter);
 		
 		query.setSortOption(new FragmentsSortOption(FragmentField.TITLE, true));
