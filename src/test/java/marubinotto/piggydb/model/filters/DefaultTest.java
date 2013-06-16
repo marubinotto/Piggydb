@@ -1,7 +1,6 @@
 package marubinotto.piggydb.model.filters;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.FilterRepository;
 import marubinotto.piggydb.model.auth.User;
@@ -20,6 +19,7 @@ public class DefaultTest extends FilterRepositoryTestBase {
 		User user = getPlainUser();
 		Filter filter = this.object.newInstance(user);
 		
+		assertTrue(filter.isAnd());
 		assertEquals(user.getName(), filter.getCreator());
 		assertNull(filter.getUpdater());
 	}

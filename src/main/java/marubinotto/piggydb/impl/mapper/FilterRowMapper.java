@@ -13,45 +13,49 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class FilterRowMapper extends EntityRowMapper<RawFilter> {
 
-	private static final EntityTable TABLE = 
-		new EntityTable("filter", "filter_id")
-			.defColumn("filter_name");
-	
-	public FilterRowMapper(RawEntityFactory<RawFilter> factory, String prefix) {
-		super(factory, prefix);
-	}
-	
-	@Override
-	protected EntityTable getEntityTable() {
-		return TABLE;
-	}
-	
-	public static void insert(RawFilter filter, JdbcTemplate jdbcTemplate) {
-		Assert.Arg.notNull(filter, "filter");
-		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
-		
-		Object[] values = new Object[] {
-			filter.getName()	
-		};
-		TABLE.insert(filter, values, jdbcTemplate);
-	}
-	
-	public static void update(RawFilter filter, JdbcTemplate jdbcTemplate) 
-	throws BaseDataObsoleteException {
-		Assert.Arg.notNull(filter, "filter");
-		Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
-		
-		Object[] values = new Object[] {
-			filter.getName()	
-		};
-		TABLE.update(filter, values, true, jdbcTemplate);
-	}
+  private static final EntityTable TABLE = 
+    new EntityTable("filter", "filter_id")
+      .defColumn("filter_name")
+      .defColumn("includes_and");
 
-    public RawFilter mapRow(ResultSet rs, int rowNum) throws SQLException {
-    	RawFilter filter = createEntityWithCommonColumns(rs);
+  public FilterRowMapper(RawEntityFactory<RawFilter> factory, String prefix) {
+    super(factory, prefix);
+  }
 
-        Iterator<String> columns = properColumns();
-		filter.setName(rs.getString(columns.next()));
-        return filter;
-    }
+  @Override
+  protected EntityTable getEntityTable() {
+    return TABLE;
+  }
+
+  public static void insert(RawFilter filter, JdbcTemplate jdbcTemplate) {
+    Assert.Arg.notNull(filter, "filter");
+    Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
+
+    Object[] values = new Object[]{
+      filter.getName(), 
+      filter.isAnd()
+    };
+    TABLE.insert(filter, values, jdbcTemplate);
+  }
+
+  public static void update(RawFilter filter, JdbcTemplate jdbcTemplate) 
+  throws BaseDataObsoleteException {
+    Assert.Arg.notNull(filter, "filter");
+    Assert.Arg.notNull(jdbcTemplate, "jdbcTemplate");
+
+    Object[] values = new Object[]{
+      filter.getName(), 
+      filter.isAnd()
+    };
+    TABLE.update(filter, values, true, jdbcTemplate);
+  }
+
+  public RawFilter mapRow(ResultSet rs, int rowNum) throws SQLException {
+    RawFilter filter = createEntityWithCommonColumns(rs);
+
+    Iterator<String> columns = properColumns();
+    filter.setName(rs.getString(columns.next()));
+    filter.setAnd(rs.getBoolean(columns.next()));
+    return filter;
+  }
 }

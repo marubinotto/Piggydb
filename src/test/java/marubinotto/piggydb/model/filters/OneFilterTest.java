@@ -53,41 +53,33 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		
 		DateTime.setCurrentTimeForTest(null);
 	}
+  
+  private void assertFilterHasExpectedProperties(Filter filter) {
+    assertNotNull(filter);
+    assertEquals(new Long(this.id), filter.getId());
+    assertEquals("filter-name", filter.getName());
+    assertEquals(this.registerDateTime, filter.getCreationDatetime());
+    assertEquals(this.registerDateTime, filter.getUpdateDatetime());
+    assertEquals("daisuke", filter.getCreator());
+    assertNull(filter.getUpdater());
+    
+    assertEquals(1, filter.getIncludes().size());
+    assertTrue(filter.getIncludes().containsTagName("tag"));
+    
+    assertEquals(1, filter.getExcludes().size());
+    assertTrue(filter.getExcludes().containsTagName("trash"));
+  }
 	
 	@Test
 	public void getFilterById() throws Exception {
 		Filter filter = this.object.get(this.id);
-		
-		assertNotNull(filter);
-		assertEquals(new Long(this.id), filter.getId());
-		assertEquals("filter-name", filter.getName());
-		assertEquals(this.registerDateTime, filter.getCreationDatetime());
-		assertEquals(this.registerDateTime, filter.getUpdateDatetime());
-		assertEquals("daisuke", filter.getCreator());
-		assertNull(filter.getUpdater());
-		
-		assertEquals(1, filter.getIncludes().size());
-		assertTrue(filter.getIncludes().containsTagName("tag"));
-		
-		assertEquals(1, filter.getExcludes().size());
-		assertTrue(filter.getExcludes().containsTagName("trash"));
+		assertFilterHasExpectedProperties(filter);
 	}
 	
 	@Test
 	public void getFilterByName() throws Exception {
 		Filter filter = this.object.getByName("filter-name");
-		
-		assertNotNull(filter);
-		assertEquals(new Long(this.id), filter.getId());
-		assertEquals("filter-name", filter.getName());
-		assertEquals(this.registerDateTime, filter.getCreationDatetime());
-		assertEquals(this.registerDateTime, filter.getUpdateDatetime());
-		
-		assertEquals(1, filter.getIncludes().size());
-		assertTrue(filter.getIncludes().containsTagName("tag"));
-		
-		assertEquals(1, filter.getExcludes().size());
-		assertTrue(filter.getExcludes().containsTagName("trash"));
+		assertFilterHasExpectedProperties(filter);
 	}
 	
 	@Test
@@ -130,6 +122,19 @@ public class OneFilterTest extends FilterRepositoryTestBase {
 		assertEquals("new-filter-name", storedData.getName());
 		assertEquals("daisuke", storedData.getCreator());
 		assertEquals("akane", storedData.getUpdater());
+	}
+	
+	@Test
+  public void updateAndCondition() throws Exception {
+	  // When
+	  Filter baseData = this.object.get(this.id);
+	  baseData.setAndByUser(false, new User("akane"));
+	  boolean result = this.object.update(baseData);
+	  
+	  // Then
+	  assertTrue(result);
+	  Filter storedData = this.object.get(this.id);
+	  assertEquals(false, storedData.isAnd());
 	}
 	
 	@Test
