@@ -4,6 +4,7 @@ import static marubinotto.util.CollectionUtils.list;
 import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Classification;
+import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
@@ -38,6 +39,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public static final String SK_ASCENDING = "fragmentsViewAscending";
 	
 	public String query;
+	public Boolean addIncOrExcTag;
+	public Boolean removeIncOrExcTag;
 
 	@Override
 	public void onInit() {
@@ -85,6 +88,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public String keywordRegex;
 	
 	public boolean queryIsTagName = false;
+	public Filter filter;
 
 	@Override
 	protected void setModels() throws Exception {
@@ -94,7 +98,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 		this.view.setScale(this.scale);
 
 		setSelectedFragments();
+		
+		this.filter = createFilter();
 		preprocessQuery();
+		if (this.fragments == null) setFragmentsByFilter();
 		if (this.fragments == null) setFragments();
 
 		if (this.fragments != null) {
@@ -103,6 +110,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 		}
 
 		saveStateToSession();
+	}
+	
+	protected Filter createFilter() throws Exception {
+	  return null;
 	}
 	
 	private void preprocessQuery() throws Exception {
@@ -119,6 +130,23 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  }
 	  
 	  this.queryIsTagName = getDomain().getTagRepository().containsName(this.query);
+	}
+	
+	private void setFragmentsByFilter() throws Exception {
+	  if (this.filter == null) return;
+	  
+	  marubinotto.piggydb.model.query.FragmentsByFilter query = 
+      (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
+        marubinotto.piggydb.model.query.FragmentsByFilter.class);
+    query.setFilter(this.filter);
+    if (isNotBlank(this.query)) {
+      query.setKeywords(this.query);
+      setKeywordRegex(this.query);
+      appendKeywordSearchLabel();
+    }
+    this.fragments = getPage(query);
+    
+    this.contextTags = this.filter.getIncludes();
 	}
 	
 	protected void setKeywordRegex(String keywords) {
@@ -146,7 +174,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 		return query.getPage(this.view.getPageSize(), this.pi);
 	}
 
-	protected abstract void setFragments() throws Exception;
+	protected void setFragments() throws Exception {
+	}
 
 	private void saveStateToSession() {
 		if (this.scale != null) getContext().setSessionAttribute(SK_SCALE, this.scale);
