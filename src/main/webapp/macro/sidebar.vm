@@ -169,7 +169,7 @@
 
 #macro( sidebarTagPaletteTools )
 
-<a class="tool-button" href="#" onclick="showTagsView()" title="$messages.get("TagsPage-htmlTitle")">
+<a class="tool-button" href="#" onclick="showTagsView(); return false;" title="$messages.get("TagsPage-htmlTitle")">
 <img src="$context/images/popup.png" border="0" alt="$messages.get("TagsPage-htmlTitle")"/></a>
   
 #end
