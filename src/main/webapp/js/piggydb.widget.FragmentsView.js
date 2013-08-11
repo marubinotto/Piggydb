@@ -72,13 +72,13 @@
 			    .keyup(function() {
 			    	outer.query = jQuery(this).val();
 			    	outer.loadFirstSet({lazyDisplay: true});
-			    })
-			    .autocomplete(piggydb.server.autoCompleteUrl, {
-			      minChars: 1,
-			      selectFirst: true,
-			      multiple: false,
-			      scrollHeight: 300
 			    });
+//			    .autocomplete(piggydb.server.autoCompleteUrl, {
+//			      minChars: 1,
+//			      selectFirst: true,
+//			      multiple: false,
+//			      scrollHeight: 300
+//			    });
 	    }
 	    
 	    this.loadFirstSet();

@@ -120,9 +120,9 @@ jQuery(function() {
   header.show();
   
 #if ($queryIsTagName)
-  header.find("span.query-as-tag").show();
+  // header.find("span.query-as-tag").show();
 #else
-  header.find("span.query-as-tag").hide();
+  // header.find("span.query-as-tag").hide();
 #end
 });
 //]]>

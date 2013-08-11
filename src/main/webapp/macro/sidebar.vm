@@ -96,7 +96,7 @@
 	$messages.get("tag-palette") 
 	"$context/style/images/tag.png" 
 	"$context/tags.htm" 
-	"")
+	"#sidebarTagPaletteTools()")
 #set ($paletteViewType = $utils.getUiState($session, "sidebar-tag-palette.viewType", "tree"))
 #set ($heightKey = "sidebar-tag-palette-height")
 #set ($paletteHeight = $utils.getWithDefault($session, $heightKey, "null"))
@@ -155,6 +155,15 @@
 </div>
 #sidebarEntryFooter()
 
+#end
+
+
+
+#macro( sidebarTagPaletteTools )
+
+<a class="tool-button" href="#" title="$messages.get("TagsPage-htmlTitle")">
+<img src="$context/images/popup.png" border="0" alt="$messages.get("TagsPage-htmlTitle")"/></a>
+  
 #end
 
 
