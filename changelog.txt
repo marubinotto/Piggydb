@@ -1,6 +1,10 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.13 (2013-08-11) == #v6.13
+
+ * Added a tool button to show a tags view pop-up
+
 == Changes in version 6.12 (2013-06-01) == #v6.12
 
  * Updated the fragments view search to accept a fragment reference (#<number>)
