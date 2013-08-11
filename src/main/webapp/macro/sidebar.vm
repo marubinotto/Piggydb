@@ -95,7 +95,7 @@
 #sidebarEntryHeader("sidebar-tag-palette" 
 	$messages.get("tag-palette") 
 	"$context/style/images/tag.png" 
-	"$context/tags.htm" 
+	$null 
 	"#sidebarTagPaletteTools()")
 #set ($paletteViewType = $utils.getUiState($session, "sidebar-tag-palette.viewType", "tree"))
 #set ($heightKey = "sidebar-tag-palette-height")
