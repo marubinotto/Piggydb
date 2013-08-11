@@ -14,8 +14,7 @@ public class FragmentsByFilter extends AbstractFragments {
 	  Filter filter = null;
     if (this.id != null) {
       filter = getDomain().getFilterRepository().get(this.id);
-      if (this.filter != null)
-        this.label += " " + this.filter.getName();
+      if (filter != null) this.label += " " + filter.getName();
     }
     else {
       filter = (Filter)getContext().getSessionAttribute(FilterPage.SK_NEW_FILTER);
