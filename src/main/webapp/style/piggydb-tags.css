@@ -61,15 +61,15 @@ div.tag-title .updnWatermark label {
   margin-left: 3px;
 }
 
-#tag-view a.tag {
+#tags-view a.tag {
   text-decoration: none;
 }
 
-#tag-view a.tag-selected {
+#tags-view a.tag-selected {
   background-color: #FFFF66;
 }
 
-#tag-view div.container {
+#tags-view div.container {
   padding-left: 10px;
   padding-right: 10px;
 }

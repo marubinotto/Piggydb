@@ -60,12 +60,16 @@ public abstract class AbstractFragmentsPage extends AbstractBorderPage {
 
     String atomUrl = getAtomUrl();
     if (atomUrl != null) addModel(MK_ATOM_URL, atomUrl);
+    
+    importCss("style/piggydb-tags.css", true, null);
+    importCss("click/tree/tree.css", false, null);
 
     importBottomJs("js/vendor/highlightRegex.js", true);
     importBottomJs("js/piggydb.widget.QuickEdit.js", true);
     importBottomJs("js/piggydb.widget.ContentToggle.js", true);
     importBottomJs("js/piggydb.widget.FragmentTree.js", true);
     importBottomJs("js/piggydb.widget.FragmentsView.js", true);
+    importBottomJs("js/piggydb.widget.tags.js", true);
 
     if (showsSelectedFragments()) setSelectedFragments();
     setHighlightedFragment();

@@ -137,8 +137,16 @@
 
     sidebarTagPaletteInitialized = true;
   }
+  
+  var tagsView = null;
+  
+  function showTagsView() {
+    tagsView.show("$context/partial/tags-view.htm");
+  }
 
   jQuery(function() {
+    tagsView = new piggydb.widget.Facebox("facebox-tags-view");
+    
     var sidebarTagPalette = piggydb.widget.SidebarEntry.instances["sidebar-tag-palette"];
     sidebarTagPalette.toggle.onShow = function () {
       if (!sidebarTagPaletteInitialized) initSidebarTagPalette();
@@ -161,7 +169,7 @@
 
 #macro( sidebarTagPaletteTools )
 
-<a class="tool-button" href="#" title="$messages.get("TagsPage-htmlTitle")">
+<a class="tool-button" href="#" onclick="showTagsView()" title="$messages.get("TagsPage-htmlTitle")">
 <img src="$context/images/popup.png" border="0" alt="$messages.get("TagsPage-htmlTitle")"/></a>
   
 #end

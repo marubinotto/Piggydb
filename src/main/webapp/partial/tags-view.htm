@@ -1,0 +1,50 @@
+<div class="tags-view-container">
+  <script type="text/javascript">
+  //<![CDATA[
+    var currentView = "tree";
+    var tagViews;
+    
+    var tagData = {
+      rootTags: function(callback) {
+        piggydb.server.getJSON("get-tags", null, callback);
+      },
+      
+      children: function(id, callback) {
+        piggydb.server.getJSON("get-tags", {"parent" : id}, callback);
+      },
+      
+      tagsByPopularity: function(callback) {
+        piggydb.server.getJSON("get-popular-tags", null, callback);
+      },
+      
+      allTags: function(pageIndex, callback) {
+        piggydb.server.getJSON("get-all-tags", {"pi" : pageIndex}, callback);
+      }
+    };
+    
+    function switchView(button, name) {
+      if (!clickSelectSwitch(button)) return;
+      tagViews[name].render();
+      currentView = name;
+    }
+  
+    jQuery(document).ready(function() {
+      tagTree = new piggydb.widget.tags.TagTree(jQuery("#tags-view"), tagData);
+      tagCloud = new piggydb.widget.tags.TagCloud(jQuery("#tags-view"), tagData);
+      tagFlat = new piggydb.widget.tags.TagFlat(jQuery("#tags-view"), tagData);
+      tagViews = {tree: tagTree, cloud: tagCloud, flat: tagFlat};    
+      tagViews[currentView].render();
+    });
+  //]]>
+  </script>
+  <div class="select-switch">
+    <button type="button" class="selected" onclick="switchView(this, 'tree')"
+        >$messages.get("tag-tree")</button><button 
+      type="button" onclick="switchView(this, 'cloud')"
+        >$messages.get("tag-cloud")</button><button 
+      type="button" onclick="switchView(this, 'flat')"
+        >$messages.get("tag-flat")</button>
+  </div>
+  <div id="tags-view"></div>
+</div>
+

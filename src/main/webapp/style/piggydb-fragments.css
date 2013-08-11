@@ -774,3 +774,20 @@ table.fragment-node td.superfragment-links {
 }
 
 
+
+/*
+ * Tags View
+ */
+
+#facebox-tags-view .content {
+	padding-top: 5px;
+	width: 800px;
+	height: auto;
+}
+
+#facebox-tags-view .content div.content-box {
+	max-height: 400px;
+	overflow: auto;
+}
+
+
