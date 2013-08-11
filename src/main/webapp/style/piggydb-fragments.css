@@ -788,6 +788,7 @@ table.fragment-node td.superfragment-links {
 #facebox-tags-view .content div.content-box {
 	max-height: 400px;
 	overflow: auto;
+	border-radius: 0 0 5px 5px;
 }
 
 
