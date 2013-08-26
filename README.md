@@ -20,3 +20,7 @@ to build your knowledge personally or collaboratively.
 
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marubinotto/piggydb/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
