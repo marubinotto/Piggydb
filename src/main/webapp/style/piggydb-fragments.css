@@ -389,6 +389,15 @@ td.fragment-body .fragment-content span.error-line {
 	color: silver;
 }
 
+td.fragment-body a.open-children {
+	display: block;
+	padding: 5px;
+	padding-bottom: 10px;
+}
+
+td.fragment-body a.open-children img:hover {
+  background-color: #656f71;
+}
 
 
 /*

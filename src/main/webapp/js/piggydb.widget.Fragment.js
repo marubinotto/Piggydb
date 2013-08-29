@@ -9,6 +9,8 @@ jQuery(function() {
 (function(module) {
   
   var _messages = piggydb.server.messages;
+  var _buttonToOpenChildren = 
+  	'<a href="#" class="open-children"><img src="images/arrow-top-to-right-with-children.gif" border="0"/></a>';
   
   var _class = function(node) {
     this.node = jQuery(node);
@@ -221,6 +223,7 @@ jQuery(function() {
     setBodyRow: function(rowHtml) {
       this.bodyRow().remove();
       this.headerRow().after(rowHtml);
+      this.bodyRow().find("td.fragment-body").append(_buttonToOpenChildren);
     },
     
     textContentDiv: function() {
