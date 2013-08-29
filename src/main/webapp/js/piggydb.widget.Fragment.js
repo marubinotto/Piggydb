@@ -213,7 +213,8 @@ jQuery(function() {
     },
     
     nodeToggle: function() {
-    	return this.header().find("a.fragment-node-toggle");
+    	var toggle = this.header().find("a.fragment-node-toggle");
+    	return toggle.size() == 0 ? null : new module.FragmentNodeToggle(toggle);
     },
     
     bodyRow: function() {
@@ -227,7 +228,10 @@ jQuery(function() {
     setBodyRow: function(rowHtml) {
       this.bodyRow().remove();
       this.headerRow().after(rowHtml);
-      this.bodyRow().find("td.fragment-body").append(_buttonToOpenChildren);
+      
+      var nodeToggle = this.nodeToggle();
+      if (nodeToggle != null && nodeToggle.isCollapsed())
+      	this.bodyRow().find("td.fragment-body").append(_buttonToOpenChildren);
     },
     
     textContentDiv: function() {
