@@ -212,6 +212,10 @@ jQuery(function() {
       return this.header().closest("tr");
     },
     
+    nodeToggle: function() {
+    	return this.header().find("a.fragment-node-toggle");
+    },
+    
     bodyRow: function() {
       return this.headerRow().siblings("tr.fragment-body");
     },

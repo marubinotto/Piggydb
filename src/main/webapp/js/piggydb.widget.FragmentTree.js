@@ -3,32 +3,82 @@
   var _COLLAPSED = "plus";
   var _EXPANDED = "minus";
   
+  var _class = function(toggle) {
+  	this.toggle = jQuery(toggle);
+  };
+  
+  _class.prototype = jQuery.extend({
+  	
+  	node: function() {
+  		return this.toggle.closest("li");
+  	},
+  	
+  	icon: function() {
+  		return this.toggle.children("img");
+  	},
+  	
+  	iconSrc: function() {
+  		return this.icon().attr("src");
+  	},
+  	
+  	isCollapsed: function() {
+  		return this.iconSrc().indexOf(_COLLAPSED) != -1;
+  	},
+  	
+  	isExpanded: function() {
+  		return this.iconSrc().indexOf(_EXPANDED) != -1;
+  	},
+  	
+  	expand: function() {
+  		this.icon().attr("src", this.iconSrc().replace(_COLLAPSED, _EXPANDED));
+  	},
+  	
+  	collapse: function() {
+  		this.icon().attr("src", this.iconSrc().replace(_EXPANDED, _COLLAPSED));
+  	},
+  	
+  	disable: function() {
+  		this.toggle.setDisabledFlag();
+  	},
+  	
+  	isDisabled: function() {
+  		return this.toggle.hasDisabledFlag();
+  	},
+  	
+  	enable: function() {
+  		this.toggle.deleteDisabledFlag();
+  	}
+  	
+  }, module.Widget.prototype);
+  
+  module.FragmentNodeToggle = _class;
+  
+  
   module.FragmentTree = {
     
     onNodeToggleClick: function(toggle, id, contextParentId) {
-      if (jQuery(toggle).hasDisabledFlag()) return;
+    	var toggle = new module.FragmentNodeToggle(toggle);
+      if (toggle.isDisabled()) return;
     
-      var li = jQuery(toggle).closest("li");
-      var icon = jQuery(toggle).children("img");
-      var iconSrc = icon.attr("src");
-      
+      var node = toggle.node();
+       
       // Expand
-      if (iconSrc.indexOf(_COLLAPSED) != -1) {
-        jQuery(toggle).setDisabledFlag();
-        icon.attr("src", iconSrc.replace(_COLLAPSED, _EXPANDED));
-        var loadIcon = jQuery(li).putLoadingIcon("margin:5px");
+      if (toggle.isCollapsed()) {
+      	toggle.disable();
+      	toggle.expand();
+        var loadIcon = node.putLoadingIcon("margin:5px");
         var params = {"id" : id};
         if (contextParentId != null) params.contextParentId = contextParentId;
         jQuery.get("partial/fragment-child-nodes.htm", params, function(childrenHtml) {
-          li.append(childrenHtml);
+        	node.append(childrenHtml);
           loadIcon.remove();
-          jQuery(toggle).deleteDisabledFlag();
+          toggle.enable();
         });
       }
       // Collapse
-      else if (iconSrc.indexOf(_EXPANDED) != -1) {
-        icon.attr("src", iconSrc.replace(_EXPANDED, _COLLAPSED));
-        li.children("ul").remove();
+      else if (toggle.isExpanded()) {
+      	toggle.collapse();
+      	node.children("ul").remove();
       }
     },
     
