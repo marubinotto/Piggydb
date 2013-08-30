@@ -389,8 +389,7 @@ td.fragment-body .fragment-content span.error-line {
 	color: silver;
 }
 
-td.fragment-body a.open-children {
-	display: block;
+td.fragment-body div.open-children-container {
 	padding: 5px;
 	padding-bottom: 10px;
 }

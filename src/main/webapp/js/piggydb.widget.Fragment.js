@@ -10,7 +10,8 @@ jQuery(function() {
   
   var _messages = piggydb.server.messages;
   var _buttonToOpenChildren = 
-  	'<a href="#" class="open-children"><img src="images/arrow-top-to-right-with-children.gif" border="0"/></a>';
+  	'<div class="open-children-container"><a href="#" class="open-children">' + 
+  	'<img src="images/arrow-top-to-right-with-children.gif" border="0"/></a></div>';
   
   var _class = function(node) {
     this.node = jQuery(node);
@@ -230,8 +231,10 @@ jQuery(function() {
       this.headerRow().after(rowHtml);
       
       var nodeToggle = this.nodeToggle();
-      if (nodeToggle != null && nodeToggle.isCollapsed())
-      	this.bodyRow().find("td.fragment-body").append(_buttonToOpenChildren);
+      if (nodeToggle != null) {
+      	this.bodyRow().find("td.fragment-body").append(
+      		jQuery(_buttonToOpenChildren).toggle(nodeToggle.isCollapsed()));
+      }
     },
     
     textContentDiv: function() {
