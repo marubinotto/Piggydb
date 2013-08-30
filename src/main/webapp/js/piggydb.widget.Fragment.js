@@ -232,8 +232,12 @@ jQuery(function() {
       
       var nodeToggle = this.nodeToggle();
       if (nodeToggle != null) {
-      	this.bodyRow().find("td.fragment-body").append(
-      		jQuery(_buttonToOpenChildren).toggle(nodeToggle.isCollapsed()));
+      	var button = jQuery(_buttonToOpenChildren).toggle(nodeToggle.isCollapsed());
+      	button.find("a.open-children").click(function() {
+      		button.hide();
+      		nodeToggle.click();
+      	});
+      	this.bodyRow().find("td.fragment-body").append(button);
       }
     },
     

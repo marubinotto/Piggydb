@@ -50,6 +50,10 @@
   	
   	enable: function() {
   		this.toggle.deleteDisabledFlag();
+  	},
+  	
+  	click: function() {
+  		this.toggle.click();
   	}
   	
   }, module.Widget.prototype);
