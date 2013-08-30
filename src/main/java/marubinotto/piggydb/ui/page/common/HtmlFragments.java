@@ -99,7 +99,7 @@ public class HtmlFragments {
       .element("a")
         .attribute("class", "file-name")
         .attribute("href", this.webResources.fragmentFilePath(fragment.getId()))
-        .text(WebUtils.escapeHtml(fragment.getFileName())).end()
+        .text(fragment.getFileName()).end()
       .text(" ")
       .element("span")
         .attribute("class", "file-size")
