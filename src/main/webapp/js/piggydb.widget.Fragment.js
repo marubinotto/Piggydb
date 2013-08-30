@@ -237,6 +237,10 @@ jQuery(function() {
       }
     },
     
+    buttonToOpenChildren: function() {
+    	return this.bodyRow().find("td.fragment-body div.open-children-container");
+    },
+    
     textContentDiv: function() {
       return this.bodyRow().find("div.fragment-content-text");
     },

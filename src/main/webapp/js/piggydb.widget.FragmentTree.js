@@ -5,6 +5,7 @@
   
   var _class = function(toggle) {
   	this.toggle = jQuery(toggle);
+  	this.fragment = new module.Fragment(toggle);
   };
   
   _class.prototype = jQuery.extend({
@@ -31,10 +32,12 @@
   	
   	expand: function() {
   		this.icon().attr("src", this.iconSrc().replace(_COLLAPSED, _EXPANDED));
+  		this.fragment.buttonToOpenChildren().hide();
   	},
   	
   	collapse: function() {
   		this.icon().attr("src", this.iconSrc().replace(_EXPANDED, _COLLAPSED));
+  		this.fragment.buttonToOpenChildren().show();
   	},
   	
   	disable: function() {
