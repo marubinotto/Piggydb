@@ -11,7 +11,7 @@
 		var form = jQuery('#file-form', window.parent.document);
 		
 		form.find("form")
-			.find("input.fileName").val("$fileName").end()
+			.find("input.fileName").val("$utils.raw($utils.escapeJs($fileName))").end()
 			.find("input.uploadedFilePath").val("$uploadedFilePath");
 		
 		var fileView = jQuery(jQuery('#uploaded-file').html());
