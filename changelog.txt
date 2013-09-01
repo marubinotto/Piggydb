@@ -1,6 +1,11 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.14 (2013-09-01) == #v6.14
+
+ * Added a button to expand sub-fragments at the bottom of the fragment content
+ * Added support for non-ascii file names
+
 == Changes in version 6.13 (2013-08-11) == #v6.13
 
  * Added a tool button to show a tags view pop-up
