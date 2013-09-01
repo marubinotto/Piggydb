@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.util.web.WebUtils;
 
-import org.apache.commons.lang.StringUtils;
-
 public class GetFile extends AbstractCommand {
 
 	public static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
@@ -46,7 +44,7 @@ public class GetFile extends AbstractCommand {
 		getLogger().info("ContentType: " + mimeType);
 
 		// Content-Disposition (file name)
-		WebUtils.setFileName(response, decideFileName(this.fileFragment));
+		WebUtils.setFileName(response, this.fileFragment.getFileName());
 
 		// Content
 		getDomain().getFileRepository().getFile(response.getOutputStream(), this.fileFragment);
@@ -69,17 +67,5 @@ public class GetFile extends AbstractCommand {
 			return null;
 		}
 		return fragment;
-	}
-
-	private static String decideFileName(Fragment fragment) {
-		if (StringUtils.isAsciiPrintable(fragment.getFileName())) {
-			return fragment.getFileName();
-		}
-		if (fragment.getFileType() != null) {
-			return fragment.getId() + "." + fragment.getFileType();
-		}
-		else {
-			return fragment.getId().toString();
-		}
 	}
 }

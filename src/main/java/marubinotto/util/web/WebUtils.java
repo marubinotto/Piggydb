@@ -15,6 +15,7 @@ import marubinotto.util.time.DateTime;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -114,7 +115,13 @@ public class WebUtils {
 	}
 
 	public static void setFileName(HttpServletResponse response, String fileName) {
-		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+	  try {
+      fileName = URLEncoder.encode(fileName, "UTF-8");
+    }
+    catch (UnsupportedEncodingException e) {
+      throw new UnhandledException(e);
+    }
+		response.setHeader("Content-Disposition", "attachment; filename*=UTF-8''" + fileName);
 	}
 
 	public static File forceGetFile(FileItem fileItem) throws Exception {
