@@ -236,6 +236,7 @@ jQuery(function() {
       	button.find("a.open-children").click(function() {
       		button.hide();
       		nodeToggle.click();
+      		return false;
       	});
       	this.bodyRow().find("td.fragment-body").append(button);
       }
