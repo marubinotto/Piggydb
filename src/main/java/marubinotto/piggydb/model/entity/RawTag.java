@@ -119,6 +119,10 @@ public class RawTag extends RawClassifiable implements Tag {
 	public void setFragmentId(Long fragmentId) {
 		this.fragmentId = fragmentId;
 	}
+	
+	public boolean isTagFragment() {
+	  return this.fragmentId != null;
+	}
 
 	@Override
 	public int hashCode() {

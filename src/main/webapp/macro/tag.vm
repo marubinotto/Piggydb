@@ -122,7 +122,7 @@ onclick="${jsPaletteRef}.onViewSwitchClick(this, '$type')"
 	
 <span class="tag-palette-draggable droppable-to-fragment">
   <span class="tag">
-    <span class="$html.miniTagIconClass($tag.name)"
+    <span class="$html.miniTagIconClass($tag)"
 			><img src="$context/images/empty.png" border="0" alt=""/></span>
     <a class="tag" href="#" title="$tag.name"
 			onclick="${jsPaletteRef}.onTagSelect(this, ${tag.id}, '$utils.escapeJs($tag.name)', ${jsPaletteRef}); return false;">$tag.name</a>

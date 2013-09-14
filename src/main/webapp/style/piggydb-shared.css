@@ -524,6 +524,14 @@ span.miniTagIcon {
   padding-right: 2px;
 }
 
+span.miniTagIcon-plain {
+  background: url(images/mini-tag-plain.png) 0 50% no-repeat;
+}
+
+span.miniTagIcon-fragment {
+  background: url(images/mini-tag-fragment.png) 0 50% no-repeat;
+}
+
 span.tagIcon-trash {
   background: url(images/tag-trash.png) 0 50% no-repeat;
 }

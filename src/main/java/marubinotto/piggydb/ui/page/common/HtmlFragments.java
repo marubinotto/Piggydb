@@ -3,6 +3,7 @@ package marubinotto.piggydb.ui.page.common;
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.piggydb.ui.wiki.WikiParser;
@@ -190,6 +191,19 @@ public class HtmlFragments {
     String c = "miniTagIcon";
     if (tagName.startsWith("#")) {
       c = c + " miniTagIcon-" + WebUtils.escapeHtml(tagName.substring(1));
+    }
+    return c;
+  }
+  
+  public String miniTagIconClass(Tag tag) {
+    Assert.Arg.notNull(tag, "tag");
+    
+    String c = "miniTagIcon";
+    if (tag.getName().startsWith("#")) {
+      c += " miniTagIcon-" + WebUtils.escapeHtml(tag.getName().substring(1));
+    }
+    else {
+      c += " miniTagIcon-" + (tag.isTagFragment() ? "fragment" : "plain");
     }
     return c;
   }

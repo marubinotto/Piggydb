@@ -43,4 +43,6 @@ public interface Tag extends Classifiable {
 	public boolean isTrashTag();
 	
 	public Long getFragmentId();
+	
+	public boolean isTagFragment();
 }
