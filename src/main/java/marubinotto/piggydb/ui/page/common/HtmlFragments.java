@@ -200,7 +200,7 @@ public class HtmlFragments {
     
     String c = "miniTagIcon";
     if (tag.getName().startsWith("#")) {
-      c += " miniTagIcon-" + WebUtils.escapeHtml(tag.getName().substring(1));
+      c += " miniTagIcon-system miniTagIcon-" + WebUtils.escapeHtml(tag.getName().substring(1));
     }
     else {
       c += " miniTagIcon-" + (tag.isTagFragment() ? "fragment" : "plain");

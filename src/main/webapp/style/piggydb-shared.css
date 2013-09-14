@@ -532,6 +532,10 @@ span.miniTagIcon-fragment {
   background: url(images/mini-tag-fragment.png) 0 50% no-repeat;
 }
 
+span.miniTagIcon-system {
+  background: url(images/mini-tag-system.png) 0 50% no-repeat;
+}
+
 span.tagIcon-trash {
   background: url(images/tag-trash.png) 0 50% no-repeat;
 }
