@@ -6,14 +6,6 @@
 
 
 
-#macro ( miniTagIcon $tagName ) 
-
-<span class="$html.miniTagIconClass($tagName)">&nbsp;</span>
-
-#end
-
-
-
 #macro( singleTagInput $tagInput $addButton )
 
 <script type="text/javascript">
