@@ -20,6 +20,7 @@ public interface TagRepository extends Repository<Tag> {
 	
 	public boolean containsId(Long id) throws Exception;
 	
+	
 	// By name
 
 	public Tag getByName(String name) throws Exception;
