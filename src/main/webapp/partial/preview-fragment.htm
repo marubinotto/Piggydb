@@ -8,14 +8,14 @@
       <div class="fragment-header">
         <span style="color: red;">#$messages.get("preview")</span>
     		#if ($fragment.isTag())
-    			#miniTagIcon($fragment.title)
+          $utils.raw($html.miniTagIcon($fragment.title, true))
     		#end
         <span class="title">$fragment.title &nbsp;</span>
         #if ($fragment.classification.size() > 0)
           <span class="tags bgcolor-base" style="margin-bottom: 5px;">
           #foreach ($tag in $fragment.classification.getTagIterator())
             <span class="tag">
-              #miniTagIcon($tag.name)
+              $utils.raw($html.miniTagIcon($tag))
               #if($tag.id)
                 <a class="tag" href="$resources.tagPath($tag.id)">$tag.name</a>
               #else

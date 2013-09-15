@@ -235,7 +235,7 @@
           $utils.raw($html.linkToFragment($entry.key.id))
           $entry.value
         #elseif ($entry.key.type == 2)
-          #miniTagIcon($entry.value)
+          $utils.raw($html.miniTagIcon($entry.value, null))
           <a class="tag" href="$resources.tagPath(${entry.key.id})">$entry.value</a>
         #elseif ($entry.key.type == 3)
 					$utils.raw($html.filterIconMini())
@@ -270,7 +270,7 @@
       #foreach ($tag in $tags)
       <li>
         <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
-          #miniTagIcon($tag.name)
+          $utils.raw($html.miniTagIcon($tag.name, null))
           <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
           × $tag.count
           

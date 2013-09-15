@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page.common;
 
+import static marubinotto.util.web.WebUtils.escapeHtml;
+
 import java.util.Map;
 
 import marubinotto.piggydb.model.Fragment;
@@ -181,29 +183,43 @@ public class HtmlFragments {
     Assert.Arg.notNull(tagName, "tagName");
     String c = "tagIcon";
     if (tagName.startsWith("#")) {
-      c = c + " tagIcon-" + WebUtils.escapeHtml(tagName.substring(1));
+      c = c + " tagIcon-" + escapeHtml(tagName.substring(1));
     }
     return c;
+  }
+  
+  private String _miniTagIcon(String iconClasses) {
+    return XmlStringBuilder.create("span")
+      .attribute("class", iconClasses)
+      .text("&nbsp;")
+      .toString();
+  }
+  
+  public String miniTagIcon(Tag tag) {
+    return _miniTagIcon(miniTagIconClass(tag));
+  }
+  
+  public String miniTagIcon(String tagName, Boolean isTagFragment) {
+    return _miniTagIcon(miniTagIconClass(tagName, isTagFragment));
   }
   
   public String miniTagIconClass(String tagName) {
-    Assert.Arg.notNull(tagName, "tagName");
-    String c = "miniTagIcon";
-    if (tagName.startsWith("#")) {
-      c = c + " miniTagIcon-" + WebUtils.escapeHtml(tagName.substring(1));
-    }
-    return c;
+    return miniTagIconClass(tagName, null);
   }
   
   public String miniTagIconClass(Tag tag) {
-    Assert.Arg.notNull(tag, "tag");
+    return miniTagIconClass(tag.getName(), tag.isTagFragment());
+  }
+  
+  public String miniTagIconClass(String tagName, Boolean isTagFragment) {
+    Assert.Arg.notNull(tagName, "tagName");
     
     String c = "miniTagIcon";
-    if (tag.getName().startsWith("#")) {
-      c += " miniTagIcon-system miniTagIcon-" + WebUtils.escapeHtml(tag.getName().substring(1));
+    if (tagName.startsWith("#")) {
+      c += " miniTagIcon-system miniTagIcon-" + escapeHtml(tagName.substring(1));
     }
-    else {
-      c += " miniTagIcon-" + (tag.isTagFragment() ? "fragment" : "plain");
+    else if (isTagFragment != null) {
+      c += " miniTagIcon-" + (isTagFragment ? "fragment" : "plain");
     }
     return c;
   }
@@ -235,11 +251,11 @@ public class HtmlFragments {
       if (pageIndexName != null) {
         // Unless overwriting the page index, it will be restored by pageUrl.
         // When changing the view, the page index should be reset to 0.
-        switchUrl = WebUtils.escapeHtml(
+        switchUrl = escapeHtml(
           pageUrl.getPageUrl("fragmentsViewMode", mode, pageIndexName, 0));
       }
       else {
-        switchUrl = WebUtils.escapeHtml(pageUrl.getPageUrl("fragmentsViewMode", mode));
+        switchUrl = escapeHtml(pageUrl.getPageUrl("fragmentsViewMode", mode));
       }
       builder.attribute("onclick", "javascript:document.location.href='" + switchUrl + "';");
     }

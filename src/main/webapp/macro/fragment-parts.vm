@@ -25,7 +25,7 @@
 #else
   #if ($fragment.isTag())
   	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
-  	#miniTagIcon($fragment.title)
+    $utils.raw($html.miniTagIcon($fragment.title, true))
   	<span class="title">$fragment.title</span></a>
   #else
     $utils.raw($html.linkToFragment($fragment.id))
@@ -211,7 +211,7 @@
 #macro( fragmentTag $tag $fragment )
 
 <span class="tag">
-  #miniTagIcon($tag.name)
+  $utils.raw($html.miniTagIcon($tag))
   <a class="tag" href="$resources.tagPath($tag.id)">$tag.name</a>
   #if ($fragment.id && $fragment.canRemoveTag($tag, $user))
     <a href="#" onclick="piggydb.command.removeTag('$fragment.id', '$tag.name'); return false;">
