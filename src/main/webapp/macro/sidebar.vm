@@ -270,7 +270,7 @@
       #foreach ($tag in $tags)
       <li>
         <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
-          $utils.raw($html.miniTagIcon($tag.name, null))
+          $utils.raw($html.miniTagIcon($tag.name, $tag.isTagFragment))
           <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
           × $tag.count
           

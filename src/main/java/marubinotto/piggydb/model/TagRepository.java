@@ -1,5 +1,6 @@
 package marubinotto.piggydb.model;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +56,8 @@ public interface TagRepository extends Repository<Tag> {
 
 	public Page<Tag> findByKeywords(String keywords, int pageSize, int pageIndex)
 	throws Exception;
+	
+	public List<Tag> getByIds(Collection<Long> tagIds) throws Exception;
 
 	public List<Tag> getPopularTags(int maxSize) throws Exception;
 	

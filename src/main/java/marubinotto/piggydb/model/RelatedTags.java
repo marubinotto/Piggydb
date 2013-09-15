@@ -23,6 +23,7 @@ public class RelatedTags {
 		public Integer count;
 		
 		public String name;
+		public Boolean isTagFragment;
 		
 		public RelatedTag(long id, int count) {
 			this.id = id;
@@ -91,19 +92,25 @@ public class RelatedTags {
 			relatedTags = relatedTags.subList(0, this.returnSizeLimit);
 		}
 		
-		setNames(relatedTags, tagRepository);
+		setTagInfo(relatedTags, tagRepository);
 		
 		return relatedTags;
 	}
 	
-	private static void setNames(List<RelatedTag> relatedTags, TagRepository tagRepository) 
+	private static void setTagInfo(List<RelatedTag> relatedTags, TagRepository tagRepository) 
 	throws Exception {
 		if (relatedTags.isEmpty()) return;
 		
-		Set<Long> ids = new HashSet<Long>();
-		for (RelatedTag tag : relatedTags) ids.add(tag.id);
+		Set<Long> relatedTagIds = new HashSet<Long>();
+		for (RelatedTag relatedTag : relatedTags) relatedTagIds.add(relatedTag.id);
 		
-		Map<Long, String> names = tagRepository.getNames(ids);
-		for (RelatedTag tag : relatedTags) tag.name = names.get(tag.id);
+		Map<Long, Tag> tags = ModelUtils.toIdMap(tagRepository.getByIds(relatedTagIds));
+		for (RelatedTag relatedTag : relatedTags) {
+		  Tag tag = tags.get(relatedTag.id);
+		  if (tag != null) {
+		    relatedTag.name = tag.getName();
+		    relatedTag.isTagFragment = tag.isTagFragment();
+		  }
+		}
 	}
 }

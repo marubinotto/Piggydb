@@ -1,9 +1,11 @@
 package marubinotto.piggydb.impl;
 
+import static marubinotto.util.CollectionUtils.joinToString;
 import static marubinotto.util.CollectionUtils.map;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -365,6 +367,18 @@ public class H2TagRepository extends TagRepository.Base {
 				return (Long)getJdbcTemplate().queryForObject(queryAll, keywordList, Long.class);
 			}
 		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Tag> getByIds(Collection<Long> tagIds) throws Exception {
+	  StringBuilder sql = new StringBuilder();
+    sql.append("select ");
+    sql.append(tagRowMapper.selectAll());
+    sql.append(" from tag");
+    sql.append(" where tag.tag_id in (");
+    sql.append(joinToString(tagIds, ", "));
+    sql.append(")");
+    return this.jdbcTemplate.query(sql.toString(), tagRowMapper);
 	}
 	
 	private TagRowMapper tagWithPopularityMapper = new TagRowMapper(this, "tag.") {
