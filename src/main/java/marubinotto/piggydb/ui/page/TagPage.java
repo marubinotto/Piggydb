@@ -356,7 +356,9 @@ public class TagPage extends AbstractFragmentsPage {
 			findByParentTag(this.tag.getId(), this.subTagsPageSize, this.sbtpi);
 		setRelatedTags();
 
-		getRecentlyViewed().add(new RecentlyViewed.Entity(RecentlyViewed.TYPE_TAG, this.tag.getId()));
+		getRecentlyViewed().add(
+		  new RecentlyViewed.Entity(
+		    RecentlyViewed.TYPE_TAG, this.tag.getId(), this.tag.isTagFragment()));
 
 		setCommonSidebarModels();
 	}

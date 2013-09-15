@@ -235,7 +235,7 @@
           $utils.raw($html.linkToFragment($entry.key.id))
           $entry.value
         #elseif ($entry.key.type == 2)
-          $utils.raw($html.miniTagIcon($entry.value, null))
+          $utils.raw($html.miniTagIcon($entry.value, $entry.key.additionalInfo))
           <a class="tag" href="$resources.tagPath(${entry.key.id})">$entry.value</a>
         #elseif ($entry.key.type == 3)
 					$utils.raw($html.filterIconMini())
