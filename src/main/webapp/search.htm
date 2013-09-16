@@ -12,7 +12,7 @@
     <div class="content-box tags-by-keywords">
     #foreach ($tag in $tags)
       <span class="tag">
-        #tagIcon($tag.name)
+        $utils.raw($html.tagIcon($tag))
         <a class="tag" href="$resources.tagPath(${tag.id})">$tag.name</a>
       </span>
     #end

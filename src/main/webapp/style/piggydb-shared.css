@@ -514,6 +514,18 @@ span.tagIcon {
   padding-right: 2px;
 }
 
+span.tagIcon-plain {
+	background: url(images/tag-plain.png) 0 50% no-repeat;
+}
+
+span.tagIcon-fragment {
+  background: url(images/tag-fragment.png) 0 50% no-repeat;
+}
+
+span.tagIcon-system {
+  background: url(images/tag-system.png) 0 50% no-repeat;
+}
+
 span.tagIcon-selected {
   background: url(images/tag-selected.png) 0 50% no-repeat;
 }

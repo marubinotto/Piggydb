@@ -179,30 +179,61 @@ public class HtmlFragments {
     return c;
   }
   
-  public String tagIconClass(String tagName) {
-    Assert.Arg.notNull(tagName, "tagName");
-    String c = "tagIcon";
-    if (tagName.startsWith("#")) {
-      c = c + " tagIcon-" + escapeHtml(tagName.substring(1));
-    }
-    return c;
-  }
+  // Tag icon
   
-  private String _miniTagIcon(String iconClasses) {
+  private String _tagIcon(String iconClasses) {
     return XmlStringBuilder.create("span")
       .attribute("class", iconClasses)
       .text("&nbsp;")
       .toString();
   }
   
+  public String tagIcon(Tag tag) {
+    return _tagIcon(tagIconClass(tag));
+  }
+  
+  public String tagIcon(String tagName, Boolean isTagFragment) {
+    return _tagIcon(tagIconClass(tagName, isTagFragment));
+  }
+  
   public String miniTagIcon(Tag tag) {
-    return _miniTagIcon(miniTagIconClass(tag));
+    return _tagIcon(miniTagIconClass(tag));
   }
   
   public String miniTagIcon(String tagName, Boolean isTagFragment) {
-    return _miniTagIcon(miniTagIconClass(tagName, isTagFragment));
+    return _tagIcon(miniTagIconClass(tagName, isTagFragment));
   }
   
+  // Tag icon classes
+  
+  private String _tagIconClass(String tagName, Boolean isTagFragment, boolean mini) {
+    Assert.Arg.notNull(tagName, "tagName");
+    
+    String base = mini ? "miniTagIcon" : "tagIcon";
+    
+    String c = base;
+    if (tagName.startsWith("#")) {
+      c += " " + base + "-system";
+      c += " " + base + "-" + escapeHtml(tagName.substring(1));
+    }
+    else if (isTagFragment != null) {
+      c += " " + base + "-" + (isTagFragment ? "fragment" : "plain");
+    }
+    return c;
+  }
+  
+  public String tagIconClass(String tagName) {
+    return tagIconClass(tagName, null);
+  }
+  
+  public String tagIconClass(Tag tag) {
+    return tagIconClass(tag.getName(), tag.isTagFragment());
+  }
+  
+  public String tagIconClass(String tagName, Boolean isTagFragment) {
+    return _tagIconClass(tagName, isTagFragment, false);
+  }
+
   public String miniTagIconClass(String tagName) {
     return miniTagIconClass(tagName, null);
   }
@@ -212,17 +243,10 @@ public class HtmlFragments {
   }
   
   public String miniTagIconClass(String tagName, Boolean isTagFragment) {
-    Assert.Arg.notNull(tagName, "tagName");
-    
-    String c = "miniTagIcon";
-    if (tagName.startsWith("#")) {
-      c += " miniTagIcon-system miniTagIcon-" + escapeHtml(tagName.substring(1));
-    }
-    else if (isTagFragment != null) {
-      c += " miniTagIcon-" + (isTagFragment ? "fragment" : "plain");
-    }
-    return c;
+    return _tagIconClass(tagName, isTagFragment, true);
   }
+  
+  // ----
   
   public String fragmentsViewSwitch(String selectedMode, String pageIndexName, PageUrl pageUrl) {
     Assert.Arg.notNull(selectedMode, "selectedMode");

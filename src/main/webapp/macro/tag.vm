@@ -1,11 +1,3 @@
-#macro ( tagIcon $tagName ) 
-
-<span class="$html.tagIconClass($tagName)">&nbsp;</span>
-
-#end
-
-
-
 #macro( singleTagInput $tagInput $addButton )
 
 <script type="text/javascript">

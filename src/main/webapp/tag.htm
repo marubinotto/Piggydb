@@ -18,7 +18,7 @@
             <img border="0" alt="Tag: " src="$context/images/edit-tag.png" style="vertical-align:middle;"/>
             $utils.raw($tagNameForm.fields.tagName)$utils.raw($tagNameForm.fields.commitRename)
           #else
-            #tagIcon($tag.name)
+            $utils.raw($html.tagIcon($tag))
             <span class="tag-title">$tag.name</span>
           #end
           <span class="tag-tools">
@@ -127,7 +127,7 @@
             <ul>
               #foreach ($subtag in $subtags)
               <li>
-                #tagIcon($subtag.name)
+                $utils.raw($html.tagIcon($subtag))
                 <a class="tag" href="$resources.tagPath(${subtag.id})">$subtag.name</a>
                 #if ($subtag.canRemoveTag($tag, $user))
                   <input class="delete-button" type='image' name="deleteTag" src='$context/images/delete.gif'
