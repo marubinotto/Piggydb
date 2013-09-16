@@ -251,7 +251,7 @@ public class TagTree extends Tree {
 			else
 				buffer.append(", ");
 			TreeNode childNode = (TreeNode) child;
-			buffer.append(childNode.getValue());
+			buffer.append(((Tag)childNode.getValue()).getName());
 			toStringRecursively(buffer, childNode);
 		}
 		buffer.append(")");
