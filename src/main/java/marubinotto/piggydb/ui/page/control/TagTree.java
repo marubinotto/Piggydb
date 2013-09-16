@@ -1,5 +1,7 @@
 package marubinotto.piggydb.ui.page.control;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -17,8 +19,6 @@ import net.sf.click.control.Decorator;
 import net.sf.click.extras.tree.Tree;
 import net.sf.click.extras.tree.TreeNode;
 import net.sf.click.util.HtmlStringBuffer;
-
-import org.apache.commons.lang.StringEscapeUtils;
 
 public class TagTree extends Tree {
 
@@ -74,7 +74,8 @@ public class TagTree extends Tree {
 	private Decorator createDecorator() {
 		return new Decorator() {
 			public String render(Object object, Context context) {
-				TreeNode treeNode = (TreeNode) object;
+				TreeNode treeNode = (TreeNode)object;
+				Tag tag = (Tag)treeNode.getValue();
 				HtmlStringBuffer buffer = new HtmlStringBuffer();
 
 				renderIcon(buffer, treeNode);
@@ -103,7 +104,7 @@ public class TagTree extends Tree {
 						buffer.append(context.getRequest().getContextPath());
 						buffer.append("/images/delete.gif\"");
 						buffer.append(" onclick=\"piggydb.util.domain.onDeleteTagClick('");
-						buffer.append(StringEscapeUtils.escapeHtml((String)treeNode.getValue()));
+						buffer.append(escapeHtml(tag.getName()));
 						buffer.append("', this.form)\"/>");
 					}
 				}
@@ -123,7 +124,7 @@ public class TagTree extends Tree {
 
 		buffer.elementStart("span");
 		buffer.appendAttribute("class",
-		  this.htmlFragments.tagIconClass((String) treeNode.getValue()));
+		  this.htmlFragments.tagIconClass((Tag)treeNode.getValue()));
 		buffer.append(">");
 	}
 
@@ -137,7 +138,8 @@ public class TagTree extends Tree {
 		  this.webResources.tagPath(getTagId(treeNode)));
 		buffer.closeTag();
 		if (treeNode.getValue() != null) {
-			buffer.append(WebUtils.escapeHtml(treeNode.getValue()));
+		  Tag tag = (Tag)treeNode.getValue();
+			buffer.append(WebUtils.escapeHtml(tag.getName()));
 		}
 		buffer.elementEnd("a");
 		buffer.append("\n");
@@ -200,15 +202,14 @@ public class TagTree extends Tree {
 		Assert.Arg.notNull(tag.getId(), "tag.getId()");
 		Assert.Arg.notNull(tag.getName(), "tag.getName()");
 
-		FirstLevelNode root = new FirstLevelNode(tag.getName(), generateId(tag));
+		FirstLevelNode root = new FirstLevelNode(tag, generateId(tag));
 		buildTagTreeRecursively(tag, root);
 		return root;
 	}
 
 	private static void buildTagTreeRecursively(Tag tag, TreeNode node) {
 		for (Tag parentTag : tag.getClassification()) {
-			TreeNode childNode = new TreeNode(
-			  parentTag.getName(), generateId(parentTag), node);
+			TreeNode childNode = new TreeNode(parentTag, generateId(parentTag), node);
 			buildTagTreeRecursively(parentTag, childNode);
 		}
 	}
