@@ -25,8 +25,7 @@ public class TagTree extends Tree {
 	private WebResourcePaths webResources;
 	private HtmlFragments htmlFragments;
 
-	public TagTree(String name, WebResourcePaths webResources,
-			HtmlFragments htmlFragments) {
+	public TagTree(String name, WebResourcePaths webResources, HtmlFragments htmlFragments) {
 		super(name);
 		setDecorator(createDecorator());
 		setAttribute("id", "tree-" + name);
@@ -36,15 +35,12 @@ public class TagTree extends Tree {
 	}
 
 	@Override
-	protected void renderTreeNodeStart(HtmlStringBuffer buffer,
-			TreeNode treeNode, int indentation) {
-
+	protected void renderTreeNodeStart(HtmlStringBuffer buffer, TreeNode treeNode, int indentation) {
 		buffer.elementStart("li");
 		buffer.appendAttribute("class", getExpandClass(treeNode));
 		buffer.closeTag();
 
-		buffer
-				.append("<table class=\"nowrap-frame\" border=\"0\"><tr><td nowrap=\"nowrap\">");
+		buffer.append("<table class=\"nowrap-frame\" border=\"0\"><tr><td nowrap=\"nowrap\">");
 
 		// Render the node's expand/collapse functionality.
 		if (treeNode.hasChildren()) {
@@ -55,8 +51,7 @@ public class TagTree extends Tree {
 
 	@Override
 	@SuppressWarnings({"rawtypes", "unchecked"})
-	protected void renderExpandAndCollapseAction(HtmlStringBuffer buffer,
-			TreeNode treeNode) {
+	protected void renderExpandAndCollapseAction(HtmlStringBuffer buffer, TreeNode treeNode) {
 		buffer.elementStart("a");
 		Map hrefParameters = new HashMap(1);
 		hrefParameters.put(EXPAND_TREE_NODE_PARAM, treeNode.getId());
@@ -128,7 +123,7 @@ public class TagTree extends Tree {
 
 		buffer.elementStart("span");
 		buffer.appendAttribute("class",
-				this.htmlFragments.tagIconClass((String) treeNode.getValue()));
+		  this.htmlFragments.tagIconClass((String) treeNode.getValue()));
 		buffer.append(">");
 	}
 
@@ -139,7 +134,7 @@ public class TagTree extends Tree {
 		buffer.elementStart("a");
 		buffer.appendAttribute("class", "tag");
 		buffer.appendAttribute("href",
-				this.webResources.tagPath(getTagId(treeNode)));
+		  this.webResources.tagPath(getTagId(treeNode)));
 		buffer.closeTag();
 		if (treeNode.getValue() != null) {
 			buffer.append(WebUtils.escapeHtml(treeNode.getValue()));
@@ -149,9 +144,7 @@ public class TagTree extends Tree {
 	}
 
 	@Override
-	protected void renderTreeNodeEnd(HtmlStringBuffer buffer, TreeNode treeNode,
-			int indentation) {
-
+	protected void renderTreeNodeEnd(HtmlStringBuffer buffer, TreeNode treeNode, int indentation) {
 		buffer.append("</li>\n");
 	}
 
@@ -169,8 +162,7 @@ public class TagTree extends Tree {
 	 * Removabilities of first level tags will be the same as the parameter
 	 * "removable".
 	 */
-	public static void restoreTagTree(Tree tagTree,
-			Classification classification, boolean removable) {
+	public static void restoreTagTree(Tree tagTree, Classification classification, boolean removable) {
 		Assert.Arg.notNull(tagTree, "tagTree");
 		Assert.Arg.notNull(classification, "classification");
 
@@ -188,8 +180,7 @@ public class TagTree extends Tree {
 	 * Removability of each first level tag will be set respectively via
 	 * Classifiable#canRemoveTag.
 	 */
-	public static void restoreTagTree(Tree tagTree, Classifiable classifiable,
-			User user) {
+	public static void restoreTagTree(Tree tagTree, Classifiable classifiable, User user) {
 		Assert.Arg.notNull(tagTree, "tagTree");
 		Assert.Arg.notNull(classifiable, "classifiable");
 		Assert.Arg.notNull(user, "user");
