@@ -356,12 +356,12 @@ span.fragment-as-tag .ui-button {
 }
 
 .ui-icon-piggydb-tag {
-	background-image: url(images/mini-tag-disabled.png) !important;
+	background-image: url(images/mini-tag-fragment-disabled.png) !important;
 	background-position: center center;
 }
 
 .ui-state-active .ui-icon-piggydb-tag {
-	background-image: url(images/mini-tag.png) !important;
+	background-image: url(images/mini-tag-fragment.png) !important;
 }
 
 #facebox-wiki-help {
