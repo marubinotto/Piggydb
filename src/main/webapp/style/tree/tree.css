@@ -26,6 +26,10 @@
   padding-left: 19px;
 }
 
+.collapsable-tree li span.tagIcon {
+	padding-top: 1px;
+}
+
 .collapsable-tree li.leaf {
   background-image: url(tjunction.png);
   background-repeat: no-repeat;
