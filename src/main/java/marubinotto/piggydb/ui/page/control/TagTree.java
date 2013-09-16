@@ -207,8 +207,8 @@ public class TagTree extends Tree {
 
 	private static void buildTagTreeRecursively(Tag tag, TreeNode node) {
 		for (Tag parentTag : tag.getClassification()) {
-			TreeNode childNode = new TreeNode(parentTag.getName(),
-					generateId(parentTag), node);
+			TreeNode childNode = new TreeNode(
+			  parentTag.getName(), generateId(parentTag), node);
 			buildTagTreeRecursively(parentTag, childNode);
 		}
 	}
