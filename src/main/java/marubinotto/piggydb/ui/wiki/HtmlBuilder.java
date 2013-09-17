@@ -1,6 +1,10 @@
 package marubinotto.piggydb.ui.wiki;
 
+import static marubinotto.util.CollectionUtils.list;
 import static marubinotto.util.RegexUtils.compile;
+
+import java.util.List;
+
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.predicate.Preformatted;
 import marubinotto.util.web.WebUtils;
@@ -11,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
 
 public class HtmlBuilder implements DocumentBuilder {
 
@@ -107,43 +112,62 @@ public class HtmlBuilder implements DocumentBuilder {
 	public String processDelete(ParseContext context, String chunk) {
 		return "<del>" + chunk + "</del>";
 	}
+	
+	private static final Pattern P_IMAGE_URL = compile("^(http|https):.*\\.(gif|png|jpeg|jpg)$");
 
 	public String processStandardUrl(ParseContext context, String url, boolean preformatted) {
-		// Images
-		if (!preformatted && context.getMatcher().matches(url, P_IMAGE_URL)) {
-			return "<a class=\"img-link\" href=\"" + url + "\"><img src=\"" + url + "\" alt=\"" + url + "\"/></a>";
+		if (!preformatted) {
+		  for (UrlProcessor processor : urlProcessors) {
+        String result = processor.process(url, context.getMatcher());
+        if (result != null) return result;
+      }
 		}
-		// Youtube
-		else if (!preformatted && context.getMatcher().contains(url, P_YOUTUBE_URL)) {
-			MatchResult matchResult = context.getMatcher().getMatch();
-			String youtubeId = matchResult.group(1);
-			return makeEmbeddedYoutubeHtml(youtubeId);
-		}
-		else {
-			return "<a class=\"url-link\" href=\"" + url + "\">" + url + "</a>";
-		}
+		return "<a class=\"url-link\" href=\"" + url + "\">" + url + "</a>";
 	}
+	
+	public static List<? extends UrlProcessor> urlProcessors = 
+	  list(new ImageUrlProcessor(), new YouTubeUrlProcessor());
+	
+	public static interface UrlProcessor {
+	  public String process(String url, PatternMatcher matcher);
+	}
+	
+	public static class ImageUrlProcessor implements UrlProcessor {
+	  public String process(String url, PatternMatcher matcher) {
+	    if (!matcher.matches(url, P_IMAGE_URL)) return null;
+	    return "<a class=\"img-link\" href=\"" + url + "\"><img src=\"" + url + "\" alt=\"" + url + "\"/></a>";
+	  }
+	}
+	
+	public static class YouTubeUrlProcessor implements UrlProcessor {	  
+	  private static final Pattern P_YOUTUBE_URL = compile("youtube\\.com/watch\\?v=([^&\\s]+)");
+	  
+	  public String process(String url, PatternMatcher matcher) {
+	    if (!matcher.contains(url, P_YOUTUBE_URL)) return null;
+	      
+      MatchResult matchResult = matcher.getMatch();
+      String youtubeId = matchResult.group(1);
+      return makeEmbeddedYoutubeHtml(youtubeId);
+    }
+	  
+	  private static String makeEmbeddedYoutubeHtml(String id) {
+	    int width = 560;
+	    int height = 340;
+	    String mvUrl = "http://www.youtube.com/v/" + id + "&hl=en&fs=1";
 
-	private static final Pattern P_IMAGE_URL = compile("^(http|https):.*\\.(gif|png|jpeg|jpg)$");
-	private static final Pattern P_YOUTUBE_URL = compile("youtube\\.com/watch\\?v=([^&\\s]+)");
-
-	private static String makeEmbeddedYoutubeHtml(String id) {
-		int width = 560;
-		int height = 340;
-		String mvUrl = "http://www.youtube.com/v/" + id + "&hl=en&fs=1";
-
-		StringBuilder html = new StringBuilder();
-		html.append("<object width=\"" + width + "\" height=\"" + height + "\">");
-		html.append("<param name=\"movie\" value=\"" + mvUrl + "\"></param>");
-		html.append("<param name=\"allowFullScreen\" value=\"true\"></param>");
-		html.append("<param name=\"allowscriptaccess\" value=\"always\"></param>");
-		html.append("<embed src=\"" + mvUrl + "\"" + 
-			" type=\"application/x-shockwave-flash\"" + 
-			" allowscriptaccess=\"always\"" + 
-			" allowfullscreen=\"true\"" + 
-			" width=\"" + width + "\" height=\"" + height + "\"></embed>");
-		html.append("</object>");
-		return html.toString();
+	    StringBuilder html = new StringBuilder();
+	    html.append("<object width=\"" + width + "\" height=\"" + height + "\">");
+	    html.append("<param name=\"movie\" value=\"" + mvUrl + "\"></param>");
+	    html.append("<param name=\"allowFullScreen\" value=\"true\"></param>");
+	    html.append("<param name=\"allowscriptaccess\" value=\"always\"></param>");
+	    html.append("<embed src=\"" + mvUrl + "\"" + 
+	      " type=\"application/x-shockwave-flash\"" + 
+	      " allowscriptaccess=\"always\"" + 
+	      " allowfullscreen=\"true\"" + 
+	      " width=\"" + width + "\" height=\"" + height + "\"></embed>");
+	    html.append("</object>");
+	    return html.toString();
+	  }
 	}
 	
 	protected String fragmentUrl(Long id, ParseContext context) {
