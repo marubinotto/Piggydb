@@ -4,8 +4,8 @@ piggydb.namespace("piggydb.widget.tags", {
 
 (function(module) {
 	
-	var _htmlTagIcon = function(tagName) {
-    return '<span class="' + domain.tagIconClass(tagName) + '">&nbsp;<\/span>';
+	var _htmlTagIcon = function(tag) {
+    return '<span class="' + domain.tagIconClass(tag.name, tag.isTagFragment) + '">&nbsp;<\/span>';
   };
   
   var _htmlTagNameLink = function(tag) {
@@ -13,7 +13,7 @@ piggydb.namespace("piggydb.widget.tags", {
   };
   
   var _htmlTag = function(tag) {
-  	return _htmlTagIcon(tag.name) + " " + _htmlTagNameLink(tag);
+  	return _htmlTagIcon(tag) + " " + _htmlTagNameLink(tag);
   };
   
   var _TagTreeNode = function(tag, isLast) {

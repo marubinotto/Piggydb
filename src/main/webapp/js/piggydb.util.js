@@ -107,9 +107,15 @@ piggydb.namespace("piggydb.util", {
 
 piggydb.namespace("piggydb.util.domain", {
 	
-	tagIconClass: function(tagName) {
+	tagIconClass: function(tagName, isTagFragment) {
 		var c = "tagIcon";
-		if (tagName.charAt(0) == "#") c = c + " tagIcon-" + tagName.substring(1);
+		if (tagName.charAt(0) == "#") {
+			c += " tagIcon-system";
+			c += " tagIcon-" + tagName.substring(1);
+		}
+		else if (isTagFragment != null) {
+      c += " tagIcon-" + (isTagFragment ? "fragment" : "plain");
+    }
 		return c;
 	},
 	

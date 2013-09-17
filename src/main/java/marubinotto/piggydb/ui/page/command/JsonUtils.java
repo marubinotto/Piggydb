@@ -1,12 +1,13 @@
 package marubinotto.piggydb.ui.page.command;
 
+import static marubinotto.util.web.WebUtils.escapeHtml;
+
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
 
 import marubinotto.piggydb.model.Tag;
 import marubinotto.util.paging.Page;
-import marubinotto.util.web.WebUtils;
 
 public class JsonUtils {
 	
@@ -32,7 +33,8 @@ public class JsonUtils {
 			if (first) first = false; else out.print(",");
 			out.print("{");
 			out.print("\"id\": " + tag.getId());
-			out.print(", \"name\": \"" + WebUtils.escapeHtml(tag.getName()) + "\"");	// TODO add an unescaped name field
+			out.print(", \"name\": \"" + escapeHtml(tag.getName()) + "\"");	// TODO add an unescaped name field
+			out.print(", \"isTagFragment\": " + tag.isTagFragment());
 			out.print(", \"hasParents\": " + (tag.getClassification().size() > 0));
 			if (hasChildren != null) 
 				out.print(", \"hasChildren\": " + hasChildren.contains(tag.getId()));
