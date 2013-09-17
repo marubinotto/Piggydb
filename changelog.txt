@@ -1,6 +1,10 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.15 (2013-09-17) == #v6.15
+
+ * Tag icons for each type of tag: plain, tag-fragment, system
+
 == Changes in version 6.14 (2013-09-01) == #v6.14
 
  * Added a button to expand sub-fragments at the bottom of the fragment content
