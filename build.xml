@@ -283,7 +283,26 @@
       basedir="${standalone.build.dir}"
       includes="${standalone.build.package.dir.name}/**"/>
   </target>
-  
+
+	
+  <!--
+    Extensions Jar
+  -->
+	<target name="extensions-jar" depends="build-classes">
+		<mkdir dir="${extensions.build.classes.dir}"/>
+    <build-classes
+      src="${extensions.dir}/src/java"
+      encoding="${src.encoding}"
+      version="${src.version}"
+      resources="${extensions.dir}/src/resources"
+      classpath="classpath-build-test"
+      classes="${extensions.build.classes.dir}"/>
+		
+		<jar jarfile="${extensions.build.jar}">
+      <fileset dir="${extensions.build.classes.dir}"/>
+    </jar>
+	</target>
+	
 	
   <!--
     Extensions Source Zip
