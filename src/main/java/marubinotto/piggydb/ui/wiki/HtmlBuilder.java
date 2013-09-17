@@ -125,7 +125,7 @@ public class HtmlBuilder implements DocumentBuilder {
 		return "<a class=\"url-link\" href=\"" + url + "\">" + url + "</a>";
 	}
 	
-	public static List<? extends UrlProcessor> urlProcessors = 
+	public static List<UrlProcessor> urlProcessors = 
 	  list(new ImageUrlProcessor(), new YouTubeUrlProcessor());
 	
 	public static interface UrlProcessor {
