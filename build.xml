@@ -342,7 +342,7 @@
   <!--
     Prepare demo WAR
   -->
-  <target name="prepare-demo" depends="build-war-dir">
+  <target name="prepare-demo" depends="build-war-dir, extensions-jar">
     <!-- analytics code -->
     <replace dir="${build.war.dir}">
     	<include name="border-template.htm"/>
@@ -369,7 +369,7 @@
   <!--
     WAR for http://piggydb.jp/
   -->
-  <target name="war-jp" depends="prepare-demo, extensions-jar">
+  <target name="war-jp" depends="prepare-demo">
     <replace file="${build.war.dir}/border-template.htm">
       <replacetoken>##BOTTOM_OF_BODY</replacetoken>
       <replacevalue><![CDATA[
@@ -413,7 +413,7 @@
   <!--
     WAR for Piggydb Documents
   -->
-  <target name="war-en" depends="prepare-demo, extensions-jar">
+  <target name="war-en" depends="prepare-demo">
   	<copy file="${extensions.build.jar}" todir="${build.war.dir}/WEB-INF/lib" overwrite="true"/>
   	
     <antcall target="_enable-anonymous"/>
