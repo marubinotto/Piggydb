@@ -283,6 +283,13 @@
       basedir="${standalone.build.dir}"
       includes="${standalone.build.package.dir.name}/**"/>
   </target>
+	
+  <target name="standalone-package-supporters" 
+      depends="standalone-package-base, extensions-jar, extensions-src">
+    <copy file="${extensions.build.jar}" todir="${standalone.build.package.webapp.dir}/WEB-INF/lib" overwrite="true"/>
+    <copy file="${extensions.build.src-zip}" todir="${standalone.build.package.dir}" overwrite="true"/>
+    <antcall target="standalone-package"/>
+  </target>
 
 	
   <!--
@@ -309,7 +316,7 @@
   -->
   <target name="extensions-src">
   	<zip 
-      zipfile="${build.dir}/extensions-src.zip" 
+      zipfile="${extensions.build.src-zip}" 
       basedir="${basedir}"
       includes="extensions/**"
   		excludes="**/.*, **/.*/**"/>
