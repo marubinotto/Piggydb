@@ -369,7 +369,7 @@
   <!--
     WAR for http://piggydb.jp/
   -->
-  <target name="war-jp" depends="prepare-demo">
+  <target name="war-jp" depends="prepare-demo, extensions-jar">
     <replace file="${build.war.dir}/border-template.htm">
       <replacetoken>##BOTTOM_OF_BODY</replacetoken>
       <replacevalue><![CDATA[
@@ -384,6 +384,8 @@
         --></script>
       ]]></replacevalue>
     </replace>
+  	
+  	<copy file="${extensions.build.jar}" todir="${build.war.dir}/WEB-INF/lib" overwrite="true"/>
     
     <antcall target="_enable-anonymous"/>
     <antcall target="_set-default-scale-to-detail"/>
@@ -411,7 +413,9 @@
   <!--
     WAR for Piggydb Documents
   -->
-  <target name="war-en" depends="prepare-demo">
+  <target name="war-en" depends="prepare-demo, extensions-jar">
+  	<copy file="${extensions.build.jar}" todir="${build.war.dir}/WEB-INF/lib" overwrite="true"/>
+  	
     <antcall target="_enable-anonymous"/>
     
     <build-war 
