@@ -246,13 +246,14 @@ piggydb.namespace("piggydb.widget", {
 	
 	_class.prototype = jQuery.extend({
 		
-	  show: function(url) {
+	  show: function(url, callback) {
 	    this.init();  
 	    this.loading();
 	    
 	    var outer = this;
 	    jQuery.get(url, function(data) { 
 	    	outer.reveal(data);
+	    	if (jQuery.isFunction(callback)) callback();
 		  });
 	  },
 	  

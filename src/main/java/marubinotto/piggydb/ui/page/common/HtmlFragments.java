@@ -74,6 +74,8 @@ public class HtmlFragments {
       .toString();
   }
   
+  public static final String CLASS_QUICK_VIEWABLE = "quick-viewable";
+  
   public String linkToFragment(long fragmentId) {
     if (fragmentId == Fragment.ID_HOME) {
       return XmlStringBuilder.create("a")
@@ -86,6 +88,8 @@ public class HtmlFragments {
     else {
       return XmlStringBuilder.create("a")
         .attribute("href", this.webResources.fragmentPath(fragmentId))
+        .attribute("class", CLASS_QUICK_VIEWABLE)
+        .attribute("data-id", fragmentId)
         .text("#" + fragmentId)
         .toString();
     }

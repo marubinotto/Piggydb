@@ -20,16 +20,29 @@ jQuery(function() {
   
   _class.ID_HOME = "0";
   
+  var _quickViewBox = new piggydb.widget.Facebox("facebox-fragment-quick-view");
+  
   _class.init = function() {
     prettyPrint();
+    
     jQuery("table.fragment").live('mouseenter', function() {
       jQuery(this).find(".fragment-tools").eq(0).show();
     });
     jQuery("table.fragment").live('mouseleave', function() {
       jQuery(this).find(".fragment-tools").eq(0).hide();
     });
+    
     _class.makeFragmentsDroppable("table.fragment", null, null);
     _class.makeRelationsDraggable("");
+    
+    jQuery(document).on({
+      mouseenter: function() {
+      	var id = jQuery(this).attr("data-id");	
+      	_quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
+      		prettyPrint();
+      	});
+      }
+    }, 'a.quick-viewable');
   };
   
   _class.initForPartial = function(partialSelector) {
