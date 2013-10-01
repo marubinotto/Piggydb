@@ -66,7 +66,7 @@ public class HtmlFragmentsTest {
   @Test
   public void linkToFragment() throws Exception {
     String result = this.object.linkToFragment(1);
-    assertEquals("<a href=\"/context/fragment.htm?id=1\">#1</a>", result);
+    assertEquals("<a href=\"/context/fragment.htm?id=1\" class=\"quick-viewable\" data-id=\"1\">#1</a>", result);
   }
   
   @Test
