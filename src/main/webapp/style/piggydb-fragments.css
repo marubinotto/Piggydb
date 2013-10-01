@@ -232,7 +232,7 @@ table.fragment .fragment-tools .pointer-down {
 
   position: absolute;
   right: 5px;
-  bottom: -5px;
+  bottom: -9px;
 }
 
 table.fragment .fragment-tools .pointer-down-inner {
@@ -246,7 +246,7 @@ table.fragment .fragment-tools .pointer-down-inner {
 
   position: absolute;
   right: 5px;
-  bottom: -4px;
+  bottom: -8px;
 }
 
 table.fragment .fragment-tools .fragment-checkbox {
