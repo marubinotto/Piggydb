@@ -246,6 +246,12 @@ piggydb.namespace("piggydb.widget", {
 	
 	_class.prototype = jQuery.extend({
 		
+		adjustMaxHeight: function() {
+			this.content.css({
+	      'max-height': jQuery(window).height() - 120
+	    });
+		},
+		
 	  show: function(url, callback) {
 	    this.init();  
 	    this.loading();
@@ -253,6 +259,7 @@ piggydb.namespace("piggydb.widget", {
 	    var outer = this;
 	    jQuery.get(url, function(data) { 
 	    	outer.reveal(data);
+	    	outer.adjustMaxHeight();
 	    	if (jQuery.isFunction(callback)) callback();
 		  });
 	  },
@@ -261,9 +268,7 @@ piggydb.namespace("piggydb.widget", {
 	  	this.init();
 	  	this.loading();
 	    this.reveal(html);
-	    this.content.css({
-	      'max-height': jQuery(window).height() - 120
-	    });
+	    this.adjustMaxHeight();
 	  },
 	  
 	  showImage: function(url) {
