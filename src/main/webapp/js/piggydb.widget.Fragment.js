@@ -42,6 +42,8 @@ jQuery(function() {
       	_quickViewTimer = setTimeout(function() {
       	  _quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
             prettyPrint();
+            _class.makeFragmentsDroppable("#facebox-fragment-quick-view table.fragment", null);
+            _class.makeRelationsDraggable("#facebox-fragment-quick-view ");
           });
       	}, 1000);
       },
