@@ -79,6 +79,8 @@ public class HtmlFragments {
   public String linkToFragment(long fragmentId) {
     if (fragmentId == Fragment.ID_HOME) {
       return XmlStringBuilder.create("a")
+        .attribute("class", CLASS_QUICK_VIEWABLE)
+        .attribute("data-id", fragmentId)
         .attribute("href", this.webResources.homeFragmentPath())
         .element("img")
           .attribute("class", "home-icon")
@@ -87,9 +89,9 @@ public class HtmlFragments {
     }
     else {
       return XmlStringBuilder.create("a")
-        .attribute("href", this.webResources.fragmentPath(fragmentId))
         .attribute("class", CLASS_QUICK_VIEWABLE)
         .attribute("data-id", fragmentId)
+        .attribute("href", this.webResources.fragmentPath(fragmentId))
         .text("#" + fragmentId)
         .toString();
     }
