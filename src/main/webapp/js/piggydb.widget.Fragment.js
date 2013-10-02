@@ -20,6 +20,7 @@ jQuery(function() {
   
   _class.ID_HOME = "0";
   
+  var _quickViewTimer = null;
   var _quickViewBox = new piggydb.widget.Facebox("facebox-fragment-quick-view");
   
   _class.init = function() {
@@ -37,10 +38,18 @@ jQuery(function() {
     
     jQuery(document).on({
       mouseenter: function() {
-      	var id = jQuery(this).attr("data-id");	
-      	_quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
-      		prettyPrint();
-      	});
+      	var id = jQuery(this).attr("data-id");
+      	_quickViewTimer = setTimeout(function() {
+      	  _quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
+            prettyPrint();
+          });
+      	}, 1000);
+      },
+      mouseleave: function() {
+        if (_quickViewTimer != null) {
+          clearTimeout(_quickViewTimer);
+          _quickViewTimer = null;
+        }
       }
     }, 'a.quick-viewable');
   };
