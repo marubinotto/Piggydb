@@ -43,13 +43,13 @@ public class InlineTest extends HtmlBuilderTestBase {
 	@Test
 	public void makeLinkToFragment() throws Exception {
 		String result = this.object.makeLinkToFragment(this.context, 123L, "fragment:123");
-		assertEquals("<a href=\"/fragment.htm?id=123\">fragment:123</a>", result);
+		assertEquals("<a class=\"quick-viewable\" data-id=\"123\" href=\"/fragment.htm?id=123\">fragment:123</a>", result);
 	}
 	
 	@Test
 	public void makeLinkToFragmentWithDetail() throws Exception {
 		String result = this.object.makeLinkToFragmentWithDetail(this.context, this.fragment);
-		assertEquals("<a href=\"/fragment.htm?id=999\">#999</a> title", result);
+		assertEquals("<a class=\"quick-viewable\" data-id=\"999\" href=\"/fragment.htm?id=999\">#999</a> title", result);
 	}
 	
 	@Test

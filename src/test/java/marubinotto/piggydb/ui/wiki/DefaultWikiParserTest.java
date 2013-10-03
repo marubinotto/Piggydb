@@ -118,7 +118,7 @@ public class DefaultWikiParserTest {
 		
 		StrBuilder expect = new StrBuilder();
 		expect.appendln(HtmlBlock.Paragraph.OPEN);
-		expect.appendln("<a href=\"/fragment.htm?id=123\">#123</a>");
+		expect.appendln("<a class=\"quick-viewable\" data-id=\"123\" href=\"/fragment.htm?id=123\">#123</a>");
 		expect.appendln(HtmlBlock.Paragraph.CLOSE);
 		assertEquals(expect.toString(), result);
 	}

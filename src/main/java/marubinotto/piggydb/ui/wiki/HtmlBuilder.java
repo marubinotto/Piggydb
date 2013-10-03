@@ -7,6 +7,7 @@ import java.util.List;
 
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.predicate.Preformatted;
+import marubinotto.piggydb.ui.page.common.HtmlFragments;
 import marubinotto.util.web.WebUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -181,14 +182,20 @@ public class HtmlBuilder implements DocumentBuilder {
     }
     return urn;
   }
+	
+	private static String attrsForQuickView(Long id) {
+	  return "class=\"" + HtmlFragments.CLASS_QUICK_VIEWABLE + "\" data-id=\"" + id + "\"";
+	}
 
 	public String makeLinkToFragment(ParseContext context, Long fragmentId, String label) {
-		return "<a href=\"" + fragmentUrl(fragmentId, context) + "\">" + label + "</a>";
+		return "<a " + attrsForQuickView(fragmentId) + 
+		  " href=\"" + fragmentUrl(fragmentId, context) + "\">" + label + "</a>";
 	}
 
 	public String makeLinkToFragmentWithDetail(ParseContext context, Fragment fragment) {
 		String url = fragmentUrl(fragment.getId(), context);
-		return "<a href=\"" + url + "\">#" + fragment.getId() + "</a> " + 
+		return "<a " + attrsForQuickView(fragment.getId()) + 
+		  " href=\"" + url + "\">#" + fragment.getId() + "</a> " + 
 			(StringUtils.isNotBlank(fragment.getTitle()) ? fragment.getTitle() : "");
 	}
 
@@ -245,7 +252,8 @@ public class HtmlBuilder implements DocumentBuilder {
 	}
 
 	public String processFragmentRef(ParseContext context, String label, long id) {
-		return "<a href=\"" + fragmentUrl(id, context) + "\">" + label + "</a>";
+		return "<a " + attrsForQuickView(id) + 
+		  " href=\"" + fragmentUrl(id, context) + "\">" + label + "</a>";
 	}
 
 	public String processTagName(ParseContext context, String tagName) {
