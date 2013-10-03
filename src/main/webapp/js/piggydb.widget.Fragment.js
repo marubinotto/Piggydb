@@ -24,7 +24,11 @@ jQuery(function() {
   var _quickViewBox = new piggydb.widget.Facebox("facebox-fragment-quick-view");
   var _quickViewTimeLag = 1000;
   
-  var _cancelFadeOutOfQuickView = function() {
+  var _fadeOutQuickView = function() {
+    _quickViewBox.body.find("table.fragment").fadeOut(_quickViewTimeLag);
+  };
+  
+  var _cancelFadingOutQuickView = function() {
     _quickViewBox.body.find("table.fragment").stop(true, false).animate({opacity: '100'});
   };
   
@@ -43,11 +47,11 @@ jQuery(function() {
     
     jQuery(document).on({
       mouseenter: function() {
-        _quickViewBox.body.find("table.fragment").fadeOut(_quickViewTimeLag);
+        _fadeOutQuickView();
       	var id = jQuery(this).attr("data-id");
       	_quickViewTimer = setTimeout(function() {
       	  _quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
-      	    _cancelFadeOutOfQuickView();
+      	    _cancelFadingOutQuickView();
             prettyPrint();
             _class.makeFragmentsDroppable("#facebox-fragment-quick-view table.fragment", null);
             _class.makeRelationsDraggable("#facebox-fragment-quick-view ");
@@ -55,7 +59,7 @@ jQuery(function() {
       	}, _quickViewTimeLag);
       },
       mouseleave: function() {
-        _cancelFadeOutOfQuickView();
+        _cancelFadingOutQuickView();
         if (_quickViewTimer != null) {
           clearTimeout(_quickViewTimer);
           _quickViewTimer = null;
