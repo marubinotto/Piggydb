@@ -175,14 +175,6 @@ public class HtmlBuilder implements DocumentBuilder {
 	  return context.getWebResources().fragmentPath(id);
 	}
 	
-	public String fragmentUrnToWebUrl(String urn, ParseContext context) {
-    if (urn.startsWith(FragmentUrn.PREFIX)) {
-      Long id = new FragmentUrn(urn).getId();
-      if (id != null) return context.getWebResources().fragmentPath(id);
-    }
-    return urn;
-  }
-	
 	private static String attrsForQuickView(Long id) {
 	  return "class=\"" + HtmlFragments.CLASS_QUICK_VIEWABLE + "\" data-id=\"" + id + "\"";
 	}
@@ -245,9 +237,19 @@ public class HtmlBuilder implements DocumentBuilder {
 	}
 
 	public String processLabeledLink(ParseContext context, String label, String url) {
+	  // Image label
 		if (context.getMatcher().matches(label, P_IMAGE_URL)) {
 			label = "<img src=\"" + label + "\" alt=\"\"/>";
 		}
+		
+		// Fragment URN
+		if (url.startsWith(FragmentUrn.PREFIX)) {
+      Long id = new FragmentUrn(url).getId();
+      if (id != null) {
+        return "<a " + attrsForQuickView(id) + " href=\"" + fragmentUrl(id, context) + "\">" + label + "</a>";
+      }
+    }
+		
 		return "<a href=\"" + url + "\">" + label + "</a>";
 	}
 

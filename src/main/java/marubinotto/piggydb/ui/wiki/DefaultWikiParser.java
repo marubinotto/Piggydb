@@ -204,7 +204,6 @@ public class DefaultWikiParser extends WikiParser {
 					if (StringUtils.isBlank(label)) {
 						return link;
 					}
-					url = documentBuilder.fragmentUrnToWebUrl(url, context);
 					return documentBuilder.processLabeledLink(context, label, url);
 				}
 				else if (link.matches(PS_FRAGMENT_REF)) {

@@ -73,8 +73,6 @@ public interface DocumentBuilder {
 	
 	public String makeLinkToFragmentWithDetail(ParseContext context, Fragment fragment);
 	
-	public String fragmentUrnToWebUrl(String urn, ParseContext context);
-	
 	// Return null if a loop is detected
 	public String makeEmbeddedFragment(ParseContext context, Fragment fragment);
 	
