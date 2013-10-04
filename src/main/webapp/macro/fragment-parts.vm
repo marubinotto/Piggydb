@@ -24,7 +24,7 @@
     title="$messages.get("home")" alt="$messages.get("home")"/></a>
 #else
   #if ($fragment.isTag())
-  	<a class="tag-fragment-caption" href="$resources.tagPath($fragment.tagId)">
+  	<a class="tag-fragment-caption $html.quickViewableClass" data-id="$fragment.id" href="$resources.tagPath($fragment.tagId)">
     $utils.raw($html.miniTagIcon($fragment.title, true))
   	<span class="title">$fragment.title</span></a>
   #else

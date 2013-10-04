@@ -76,6 +76,10 @@ public class HtmlFragments {
   
   public static final String CLASS_QUICK_VIEWABLE = "quick-viewable";
   
+  public String getQuickViewableClass() {
+    return CLASS_QUICK_VIEWABLE;
+  }
+  
   public String linkToFragment(long fragmentId) {
     if (fragmentId == Fragment.ID_HOME) {
       return XmlStringBuilder.create("a")
