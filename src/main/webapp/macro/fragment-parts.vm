@@ -19,7 +19,7 @@
 
 <span class="fragment-caption">
 #if ($fragment.isHome())
-  <a href="$resources.homeFragmentPath()">
+  <a class="$html.quickViewableClass" data-id="$fragment.id" href="$resources.homeFragmentPath()">
   <img class="home-icon" src="$context/style/images/mini-tag-home.png" border="0"
     title="$messages.get("home")" alt="$messages.get("home")"/></a>
 #else
