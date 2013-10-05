@@ -9,7 +9,9 @@ piggydb.namespace("piggydb.widget.tags", {
   };
   
   var _htmlTagNameLink = function(tag) {
-  	return '<a class="tag" href="tag.htm?id=' + tag.id + '">' + tag.name + '<\/a>';
+    var cls = tag.isTagFragment ? ("tag " + tag.quickViewableClass) : "tag";
+    var dataIdAttr = tag.isTagFragment ? ('data-id="' + tag.fragmentId + '"') : "";
+  	return '<a class="' + cls + '" ' + dataIdAttr + ' href="tag.htm?id=' + tag.id + '">' + tag.name + '<\/a>';
   };
   
   var _htmlTag = function(tag) {

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.ui.page.common.HtmlFragments;
 import marubinotto.util.paging.Page;
 
 public class JsonUtils {
@@ -35,6 +36,8 @@ public class JsonUtils {
 			out.print("\"id\": " + tag.getId());
 			out.print(", \"name\": \"" + escapeHtml(tag.getName()) + "\"");	// TODO add an unescaped name field
 			out.print(", \"isTagFragment\": " + tag.isTagFragment());
+			out.print(", \"fragmentId\": " + tag.getFragmentId());
+			out.print(", \"quickViewableClass\": \"" + HtmlFragments.CLASS_QUICK_VIEWABLE + "\"");
 			out.print(", \"hasParents\": " + (tag.getClassification().size() > 0));
 			if (hasChildren != null) 
 				out.print(", \"hasChildren\": " + hasChildren.contains(tag.getId()));
