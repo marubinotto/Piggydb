@@ -35,6 +35,10 @@ public class TemplateUtils {
 			throw new UnhandledException(e);
 		}
 	}
+	
+	public Object returnIfTrue(Object object, boolean condition) {
+	  return condition ? object : "";
+	}
 
 	public Object nullToEmpty(Object object) {
 		return object == null ? "" : object;
