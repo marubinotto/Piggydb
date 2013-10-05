@@ -392,7 +392,7 @@
 #else
   <span class="fragment-caption">
     #fileIcon($fragment)
-    <a class="title-link" href="$resources.fragmentPath($fragment.id)">
+    <a class="title-link $html.quickViewableClass" data-id="$fragment.id" href="$resources.fragmentPath($fragment.id)">
     <span class="title">$utils.raw($html.fragmentHeadline($fragment)) &nbsp;</span></a>
   </span>
 #end
