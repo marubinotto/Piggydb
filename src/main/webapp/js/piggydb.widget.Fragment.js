@@ -47,8 +47,9 @@ jQuery(function() {
     
     jQuery(document).on({
       mouseenter: function() {
-        _fadeOutQuickView();
       	var id = jQuery(this).attr("data-id");
+      	if (id == null || id == "") return;
+      	_fadeOutQuickView();
       	_quickViewTimer = setTimeout(function() {
       	  _quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
       	    _cancelFadingOutQuickView();
