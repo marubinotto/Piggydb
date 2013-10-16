@@ -102,6 +102,9 @@ jQuery(function() {
 	      'a.fragment-link' : function(arg) {
 		      return '#' + arg.context.id;
 		    },
+		    'a.fragment-link[data-id]' : function(arg) {
+          return arg.context.id;
+        },
 	      'a.fragment-link[href]' : function(arg) {
 	        return piggydb.server.getFragmentUrl(arg.context.id);
 	      },

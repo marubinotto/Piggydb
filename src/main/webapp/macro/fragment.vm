@@ -110,7 +110,8 @@
 #macro ( selectedFragmentEntry $fragmentId $fragmentTitle ) 
 
 <table class="nowrap-frame" border="0"><tr><td nowrap="nowrap">
-  <a class="fragment-link" href="$resources.fragmentPath($fragmentId)">#$fragmentId</a>
+  <a class="fragment-link $html.quickViewableClass" data-id="$fragmentId"
+    href="$resources.fragmentPath($fragmentId)">#$fragmentId</a>
   <span class="title">$fragmentTitle &nbsp;</span>
   <a class="remove" href="#" 
 		onclick="piggydb.widget.SelectedFragments.instance.remove('$fragmentId'); return false;">
