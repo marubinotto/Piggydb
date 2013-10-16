@@ -85,6 +85,7 @@
 				width: 600,
 				height: _initialHeight,
 				modal: outer.modal,
+				closeOnEscape: false,
 				close: function(event, ui) {
 					piggydb.widget.imageViewer.close();
 					window.fileForm = null;

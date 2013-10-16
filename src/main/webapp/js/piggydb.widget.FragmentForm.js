@@ -153,6 +153,7 @@
 		    modal: false,
 		    width: 600,
 		    height: 450,
+		    closeOnEscape: false,
 		    resize: function() {
 		    	outer.adjustEditorHeight();
 				},
