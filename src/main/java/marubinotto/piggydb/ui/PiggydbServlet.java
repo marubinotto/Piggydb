@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import marubinotto.piggydb.extension.Extension;
+import marubinotto.piggydb.extension.ExtensionDeployer;
 import marubinotto.piggydb.impl.db.DatabaseSchema;
 import marubinotto.piggydb.impl.db.SequenceAdjusterList;
 import marubinotto.piggydb.ui.util.ModifiedClickContext;
@@ -39,7 +39,7 @@ public class PiggydbServlet extends SpringClickServlet {
 		// This should be done before init of Click in order for it to recognize the resources
 		try {
 			// Extension.testClassLoaderResources();
-			Extension.deployWebappFiles(getServletContext());
+			ExtensionDeployer.deployWebappFiles(getServletContext());
 		}
 		catch (IOException e) {
 			throw new ServletException(e);
@@ -101,7 +101,7 @@ public class PiggydbServlet extends SpringClickServlet {
 		
 		// Initialize extensions
 		try {
-			Extension.initAll(getServletContext(), this.applicationContext);
+			ExtensionDeployer.initAll(getServletContext(), this.applicationContext);
 		}
 		catch (IOException e) {
 			throw new ServletException(e);

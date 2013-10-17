@@ -9,13 +9,13 @@ public class ExtensionTest {
 
 	@Test
 	public void allDefFiles() throws Exception {
-		for (Enumeration<URL> files = Extension.allDefFiles(); files.hasMoreElements();) {
+		for (Enumeration<URL> files = ExtensionDeployer.allDefFiles(); files.hasMoreElements();) {
 			System.out.println(files.nextElement());
 		}
 	}
 	
 	@Test
 	public void testClassLoaderResources() throws Exception {
-		Extension.testClassLoaderResources();
+		ExtensionDeployer.testClassLoaderResources();
 	}
 }
