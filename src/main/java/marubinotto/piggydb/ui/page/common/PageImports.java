@@ -14,7 +14,8 @@ public class PageImports {
 	
 	private static String DEFAULT_HEAD_JS_IMPORTS;
 	public StrBuilder headJs = new StrBuilder();
-	public StrBuilder bottomJs = new StrBuilder();
+	private StrBuilder bottomJs = new StrBuilder();
+	public static StrBuilder additionalBottomJs = new StrBuilder(); 
 	
 	public PageImports(HtmlFragments html) {
 		Assert.Arg.notNull(html, "html");
@@ -27,6 +28,10 @@ public class PageImports {
 	
 	public String getCss() {
 		return this.css.toString() + additionalCssImports;
+	}
+	
+	public String getBottomJs() {
+	  return this.bottomJs.toString() + additionalBottomJs;
 	}
 	
 	private void setDefaultCss() {
