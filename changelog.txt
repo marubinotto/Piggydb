@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.16 (2013-10-18) == #v6.16
+
+ * Added Fragment Quick View
+   * Mouse hovering over a fragment link brings up a pop-up view for the fragment
+ * Updated the default UI to use HTML5
+
 == Changes in version 6.15 (2013-09-17) == #v6.15
 
  * Tag icons for each type of tag: plain, tag-fragment, system
