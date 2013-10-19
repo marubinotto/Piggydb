@@ -146,6 +146,11 @@
       wardir="${build.war.dir}"/>
   </target>
 
+  <target name="war-with-extensions" depends="build-war-dir, extensions-jar">
+    <copy file="${extensions.build.jar}" todir="${build.war.dir}/WEB-INF/lib" overwrite="true"/>
+    <antcall target="war"/>
+  </target>
+
   
   <!--
     All-in-one package
