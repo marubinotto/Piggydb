@@ -54,10 +54,10 @@ jQuery(function() {
     <form class="sort-fragments" action="">
     <table cellpadding="0" cellspacing="0" border="0">
     <tr>
-			<td valign="middle" style="padding-right: 10px;">
-				<a class="tool-button" href="#" title="$messages.get("shuffle")"
+			<td valign="middle" style="padding-top: 3px; padding-right: 8px;">
+				<a class="tool-button shuffle" href="#" title="$messages.get("shuffle")"
 					onclick="fragmentsView_${id}.shuffle(); return false;">
-				<img src="$context/images/shuffle.png" border="0" alt="$messages.get("shuffle")" style="padding: 2px;"/></a>
+				<img src="$context/images/shuffle.png" border="0" alt="$messages.get("shuffle")"/></a>
 			</td>
       <td valign="middle">
         <select class="select-orderBy" name="orderBy">
