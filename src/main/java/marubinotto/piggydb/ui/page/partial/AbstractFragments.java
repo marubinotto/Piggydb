@@ -87,7 +87,6 @@ public abstract class AbstractFragments extends AbstractPartial {
 	
 	public String keywordRegex;
 	
-	public boolean queryIsTagName = false;
 	public Filter filter;
 
 	@Override
@@ -128,8 +127,6 @@ public abstract class AbstractFragments extends AbstractPartial {
 	      PageUtils.<Fragment>empty(this.view.getPageSize());
 	    this.label = this.query;
 	  }
-	  
-	  this.queryIsTagName = getDomain().getTagRepository().containsName(this.query);
 	}
 	
 	private void setFragmentsByFilter() throws Exception {

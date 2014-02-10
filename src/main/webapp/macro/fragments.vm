@@ -36,14 +36,6 @@ jQuery(function() {
   <div class="fragments-criteria" style="display: none;">
     <div>
       <input class="fragments-search" type="text"/>
-      <span class="query-as-tag" style="display: none;">
-        <a class="tool-button" href="#" title=""
-            onclick="return false;"><img 
-              src="$context/images/tag-plus.png" border="0" alt=""
-        /></a><a class="tool-button" href="#" title=""
-            onclick="return false;"><img 
-              src="$context/images/tag-minus.png" border="0" alt=""/></a>
-      </span>
     </div>
   </div>
 </div>
@@ -118,12 +110,6 @@ jQuery(function() {
 	header.find("span.title").html('$utils.raw($label)');
 	header.find("span.count").text('$format.decimal($fragments.totalSize) $messages.get("items")');
   header.show();
-  
-#if ($queryIsTagName)
-  // header.find("span.query-as-tag").show();
-#else
-  // header.find("span.query-as-tag").hide();
-#end
 });
 //]]>
 </script>
