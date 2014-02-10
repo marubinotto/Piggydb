@@ -537,7 +537,8 @@ div.children table.children-control button.children-content-toggle {
 	border: 1px solid #cccccc;
 	height: 25px;
   line-height: 25px;
-  padding: 3px 6px;
+  margin: 0;
+  padding: 3px 4px;
   font-size: 13px;
 }
 
