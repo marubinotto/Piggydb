@@ -533,8 +533,18 @@ div.children table.children-control button.children-content-toggle {
 	width: 100%;
 }
 
+.fragments-view select.select-orderBy {
+	border: 1px solid #cccccc;
+	height: 25px;
+  line-height: 25px;
+  padding: 3px 6px;
+  font-size: 13px;
+}
+
 .fragments-view form.sort-fragments .select-switch button {
-	padding: 2px 5px 2px 5px;
+	height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
 }
 
 
