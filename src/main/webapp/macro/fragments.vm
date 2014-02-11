@@ -35,7 +35,13 @@ jQuery(function() {
   
   <div class="fragments-criteria" style="display: none;">
     <div style="padding-right: 30px;">
-      <input class="fragments-search" type="text"/>
+      <input class="fragments-search" type="text" placeholder="Keywords"/>
+    </div>
+    <div style="padding-right: 30px;">
+      <input class="fragments-search tags-include" type="text" placeholder="Tags to include"/>
+    </div>
+    <div style="padding-right: 30px;">
+      <input class="fragments-search tags-exclude" type="text" placeholder="Tags to exclude"/>
     </div>
   </div>
 </div>
