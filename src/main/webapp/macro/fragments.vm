@@ -34,7 +34,7 @@ jQuery(function() {
   #end
   
   <div class="fragments-criteria" style="display: none;">
-    <div>
+    <div style="padding-right: 30px;">
       <input class="fragments-search" type="text"/>
     </div>
   </div>

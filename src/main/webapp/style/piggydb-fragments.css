@@ -496,7 +496,7 @@ div.children table.children-control button.children-content-toggle {
 }
 
 .fragments-view div.view-header input.fragments-search {
-	width: 350px;
+	width: 100%;
 	background: url(../images/search.png) no-repeat 3px 50%;
 	padding: 3px;
 	padding-left: 20px;
