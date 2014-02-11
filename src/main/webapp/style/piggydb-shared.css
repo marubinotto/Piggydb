@@ -803,10 +803,12 @@ button.tags-pulldown {
   border-left: solid 1px #777;
   border-bottom:solid 1px  #eaeaea;
   border-right: solid 1px #eaeaea;
-  width: 200px;
-  height: 14px;
+  width: 250px;
+  height: 18px;
   font-size: 11px;
-  vertical-align: top;
+  background: url(../images/search.png) no-repeat 3px 50%;
+  background-color: white;
+  padding-left: 20px;
 }
 
 #global-tools span.new-fragment-buttons a.tool-button {
