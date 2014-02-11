@@ -472,7 +472,7 @@
 			<div class="pulldown-box tag-palette"></div>
 		</td>
 		<td class="tags-pulldown" align="left">
-			<button type="button" class="pulldown"><span class="label">&nbsp;</span></button>
+			<button type="button" class="pulldown tags-pulldown"><span class="label">&nbsp;</span></button>
 		</td>
 	</tr>
 	<tr>

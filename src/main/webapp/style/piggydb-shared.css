@@ -412,12 +412,7 @@ span.fragment-as-tag .ui-button {
 }
 
 .ui-dialog div.fragment-editor div.tags td.tags-pulldown {
-	width: 25px;
-}
-
-.ui-dialog div.fragment-editor div.tags button.pulldown {
-	width: 23px;
-	height: 23px;
+	width: 26px;
 }
 
 .ui-dialog div.fragment-editor div.tags div.tag-palette {
@@ -593,6 +588,11 @@ a.filter:hover {
 /*
  * Tag palette
  */
+ 
+button.tags-pulldown {
+	width: 24px;
+	height: 24px;
+}
 
 .tag-palette {
   width: 250px;

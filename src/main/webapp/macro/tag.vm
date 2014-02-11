@@ -17,7 +17,7 @@
 <table class="tag-input-table" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td class="tag-input" nowrap="nowrap">
-    $utils.raw($tagInput)<button type="button" class="pulldown" id="${tagInput.id}-pulldown">
+    $utils.raw($tagInput)<button type="button" class="pulldown tags-pulldown" id="${tagInput.id}-pulldown">
       <span class="label">&nbsp;</span></button>
     <br/>
     <div class="pulldown-box tag-palette" id="${tagInput.id}-tag-palette"></div>
