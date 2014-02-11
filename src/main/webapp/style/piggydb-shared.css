@@ -437,6 +437,7 @@ span.fragment-as-tag .ui-button {
 
 .ui-dialog div.fragment-editor div.buttons {
 	height: 30px;
+	padding-left: 3px;
 }
 
 .ui-dialog div.fragment-editor span.indicator {
@@ -445,9 +446,8 @@ span.fragment-as-tag .ui-button {
 }
 
 .ui-dialog div.fragment-editor div.buttons button {
-	font-size: 11px;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	font-size: 13px;
+	padding: 2px 12px;
 }
 
 .ui-dialog div.fragment-editor div.buttons button.cancel {
@@ -487,6 +487,10 @@ div.dialog-file-form,
 	font-size: 12px;
 }
 
+.ui-dialog div.file-form div.buttons {
+	padding-top: 5px;
+  height: 40px;
+}
 
 
 /*
