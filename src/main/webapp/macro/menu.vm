@@ -21,7 +21,7 @@
 </tr>
 </table>
 
-<table class="nowrap-frame" border="0" style="position: absolute; top: 5px; right: 0px;">
+<table class="nowrap-frame" border="0" style="position: absolute; top: 3px; right: 0px;">
 <tr>
   ## Keyword Search
   <td class="separator"></td>
@@ -33,7 +33,7 @@
 
 	## Global Tag Pulldown
   <td class="separator"></td>
-  <td class="tag-pulldown" nowrap="nowrap">
+  <td class="tag-pulldown" nowrap="nowrap" style="padding-top: 2px;">
     <script type="text/javascript">
     //<![CDATA[
       jQuery(function() {
@@ -64,7 +64,7 @@
 #if (!$user.isViewer())
 	## Login User Menu
   <td class="separator"></td>
-  <td class="login-user" nowrap="nowrap">
+  <td class="login-user" nowrap="nowrap" style="padding-top: 2px;">
 		<ul class="menubar">
       <li class="topitem">
 				<a class="user-name" href="$resources.userPath($user.name)">
