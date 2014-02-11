@@ -58,6 +58,7 @@ input[type=password] {
   transition: border linear 0.2s, box-shadow linear 0.2s;
   border-radius: 3px;
   margin-right: 0;
+  padding-left: 3px;
 }
 
 input[type=button], 
