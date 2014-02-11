@@ -548,6 +548,10 @@ div.children table.children-control button.children-content-toggle {
   padding: 0 8px;
 }
 
+.fragments-view form.sort-fragments .select-switch button img {
+	padding-top: 5px;
+}
+
 .fragments-view a.shuffle img {
 	line-height: 24px;
 	padding: 4px 5px;
