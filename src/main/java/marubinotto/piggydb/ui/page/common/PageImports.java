@@ -39,7 +39,8 @@ public class PageImports {
 			StrBuilder imports = new StrBuilder();
 			addCssImportTo(imports, "js/vendor/prettify/prettify.css", true, null);
 			addCssImportTo(imports, "js/vendor/updnWatermark/watermark.css", true, null);
-			addCssImportTo(imports, "js/vendor/jquery-ui-1.8.18/themes/base/jquery.ui.all.css", false, "screen");
+			addCssImportTo(imports, "js/vendor/jquery-ui-1.10.4/themes/base/jquery.ui.all.css", false, "screen");
+			addCssImportTo(imports, "js/vendor/jquery-tagit-2.0/jquery.tagit.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/markitup-1.1.12/skins/simple/style.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/markitup-1.1.12/sets/wiki/style.css", false, "screen");
@@ -63,7 +64,8 @@ public class PageImports {
 		if (DEFAULT_HEAD_JS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
 			addJsImportTo(imports, JQUERY_PATH, false);
-			addJsImportTo(imports, "js/vendor/jquery-ui-1.8.18/jquery-ui-1.8.18.custom.min.js", false);
+			addJsImportTo(imports, "js/vendor/jquery-ui-1.10.4/jquery-ui-1.10.4.custom.min.js", false);
+			addJsImportTo(imports, "js/vendor/jquery-tagit-2.0/tag-it.min.js", false);
 			addJsImportTo(imports, "js/vendor/jquery.blockUI-2.56.0.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
