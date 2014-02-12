@@ -18,7 +18,7 @@
 
 .tags-by-keywords {
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   padding: 10px;
   line-height: 1.5em;
 }
@@ -29,6 +29,3 @@
   white-space: nowrap;
 }
 
-div.fragments-view {
-	margin-top: 20px;
-}
