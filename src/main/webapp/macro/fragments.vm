@@ -16,6 +16,10 @@ jQuery(function() {
 	fragmentsView_${id}.highlight = $highlightedFragment;
 #end
   fragmentsView_${id}.init();
+  
+#if ($keywords)
+  setTimeout(function() { fragmentsView_${id}.headerDiv.find("span.label").click(); }, 300);
+#end
 });
 //]]>
 </script>
