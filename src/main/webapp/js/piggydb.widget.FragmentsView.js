@@ -68,7 +68,7 @@
 		    			icon.attr("src").replace("down", "up") : 
 		    			icon.attr("src").replace("up", "down"))
 		    	});
-		    this.headerDiv.find("input.fragments-search")
+		    this.headerDiv.find("input.keywords")
 			    .keyup(function() {
 			    	outer.query = jQuery(this).val();
 			    	outer.loadFirstSet({lazyDisplay: true});
