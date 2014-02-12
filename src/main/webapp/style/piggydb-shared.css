@@ -965,9 +965,9 @@ ul.tagit {
 }
 
 ul.tagit li.tagit-choice {
-  margin-top: 1px;
-  padding: 2px 18px 2px 5px;
-  font-size: 13px;
+  margin-top: 2px;
+  padding: 1px 18px 1px 5px;
+  font-size: 12px;
 }
 
 ul.tagit li.tagit-new {
