@@ -9,6 +9,9 @@ public class FragmentsByKeywords extends AbstractFragments {
 	@Override 
 	protected void setFragments() throws Exception {
 		this.keywords = modifyIfGarbledByTomcat(this.keywords);
+		if (isNotBlank(this.query)) {
+		  this.keywords = this.query;
+		}
 		
 		if (isNotBlank(this.keywords)) {
 		  setKeywordRegex(this.keywords);
