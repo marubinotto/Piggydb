@@ -38,13 +38,13 @@ jQuery(function() {
   #end
   
   <div class="fragments-criteria" style="display: none;">
-    <div style="padding-right: 30px;">
+    <div class="keywords" style="padding-right: 30px;">
       <input class="fragments-search keywords" type="text" value="$keywords" placeholder="Keywords"/>
     </div>
-    <div style="padding-right: 30px;">
+    <div class="tags-include">
       <input class="fragments-search tags-include" type="text" placeholder="Tags to include"/>
     </div>
-    <div style="padding-right: 30px;">
+    <div class="tags-exclude" style="padding-right: 30px;">
       <input class="fragments-search tags-exclude" type="text" placeholder="Tags to exclude"/>
     </div>
   </div>

@@ -73,6 +73,9 @@
 			    	outer.query = jQuery(this).val();
 			    	outer.loadFirstSet({lazyDisplay: true});
 			    });
+		    this.headerDiv.find("input.tags-include").tagit({
+		      allowSpaces: true
+		    });
 	    }
 	    
 	    this.loadFirstSet();
