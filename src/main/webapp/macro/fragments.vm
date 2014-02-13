@@ -42,7 +42,7 @@ jQuery(function() {
       <input class="fragments-search keywords" type="text" value="$keywords"/>
     </div>
     <div class="tags-include">
-      <input class="fragments-search tags-include" type="text"/>
+      <input class="fragments-search tags-include" type="text" value="$tag.name"/>
     </div>
     <div class="tags-exclude">
       <input class="fragments-search tags-exclude" type="text"/>
