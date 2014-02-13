@@ -1,8 +1,6 @@
 package marubinotto.piggydb.ui.page.partial;
 
-import static marubinotto.util.CollectionUtils.set;
 import marubinotto.piggydb.model.Filter;
-import marubinotto.piggydb.model.MutableClassification;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.entity.RawFilter;
 
@@ -17,8 +15,6 @@ public class FragmentsByTag extends AbstractFragments {
     
     this.tag = getDomain().getTagRepository().get(this.id.longValue());
     if (this.tag == null) return null;
-    
-    this.contextTags = new MutableClassification(set(this.tag));
     
     RawFilter filter = new RawFilter();
     filter.getIncludes().addTag(this.tag);
