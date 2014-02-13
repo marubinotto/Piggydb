@@ -175,6 +175,7 @@ public abstract class AbstractFragments extends AbstractPartial {
       }
 	  }
 	  else {
+	    appendFilterLabel(filter);
 	    marubinotto.piggydb.model.query.FragmentsByFilter query = 
         (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
           marubinotto.piggydb.model.query.FragmentsByFilter.class);
@@ -244,5 +245,21 @@ public abstract class AbstractFragments extends AbstractPartial {
 	
 	protected String makeTagLabel(String tagName) {
 	  return "<span class=\"" + this.html.miniTagIconClass(tagName) + "\">&nbsp;</span> " + tagName;
+	}
+	
+	protected void appendTagLabel(String tagName) {
+	  if (isNotBlank(this.label)) {
+      this.label += " + ";
+    }
+    this.label += makeTagLabel(tagName);
+	}
+	
+	protected void appendFilterLabel(Filter filter) {
+	  if (isNotBlank(this.label)) {
+      this.label += " + ";
+    }
+	  for (Tag tag : filter.getIncludes()) {
+	    appendTagLabel(tag.getName());
+	  }
 	}
 }
