@@ -7,6 +7,7 @@ import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
@@ -148,6 +149,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	      this.filter.addIncludeByUser(tag, getUser());
 	    }
 	  }
+	  this.contextTags = this.filter.getIncludes();
 	  
 	  // add tag to exclude
 	  if (isNotBlank(this.tagsToExclude)) {
@@ -159,9 +161,12 @@ public abstract class AbstractFragments extends AbstractPartial {
 	    }
 	  }
 	  
+	  if (this.fragments != null) return;
+	  
+	  
 	  // query
-	  if (this.fragments == null) {
-  	  marubinotto.piggydb.model.query.FragmentsByFilter query = 
+	  if (!this.filter.isEmpty() || isNotBlank(this.query)) {
+	    marubinotto.piggydb.model.query.FragmentsByFilter query = 
         (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
           marubinotto.piggydb.model.query.FragmentsByFilter.class);
       query.setFilter(this.filter);
@@ -172,8 +177,13 @@ public abstract class AbstractFragments extends AbstractPartial {
       }
       this.fragments = getPage(query);
 	  }
-    
-    this.contextTags = this.filter.getIncludes();
+	  else {
+	    this.label = getMessage("all");
+	    FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
+	    this.fragments = getPage(query);
+	    if (this.fragments.getTotalSize() == 0 && isBlank(this.query)) 
+	      this.hideHeader = true;
+	  }
 	}
 	
 	private Tag getTagByName(String name) throws Exception {
