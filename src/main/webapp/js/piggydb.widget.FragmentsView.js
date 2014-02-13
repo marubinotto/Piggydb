@@ -73,15 +73,18 @@
 			    	outer.query = jQuery(this).val();
 			    	outer.loadFirstSet({lazyDisplay: true});
 			    });
-		    this.headerDiv.find("input.tags-include").tagit({
-		      allowSpaces: true,
-		      autocomplete: {
-		        delay: 0, 
+		    
+		    var tagitConfig = {
+          allowSpaces: true,
+          autocomplete: {
+            delay: 0, 
             minLength: 1,
             autoFocus: true,
             source: "command/complete-tag-name2.htm"
-		      }
-		    });
+          }
+        };
+		    this.headerDiv.find("input.tags-include").tagit(tagitConfig);
+		    this.headerDiv.find("input.tags-exclude").tagit(tagitConfig);
 	    }
 	    
 	    this.loadFirstSet();

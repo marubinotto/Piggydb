@@ -44,7 +44,7 @@ jQuery(function() {
     <div class="tags-include">
       <input class="fragments-search tags-include" type="text"/>
     </div>
-    <div class="tags-exclude" style="padding-right: 30px;">
+    <div class="tags-exclude">
       <input class="fragments-search tags-exclude" type="text"/>
     </div>
   </div>
