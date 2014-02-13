@@ -74,7 +74,13 @@
 			    	outer.loadFirstSet({lazyDisplay: true});
 			    });
 		    this.headerDiv.find("input.tags-include").tagit({
-		      allowSpaces: true
+		      allowSpaces: true,
+		      autocomplete: {
+		        delay: 0, 
+            minLength: 1,
+            autoFocus: true,
+            source: "command/complete-tag-name2.htm"
+		      }
 		    });
 	    }
 	    
