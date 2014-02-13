@@ -21,6 +21,8 @@
 		this.pageIndex = 0;
 		this.queryable = false;
 		this.query = null;
+		this.tagsToInclude = null;
+		this.tagsToExclude = null;
 	};
 	
 	_class.refreshViews = function(highlightId) {
@@ -70,7 +72,7 @@
 		    	});
 		    this.headerDiv.find("input.keywords")
 			    .keyup(function() {
-			    	outer.query = jQuery(this).val();
+			    	outer.setCriteria();
 			    	outer.loadFirstSet({lazyDisplay: true});
 			    });
 		    
@@ -81,6 +83,14 @@
             minLength: 1,
             autoFocus: true,
             source: "command/complete-tag-name2.htm"
+          },
+          afterTagAdded: function() {
+            outer.setCriteria();
+            outer.loadFirstSet({lazyDisplay: true});
+          },
+          afterTagRemoved: function() {
+            outer.setCriteria();
+            outer.loadFirstSet({lazyDisplay: true});
           }
         };
 		    this.headerDiv.find("input.tags-include").tagit(tagitConfig);
@@ -88,6 +98,12 @@
 	    }
 	    
 	    this.loadFirstSet();
+	  },
+	  
+	  setCriteria: function() {
+	    this.query = this.headerDiv.find("input.keywords").val();
+	    this.tagsToInclude = this.headerDiv.find("input.tags-include").val();
+	    this.tagsToExclude = this.headerDiv.find("input.tags-exclude").val();
 	  },
 
 	  createParameters: function () {
@@ -98,6 +114,9 @@
 	      ascending: this.ascending
 	    };
 	  	if (this.query) params.query = this.query;
+	  	if (this.tagsToInclude) params.tagsToInclude = this.tagsToInclude;
+	  	if (this.tagsToExclude) params.tagsToExclude = this.tagsToExclude;
+	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },
 	  

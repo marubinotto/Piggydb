@@ -2,10 +2,17 @@ package marubinotto.piggydb.ui.page.partial;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
+import marubinotto.piggydb.model.Filter;
+import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 
 public class FragmentsByDefault extends AbstractFragments {
+  
+  @Override 
+  protected Filter createFilter() throws Exception {
+    return new RawFilter();
+  }
 
 	@Override 
 	protected void setFragments() throws Exception {
