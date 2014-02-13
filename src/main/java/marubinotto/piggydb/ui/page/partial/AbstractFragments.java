@@ -39,8 +39,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	public static final String SK_ASCENDING = "fragmentsViewAscending";
 	
 	public String query;
-	public Boolean addIncOrExcTag;
-	public Boolean removeIncOrExcTag;
+	public String tagsToInclude;
+	public String tagsToExclude;
 
 	@Override
 	public void onInit() {
@@ -98,8 +98,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 
 		setSelectedFragments();
 		
+		checkFragmentRef();
 		this.filter = createFilter();
-		preprocessQuery();
 		if (this.fragments == null) setFragmentsByFilter();
 		if (this.fragments == null) setFragments();
 
@@ -111,11 +111,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 		saveStateToSession();
 	}
 	
-	protected Filter createFilter() throws Exception {
-	  return null;
-	}
-	
-	private void preprocessQuery() throws Exception {
+	private void checkFragmentRef() throws Exception {
 	  if (isBlank(this.query)) return;
 	  
 	  // query == "#<number>"
@@ -128,6 +124,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 	    this.label = this.query;
 	  }
 	}
+  
+  protected Filter createFilter() throws Exception {
+    return null;
+  }
 	
 	private void setFragmentsByFilter() throws Exception {
 	  if (this.filter == null) return;
