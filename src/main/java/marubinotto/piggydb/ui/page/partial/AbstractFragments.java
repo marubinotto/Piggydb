@@ -241,4 +241,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  }
 	  this.label += makeKeywordSearchLabel(this.query);
 	}
+	
+	protected String makeTagLabel(String tagName) {
+	  return "<span class=\"" + this.html.miniTagIconClass(tagName) + "\">&nbsp;</span> " + tagName;
+	}
 }
