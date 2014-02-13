@@ -18,8 +18,6 @@ public class FragmentsByTag extends AbstractFragments {
     this.tag = getDomain().getTagRepository().get(this.id.longValue());
     if (this.tag == null) return null;
     
-    this.label = makeTagLabel(this.tag.getName());
-    
     this.contextTags = new MutableClassification(set(this.tag));
     
     RawFilter filter = new RawFilter();
