@@ -79,7 +79,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 
 	public FragmentsView view;
 	
-	public String label;
+	public String label = "";
 	public boolean hideHeader = false;
 
 	public Page<Fragment> fragments;
@@ -145,6 +145,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	      Tag tag = getTagByName(tagName);
 	      if (tag == null) {
 	        this.fragments = emptyFragments();
+	        continue;
 	      }
 	      this.filter.addIncludeByUser(tag, getUser());
 	    }
@@ -165,7 +166,15 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  
 	  
 	  // query
-	  if (!this.filter.isEmpty() || isNotBlank(this.query)) {
+	  if (this.filter.isEmpty() && isBlank(this.query)) {
+	    this.label = getMessage("all");
+      FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
+      this.fragments = getPage(query);
+      if (this.fragments.getTotalSize() == 0 && isBlank(this.query)) {
+        this.hideHeader = true;
+      }
+	  }
+	  else {
 	    marubinotto.piggydb.model.query.FragmentsByFilter query = 
         (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
           marubinotto.piggydb.model.query.FragmentsByFilter.class);
@@ -176,13 +185,6 @@ public abstract class AbstractFragments extends AbstractPartial {
         appendKeywordSearchLabel();
       }
       this.fragments = getPage(query);
-	  }
-	  else {
-	    this.label = getMessage("all");
-	    FragmentsQuery query = getQuery(FragmentsAllButTrash.class);
-	    this.fragments = getPage(query);
-	    if (this.fragments.getTotalSize() == 0 && isBlank(this.query)) 
-	      this.hideHeader = true;
 	  }
 	}
 	
@@ -233,9 +235,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 	}
 	
 	protected void appendKeywordSearchLabel() {
-	  if (isNotBlank(this.query)) {
-      this.label += " + ";
-      this.label += makeKeywordSearchLabel(this.query);
-    }
+	  if (isBlank(this.query)) return;
+	  if (isNotBlank(this.label)) {
+	    this.label += " + ";
+	  }
+	  this.label += makeKeywordSearchLabel(this.query);
 	}
 }
