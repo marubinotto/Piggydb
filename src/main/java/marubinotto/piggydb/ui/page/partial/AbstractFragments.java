@@ -6,6 +6,7 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
+import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
 import marubinotto.piggydb.ui.wiki.DefaultWikiParser;
@@ -16,6 +17,7 @@ import marubinotto.util.paging.PageUtils;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 public abstract class AbstractFragments extends AbstractPartial {
 
@@ -120,9 +122,13 @@ public abstract class AbstractFragments extends AbstractPartial {
 	    Fragment fragment = getDomain().getFragmentRepository().get(id);
 	    this.fragments = fragment != null ?
 	      PageUtils.getPage(list(fragment), this.view.getPageSize(), this.pi) :
-	      PageUtils.<Fragment>empty(this.view.getPageSize());
+	      emptyFragments();
 	    this.label = this.query;
 	  }
+	}
+	
+	private Page<Fragment> emptyFragments() {
+	  return PageUtils.<Fragment>empty(this.view.getPageSize());
 	}
   
   protected Filter createFilter() throws Exception {
@@ -132,18 +138,46 @@ public abstract class AbstractFragments extends AbstractPartial {
 	private void setFragmentsByFilter() throws Exception {
 	  if (this.filter == null) return;
 	  
-	  marubinotto.piggydb.model.query.FragmentsByFilter query = 
-      (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
-        marubinotto.piggydb.model.query.FragmentsByFilter.class);
-    query.setFilter(this.filter);
-    if (isNotBlank(this.query)) {
-      query.setKeywords(this.query);
-      setKeywordRegex(this.query);
-      appendKeywordSearchLabel();
-    }
-    this.fragments = getPage(query);
+	  // add tags to include
+	  if (isNotBlank(this.tagsToInclude)) {
+	    for (String tagName : StringUtils.split(this.tagsToInclude, ',')) {
+	      Tag tag = getTagByName(tagName);
+	      if (tag == null) {
+	        this.fragments = emptyFragments();
+	      }
+	      this.filter.addIncludeByUser(tag, getUser());
+	    }
+	  }
+	  
+	  // add tag to exclude
+	  if (isNotBlank(this.tagsToExclude)) {
+	    for (String tagName : StringUtils.split(this.tagsToExclude, ',')) {
+	      Tag tag = getTagByName(tagName);
+	      if (tag != null) {
+	        this.filter.addExcludeByUser(tag, getUser());
+	      }
+	    }
+	  }
+	  
+	  // query
+	  if (this.fragments == null) {
+  	  marubinotto.piggydb.model.query.FragmentsByFilter query = 
+        (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
+          marubinotto.piggydb.model.query.FragmentsByFilter.class);
+      query.setFilter(this.filter);
+      if (isNotBlank(this.query)) {
+        query.setKeywords(this.query);
+        setKeywordRegex(this.query);
+        appendKeywordSearchLabel();
+      }
+      this.fragments = getPage(query);
+	  }
     
     this.contextTags = this.filter.getIncludes();
+	}
+	
+	private Tag getTagByName(String name) throws Exception {
+	  return isNotBlank(name) ? getDomain().getTagRepository().getByName(name.trim()) : null;
 	}
 	
 	protected void setKeywordRegex(String keywords) {
