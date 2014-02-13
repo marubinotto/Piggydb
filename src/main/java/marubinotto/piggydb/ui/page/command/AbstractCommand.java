@@ -4,7 +4,11 @@ import marubinotto.piggydb.ui.page.common.AbstractWebResource;
 
 import org.apache.commons.lang.UnhandledException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public abstract class AbstractCommand extends AbstractWebResource {
+  
+  protected ObjectMapper JSON = new ObjectMapper();
 
 	@Override 
 	public String getPath() {
