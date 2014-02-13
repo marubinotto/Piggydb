@@ -6,16 +6,16 @@ jQuery(function() {
 	  return false;
 	});
 	
-  jQuery.Autocompleter.defaults.formatItem = function(row) { 
+  jQuery.MultiAutocompleter.defaults.formatItem = function(row) { 
     return escapeHtml(row[0]); 
   };
-  jQuery("#searchForm_keywords").autocomplete(piggydb.server.autoCompleteUrl, {
+  jQuery("#searchForm_keywords").multiautocomplete(piggydb.server.autoCompleteUrl, {
     minChars: 1,
     selectFirst: true,
     multiple: false,
     scrollHeight: 300
   });
-  jQuery("input.single-tag").autocomplete(piggydb.server.autoCompleteUrl, {
+  jQuery("input.single-tag").multiautocomplete(piggydb.server.autoCompleteUrl, {
     minChars: 1,
     selectFirst: true,
     multiple: false,

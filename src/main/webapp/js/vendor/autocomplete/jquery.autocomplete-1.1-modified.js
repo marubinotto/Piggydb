@@ -13,12 +13,12 @@
 ;(function($) {
 	
 $.fn.extend({
-	autocomplete: function(urlOrData, options) {
+  multiautocomplete: function(urlOrData, options) {
 		var isUrl = typeof urlOrData == "string";
-		options = $.extend({}, $.Autocompleter.defaults, {
+		options = $.extend({}, $.MultiAutocompleter.defaults, {
 			url: isUrl ? urlOrData : null,
 			data: isUrl ? null : urlOrData,
-			delay: isUrl ? $.Autocompleter.defaults.delay : 10,
+			delay: isUrl ? $.MultiAutocompleter.defaults.delay : 10,
 			max: options && !options.scroll ? 10 : 150
 		}, options);
 		
@@ -29,27 +29,12 @@ $.fn.extend({
 		options.formatMatch = options.formatMatch || options.formatItem;
 		
 		return this.each(function() {
-			new $.Autocompleter(this, options);
+			new $.MultiAutocompleter(this, options);
 		});
-	},
-	result: function(handler) {
-		return this.bind("result", handler);
-	},
-	search: function(handler) {
-		return this.trigger("search", [handler]);
-	},
-	flushCache: function() {
-		return this.trigger("flushCache");
-	},
-	setOptions: function(options){
-		return this.trigger("setOptions", [options]);
-	},
-	unautocomplete: function() {
-		return this.trigger("unautocomplete");
 	}
 });
 
-$.Autocompleter = function(input, options) {
+$.MultiAutocompleter = function(input, options) {
 
 	var KEY = {
 		UP: 38,
@@ -69,13 +54,13 @@ $.Autocompleter = function(input, options) {
 
 	var timeout;
 	var previousValue = "";
-	var cache = $.Autocompleter.Cache(options);
+	var cache = $.MultiAutocompleter.Cache(options);
 	var hasFocus = 0;
 	var lastKeyPressCode;
 	var config = {
 		mouseDownOnSelect: false
 	};
-	var select = $.Autocompleter.Select(options, input, selectCurrent, config);
+	var select = $.MultiAutocompleter.Select(options, input, selectCurrent, config);
 	
 	var blockSubmit;
 	
@@ -237,7 +222,7 @@ $.Autocompleter = function(input, options) {
 				
 				words[wordAt] = v;
 				// TODO this should set the cursor to the right position, but it gets overriden somewhere
-				//$.Autocompleter.Selection(input, progress + seperator, progress + seperator);
+				//$.MultiAutocompleter.Selection(input, progress + seperator, progress + seperator);
 				v = words.join( options.multipleSeparator );
 			}
 			
@@ -424,7 +409,7 @@ $.Autocompleter = function(input, options) {
 
 };
 
-$.Autocompleter.defaults = {
+$.MultiAutocompleter.defaults = {
 	inputClass: "ac_input",
 	resultsClass: "ac_results",
 	loadingClass: "ac_loading",
@@ -451,7 +436,7 @@ $.Autocompleter.defaults = {
     scrollHeight: 180
 };
 
-$.Autocompleter.Cache = function(options) {
+$.MultiAutocompleter.Cache = function(options) {
 
 	var data = {};
 	var length = 0;
@@ -590,7 +575,7 @@ $.Autocompleter.Cache = function(options) {
 	};
 };
 
-$.Autocompleter.Select = function (options, input, select, config) {
+$.MultiAutocompleter.Select = function (options, input, select, config) {
 	var CLASSES = {
 		ACTIVE: "ac_over"
 	};

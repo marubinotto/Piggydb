@@ -100,7 +100,7 @@
 	      text: false
 		  });
 			
-			this.element.find("input[name=tags]").autocomplete(piggydb.server.autoCompleteUrl, {
+			this.element.find("input[name=tags]").multiautocomplete(piggydb.server.autoCompleteUrl, {
 		    minChars: 1,
 		    selectFirst: true,
 		    multiple: true,
