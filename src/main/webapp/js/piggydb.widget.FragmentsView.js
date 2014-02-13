@@ -20,9 +20,9 @@
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.pageIndex = 0;
 		this.queryable = false;
-		this.query = null;
-		this.tagsToInclude = null;
-		this.tagsToExclude = null;
+		this.query = "";
+		this.tagsToInclude = "";
+		this.tagsToExclude = "";
 	};
 	
 	_class.refreshViews = function(highlightId) {
@@ -111,11 +111,11 @@
 	      viewId: this.id, 
 	      scale: this.scale, 
 	      orderBy: this.orderBy,
-	      ascending: this.ascending
+	      ascending: this.ascending,
+	      query: this.query,
+	      tagsToInclude: this.tagsToInclude,
+	      tagsToExclude: this.tagsToExclude
 	    };
-	  	if (this.query) params.query = this.query;
-	  	if (this.tagsToInclude) params.tagsToInclude = this.tagsToInclude;
-	  	if (this.tagsToExclude) params.tagsToExclude = this.tagsToExclude;
 	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },
