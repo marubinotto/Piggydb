@@ -1,6 +1,7 @@
 package marubinotto.piggydb.ui.page.partial;
 
 import static marubinotto.util.CollectionUtils.list;
+import static marubinotto.util.web.WebUtils.escapeHtml;
 import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import marubinotto.piggydb.model.Classification;
@@ -244,7 +245,8 @@ public abstract class AbstractFragments extends AbstractPartial {
 	}
 	
 	protected String makeTagLabel(String tagName) {
-	  return "<span class=\"" + this.html.miniTagIconClass(tagName) + "\">&nbsp;</span> " + tagName;
+	  return "<span class=\"" + this.html.miniTagIconClass(tagName) + 
+	    "\">&nbsp;</span> " + escapeHtml(tagName);
 	}
 	
 	protected void appendTagLabel(String tagName) {
