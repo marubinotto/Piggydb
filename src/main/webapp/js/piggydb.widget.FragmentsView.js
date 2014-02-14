@@ -23,6 +23,7 @@
 		this.query = "";
 		this.tagsToInclude = "";
 		this.tagsToExclude = "";
+		this.initialParams = {};
 	};
 	
 	_class.refreshViews = function(highlightId) {
@@ -107,15 +108,14 @@
 	  },
 
 	  createParameters: function () {
-	  	var params = {
-	      viewId: this.id, 
-	      scale: this.scale, 
-	      orderBy: this.orderBy,
-	      ascending: this.ascending,
-	      query: this.query,
-	      tagsToInclude: this.tagsToInclude,
-	      tagsToExclude: this.tagsToExclude
-	    };
+	    var params = jQuery.extend({}, this.initialParams);
+	    params.viewId = this.id;
+	    params.scale = this.scale;
+	    params.orderBy = this.orderBy;
+	    params.ascending = this.ascending;
+	    params.query = this.query;
+	    params.tagsToInclude = this.tagsToInclude;
+	    params.tagsToExclude = this.tagsToExclude;
 	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },

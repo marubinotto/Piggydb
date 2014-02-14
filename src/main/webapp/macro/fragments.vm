@@ -1,4 +1,4 @@
-#macro ( fragmentsView $id $fragmentsUrl $sortable $queryable $jsAddFragment $jsAddFile )
+#macro ( fragmentsView $id $fragmentsUrl $initialParams $sortable $queryable $jsAddFragment $jsAddFile )
   
 <div id="$id" class="fragments-view">
 	
@@ -9,12 +9,17 @@ var fragmentsView_$id;
 jQuery(function() {
 	fragmentsView_$id = new piggydb.widget.FragmentsView(
 		"$id", "$fragmentsUrl", $fragmentsViewScale, $fragmentsViewOrderBy, $fragmentsViewAscending);
+    
+#if ($initialParams)
+  fragmentsView_${id}.initialParams = $initialParams;
+#end
 #if ($queryable)
   fragmentsView_${id}.queryable = true;
 #end
 #if ($highlightedFragment)
 	fragmentsView_${id}.highlight = $highlightedFragment;
 #end
+
   fragmentsView_${id}.init();
   
 #if ($keywords)

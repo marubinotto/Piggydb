@@ -14,7 +14,8 @@
   
   #fragmentsView(
   	"fragmentsByKeywords" 
-  	"$context/partial/fragments-by-default.htm?query=$!utils.urlEncode($keywords)" 
+  	"$context/partial/fragments-by-default.htm" 
+  	"{query: '$!utils.escapeJs($keywords)'}"
   	"true"
     "true"
   	$null

@@ -199,7 +199,8 @@
         
         #fragmentsView(
         	"fragmentsByTag" 
-        	"$context/partial/fragments-by-default.htm?tagsToInclude=$!utils.urlEncode($tag.name)" 
+        	"$context/partial/fragments-by-default.htm"
+        	"{tagsToInclude: '$!utils.escapeJs($tag.name)'}"
         	"true"
           "true"
         	$jsAddFragment
