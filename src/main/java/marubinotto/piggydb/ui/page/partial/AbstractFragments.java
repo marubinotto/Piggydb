@@ -142,8 +142,10 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  
 	  // add tags to include
 	  if (isNotBlank(this.tagsToInclude)) {
+	    this.tagsToInclude = modifyIfGarbledByTomcat(this.tagsToInclude);
 	    for (String tagName : StringUtils.split(this.tagsToInclude, ',')) {
 	      Tag tag = getTagByName(tagName);
+	      System.out.println("tag: " + tagName + " -> " + tag);
 	      if (tag == null) {
 	        this.fragments = emptyFragments();
 	        continue;
@@ -155,6 +157,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  
 	  // add tag to exclude
 	  if (isNotBlank(this.tagsToExclude)) {
+	    this.tagsToExclude = modifyIfGarbledByTomcat(this.tagsToExclude);
 	    for (String tagName : StringUtils.split(this.tagsToExclude, ',')) {
 	      Tag tag = getTagByName(tagName);
 	      if (tag != null) {
