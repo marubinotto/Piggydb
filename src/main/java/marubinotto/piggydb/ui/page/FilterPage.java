@@ -146,6 +146,7 @@ public class FilterPage extends AbstractFragmentsPage {
 		this.filterNameField.setRequired(true);
 		this.filterNameField.setSize(20);
 		this.filterNameField.setMaxLength(50);
+		this.filterNameField.setAttribute("placeholder", getMessage("name"));
 		this.filterNameForm.add(this.filterNameField);
 		this.filterNameForm.add(new Submit("saveFilter",
 			getMessage("FilterPage-save"), this, "onSaveFilterClick"));
