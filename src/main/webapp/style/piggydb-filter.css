@@ -8,10 +8,17 @@
   right: 0px;
 }
 
-#filterForm_filterName,
-#classificationForm_tag,
+#filterNameForm_filterName,
+#includeTagForm_tag,
 #excludeTagForm_tag {
   width: 150px;
+}
+
+#filterNameForm_saveFilter,
+#includeTagForm_addTag,
+#excludeTagForm_addTag {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 #filterForm,
