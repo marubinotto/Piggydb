@@ -9,9 +9,8 @@ public class FragmentsByFilter extends AbstractFragments {
 	
 	@Override 
   protected Filter createFilter() throws Exception {
-	  this.label = this.html.filterIconMini();
-    
 	  Filter filter = null;
+	  this.label = this.html.filterIconMini();
     if (this.id != null) {
       filter = getDomain().getFilterRepository().get(this.id);
       if (filter != null) this.label += " " + filter.getName();
@@ -20,6 +19,7 @@ public class FragmentsByFilter extends AbstractFragments {
       filter = (Filter)getContext().getSessionAttribute(FilterPage.SK_NEW_FILTER);
       this.label += " " + getMessage("FilterPage-new-filter");
     }
+    this.label += ": ";
     return filter;
 	}
 }

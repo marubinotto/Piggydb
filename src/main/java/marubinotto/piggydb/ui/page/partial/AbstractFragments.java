@@ -145,7 +145,6 @@ public abstract class AbstractFragments extends AbstractPartial {
 	    this.tagsToInclude = modifyIfGarbledByTomcat(this.tagsToInclude);
 	    for (String tagName : StringUtils.split(this.tagsToInclude, ',')) {
 	      Tag tag = getTagByName(tagName);
-	      System.out.println("tag: " + tagName + " -> " + tag);
 	      if (tag == null) {
 	        this.fragments = emptyFragments();
 	        continue;
@@ -179,7 +178,7 @@ public abstract class AbstractFragments extends AbstractPartial {
       }
 	  }
 	  else {
-	    appendFilterLabel(filter);
+	    appendFilterLabel(this.filter);
 	    marubinotto.piggydb.model.query.FragmentsByFilter query = 
         (marubinotto.piggydb.model.query.FragmentsByFilter)getQuery(
           marubinotto.piggydb.model.query.FragmentsByFilter.class);
@@ -247,24 +246,16 @@ public abstract class AbstractFragments extends AbstractPartial {
 	  this.label += makeKeywordSearchLabel(this.query);
 	}
 	
-	protected String makeTagLabel(String tagName) {
+	private String makeTagLabel(String tagName) {
 	  return "<span class=\"" + this.html.miniTagIconClass(tagName) + 
 	    "\">&nbsp;</span> " + escapeHtml(tagName);
 	}
 	
-	protected void appendTagLabel(String tagName) {
-	  if (isNotBlank(this.label)) {
-      this.label += " + ";
-    }
-    this.label += makeTagLabel(tagName);
-	}
-	
 	protected void appendFilterLabel(Filter filter) {
-	  if (isNotBlank(this.label)) {
-      this.label += " + ";
-    }
+	  boolean first = true;
 	  for (Tag tag : filter.getIncludes()) {
-	    appendTagLabel(tag.getName());
+	    if (first) { first = false; } else { this.label += " + "; }
+	    this.label += makeTagLabel(tag.getName());
 	  }
 	}
 }
