@@ -20,9 +20,9 @@
 		this.contentDiv = this.rootDiv.find("div.view-content");
 		this.pageIndex = 0;
 		this.queryable = false;
-		this.query = "";
-		this.tagsToInclude = "";
-		this.tagsToExclude = "";
+		this.query = null;
+		this.tagsToInclude = null;
+		this.tagsToExclude = null;
 		this.initialParams = {};
 	};
 	
@@ -113,9 +113,12 @@
 	    params.scale = this.scale;
 	    params.orderBy = this.orderBy;
 	    params.ascending = this.ascending;
-	    params.query = this.query;
-	    params.tagsToInclude = this.tagsToInclude;
-	    params.tagsToExclude = this.tagsToExclude;
+	    if (this.query != null) 
+	      params.query = this.query;
+	    if (this.tagsToInclude != null) 
+	      params.tagsToInclude = this.tagsToInclude;
+	    if (this.tagsToExclude != null)
+	      params.tagsToExclude = this.tagsToExclude;
 	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },
