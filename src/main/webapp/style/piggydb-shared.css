@@ -415,8 +415,13 @@ span.fragment-as-tag .ui-button {
 	width: 100%;
 }
 
+.ui-dialog div.fragment-editor div.tags td.tags-input {
+	padding-right: 3px;
+}
+
 .ui-dialog div.fragment-editor div.tags td.tags-pulldown {
 	width: 26px;
+	padding-left: 3px;
 }
 
 .ui-dialog div.fragment-editor div.tags div.tag-palette {
