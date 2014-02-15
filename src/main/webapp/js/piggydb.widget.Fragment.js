@@ -34,6 +34,12 @@ jQuery(function() {
   
   _class.makeUpContent = function(node) {
     prettyPrint();
+    if (node) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, node.get(0)]);
+    }
+    else {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
   };
   
   _class.init = function() {
