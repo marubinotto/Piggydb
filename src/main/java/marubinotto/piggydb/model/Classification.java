@@ -22,6 +22,8 @@ public interface Classification extends Iterable<Tag> {
 	
 	public Set<String> getTagNames();
 	
+	public String toCommaSeparated();
+	
 	public Collection<Tag> getTags();
 	
 	public boolean isSubordinateOf(String name);

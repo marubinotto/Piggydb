@@ -139,6 +139,15 @@ public class MutableClassification implements Classification, Serializable {
 		return this.tags.keySet();
 	}
 	
+	public String toCommaSeparated() {
+	  StringBuilder tags = new StringBuilder();
+	  for (String tagName : getTagNames()) {
+	    if (tags.length() > 0) tags.append(", ");
+	    tags.append(tagName);
+	  }
+	  return tags.toString();
+	}
+	
 	public Collection<Tag> getTags() {
 		return this.tags.values();
 	}

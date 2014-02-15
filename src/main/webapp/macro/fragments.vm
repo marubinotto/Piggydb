@@ -47,7 +47,13 @@ jQuery(function() {
       <input class="fragments-search keywords" type="text" value="$keywords"/>
     </div>
     <div class="tags-include">
-      <input class="fragments-search tags-include" type="text" value="$tag.name"/>
+      <input class="fragments-search tags-include" type="text"
+      #if ($tag)
+        value="$tag.name"
+      #elseif ($filter)
+        value="$filter.includes.toCommaSeparated()"
+      #end
+      />
     </div>
     <div class="tags-exclude">
       <input class="fragments-search tags-exclude" type="text"/>
