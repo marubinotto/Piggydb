@@ -13,8 +13,8 @@
   
   #fragmentsView(
   	"fragmentsByFilter" 
-  	"$context/partial/fragments-by-filter.htm#if($filter.id)?id=$filter.id#end"
-  	$null
+  	"$context/partial/fragments-by-default.htm"
+  	"{tagsToInclude: '$!utils.escapeJs($filter.includes.toCommaSeparated())', tagsToExclude: '$!utils.escapeJs($filter.excludes.toCommaSeparated())'}"
   	"true"
     "true"
   	$jsAddFragment

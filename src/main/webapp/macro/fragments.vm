@@ -56,7 +56,11 @@ jQuery(function() {
       />
     </div>
     <div class="tags-exclude">
-      <input class="fragments-search tags-exclude" type="text"/>
+      <input class="fragments-search tags-exclude" type="text"
+      #if ($filter)
+        value="$filter.excludes.toCommaSeparated()"
+      #end
+      />
     </div>
   </div>
 </div>
