@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.17 (2014-02-16) == #v6.17
+
+ * Added an incremental tag-search feature to the fragments view
+ * Added MathJax support
+ * Simplified the global search
+ * Many style fixes
+
 == Changes in version 6.16 (2013-10-18) == #v6.16
 
  * Added Fragment Quick View
