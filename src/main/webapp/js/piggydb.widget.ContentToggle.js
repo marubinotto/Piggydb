@@ -23,7 +23,7 @@
         toggle.fragment.setBodyRow(html);
         loadIcon.remove();
         toggle.setDisabled(false);
-        prettyPrint();
+        piggydb.widget.Fragment.makeUpContent(toggle.fragment.bodyRow());
       });
     }
     else if (toggle.isOpened()) {

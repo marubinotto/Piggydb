@@ -79,7 +79,7 @@ jQuery(function() {
 				if (isNotBlank(html)) {
 					var content = jQuery(html).find("div.fragment-content").html();
 					contentDiv.html(content);
-					prettyPrint();
+					piggydb.widget.Fragment.makeUpContent(contentDiv);
 				}
 				else {
 					_emptyContent(contentDiv);

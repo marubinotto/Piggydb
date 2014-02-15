@@ -137,7 +137,7 @@
 	    jQuery.get(this.fragmentsUrl, params, function(html) {
 	      if (jQuery.trim(html) != "") {
 	      	outer.contentDiv.html(html);
-	        prettyPrint();
+	      	piggydb.widget.Fragment.makeUpContent(outer.contentDiv);
 	        if (outer.highlight != null && !outer.highlighted) {
 	        	piggydb.widget.Fragment.highlight(outer.highlight, outer.contentDiv);
 	        	piggydb.widget.ContentToggle.clickContentToggle(outer.highlight);
@@ -177,7 +177,7 @@
 	    jQuery.get(this.fragmentsUrl, params, function(html) {
 	      fragmentsContainer.append(html);
 	      loadIcon.remove();
-	      prettyPrint();
+	      piggydb.widget.Fragment.makeUpContent(fragmentsContainer);
 	    });
 	  }		
 	}, module.Widget.prototype);

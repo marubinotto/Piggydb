@@ -32,8 +32,12 @@ jQuery(function() {
     _quickViewBox.body.find("table.fragment").stop(true, false).animate({opacity: '100'});
   };
   
-  _class.init = function() {
+  _class.makeUpContent = function(node) {
     prettyPrint();
+  };
+  
+  _class.init = function() {
+    _class.makeUpContent();
     
     jQuery("table.fragment").live('mouseenter', function() {
       jQuery(this).find(".fragment-tools").eq(0).show();
@@ -53,7 +57,7 @@ jQuery(function() {
       	_quickViewTimer = setTimeout(function() {
       	  _quickViewBox.show("partial/single-fragment.htm?id=" + id, function() {
       	    _cancelFadingOutQuickView();
-            prettyPrint();
+      	    _class.makeUpContent();
             _class.makeFragmentsDroppable("#facebox-fragment-quick-view table.fragment", null);
             _class.makeRelationsDraggable("#facebox-fragment-quick-view ");
           });
@@ -375,7 +379,7 @@ jQuery(function() {
       if (isNotBlank(bodyRow.find("div.fragment-content").html())) {
         if (this.hasBodyRow() || this.isFull()) {
           this.setBodyRow(bodyRow.find("tbody.body-row-container").html());
-          prettyPrint();
+          _class.makeUpContent(this.bodyRow());
         }
         else {
           this.contentToggleContainer().show();

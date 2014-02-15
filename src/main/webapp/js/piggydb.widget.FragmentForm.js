@@ -170,7 +170,7 @@
 						_previewBox.close();
 					else {
 						_previewBox.showHtml(html);
-						prettyPrint();
+						piggydb.widget.Fragment.makeUpContent(_previewBox.content);
 					}
 					outer.unblock();
 				});
