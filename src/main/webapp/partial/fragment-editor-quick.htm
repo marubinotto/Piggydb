@@ -1,5 +1,6 @@
 #if ($fragment)
-<input type="text" name="title" class="fragment-title" title="$messages.get("FragmentForm-title")"
+<input type="text" name="title" class="fragment-title" 
+  placeholder="$messages.get("FragmentForm-title")"
 	value="$fragment.title" maxlength="$titleMaxLength"
 	#if (!$fragment.canChangeTitle($user)) disabled="disabled" #end />
 <textarea name="content" class="fragment-content" rows="3" cols="20">$fragment.content</textarea>

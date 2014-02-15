@@ -1,5 +1,5 @@
 jQuery(function() {
-	jQuery.updnWatermark.attachAll();
+	jQuery('input[placeholder], textarea[placeholder]').placeholderEnhanced();
 	
 	jQuery("a.img-link").live("click", function() {
 		piggydb.widget.imageViewer.showImage(this.href);

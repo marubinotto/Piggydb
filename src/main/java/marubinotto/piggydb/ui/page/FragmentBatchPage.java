@@ -54,8 +54,7 @@ public class FragmentBatchPage extends AbstractFragmentsPage {
 
 		// parentForm
 		this.parentTitleField.setMaxLength(Fragment.TITLE_MAX_LENGTH);
-		this.parentTitleField.setAttribute("class", "watermarked");
-		this.parentTitleField.setTitle(getMessage("FragmentForm-title"));
+		this.parentTitleField.setAttribute("placeholder", getMessage("FragmentForm-title"));
 		this.parentForm.add(this.parentTitleField);
 		this.parentForm.add(new Submit("createParent", getMessage("create"), this, "onCreateParentClick"));
 	}

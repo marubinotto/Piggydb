@@ -38,7 +38,6 @@ public class PageImports {
 		if (DEFAULT_CSS_IMPORTS == null) {
 			StrBuilder imports = new StrBuilder();
 			addCssImportTo(imports, "js/vendor/prettify/prettify.css", true, null);
-			addCssImportTo(imports, "js/vendor/updnWatermark/watermark.css", true, null);
 			addCssImportTo(imports, "js/vendor/jquery-ui-1.10.4/themes/base/jquery.ui.all.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/jquery-tagit-2.0/jquery.tagit.css", false, "screen");
 			addCssImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-1.css", false, "screen");
@@ -69,7 +68,7 @@ public class PageImports {
 			addJsImportTo(imports, "js/vendor/jquery.blockUI-2.56.0.js", false);
 			addJsImportTo(imports, "js/vendor/purePacked.js", false);
 			addJsImportTo(imports, "js/vendor/prettify/prettify.js", true);
-			addJsImportTo(imports, "js/vendor/updnWatermark/jquery.updnWatermark.js", true);
+			addJsImportTo(imports, "js/vendor/jquery.placeholder-enhanced-1.6.9.min.js", true);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.bgiframe.min.js", true);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.ajaxQueue.js", false);
 			addJsImportTo(imports, "js/vendor/autocomplete/jquery.autocomplete-1.1-modified.js", true);

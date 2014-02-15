@@ -44,8 +44,7 @@ public class SystemInfoPage extends AbstractBorderPage {
   private void initControls() {
     this.titleField.setSize(40);
     this.titleField.setMaxLength(DATABASE_TITLE_MAX_LENGTH);
-    this.titleField.setAttribute("class", "watermarked");
-    this.titleField.setTitle(getMessage("SystemInfoPage-database-title"));
+    this.titleField.setAttribute("placeholder", getMessage("SystemInfoPage-database-title"));
     try {
       this.titleField.setValue(getDomain().getGlobalSetting().getDatabaseTitle());
     }

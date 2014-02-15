@@ -34,8 +34,8 @@ public class SingleTagForm extends Form {
 		Assert.Property.requireNotNull(listenerForAdd, "listenerForAdd");
 		
 		this.tagField.setSize(20);
-		this.tagField.setAttribute("class", "single-tag watermarked");
-		this.tagField.setTitle(getMessage("tag"));
+		this.tagField.setAttribute("class", "single-tag");
+		this.tagField.setAttribute("placeholder", getMessage("tag"));
 		add(this.tagField);
 		
 		if (this.listenerForDelete != null) {

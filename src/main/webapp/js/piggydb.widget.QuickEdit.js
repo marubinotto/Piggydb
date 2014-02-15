@@ -15,7 +15,7 @@ jQuery(function() {
 	  	contentDiv.empty();
 	  	editorDiv.html(html);
 	  	
-	  	jQuery.updnWatermark.attachAll();
+	  	editorDiv.find('input[placeholder]').placeholderEnhanced();
 		
 	  	var editor = editorDiv.find("textarea.fragment-content");
 	  	piggydb.widget.FragmentForm.addToolBar(editor, true);

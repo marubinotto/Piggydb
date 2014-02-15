@@ -91,7 +91,7 @@
 		},
 		
 		prepareCommonInputs: function() {
-			jQuery.updnWatermark.attachAll();
+			this.element.find('input[placeholder]').placeholderEnhanced();
 			
 			this.element.find("input.fragment-as-tag").button({
 	      icons: {

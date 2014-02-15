@@ -448,9 +448,9 @@
 		<td>
     	<input 
 				type="text"
-				class="fragment-title watermarked"
+				class="fragment-title"
 				name="title" 
-				title="$messages.get("FragmentForm-title")"
+				placeholder="$messages.get("FragmentForm-title")"
 				#if($fragment.getTitle()) value="$fragment.getTitle()" #end
     		maxlength="$titleMaxLength"/>
 		</td>
@@ -463,10 +463,10 @@
 		<td class="tags-input">
 			<input 
 				type="text"
-				class="fragment-tags watermarked"
+				class="fragment-tags"
 				id="${formId}-tags"
 				name="tags" 
-				title="$messages.get("FragmentForm-tags")" 
+				placeholder="$messages.get("FragmentForm-tags")" 
 				#if($tags) value="$tags" #end/>
 			<br/>
 			<div class="pulldown-box tag-palette"></div>
