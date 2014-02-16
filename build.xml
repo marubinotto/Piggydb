@@ -382,21 +382,6 @@
     WAR for http://piggydb.jp/
   -->
   <target name="war-jp" depends="prepare-demo">
-    <replace file="${build.war.dir}/border-template.htm">
-      <replacetoken>##BOTTOM_OF_BODY</replacetoken>
-      <replacevalue><![CDATA[
-        <script src='http://files.go2web20.net/twitterbadge/1.0/badge.js' type='text/javascript'></script>
-        <script type='text/javascript' charset='utf-8'><!--
-        tfb.account = 'piggydb_ja';
-        tfb.label = 'follow-me';
-        tfb.color = '#00aeef';
-        tfb.side = 'r';
-        tfb.top = 250;
-        tfb.showbadge();
-        --></script>
-      ]]></replacevalue>
-    </replace>
-  	
   	<copy file="${extensions.build.jar}" todir="${build.war.dir}/WEB-INF/lib" overwrite="true"/>
     
     <antcall target="_enable-anonymous"/>
