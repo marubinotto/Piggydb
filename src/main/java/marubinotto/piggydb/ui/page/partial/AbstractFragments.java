@@ -8,6 +8,7 @@ import marubinotto.piggydb.model.Classification;
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
+import marubinotto.piggydb.model.entity.RawFilter;
 import marubinotto.piggydb.model.query.FragmentsAllButTrash;
 import marubinotto.piggydb.model.query.FragmentsQuery;
 import marubinotto.piggydb.model.query.FragmentsSortOption;
@@ -149,7 +150,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	        this.fragments = emptyFragments();
 	        continue;
 	      }
-	      this.filter.addIncludeByUser(tag, getUser());
+	      ((RawFilter)this.filter).getIncludes().addTag(tag);
 	    }
 	  }
 	  this.contextTags = this.filter.getIncludes();
@@ -160,7 +161,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	    for (String tagName : StringUtils.split(this.tagsToExclude, ',')) {
 	      Tag tag = getTagByName(tagName);
 	      if (tag != null) {
-	        this.filter.addExcludeByUser(tag, getUser());
+	        ((RawFilter)this.filter).getExcludes().addTag(tag);
 	      }
 	    }
 	  }
