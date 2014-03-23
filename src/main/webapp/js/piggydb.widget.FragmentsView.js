@@ -70,6 +70,9 @@
 		    		icon.attr("src", criteriaDiv.is(":visible") ? 
 		    			icon.attr("src").replace("down", "up") : 
 		    			icon.attr("src").replace("up", "down"))
+		    			
+		    		var widthOfAndOr = outer.headerDiv.find(".tags-include-and-or").width();
+		    		outer.headerDiv.find("div.tags-include").css("padding-right", widthOfAndOr + 10);
 		    	});
 		    this.headerDiv.find("input.keywords")
 			    .keyup(function() {
