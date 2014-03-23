@@ -96,6 +96,7 @@
         };
 		    this.headerDiv.find("input.tags-include").tagit(tagitConfig);
 		    this.headerDiv.find("input.tags-exclude").tagit(tagitConfig);
+		    this.headerDiv.find(".tags-include-and-or").buttonset();
 	    }
 	    
 	    this.loadFirstSet();

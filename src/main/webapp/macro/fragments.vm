@@ -46,7 +46,7 @@ jQuery(function() {
     <div class="keywords" style="padding-right: 30px;">
       <input class="fragments-search keywords" type="text" value="$keywords"/>
     </div>
-    <div class="tags-include">
+    <div class="tags-include" style="position: relative; padding-right: 100px;">
       <input class="fragments-search tags-include" type="text"
       #if ($tag)
         value="$tag.name"
@@ -54,6 +54,10 @@ jQuery(function() {
         value="$filter.includes.toCommaSeparated()"
       #end
       />
+      <div class="tags-include-and-or" style="position: absolute; top: 0; right: 0;">
+        <input type="radio" id="${id}-and" name="andOr" checked="checked"><label for="${id}-and">All</label>
+        <input type="radio" id="${id}-or" name="andOr"><label for="${id}-or">Any</label>
+      </div>
     </div>
     <div class="tags-exclude">
       <input class="fragments-search tags-exclude" type="text"
