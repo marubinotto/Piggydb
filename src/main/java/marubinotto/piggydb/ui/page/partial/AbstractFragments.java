@@ -45,6 +45,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	
 	public String query;
 	public String tagsToInclude;
+	public Boolean tagsToIncludeAnd;
 	public String tagsToExclude;
 
 	@Override
@@ -151,6 +152,9 @@ public abstract class AbstractFragments extends AbstractPartial {
 	        continue;
 	      }
 	      ((RawFilter)this.filter).getIncludes().addTag(tag);
+	    }
+	    if (this.tagsToIncludeAnd != null) {
+	      ((RawFilter)this.filter).setAnd(this.tagsToIncludeAnd);
 	    }
 	  }
 	  this.contextTags = this.filter.getIncludes();

@@ -22,6 +22,7 @@
 		this.queryable = false;
 		this.query = null;
 		this.tagsToInclude = null;
+		this.tagsToIncludeAnd = true;
 		this.tagsToExclude = null;
 		this.initialParams = {};
 	};
@@ -81,6 +82,11 @@
 			    	outer.setCriteria();
 			    	outer.loadFirstSet({lazyDisplay: true});
 			    });
+		    this.headerDiv.find("div.tags-include-and-or input")
+		      .change(function() {
+		        outer.setCriteria();
+            outer.loadFirstSet({lazyDisplay: true});
+		      });
 		    
 		    var tagitConfig = {
           allowSpaces: true,
@@ -110,6 +116,7 @@
 	  setCriteria: function() {
 	    this.query = this.headerDiv.find("input.keywords").val();
 	    this.tagsToInclude = this.headerDiv.find("input.tags-include").val();
+	    this.tagsToIncludeAnd = this.headerDiv.find("div.tags-include-and-or input:checked").val();
 	    this.tagsToExclude = this.headerDiv.find("input.tags-exclude").val();
 	  },
 
@@ -125,6 +132,7 @@
 	      params.tagsToInclude = this.tagsToInclude;
 	    if (this.tagsToExclude != null)
 	      params.tagsToExclude = this.tagsToExclude;
+	    params.tagsToIncludeAnd = this.tagsToIncludeAnd;
 	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },
