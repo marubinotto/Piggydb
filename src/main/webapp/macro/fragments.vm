@@ -1,4 +1,4 @@
-#macro ( fragmentsView $id $fragmentsUrl $initialParams $sortable $queryable $jsAddFragment $jsAddFile )
+#macro ( fragmentsView $id $fragmentsUrl $initialParams $sortable $queryable $tagsInclude $tagsIncludeAnd $tagsExclude $jsAddFragment $jsAddFile )
   
 <div id="$id" class="fragments-view">
 	
@@ -47,24 +47,16 @@ jQuery(function() {
       <input class="fragments-search keywords" type="text" value="$keywords"/>
     </div>
     <div class="tags-include" style="position: relative; padding-right: 100px;">
-      <input class="fragments-search tags-include" type="text"
-      #if ($tag)
-        value="$tag.name"
-      #elseif ($filter)
-        value="$filter.includes.toCommaSeparated()"
-      #end
-      />
+      <input class="fragments-search tags-include" type="text" value="$tagsInclude"/>
       <div class="tags-include-and-or" style="position: absolute; top: 0; right: 0;">
-        <input type="radio" id="${id}-and" name="andOr" value="true" checked="checked"><label for="${id}-and">All</label>
-        <input type="radio" id="${id}-or" name="andOr" value="false"><label for="${id}-or">Any</label>
+        <input type="radio" id="${id}-and" name="andOr" value="true" 
+          #if($tagsIncludeAnd)checked="checked"#end><label for="${id}-and">All</label>
+        <input type="radio" id="${id}-or" name="andOr" value="false"
+          #if(!$tagsIncludeAnd)checked="checked"#end><label for="${id}-or">Any</label>
       </div>
     </div>
     <div class="tags-exclude">
-      <input class="fragments-search tags-exclude" type="text"
-      #if ($filter)
-        value="$filter.excludes.toCommaSeparated()"
-      #end
-      />
+      <input class="fragments-search tags-exclude" type="text" value="$tagsExclude"/>
     </div>
   </div>
 </div>

@@ -12,9 +12,12 @@
       #fragmentsView(
         "fragmentsByDate" 
         "$context/partial/fragments-by-default.htm"
+        "{tagsToInclude: '$!utils.escapeJs($fragment.classification.toCommaSeparated())', tagsToIncludeAnd: false}"
+        "true"
+        "true"
+        $fragment.classification.toCommaSeparated()
         $null
-        "true"
-        "true"
+        $null
         "piggydb.widget.FragmentForm.openToCreate(); return false;"
         "piggydb.widget.FileForm.openToAdd(); return false;")
     </div>
