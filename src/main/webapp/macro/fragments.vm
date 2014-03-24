@@ -50,9 +50,9 @@ jQuery(function() {
       <input class="fragments-search tags-include" type="text" value="$tagsInclude"/>
       <div class="tags-include-and-or" style="position: absolute; top: 0; right: 0;">
         <input type="radio" id="${id}-and" name="andOr" value="true" 
-          #if($tagsIncludeAnd)checked="checked"#end><label for="${id}-and">All</label>
+          #if($tagsIncludeAnd)checked="checked"#end><label for="${id}-and">$messages.get("all")</label>
         <input type="radio" id="${id}-or" name="andOr" value="false"
-          #if(!$tagsIncludeAnd)checked="checked"#end><label for="${id}-or">Any</label>
+          #if(!$tagsIncludeAnd)checked="checked"#end><label for="${id}-or">$messages.get("any")</label>
       </div>
     </div>
     <div class="tags-exclude">
