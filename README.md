@@ -16,7 +16,7 @@ to build your knowledge personally or collaboratively.
 * [Piggydb@Facebook](http://www.facebook.com/piggydb)
 * [Piggydb@GitHub](https://github.com/marubinotto/Piggydb)
 * [Piggydb.jp](http://piggydb.jp/) - Japanese
-* [Feedback (bugs / feature requests)](http://piggydb.lighthouseapp.com/projects/61149-piggydb/overview)
+* [Feedback (bugs / feature requests)](https://github.com/marubinotto/Piggydb/issues)
 
 
 
