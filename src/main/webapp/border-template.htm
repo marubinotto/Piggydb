@@ -16,9 +16,15 @@
   //]]>
   </script>
   ## MathJax
+#if ($request.isSecure())
+  <script type="text/javascript"
+    src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>  
+#else
   <script type="text/javascript"
 	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 	</script>
+#end
 ##TRACKING_CODE
 </head>
 <body class="bgcolor-base">
