@@ -459,6 +459,7 @@ div.children table.children-control button.children-content-toggle {
 }
 
 .fragments-view div.view-header div.fragments-criteria {
+	margin-top: -2px;
   border: 1px solid #ccc;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;	
   background-color: #fff;
