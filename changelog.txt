@@ -1,6 +1,12 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 6.18 (2014-03-30) == #v6.18
+
+ * Added an All/Any switch to the incremental tag-search
+ * Added a Related Fragments feature
+ * Fixed https://github.com/marubinotto/Piggydb/issues/3
+
 == Changes in version 6.17 (2014-02-16) == #v6.17
 
  * Added an incremental tag-search feature to the fragments view
