@@ -257,9 +257,15 @@ public abstract class AbstractFragments extends AbstractPartial {
 	}
 	
 	protected void appendFilterLabel(Filter filter) {
+	  String separator = filter.isAnd() ? " & " : " | ";
 	  boolean first = true;
 	  for (Tag tag : filter.getIncludes()) {
-	    if (first) { first = false; } else { this.label += " + "; }
+	    if (first) { 
+	      first = false; 
+	    } 
+	    else { 
+	      this.label += separator; 
+	    }
 	    this.label += makeTagLabel(tag.getName());
 	  }
 	}
