@@ -17,10 +17,3 @@ to build your knowledge personally or collaboratively.
 * [Piggydb@GitHub](https://github.com/marubinotto/Piggydb)
 * [Piggydb.jp](http://piggydb.jp/) - Japanese
 * [Feedback (bugs / feature requests)](https://github.com/marubinotto/Piggydb/issues)
-
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marubinotto/piggydb/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
