@@ -32,7 +32,7 @@ jQuery(function() {
 ## header
 <div class="view-header" style="display: none;">
 	<span class="label">
-		<span class="title">All</span>:
+		<span class="title" style="line-height: 25px;">All</span>:
 		<span class="count"></span>
     <span class="toggle" style="display: none;">
       <img border="0" alt="" src="$context/style/images/bullet-arrow-down.png"/>
