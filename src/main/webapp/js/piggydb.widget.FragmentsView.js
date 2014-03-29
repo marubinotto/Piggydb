@@ -96,7 +96,10 @@
             autoFocus: true,
             source: "command/complete-tag-name2.htm"
           },
-          afterTagAdded: function() {
+          afterTagAdded: function(event, ui) {
+            if (ui.duringInitialization) {
+              return;
+            }
             outer.setCriteria();
             outer.loadFirstSet({lazyDisplay: true});
           },
