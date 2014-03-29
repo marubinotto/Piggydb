@@ -90,8 +90,8 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		if (this.parent == null) return "";
 		
 		String parentName = this.parent.isTag() ? 
-			"&quot;" + this.parent.getTitle() + "&quot;" : 
+			"\"" + this.parent.getTitle() + "\"" : 
 			"#" + this.parent.getId();
-		return parentName + " &rArr; ";
+		return parentName + " ⇒ ";
 	}
 }
