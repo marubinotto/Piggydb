@@ -91,7 +91,7 @@ public abstract class AbstractFragmentForm extends AbstractSingleFragment {
 		
 		String parentName = this.parent.isTag() ? 
 			"\"" + this.parent.getTitle() + "\"" : 
-			"#" + this.parent.getId();
+			"#" + this.parent.getId() + " " + this.parent.getTitle();
 		return parentName + " ⇒ ";
 	}
 }
