@@ -22,7 +22,7 @@
 		this.queryable = false;
 		this.query = null;
 		this.tagsToInclude = null;
-		this.tagsToIncludeAnd = true;
+		this.tagsToIncludeAnd = null;
 		this.tagsToExclude = null;
 		this.initialParams = {};
 	};
@@ -135,7 +135,8 @@
 	      params.tagsToInclude = this.tagsToInclude;
 	    if (this.tagsToExclude != null)
 	      params.tagsToExclude = this.tagsToExclude;
-	    params.tagsToIncludeAnd = this.tagsToIncludeAnd;
+	    if (this.tagsToIncludeAnd != null)
+	      params.tagsToIncludeAnd = this.tagsToIncludeAnd;
 	  	// console.log("params: " + JSON.stringify(params));
 	  	return params;
 	  },
