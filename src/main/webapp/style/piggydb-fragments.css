@@ -458,6 +458,12 @@ div.children table.children-control button.children-content-toggle {
   vertical-align: middle;
 }
 
+.fragments-view div.view-header span.label span.tag-separator {
+  color: silver;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 .fragments-view div.view-header div.fragments-criteria {
 	margin-top: -2px;
   border: 1px solid #ccc;

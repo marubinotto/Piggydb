@@ -258,6 +258,7 @@ public abstract class AbstractFragments extends AbstractPartial {
 	
 	protected void appendFilterLabel(Filter filter) {
 	  String separator = filter.isAnd() ? " & " : " | ";
+	  separator = "<span class=\"tag-separator\">" + separator + "</span>";
 	  boolean first = true;
 	  for (Tag tag : filter.getIncludes()) {
 	    if (first) { 
