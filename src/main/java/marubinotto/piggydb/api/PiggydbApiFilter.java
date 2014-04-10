@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui;
+package marubinotto.piggydb.api;
 
 import java.io.IOException;
 

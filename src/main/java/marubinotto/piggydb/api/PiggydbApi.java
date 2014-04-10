@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui;
+package marubinotto.piggydb.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
