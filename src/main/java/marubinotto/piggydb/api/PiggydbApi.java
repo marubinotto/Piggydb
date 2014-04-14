@@ -20,7 +20,7 @@ public class PiggydbApi implements SparkApplication {
 
   @Override
   public void init() {
-    get(new Route("/hello") {
+    get(new Route("/login") {
       @Override
       public Object handle(Request request, Response response) {
          return "Hello World!";
