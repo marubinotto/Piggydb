@@ -26,6 +26,11 @@ public class Session {
   
   
   // Session persistence
+  //
+  // The current implementation is not safe
+  // cf. http://stackoverflow.com/questions/244882/what-is-the-best-way-to-implement-remember-me-for-a-website
+  //     http://stackoverflow.com/questions/549/the-definitive-guide-to-form-based-website-authentication
+  //     http://fishbowl.pastiche.org/2004/01/19/persistent_login_cookie_best_practice/
   
   private static final String COOKIE_NAME_SESSION_ID = "JSESSIONID";
   private static final long THRESHOLD_TO_BE_EXPIRED = 1000 * 60 * 60; // 1 hour
