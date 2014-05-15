@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.common;
+package marubinotto.piggydb.service;
 
 import java.util.List;
 
