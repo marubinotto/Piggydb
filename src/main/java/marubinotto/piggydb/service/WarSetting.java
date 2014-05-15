@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui;
+package marubinotto.piggydb.service;
 
 import marubinotto.piggydb.model.entity.RawEntity;
 

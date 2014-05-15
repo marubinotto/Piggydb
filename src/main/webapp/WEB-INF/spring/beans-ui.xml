@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/util 
       http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-  <bean id="warSetting" class="marubinotto.piggydb.ui.WarSetting">
+  <bean id="warSetting" class="marubinotto.piggydb.service.WarSetting">
     <property name="piggydbVersion" value="@VERSION@"/>
     <property name="clientAddressAuthEnabled" value="${piggydb.enableClientAddressAuth}"/>
     <property name="userAgentAuthEnabled" value="${piggydb.enableUserAgentAuth}"/>

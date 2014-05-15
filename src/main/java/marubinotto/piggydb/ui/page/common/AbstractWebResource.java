@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.service.DomainModelBeans;
-import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.service.WarSetting;
 import marubinotto.piggydb.ui.page.HomePage;
 import marubinotto.piggydb.ui.page.LoginPage;
 import marubinotto.util.Assert;

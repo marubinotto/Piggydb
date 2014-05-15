@@ -2,7 +2,7 @@ package marubinotto.piggydb.extension;
 
 import javax.servlet.ServletContext;
 
-import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.service.WarSetting;
 import marubinotto.piggydb.ui.page.common.HtmlFragments;
 import marubinotto.piggydb.ui.page.common.WebResourcePaths;
 

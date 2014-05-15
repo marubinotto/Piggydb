@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import marubinotto.piggydb.model.auth.User;
-import marubinotto.piggydb.ui.WarSetting;
+import marubinotto.piggydb.service.WarSetting;
 import marubinotto.piggydb.ui.page.model.SelectedFragments;
 import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
