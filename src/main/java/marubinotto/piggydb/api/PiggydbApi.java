@@ -55,6 +55,7 @@ public class PiggydbApi implements SparkApplication {
     get(new Route("/login") {
       @Override
       public Object handle(Request request, Response response) {
+        System.out.println("uri: " + request.raw().getRequestURI());
         return "Hello World!";
       }
     });
