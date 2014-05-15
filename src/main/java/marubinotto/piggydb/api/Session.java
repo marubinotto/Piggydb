@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import marubinotto.piggydb.model.auth.User;
+import marubinotto.util.Assert;
 import marubinotto.util.time.DateTime;
 
 import org.apache.commons.logging.Log;
@@ -17,12 +19,54 @@ public class Session {
   private HttpServletRequest request;
   private HttpServletResponse response;
   
-  public Session(HttpServletRequest request, HttpServletResponse response) {
+  private boolean anonymousEnabled = false;
+  
+  public Session(HttpServletRequest request, HttpServletResponse response, boolean anonymousEnabled) {
     this.request = request;
     this.response = response;
+    this.anonymousEnabled = anonymousEnabled;
   }
   
+  public void start(User user, Integer maxAgeAsSeconds) {
+    Assert.Arg.notNull(user, "user");
+    
+    HttpSession newSession = this.request.getSession(true);
+    newSession.setAttribute(User.KEY, user);
+    
+    if (maxAgeAsSeconds != null) {
+      persistSession(newSession, maxAgeAsSeconds);
+      user.setSessionPersisted(true);
+      logger.debug("Set the session persisted");
+    }
+  }
   
+  public User getUser() {
+    HttpSession session = this.request.getSession(false);
+    if (session == null) {
+      return null;
+    }
+
+    // Get the user object in this session
+    User user = (User)session.getAttribute(User.KEY);
+    if (user == null) return null;
+
+    // While a session is persisted, the setting of anonymous access could be changed
+    if (!this.anonymousEnabled && user.isAnonymous()) {
+      session.invalidate();
+      logger.warn("Invalid anonymous session invalidated");
+      return null;
+    }
+
+    if (user.hasSessionPersisted()) {
+      setSessionCookieWhenPersistentCookieIsAboutToBeExpired(session);
+    }
+    return user;
+  }
+  
+  public void invalidateIfExists() {
+    HttpSession session = this.request.getSession(false);
+    if (session != null) session.invalidate();
+  }
   
   
   // Session persistence
