@@ -8,7 +8,7 @@ public class Logout extends AbstractCommand {
 	protected void execute() throws Exception {	
 		getLogger().info("Processing logout ...");
 		getContext().getRequest().getSession().invalidate();
-        String path = getContext().getPagePath(LoginPage.class);
-        setRedirect(path);
+    String path = getContext().getPagePath(LoginPage.class);
+    setRedirect(path);
 	}
 }
