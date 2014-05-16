@@ -63,6 +63,11 @@ public class Session {
     return user;
   }
   
+  public String getId() {
+    HttpSession session = this.request.getSession(false);
+    return session != null ? session.getId() : null;
+  }
+  
   public void invalidateIfExists() {
     HttpSession session = this.request.getSession(false);
     if (session != null) session.invalidate();
