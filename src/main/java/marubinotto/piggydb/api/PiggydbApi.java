@@ -9,7 +9,6 @@ import static spark.Spark.get;
 import marubinotto.piggydb.model.auth.User;
 import marubinotto.piggydb.service.DomainModelBeans;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
