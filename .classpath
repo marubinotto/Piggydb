@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/groovy"/>
 	<classpathentry kind="src" path="extensions/src/java"/>
 	<classpathentry kind="src" path="extensions/src/resources"/>
 	<classpathentry kind="src" path="src/spike/java"/>
@@ -56,5 +57,6 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry kind="lib" path="lib/test/spock-core-0.7-groovy-2.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -33,27 +33,27 @@ public class FragmentDataBinder {
 
   public String error;
   public Map<String, String> fieldErrors = new HashMap<String, String>();
-
-  public boolean asTag() {
-    return this.asTag != null;
-  }
-
-  public boolean isMinorEdit() {
-    return this.minorEdit != null;
-  }
-  
-  public DateTime getOriginalTimestamp() {
-    if (isBlank(this.timestamp)) return null;
-    return new DateTime(parseLong(this.timestamp));
-  }
   
   public boolean hasErrors() {
     if (this.error != null) return true;
     if (!this.fieldErrors.isEmpty()) return true;
     return false;
   }
+
+  protected boolean asTag() {
+    return this.asTag != null;
+  }
+
+  protected boolean isMinorEdit() {
+    return this.minorEdit != null;
+  }
   
-  public static String emptyToNull(String value) {
+  protected DateTime getOriginalTimestamp() {
+    if (isBlank(this.timestamp)) return null;
+    return new DateTime(parseLong(this.timestamp));
+  }
+  
+  protected static String emptyToNull(String value) {
     if (value == null) return null;
     return value.equals("") ? null : value;
   }
