@@ -16,16 +16,19 @@ class FragmentDataBinderSpec extends DataAccessSpec {
   def "bind an asTag flag"() {
     when:
       this.object.asTag = null
-      this.object.bindValues(
-        this.fragment, this.owner, this.messageSource, this.database.tagRepository)
+      doBind()
     then:
       this.fragment.isTag() == false
       
     when:
       this.object.asTag = "on"
-      this.object.bindValues(
-        this.fragment, this.owner, this.messageSource, this.database.tagRepository)
+      doBind()
     then:
       this.fragment.isTag() == true
+  }
+  
+  private def doBind() {
+    this.object.bindValues(
+      this.fragment, this.owner, this.messageSource, this.database.tagRepository)
   }
 }
