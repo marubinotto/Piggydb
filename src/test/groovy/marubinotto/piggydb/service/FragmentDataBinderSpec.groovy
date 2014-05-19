@@ -20,5 +20,12 @@ class FragmentDataBinderSpec extends DataAccessSpec {
         this.fragment, this.owner, this.messageSource, this.database.tagRepository)
     then:
       this.fragment.isTag() == false
+      
+    when:
+      this.object.asTag = "on"
+      this.object.bindValues(
+        this.fragment, this.owner, this.messageSource, this.database.tagRepository)
+    then:
+      this.fragment.isTag() == true
   }
 }
