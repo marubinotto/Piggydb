@@ -59,14 +59,28 @@ class FragmentDataBinderSpec extends DataAccessSpec {
     when:
       this.object.tags = "foo, bar"
       doBind()
-      def tags = this.fragment.getClassification().getTags();
     then:
-      tags*.getName().toSet() == ['foo', 'bar'] as Set
-      tags*.getId().toSet() == [null, null] as Set
+      getBoundTags() == ["null:foo", "null:bar"] as Set
+  }
+  
+  def "binds a new tag and an existing tag"() {
+    given:
+      Long id = registerTag("foo")
+    when:
+      this.object.tags = "foo, bar"
+      doBind()
+    then:
+      getBoundTags() == ["${id}:foo", "null:bar"] as Set
   }
   
   private def doBind() {
     this.object.bindValues(
       this.fragment, this.owner, this.messageSource, this.tagRepository)
+  }
+  
+  private Set<String> getBoundTags() {
+    this.fragment.getClassification().getTags().collect {
+      "${it.getId()}:${it.getName()}"
+    }.toSet()
   }
 }

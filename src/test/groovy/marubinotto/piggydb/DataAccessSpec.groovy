@@ -15,9 +15,19 @@ abstract class DataAccessSpec extends Specification {
   TagRepository tagRepository = this.fragmentRepository.getTagRepository()
   
   User owner = new User("owner")
+  User plainUser = new User("plain")
+  User viewer = new User("viewer")
   
   def setup() {
     this.owner.addRole(Role.OWNER)
     assert this.owner.isOwner()
+    
+    this.viewer.addRole(Role.VIEWER)
+    assert this.viewer.isViewer()
+  }
+  
+  Long registerTag(String name, User user = this.plainUser) {
+    this.tagRepository.register(
+      this.tagRepository.newInstance(name, user));
   }
 }
