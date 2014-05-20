@@ -73,6 +73,15 @@ class FragmentDataBinderSpec extends DataAccessSpec {
       getBoundTags() == ["${id}:foo", "null:bar"] as Set
   }
   
+  def "has an error when the title of a tag-fragment is missing"() {
+    when:
+      this.object.asTag = "on"
+      doBind()
+    then:
+      this.object.hasErrors() == true
+      this.object.fieldErrors == [title: 'blank-tag-fragment-title {}']
+  }
+  
   private def doBind() {
     this.object.bindValues(
       this.fragment, this.owner, this.messageSource, this.tagRepository)
