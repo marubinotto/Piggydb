@@ -94,10 +94,7 @@ public class RawFragment extends RawClassifiable implements Fragment {
     return this.title;
   }
 
-  public void setTitle(String title) {
-    if (title != null && title.length() > TITLE_MAX_LENGTH) {
-      throw new CodedException("fragment-title-invalid-max-size", String.valueOf(TITLE_MAX_LENGTH));
-    }
+  public void setTitle(String title) { 
     this.title = title;
   }
 
@@ -107,6 +104,10 @@ public class RawFragment extends RawClassifiable implements Fragment {
     if (ObjectUtils.equals(title, this.title) && !canChangeTitle(user)) return;
     
     ensureCanChangeTitle(user);
+    
+    if (title != null && title.length() > TITLE_MAX_LENGTH) {
+      throw new CodedException("fragment-title-invalid-max-size", String.valueOf(TITLE_MAX_LENGTH));
+    }
     
     setTitle(title);
     onPropertyChange(user);
