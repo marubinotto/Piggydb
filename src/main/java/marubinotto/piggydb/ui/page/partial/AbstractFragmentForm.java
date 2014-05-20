@@ -7,8 +7,8 @@ import marubinotto.piggydb.model.Fragment;
 import marubinotto.piggydb.model.Tag;
 import marubinotto.piggydb.model.exception.AuthorizationException;
 import marubinotto.piggydb.model.exception.InvalidTaggingException;
+import marubinotto.piggydb.service.FragmentFormUtils;
 import marubinotto.piggydb.ui.page.FilterPage;
-import marubinotto.piggydb.ui.page.control.form.FragmentFormUtils;
 import marubinotto.util.message.CodedException;
 
 public abstract class AbstractFragmentForm extends AbstractSingleFragment {

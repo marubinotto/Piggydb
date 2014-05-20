@@ -55,8 +55,18 @@ class FragmentDataBinderSpec extends DataAccessSpec {
       this.fragment.getContent() == "Knowledge is power."
   }
   
+  def "binds new tags"() {
+    when:
+      this.object.tags = "foo, bar"
+      doBind()
+      def tags = this.fragment.getClassification().getTags();
+    then:
+      tags*.getName().toSet() == ['foo', 'bar'] as Set
+      tags*.getId().toSet() == [null, null] as Set
+  }
+  
   private def doBind() {
     this.object.bindValues(
-      this.fragment, this.owner, this.messageSource, this.database.tagRepository)
+      this.fragment, this.owner, this.messageSource, this.tagRepository)
   }
 }

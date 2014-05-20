@@ -1,4 +1,4 @@
-package marubinotto.piggydb.ui.page.control.form;
+package marubinotto.piggydb.service;
 
 import static org.junit.Assert.assertEquals;
 
