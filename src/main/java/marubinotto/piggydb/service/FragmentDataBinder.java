@@ -28,7 +28,6 @@ public class FragmentDataBinder {
   public String title;
   public String tags;
   public String content;
-  public String minorEdit;
   public String timestamp;
 
   public String error;
@@ -42,10 +41,6 @@ public class FragmentDataBinder {
 
   protected boolean asTag() {
     return this.asTag != null;
-  }
-
-  protected boolean isMinorEdit() {
-    return this.minorEdit != null;
   }
   
   protected DateTime getOriginalTimestamp() {

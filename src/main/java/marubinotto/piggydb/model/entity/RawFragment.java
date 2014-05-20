@@ -22,6 +22,7 @@ import marubinotto.piggydb.model.exception.InvalidTitleException;
 import marubinotto.util.Assert;
 import marubinotto.util.PasswordDigest;
 import marubinotto.util.Size;
+import marubinotto.util.message.CodedException;
 import net.sf.click.util.ClickUtils;
 
 import org.apache.commons.collections.comparators.NullComparator;
@@ -94,6 +95,9 @@ public class RawFragment extends RawClassifiable implements Fragment {
   }
 
   public void setTitle(String title) {
+    if (title != null && title.length() > TITLE_MAX_LENGTH) {
+      throw new CodedException("fragment-title-invalid-max-size", String.valueOf(TITLE_MAX_LENGTH));
+    }
     this.title = title;
   }
 
