@@ -13,7 +13,12 @@ class FragmentDataBinderSpec extends DataAccessSpec {
   RawFragment fragment = new RawFragment()
   MessageSource messageSource = new MockMessageSource()
   
-  def "bind an asTag flag"() {
+  def "has no errors by default"() {
+    expect:
+      this.object.hasErrors() == false
+  }
+  
+  def "binds an asTag flag"() {
     when:
       this.object.asTag = null
       doBind()
@@ -27,7 +32,7 @@ class FragmentDataBinderSpec extends DataAccessSpec {
       this.fragment.isTag() == true
   }
   
-  def "bind a title"() {
+  def "binds a title"() {
     when:
       this.object.title = "hello"
       doBind()
@@ -42,7 +47,7 @@ class FragmentDataBinderSpec extends DataAccessSpec {
       this.object.fieldErrors == [title: 'fragment-title-invalid-max-size {150}']
   }
   
-  def "bind a content"() {
+  def "binds a content"() {
     when:
       this.object.content = "Knowledge is power."
       doBind()
