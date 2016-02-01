@@ -279,7 +279,7 @@
           dontWrapJar="false"
           icon="${standalone.src.launch4j.dir}/piggydb.ico"
           downloadUrl="http://java.com/download">
-        <jre minVersion="1.6.0"/>
+        <jre minVersion="1.8.0"/>
       </config>
     </launch4j>
 
