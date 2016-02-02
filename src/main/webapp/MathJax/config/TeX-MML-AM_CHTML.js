@@ -38,7 +38,12 @@ MathJax.Ajax.Preloading(
   "[MathJax]/extensions/AssistiveMML.js"
 );
 
-MathJax.Hub.Config({"v1.0-compatible":false});
+MathJax.Hub.Config({
+  "v1.0-compatible": false,
+  "HTML-CSS": {
+    imageFont: null
+  }
+});
 
 MathJax.InputJax.TeX=MathJax.InputJax({id:"TeX",version:"2.6.0",directory:MathJax.InputJax.directory+"/TeX",extensionDir:MathJax.InputJax.extensionDir+"/TeX",config:{TagSide:"right",TagIndent:"0.8em",MultLineWidth:"85%",equationNumbers:{autoNumber:"none",formatNumber:function(a){return a},formatTag:function(a){return"("+a+")"},formatID:function(a){return"mjx-eqn-"+String(a).replace(/[:"'<>&]/g,"")},formatURL:function(a){return"#"+escape(a)},useLabelIds:true}}});MathJax.InputJax.TeX.Register("math/tex");MathJax.InputJax.TeX.loadComplete("config.js");
 MathJax.InputJax.MathML=MathJax.InputJax({id:"MathML",version:"2.6.0",directory:MathJax.InputJax.directory+"/MathML",extensionDir:MathJax.InputJax.extensionDir+"/MathML",entityDir:MathJax.InputJax.directory+"/MathML/entities",config:{useMathMLspacing:false}});MathJax.InputJax.MathML.Register("math/mml");MathJax.InputJax.MathML.loadComplete("config.js");
