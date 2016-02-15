@@ -1,6 +1,6 @@
 <style type="text/css">
   #form-panel {
-    width: 360px;
+    width: 320px;
     margin: 0 auto; 
     margin-top: 60px;
     padding-top: 20px;
@@ -19,8 +19,15 @@
   label {
     color: #707070;
   }
+  input {
+    margin-top: 3px;
+  }
   .submit-button-container {
     text-align: center;
+  }
+  #loginForm_userName,
+  #loginForm_password {
+    width: 250px;
   }
   #loginForm_ok {
     width: 160px;
@@ -34,10 +41,10 @@
     #formErrorsRow($loginForm)
     <tr><td>
 	    <table class="fields">
-		    #formFieldRow($loginForm.fields.userName)
-		    #formFieldRow($loginForm.fields.password)
+				#formFieldRow2($loginForm.fields.userName)
+		    #formFieldRow2($loginForm.fields.password)
 		    <tr class="fields">
-		      <td class="fields" align="center" colspan="2">
+		      <td class="fields" align="center" colspan="2" style="padding-top: 10px;">
 		        $utils.raw($loginForm.fields.rememberMe)
 		        <label for="$utils.raw($loginForm.fields.rememberMe.id)">
 		          $utils.raw($loginForm.fields.rememberMe.label)</label>

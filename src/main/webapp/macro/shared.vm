@@ -23,6 +23,20 @@ $utils.raw($field)
 
 
 
+#macro( formFieldRow2 $field )
+
+<tr class="fields">
+  <td class="fields" align="left">
+    <label for="$utils.raw($field.id)">
+      $utils.raw($field.label)</label><br />
+    $utils.raw($field)
+  </td>
+</tr>
+
+#end
+
+
+
 #macro( formErrors $form )
 
 #if (!$form.valid)
