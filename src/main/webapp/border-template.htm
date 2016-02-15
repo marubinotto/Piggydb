@@ -23,24 +23,13 @@
 </head>
 <body class="bgcolor-base">
   
-## Title Banner
-<div id="title-banner">
-  <table border="0">
-    <tr>
-      <td class="icon" align="center" valign="middle">
-        <a href="$context/about.htm" title="Version $version">
-        <img src="$context/images/piggydb-icon.png" border="0" alt="Icon"/></a>
-      </td>
-      <td class="title" align="left" valign="middle">
-        <a href="$context/" title="$messages.get("menu-home")">$title</a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-## Menu
-<div id="page-menu">
-#mainMenu()
+## Page Header
+<div id="page-header">
+	<div id="title-banner">
+	  <a href="$context/about.htm" title="Version $version">
+	  <img src="$context/images/piggydb-icon.svg" border="0" alt="Icon"/></a>
+	</div>
+	#mainMenu()
 </div>
 
 ## Page Content

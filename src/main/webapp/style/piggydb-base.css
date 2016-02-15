@@ -101,7 +101,7 @@ button[disabled] {
  */
 
 .bgcolor-base {
-	background-color: #eee;
+	background-color: #F7F7F7;
 }
 
 table.fragment .header-cell {
@@ -122,7 +122,6 @@ table.fragment td,
 #menu .topitem,
 #menu ul.submenu {
 	color: #c0c0c0;
-	background: #c0c0c0; 
 }
 
 #menu .topitem a, 
@@ -167,64 +166,34 @@ table.fragment td.subfragments table.fragment td {
 /*
  * Template Structure
  */
- 
+
+#page-header {
+  position : fixed !important;
+  position : absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 32px;
+  z-index: 95;
+  background: #707070;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
 #title-banner {
-  position : fixed!important;
   position : absolute;
-  top: 0px;
-  left: 0px;
-  
-  width: 120px;
-  height: 32px;
-  
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 30px;
   z-index: 95;
+  padding-top: 2px;
+  padding-left: 4px;
+  background: #606060;
 }
 
-#title-banner table {
-  width: 120px;
+#title-banner img {
+	width: 32px;
   height: 28px;
-
-  margin: 0px;
-  padding: 0px;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-#title-banner table td {
-  margin: 0px;
-  padding: 0px;
-}
-
-#title-banner table td.icon {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-#title-banner table td.title {
-  font-size: 13pt;
-  font-weight: bolder;
-}
-
-#title-banner table td.title a {
-  color: white;
-  text-decoration: none;
-}
-
-#page-menu {
-  position : fixed!important;
-  position : absolute;
-  top: 0px;
-  right: 0px;
-  left: 120px;
-  
-  height: 32px;
-  
-  z-index: 95;
-}
-
-#title-banner table,
-#menuTable {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 div.menustyle li {
