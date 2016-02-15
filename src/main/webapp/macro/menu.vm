@@ -1,116 +1,89 @@
 #macro( mainMenu )
 
-<table id="menuTable" border="0" width="100%" cellspacing="0" cellpadding="0">
-<tr><td>
 <div class="menustyle" id="menu" style="position: relative;">
 
 #if ($user)
 <div id="global-tools">
-	
-<table class="nowrap-frame" border="0">
-<tr>
-#if (!$user.isViewer())
-	## Add a fragment
-	<td nowrap="nowrap">
-		#newFragmentButtons(
-			"piggydb.widget.FragmentForm.openToCreate(); return false;"
-			"piggydb.widget.FileForm.openToAdd(); return false;")
-	</td>
-#end
-	<td class="separator"></td>
-</tr>
-</table>
-
-<table class="nowrap-frame" border="0" style="position: absolute; top: 3px; right: 0px;">
-<tr>
+  <span id="main-tool-buttons">
+    <a class="tool-button" href="$context/" title="$messages.get("home")">
+    <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
+  	#newFragmentButtons(
+  		"piggydb.widget.FragmentForm.openToCreate(); return false;"
+  		"piggydb.widget.FileForm.openToAdd(); return false;")
+  </span>
+  
   ## Keyword Search
-  <td class="separator"></td>
-  <td class="keyword-search" nowrap="nowrap">
-    <form id="search-form" action="$context/search.htm" method="get">
-      <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/>
-    </form>
-  </td>
-
-	## Global Tag Pulldown
-  <td class="separator"></td>
-  <td class="tag-pulldown" nowrap="nowrap" style="padding-top: 2px;">
-    <script type="text/javascript">
-    //<![CDATA[
-      jQuery(function() {
-        var globaTagPalette = new piggydb.widget.TagPalette(jQuery("#global-tag-palette"));
-				globaTagPalette.onTagSelect = function(source, tagId, tagName, palette) {
-          if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
-            document.location.href = piggydb.server.getTagUrl(tagId);
-        };
-				globaTagPalette.decideMaxHeight = function () {
-					return jQuery(window).height() - 50;
-				};							
-      #if (!$user.isViewer())
-        globaTagPalette.onPaletteUpdate = function () {
-          jQuery("#global-tag-palette .tag-palette-draggable")
-						.draggable(piggydb.widget.TagPalette.DRAGGABLE_SETTINGS);
-        };
-      #end
-				globaTagPalette.init(jQuery("#global-tag-pulldown"));
-      });
-    //]]>
-    </script>
+  <form id="search-form" action="$context/search.htm" method="get" 
+        style="display: inline-block; vertical-align: 8px; margin-left: 16px;">
+    <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/>
+  </form>
+  
+  ## Global Tag Pulldown
+  <script type="text/javascript">
+    jQuery(function() {
+      var globaTagPalette = new piggydb.widget.TagPalette(jQuery("#global-tag-palette"));
+      globaTagPalette.onTagSelect = function(source, tagId, tagName, palette) {
+        if (jQuery(source).closest(".ui-draggable-dragging").size() == 0)
+          document.location.href = piggydb.server.getTagUrl(tagId);
+      };
+      globaTagPalette.decideMaxHeight = function () {
+        return jQuery(window).height() - 50;
+      };              
+    #if (!$user.isViewer())
+      globaTagPalette.onPaletteUpdate = function () {
+        jQuery("#global-tag-palette .tag-palette-draggable")
+          .draggable(piggydb.widget.TagPalette.DRAGGABLE_SETTINGS);
+      };
+    #end
+      globaTagPalette.init(jQuery("#global-tag-pulldown"));
+    });
+  </script>
+  <div style="display: inline-block; margin-left: 16px;">
     <a class="tool-button" id="global-tag-pulldown" href="#" title="$messages.get("tag-palette")">
     <img src="$context/images/tag-pulldown.png" border="0" alt="$messages.get("tag-palette")"/></a>
     <br/>
     <div class="pulldown-box tag-palette" id="global-tag-palette"></div>
-  </td>
-	
-#if (!$user.isViewer())
-	## Login User Menu
-  <td class="separator"></td>
-  <td class="login-user" nowrap="nowrap" style="padding-top: 2px;">
-		<ul class="menubar">
+  </div>
+      
+  #if (!$user.isViewer())
+    ## Login User Menu
+    <ul id="user-menu" class="menubar">
       <li class="topitem">
-				<a class="user-name" href="$resources.userPath($user.name)">
-				<img class="link" alt="$messages.get("login-user")" 
-					src="$context/style/images/tag-user.png" border="0"/>$user.name
-				<img border="0" alt="" style="margin: -2px;" 
-					src="$context/style/images/bullet-arrow-down.png"/></a>
-				
-				<ul class="submenu">
-  				#if ($user.isInternalUser())
-  					<li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
-					#end
-					#if ($user.isOwner())
-						<li><a href="$context/export.htm">$messages.get("menu-export")</a></li>
-						<li><a href="$context/restore.htm">$messages.get("menu-restore")</a></li>
-						<li><a href="$context/system-info.htm">$messages.get("menu-system-info")</a></li>
-					#end
-					#foreach ($item in $userMenu.items)
-						#if ($item.isAvailableTo($user))
-							<li><a href="$item.href">$item.label</a></li>
-						#end
-					#end
-					<li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
-				</ul>
+        <a class="user-name" href="$resources.userPath($user.name)">
+        <img class="link" alt="$messages.get("login-user")" 
+          src="$context/style/images/tag-user.png" border="0"/>$user.name
+        <img border="0" alt="" style="margin: -2px;" 
+          src="$context/style/images/bullet-arrow-down.png"/></a>
+        
+        <ul class="submenu">
+          #if ($user.isInternalUser())
+            <li><a href="$context/password.htm">$messages.get("menu-change-password")</a></li>
+          #end
+          #if ($user.isOwner())
+            <li><a href="$context/export.htm">$messages.get("menu-export")</a></li>
+            <li><a href="$context/restore.htm">$messages.get("menu-restore")</a></li>
+            <li><a href="$context/system-info.htm">$messages.get("menu-system-info")</a></li>
+          #end
+          #foreach ($item in $userMenu.items)
+            #if ($item.isAvailableTo($user))
+              <li><a href="$item.href">$item.label</a></li>
+            #end
+          #end
+          <li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
+        </ul>
       </li>
     </ul>
-  </td>
-#end
-
-#if ($user.isAnonymous())
-	## Login Link for Anonymous User
-  <td class="separator"></td>
-  <td class="to-login" nowrap="nowrap">
+  #end
+  
+  #if ($user.isAnonymous())
+  	## Login Link for Anonymous User
     <a class="tool-button" href="$context/login.htm" title="$messages.get("menu-login")">
     <img src="$context/style/images/tag-user.png" border="0" alt="$messages.get("menu-login")"/></a>
-  </td>
-#end
-</tr>
-</table>
-
-</div>
+  #end
+</div> ## global-tools
 #end
 
 </div>
-</td></tr>
-</table>
 
 #end
 

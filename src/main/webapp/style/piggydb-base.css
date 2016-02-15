@@ -113,17 +113,6 @@ table.fragment td,
 	background-color: gray;
 }
 
-#menu,
-#menu .topitem,
-#menu ul.submenu {
-	color: #c0c0c0;
-}
-
-#menu .topitem a, 
-#menu .topitem a:visited {
-	border: 1px solid #c0c0c0;
-}
-
 table.fragment,
 table.fragment th, 
 table.fragment td,
@@ -231,7 +220,7 @@ div.ui-tooltip .fragment-title {
  * Menu
  */
 
-#menuTable #menu {
+#menu {
 	font: 11px arial, helvetica, lucida-sans, sans-serif;
 	line-height: 15px; 
 	height: 28px; 
@@ -239,13 +228,15 @@ div.ui-tooltip .fragment-title {
 	margin: 0;
 }
 
-#menu .menubar {
+#user-menu {
+	display: inline-block;
 	list-style-type: none; 
-	margin: 0; 
-	padding: 0; 
+  margin: 0;
+  margin-left: 6px;
+  padding: 0; 
 }
 
-#menu .topitem {
+#user-menu .topitem {
 	font-weight: normal;
 	float: left;
 	display: block;
@@ -253,10 +244,9 @@ div.ui-tooltip .fragment-title {
 	margin-left: 0px;
 }
 
-#menu .topitem a, 
-#menu .topitem a:visited {
+#user-menu .topitem a, 
+#user-menu .topitem a:visited {
 	font-weight: normal;
-	color: #000; 
 	padding-left: 12px; 
 	padding-right: 12px; 
 	padding-top: 4px; 
@@ -266,43 +256,43 @@ div.ui-tooltip .fragment-title {
 	vertical-align: middle;
 }
 
-#menu .topitem a:hover {
-	font-weight: normal;
-	text-decoration: none;     
-	color: blue; 
-	border-top: 1px solid #f0f0f0; 
-	border-left: 1px solid #f0f0f0; 
-	border-bottom: 1px solid #707070; 
-	border-right: 1px solid #707070; 
+#user-menu a.user-name {
+	color: #fff;
 }
 
-#menu .selected {
+#user-menu .topitem a:hover {
+	font-weight: normal;
+	text-decoration: none;     
+}
+
+#user-menu .selected {
 	font-weight: normal; 
 	background: #afaea9 repeat-x left; 
 }
 
-#menu img.link {
+#user-menu img.link {
 	vertical-align: middle;
 }
 
-#menu ul.submenu {
+#user-menu ul.submenu {
+	position: absolute;
+  right: 0;
 	list-style-type: none; 
-	position: absolute; 
 	margin: 0; 
 	padding: 0; 
 	display: none; 
-	width: 160px;  
+	width: 140px;  
 	z-index: 255;
 	border-top: 1px solid #f0f0f0; 
 }
 
-#menu ul.submenu li {
-	padding: 0; 
+#user-menu ul.submenu li {
+	padding: 2px; 
 	margin: 0; 
-	font-size: 11px;
+	font-size: 12px;
 }
 
-#menu ul.submenu li a, .menustyle ul.submenu li a:visited {
+#user-menu ul.submenu li a, .menustyle ul.submenu li a:visited {
 	vertical-align: middle;
 	padding: 3px 3px 0px 16px; 
 	color: #000; 
@@ -311,26 +301,25 @@ div.ui-tooltip .fragment-title {
 	margin: 0;
 }
 
-#menu ul.submenu li img {
+#user-menu ul.submenu li img {
 	vertical-align: middle;
 }
 
-#menu ul.submenu li a:hover {
+#user-menu ul.submenu li a:hover {
 	vertical-align: middle;
 	text-decoration: none; 
 	background: #fff; 
-	color: #000; 
 	border: 1px solid #3699dd; 
 }
 
-#menu li:hover ul, .menustyle li.over ul {
+#user-menu li:hover ul, .menustyle li.over ul {
 	margin: 0; 
 	padding: 4px; 
 	display: block; 
 	background: #c0c0c0;
 }
 
-#menu li>ul {
+#user-menu li>ul {
 	top: auto; left: auto;
 }
 
@@ -341,21 +330,20 @@ div.ui-tooltip .fragment-title {
  */
 
 #global-tools {
+	position: absolute;
+  right: 0;
   margin-right: 0px;
   padding: 0px;
-  padding-top: 5px;
   padding-left: 10px;
 }
 
-#global-tools .nowrap-frame {
-  margin: 0px;
-  padding: 0px;
+#global-tools a.tool-button img {
+	padding: 3px;
 }
 
-#global-tools .nowrap-frame td.separator {
-  width: 20px;
+#main-tool-buttons {
+	margin-left: 100px;
 }
-
 
 
 /*
