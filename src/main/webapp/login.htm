@@ -1,33 +1,58 @@
+<style type="text/css">
+  #form-panel {
+    width: 360px;
+    margin: 0 auto; 
+    margin-top: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+  }
+  table.form {
+    margin: 0 auto; 
+  }
+  table.form td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  label {
+    color: #707070;
+  }
+  .submit-button-container {
+    text-align: center;
+  }
+  #loginForm_ok {
+    width: 160px;
+  }
+</style>
 <div id="contents">
 
-$utils.raw($loginForm.startTag())
-<table class="form">
-#formErrorsRow($loginForm)
-
-<tr><td>
-<table class="fields">
-#formFieldRow($loginForm.fields.userName)
-#formFieldRow($loginForm.fields.password)
-<tr class="fields">
-<td class="fields" align="left" colspan="2">
-  $utils.raw($loginForm.fields.rememberMe)
-  <label for="$utils.raw($loginForm.fields.rememberMe.id)">
-    $utils.raw($loginForm.fields.rememberMe.label)</label>
-</td>
-</tr>
-</table>
-</td></tr>
-
-<tr><td align="left">
-<table class="buttons">
-<tr class="buttons">
-  <td class="buttons">$utils.raw($loginForm.fields.ok)</td>
-</tr>
-</table>
-</td></tr>
-
-</table>
-$utils.raw($loginForm.endTag())
+<div id="form-panel">
+  $utils.raw($loginForm.startTag())
+  <table class="form">
+    #formErrorsRow($loginForm)
+    <tr><td>
+	    <table class="fields">
+		    #formFieldRow($loginForm.fields.userName)
+		    #formFieldRow($loginForm.fields.password)
+		    <tr class="fields">
+		      <td class="fields" align="center" colspan="2">
+		        $utils.raw($loginForm.fields.rememberMe)
+		        <label for="$utils.raw($loginForm.fields.rememberMe.id)">
+		          $utils.raw($loginForm.fields.rememberMe.label)</label>
+		      </td>
+		    </tr>
+	    </table>
+    </td></tr>
+    <tr>
+      <td class="submit-button-container" align="left">
+       $utils.raw($loginForm.fields.ok)
+      </td>
+    </tr>
+  </table>
+  $utils.raw($loginForm.endTag())
+</div>
 
 </div>
 
