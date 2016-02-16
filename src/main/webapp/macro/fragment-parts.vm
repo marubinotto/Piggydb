@@ -65,6 +65,8 @@
 
 #set ($fragmentHeadline = false)
 #set ($fragmentHeadline = $fragment.makeHeadline(20))
+<a href="#" onclick='javascript: $(this).parent().find("span.fragment-tools").toggle();'
+   style="float: right;"><!-- link to enable mouse-less browsers to toggle fragment-tools --></a>
 <span class="fragment-tools">
   <span class="fragment-id" style="display: none;">$fragment.id</span>
   #if ($fragmentHeadline)

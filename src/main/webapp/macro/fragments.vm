@@ -35,7 +35,9 @@ jQuery(function() {
 		<span class="title" style="line-height: 24px;">All</span>:
 		<span class="count"></span>
     <span class="toggle" style="display: none;">
-      <img border="0" alt="" src="$context/style/images/bullet-arrow-down.png"/>
+      <a href="#" onclick='javascript: $("div.view-header").find("div.fragments-criteria").toggle();'><!--
+         link to enable mouse-less browsers to toggle fragments-criteria
+      --><img border="0" alt="" src="$context/style/images/bullet-arrow-down.png"/></a>
     </span>
 	</span>
 	#if ($jsAddFragment)
