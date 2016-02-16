@@ -59,7 +59,7 @@ public class LoginPage extends AbstractBorderPage {
 		this.rememberMeField.setLabel(getMessage("LoginPage-rememberMe"));
 		this.loginForm.add(this.rememberMeField);
 
-		this.loginForm.add(new Submit("ok", "  OK  ", this, "onOkClick"));
+		this.loginForm.add(new Submit("ok", "  Log In  ", this, "onOkClick"));
 	}
 
 	public boolean onOkClick() throws Exception {
