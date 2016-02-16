@@ -356,10 +356,11 @@ table.section {
 }
 
 .section-title {
-  font-size: 11pt;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: normal;
   padding-bottom: 2px;
   text-align: left;
+  text-shadow: 0 1px 0 #ffffff;
 }
 
 .section-title a {
