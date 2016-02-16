@@ -1,6 +1,13 @@
 = Piggydb Changelog =
 http://piggydb.net/
 
+== Changes in version 7.0 (2016-02-16) == #v7.0
+
+ * Upgraded the required java version to 8
+ * Fixed https://github.com/marubinotto/Piggydb/issues/9
+ * Redesigned the page header, login form, etc
+ * Put the database title as the main title
+
 == Changes in version 6.18 (2014-03-30) == #v6.18
 
  * Added an All/Any switch to the incremental tag-search

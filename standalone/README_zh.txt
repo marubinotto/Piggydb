@@ -7,7 +7,7 @@ Piggydb 独立程序包 - http://piggydb.net/
 
 ■ 前提条件
 
-使用这个软件，需要Java的运行环境（Java Runtime 1.6 以上）
+使用这个软件，需要Java的运行环境（Java Runtime 8 以上）
 
 你可以在这下载Java的运行环境
 
