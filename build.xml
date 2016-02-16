@@ -261,16 +261,10 @@
         <include name="*.txt"/>
       </fileset>
     </copy>
-  </target>
-
-
-  <!--
-    Build package
-  -->
-  <target name="standalone-package" depends="standalone-package-base">
-    <taskdef name="launch4j"
-      classname="net.sf.launch4j.ant.Launch4jTask"
-      classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar"/>
+  	
+  	<taskdef name="launch4j"
+  	      classname="net.sf.launch4j.ant.Launch4jTask"
+  	      classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar"/>
     <launch4j>
       <config 
           headerType="gui"
@@ -282,7 +276,13 @@
         <jre minVersion="1.8.0"/>
       </config>
     </launch4j>
+  </target>
 
+
+  <!--
+    Build package
+  -->
+  <target name="standalone-package" depends="standalone-package-base">
     <zip 
       zipfile="${dist.dir}/${standalone.build.package.name}.zip" 
       basedir="${standalone.build.dir}"
@@ -293,7 +293,10 @@
       depends="standalone-package-base, extensions-jar, extensions-src">
     <copy file="${extensions.build.jar}" todir="${standalone.build.package.webapp.dir}/WEB-INF/lib" overwrite="true"/>
     <copy file="${extensions.build.src-zip}" todir="${standalone.build.package.dir}" overwrite="true"/>
-    <antcall target="standalone-package"/>
+  	<zip 
+      zipfile="${build.dir}/${standalone.build.package.name}-supporters.zip" 
+      basedir="${standalone.build.dir}"
+      includes="${standalone.build.package.dir.name}/**"/>
   </target>
 
 	
