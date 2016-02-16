@@ -6,10 +6,13 @@
 <div id="global-tools">
   <span id="main-tool-buttons">
     <a class="tool-button" href="$context/" title="$messages.get("home")">
-    <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
+      <img src="$context/style/images/tag-home.png" border="0" alt="$messages.get("home")"/></a>
   	#newFragmentButtons(
   		"piggydb.widget.FragmentForm.openToCreate(); return false;"
   		"piggydb.widget.FileForm.openToAdd(); return false;")
+  	<a class="tool-button" href="$context/d/" target="_blank"
+       title="$messages.get("open-as-document")">
+      <img src="$context/images/document.png" border="0" alt="$messages.get("document")"/></a>
   </span>
   
   ## Keyword Search
