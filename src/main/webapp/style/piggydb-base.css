@@ -187,7 +187,14 @@ table.fragment td.subfragments table.fragment td {
 	line-height: 30px;
 	vertical-align: middle;
 	font-size: 14px;
+	z-index: 95;
+}
+#database-title a {
 	color: #f8f8f8;
+	text-decoration: none;
+}
+#database-title a:hover {
+  text-decoration: none;
 }
 
 div.menustyle li {

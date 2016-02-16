@@ -28,7 +28,9 @@
 	  <img src="$context/images/piggydb-icon.svg" border="0" alt="Icon"/></a>
 	</div>
 	<div id="database-title">
-    $databaseTitle
+		#if ($databaseTitle)
+		  <a href="$context/">$databaseTitle</a>
+	  #end
 	</div>
 	#mainMenu()
 </div>
