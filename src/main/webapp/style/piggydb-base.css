@@ -232,14 +232,12 @@ div.ui-tooltip .fragment-title {
 	list-style-type: none; 
   margin: 0;
   margin-left: 6px;
-  padding: 0; 
+  padding: 0;
+  vertical-align: 8px;
 }
 
 #user-menu .topitem {
 	font-weight: normal;
-	float: left;
-	display: block;
-	margin-top: 1px;
 	margin-left: 0px;
 }
 
@@ -257,6 +255,10 @@ div.ui-tooltip .fragment-title {
 
 #user-menu a.user-name {
 	color: #fff;
+}
+
+#user-menu a.user-name img {
+	margin-top: -2px;
 }
 
 #user-menu .topitem a:hover {
@@ -333,6 +335,7 @@ div.ui-tooltip .fragment-title {
   right: 0;
   margin-right: 0px;
   padding: 0px;
+  padding-top: 3px;
   padding-left: 10px;
 }
 

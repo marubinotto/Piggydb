@@ -14,7 +14,7 @@
   
   ## Keyword Search
   <form id="search-form" action="$context/search.htm" method="get" 
-        style="display: inline-block; vertical-align: 8px; margin-left: 16px;">
+        style="display: inline-block; vertical-align: 9px; margin-left: 16px;">
     <input id="searchForm_keywords" type="text" name="keywords" value="$keywords"/>
   </form>
   
@@ -78,8 +78,10 @@
   
   #if ($user.isAnonymous())
   	## Login Link for Anonymous User
-    <a class="tool-button" href="$context/login.htm" title="$messages.get("menu-login")">
-    <img src="$context/style/images/tag-user.png" border="0" alt="$messages.get("menu-login")"/></a>
+  	<div style="display: inline-block; margin-left: 10px; margin-right: 5px;">
+      <a class="tool-button" href="$context/login.htm" title="$messages.get("menu-login")">
+      <img src="$context/style/images/tag-user.png" border="0" alt="$messages.get("menu-login")"/></a>
+    </div>
   #end
 </div> ## global-tools
 #end
