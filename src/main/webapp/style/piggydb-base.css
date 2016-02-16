@@ -179,6 +179,18 @@ table.fragment td.subfragments table.fragment td {
   height: 28px;
 }
 
+#database-title {
+	position : absolute;
+  top: 0;
+  left: 50px;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	font-size: 14px;
+	color: #f8f8f8;
+	text-shadow: 0 1px 0 #333;
+}
+
 div.menustyle li {
   font-size: 10pt;
 }

@@ -31,13 +31,9 @@ public abstract class GlobalSetting {
 	// Global Setting Key (GSK) definitions
 	public static final String GSK_DATABASE_TITLE = "database.title";
 	public static final String GSK_DATABASE_TIMESTAMP = "database.timestamp";
-	
-	
-	private static final String DEFAULT_DATABASE_TITLE = "Piggydb";
-	
+		
 	public String getDatabaseTitle() throws Exception {
-		String title = get(GSK_DATABASE_TITLE);
-		return title != null ? title : DEFAULT_DATABASE_TITLE;
+		return get(GSK_DATABASE_TITLE);
 	}
 	
 	public void setDatabaseTitle(String databaseTitle) throws Exception {

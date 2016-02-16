@@ -1,7 +1,12 @@
 package marubinotto.piggydb.ui.page.common;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang.UnhandledException;
 
 import marubinotto.piggydb.model.Filter;
 import marubinotto.piggydb.model.Fragment;
@@ -15,10 +20,6 @@ import marubinotto.piggydb.ui.page.model.RecentlyViewed.Entity;
 import marubinotto.util.paging.Page;
 import marubinotto.util.paging.PageUtils;
 import net.sf.click.control.PageLink;
-
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 
 public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
@@ -54,6 +55,7 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
 	public String title;
 	public String htmlTitle;
+	public String databaseTitle;
 	public static final String HTML_TITLE_SEP = " - ";
 	
 	public PageImports appPageImports;
@@ -73,14 +75,17 @@ public abstract class AbstractBorderPage extends AbstractMainUiHtml {
 
 		this.title = getMessage("application-title");
 		this.htmlTitle = getPageTitle(ClassUtils.getShortClassName(getClass()), this);
+		this.databaseTitle = getDomain().getGlobalSetting().getDatabaseTitle();
 		showSessionMessageIfExist();
 	}
 
 	public static String getPageTitle(String pageName, AbstractWebResource page)
 		throws Exception {
+	  String databaseTitle = page.getDomain().getGlobalSetting().getDatabaseTitle();
 		String pageTitle = page.getMessage(pageName + "-htmlTitle");
-		pageTitle = StringUtils.isNotBlank(pageTitle) ? (" - " + pageTitle) : "";
-		return page.getDomain().getGlobalSetting().getDatabaseTitle() + pageTitle;
+		return 
+		  (isNotBlank(databaseTitle) ? databaseTitle : "Piggydb")  + 
+		  (isNotBlank(pageTitle) ? (" - " + pageTitle) : "");
 	}
 
 	protected void setMessage(String message) {
