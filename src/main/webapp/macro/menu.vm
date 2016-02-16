@@ -69,6 +69,7 @@
               <li><a href="$item.href">$item.label</a></li>
             #end
           #end
+          <li><a href="$context/about.htm">About</a></li>
           <li><a href="$utils.raw($logoutLink.href)">$messages.get("menu-logout")</a></li>
         </ul>
       </li>
