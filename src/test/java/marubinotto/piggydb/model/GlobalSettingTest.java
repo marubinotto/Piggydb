@@ -54,25 +54,13 @@ public class GlobalSettingTest extends RepositoryTestBase<GlobalSetting> {
 	
 	@Test
 	public void defaultDatabaseTitle() throws Exception {
-		assertEquals("Piggydb", this.object.getDatabaseTitle());
+		assertNull(this.object.getDatabaseTitle());
 	}
 	
 	@Test
 	public void setDatabaseTitle() throws Exception {
 		this.object.setDatabaseTitle("Table Tennis Videos");
 		assertEquals("Table Tennis Videos", this.object.getDatabaseTitle());
-	}
-	
-	@Test
-	public void setDatabaseTitleToNull() throws Exception {
-		this.object.setDatabaseTitle(null);
-		assertEquals("Piggydb", this.object.getDatabaseTitle());
-	}
-	
-	@Test
-	public void setDatabaseTitleToEmptyString() throws Exception {
-		this.object.setDatabaseTitle("");
-		assertEquals("Piggydb", this.object.getDatabaseTitle());
 	}
 	
 	
