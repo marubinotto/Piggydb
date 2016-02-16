@@ -93,8 +93,12 @@ public class TemplateUtils {
 	}
 
 	public Object link(String url) {
-		return raw("<a href=\"" + url + "\">" + url + "</a>");
+		return raw("<a href=\"" + url + "\" target=\"_blank\">" + url + "</a>");
 	}
+	
+	public Object linkLabel(String url, String label) {
+    return raw("<a href=\"" + url + "\" target=\"_blank\">" + label + "</a>");
+  }
 
 	public Object raw(Object object) {
 		return object == null ? "" : 
